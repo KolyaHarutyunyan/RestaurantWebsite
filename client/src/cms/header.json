@@ -1,0 +1,51 @@
+{
+    "contactInfo": [
+        {
+            "icon": "location_on",
+            "body": "7179 Foothill Blvd, Tujunga, CA 91042"
+        },
+        {
+            "icon": "email",
+            "body": "events@aurorabanquethall.com"
+        },
+        {
+            "icon": "schedule",
+            "body": "9am - 5pm (tuesday - sunday)"
+        }
+    ],
+    "logo": {
+        "hdPNG": "/logos/Hero_Mobile_AuroraLogo.svg",
+        "hdWEBP": "/logos/Hero_Mobile_AuroraLogo.webp",
+        "fhdPNG": "/logos/Hero_Standard_AuroraLogo.svg",
+        "fhdWEBP": "/logos/Hero_Standard_AuroraLogo.webp",
+        "title": "",
+        "alt": "navigation_mneu"
+    },
+    "pageLinks": [
+        {
+            "name": "My Events",
+            "link": "/myEvents",
+            "icon": "event_available"
+        },
+        {
+            "name": "My Profile",
+            "link": "/myProfile",
+            "icon": "person_outline"
+        },
+        {
+            "name": "My Subscriptions",
+            "link": "/mySubscriptions",
+            "icon": "drafts"
+        },
+        {
+            "name": "Create Menu",
+            "link": "/createEvent",
+            "icon": "person_outline"
+        },
+        {
+            "name": "My Events",
+            "link": "/myEvents",
+            "icon": "person_outline"
+        }
+    ]
+}
