@@ -56,7 +56,7 @@ export const useStyles = makeStyles(( theme ) => ( {
       flexWrap: "wrap",
       justifyContent: "center",
       alignItems: "center",
-      transition: "all .5s",
+      transition: "all 1s",
       opacity: 1,
       width: "100%",
       padding:"32px 16px",
@@ -126,6 +126,8 @@ export const useStyles = makeStyles(( theme ) => ( {
         paddingLeft: '46px',
         borderColor: theme.palette.primary.main,
         borderWidth: '0.5px',
+        top:0,
+        height:"100%"
       },
       '&:hover fieldset': {
         borderColor: theme.palette.primary.main,

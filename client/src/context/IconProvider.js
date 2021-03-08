@@ -1,21 +1,30 @@
 import { IconContext } from '.'
-// import FacebookFill from '../../public/assets/icons/FI/facebookFill.svg'
-import EmailOutline from '../../public/assets/icons/FI/emailOutline.svg';
+import Email from '../../public/assets/icons/EmailIcon.svg'
+import Logo from '../../public/assets/icons/Logo.svg'
+import GoogleColor from '../../public/assets/icons/GoogleIcon.svg'
+import FaceBook from '../../public/assets/icons/FacebookIcon.svg'
+import Twitter from '../../public/assets/icons/TwitterIcon.svg'
+
+import { SVGNames } from "./constants/svgNames";
 
 export const IconsProvider = ( {children} ) => {
-  const SVGNames = {
-    facebookFill: "facebookFill",
-    emailOutline:"emailOutline",
-  }
+
+
   const SVGIcon = ( props ) =>
     SVGNames[ props.name]
       ? ( {
-        // [ SVGNames.facebookFill ]: <FacebookFill { ...props } className={ `icon-facebookFill` } fill={ props.color }/>,
-        [ SVGNames.emailOutline ]: <EmailOutline { ...props } className={ `icon-emailOutline` } fill={ props.color }/>,
+        [ SVGNames.email ]: <Email { ...props } className={ `icon-emailOutline` } fill={ props.color }/>,
+        [ SVGNames.logo]: <Logo { ...props } className={ `icon-logo` } fill={ props.color }/>,
+        [ SVGNames.googleColor]: <GoogleColor { ...props } className={ `icon-googleColor` } fill={ props.color }/>,
+        [ SVGNames.facebook]: <FaceBook { ...props } className={ `icon-facebook` } fill={ props.color }/>,
+        [ SVGNames.twitter]: <Twitter { ...props } className={ `icon-twitter` } fill={ props.color }/>,
+        [ SVGNames.logo]: <Logo { ...props } className={ `icon-logo` } fill={ props.color }/>,
+        [ SVGNames.logo]: <Logo { ...props } className={ `icon-logo` } fill={ props.color }/>,
+        [ SVGNames.logo]: <Logo { ...props } className={ `icon-logo` } fill={ props.color }/>,
       }[ props.name ] )
       : <></>
 
-  return <IconContext.Provider value={{SVGIcon, SVGNames}}>{children}</IconContext.Provider>
+  return <IconContext.Provider value={{SVGIcon}}>{children}</IconContext.Provider>
 }
 
 

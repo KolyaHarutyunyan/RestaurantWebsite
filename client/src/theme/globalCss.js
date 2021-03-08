@@ -24,6 +24,13 @@ const GlobalCss = withStyles({
             fontSize: '20px',
             color: 'white',
         },
+        'button':{
+          cursor: 'pointer',
+          outline:"none",
+          background:"unset",
+          border:"none",
+
+        },
         '.cursorPointer': {
             cursor: 'pointer',
         },

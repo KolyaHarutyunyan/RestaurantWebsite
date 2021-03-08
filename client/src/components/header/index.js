@@ -6,10 +6,11 @@ import Link from 'next/link'
 import { AppBar, Badge, Divider, Grid, makeStyles } from '@material-ui/core'
 import CustomMenu from './customMenu'
 import useGlobalStyles from '../../theme/globalStyles'
-import { UserContext } from "../../context";
+
 import Picture from "../picture";
-import { SignIn } from "../auth/signIn";
-import { Auth } from "../auth";
+import { SignIn } from "../../context/UserProvider/components/signIn";
+import { Auth } from "../../context/UserProvider/components";
+import { UserContext } from "../../context/UserProvider";
 
 const useStyles = makeStyles(( theme ) => ( {
   header: {
@@ -78,9 +79,9 @@ const useStyles = makeStyles(( theme ) => ( {
 } ))
 
 const Header = ( {headerRef} ) => {
-
-  let {user,signOut} = useContext(UserContext)
-  let [isOpenSignIn,setIsOpenSignIn] = useState(false)
+  let {openAuth,user,signOut} = useContext(UserContext)
+  let userContext = useContext(UserContext)
+  console.log("userContext is: ",userContext)
   useEffect(() => {
     // const token = localStorage.getItem('access-token');
     // if (token) {
@@ -133,7 +134,7 @@ const handleSignOut = ()=> signOut()
         </Link>
         {!user.id ? (
           // <SignInUp styles={classes}/>
-          <Button onClick={()=>setIsOpenSignIn(true)} styles={classes} variant="outlined" className={classes.button} startIcon={<AddIcon m={1}/>}>
+          <Button onClick={openAuth} styles={classes} variant="outlined" className={classes.button} startIcon={<AddIcon m={1}/>}>
            sign In
           </Button>
         ) : (
@@ -160,7 +161,6 @@ const handleSignOut = ()=> signOut()
         </Link>
       </Grid>
     </AppBar>
-      <Auth active={isOpenSignIn} close={()=>setIsOpenSignIn(false)}/>
 
     </>
 
