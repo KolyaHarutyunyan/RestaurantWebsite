@@ -1,9 +1,9 @@
-import { memo } from "react";
-import { Title } from "./title";
+import { memo } from "react"
+import { Title } from "./detals/title"
+import { Description, SubmitButton } from "./styles/screens.style"
 
 
-
-export const VerifyCode = memo(
+export const Verify  = memo(
   ({email,verify})=>{
 
 
@@ -13,7 +13,7 @@ export const VerifyCode = memo(
         <Description>
           Enter the verification code sent to <span>{email}</span>
         </Description>
-         <Submit onClick={verify}>verify</Submit>
+        <SubmitButton onClick={verify}>verify</SubmitButton>
       </>
     )
   }

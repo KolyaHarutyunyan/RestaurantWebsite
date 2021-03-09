@@ -10,7 +10,7 @@ import useGlobalStyles from '../../theme/globalStyles'
 import Picture from "../picture";
 import { SignIn } from "../../context/UserProvider/components/signIn";
 import { Auth } from "../../context/UserProvider/components";
-import { UserContext } from "../../context/UserProvider";
+import { UserContext } from "../../user";
 
 const useStyles = makeStyles(( theme ) => ( {
   header: {
@@ -80,8 +80,7 @@ const useStyles = makeStyles(( theme ) => ( {
 
 const Header = ( {headerRef} ) => {
   let {openAuth,user,signOut} = useContext(UserContext)
-  let userContext = useContext(UserContext)
-  console.log("userContext is: ",userContext)
+
   useEffect(() => {
     // const token = localStorage.getItem('access-token');
     // if (token) {

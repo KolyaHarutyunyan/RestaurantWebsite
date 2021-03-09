@@ -6,7 +6,7 @@ import Head from 'next/head'
 
 import { ThemeProvider } from '@material-ui/core/styles'
 import { IconsProvider } from "../src/context/IconProvider"
-import { UserProvider } from "../src/context/UserProvider"
+import { UserProvider } from "../src/user"
 import theme from "../src/theme"
 import { CssBaseline } from "@material-ui/core"
 import GlobalCss from "../src/theme/globalCss"
