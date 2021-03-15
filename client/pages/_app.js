@@ -1,20 +1,14 @@
-// import 'lazysizes'
-// import 'lazysizes/plugins/parent-fit/ls.parent-fit'
-// import 'lazysizes/plugins/attrchange/ls.attrchange'
-import { useRef } from 'react'
 import Head from 'next/head'
-
 import { ThemeProvider } from '@material-ui/core/styles'
-import { IconsProvider } from "../src/context/IconProvider"
-import { UserProvider } from "../src/user"
 import theme from "../src/theme"
 import { CssBaseline } from "@material-ui/core"
 import GlobalCss from "../src/theme/globalCss"
-import Header from "../src/components/header";
-// import { GlobalFonts } from "../public/assets/fonst";
+import { Store } from "./../src/store/index"
+import { Footer, Header } from "../src/fragments"
+import {IconProvider} from "../src/contexts"
 
-function MyApp( {Component, pageProps} ) {
-  const headerRef = useRef(null);
+export default function MyApp( {Component, pageProps} ) {
+
 
   return (
     <>
@@ -37,24 +31,25 @@ function MyApp( {Component, pageProps} ) {
         <meta property="twitter:description" content={meta.pages.index.description} />
         <meta property="twitter:image" content={`${meta.publicUrl}${meta.pages.index.image}`} /> */}
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"/>
+        <title>Menuz</title>
       </Head>
+      {/*<Store>*/}
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <GlobalCss />
-        {/*<GlobalFonts/>*/}
-        <IconsProvider>
-          <UserProvider>
+        <CssBaseline/>
+        <GlobalCss/>
 
-              <Header headerRef={headerRef}/>
-              <Component {...pageProps} />
-              {/*<Footer/>*/}
+        <IconProvider>
+        {/*  <UserProvider>*/}
 
-          </UserProvider>
-        </IconsProvider>
+        <Header/>
+        <Component {...pageProps} />
+        <Footer/>
+
+        {/*</UserProvider>*/}
+        </IconProvider>
       </ThemeProvider>
+      {/*</Store>*/}
     </>
-  );
+  )
 }
-
-export default MyApp;

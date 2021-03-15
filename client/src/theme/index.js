@@ -2,6 +2,15 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const defaultTheme = createMuiTheme();
 const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 768,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   palette: {
     primary: {
       light: '#387DFF1A',
@@ -35,16 +44,13 @@ const theme = createMuiTheme({
           fontSize: '16px',
           fontFamily: 'Arial, Helvetica, sans-serif',
           backgroundColor: '#ffffff !important',
-          [ defaultTheme.breakpoints.down('sm') ]: {
-            fontSize: '14px',
-          },
-
         },
+
       },
     },
     MuiButton: {
       root: {
-        color: '#fff',
+
         textTransform: 'initial',
       },
     },

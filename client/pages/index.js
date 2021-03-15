@@ -1,14 +1,23 @@
 import Head from 'next/head'
+import { HomePage } from "../src/pages"
+import useGlobalStyles from "../src/theme/globalStyles";
 
-export default function Home() {
+export default function Home( props ) {
+  let classes = useGlobalStyles()
   return (
     <div>
       <Head>
-        <title>welcome menuz</title>
-        <link rel="icon" href="/favicon.ico"/>
+        <title>{props.meta || "welcome menuz"}</title>
       </Head>
 
-      <h1>yu hu</h1>
+      <main className={classes.main}>
+        <HomePage {...props.pageData}/>
+      </main>
     </div>
   )
+}
+
+Home.getInitialProps = async () => {
+  let res = {meta: null, pageData: null}
+  return {...res}
 }

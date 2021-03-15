@@ -14,8 +14,20 @@ const useGlobalStyles = makeStyles({
             paddingRight: props && props.lg && props.lg.px ? props.xs.px : '92px',
         },
     }),
+    main:(props)=>({
+      padding:"80px 100px 0",
+      [ theme.breakpoints.down("md") ]: {
+        padding: "80px 42px",
+      },
+      [ theme.breakpoints.down("sm") ]: {
+        padding: "80px 40px",
+      },
+      [ theme.breakpoints.down("xs") ]: {
+        padding: "60px 16px",
+      },
+    }),
     button: (props) => ({
-        color: '#fff',
+
         width: '100%',
         padding: '14.5px 32px',
         fontSize: '1rem',
@@ -38,6 +50,7 @@ const useGlobalStyles = makeStyles({
             padding: '12.7px 32px',
         },
     }),
+
 });
 
 export default useGlobalStyles;

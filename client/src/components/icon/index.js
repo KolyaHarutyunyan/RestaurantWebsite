@@ -1,9 +1,8 @@
 import {useContext} from 'react'
-import {IconContext} from '../../context'
+import {IconContext} from '../../contexts'
 
-const Icon = (props) => {
+export const Icon = (props) => {
   const {SVGIcon} = useContext(IconContext)
 
   return <SVGIcon {...props} />
 }
-export default Icon
