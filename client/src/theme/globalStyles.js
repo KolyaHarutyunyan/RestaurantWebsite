@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import theme from '.';
+import { theme } from '.';
 
 const useGlobalStyles = makeStyles({
     containerFluid: (props) => ({

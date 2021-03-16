@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import { ThemeProvider } from '@material-ui/core/styles'
-import theme from "../src/theme"
-import { CssBaseline } from "@material-ui/core"
-import GlobalCss from "../src/theme/globalCss"
-import { Store } from "./../src/store/index"
-import { Footer, Header } from "../src/fragments"
-import {IconProvider} from "../src/contexts"
+
+import { Theme } from "../src/theme"
+
+// import { Store } from "./../src/store/index"
+// import { Footer, Header } from "../src/fragments"
+import {Header, Footer} from "@eachbase/fragments"
+import { ContextProvider  } from "../src/contexts"
 
 export default function MyApp( {Component, pageProps} ) {
 
@@ -35,20 +35,17 @@ export default function MyApp( {Component, pageProps} ) {
         <title>Menuz</title>
       </Head>
       {/*<Store>*/}
-      <ThemeProvider theme={theme}>
-        <CssBaseline/>
-        <GlobalCss/>
+      <Theme>
 
-        <IconProvider>
-        {/*  <UserProvider>*/}
 
-        <Header/>
-        <Component {...pageProps} />
-        <Footer/>
+          <ContextProvider>
+            <Header/>
+            <Component {...pageProps} />
+            <Footer/>
+          </ContextProvider>
 
-        {/*</UserProvider>*/}
-        </IconProvider>
-      </ThemeProvider>
+
+      </Theme>
       {/*</Store>*/}
     </>
   )

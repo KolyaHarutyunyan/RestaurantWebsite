@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { HomePage } from "../src/pages"
+import { HomePage } from "@eachbase/pages"
 import useGlobalStyles from "../src/theme/globalStyles";
 
 export default function Home( props ) {

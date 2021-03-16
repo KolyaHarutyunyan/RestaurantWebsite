@@ -1,14 +1,14 @@
 import { createContext } from "react";
 
-import Email from '../../public/assets/icons/EmailIcon.svg'
-import Logo from '../../public/assets/icons/Logo.svg'
-import GoogleColor from '../../public/assets/icons/GoogleIcon.svg'
-import FaceBook from '../../public/assets/icons/FacebookIcon.svg'
-import Twitter from '../../public/assets/icons/TwitterIcon.svg'
-import User from '../../public/assets/icons/UserIcon.svg'
-import DownArrow from '../../public/assets/icons/DownArrowIcon.svg'
+import Email from '../../../public/assets/icons/EmailIcon.svg'
+import Logo from '../../../public/assets/icons/Logo.svg'
+import GoogleColor from '../../../public/assets/icons/GoogleIcon.svg'
+import FaceBook from '../../../public/assets/icons/FacebookIcon.svg'
+import Twitter from '../../../public/assets/icons/TwitterIcon.svg'
+import User from '../../../public/assets/icons/UserIcon.svg'
+import DownArrow from '../../../public/assets/icons/DownArrowIcon.svg'
 
-import { SVGNames } from "./constants/svgNames";
+import { SVGNames } from "./constants"
 
 
 export const IconContext = createContext()

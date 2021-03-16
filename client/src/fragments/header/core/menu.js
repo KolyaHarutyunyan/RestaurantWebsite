@@ -1,7 +1,6 @@
 import { memo } from "react"
 import { useStyles } from "./style"
 import { CreateMenuBtn } from "./createMenuBtn"
-import { Button } from "@material-ui/core";
 import { DropDown } from "./dropDown";
 
 let isAuth = true

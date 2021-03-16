@@ -7,7 +7,7 @@ import { SignUp } from "./signUp/signUp";
 import { Forgot } from "./forgot/forgot";
 
 export const Auth = memo(
-  ( {active, close} ) => {
+  ( {active, close, hasCloseBtn} ) => {
     let classNames = useStyles()
     let [activePosition, setActivePosition] = useState(0)
 
@@ -23,12 +23,14 @@ export const Auth = memo(
         open={active}
         onClose={selfClose}
       >
-        <IconButton
+        {hasCloseBtn ?
+          <IconButton
           aria-label="close"
           className={classNames.closeIcon}
           onClick={selfClose}>
           <CloseIcon/>
         </IconButton>
+        :null}
         <Box width="100%" overflow="hidden" position="relative">
           <SignIn className={classNames.authBox + ( 0 === activePosition ? " active" : " disabled" )}
                   changePosition={setActivePosition}/>
