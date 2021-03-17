@@ -2,7 +2,7 @@ import { memo, useState } from "react"
 import { Box, Button } from "@material-ui/core"
 import { useStyles } from "./style"
 import { Icon } from "../../../components";
-import { SVGNames } from "../../../contexts/constants/svgNames";
+import { SVGNames } from "../../../contexts/constants";
 
 
 let user = {

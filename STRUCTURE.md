@@ -26,3 +26,22 @@
         /store
          
         
+
+
+
+
+
+/components
+    /modal
+        index.js
+/fragments
+    /authModal
+        /core
+            signin.js
+            signup.js
+        index.js
+/context
+    /modals
+        index.js
+
+

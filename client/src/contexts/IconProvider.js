@@ -8,7 +8,7 @@ import Twitter from '../../public/assets/icons/TwitterIcon.svg'
 import User from '../../public/assets/icons/UserIcon.svg'
 import DownArrow from '../../public/assets/icons/DownArrowIcon.svg'
 
-import { SVGNames } from "./constants/svgNames";
+import { SVGNames } from "./constants";
 
 
 export const IconContext = createContext()
