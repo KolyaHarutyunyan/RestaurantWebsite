@@ -1,8 +1,8 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import GlobalCss from "./globalCss";
-import { CssBaseline } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider,CssBaseline } from '@material-ui/core'
+import { GlobalCss } from "./globalCss"
 
-const defaultTheme = createMuiTheme();
+
+export const defaultTheme = createMuiTheme();
 export const theme = createMuiTheme({
   breakpoints: {
     values: {
@@ -38,6 +38,9 @@ export const theme = createMuiTheme({
     backfround: {
       main: '#F5FAFE',
     },
+    shadow:{
+      main:"#0000001A"
+    }
   },
   overrides: {
     MuiCssBaseline: {
@@ -46,6 +49,7 @@ export const theme = createMuiTheme({
           fontSize: '16px',
           fontFamily: 'Arial, Helvetica, sans-serif',
           backgroundColor: '#ffffff !important',
+          overflow:"hidden auto"
         },
 
       },

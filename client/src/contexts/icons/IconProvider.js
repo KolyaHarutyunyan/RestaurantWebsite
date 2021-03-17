@@ -7,8 +7,12 @@ import FaceBook from '../../../public/assets/icons/FacebookIcon.svg'
 import Twitter from '../../../public/assets/icons/TwitterIcon.svg'
 import User from '../../../public/assets/icons/UserIcon.svg'
 import DownArrow from '../../../public/assets/icons/DownArrowIcon.svg'
+import LogOut from '../../../public/assets/icons/LogOutIcon.svg'
+import Profile from '../../../public/assets/icons/ProfileIcon.svg'
+import Restaurant from '../../../public/assets/icons/RestaurantIcon.svg'
+import ToggleMenu from "../../../public/assets/icons/ToggleMenuIcon.svg"
 
-import { SVGNames } from "./constants"
+import { SVGNames } from "@eachbase/constants"
 
 
 export const IconContext = createContext()
@@ -27,6 +31,10 @@ export const IconProvider = ( {children} ) => {
         [ SVGNames.logo]: <Logo { ...props } className={ `icon-logo` } fill={ props.color }/>,
         [ SVGNames.user]: <User { ...props } className={ `icon-user` } fill={ props.color }/>,
         [ SVGNames.arrowDown]: <DownArrow { ...props } className={ `icon-arrowDown` } fill={ props.color }/>,
+        [ SVGNames.logOut]: <LogOut { ...props } className={ `icon-logOut` } fill={ props.color }/>,
+        [ SVGNames.profile]: <Profile { ...props } className={ `icon-profile` } fill={ props.color }/>,
+        [ SVGNames.restaurant]: <Restaurant { ...props } className={ `icon-restaurant` } fill={ props.color }/>,
+        [ SVGNames.toggleMenu]: <ToggleMenu { ...props } className={ `icon-toggleMenu` } fill={ props.color }/>,
       }[ props.name ] )
       : <></>
 

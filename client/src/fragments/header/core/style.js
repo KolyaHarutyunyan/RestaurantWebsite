@@ -1,6 +1,6 @@
-import { Grid, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core"
 
-export const useStyles = makeStyles(( theme ) => ( {
+export const useHeaderStyles = makeStyles(( theme ) => ( {
   header: {
     background: "#fff",
     display: "flex",
@@ -9,7 +9,7 @@ export const useStyles = makeStyles(( theme ) => ( {
     flexDirection: "row",
     height: "80px",
     padding: "0 100px",
-    color:theme.palette.text.primary,
+    color: theme.palette.text.primary,
     [ theme.breakpoints.down("md") ]: {
       padding: "0 42px",
     },
@@ -60,31 +60,112 @@ export const useStyles = makeStyles(( theme ) => ( {
     marginLeft: '32px',
   },
   button: {
-    width:"160px",
-    border: "1px solid "+theme.palette.text.primary,
+    width: "160px",
+    border: "1px solid " + theme.palette.text.primary,
     borderRadius: "24px",
-    textAlign:"center",
-    height:"42px",
-    lineHeight:"40px",
-    color:theme.palette.text.primary,
+    textAlign: "center",
+    display:"block",
+    height: "42px",
+    lineHeight: "40px",
+    color: theme.palette.text.primary,
     font: "normal normal 600 16px/22px Open Sans",
-    "&.red":{
-      color:"#fff",
-      backgroundColor:theme.palette.primary.main,
-      border:"none",
+    "&.red": {
+      color: "#fff",
+      backgroundColor: theme.palette.primary.main,
+      border: "none",
     }
   },
-  userButton:{
-    "& svg":{
+  userButton: {
+    "& svg": {
       margin: "0 8px",
-      transition:"all .5s"
+      transition: "all .5s",
 
     },
-    "&.rotated svg.icon-arrowDown":{
-      transform:"rotateZ(180deg)",
+    "& svg.icon-arrowDown": {
+      transform: "rotateZ(180deg)",
+    },
+    "&.rotated svg.icon-arrowDown": {
+      transform: "rotateZ(0)",
     }
   },
-  toggleMenu:{
+  userButtonContainer: {
+    position: "relative",
+    height: "80px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: "column"
+  },
+  dropdownMenu: {
+    opacity: 0,
+    visibility: "hidden",
+    transition: "all .5s ",
+    position: "absolute",
+    height: 0,
+    top: "88px",
+    width: "264px",
+    left: "0",
+    display: "block",
+    overflow: "hidden",
+    padding: "6px 0 ",
+    "&.opened": {
+      opacity: 1,
+      borderRadius: "6px",
+      height: "fit-content",
+      visibility: "visible",
+      backgroundColor: "#fff",
+      boxShadow: "0 0 6px " + theme.palette.shadow.main,
+    }
+  },
+  dropdownMenuItem: {
+    width: "100%",
+    display: "flex",
+    height: "48px",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: "0 8px",
+    color: theme.palette.text.primary,
+    font: "normal normal normal 16px/22px Open Sans",
+
+    "& svg": {
+      margin: "0 6px",
+      fill: theme.palette.text.primary,
+    },
+    "&:hover": {
+      color: theme.palette.primary.contrastText,
+
+      "& svg": {
+        fill: theme.palette.primary.contrastText,
+      },
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  toggleMenuBtn: {
+    "&.opened svg ": {
+      "& .ToggleMenuIcon_svg__close": {opacity: 0},
+      "& .ToggleMenuIcon_svg__open": {opacity: 1}
+    },
+    "& svg": {
+      "& > *": {transition: "all .5s"},
+      "& .ToggleMenuIcon_svg__open": {opacity: 0},
+      "& .ToggleMenuIcon_svg__close": {opacity: 1}
+    }
+
+  },
+  toggleMenu: {
+    position: "absolute",
+    width: "200px",
+    height: "100vh",
+    background: "transparent linear-gradient(180deg, #FFFFFF 0%, #F3F3F3DF 53%, #E3E3E3B3 100%) 0% 0% no-repeat padding-box;",
+    top: "0",
+    right:"-100%",
+    padding:"60px 0",
+    transition: "all .5s",
+    "&.opened":{
+      right:"0",
+
+    }
 
   }
+
 } ))

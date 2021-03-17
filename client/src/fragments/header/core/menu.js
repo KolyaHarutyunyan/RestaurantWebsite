@@ -1,38 +1,54 @@
-import { memo } from "react"
-import { useStyles } from "./style"
-import { CreateMenuBtn } from "./createMenuBtn"
-import { DropDown } from "./dropDown";
+import { Box, Button } from "@material-ui/core"
+import { pageLinks, useHeaderStyles, CreateMenu } from "."
+import Link from "next/link"
+import { Icon } from "@eachbase/components"
+import { SVGNames } from "@eachbase/constants"
 
-let isAuth = true
-// let isAuth = false
+export const Menus =
+  ( {status, type, user} ) => {
+    console.log(status, type, user)
+    let classes = useHeaderStyles()
+    let className = ( type ? classes.toggleMenu : classes.dropdownMenu ) + ( status ? " opened" : "" )
 
-
-export const Menu = memo(
-  ( props ) => {
-    let classes = useStyles()
-    console.log("props from menu is: ", props)
-    const openAuth = () => {
-      if (!isAuth) {
-        console.log("open Auth form ")
-      }
-    }
     return (
       <>
-        <ul className={classes.menu}>
-          <li className={classes.listItem}>
-            <DropDown isAuthed={isAuth} handlerClick={openAuth}/>
+        <Box className={className}>
+          {
+            !user.isAuth && <Button className={classes.button + " red"}>Sign In</Button>
+          }
+          {
+            type && <CreateMenu isAuthed={user.isAuth} className={classes.button} handlerClick={() => {
+            }}/>
+          }
 
-          </li>
+          {
+            user.isAuth && <>
+              {
+                type && <Box>
+                  <Icon name={SVGNames.user}/>
+                  {user.fullName}
+                </Box>
+              }
 
-          <li className={classes.listItem}>
-            <CreateMenuBtn
-              className={classes.button}
-              isAuthed={isAuth}
-              handlerClick={openAuth}
-            />
-          </li>
-        </ul>
+              {
+                pageLinks.map(( item, i ) =>
+                  <Link href={item.url} key={i}>
+                    <a className={classes.dropdownMenuItem}>
+                      <Icon name={item.icon}/>
+                      {item.title}
+                    </a>
+                  </Link>
+                )
+              }
+              <button className={classes.dropdownMenuItem}>
+
+                <Icon name={SVGNames.logOut}/>
+                Sign Up
+
+              </button>
+            </>
+          }
+        </Box>
       </>
     )
   }
-)

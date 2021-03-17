@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core';
-import { theme } from '.';
+import { makeStyles } from '@material-ui/core'
+import { theme } from '.'
 
-const useGlobalStyles = makeStyles({
+export const useGlobalStyles = makeStyles({
     containerFluid: (props) => ({
         paddingLeft: props && props.xs && props.xs.px ? props.xs.px : theme.spacing(2),
         paddingRight: props && props.xs && props.xs.px ? props.xs.px : theme.spacing(2),
@@ -51,6 +51,4 @@ const useGlobalStyles = makeStyles({
         },
     }),
 
-});
-
-export default useGlobalStyles;
+})
