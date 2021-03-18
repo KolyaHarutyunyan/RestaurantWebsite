@@ -1,9 +1,0 @@
-{
-  "name": "@eachbase",
-  "type": "module",
-  "main": "./index.js",
-  "exports": {
-    "./fragments": "./fragments/index.js",
-    "./package.json": "./package.json"
-  }
-}

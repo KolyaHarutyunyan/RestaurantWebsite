@@ -67,6 +67,7 @@ export const useHeaderStyles = makeStyles(( theme ) => ( {
     display:"block",
     height: "42px",
     lineHeight: "40px",
+    padding:0,
     color: theme.palette.text.primary,
     font: "normal normal 600 16px/22px Open Sans",
     "&.red": {

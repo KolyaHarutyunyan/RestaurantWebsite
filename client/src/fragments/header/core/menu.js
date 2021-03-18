@@ -14,15 +14,15 @@ export const Menus =
       <>
         <Box className={className}>
           {
-            !user.isAuth && <Button className={classes.button + " red"}>Sign In</Button>
+            !user.isAuthenticated && <Button className={classes.button + " red"}>Sign In</Button>
           }
           {
-            type && <CreateMenu isAuthed={user.isAuth} className={classes.button} handlerClick={() => {
+            type && <CreateMenu isAuthed={user.isAuthenticated} className={classes.button} handlerClick={() => {
             }}/>
           }
 
           {
-            user.isAuth && <>
+            user.isAuthenticated && <>
               {
                 type && <Box>
                   <Icon name={SVGNames.user}/>

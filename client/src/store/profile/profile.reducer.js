@@ -1,16 +1,9 @@
 import { UPDATE_AVATAR_ERROR, UPDATE_AVATAR_SUCCESS, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS, SET_USER } from './profile.types';
 
 const initialState = {
-    avatarUrl: '',
-    //isLoading: false,
-    error: false,
     isAuthenticated: false,
-    fullName: '',
-    phoneNumber: '',
+    fullName: 'Vzgo Vzgov',
     email: '',
-    password: '',
-    newPassword: '',
-    confirmation: '',
 };
 
 export const profileReducer = (state = initialState, action) => {

@@ -1,13 +1,14 @@
 import { memo } from "react"
-import { SVGNames } from "../../../context/constants/svgNames"
-import { TitleBlock } from "../styles/screens.style"
-import Icon from "@"
+import { SVGNames } from "@eachbase/constants"
+import { Styled } from ".."
+import { Icon } from "@eachbase/components"
 
 
 export const Title = memo(
   ( {afterText, beforeText, logo, img} ) => {
+
     return (
-      <TitleBlock>
+      <Styled.TitleBlock>
         {afterText
           ? <p className="after">{afterText}</p>
           : null
@@ -26,7 +27,7 @@ export const Title = memo(
           : null
         }
 
-      </TitleBlock>
+      </Styled.TitleBlock>
     )
   }
 )
