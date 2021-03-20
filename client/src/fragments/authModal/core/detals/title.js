@@ -15,7 +15,7 @@ export const Title = memo(
         }
 
         {logo
-          ? <Icon  name={SVGNames.logo}/>
+          ? <Icon  name={SVGNames.Logo}/>
           : null
         }
         {img

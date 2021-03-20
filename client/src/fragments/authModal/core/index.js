@@ -1,4 +1,4 @@
-import { TitleBlock, FormBlock, InputBlock, SocialBlock, InputBlockIcon, Or, Input, ErrorMessage } from "./style"
+import { TitleBlock, FormBlock,InputTitle, InputBlock, InputDescription,TextArea,SocialBlock, InputBlockIcon, Or, Input, ErrorMessage } from "./style"
 
 export { useAuthStyles } from "./style"
 export { SignIn } from "./signIn"
@@ -12,6 +12,6 @@ export { GetRestaurant } from "./getRestorant"
 
 
 export const Styled = {
-  TitleBlock, FormBlock, InputBlock, InputBlockIcon, SocialBlock, Input, ErrorMessage, Or
+  TitleBlock, FormBlock, InputBlock,InputTitle, InputDescription,TextArea,InputBlockIcon, SocialBlock, Input, ErrorMessage, Or
 }
 

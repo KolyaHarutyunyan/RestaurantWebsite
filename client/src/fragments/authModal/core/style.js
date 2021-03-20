@@ -107,7 +107,7 @@ export const TitleBlock = styled.div`
     }
   }
 
-  .icon-logo {
+  .icon-Logo {
     margin: 24px 0 0;
     width: 60px;
     height: 60px;
@@ -125,15 +125,17 @@ export const InputBlock = styled.div`
   display: flex;
   margin-top: ${props => props.mt || 16}px;
   align-items: center;
-  padding: 0 16px;
+  padding: 9px 16px;
   width: ${props => props.w !== undefined ? props.w : '100%'};
-  height: ${props => props.h !== undefined ? props.h : '42'}px;
+  height: ${props => props.h|| '42'}px;
   border-radius: ${props => props.brd !== undefined ? props.brd : 25}px;
   border: 1px solid #2B273C80;
-
+  overflow: hidden;
   @media (min-width: 768px) {
-    height: ${props => props.h !== undefined ? props.h : '48'}px;
-   
+    height: ${props => props.h || '48'}px;
+    padding: 12px 16px;
+
+
 
   }
   background-color: #fff;
@@ -156,7 +158,7 @@ export const InputBlock = styled.div`
   }
 
   .content {
-    height: 24px;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -233,6 +235,29 @@ export const Input = styled.input`
   //   opacity: 0.5; /* Firefox */
   // }
 `
+
+export const InputTitle = styled.p`
+  display: block;
+  margin-bottom: -8px;
+  font: normal normal 600 14px/21px Open Sans;
+  
+`
+export const InputDescription = styled.p`
+  display: block;
+  margin:8px 0  8px 16px;
+  font: normal normal normal 12px/17px Open Sans;
+`
+export const TextArea = styled.textarea`
+  font: normal normal normal 14px/19px Open Sans;
+  resize: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+`
+
+
 export const ErrorMessage = styled.p`
   width: fit-content;
   background-color: #fff;

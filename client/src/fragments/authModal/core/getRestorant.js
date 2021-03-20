@@ -23,6 +23,17 @@ export const GetRestaurant = () => {
         important:true,
         brd:8,
       },
+      {
+        key: 0,
+        type: "textarea",
+        blockTitle:"Optional",
+        ...restaurantData.description,
+        onChange: value => change.text("description",value, setRestaurantData),
+        // onBlur: () => check.text("description",setRestaurantData),
+        placeholder: "Add Brief Description",
+        blockDescription:"Max 500 characters",
+        brd:8,
+      },
       // {
       //   key: 1,
       //   type: "password",
