@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 import styled from "styled-components"
+import {theme} from "@eachbase/theme"
 
 export const useAuthStyles = makeStyles(( theme ) => ( {
   dialog: {
@@ -67,14 +68,16 @@ export const useAuthStyles = makeStyles(( theme ) => ( {
     marginTop: "16px",
     backgroundColor: theme.palette.primary.main,
     color: "#FFF",
-    "&:hover":{
+    "&:hover": {
       backgroundColor: theme.palette.primary.main,
-
+    },
+    "&.brd8":{
+      borderRadius: "8px",
     }
   },
-  lineBtn:{
-    color:theme.palette.action.main,
-    marginTop:"24px",
+  lineBtn: {
+    color: theme.palette.action.main,
+    marginTop: "24px",
 
   }
 
@@ -121,17 +124,16 @@ export const FormBlock = styled.form`
 export const InputBlock = styled.div`
   display: flex;
   margin-top: ${props => props.mt || 16}px;
-
   align-items: center;
-  padding: 0 24px;
+  padding: 0 16px;
   width: ${props => props.w !== undefined ? props.w : '100%'};
   height: ${props => props.h !== undefined ? props.h : '42'}px;
-  border-radius: 25px;
+  border-radius: ${props => props.brd !== undefined ? props.brd : 25}px;
   border: 1px solid #2B273C80;
 
   @media (min-width: 768px) {
     height: ${props => props.h !== undefined ? props.h : '48'}px;
-    padding: 0 24px;
+   
 
   }
   background-color: #fff;
@@ -160,6 +162,18 @@ export const InputBlock = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    position: relative;
+    &.important:after {
+      content: '*';
+      position: absolute;
+      width: 20px;
+      color: #FF453A;
+      height: 20px;
+      display: block;
+      z-index: 10000;
+      top: 0;
+      left: 200px
+    }
   }
 `
 
@@ -167,10 +181,11 @@ export const InputBlockIcon = styled.div`
   width: ${props => props.size !== undefined ? props.size : '24'}px;
   height: ${props => props.size !== undefined ? props.size : '24'}px;
   border-radius: ${props => props.brd || 0}px;
+  margin-left: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 `
 
 export const Input = styled.input`
@@ -197,16 +212,38 @@ export const Input = styled.input`
     -webkit-text-fill-color: unset !important;
   }
 
+  position: relative;
   outline: none;
   border: 0;
-
+  
+  //&::placeholder:after,
+  //&::-webkit-input-placeholder:after,
+  //&:-moz-placeholder:after,
+  //&::-moz-placeholder:after,
+  //&:-ms-input-placeholder:after ,
+  &:after {
+    content:'*';
+    position: absolute;
+    color: ${theme.palette.primary.main};
+  }
+  // ::placeholder:after{
+  //   content: "*";
+  //   /* Chrome, Firefox, Opera, Safari 10.1+ */
+  //   color: ${theme.palette.primary.main};
+  //   opacity: 0.5; /* Firefox */
+  // }
 `
 export const ErrorMessage = styled.p`
+  width: fit-content;
+  background-color: #fff;
   text-align: left;
-  margin: 3px 0 0;
-  padding: 0 0 0 24px;
+  margin: -10px 0 0 50px;
+  height: 20px;
+  line-height: 20px;
   color: #FF453A;
+  padding: 0 10px;
   font-size: 10px;
+  display: block;
   @media (min-width: 768px) {
     font-size: 12px !important;
   }

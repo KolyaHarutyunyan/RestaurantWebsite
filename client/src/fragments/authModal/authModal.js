@@ -1,7 +1,7 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { Box, Dialog, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { SignIn, SignUp, useAuthStyles } from "./core"
+import { SignIn, SignUp,GetRestaurant, useAuthStyles } from "./core"
 
 
 const screens = {
@@ -25,13 +25,13 @@ export const AuthModal = memo(
     })
 
     let open = {
-      signIn: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.signIn} )),
-      signUp: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.signUp} )),
-      getEmail: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.getEmail} )),
-      getRestaurant: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.getRestaurant} )),
-      done: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.done} )),
-      verify: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.verify} )),
-      resetPass: ( props = {} ) => setScreen(current => ( {...current, ...props, type: screens.resetPass} ))
+      signIn: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.signIn} )),
+      signUp: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.signUp} )),
+      getEmail: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.getEmail} )),
+      getRestaurant: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.getRestaurant} )),
+      done: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.done} )),
+      verify: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.verify} )),
+      resetPass: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.resetPass} ))
 
     }
 
@@ -65,7 +65,7 @@ export const AuthModal = memo(
         <Box className={classes.authBox}>
           {screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}
           {screen.type === screens.signUp && <SignUp {...screen.props} open={open}/>}
-          {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
+          {screen.type === screens.getRestaurant && <GetRestaurant {...screen.props} open={open}/>}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}

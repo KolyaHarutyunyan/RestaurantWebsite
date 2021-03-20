@@ -1,5 +1,6 @@
 import { Form, OR, Socials, Title, useAuthStyles } from ".";
 import { SVGNames } from "@eachbase/constants";
+import {check ,change } from "@eachbase/utils"
 import { Button } from "@material-ui/core";
 import { useState } from "react";
 
@@ -13,41 +14,6 @@ export const SignIn = ( {open} ) => {
     password: {value: "", error: null}
   })
 
-
-  let changeEmail = value => {
-    setUserData(current => ( {
-      ...current,
-      email: {
-        ...current.email,
-        value
-      }
-    } ))
-  }
-  let changePass = value => {
-    setUserData(current => ( {
-      ...current,
-      password: {
-        ...current.password,
-        value
-      }
-    } ))
-  }
-  let emailTest = email =>/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)
-  let checkIsEmail = ()=>{
-    setUserData(current => {
-      console.log("current state is: ",current)
-      return ( {
-        ...current,
-        email: {
-          ...current.email,
-          error: emailTest(current.email.value) ? null : "please check your email"
-        }
-      } )
-    })
-  }
-  console.log(emailTest(userData.email.value))
-  console.log(userData)
-
   let formData = {
     inputs: [
       {
@@ -55,8 +21,8 @@ export const SignIn = ( {open} ) => {
         type: "email",
         icon: SVGNames.Email,
         ...userData.email,
-        onChange:changeEmail,
-        onBlur:checkIsEmail,
+        onChange:value=>change.email(value,setUserData),
+        onBlur:()=>check.email(setUserData),
         placeholder: "Email",
       },
       {
@@ -64,7 +30,8 @@ export const SignIn = ( {open} ) => {
         type: "password",
         icon: SVGNames.Password,
         ...userData.password,
-        onChange: changePass,
+        onChange: value=>change.pass(value,setUserData),
+        onBlur:()=>check.pass(setUserData),
         placeholder: "Password",
       }
 

@@ -9,7 +9,7 @@ const EF = () => {
 
 export const Inputs = memo(
   ( {
-      type, isDisabled, error, icon, value, onChange, onFocus = EF, onBlur = EF, placeholder,
+      type, isDisabled, error, icon,important,brd, value, onChange, onFocus = EF, onBlur = EF, placeholder,
     } ) => {
     let [isVisible, setIsVisible] = useState(false)
     let [isFocused, setIsFocused] = useState(false)
@@ -24,9 +24,10 @@ export const Inputs = memo(
     }
     return (
       <>
-        <Styled.InputBlock
+
+        <Styled.InputBlock brd={brd}
           className={( isDisabled ? " disabled" : "" ) + ( isFocused ? " focused" : "" ) + ( error ? " error" : "" )}>
-          <div className="content">
+          <div className={`content ${(important && !value.length)? "important":""}`}>
             {
               icon &&
               <Styled.InputBlockIcon>
@@ -44,6 +45,10 @@ export const Inputs = memo(
               autocomplete={type === "email"}
 
             />
+            {
+              // important?
+              //   <></>
+            }
             {
               type === "password"
               ?<Styled.InputBlockIcon style={{cursor: "pointer"}} onClick={() => setIsVisible(!isVisible)}>
