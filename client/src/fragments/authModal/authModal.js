@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { Box, Dialog, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { SignIn, SignUp,GetRestaurant, useAuthStyles } from "./core"
+import { SignIn, SignUp, GetRestaurant, useAuthStyles, Done, GetEmail, Verify, ResetPass } from "./core"
 
 
 const screens = {
@@ -19,33 +19,30 @@ export const AuthModal = memo(
   ( {status, close} ) => {
     let classes = useAuthStyles()
 
-    let [screen, setScreen] = useState({
+    let [activeScreen, setActiveScreen] = useState({
       type: screens.signIn,
       props: {}
     })
 
-    let open = {
-      signIn: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.signIn} )),
-      signUp: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.signUp} )),
-      getEmail: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.getEmail} )),
-      getRestaurant: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.getRestaurant} )),
-      done: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.done} )),
-      verify: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.verify} )),
-      resetPass: ( props = {} ) => setScreen(current => ( {...current, props, type: screens.resetPass} ))
+    let selectScreen = (type,props={})=>setActiveScreen({type,props})
 
+    let open = {
+      signIn: ()=>selectScreen(screens.signIn),
+      signUp: ()=>selectScreen(screens.signUp),
+      getEmail: ()=>selectScreen(screens.getEmail),
+      verify: ()=>selectScreen(screens.verify),
+      resetPass: ()=>selectScreen(screens.resetPass),
+      getRestaurant: props=>selectScreen(screens.getRestaurant,props),
+      done: props=>selectScreen(screens.done,props),
     }
 
     let selfClose = ()=>{
       close()
-      setTimeout(()=>setScreen({
-        type: screens.signIn,
-        props: {}
-      }),100)
-
+      setTimeout(()=>selectScreen(screens.signIn),100)
     }
 
 
-    console.log(screen)
+    console.log(activeScreen)
     return (
       <Dialog
         className={classes.dialog}
@@ -53,7 +50,7 @@ export const AuthModal = memo(
         // onClose={selfClose}
       >
         {
-          !screen.props.notCloseBtn ?
+          !activeScreen.props.notCloseBtn ?
             <IconButton
               aria-label="close"
               className={classes.closeIcon}
@@ -63,27 +60,15 @@ export const AuthModal = memo(
             : null
         }
         <Box className={classes.authBox}>
-          {screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}
-          {screen.type === screens.signUp && <SignUp {...screen.props} open={open}/>}
-          {screen.type === screens.getRestaurant && <GetRestaurant {...screen.props} close={selfClose} open={open}/>}
-          {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
-          {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
-          {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
-
+          {activeScreen.type === screens.signIn && <SignIn {...activeScreen.props} open={open}/>}
+          {activeScreen.type === screens.signUp && <SignUp {...activeScreen.props} open={open}/>}
+          {activeScreen.type === screens.getRestaurant && <GetRestaurant {...activeScreen.props}  open={open}/>}
+          {activeScreen.type === screens.done && <Done {...activeScreen.props} close={selfClose} open={open}/>}
+          {activeScreen.type === screens.getEmail && <GetEmail {...activeScreen.props} close={selfClose} open={open}/>}
+          {activeScreen.type === screens.verify && <Verify {...activeScreen.props} open={open}/>}
+          {activeScreen.type === screens.resetPass && <ResetPass {...activeScreen.props} open={open}/>}
         </Box>
 
-
-        {/*gdhglb fgfkxjhv cjhgf lhlhg l*/}
-        {/*<Box width="100%" overflow="hidden" position="relative">*/}
-        {/*  <SignIn className={classes.authBox + ( 0 === activePosition ? " active" : " disabled" )}*/}
-        {/*          changePosition={setActivePosition}/>*/}
-        {/*  <Forgot className={classes.authBox + ( 1 === activePosition ? " active" : " disabled" )}*/}
-        {/*          changePosition={setActivePosition}*/}
-        {/*          close={selfClose}/>*/}
-        {/*  <SignUp className={classes.authBox + ( 2 === activePosition ? " active" : " disabled" )}*/}
-        {/*          changePosition={setActivePosition}*/}
-        {/*          close={selfClose}/>*/}
-        {/*</Box>*/}
       </Dialog>
     )
   }

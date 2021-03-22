@@ -1,4 +1,4 @@
-import { Title, Form, OR, Socials, useAuthStyles } from ".";
+import { Title, Form, OR, Socials, useAuthStyles } from "..";
 import { Button } from "@material-ui/core";
 import { SVGNames } from "@eachbase/constants";
 import { useState } from "react";
@@ -50,6 +50,7 @@ export const SignUp = ( {open} ) => {
         open.getRestaurant({notCloseBtn:true})
         event.preventDefault()
         console.log("submit")
+
       },
       text: "Continue",
       className: classes.submit
@@ -58,7 +59,7 @@ export const SignUp = ( {open} ) => {
 
   return (
     <>
-      <Title afterText="Welcome to Menuz" logo/>
+      <Title afterText="Welcome to Menuz" />
       <Form data={formData}/>
       <OR/>
       <Socials type={"Sign up"}/>

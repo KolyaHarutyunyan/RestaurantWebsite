@@ -1,85 +1,87 @@
-import {makeStyles} from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
 import styled from "styled-components"
-import {theme} from "@eachbase/theme"
+import { theme } from "@eachbase/theme"
 
 export const useAuthStyles = makeStyles((theme) => ({
-    dialog: {
-        '& .MuiDialog-paper': {
-            width: '100%',
-            padding: 0,
-            margin: "20px",
-            borderRadius: "32px",
-            [theme.breakpoints.up('lg')]: {
-                maxWidth: '548px !important',
-            },
-            [theme.breakpoints.down('lg')]: {
-                maxWidth: '464px !important',
-            },
+  dialog: {
+    '& .MuiDialog-paper': {
+      width: '100%',
+      padding: 0,
+      margin: "20px",
+      borderRadius: "32px",
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: '548px !important',
+      },
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: '464px !important',
+      },
 
 
-            '& .MuiDialogContent-root': {
-                padding: 0,
-                display: 'flex',
-            },
-            '& .MuiDialogActions-root': {
-                position: 'absolute',
-                bottom: 0,
-                right: 0,
-            },
-            '& .MuiBox-root': {
-                margin: 0
-            }
-        },
-    },
-    closeIcon: {
-        width: '30px',
-        height: '30px',
-        position: 'absolute',
-        right: '16px',
-        top: '16px',
-        zIndex: 10000,
+      '& .MuiDialogContent-root': {
         padding: 0,
-        backgroundColor: '#2B273C1A',
-        color: theme.palette.text.primary,
-        '&:hover': {
-            backgroundColor: '#2B273C1A',
-        },
-        '& .MuiSvgIcon-root': {
-            width: '16px',
-            height: '16px',
-        }
+        display: 'flex',
+      },
+      '& .MuiDialogActions-root': {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+      },
+      '& .MuiBox-root': {
+        margin: 0
+      }
     },
-    authBox: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        transition: "all 1s",
-        opacity: 1,
-        width: "100%",
-        padding: "32px 16px",
+  },
+  closeIcon: {
+    width: '30px',
+    height: '30px',
+    position: 'absolute',
+    right: '16px',
+    top: '16px',
+    zIndex: 10000,
+    padding: 0,
+    backgroundColor: '#2B273C1A',
+    color: theme.palette.text.primary,
+    '&:hover': {
+      backgroundColor: '#2B273C1A',
     },
-    submit: {
-        width: "100%",
-        height: "48px",
-        borderRadius: "25px",
-        border: "0 !important",
-        cursor: "pointer",
-        marginTop: "16px",
-        backgroundColor: theme.palette.primary.main,
-        color: "#FFF",
-        "&:hover": {
-            backgroundColor: theme.palette.primary.main,
-        },
-        "&.brd8": {
-            borderRadius: "8px",
-        }
-    },
-    lineBtn: {
-        color: theme.palette.action.main,
-        marginTop: "24px",
-
+    '& .MuiSvgIcon-root': {
+      width: '16px',
+      height: '16px',
     }
+  },
+  authBox: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    transition: "all 1s",
+    opacity: 1,
+    width: "100%",
+    padding: "32px 16px",
+  },
+  submit: {
+    width: "100%",
+    height: "48px",
+    borderRadius: "25px",
+    border: "0 !important",
+    cursor: "pointer",
+    marginTop: "16px",
+    backgroundColor: theme.palette.primary.main,
+    color: "#FFF",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+    "&.brd8": {
+      borderRadius: "8px",
+    }
+  },
+  lineBtn: {
+    color: theme.palette.action.main,
+    marginTop: "24px",
+    "&.dark": {
+      color: theme.palette.text.primary,
+    }
+  }
 
 
 }));
@@ -313,4 +315,9 @@ export const SocialBlock = styled.div`
       margin: 0 10px;
     }
   }
+`
+
+export const Description = styled.p`
+  text-align: center;
+  font: normal normal normal 14px/21px Open Sans;
 `

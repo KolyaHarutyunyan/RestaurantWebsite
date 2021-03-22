@@ -5,7 +5,7 @@ import { Icon } from "@eachbase/components"
 
 
 export const Title = memo(
-  ( {afterText, beforeText, logo, img} ) => {
+  ({afterText, beforeText, logo=SVGNames.Logo}) => {
 
     return (
       <Styled.TitleBlock>
@@ -14,14 +14,9 @@ export const Title = memo(
           : null
         }
 
-        {logo
-          ? <Icon  name={SVGNames.Logo}/>
-          : null
-        }
-        {img
-          ? <img src={img}/>
-          : null
-        }
+        <Icon name={logo}/>
+
+
         {beforeText
           ? <p className="before">{beforeText}</p>
           : null

@@ -12,6 +12,8 @@ import ToggleMenu from "../../../public/assets/icons/ToggleMenuIcon.svg"
 import EyeOn from "../../../public/assets/icons/eyeOnSecondary18x18.svg"
 import EyeOff from "../../../public/assets/icons/eyeOffSecondary18x18.svg"
 import Password from "../../../public/assets/icons/PasswordIcon.svg"
+import DonePassword from "../../../public/assets/icons/DonePassword.svg"
+import DoneRestaurant from "../../../public/assets/icons/DoneRestaurant.svg"
 
 
 export const SVGS = {
@@ -26,7 +28,6 @@ export const SVGS = {
   Profile,
   Restaurant,
   ToggleMenu,
-  EyeOn,
-  EyeOff,
-  Password
+  EyeOn,  EyeOff,   Password, DonePassword,
+  DoneRestaurant
 }

@@ -7,3 +7,4 @@ def add_import(what, _from, to):
 
 def create_component(name):
     return "export const %s = () =>{\n\treturn(\n\t\t<h1>%s</h1>\n\t)\n}" % (name, name)
+

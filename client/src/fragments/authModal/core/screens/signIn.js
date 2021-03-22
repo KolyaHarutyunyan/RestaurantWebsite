@@ -1,8 +1,8 @@
-import { Form, OR, Socials, Title, useAuthStyles } from ".";
-import { SVGNames } from "@eachbase/constants";
+import { Form, OR, Socials, Title, useAuthStyles } from ".."
+import { SVGNames } from "@eachbase/constants"
 import {check ,change } from "@eachbase/utils"
-import { Button } from "@material-ui/core";
-import { useState } from "react";
+import { Button } from "@material-ui/core"
+import { useState } from "react"
 
 
 export const SignIn = ( {open} ) => {
@@ -50,11 +50,12 @@ export const SignIn = ( {open} ) => {
   return (
 
     <>
-      <Title afterText="Welcome to Menuz" logo/>
+      <Title afterText="Welcome to Menuz" />
       <Form data={formData}/>
+      <Button className={classes.lineBtn+" dark"} onClick={open.getEmail}> Forgot Password? </Button>
       <OR/>
       <Socials type={"Sign in"}/>
-      <Button className={classes.lineBtn} onClick={() => open.signUp()}> Doesn't have an account? Sign Up</Button>
+      <Button className={classes.lineBtn} onClick={open.signUp}> Doesn't have an account? Sign Up</Button>
     </>
   )
 }

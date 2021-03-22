@@ -1,9 +1,9 @@
-import { Form, Title, useAuthStyles } from ".";
+import { Form, Title, useAuthStyles } from "..";
 import { change, check } from "@eachbase/utils"
 import { useState } from "react";
 
 
-export const GetRestaurant = ({close}) => {
+export const GetRestaurant = ({close,open}) => {
   let [restaurantData, setRestaurantData] = useState({
     name: {value: "", error: null},
     description: {value: "", error: null},
@@ -51,8 +51,9 @@ export const GetRestaurant = ({close}) => {
     submit: {
       event: event => {
         event.preventDefault()
+        open.done({type:"restaurant"})
         console.log("submit")
-        close()
+        // close()
       },
       text: "Save",
       className: classes.submit + " brd8"
