@@ -13,6 +13,7 @@ export const Inputs = memo(
       isDisabled,
       error,
       icon,
+        brdType,
       blockTitle,
       important,
       brd,
@@ -43,7 +44,7 @@ export const Inputs = memo(
         }
 
 
-        <Styled.InputBlock brd={brd} h={type === "textarea" && 130}
+        <Styled.InputBlock brd={brd} h={type === "textarea" && 130} brdType={brdType}
                            className={( isDisabled ? " disabled" : "" ) + ( isFocused ? " focused" : "" ) + ( error ? " error" : "" )}>
           <div className={`content ${( important && !value.length ) ? "important" : ""}`}>
             {

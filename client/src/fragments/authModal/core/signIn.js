@@ -40,6 +40,7 @@ export const SignIn = ( {open} ) => {
       event: event => {
         event.preventDefault()
         console.log("submit")
+
       },
       text: "Continue",
       className: classes.submit

@@ -1,88 +1,88 @@
-import { makeStyles } from "@material-ui/core"
+import {makeStyles} from "@material-ui/core"
 import styled from "styled-components"
 import {theme} from "@eachbase/theme"
 
-export const useAuthStyles = makeStyles(( theme ) => ( {
-  dialog: {
-    '& .MuiDialog-paper': {
-      width: '100%',
-      padding: 0,
-      margin: "20px",
-      borderRadius: "32px",
-      [ theme.breakpoints.up('lg') ]: {
-        maxWidth: '548px !important',
-      },
-      [ theme.breakpoints.down('lg') ]: {
-        maxWidth: '464px !important',
-      },
+export const useAuthStyles = makeStyles((theme) => ({
+    dialog: {
+        '& .MuiDialog-paper': {
+            width: '100%',
+            padding: 0,
+            margin: "20px",
+            borderRadius: "32px",
+            [theme.breakpoints.up('lg')]: {
+                maxWidth: '548px !important',
+            },
+            [theme.breakpoints.down('lg')]: {
+                maxWidth: '464px !important',
+            },
 
 
-      '& .MuiDialogContent-root': {
-        padding: 0,
-        display: 'flex',
-      },
-      '& .MuiDialogActions-root': {
+            '& .MuiDialogContent-root': {
+                padding: 0,
+                display: 'flex',
+            },
+            '& .MuiDialogActions-root': {
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+            },
+            '& .MuiBox-root': {
+                margin: 0
+            }
+        },
+    },
+    closeIcon: {
+        width: '30px',
+        height: '30px',
         position: 'absolute',
-        bottom: 0,
-        right: 0,
-      },
-      '& .MuiBox-root': {
-        margin: 0
-      }
+        right: '16px',
+        top: '16px',
+        zIndex: 10000,
+        padding: 0,
+        backgroundColor: '#2B273C1A',
+        color: theme.palette.text.primary,
+        '&:hover': {
+            backgroundColor: '#2B273C1A',
+        },
+        '& .MuiSvgIcon-root': {
+            width: '16px',
+            height: '16px',
+        }
     },
-  },
-  closeIcon: {
-    width: '30px',
-    height: '30px',
-    position: 'absolute',
-    right: '16px',
-    top: '16px',
-    zIndex: 10000,
-    padding: 0,
-    backgroundColor: '#2B273C1A',
-    color: theme.palette.text.primary,
-    '&:hover': {
-      backgroundColor: '#2B273C1A',
+    authBox: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        transition: "all 1s",
+        opacity: 1,
+        width: "100%",
+        padding: "32px 16px",
     },
-    '& .MuiSvgIcon-root': {
-      width: '16px',
-      height: '16px',
+    submit: {
+        width: "100%",
+        height: "48px",
+        borderRadius: "25px",
+        border: "0 !important",
+        cursor: "pointer",
+        marginTop: "16px",
+        backgroundColor: theme.palette.primary.main,
+        color: "#FFF",
+        "&:hover": {
+            backgroundColor: theme.palette.primary.main,
+        },
+        "&.brd8": {
+            borderRadius: "8px",
+        }
+    },
+    lineBtn: {
+        color: theme.palette.action.main,
+        marginTop: "24px",
+
     }
-  },
-  authBox: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-    transition: "all 1s",
-    opacity: 1,
-    width: "100%",
-    padding: "32px 16px",
-  },
-  submit: {
-    width: "100%",
-    height: "48px",
-    borderRadius: "25px",
-    border: "0 !important",
-    cursor: "pointer",
-    marginTop: "16px",
-    backgroundColor: theme.palette.primary.main,
-    color: "#FFF",
-    "&:hover": {
-      backgroundColor: theme.palette.primary.main,
-    },
-    "&.brd8":{
-      borderRadius: "8px",
-    }
-  },
-  lineBtn: {
-    color: theme.palette.action.main,
-    marginTop: "24px",
-
-  }
 
 
-} ));
+}));
 
 export const TitleBlock = styled.div`
   width: 100%;
@@ -127,15 +127,14 @@ export const InputBlock = styled.div`
   align-items: center;
   padding: 9px 16px;
   width: ${props => props.w !== undefined ? props.w : '100%'};
-  height: ${props => props.h|| '42'}px;
+  height: ${props => props.h || '42'}px;
   border-radius: ${props => props.brd !== undefined ? props.brd : 25}px;
   border: 1px solid #2B273C80;
+  ${props => props.brdType !== undefined ? `border-style : ${props.brdType}` : ""};
   overflow: hidden;
   @media (min-width: 768px) {
     height: ${props => props.h || '48'}px;
     padding: 12px 16px;
-
-
 
   }
   background-color: #fff;
@@ -165,6 +164,7 @@ export const InputBlock = styled.div`
     align-items: center;
     justify-content: flex-start;
     position: relative;
+
     &.important:after {
       content: '*';
       position: absolute;
@@ -217,34 +217,25 @@ export const Input = styled.input`
   position: relative;
   outline: none;
   border: 0;
-  
-  //&::placeholder:after,
-  //&::-webkit-input-placeholder:after,
-  //&:-moz-placeholder:after,
-  //&::-moz-placeholder:after,
-  //&:-ms-input-placeholder:after ,
+
+
   &:after {
-    content:'*';
+    content: '*';
     position: absolute;
     color: ${theme.palette.primary.main};
   }
-  // ::placeholder:after{
-  //   content: "*";
-  //   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  //   color: ${theme.palette.primary.main};
-  //   opacity: 0.5; /* Firefox */
-  // }
+
 `
 
 export const InputTitle = styled.p`
   display: block;
   margin-bottom: -8px;
   font: normal normal 600 14px/21px Open Sans;
-  
+
 `
 export const InputDescription = styled.p`
   display: block;
-  margin:8px 0  8px 16px;
+  margin: 8px 0 8px 16px;
   font: normal normal normal 12px/17px Open Sans;
 `
 export const TextArea = styled.textarea`

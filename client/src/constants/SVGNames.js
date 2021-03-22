@@ -1,8 +1,5 @@
 
 export const SVGNames = {
-
-
-
   Email:"Email",
   Logo:"Logo",
   GoogleColor:"GoogleColor",
@@ -17,6 +14,4 @@ export const SVGNames = {
   EyeOn:"EyeOn",
   EyeOff:"EyeOff",
   Password:"Password",
-
-
 }

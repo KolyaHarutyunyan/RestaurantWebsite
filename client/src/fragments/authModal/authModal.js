@@ -65,7 +65,7 @@ export const AuthModal = memo(
         <Box className={classes.authBox}>
           {screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}
           {screen.type === screens.signUp && <SignUp {...screen.props} open={open}/>}
-          {screen.type === screens.getRestaurant && <GetRestaurant {...screen.props} open={open}/>}
+          {screen.type === screens.getRestaurant && <GetRestaurant {...screen.props} close={selfClose} open={open}/>}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
           {/*{screen.type === screens.signIn && <SignIn {...screen.props} open={open}/>}*/}
