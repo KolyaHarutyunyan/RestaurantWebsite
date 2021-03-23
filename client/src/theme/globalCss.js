@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core';
 
-const GlobalCss = withStyles({
+export const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
 
@@ -38,4 +38,4 @@ const GlobalCss = withStyles({
     },
 })(() => null);
 
-export default GlobalCss;
+

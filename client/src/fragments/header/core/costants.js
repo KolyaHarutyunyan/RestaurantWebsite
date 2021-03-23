@@ -17,17 +17,18 @@ export const header = {
     "src": "/assets/images/Logo.svg",
     "alt": "Logo"
   },
-  "pageLinks": [
-    {
-      "title":"Restaurant Profile",
-      "url": "#/",
-      "icon": ""
-    },
-    {
-      "title":"Restaurant Profile",
-      "url": "#/",
-      "icon": ""
-    }
-  ],
+
   "title": "Menuz"
 }
+export const  pageLinks = [
+  {
+    "title":"Restaurant Profile",
+    "url": "#/restaurant",
+    "icon": "restaurant"
+  },
+  {
+    "title":"Account Settings",
+    "url": "#/profile",
+    "icon": "profile"
+  }
+]

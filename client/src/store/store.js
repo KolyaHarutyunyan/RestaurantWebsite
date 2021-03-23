@@ -12,5 +12,4 @@ const configureStore = () => {
     return store;
 };
 
-// export const Store =({children})=><Provider store={configureStore()}>{children} </Provider>
-export const Store = configureStore()
+export const Store =({children})=><Provider store={configureStore()}>{children} </Provider>

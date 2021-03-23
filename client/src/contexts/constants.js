@@ -1,4 +1,3 @@
-
 export const SVGNames = {
     "googleColor": "googleColor",
     "facebook": "facebook",

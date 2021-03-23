@@ -1,6 +1,6 @@
 import { memo } from "react"
 import Link from "next/link"
-import { header } from "./costants"
+import { header } from "."
 
 export const Logo = memo(
   ( {className} ) =>
