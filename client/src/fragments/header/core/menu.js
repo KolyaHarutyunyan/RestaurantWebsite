@@ -25,7 +25,7 @@ export const Menus =
             user.isAuthenticated && <>
               {
                 type && <Box>
-                  <Icon name={SVGNames.user}/>
+                  <Icon name={SVGNames.User}/>
                   {user.fullName}
                 </Box>
               }
@@ -42,7 +42,7 @@ export const Menus =
               }
               <button className={classes.dropdownMenuItem}>
 
-                <Icon name={SVGNames.logOut}/>
+                <Icon name={SVGNames.LogOut}/>
                 Sign Up
 
               </button>

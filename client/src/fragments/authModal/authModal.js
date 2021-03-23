@@ -2,6 +2,7 @@ import { memo, useState } from "react";
 import { Box, Dialog, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { SignIn, SignUp, GetRestaurant, useAuthStyles, Done, GetEmail, Verify, ResetPass } from "./core"
+import { signIn } from "../../store/auth";
 
 
 const screens = {
@@ -20,17 +21,18 @@ export const AuthModal = memo(
     let classes = useAuthStyles()
 
     let [activeScreen, setActiveScreen] = useState({
-      type: screens.signIn,
+      type: screens.signUp,
       props: {}
     })
 
     let selectScreen = (type,props={})=>setActiveScreen({type,props})
 
     let open = {
+      // signIn: (props={})=>setActiveScreen({type:screens.signIn,props: {...props}}),
       signIn: ()=>selectScreen(screens.signIn),
       signUp: ()=>selectScreen(screens.signUp),
-      getEmail: ()=>selectScreen(screens.getEmail),
-      verify: ()=>selectScreen(screens.verify),
+      getEmail: (props)=>selectScreen(screens.getEmail,props),
+      verify: (props)=>selectScreen(screens.verify,props),
       resetPass: ()=>selectScreen(screens.resetPass),
       getRestaurant: props=>selectScreen(screens.getRestaurant,props),
       done: props=>selectScreen(screens.done,props),
@@ -49,6 +51,16 @@ export const AuthModal = memo(
         open={status}
         // onClose={selfClose}
       >
+        {
+          activeScreen.props.hasBackBtn ?
+            <IconButton
+              aria-label="back"
+              className={classes.backIcon}
+              onClick={open[activeScreen.props.backTo || "signIn"]}>
+              <CloseIcon/>
+            </IconButton>
+            : null
+        }
         {
           !activeScreen.props.notCloseBtn ?
             <IconButton

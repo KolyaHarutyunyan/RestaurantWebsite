@@ -47,12 +47,14 @@ export const SignIn = ( {open} ) => {
     }
   }
 
+  let getEmail = ()=>open.getEmail({notCloseBtn:true,hasBackBtn:true,backTo:"signIn"})
+
   return (
 
     <>
       <Title afterText="Welcome to Menuz" />
       <Form data={formData}/>
-      <Button className={classes.lineBtn+" dark"} onClick={open.getEmail}> Forgot Password? </Button>
+      <Button className={classes.lineBtn+" dark"} onClick={getEmail}> Forgot Password? </Button>
       <OR/>
       <Socials type={"Sign in"}/>
       <Button className={classes.lineBtn} onClick={open.signUp}> Doesn't have an account? Sign Up</Button>

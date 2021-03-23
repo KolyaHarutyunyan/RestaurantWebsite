@@ -27,7 +27,7 @@ export const GetEmail = ({open}) => {
       event: event => {
         event.preventDefault()
         console.log("submit")
-        open.resetPass()
+        open.verify({email:userData.email.value})
       },
       text: "Get Code",
       className: classes.submit

@@ -81,6 +81,24 @@ export const useAuthStyles = makeStyles((theme) => ({
     "&.dark": {
       color: theme.palette.text.primary,
     }
+  },
+  backIcon:{
+    width: '30px',
+    height: '30px',
+    position: 'absolute',
+    left: '16px',
+    top: '16px',
+    zIndex: 10000,
+    padding: 0,
+    backgroundColor: '#2B273C1A',
+    color: theme.palette.text.primary,
+    '&:hover': {
+      backgroundColor: '#2B273C1A',
+    },
+    '& .MuiSvgIcon-root': {
+      width: '16px',
+      height: '16px',
+    }
   }
 
 

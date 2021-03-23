@@ -15,7 +15,7 @@ export const Navbar = memo(
 
 
 
-    let openAvatar = () => openModal.avatar()
+    let openAvatar = () => openModal.avatar({type:"userAvatar"})
 
     let handlerClick = () => {
     }
