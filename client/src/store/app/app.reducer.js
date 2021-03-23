@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-
 import { REQUEST_PENDING } from './app.types'
 import { authReducer } from "../auth";
 import { profileReducer } from "../profile";

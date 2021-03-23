@@ -1,13 +1,12 @@
 # File structure
 
-#/client
+/client
     /pages
     /public
     /src
         /theme
         /components (global components )
         /fragments
-#`` "header/"
             /header
                 /core (components for only this fragment)
                 theme.js
@@ -26,3 +25,22 @@
         /store
          
         
+
+
+
+
+
+/components
+    /modal
+        index.js
+/fragments
+    /authModal
+        /core
+            signin.js
+            signup.js
+        index.js
+/context
+    /modals
+        index.js
+
+

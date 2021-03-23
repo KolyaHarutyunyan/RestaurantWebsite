@@ -57,7 +57,6 @@ export const InputBlockIcon = styled.div`
 `
 
 export const SubmitButton = styled.button`
-
   width: ${props => props.w !== undefined ? props.w : '100%'};
   height: ${props => props.h !== undefined ? props.h : '42'}px;
   border-radius: 25px;

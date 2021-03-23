@@ -1,8 +1,10 @@
 import { Form, OR, Socials, Title, useAuthStyles } from ".."
 import { SVGNames } from "@eachbase/constants"
 import {check ,change } from "@eachbase/utils"
-import { Button } from "@material-ui/core"
+import { Button, Input } from "@material-ui/core"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { authActions } from '@eachbase/store'
 
 
 export const SignIn = ( {open} ) => {
@@ -13,6 +15,18 @@ export const SignIn = ( {open} ) => {
     email: {value: "", error: null},
     password: {value: "", error: null}
   })
+
+  /** Connecting to the store */
+  const dispatch = useDispatch();
+  const handleSubmit = () => { 
+    if(!userData.email.error || !userData.password.error){
+        const payload = {
+        email: userData.email.value,
+        password: userData.email.password
+      };
+      dispatch(authActions.signIn({payload}))
+    }   
+  }
 
   let formData = {
     inputs: [
@@ -40,7 +54,7 @@ export const SignIn = ( {open} ) => {
       event: event => {
         event.preventDefault()
         console.log("submit")
-
+        handleSubmit();
       },
       text: "Continue",
       className: classes.submit
@@ -53,8 +67,10 @@ export const SignIn = ( {open} ) => {
 
     <>
       <Title afterText="Welcome to Menuz" />
+
       <Form data={formData}/>
       <Button className={classes.lineBtn+" dark"} onClick={getEmail}> Forgot Password? </Button>
+
       <OR/>
       <Socials type={"Sign in"}/>
       <Button className={classes.lineBtn} onClick={open.signUp}> Doesn't have an account? Sign Up</Button>

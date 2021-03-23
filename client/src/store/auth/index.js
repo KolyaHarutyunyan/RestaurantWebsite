@@ -1,5 +1,5 @@
 export { authReducer } from './auth.reducer';
-export { signIn, signOut, signUp, checkAuths } from './auth.action';
+export { signIn, signOut, signUp } from './auth.action';
 export { watchAuth } from './auth.saga';
 export {
     SIGNIN,
