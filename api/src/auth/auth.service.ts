@@ -140,7 +140,7 @@ export class AuthService {
   //   }
   // };
 
-  // /** Forgot password. sends a link with a token to the users email to reset password*/
+  // /** GetEmail password. sends a link with a token to the users email to reset password*/
   // forgotPassword = async (email: string) => {
   //   try {
   //     const auth = await this.model.findOne({ email });

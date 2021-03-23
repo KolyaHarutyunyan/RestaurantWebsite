@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { SVGNames } from "../../../context/constants/svgNames"
 import { TitleBlock } from "../styles/screens.style"
-import Icon from "../../../view/components/icon"
+import { Icon } from "@eachbase/components"
 
 
 export const Title = memo(

@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Theme } from "@eachbase/theme"
 import { Store } from "@eachbase/store"
-import {Header, Footer} from "@eachbase/fragments"
-import { ContextProvider  } from "@eachbase/context"
+import { Header, Footer } from "@eachbase/fragments"
+import { ContextProvider } from "@eachbase/context"
 
 export default function MyApp( {Component, pageProps} ) {
   return (
@@ -14,11 +14,11 @@ export default function MyApp( {Component, pageProps} ) {
       </Head>
       <Store>
         <Theme>
-            <ContextProvider>
-              <Header/>
-              <Component {...pageProps} />
-              <Footer/>
-            </ContextProvider>
+          <ContextProvider>
+            <Header/>
+            <Component {...pageProps} />
+            <Footer/>
+          </ContextProvider>
         </Theme>
       </Store>
     </>

@@ -32,7 +32,7 @@ export const GetEmail = memo(
 
     return(
       <>
-        <Title logo beforeText={"Forgot your Password?"}/>
+        <Title logo beforeText={"GetEmail your Password?"}/>
         <Description>
           Enter your email address and we'll send you a verification code to reset your password.
         </Description>

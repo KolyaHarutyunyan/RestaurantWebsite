@@ -1,32 +1,20 @@
 import * as authTypes from './auth.types'
 
-export const signUp = (user) => {
-    return {
-        type: authTypes.SIGNUP,
-        payload: user,
-    };
-};
+export const signUp = ( user ) => ( {
+  type: authTypes.SIGNUP,
+  payload: user,
+} )
 
-export const signIn = (user) => {
-    return {
-        type: authTypes.SIGNIN,
-        payload: user,
-    };
-};
+export const signIn = ( user ) => ( {
+  type: authTypes.SIGNIN,
+  payload: user,
+} )
 
-export const signOut = () => {
-    return {
-        type: authTypes.SIGNOUT,
-    };
-};
+export const signOut = () => ( {
+  type: authTypes.SIGNOUT,
+} )
 
-export const checkAuth = (accessToken, username) => {
-    return {
-        type: authTypes.CHECK_AUTH,
-        payload: {
-            username, accessToken
-        },
-    };
-};
-
-
+export const checkAuths = accessToken => ( {
+  type: authTypes.CHECK_AUTH,
+  payload: accessToken,
+} )

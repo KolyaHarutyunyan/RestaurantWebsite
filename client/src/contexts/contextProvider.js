@@ -1,16 +1,21 @@
 import { createContext } from "react"
 import { IconProvider } from "./icons"
-
+import { ModalProvider } from "./modal"
 
 
 export const Context = createContext()
 
 export const ContextProvider = ( {children} ) =>
-  <Context.Provider   value={{}}>
+  <Context.Provider value={{}}>
     <IconProvider>
-      {children}
+      <ModalProvider>
+        {children}
+      </ModalProvider>
     </IconProvider>
   </Context.Provider>
+
+
+
 
 
 
