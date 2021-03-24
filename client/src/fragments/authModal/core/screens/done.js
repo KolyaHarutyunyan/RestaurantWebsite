@@ -27,7 +27,7 @@ export const Done = ({type,close}) =>{
   return(
     <>
       <Title {...data.title}/>
-      <Styled.Description>{data.description}</Styled.Description>
+      <Styled.Description mt={8}>{data.description}</Styled.Description>
       <Button className={classes.submit} onClick={close}>Done</Button>
     </>
   )

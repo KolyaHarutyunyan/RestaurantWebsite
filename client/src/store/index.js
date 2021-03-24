@@ -8,8 +8,9 @@ export { API_BASE } from './constants';
 //     editProfile,
 //     setUser,
 // };
-
-import {signIn, signOut, signUp } from './auth'
-export const authActions = {
-    signIn, signOut, signUp 
-}
+//
+// import {signIn, signOut, signUp } from './auth'
+// export const authActions = {
+//     signIn, signOut, signUp
+// }
+export { authActions } from "./auth"

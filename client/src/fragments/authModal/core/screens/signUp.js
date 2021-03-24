@@ -74,7 +74,8 @@ export const SignUp = ( {open} ) => {
       <Form data={formData}/>
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign up"}/>
-      <Button className={classes.lineBtn} onClick={() => open.signIn()}> Already have an account? Sign In</Button>
+      <Button className={classes.lineBtn+" mt24"} onClick={() => open.signIn()}> Already have an account? Sign In</Button>
+      <Styled.Description mt={24}>By signing up, you agree to <Button className={classes.lineBtn}>Terms of Use</Button> and  <Button className={classes.lineBtn}>Privacy Policy</Button></Styled.Description>
     </>
   )
 }

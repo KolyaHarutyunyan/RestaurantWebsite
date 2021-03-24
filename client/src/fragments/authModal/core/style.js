@@ -10,18 +10,17 @@ export const useAuthStyles = makeStyles((theme) => ({
       margin: "20px",
       borderRadius: "32px",
 
-        maxWidth: '548px !important',
-        padding:"68px 48px",
-
+      maxWidth: '548px !important',
+      padding: "64px 8px 64px 48px",
+      overflow: "hidden",
       [theme.breakpoints.down('md')]: {
         maxWidth: '464px !important',
-        padding:"68px 32px"
+        padding: "64px 8px 64px 32px"
       },
       [theme.breakpoints.down('xs')]: {
         maxWidth: '464px !important',
-        padding:"68px 16px"
+        padding: "32px 16px"
       },
-
 
 
       '& .MuiDialogContent-root': {
@@ -63,12 +62,49 @@ export const useAuthStyles = makeStyles((theme) => ({
     alignItems: "center",
     transition: "all 1s",
     opacity: 1,
-    width: "100%",
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '464px !important',
+      paddingRight: "16px",
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingRight: "0",
+    },
+    paddingRight: "32px",
+    height: "100%",
+    overflow: "hidden auto",
+    "&::-webkit-scrollbar": {
+      width: "8px",
+      borderRadius: "5px",
+    },
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "#9993",
+      borderRadius: "5px",
+
+    },
+    "&::-webkit-scrollbar-thumb": {
+      width: "10px",
+      borderRadius: "10px",
+      background: "linear-gradient(#9993,#4444,#9993)",
+      transition: "all .5s",
+      cursor: "pointer",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      background: "#4444"
+    },
+    "&:hover::-webkit-scrollbar-thumb": {
+      background: "#4444"
+    }
     // padding: "32px 16px",
   },
   submit: {
     width: "100%",
     height: "48px",
+    font: "normal normal 600 16px/22px Open Sans",
+    [theme.breakpoints.down('xs')]: {
+      height: "42px",
+      font: "normal normal 600 14px/19px Open Sans",
+
+    },
     borderRadius: "25px",
     border: "0 !important",
     cursor: "pointer",
@@ -84,12 +120,21 @@ export const useAuthStyles = makeStyles((theme) => ({
   },
   lineBtn: {
     color: theme.palette.action.main,
-    marginTop: "24px",
+    "&:hover": {
+      textDecoration: "underline",
+      background: "unset"
+    },
     "&.dark": {
       color: theme.palette.text.primary,
+    },
+    "&.mt24":{
+      marginTop:"24px",
+    },
+    "&.mt16":{
+      marginTop:"16px",
     }
   },
-  backIcon:{
+  backIcon: {
     width: '30px',
     height: '30px',
     position: 'absolute',
@@ -121,21 +166,25 @@ export const TitleBlock = styled.div`
 
   p {
     &.after, &.before {
+      font: normal normal bold 24px/35px Poppins;
       margin: 0;
-      font-size: 22px;
+
       @media (max-width: 768px) {
-        font-size: 18px;
+        font: normal normal bold 18px/27px Poppins;
       }
-      font-family: 'Poppins', sans-serif;
+
     }
 
     &.before {
       margin-top: 24px;
     }
+
+    &.after {
+      margin-bottom: 24px;
+    }
   }
 
   .icon-Logo {
-    margin: 24px 0 0;
     width: 60px;
     height: 60px;
     @media (min-width: 768px) {
@@ -180,7 +229,7 @@ export const InputBlock = styled.div`
   }
 
   &.error {
-    border: 1px solid #FF453A;
+    border: 2px solid #FF453A;
   }
 
   .content {
@@ -220,6 +269,7 @@ export const InputBlockIcon = styled.div`
 export const Input = styled.input`
   display: block;
   height: 100%;
+  margin-left: 8px;
   width: calc(100% - ${props => props.w !== undefined ? props.w : '34'}px);
   line-height: 100%;
   font-size: ${props => props.fs || 14}px;
@@ -280,16 +330,13 @@ export const ErrorMessage = styled.p`
   width: fit-content;
   background-color: #fff;
   text-align: left;
-  margin: -10px 0 0 50px;
-  height: 20px;
-  line-height: 20px;
+  margin: 6px 0 0 48px;
+  line-height: 17px;
   color: #FF453A;
   padding: 0 10px;
-  font-size: 10px;
   display: block;
-  @media (min-width: 768px) {
-    font-size: 12px !important;
-  }
+  font-size: 12px !important;
+
 `
 export const Or = styled.div`
   width: 100%;
@@ -344,8 +391,14 @@ export const SocialBlock = styled.div`
 
 export const Description = styled.p`
   text-align: center;
-  font: normal normal normal 14px/21px Open Sans;
-  span{
+ 
+  font: normal normal normal 16px/24px Open Sans;
+  @media (max-width: 768px) {
+    font: normal normal normal 14px/21px Open Sans;
+  }
+  margin: 0;
+  ${({mt}) => mt && `margin-top: ${mt}px`}; 
+  span {
     width: 100%;
     text-align: center;
     color: ${theme.palette.action.main};

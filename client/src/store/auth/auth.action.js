@@ -1,20 +1,21 @@
-import * as authTypes from './auth.types'
+import * as authTypes  from './auth.types'
 
 export const signUp = ( user ) => ( {
-  type: authTypes.SIGNUP,
+  type: authTypes.SIGN_UP,
   payload: user,
 } )
 
 export const signIn = ( user ) => ( {
-  type: authTypes.SIGNIN,
+  type: authTypes.SIGN_IN,
   payload: user,
 } )
 
 export const signOut = () => ( {
-  type: authTypes.SIGNOUT,
+  type: authTypes.SIGN_OUT,
 } )
 
-export const checkAuths = accessToken => ( {
-  type: authTypes.CHECK_AUTH,
-  payload: accessToken,
+
+export const checkAuthScreen = payload => ( {
+  type: authTypes.CHANGE_AUTH_TYPE,
+  payload,
 } )

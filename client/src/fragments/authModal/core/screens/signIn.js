@@ -69,7 +69,7 @@ export const SignIn = ( {open} ) => {
       <Title afterText="Welcome to Menuz" />
 
       <Form data={formData}/>
-      <Button className={classes.lineBtn+" dark"} onClick={getEmail}> Forgot Password? </Button>
+      <Button className={classes.lineBtn+" dark mt16"} onClick={getEmail}> Forgot Password? </Button>
 
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign in"}/>
