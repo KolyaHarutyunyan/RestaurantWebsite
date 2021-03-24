@@ -16,4 +16,5 @@ export const SVGNames = {
   Password:"Password",
   DonePassword:"DonePassword",
   DoneRestaurant:"DoneRestaurant",
+  Back:"Back",
 }

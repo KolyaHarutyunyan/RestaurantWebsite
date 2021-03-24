@@ -1,4 +1,4 @@
-import { Form, OR, Socials, Title, useAuthStyles } from ".."
+import { Form, OR, Socials, Styled, Title, useAuthStyles } from ".."
 import { SVGNames } from "@eachbase/constants"
 import {check ,change } from "@eachbase/utils"
 import { Button, Input } from "@material-ui/core"
@@ -19,12 +19,12 @@ export const SignIn = ( {open} ) => {
   /** Connecting to the store */
   const dispatch = useDispatch();
   const handleSubmit = () => { 
-    if(!userData.email.error || !userData.password.error){
-        const payload = {
+    if(!userData.email.error && !userData.password.error){
+        const user = {
         email: userData.email.value,
-        password: userData.email.password
+        password: userData.password.value
       };
-      dispatch(authActions.signIn({payload}))
+      dispatch(authActions.signIn({user}))
     }   
   }
 
@@ -71,7 +71,7 @@ export const SignIn = ( {open} ) => {
       <Form data={formData}/>
       <Button className={classes.lineBtn+" dark"} onClick={getEmail}> Forgot Password? </Button>
 
-      <OR/>
+      <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign in"}/>
       <Button className={classes.lineBtn} onClick={open.signUp}> Doesn't have an account? Sign Up</Button>
     </>

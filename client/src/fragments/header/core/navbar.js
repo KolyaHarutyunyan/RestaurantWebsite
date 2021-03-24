@@ -3,26 +3,26 @@ import { Box, Button } from "@material-ui/core"
 import { CreateMenu, useHeaderStyles } from "."
 import { SVGNames } from "@eachbase/constants"
 import { Icon } from "@eachbase/components"
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
-import {authActions} from '@eachbase/store'
-=======
 import { ModalContext } from "@eachbase/context";
->>>>>>> 79fba9b11727692fc59a031dcf58fba855351fda
+
+
+
+
+
 
 
 export const Navbar = memo(
   ( {toggle, isMobile, user, status} ) => {
     let classes = useHeaderStyles()
-<<<<<<< HEAD
-    let openAuth = () => { }
-    const dispatch = useDispatch()
 
-    let handlerClick = (formData)=>{
-      dipatch(authActions.signUp(formData))
-    }
+
+    // const dispatch = useDispatch()
+
+    // let handlerClick = (formData)=>{
+    //   dipatch(authActions.signUp(formData))
+    // }
     
-=======
+
 
     let {openModal} = useContext(ModalContext)
     let openAuth = () => openModal.auth()
@@ -33,7 +33,7 @@ export const Navbar = memo(
 
     let handlerClick = () => {
     }
->>>>>>> 79fba9b11727692fc59a031dcf58fba855351fda
+
     return (
       <Box>
         {

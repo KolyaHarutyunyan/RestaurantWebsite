@@ -38,14 +38,15 @@ export const checkIsEmail = ( setState ) => {
     } )
   )
 }
-const passTest = pass => true
+const passTest = pass =>  pass.length > 7 &&  /(?=.*[0-9\?\!\#\.\_\-\+\=])/.test(pass) && /(?=.*[A-Z])/.test(pass) && /(?=.*[a-z])/.test(pass)
+
 
 export const checkIsPass = ( setState ) => {
   setState(current => ( {
       ...current,
       password: {
         ...current.password,
-        error: passTest(current.email.value) ? null : "u can't use this password"
+        error: passTest(current.password.value) ? null : "u can't use this password"
       }
     } )
   )

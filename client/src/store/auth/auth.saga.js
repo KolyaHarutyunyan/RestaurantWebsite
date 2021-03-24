@@ -17,6 +17,7 @@ function* signUpSaga(payload) {
 }
 
 function* signInSaga(payload) {
+    console.log(payload)
     try {
         yield put({ type: appTypes.REQUEST_PENDING });
         const res = yield call(authService.signIn, payload);

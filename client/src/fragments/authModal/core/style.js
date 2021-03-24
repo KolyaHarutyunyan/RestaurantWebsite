@@ -6,15 +6,22 @@ export const useAuthStyles = makeStyles((theme) => ({
   dialog: {
     '& .MuiDialog-paper': {
       width: '100%',
-      padding: 0,
+
       margin: "20px",
       borderRadius: "32px",
-      [theme.breakpoints.up('lg')]: {
+
         maxWidth: '548px !important',
-      },
-      [theme.breakpoints.down('lg')]: {
+        padding:"68px 48px",
+
+      [theme.breakpoints.down('md')]: {
         maxWidth: '464px !important',
+        padding:"68px 32px"
       },
+      [theme.breakpoints.down('xs')]: {
+        maxWidth: '464px !important',
+        padding:"68px 16px"
+      },
+
 
 
       '& .MuiDialogContent-root': {
@@ -57,7 +64,7 @@ export const useAuthStyles = makeStyles((theme) => ({
     transition: "all 1s",
     opacity: 1,
     width: "100%",
-    padding: "32px 16px",
+    // padding: "32px 16px",
   },
   submit: {
     width: "100%",
@@ -338,4 +345,10 @@ export const SocialBlock = styled.div`
 export const Description = styled.p`
   text-align: center;
   font: normal normal normal 14px/21px Open Sans;
+  span{
+    width: 100%;
+    text-align: center;
+    color: ${theme.palette.action.main};
+    display: block;
+  }
 `

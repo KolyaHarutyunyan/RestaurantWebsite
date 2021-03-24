@@ -6,9 +6,9 @@ export { SignUp } from "./screens/signUp"
 export { Done } from "./screens/done"
 export { Title } from "./detals/title"
 export { Form } from "./detals/forms"
-export { OR } from "./detals/or"
+
 export { Socials } from "./detals/socials"
-export { socialData } from "./constants"
+export { socialData,VerifyKeyLength } from "./constants"
 export { GetRestaurant } from "./screens/getRestorant"
 
 
@@ -20,3 +20,4 @@ export const Styled = {
 export {GetEmail} from './screens/getEmail'
 export {Verify} from './screens/verify'
 export {ResetPass} from './screens/resetPass'
+export {VerifyInput} from './detals/verifyInput'

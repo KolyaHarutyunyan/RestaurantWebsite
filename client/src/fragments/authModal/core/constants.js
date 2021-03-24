@@ -18,3 +18,5 @@ export const socialData= title =>({
     },
   ]
 } )
+
+export const VerifyKeyLength= 6

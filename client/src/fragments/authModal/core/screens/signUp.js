@@ -1,8 +1,10 @@
-import { Title, Form, OR, Socials, useAuthStyles } from "..";
+import { Title, Form, OR, Socials, useAuthStyles, Styled } from "..";
 import { Button } from "@material-ui/core";
 import { SVGNames } from "@eachbase/constants";
 import { useState } from "react";
 import { change ,check } from "@eachbase/utils"
+import { useDispatch } from "react-redux";
+import { authActions } from "@eachbase/store";
 
 
 export const SignUp = ( {open} ) => {
@@ -13,7 +15,21 @@ export const SignUp = ( {open} ) => {
     fullName: {value: "", error: null}
   })
 
+  const dispatch = useDispatch();
+  const handleSubmit =  event => {
 
+    event.preventDefault()
+    console.log("submit")
+    if(!userData.fullName.error &&!userData.email.error && !userData.password.error){
+      const user = {
+        email: userData.email.value,
+        password: userData.password.value,
+        fullName: userData.fullName.value
+      };
+      // dispatch(authActions.signUp({user}))
+      open.getRestaurant({notCloseBtn:true,user})
+    }
+  }
   let formData = {
     inputs: [
       {
@@ -46,12 +62,7 @@ export const SignUp = ( {open} ) => {
       }
     ],
     submit: {
-      event: event => {
-        open.getRestaurant({notCloseBtn:true})
-        event.preventDefault()
-        console.log("submit")
-
-      },
+      event:        handleSubmit,
       text: "Continue",
       className: classes.submit
     }
@@ -61,7 +72,7 @@ export const SignUp = ( {open} ) => {
     <>
       <Title afterText="Welcome to Menuz" />
       <Form data={formData}/>
-      <OR/>
+      <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign up"}/>
       <Button className={classes.lineBtn} onClick={() => open.signIn()}> Already have an account? Sign In</Button>
     </>

@@ -1,24 +1,14 @@
 import Axios from 'axios';
-import { API_BASE } from '../constants';
+import { API_BASE } from '..';
 
 const path = `${API_BASE}/auth`;
 
 export const authService = {
-    signUp: (body) => {
-        let endpoint = `${path}/signup`;
-        const res = Axios.post(endpoint, body.user);
-        return res;
-    },
-    signIn: (body) => {
-        let endpoint = `${path}/signin`;
-        const res = Axios.post(endpoint, body.user);
-        return res;
-    },
-    signout: (body) => {
-        let endpoint = `${path}/signout`;
-        const res = Axios.post(endpoint, body.user);
-        return res;
-    },
+    signUp: (body) => Axios.post( `${API_BASE}/auth/signup`, body.user),
+
+    signIn: (body) =>  Axios.post(`${API_BASE}/auth/signin`, body.user),
+
+
     changePassword: (data) => {
         const endpoint = `${path}/changePassword`;
         const res = Axios.post(endpoint, data.data.body, {

@@ -5,10 +5,7 @@ import { Navbar } from "./core/navbar";
 import { useSelector } from "react-redux";
 
 let mobileWidth = 768
-let user = {
-  isAuth:false,
-  fullName: "Vzgo Vzgov"
-}
+
 
 export const Header = memo(
   () => {

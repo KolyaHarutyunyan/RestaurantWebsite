@@ -4,48 +4,49 @@ const initialState = {
   user: {},
   isLoading: false,
   error: false,
-  isAuthenticated: false,
+  isAuthenticated: true,
   accessToken: '',
+  doneRestaurant: false,
+  doneResetPass: false,
 };
 
 
-
-export const authReducer = ( state = initialState, action ) => {
+export const authReducer = (state = initialState, action) => {
 
   switch (action.type) {
-      case types.SIGNUP_SUCCESS:
-          return {
-              ...state,
-              accessToken: action.payload.accessToken,
-              error: false,
-              isAuthenticated: true,
-          };
-      case types.SIGNUP_ERROR:
-          return { ...state, error: action.payload.message };
-      case types.SIGNIN_SUCCESS:
-          return {
-              ...state,
-              accessToken: action.payload.accessToken,
-              error: false,
-              isAuthenticated: true,
-          };
-      case types.SIGNIN_ERROR:
-          return { ...state, error: action.payload.message };
-      case types.SIGNOUT_SUCCESS:
-          return { ...state, user: {}, accessToken: '', isAuthenticated: false, error: false };
-      case types.SIGNOUT_ERROR:
-          return { ...state, error: action.payload.message };
-      case types.CHECK_AUTH_SUCCESS:
-          return {
-              ...state,
-              user: action.payload.user,
-              accessToken: action.payload.accessToken,
-              error: false,
-              isAuthenticated: true,
-          };
-      case types.CHECK_AUTH_ERROR:
-          return { ...state, error: action.payload.message };
-      default:
-          return state;
+    case types.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        error: false,
+        isAuthenticated: true,
+      };
+    case types.SIGNUP_ERROR:
+      return {...state, error: action.payload.message};
+    case types.SIGNIN_SUCCESS:
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        error: false,
+        isAuthenticated: true,
+      };
+    case types.SIGNIN_ERROR:
+      return {...state, error: action.payload.message};
+    case types.SIGNOUT_SUCCESS:
+      return {...state, user: {}, accessToken: '', isAuthenticated: false, error: false};
+    case types.SIGNOUT_ERROR:
+      return {...state, error: action.payload.message};
+    case types.CHECK_AUTH_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+        error: false,
+        isAuthenticated: true,
+      };
+    case types.CHECK_AUTH_ERROR:
+      return {...state, error: action.payload.message};
+    default:
+      return state;
   }
 };

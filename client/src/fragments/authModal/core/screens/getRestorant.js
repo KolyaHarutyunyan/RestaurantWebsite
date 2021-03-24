@@ -1,16 +1,33 @@
 import { Form, Title, useAuthStyles } from "..";
 import { change, check } from "@eachbase/utils"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { authActions } from "@eachbase/store";
+import { useDispatch, useSelector } from "react-redux";
 
 
-export const GetRestaurant = ({close,open}) => {
+export const GetRestaurant = ({close, open, user}) => {
   let [restaurantData, setRestaurantData] = useState({
     name: {value: "", error: null},
     description: {value: "", error: null},
     logo: {value: "", error: null}
   })
 
+  const dispatch = useDispatch();
   let classes = useAuthStyles()
+  let handlerSubmit = event => {
+    event.preventDefault()
+    if ( !restaurantData.name.error && !restaurantData.description.error && !restaurantData.logo.error ) {
+      user = {
+        ...user,
+        name: restaurantData.name.value,
+        description: restaurantData.description.value,
+        logo: restaurantData.logo.value
+      };
+      dispatch(authActions.signUp({user}))
+      open.getRestaurant({notCloseBtn: true, user})
+    }
+  }
+
   let formData = {
     inputs: [
       {
@@ -49,16 +66,16 @@ export const GetRestaurant = ({close,open}) => {
 
     ],
     submit: {
-      event: event => {
-        event.preventDefault()
-        open.done({type:"restaurant"})
-        console.log("submit")
-        // close()
-      },
+      event: handlerSubmit,
       text: "Save",
       className: classes.submit + " brd8"
     }
   }
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+  }, [auth.done])
+
 
   return (
     <>
