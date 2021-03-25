@@ -1,9 +1,9 @@
 import { createContext } from "react"
-import { IconProvider } from "./icons"
+import { IconProvider } from "./icons/IconProvider"
 import { ModalProvider } from "./modal"
 
 
-export const Context = createContext()
+const Context = createContext()
 
 export const ContextProvider = ( {children} ) =>
   <Context.Provider value={{}}>

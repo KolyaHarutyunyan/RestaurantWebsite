@@ -1,8 +1,7 @@
-import { VerifyKeyLength } from "..";
-import { useRef } from "react";
+ import { useRef } from "react";
 
 export const VerifyInput =
-		({verifyKey, onChange,error,onBlur}) => {
+		({VerifyKeyLength=6,verifyKey, onChange,error,onBlur}) => {
 			let inputs = [...Array(VerifyKeyLength).keys()].map(id => useRef())
 			const getKey = (value, id) => {
 				let newVerifyKey = id ? verifyKey.slice(0, id) : ""

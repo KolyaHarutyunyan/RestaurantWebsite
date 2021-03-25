@@ -1,13 +1,15 @@
-import { Form, OR, Socials, Styled, Title, useAuthStyles } from ".."
+import { Socials, Styled, Title, useAuthStyles } from ".."
 import { SVGNames } from "@eachbase/constants"
-import {check ,change } from "@eachbase/utils"
-import { Button, Input } from "@material-ui/core"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { check, change } from "@eachbase/utils"
+import { Button } from "@material-ui/core"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { authActions } from '@eachbase/store'
+import { Input } from "@eachbase/components"
 
+let clicked = false
 
-export const SignIn = ( {open} ) => {
+export const SignIn = ({open,close}) => {
 
   let classes = useAuthStyles()
 
@@ -18,58 +20,58 @@ export const SignIn = ( {open} ) => {
 
   /** Connecting to the store */
   const dispatch = useDispatch();
-  const handleSubmit = () => { 
-    if(!userData.email.error && !userData.password.error){
-        const user = {
+  const handleSubmit = event => {
+    event.preventDefault()
+    console.log("submit")
+    if ( !userData.email.error && !userData.password.error ) {
+      const user = {
         email: userData.email.value,
         password: userData.password.value
       };
       dispatch(authActions.signIn({user}))
-    }   
-  }
-
-  let formData = {
-    inputs: [
-      {
-        key: 0,
-        type: "email",
-        icon: SVGNames.Email,
-        ...userData.email,
-        onChange:value=>change.email(value,setUserData),
-        onBlur:()=>check.email(setUserData),
-        placeholder: "Email",
-      },
-      {
-        key: 1,
-        type: "password",
-        icon: SVGNames.Password,
-        ...userData.password,
-        onChange: value=>change.pass(value,setUserData),
-        onBlur:()=>check.pass(setUserData),
-        placeholder: "Password",
-      }
-
-    ],
-    submit: {
-      event: event => {
-        event.preventDefault()
-        console.log("submit")
-        handleSubmit();
-      },
-      text: "Continue",
-      className: classes.submit
+      clicked = !clicked
     }
   }
+  const auth = useSelector(state=>state.auth)
 
-  let getEmail = ()=>open.getEmail({notCloseBtn:true,hasBackBtn:true,backTo:"signIn"})
+  console.log("auht from sign in",auth)
+
+  useEffect(()=>{
+    if(clicked && auth.isAuthenticated) {
+      console.log("closing")
+      close()
+    }
+  },[auth.isAuthenticated])
+
 
   return (
 
     <>
-      <Title afterText="Welcome to Menuz" />
+      <Title afterText="Welcome to Menuz"/>
+      <Styled.FormBlock onSubmit={e => handleSubmit(e)}>
+        <Input.email
+          icon={SVGNames.Email}
+          {...userData.email}
+          onChange={value => change.email(value, setUserData)}
+          onBlur={() => check.email(setUserData)}
+          placeholder="Email"
+        />
+        <Input.pass
+          icon={SVGNames.Password}
+          {...userData.password}
+          onChange={value => change.pass(value, setUserData)}
+          onBlur={() => check.pass(setUserData)}
+          placeholder="Password"
+        />
+        {
+          auth.error && <Styled.Description red>{auth.error}</Styled.Description>
+        }
+        <Button className={classes.submit} onClick={e => handleSubmit(e)} onSubmit={e => handleSubmit(e)}>
+          Continue
+        </Button>
+      </Styled.FormBlock>
 
-      <Form data={formData}/>
-      <Button className={classes.lineBtn+" dark mt16"} onClick={getEmail}> Forgot Password? </Button>
+      <Button className={classes.lineBtn + " dark mt16"} onClick={open.getEmail}> Forgot Password? </Button>
 
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign in"}/>

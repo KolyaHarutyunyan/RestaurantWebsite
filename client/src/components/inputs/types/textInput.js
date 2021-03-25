@@ -3,27 +3,25 @@ import { Styled } from "..";
 import { Icon } from "@eachbase/components";
 import { SVGNames } from "@eachbase/constants";
 
-
 const EF = () => {
 }
-
-export const Inputs = memo(
-  ( {
-      type,
-      isDisabled,
-      error,
-      icon,
-        brdType,
-      blockTitle,
-      important,
-      brd,
-      value,
-      onChange,
-      blockDescription,
-      onFocus = EF,
-      onBlur = EF,
-      placeholder,
-    } ) => {
+export const TextInput =   memo(
+  ({
+     type,
+     isDisabled,
+     error,
+     icon,
+     brdType,
+     blockTitle,
+     important,
+     brd,
+     value,
+     onChange,
+     blockDescription,
+     onFocus = EF,
+     onBlur = EF,
+     placeholder,
+   }) => {
     let [isVisible, setIsVisible] = useState(false)
     let [isFocused, setIsFocused] = useState(false)
 
@@ -45,8 +43,8 @@ export const Inputs = memo(
 
 
         <Styled.InputBlock brd={brd} h={type === "textarea" && 130} brdType={brdType}
-                           className={( isDisabled ? " disabled" : "" ) + ( isFocused ? " focused" : "" ) + ( error ? " error" : "" )}>
-          <div className={`content ${( important && !value.length ) ? "important" : ""}`}>
+                           className={(isDisabled ? " disabled" : "") + (isFocused ? " focused" : "") + (error ? " error" : "")}>
+          <div className={`content ${(important && !value.length) ? "important" : ""}`}>
             {
               icon &&
               <Styled.InputBlockIcon>

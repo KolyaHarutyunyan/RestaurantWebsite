@@ -1,44 +1,74 @@
 import { Box, Dialog, IconButton } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
-import { SignIn, SignUp, GetRestaurant, useAuthStyles, Done, GetEmail, Verify, ResetPass } from "./core"
+import { Screens, useAuthStyles } from "./core"
 import { memo, useState } from "react"
-import { Icon} from "@eachbase/components"
-import {SVGNames} from "@eachbase/constants"
+import { Icon } from "@eachbase/components"
+import { SVGNames } from "@eachbase/constants"
+import { useDispatch } from "react-redux";
+import { authActions } from "@eachbase/store";
 
 const screens = {
-  signIn: "signIn",
-  signUp: "signUp",
-  getEmail: "getEmail",
-  getRestaurant: "getRestaurant",
-  done: "done",
-  verify: "verify",
-  resetPass: "resetPass"
+  signIn: "SignIn",
+  signUp: "SignUp",
+  getEmail: "RetEmail",
+  getRestaurant: "RetRestaurant",
+  done: "Done",
+  verify: "Verify",
+  resetPass: "ResetPass"
 }
 
 export const AuthModal = memo(
-  ( {status, close} ) => {
+  ({status, close}) => {
     let classes = useAuthStyles()
 
-    let [activeScreen, setActiveScreen] = useState({
-      type: screens.signIn,
-      props: {}
-    })
 
-    let selectScreen = (type,props={})=>setActiveScreen({type,props})
+    let selectScreen = (type, props = {}) => {
+      // dispatch(authActions.cleanError())
+      setActiveScreen({type, props})
+    }
+    const dispatch = useDispatch();
 
     let open = {
-      signIn: ()=>selectScreen(screens.signIn),
-      signUp: ()=>selectScreen(screens.signUp),
-      getEmail: props=>selectScreen(screens.getEmail,props),
-      verify: ()=>selectScreen(screens.verify),
-      resetPass: ()=>selectScreen(screens.resetPass),
-      getRestaurant: props=>selectScreen(screens.getRestaurant,props),
-      done: props=>selectScreen(screens.done,props),
+      signIn: () => selectScreen(screens.signIn),
+      signUp: () => selectScreen(screens.signUp),
+      getEmail: props => selectScreen(screens.getEmail, {
+        ...props,
+        notCloseBtn: true,
+        hasBackBtn: true,
+        backTo: screens.signIn
+      }),
+      verify: props => selectScreen(screens.verify, {
+        ...props,
+        notCloseBtn: true,
+        hasBackBtn: true,
+        backTo: screens.getEmail
+      }),
+      resetPass: () => selectScreen(screens.resetPass),
+      getRestaurant: props => selectScreen(screens.getRestaurant, {...props, notCloseBtn: true,}),
+      done: props => selectScreen(screens.done, props),
     }
-    let selfClose = ()=>{
+    let selfClose = () => {
       close()
-      setTimeout(()=>selectScreen(screens.signIn),100)
+      // dispatch(authActions.cleanError())
+      setTimeout(() => selectScreen(screens.signIn), 100)
     }
+
+    let [activeScreen, setActiveScreen] = useState({
+      type: screens.done,
+      props: {
+        type: "restaurant",
+        open,
+        close: selfClose
+      },
+
+    })
+
+    let  ActiveScreen = (props)=>{
+      let Screen = Screens[activeScreen.type]
+      return Screen ? <Screen {...props} {...activeScreen.props}/>:<></>
+    }
+
+
     console.log(activeScreen)
     return (
       <Dialog
@@ -47,17 +77,17 @@ export const AuthModal = memo(
         // onClose={selfClose}
       >
         {
-           activeScreen.props.hasBackBtn ?
+          activeScreen.props.hasBackBtn ?
             <IconButton
               aria-label="back"
               className={classes.backIcon}
-              onClick={open[ activeScreen.props.backTo || "signIn"]}>
-              <Icon name="Back"/>
+              onClick={open[activeScreen.props.backTo || "signIn"]}>
+              <Icon name={SVGNames.Back}/>
             </IconButton>
             : null
         }
         {
-          ! activeScreen.props.notCloseBtn ?
+          !activeScreen.props.notCloseBtn ?
             <IconButton
               aria-label="close"
               className={classes.closeIcon}
@@ -67,13 +97,7 @@ export const AuthModal = memo(
             : null
         }
         <Box className={classes.authBox}>
-          {activeScreen.type === screens.signIn && <SignIn {...activeScreen.props} open={open}/>}
-          {activeScreen.type === screens.signUp && <SignUp {...activeScreen.props} open={open}/>}
-          {activeScreen.type === screens.getRestaurant && <GetRestaurant {...activeScreen.props}  open={open}/>}
-          {activeScreen.type === screens.done && <Done {...activeScreen.props} close={selfClose} open={open}/>}
-          {activeScreen.type === screens.getEmail && <GetEmail {...activeScreen.props} close={selfClose} open={open}/>}
-          {activeScreen.type === screens.verify && <Verify {...activeScreen.props} open={open}/>}
-          {activeScreen.type === screens.resetPass && <ResetPass {...activeScreen.props} open={open}/>}
+          <ActiveScreen/>
         </Box>
       </Dialog>
     )

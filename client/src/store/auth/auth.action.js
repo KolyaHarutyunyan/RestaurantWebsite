@@ -14,8 +14,7 @@ export const signOut = () => ( {
   type: authTypes.SIGN_OUT,
 } )
 
-
-export const checkAuthScreen = payload => ( {
-  type: authTypes.CHANGE_AUTH_TYPE,
-  payload,
+export const cleanError = () => ( {
+  type: authTypes.SIGN_ERROR_CLEAN,
 } )
+

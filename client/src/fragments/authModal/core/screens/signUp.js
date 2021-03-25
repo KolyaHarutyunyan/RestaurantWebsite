@@ -1,11 +1,13 @@
-import { Title, Form, OR, Socials, useAuthStyles, Styled } from "..";
+import { Title,  Socials, useAuthStyles, Styled } from "..";
 import { Button } from "@material-ui/core";
 import { SVGNames } from "@eachbase/constants";
-import { useState } from "react";
+import {Input} from "@eachbase/components"
+import { useEffect, useState } from "react";
 import { change ,check } from "@eachbase/utils"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "@eachbase/store";
 
+let clicked = false
 
 export const SignUp = ( {open} ) => {
   let classes = useAuthStyles()
@@ -16,8 +18,10 @@ export const SignUp = ( {open} ) => {
   })
 
   const dispatch = useDispatch();
-  const handleSubmit =  event => {
+  const auth = useSelector(state=>state.auth)
 
+
+  const handleSubmit =  event => {
     event.preventDefault()
     console.log("submit")
     if(!userData.fullName.error &&!userData.email.error && !userData.password.error){
@@ -26,52 +30,58 @@ export const SignUp = ( {open} ) => {
         password: userData.password.value,
         fullName: userData.fullName.value
       };
-      // dispatch(authActions.signUp({user}))
-      open.getRestaurant({notCloseBtn:true,user})
+      dispatch(authActions.signUp({user}))
     }
   }
-  let formData = {
-    inputs: [
-      {
-        key: 0,
-        type: "text",
-        icon: SVGNames.Profile,
-        ...userData.fullName,
-        onChange: value =>change.text("fullName",value,setUserData),
-        onBlur: () => check.text("fullName",setUserData),
 
-        placeholder: "Full Name",
-      },
-      {
-        key: 1,
-        type: "email",
-        icon: SVGNames.Email,
-        ...userData.email,
-        onChange: value => change.email(value, setUserData),
-        onBlur: () => check.email(setUserData),
-        placeholder: "Email",
-      },
-      {
-        key: 2,
-        type: "password",
-        icon: SVGNames.Password,
-        ...userData.password,
-        onChange: value => change.pass(value, setUserData),
-        onBlur:()=>check.pass(setUserData),
-        placeholder: "Password",
-      }
-    ],
-    submit: {
-      event:        handleSubmit,
-      text: "Continue",
-      className: classes.submit
+
+
+  useEffect(()=>{
+    if(clicked && auth.isAuthenticated) {
+      const user = {
+        email: userData.email.value,
+        password: userData.password.value,
+        fullName: userData.fullName.value
+      };
+      open.getRestaurant({user})
     }
-  }
+  },[auth.isAuthenticated])
+
 
   return (
     <>
       <Title afterText="Welcome to Menuz" />
-      <Form data={formData}/>
+      <Styled.FormBlock onSubmit={e => handleSubmit(e)}>
+        <Input.email
+          icon={SVGNames.Profile}
+          {...userData.fullName}
+          onChange={value => change.text("fullName",value, setUserData)}
+          onBlur={() => check.text("fullName",setUserData)}
+          placeholder="Full Name"
+        />
+        <Input.email
+          icon={SVGNames.Email}
+          {...userData.email}
+          onChange={value => change.email(value, setUserData)}
+          onBlur={() => check.email(setUserData)}
+          placeholder="Email"
+        />
+        <Input.pass
+          icon={SVGNames.Password}
+          {...userData.password}
+          onChange={value => change.pass(value, setUserData)}
+          onBlur={() => check.pass(setUserData)}
+          placeholder="Password"
+        />
+        {
+          auth.error && <Styled.Description red>{auth.error}</Styled.Description>
+        }
+        <Button className={classes.submit} onClick={e => handleSubmit(e)} onSubmit={e => handleSubmit(e)}>
+          Continue
+        </Button>
+      </Styled.FormBlock>
+
+
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign up"}/>
       <Button className={classes.lineBtn+" mt24"} onClick={() => open.signIn()}> Already have an account? Sign In</Button>

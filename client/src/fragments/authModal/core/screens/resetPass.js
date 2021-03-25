@@ -1,4 +1,4 @@
-import { Form, Styled, Title, useAuthStyles } from "..";
+import {  Styled, Title, useAuthStyles } from "..";
 import { SVGNames } from "@eachbase/constants";
 import { change, check } from "@eachbase/utils";
 import { useState } from "react";
@@ -48,7 +48,7 @@ export const ResetPass = ({open}) => {
 		<>
 			<Title beforeText={"Reset Password"}/>
 			<Styled.Description>Enter your new password. Use at least 8 characters, 1 upper case and 1 digit.</Styled.Description>
-			<Form data={formData}/>
+			{/*<Form data={formData}/>*/}
 		</>
 	)
 }

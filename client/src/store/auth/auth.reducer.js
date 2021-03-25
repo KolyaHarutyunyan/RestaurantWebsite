@@ -1,16 +1,14 @@
-import * as authTypes  from './auth.types'
+import * as authTypes from './auth.types'
 
 import { AuthScreenTypes } from "@eachbase/constants";
+import { getLocalFileName } from "next/dist/build/webpack/plugins/webpack-conformance-plugin/utils/file-utils";
 
 const initialState = {
-  isLoading: false,
+
   error: false,
   isAuthenticated: false,
-  accessToken: '',
-  activeScreen: {
-    type: AuthScreenTypes.signIn,
-    props: {type:"restaurant"}
-  }
+
+
 };
 
 console.log(authTypes)
@@ -18,24 +16,34 @@ console.log(authTypes)
 export const authReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case authTypes.CHANGE_AUTH_TYPE:
-      console.log("auth reducer", action)
+
+    case authTypes.SIGN_ERROR:
+      return {isAuthenticated: false, error: action.payload.message};
+    case authTypes.SIGN_ERROR_CLEAN:
+      console.log(action)
+
+      return {isAuthenticated: false, error: false};
+    case authTypes.SIGN_IN  : {
+      console.log(action)
+
       return {
-        ...state,
-        activeScreen: {
-          type:action.payload.type,
-          props: action.payload.props || {}
-        }
+        error: false,
+        isAuthenticated: true,
       };
-    // case types.SIGNUP_ERROR:
-    //   return {...state, error: action.payload.message};
-    // case types.SIGNIN_SUCCESS:
-    //   return {
-    //     ...state,
-    //     accessToken: action.payload.accessToken,
-    //     error: false,
-    //     isAuthenticated: true,
-    //   };
+    }
+    case authTypes.SIGN_UP: {
+      console.log(action)
+
+      return {
+        error: false,
+        isAuthenticated: true,
+      };
+    }
+    case authTypes.SIGN_OUT:
+      return {
+        error: false,
+        isAuthenticated: false,
+      };
     // case types.SIGNIN_ERROR:
     //   return {...state, error: action.payload.message};
     // case types.SIGNOUT_SUCCESS:

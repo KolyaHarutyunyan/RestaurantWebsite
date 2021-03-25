@@ -1,4 +1,7 @@
-export {ContextProvider} from "./contextProvider"
+import { createContext } from "react";
 
-export {IconContext} from "./icons"
+export {ContextProvider} from "./contextProvider"
+export const IconContext = createContext()
+
+
 export {ModalContext} from "./modal"

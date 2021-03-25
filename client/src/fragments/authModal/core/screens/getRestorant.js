@@ -1,4 +1,4 @@
-import { Form, Title, useAuthStyles } from "..";
+import {  Title, useAuthStyles } from "..";
 import { change, check } from "@eachbase/utils"
 import { useEffect, useState } from "react";
 import { authActions } from "@eachbase/store";
@@ -80,7 +80,7 @@ export const GetRestaurant = ({close, open, user}) => {
   return (
     <>
       <Title afterText="Last Step to Sign Up"/>
-      <Form data={formData}/>
+      {/*<Form data={formData}/>*/}
     </>
   )
 

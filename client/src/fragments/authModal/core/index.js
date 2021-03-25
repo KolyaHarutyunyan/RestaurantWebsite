@@ -1,23 +1,31 @@
-import { TitleBlock,Description, FormBlock,InputTitle, InputBlock, InputDescription,TextArea,SocialBlock, InputBlockIcon, Or, Input, ErrorMessage } from "./style"
+export * as Styled from "./style"
 
 export { useAuthStyles } from "./style"
-export { SignIn } from "./screens/signIn"
-export { SignUp } from "./screens/signUp"
-export { Done } from "./screens/done"
-export { Title } from "./detals/title"
-export { Form } from "./detals/forms"
 
-export { Socials } from "./detals/socials"
-export { socialData,VerifyKeyLength } from "./constants"
-export { GetRestaurant } from "./screens/getRestorant"
+import { SignIn } from "./screens/signIn"
+import { SignUp } from "./screens/signUp"
+import { Done } from "./screens/done"
+import { GetRestaurant } from "./screens/getRestorant"
+import { GetEmail } from './screens/getEmail'
+import { Verify } from './screens/verify'
+import { ResetPass } from './screens/resetPass'
 
-
-export const Styled = {
-  TitleBlock, FormBlock,Description, InputBlock,InputTitle, InputDescription,TextArea,InputBlockIcon, SocialBlock, Input, ErrorMessage, Or
+export const Screens ={
+  SignIn,
+  SignUp,
+  Done,
+  GetRestaurant,
+  GetEmail,
+  Verify,
+  ResetPass,
 }
 
+export { Title } from "./detals/title"
+export { Socials } from "./detals/socials"
+export { socialData, VerifyKeyLength } from "./constants"
 
-export {GetEmail} from './screens/getEmail'
-export {Verify} from './screens/verify'
-export {ResetPass} from './screens/resetPass'
-export {VerifyInput} from './detals/verifyInput'
+
+
+
+
+

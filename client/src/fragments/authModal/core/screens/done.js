@@ -1,4 +1,4 @@
-import {Icon} from "@eachbase/components"
+
 import {SVGNames} from "@eachbase/constants"
 import { Styled, Title, useAuthStyles } from "..";
 import { Button } from "@material-ui/core";

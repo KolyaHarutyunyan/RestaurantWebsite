@@ -1,6 +1,6 @@
 import { memo, useContext } from 'react'
 import { IconContext } from '@eachbase/context'
-import { ArSVGNames } from "../../constants";
+
 import PropTypes from 'prop-types';
 
 
@@ -26,5 +26,8 @@ Icon.propTypes = {
     "Restaurant",
     "ToggleMenu",
     "EyeOn", "EyeOff", "Password", "DonePassword",
-    "DoneRestaurant"])
+    "DoneRestaurant"]),
+  color: PropTypes.string,
+  width: PropTypes.string,
+  height: PropTypes.string,
 }

@@ -4,7 +4,7 @@ export const changeEmail = ( value, setState ) => {
     email: {
       ...current.email,
       value,
-      error: emailTest(value) ? null : "please check your email"
+      // error: emailTest(value) ? null : "please check your email"
 
     }
   } ))
