@@ -2,6 +2,7 @@ import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -22,12 +23,13 @@ export class AuthController {
   /** Sign up a user */
   @Post('signup')
   @ApiBody({ type: SignupDTO })
-  @ApiCreatedResponse({ type: SignedInDTO, description: 'user is created' })
+  @ApiOkResponse({ type: SignedInDTO })
   @ApiResponse({ status: HttpStatus.FOUND, description: 'User Exists' })
   async signup(@Body() signupDTO: SignupDTO): Promise<SignedInDTO> {
-    const token = await this.authService.signup(signupDTO);
+    const auth = await this.authService.signup(signupDTO);
+    console.log(auth);
     const user = await this.userService.create(signupDTO);
-    return new SignedInDTO(token, user);
+    return new SignedInDTO(auth, user);
   }
 }
 /** End of Controller */

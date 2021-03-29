@@ -6,3 +6,4 @@ export { CheckAuthDTO } from './checkAuth.dto';
 export { ChangePassDTO } from './changePass.dto';
 export { PassChangedDTO } from './passChanged.dto';
 export { ResetPassDTO } from './resetPass.dto';
+export { AuthDTO } from './auth.dto';
