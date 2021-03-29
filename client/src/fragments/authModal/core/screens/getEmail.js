@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { Input } from "@eachbase/components";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../../../store";
 
-let clicked = false
+
 export const GetEmail = ({open}) => {
   let classes = useAuthStyles()
   let [userData, setUserData] = useState({
@@ -15,19 +16,22 @@ export const GetEmail = ({open}) => {
   const dispatch = useDispatch();
   let handleSubmit = event => {
     event.preventDefault()
-    if ( !userData.email.error ) {
-      //dispatch
-      clicked = !clicked
-      open.verify({email: userData.email.value})
+
+    if ( userData.email.value ){
+      check.email(setUserData)
     }
+    if( !userData.email.error ) {
+      dispatch(authActions.checkEmail({user: {email: userData.email.value}}))
+    }
+
   }
   const auth = useSelector(state => state.auth)
   useEffect(() => {
-    if ( clicked && auth.isAuthenticated ) {
-      console.log("closing")
-    //  open.verify({email: userData.email.value})
+    if ( auth.key === "sanded" ) {
+     open.Verify({email: userData.email.value})
     }
-  }, [auth.isAuthenticated])
+  }, [auth.key])
+  console.log(auth)
   return (
     <>
       <Title beforeText={"Forgot your Password?"}/>

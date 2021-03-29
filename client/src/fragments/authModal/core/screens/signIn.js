@@ -9,7 +9,8 @@ import { Input } from "@eachbase/components"
 
 let clicked = false
 
-export const SignIn = ({open,close}) => {
+export const SignIn = ({open, close}) => {
+
 
   let classes = useAuthStyles()
 
@@ -23,6 +24,10 @@ export const SignIn = ({open,close}) => {
   const handleSubmit = event => {
     event.preventDefault()
     console.log("submit")
+    if ( !userData.email.value || !userData.password.value ) {
+      check.email(setUserData)
+      check.pass(setUserData)
+    }
     if ( !userData.email.error && !userData.password.error ) {
       const user = {
         email: userData.email.value,
@@ -37,7 +42,7 @@ export const SignIn = ({open,close}) => {
   console.log("auht from sign in",auth)
 
   useEffect(()=>{
-    if(clicked && auth.isAuthenticated) {
+    if(auth.isAuthenticated) {
       console.log("closing")
       close()
     }
@@ -71,11 +76,11 @@ export const SignIn = ({open,close}) => {
         </Button>
       </Styled.FormBlock>
 
-      <Button className={classes.lineBtn + " dark mt16"} onClick={open.getEmail}> Forgot Password? </Button>
+      <Button className={classes.lineBtn + " dark mt16"} onClick={open.GetEmail}> Forgot Password? </Button>
 
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign in"}/>
-      <Button className={classes.lineBtn} onClick={open.signUp}> Doesn't have an account? Sign Up</Button>
+      <Button className={classes.lineBtn} onClick={open.SignUp}> Doesn't have an account? Sign Up</Button>
     </>
   )
 }

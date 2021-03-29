@@ -1,8 +1,8 @@
  import { useRef } from "react";
 
 export const VerifyInput =
-		({VerifyKeyLength=6,verifyKey, onChange,error,onBlur}) => {
-			let inputs = [...Array(VerifyKeyLength).keys()].map(id => useRef())
+		({verifyKeyLength=6,verifyKey, onChange,error,onBlur}) => {
+			let inputs = [...Array(verifyKeyLength).keys()].map(id => useRef())
 			const getKey = (value, id) => {
 				let newVerifyKey = id ? verifyKey.slice(0, id) : ""
 				if ( !value.length ) {
@@ -14,7 +14,7 @@ export const VerifyInput =
 					if ( value.length === 2 ) {
 						newVerifyKey += value[1]
 					}
-					if ( id + 1 < VerifyKeyLength ) {
+					if ( id + 1 < verifyKeyLength ) {
 						inputs[id + 1].current.focus()
 					} else {
 						inputs[id].current.blur()
@@ -28,7 +28,7 @@ export const VerifyInput =
 				<>
 					<div>
 						{
-							[...Array(VerifyKeyLength).keys()].map(id =>
+							[...Array(verifyKeyLength).keys()].map(id =>
 								<div key={id} correct={!error} onPrecc={() => inputs[id].current.focus()}>
 									<input
 										dataDetectorTypes={"phoneNumber"} autoFocus={!id && true}

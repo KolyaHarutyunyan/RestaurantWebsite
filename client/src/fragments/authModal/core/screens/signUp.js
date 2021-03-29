@@ -24,6 +24,11 @@ export const SignUp = ( {open} ) => {
   const handleSubmit =  event => {
     event.preventDefault()
     console.log("submit")
+    if ( !userData.email.value || !userData.password.value|| !userData.fullName.value ) {
+      check.email(setUserData)
+      check.text("fullName",setUserData)
+      check.pass(setUserData)
+    }
     if(!userData.fullName.error &&!userData.email.error && !userData.password.error){
       const user = {
         email: userData.email.value,
@@ -38,12 +43,7 @@ export const SignUp = ( {open} ) => {
 
   useEffect(()=>{
     if(clicked && auth.isAuthenticated) {
-      const user = {
-        email: userData.email.value,
-        password: userData.password.value,
-        fullName: userData.fullName.value
-      };
-      open.getRestaurant({user})
+      open.GetRestaurant()
     }
   },[auth.isAuthenticated])
 
@@ -52,7 +52,7 @@ export const SignUp = ( {open} ) => {
     <>
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={e => handleSubmit(e)}>
-        <Input.email
+        <Input.text
           icon={SVGNames.Profile}
           {...userData.fullName}
           onChange={value => change.text("fullName",value, setUserData)}
@@ -84,7 +84,7 @@ export const SignUp = ( {open} ) => {
 
       <Styled.Or><p>OR</p></Styled.Or>
       <Socials type={"Sign up"}/>
-      <Button className={classes.lineBtn+" mt24"} onClick={() => open.signIn()}> Already have an account? Sign In</Button>
+      <Button className={classes.lineBtn+" mt24"} onClick={open.SignIn}> Already have an account? Sign In</Button>
       <Styled.Description mt={24}>By signing up, you agree to <Button className={classes.lineBtn}>Terms of Use</Button> and  <Button className={classes.lineBtn}>Privacy Policy</Button></Styled.Description>
     </>
   )

@@ -24,7 +24,7 @@ export const ModalProvider = ( {children} ) => {
 
   let open = {
     auth :()=>setModal(current=>({...current,auth:true})),
-    avatar: props=>setModal(current=>({...current,avatar:{status:true,...props}}))
+    avatar: props=>setModal(current=>({...current,avatar:{status:true,props}}))
   }
 
   return (

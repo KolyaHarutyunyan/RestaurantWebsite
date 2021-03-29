@@ -1,6 +1,6 @@
-import { TextInput } from './types/textInput'
-import { TextArea } from "./types/TextArea";
-import { VerifyInput } from "./types/verifyInput";
+import { TextInput } from './textInput'
+import { TextArea } from "./TextArea";
+import { VerifyInput } from "./verifyInput";
 export * as Styled from "./style"
 export const Input = {
   email: props => <TextInput type={"email"} {...props}/>,

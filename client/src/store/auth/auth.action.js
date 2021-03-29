@@ -1,20 +1,12 @@
-import * as authTypes  from './auth.types'
+import { authTypes } from '.'
 
-export const signUp = ( user ) => ( {
-  type: authTypes.SIGN_UP,
-  payload: user,
-} )
-
-export const signIn = ( user ) => ( {
-  type: authTypes.SIGN_IN,
-  payload: user,
-} )
-
-export const signOut = () => ( {
-  type: authTypes.SIGN_OUT,
-} )
-
-export const cleanError = () => ( {
-  type: authTypes.SIGN_ERROR_CLEAN,
-} )
-
+export const authActions = {
+  signUp: payload => ({type: authTypes.SIGN_UP , payload}),
+  signIn: payload => ({type: authTypes.SIGN_IN , payload}),
+  signOut: () => ({type: authTypes.SIGN_OUT }),
+  cleanError: () => ({type: authTypes.CLEAN_ERROR }),
+  checkEmail: payload => ({type: authTypes.CHECK_EMAIL , payload}),
+  checkVerifyKey: payload => ({type: authTypes.CHECK_VERIFY_KEY , payload}),
+  checkResetPass: payload => ({type: authTypes.RESET_PASS , payload}),
+  createRestaurant: payload => ({type: authTypes.CREATE_RESTAURANT , payload}),
+}
