@@ -1,7 +1,6 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiBody,
-  ApiCreatedResponse,
   ApiOkResponse,
   ApiResponse,
   ApiTags,
