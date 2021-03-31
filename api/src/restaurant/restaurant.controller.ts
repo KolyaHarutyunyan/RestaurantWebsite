@@ -17,6 +17,7 @@ import { RestaurantService } from './restaurant.service';
 @ApiTags('Restaurants')
 export class RestaurantController {
   constructor(private readonly restaurantService: RestaurantService) {}
+  
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @UseInterceptors(FileInterceptor('logo'))

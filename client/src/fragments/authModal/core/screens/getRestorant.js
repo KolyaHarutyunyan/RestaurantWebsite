@@ -1,7 +1,7 @@
 import {  Title, useAuthStyles } from "..";
 import { change, check } from "@eachbase/utils"
 import { useEffect, useState } from "react";
-import { authActions } from "@eachbase/store";
+
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -23,7 +23,7 @@ export const GetRestaurant = ({close, open, user}) => {
         description: restaurantData.description.value,
         logo: restaurantData.logo.value
       };
-      dispatch(authActions.signUp({user}))
+      // dispatch(authActions.signUp({user}))
       open.getRestaurant({notCloseBtn: true, user})
     }
   }

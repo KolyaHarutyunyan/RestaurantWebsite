@@ -5,13 +5,13 @@ import { memo, useEffect, useState } from "react"
 import { Icon } from "@eachbase/components"
 import { SVGNames } from "@eachbase/constants"
 import { useDispatch } from "react-redux"
-import { authActions } from "@eachbase/store"
+import { actions } from "@eachbase/store"
 
 const screens = {
   signIn: "SignIn",
   signUp: "SignUp",
   getEmail: "GetEmail",
-  getRestaurant: "RetRestaurant",
+  getRestaurant: "GetRestaurant",
   done: "Done",
   verify: "Verify",
   resetPass: "ResetPass"
@@ -36,7 +36,7 @@ export const AuthModal = memo(
     }
 
     let selectScreen = (type, props = {}) => {
-      dispatch(authActions.cleanError())
+      dispatch(actions.auth.cleanError())
       setActiveScreen({type, props})
     }
     const dispatch = useDispatch();
@@ -67,7 +67,7 @@ export const AuthModal = memo(
     }
     let selfClose = () => {
       close()
-      dispatch(authActions.cleanError())
+
       setTimeout(() => selectScreen(screens.signIn), 100)
     }
 

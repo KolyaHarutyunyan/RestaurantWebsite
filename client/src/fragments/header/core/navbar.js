@@ -48,16 +48,16 @@ export const Navbar = memo(
             <ul className={classes.menu}>
               <li className={classes.listItem}>
                 {
-                  user.isAuthenticated
+                  user.fullName
                     ?
                     <Box className={classes.userButtonContainer}>
                       <Button
                         onClick={toggle}
                         className={classes.userButton + ( status ? " rotated" : "" )}
                       >
-                        <Icon name={SVGNames.user}/>
+                        <Icon name={SVGNames.User}/>
                         {user.fullName}
-                        <Icon name={SVGNames.arrowDown}/>
+                        <Icon name={SVGNames.DownArrow}/>
                       </Button>
 
                     </Box>
@@ -74,7 +74,7 @@ export const Navbar = memo(
               </li>
 
               <li className={classes.listItem}>
-                <CreateMenu isAuthed={user.isAuth} className={classes.button} handlerClick={openAuth}/>
+                <CreateMenu isAuthed={!!user.fullName} className={classes.button} handlerClick={openAuth}/>
               </li>
             </ul>
         }

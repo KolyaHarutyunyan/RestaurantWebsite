@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@eachbase/components";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../../../store";
+// import { authActions } from "../../../../store";
 
 
 export const GetEmail = ({open}) => {
@@ -21,7 +21,7 @@ export const GetEmail = ({open}) => {
       check.email(setUserData)
     }
     if( !userData.email.error ) {
-      dispatch(authActions.checkEmail({user: {email: userData.email.value}}))
+      // dispatch(authActions.checkEmail({user: {email: userData.email.value}}))
     }
 
   }

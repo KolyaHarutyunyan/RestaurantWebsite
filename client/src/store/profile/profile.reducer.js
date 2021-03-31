@@ -1,45 +1,30 @@
-import { UPDATE_AVATAR_ERROR, UPDATE_AVATAR_SUCCESS, EDIT_PROFILE_ERROR, EDIT_PROFILE_SUCCESS, SET_USER } from './profile.types';
+import { profileReducerTypes, profileTypes } from "./profile.types";
 
 const initialState = {
-    isAuthenticated: false,
-    fullName: 'Vzgo Vzgov',
-    email: '',
+  email: "",
+  fullName: "",
+  id: "",
+  role: "",
+
 };
 
 export const profileReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case UPDATE_AVATAR_SUCCESS:
-            return {
-                ...state,
-                avatarUrl: action.payload.avatarUrl,
-                error: false,
-            };
-        case UPDATE_AVATAR_ERROR:
-            return { ...state, error: action.payload.message };
-        case EDIT_PROFILE_SUCCESS:
-            return {
-                ...state,
-                fullName: action.payload.user.fullName,
-                phoneNumber: action.payload.user.phoneNumber,
-                email: action.payload.user.email,
-                error: false,
-            };
-        case EDIT_PROFILE_ERROR:
-            return { ...state, error: action.payload.message };
-        case SET_USER:
-            return {
-                ...state,
-                fullName: action.payload.user.fullName,
-                phoneNumber: action.payload.user.phoneNumber,
-                email: action.payload.user.email,
-                id: action.payload.user.id,
-                avatarUrl: action.payload.user.avatarUrl,
-                password: action.payload.user.password,
-                newPassword: action.payload.user.newPassword,
-                confirmation: action.payload.user.confirmation,
-            };
+  switch (action.type) {
+    case profileReducerTypes.sign.in:
 
-        default:
-            return state;
-    }
+      return {
+        fullName: action.payload.fullName,
+        email: action.payload.email,
+        id: action.payload.id,
+        role: action.payload.role
+      }
+    case profileReducerTypes.sign.out:
+      return {
+        fullName: "",
+        email: ""
+      }
+
+    default:
+      return state;
+  }
 };

@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core"
 import {Input} from "@eachbase/components"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { authActions } from "@eachbase/store"
+
 
 export const Verify = ({open, email}) => {
   email = email || "test@test.com"
@@ -15,7 +15,7 @@ export const Verify = ({open, email}) => {
     event.preventDefault()
 
     if( !verifyKey.error ) {
-      dispatch(authActions.checkEmail({user: {key: verifyKey.value}}))
+      // dispatch(authActions.checkEmail({user: {key: verifyKey.value}}))
     }
 
   }

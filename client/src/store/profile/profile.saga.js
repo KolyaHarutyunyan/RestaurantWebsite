@@ -1,26 +1,29 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { profileService } from './profile.service';
-import * as types from '../profile/profile.types';
 
-function* updateAvatarSaga(payload) {
-    try {
-        const res = yield call(profileService.updateAvatar, payload);
-        yield put({ type: types.UPDATE_AVATAR_SUCCESS, payload: res.data });
-    } catch (err) {
-        yield put({ type: types.UPDATE_AVATAR_ERROR, payload: err });
-    }
+import { profileTypes, profileReducerTypes, profileService } from "."
+
+
+function* profileSignInSaga(payload) {
+
+  yield put({type: profileReducerTypes.sign.in, payload:payload.payload.user})
 }
 
-function* editProfileSaga(payload) {
-    try {
-        const res = yield call(profileService.updateAvatar, payload);
-        yield put({ type: types.EDIT_PROFILE_SUCCESS, payload: res.data });
-    } catch (err) {
-        yield put({ type: types.EDIT_PROFILE_ERROR, payload: err });
-    }
+function* profileSignOutSaga() {
+  yield put({type: profileReducerTypes.sign.out})
+}
+
+function* profileRemoveSaga(payload) {
+  try {
+    let res = yield call(profileService.remove, payload.payload)
+    yield put({type: profileReducerTypes.sign.out})
+  } catch (err) {
+    console.log(err.message)
+  }
+
 }
 
 export function* watchProfile() {
-    yield takeLatest(types.UPDATE_AVATAR, updateAvatarSaga);
-    yield takeLatest(types.EDIT_PROFILE, editProfileSaga);
+  yield takeLatest(profileTypes.sign.in, profileSignInSaga);
+  yield takeLatest(profileTypes.sign.out, profileSignOutSaga);
+  yield takeLatest(profileTypes.remove, profileRemoveSaga);
 }

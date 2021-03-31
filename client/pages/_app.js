@@ -1,10 +1,12 @@
 import Head from 'next/head'
-import { Theme } from "@eachbase/theme"
+import { Theme, useGlobalStyles } from "@eachbase/theme"
 import { Store } from "@eachbase/store"
 import { Header, Footer } from "@eachbase/fragments"
 import { ContextProvider } from "@eachbase/context"
 
 export default function MyApp( {Component, pageProps} ) {
+  let classes = useGlobalStyles()
+
   return (
     <>
       <Head>
@@ -16,7 +18,9 @@ export default function MyApp( {Component, pageProps} ) {
         <Theme>
           <ContextProvider>
             <Header/>
+            <main className={classes.main}>
             <Component {...pageProps} />
+            </main>
             <Footer/>
           </ContextProvider>
         </Theme>

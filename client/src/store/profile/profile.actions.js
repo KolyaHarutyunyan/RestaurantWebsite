@@ -1,15 +1,10 @@
-import * as types from './profile.types';
+import {profileTypes} from '.';
 
-export const updateAvatar = (data) => {
-    return {
-        type: types.UPDATE_AVATAR,
-        payload: data,
-    };
-};
+export const profileActions = {
+  sign:{
+    in: payload => ({type: profileTypes.sign.in, payload}),
+    out: () => ({type: profileTypes.sign.out}),
+  },
+  remove:payload=>({type:profileTypes.remove,payload})
+}
 
-export const editProfile = (data) => {
-    return {
-        type: types.EDIT_PROFILE,
-        payload: data,
-    };
-};

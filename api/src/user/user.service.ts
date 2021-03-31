@@ -19,6 +19,7 @@ export class UserService {
         email: createUserDTO.email,
         fullName: createUserDTO.fullName,
         authId: createUserDTO.authId,
+        role: createUserDTO.role,
       }).save();
       return this.sanitizeUser(newUser);
     } catch (err) {
@@ -39,6 +40,7 @@ export class UserService {
       fullName: userData.fullName,
       email: userData.email,
       id: userData.id,
+      role: userData.role,
     };
     return user;
   }

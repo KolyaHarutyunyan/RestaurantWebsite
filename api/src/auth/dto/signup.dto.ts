@@ -29,4 +29,5 @@ export class SignupDTO {
 
   //internally generated
   authId?: string;
+  role?: string;
 }

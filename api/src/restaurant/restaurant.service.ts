@@ -14,17 +14,13 @@ export class RestaurantService {
   /** API */
   /** Create restaurant */
   create = async (createRestaurantDTO: CreateRestaurantDTO) => {
-    try {
-      const restaurant = await new this.model({
-        owner: createRestaurantDTO.user._id,
-        name: createRestaurantDTO.name,
-        description: createRestaurantDTO.description,
-        logoUrl: createRestaurantDTO.logoUrl,
-      }).save();
-      return this.sanitizeRestaurant(restaurant);
-    } catch (err) {
-      throw err;
-    }
+    const restaurant = await new this.model({
+      owner: createRestaurantDTO.restaurantOwner._id,
+      name: createRestaurantDTO.name,
+      description: createRestaurantDTO.description,
+      logoUrl: createRestaurantDTO.logoUrl,
+    }).save();
+    return this.sanitizeRestaurant(restaurant);
   };
 
   /** Private Members */

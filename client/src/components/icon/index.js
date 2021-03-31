@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export const Icon = memo(
   (props) => {
-    console.log(props)
+
     const {SVGIcon} = useContext(IconContext)
     return <SVGIcon {...props}/>
   }

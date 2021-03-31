@@ -1,5 +1,5 @@
-export { profileReducer } from './profile.reducer';
-export { watchProfile } from './profile.saga';
-
-import {  updateAvatar,editProfile} from "./profile.actions"
-export const profileActions ={ updateAvatar,editProfile}
+export { profileService } from "./profile.service"
+export { profileActions } from "./profile.actions"
+export { profileTypes, profileReducerTypes } from "./profile.types"
+export { profileReducer } from "./profile.reducer"
+export { watchProfile } from "./profile.saga"

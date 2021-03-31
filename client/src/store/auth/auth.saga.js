@@ -1,29 +1,40 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-import { authService } from '.'
-import { appTypes } from '../app/app.types'
-import { authTypes } from './auth.types'
+import { call, put, takeLatest } from "redux-saga/effects"
+import { authReducerTypes, authTypes } from "../auth"
+import { authService } from "../auth"
+import {profileTypes} from "../profile"
 
+
+function* writeError(error){
+  yield put({type: authReducerTypes.setError, payload: {error:error.response.data.message || "Check internet connection"}})
+}
+function* writeUser(data){
+  console.log(data)
+  localStorage.setItem('access-token', data.auth.token)
+  localStorage.setItem('user', JSON.stringify(data.user))
+}
 
 function* signInSaga(payload) {
-  console.log(payload)
   try {
-    yield put({type: appTypes.REQUEST_PENDING});
-    const res = yield call(authService.signIn, payload);
-    localStorage.setItem('access-token', res.data.accessToken);
-    yield put({type: authTypes.SIGN_IN_SUCCESS, payload: res.data});
+
+    const res = yield call(authService.signIn, payload.payload)
+    yield writeUser(res.data)
+    yield put({type: authReducerTypes.setIsAuthed})
+    yield put({type: profileTypes.sign.in, payload: res.data.user});
   } catch (err) {
-    yield put({type: authTypes.ERROR, payload: err});
+    yield writeError(err)
   }
 }
 
+
 function* signUpSaga(payload) {
   try {
-    yield put({type: appTypes.REQUEST_PENDING});
-    const res = yield call(authService.signUp, payload);
-    localStorage.setItem('access-token', res.data.accessToken);
-    yield put({type: authTypes.SIGN_UP_SUCCESS, payload: res.data});
+    // yield put({type: appTypes.REQUEST_PENDING});
+    const res = yield call(authService.signUp, payload.payload)
+    yield writeUser(res.data)
+    yield put({type: authReducerTypes.setIsAuthed})
+    yield put({type: profileTypes.sign.in, payload: res.data});
   } catch (err) {
-    yield put({type: authTypes.ERROR, payload: err});
+    yield writeError(err)
   }
 }
 
@@ -33,7 +44,20 @@ function* signOutSaga() {
 }
 
 function* cleanErrorSaga() {
-  yield put({type: authTypes.CLEAN_ERROR_SUCCESS, payload: {}});
+  yield put({type: authReducerTypes.cleanError});
+}
+
+function* checkIsAuthedSaga() {
+  console.log("usecdfgsdgsdfgsdfr")
+  let user = localStorage.getItem("user")
+  let token = localStorage.getItem("access-token")
+  console.log(user , token )
+  if ( !!user && !!token ) {
+
+    user = JSON.parse(user)
+    yield put({type: authReducerTypes.setIsAuthed})
+    yield put({type: profileTypes.sign.in, payload: {user}})
+  }
 }
 
 function* checkEmailSaga(payload) {
@@ -57,7 +81,7 @@ function* checkVerifyKeySaga(payload) {
   }
 }
 
-function* checkResetPassSaga(payload) {
+function* resetPassSaga(payload) {
   try {
     yield put({type: appTypes.REQUEST_PENDING});
     let authToken = localStorage.getItem('auth-token');
@@ -68,15 +92,17 @@ function* checkResetPassSaga(payload) {
   }
 }
 
+
+
+
 export const watchAuth = function* watchUserAuth() {
-  yield takeLatest(authTypes.SIGN_IN , signInSaga);
-  yield takeLatest(authTypes.SIGN_UP , signUpSaga);
-  yield takeLatest(authTypes.SIGN_OUT , signOutSaga);
-  yield takeLatest(authTypes.CLEAN_ERROR , cleanErrorSaga);
-  yield takeLatest(authTypes.CHECK_EMAIL , checkEmailSaga);
-  yield takeLatest(authTypes.CHECK_VERIFY_KEY , checkVerifyKeySaga);
-  yield takeLatest(authTypes.RESET_PASS , checkResetPassSaga);
-
-
+  yield takeLatest(authTypes.sign.in, signInSaga)
+  yield takeLatest(authTypes.sign.up, signUpSaga)
+  yield takeLatest(authTypes.sign.out, signOutSaga)
+  yield takeLatest(authTypes.check.email, checkEmailSaga)
+  yield takeLatest(authTypes.check.verifyKey, checkVerifyKeySaga)
+  yield takeLatest(authTypes.check.isAuthed, checkIsAuthedSaga)
+  yield takeLatest(authTypes.resetPassword, resetPassSaga)
+  yield takeLatest(authTypes.cleanError, cleanErrorSaga)
 
 };

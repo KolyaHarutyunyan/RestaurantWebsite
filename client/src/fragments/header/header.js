@@ -2,7 +2,8 @@ import { memo, useEffect, useState } from "react"
 import { AppBar, Box } from "@material-ui/core"
 import { useHeaderStyles, Logo, Menus } from "./core"
 import { Navbar } from "./core/navbar";
-import { useSelector } from "react-redux";
+import {   useSelector } from "react-redux";
+
 
 let mobileWidth = 768
 
@@ -11,8 +12,12 @@ export const Header = memo(
   () => {
     const classes = useHeaderStyles()
     const profile = useSelector((state) => state.profile);
+
+    console.log(profile)
     let [openedMenu, setOpenedMenu] = useState(false)
     let [isMobile,setIsMobile]= useState(false)
+
+
 
     const handleResize = () => setIsMobile(window.innerWidth < mobileWidth)
 

@@ -7,4 +7,6 @@ export class UserResponseDTO {
   fullName: string;
   @ApiProperty()
   email: string;
+  @ApiProperty()
+  role: string;
 }

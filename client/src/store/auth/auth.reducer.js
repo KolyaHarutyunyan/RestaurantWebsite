@@ -1,35 +1,33 @@
-import { authTypes } from '.'
+import { authReducerTypes } from '.'
 
 
 const initialState = {
   error: false,
   isAuthenticated: false,
-  key: false
+  key: false,
+
 };
 
 
-
-
 export const authReducer = (state = initialState, action) => {
+
   switch (action.type) {
-    case [authTypes.SIGN_IN_SUCCESS]:
-      return ({...state, isAuthenticated: true})
-    case [authTypes.SIGN_UP_SUCCESS]:
-      return ({...state, isAuthenticated: true})
-    case [authTypes.SIGN_OUT_SUCCESS]:
-      return ({...state, isAuthenticated: false})
-    case [authTypes.CHECK_EMAIL_SUCCESS]:
-      return ({...state, key: action.payload.key})
-    case [authTypes.CHECK_VERIFY_KEY_SUCCESS]:
-      return ({...state, key: action.payload.key})
-    case [authTypes.RESET_PASS_SUCCESS]:
-      return ({...state, isAuthenticated: true})
-    case [authTypes.SIGN_ERROR]:
-      return ({...state, isAuthenticated: true})
-    case [authTypes.CLEAN_ERROR_SUCCESS]:
-      return ({...state, error: false})
+    case authReducerTypes.changeKeyType:
+      return {...state, key: action.payload.key}
+    case authReducerTypes.cleanError:
+      return {...state, error: false}
+    case authReducerTypes.cleanIsAuthed:
+      return (initialState)
+    case authReducerTypes.setError:
+      return ({...state, error: action.payload.error})
+    case authReducerTypes.setIsAuthed:
+      return ({...state, isAuthenticated: true,})
+
+
+
     default:
       return state
   }
 
 }
+

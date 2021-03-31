@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 import { appTypes } from './app.types'
-import { authReducer } from "../auth";
-import { profileReducer } from "../profile";
+import { authReducer } from "../auth"
+import { profileReducer } from "../profile"
+import { restaurantReducer } from "../restaurant"
 
 const initialState = {
     isLoading: false,
@@ -23,5 +24,6 @@ const globalReducer = (state = initialState, action) => {
 export const appReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
+    restaurant: restaurantReducer,
     global: globalReducer,
 });

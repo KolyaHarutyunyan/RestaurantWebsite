@@ -18,11 +18,12 @@ def run(names):
     for name in names:
         if name == name.capitalize():
             lname = name.lower()
+            name = name+"Page"
             print(lname)
             if not os.path.exists("src/pages/%s" % lname):
-                os.system("mkdir src/pages/%s" % lname)
-                utils.add_import(name, "./%s" % lname, "src/pages/%s/index.js" % lname)
+#                 os.system("mkdir src/pages/%s" % lname)
+#                 utils.add_import(name, "./%s" % lname, "src/pages/%s/index.js" % lname)
                 utils.add_import(name, "./%s" % lname, "src/pages/index.js")
-                fs = open("src/pages/%s/%s.js" % (lname, lname), "w")
+                fs = open("src/pages/%s.js" % (lname), "w")
                 fs.write(utils.create_component(name))
                 fs.close()

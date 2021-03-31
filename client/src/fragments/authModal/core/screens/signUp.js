@@ -5,7 +5,7 @@ import {Input} from "@eachbase/components"
 import { useEffect, useState } from "react";
 import { change ,check } from "@eachbase/utils"
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "@eachbase/store";
+import { actions } from "@eachbase/store";
 
 let clicked = false
 
@@ -28,6 +28,7 @@ export const SignUp = ( {open} ) => {
       check.email(setUserData)
       check.text("fullName",setUserData)
       check.pass(setUserData)
+      console.log("check error")
     }
     if(!userData.fullName.error &&!userData.email.error && !userData.password.error){
       const user = {
@@ -35,19 +36,20 @@ export const SignUp = ( {open} ) => {
         password: userData.password.value,
         fullName: userData.fullName.value
       };
-      dispatch(authActions.signUp({user}))
+      dispatch(actions.auth.sign.up({user}))
     }
   }
 
 
 
   useEffect(()=>{
-    if(clicked && auth.isAuthenticated) {
+    console.log("check auth")
+    if(  auth.isAuthenticated) {
       open.GetRestaurant()
     }
   },[auth.isAuthenticated])
 
-
+  // console.log("auth in sign up",auth)
   return (
     <>
       <Title afterText="Welcome to Menuz" />

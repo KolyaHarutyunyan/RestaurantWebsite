@@ -13,5 +13,5 @@ export class CreateRestaurantDTO {
   logoUrl: string;
 
   //internally set
-  user?: IUser;
+  restaurantOwner?: IUser;
 }

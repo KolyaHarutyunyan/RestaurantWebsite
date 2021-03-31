@@ -1,9 +1,17 @@
-export const UPDATE_AVATAR = 'UPDATE_AVATAR';
-export const UPDATE_AVATAR_SUCCESS = 'UPDATE_AVATAR_SUCCESS';
-export const UPDATE_AVATAR_ERROR = 'UPDATE_AVATAR_ERROR';
+export const profileTypes = {
+  sign:{
+    in:"PROFILE_SIGN_IN",
+    out:"PROFILE_SIGN_OUT",
+  },
+  remove:"PROFILE_REMOVE_USER",
 
-export const EDIT_PROFILE = 'UPDATE_PROFILE';
-export const EDIT_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
-export const EDIT_PROFILE_ERROR = 'UPDATE_PROFILE_ERROR';
+}
 
-export const SET_USER = 'SET_USER';
+export const profileReducerTypes = {
+  sign:{
+    in:"PROFILE_REDUCER_SIGN_IN",
+    out:"PROFILE_REDUCER_SIGN_OUT",
+  },
+
+
+}
