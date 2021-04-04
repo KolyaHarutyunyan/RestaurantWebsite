@@ -19,7 +19,7 @@ function* signInSaga(payload) {
     const res = yield call(authService.signIn, payload.payload)
     yield writeUser(res.data)
     yield put({type: authReducerTypes.setIsAuthed})
-    yield put({type: profileTypes.sign.in, payload: res.data.user});
+    yield put({type: profileTypes.signIn, payload: res.data.user});
   } catch (err) {
     yield writeError(err)
   }
@@ -32,7 +32,7 @@ function* signUpSaga(payload) {
     const res = yield call(authService.signUp, payload.payload)
     yield writeUser(res.data)
     yield put({type: authReducerTypes.setIsAuthed})
-    yield put({type: profileTypes.sign.in, payload: res.data});
+    yield put({type: profileTypes.signIn, payload: res.data});
   } catch (err) {
     yield writeError(err)
   }
@@ -56,7 +56,7 @@ function* checkIsAuthedSaga() {
 
     user = JSON.parse(user)
     yield put({type: authReducerTypes.setIsAuthed})
-    yield put({type: profileTypes.sign.in, payload: {user}})
+    yield put({type: profileTypes.signIn, payload: {user}})
   }
 }
 
@@ -96,12 +96,12 @@ function* resetPassSaga(payload) {
 
 
 export const watchAuth = function* watchUserAuth() {
-  yield takeLatest(authTypes.sign.in, signInSaga)
-  yield takeLatest(authTypes.sign.up, signUpSaga)
-  yield takeLatest(authTypes.sign.out, signOutSaga)
-  yield takeLatest(authTypes.check.email, checkEmailSaga)
-  yield takeLatest(authTypes.check.verifyKey, checkVerifyKeySaga)
-  yield takeLatest(authTypes.check.isAuthed, checkIsAuthedSaga)
+  yield takeLatest(authTypes.signIn, signInSaga)
+  yield takeLatest(authTypes.signUp, signUpSaga)
+  yield takeLatest(authTypes.signOut, signOutSaga)
+  yield takeLatest(authTypes.checkEmail, checkEmailSaga)
+  yield takeLatest(authTypes.checkVerifyKey, checkVerifyKeySaga)
+  yield takeLatest(authTypes.checkIsAuthed, checkIsAuthedSaga)
   yield takeLatest(authTypes.resetPassword, resetPassSaga)
   yield takeLatest(authTypes.cleanError, cleanErrorSaga)
 

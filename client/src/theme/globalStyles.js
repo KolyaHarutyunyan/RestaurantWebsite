@@ -14,18 +14,7 @@ export const useGlobalStyles = makeStyles({
             paddingRight: props && props.lg && props.lg.px ? props.xs.px : '92px',
         },
     }),
-    main:(props)=>({
-      padding:"80px 100px 0",
-      [ theme.breakpoints.down("md") ]: {
-        padding: "80px 42px",
-      },
-      [ theme.breakpoints.down("sm") ]: {
-        padding: "80px 40px",
-      },
-      [ theme.breakpoints.down("xs") ]: {
-        padding: "60px 16px",
-      },
-    }),
+
     button: (props) => ({
 
         width: '100%',

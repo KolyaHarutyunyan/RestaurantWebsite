@@ -178,7 +178,7 @@ export const TitleBlock = styled.div`
     &.before {
       margin-top: 24px;
     }
-
+ 
     &.after {
       margin-bottom: 24px;
     }

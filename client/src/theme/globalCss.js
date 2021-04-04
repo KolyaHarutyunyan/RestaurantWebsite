@@ -25,6 +25,9 @@ export const GlobalCss = withStyles({
             fontSize: '20px',
 
         },
+        p:{
+            margin:0
+        },
         'button':{
           cursor: 'pointer',
           outline:"none",

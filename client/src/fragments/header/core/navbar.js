@@ -45,8 +45,8 @@ export const Navbar = memo(
               </Button>
             </>
             :
-            <ul className={classes.menu}>
-              <li className={classes.listItem}>
+            <div className={classes.menu}>
+              <div className={classes.listItem}>
                 {
                   user.fullName
                     ?
@@ -71,12 +71,12 @@ export const Navbar = memo(
                     </>
                 }
 
-              </li>
+              </div>
 
-              <li className={classes.listItem}>
+              <div className={classes.listItem}>
                 <CreateMenu isAuthed={!!user.fullName} className={classes.button} handlerClick={openAuth}/>
-              </li>
-            </ul>
+              </div>
+            </div>
         }
       </Box>
     )

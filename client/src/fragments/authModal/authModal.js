@@ -1,11 +1,11 @@
 import { Box, Dialog, IconButton } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import { Screens, useAuthStyles } from "./core"
-import { memo, useEffect, useState } from "react"
+import { memo,  useState } from "react"
 import { Icon } from "@eachbase/components"
 import { SVGNames } from "@eachbase/constants"
 import { useDispatch } from "react-redux"
-import { actions } from "@eachbase/store"
+import { authActions } from "@eachbase/store"
 
 const screens = {
   signIn: "SignIn",
@@ -26,9 +26,7 @@ export const AuthModal = memo(
 
     })
 
-    // useEffect(()=>{
-    //   if(props.type)setActiveScreen({type:props.type,props:{}})
-    // },[])
+
 
     let  ActiveScreen = props=>{
       let Screen = Screens[activeScreen.type]
@@ -36,7 +34,7 @@ export const AuthModal = memo(
     }
 
     let selectScreen = (type, props = {}) => {
-      dispatch(actions.auth.cleanError())
+      dispatch(authActions.cleanError())
       setActiveScreen({type, props})
     }
     const dispatch = useDispatch();

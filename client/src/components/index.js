@@ -1,3 +1,4 @@
 export {Icon} from "./icon"
-export {Logo} from './logo'
 export {Input} from './inputs'
+export {ModalTitle} from './modalTitle'
+export {PageTitle} from './pageTitle'

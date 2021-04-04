@@ -1,5 +1,6 @@
 import Email from '../../../public/assets/icons/EmailIcon.svg'
 import Logo from '../../../public/assets/icons/Logo.svg'
+import LogoWhite from '../../../public/assets/icons/LogoWhite.svg'
 import GoogleColor from '../../../public/assets/icons/GoogleIcon.svg'
 import FaceBook from '../../../public/assets/icons/FacebookIcon.svg'
 import Twitter from '../../../public/assets/icons/TwitterIcon.svg'
@@ -17,18 +18,7 @@ import DoneRestaurant from "../../../public/assets/icons/DoneRestaurant.svg"
 import Back from "../../../public/assets/icons/BackIcon.svg"
 
 export const SVGS = {
-  Email,
-  Back,
-  Logo,
-  GoogleColor,
-  FaceBook,
-  Twitter,
-  User,
-  DownArrow,
-  LogOut,
-  Profile,
-  Restaurant,
-  ToggleMenu,
-  EyeOn,  EyeOff,   Password, DonePassword,
+  Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
+  LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
   DoneRestaurant
 }

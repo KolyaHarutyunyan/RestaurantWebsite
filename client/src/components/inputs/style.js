@@ -105,13 +105,14 @@ export const Input = styled.input`
     position: absolute;
     color: ${theme.palette.primary.main};
   }
-
+  ${props=>props.readonly && "&:read-only{}"}
 `
 
 export const InputTitle = styled.p`
   display: block;
   margin-bottom: -8px;
   font: normal normal 600 14px/21px Open Sans;
+  margin-top: ${props => props.mtt || 16}px;
 
 `
 export const InputDescription = styled.p`

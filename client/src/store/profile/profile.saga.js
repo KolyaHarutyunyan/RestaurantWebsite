@@ -5,17 +5,17 @@ import { profileTypes, profileReducerTypes, profileService } from "."
 
 function* profileSignInSaga(payload) {
 
-  yield put({type: profileReducerTypes.sign.in, payload:payload.payload.user})
+  yield put({type: profileReducerTypes.signIn, payload:payload.payload.user})
 }
 
 function* profileSignOutSaga() {
-  yield put({type: profileReducerTypes.sign.out})
+  yield put({type: profileReducerTypes.signOut})
 }
 
 function* profileRemoveSaga(payload) {
   try {
     let res = yield call(profileService.remove, payload.payload)
-    yield put({type: profileReducerTypes.sign.out})
+    yield put({type: profileReducerTypes.signOut})
   } catch (err) {
     console.log(err.message)
   }
@@ -23,7 +23,7 @@ function* profileRemoveSaga(payload) {
 }
 
 export function* watchProfile() {
-  yield takeLatest(profileTypes.sign.in, profileSignInSaga);
-  yield takeLatest(profileTypes.sign.out, profileSignOutSaga);
+  yield takeLatest(profileTypes.signIn, profileSignInSaga);
+  yield takeLatest(profileTypes.signOut, profileSignOutSaga);
   yield takeLatest(profileTypes.remove, profileRemoveSaga);
 }

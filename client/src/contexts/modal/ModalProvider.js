@@ -1,37 +1,34 @@
 import { createContext, useState } from "react";
-import { AuthModal } from "@eachbase/fragments";
+import { AlertModal, AuthModal } from "@eachbase/fragments";
+
+let initData = {status: false, props: {}}
 
 let initState = {
-  auth:false,
-  avatar:{
-    status:false,
-    props:{}
-  }
+  auth: initData,
+  alert: initData
 }
 
 export const ModalContext = createContext()
 
-export const ModalProvider = ( {children} ) => {
+export const ModalProvider = ({children}) => {
 
-  let [modal,setModal] = useState(initState)
+  let [modal, setModal] = useState(initState)
 
+  let close = (type) => setModal(current => ({...current, [type]: initData}))
 
-  let close = {
-    auth :()=>setModal(current=>({...current,auth:false})),
-    avatar: ()=>setModal(current=>({...current,avatar:{status:false,props:{}}}))
+  let open = (type, props) => setModal(current => ({...current, [type]: {status: true, ...props}}))
 
-  }
-
-  let open = {
-    auth :()=>setModal(current=>({...current,auth:true})),
-    avatar: props=>setModal(current=>({...current,avatar:{status:true,props}}))
+  let openModal = {
+    auth: (props = {}) => open("auth", props),
+    alert: (props = {}) => open("alert", props),
   }
 
   return (
-    <ModalContext.Provider value={{openModal:open}}>
+    <ModalContext.Provider value={{openModal}}>
 
-      <AuthModal status={modal.auth} close={close.auth}/>
-      {/*<Avatar {...modal.avatar} close={close.avatar}/>*/}
+      <AuthModal {...modal.auth} close={()=>close( "auth")}/>
+      <AlertModal {...modal.alert} close={()=>close( "alert")}/>
+
       {children}
     </ModalContext.Provider>
   )

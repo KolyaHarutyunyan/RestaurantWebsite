@@ -2,6 +2,7 @@
 export const SVGNames = {
   Email:"Email",
   Logo:"Logo",
+  LogoWhite:"LogoWhite",
   GoogleColor:"GoogleColor",
   FaceBook:"FaceBook",
   Twitter:"Twitter",

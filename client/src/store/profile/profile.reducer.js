@@ -1,16 +1,16 @@
 import { profileReducerTypes, profileTypes } from "./profile.types";
 
 const initialState = {
-  email: "",
-  fullName: "",
-  id: "",
-  role: "",
+  email: "fhfd",
+  fullName: "dfghdfgh",
+  id: "fdghdfg",
+  role: "fdghdfghd",
 
 };
 
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case profileReducerTypes.sign.in:
+    case profileReducerTypes.signIn:
 
       return {
         fullName: action.payload.fullName,
@@ -18,7 +18,7 @@ export const profileReducer = (state = initialState, action) => {
         id: action.payload.id,
         role: action.payload.role
       }
-    case profileReducerTypes.sign.out:
+    case profileReducerTypes.signOut:
       return {
         fullName: "",
         email: ""

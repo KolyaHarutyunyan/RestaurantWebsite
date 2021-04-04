@@ -6,7 +6,7 @@ export default function Profile (props) {
   return (
     <>
       <Head>
-        {props.meta || <title>"welcome menuz"</title>}
+        {props.meta || <title>welcome menuz</title>}
       </Head>
       <ProfilePage {...props.pageData}/>
 
@@ -15,6 +15,6 @@ export default function Profile (props) {
 }
 
 Profile.getInitialProps = async () => {
-  let res = {meta: null, pageData: null}
+  let res = {meta: `<title>inchvor ban</title>`, pageData: null}
   return {...res}
 }

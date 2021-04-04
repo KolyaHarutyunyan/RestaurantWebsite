@@ -1,10 +1,8 @@
-import {profileTypes} from '.';
+import { profileTypes } from '.';
 
 export const profileActions = {
-  sign:{
-    in: payload => ({type: profileTypes.sign.in, payload}),
-    out: () => ({type: profileTypes.sign.out}),
-  },
-  remove:payload=>({type:profileTypes.remove,payload})
+  signIn: payload => ({type: profileTypes.signIn, payload}),
+  signOut: () => ({type: profileTypes.signOut}),
+  remove: payload => ({type: profileTypes.remove, payload})
 }
 

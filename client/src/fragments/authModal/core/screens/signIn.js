@@ -4,7 +4,7 @@ import { check, change } from "@eachbase/utils"
 import { Button } from "@material-ui/core"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { actions } from '@eachbase/store'
+import { authActions } from '@eachbase/store'
 import { Input } from "@eachbase/components"
 
 let clicked = false
@@ -33,7 +33,7 @@ export const SignIn = ({open, close}) => {
         email: userData.email.value,
         password: userData.password.value
       };
-      dispatch(actions.auth.sign.in({user}))
+      dispatch(authActions.signIn({user}))
       clicked = !clicked
     }
   }

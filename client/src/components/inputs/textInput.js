@@ -1,5 +1,5 @@
 import { memo, useState } from "react"
-import { Styled } from "./index"
+import { Input, Styled } from "./index"
 import { Icon } from "@eachbase/components"
 import { SVGNames } from "@eachbase/constants"
 
@@ -12,10 +12,14 @@ export const TextInput =   memo(
      error,
      icon,
      brdType,
+     blockTitle,
      important,
      brd,
+     mt,
+     mtt,
      value,
      onChange,
+     readOnly = false ,
      onFocus = EF,
      onBlur = EF,
      placeholder,
@@ -33,7 +37,14 @@ export const TextInput =   memo(
     }
     return (
       <>
-        <Styled.InputBlock brd={brd} h={type === "textarea" && 130} brdType={brdType}
+        {
+          blockTitle
+            ? <Styled.InputTitle mtt={mtt}>{blockTitle}</Styled.InputTitle>
+            : <></>
+        }
+
+
+        <Styled.InputBlock mt={mt} brd={brd} h={type === "textarea" && 130} brdType={brdType}
                            className={(isDisabled ? " disabled" : "") + (isFocused ? " focused" : "") + (error ? " error" : "")}>
           <div className={`content ${(important && !value.length) ? "important" : ""}`}>
             {
@@ -45,12 +56,13 @@ export const TextInput =   memo(
                 <Styled.Input
                   type={type !== "password" || !isVisible ? type : "text"}
                   value={value}
-                  onChange={e => onChange(e.target.value)}
+                  onChange={e => !readOnly && onChange(e.target.value)}
                   onFocus={focus}
                   onBlur={blur}
                   placeholder={placeholder || ""}
                   w={type === "password" ? 52 : undefined}
                   autocomplete={type === "email"}
+                  readonly={readOnly}
                 />
             {
               type === "password"

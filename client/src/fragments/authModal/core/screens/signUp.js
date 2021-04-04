@@ -1,11 +1,11 @@
 import { Title,  Socials, useAuthStyles, Styled } from "..";
 import { Button } from "@material-ui/core";
-import { SVGNames } from "@eachbase/constants";
+import {   SVGNames } from "@eachbase/constants";
 import {Input} from "@eachbase/components"
 import { useEffect, useState } from "react";
 import { change ,check } from "@eachbase/utils"
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "@eachbase/store";
+import { authActions } from "@eachbase/store";
 
 let clicked = false
 
@@ -36,7 +36,7 @@ export const SignUp = ( {open} ) => {
         password: userData.password.value,
         fullName: userData.fullName.value
       };
-      dispatch(actions.auth.sign.up({user}))
+      dispatch(authActions.signUp({user}))
     }
   }
 
