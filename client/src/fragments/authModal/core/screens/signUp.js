@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import {   SVGNames } from "@eachbase/constants";
 import {Input} from "@eachbase/components"
 import { useEffect, useState } from "react";
-import { change ,check } from "@eachbase/utils"
+import { Change ,Check } from "@eachbase/utils"
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "@eachbase/store";
 
@@ -25,9 +25,9 @@ export const SignUp = ( {open} ) => {
     event.preventDefault()
     console.log("submit")
     if ( !userData.email.value || !userData.password.value|| !userData.fullName.value ) {
-      check.email(setUserData)
-      check.text("fullName",setUserData)
-      check.pass(setUserData)
+      Check.email(setUserData)
+      Check.text("fullName",setUserData)
+      Check.pass(setUserData)
       console.log("check error")
     }
     if(!userData.fullName.error &&!userData.email.error && !userData.password.error){
@@ -57,22 +57,22 @@ export const SignUp = ( {open} ) => {
         <Input.text
           icon={SVGNames.Profile}
           {...userData.fullName}
-          onChange={value => change.text("fullName",value, setUserData)}
-          onBlur={() => check.text("fullName",setUserData)}
+          onChange={value => Change.text(value,"fullName", setUserData)}
+          onBlur={() => Check.text("fullName",setUserData)}
           placeholder="Full Name"
         />
         <Input.email
           icon={SVGNames.Email}
           {...userData.email}
-          onChange={value => change.email(value, setUserData)}
-          onBlur={() => check.email(setUserData)}
+          onChange={value => Change.text(value,"email", setUserData)}
+          onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.pass
           icon={SVGNames.Password}
           {...userData.password}
-          onChange={value => change.pass(value, setUserData)}
-          onBlur={() => check.pass(setUserData)}
+          onChange={value => Change.text(value,"password", setUserData)}
+          onBlur={() => Check.pass(setUserData)}
           placeholder="Password"
         />
         {

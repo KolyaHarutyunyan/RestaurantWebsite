@@ -1,10 +1,10 @@
 
 export const colors = {
-  text:{
-    primary:"#2B273C",
-    secondary:"#2B273C80",
-    white:"#ffffff",
-  },
+  // text:{
+  //   primary:"#2B273C",
+  //   secondary:"#2B273C80",
+  //   white:"#ffffff",
+  // },
   button:{
     primary:"#FF453A",
     action:"#007AFF",
@@ -17,5 +17,5 @@ export const colors = {
   primary:"#FF453A",
   white:"#ffffff",
   action:"#007AFF",
-
+  text:"#2B273C",
 }

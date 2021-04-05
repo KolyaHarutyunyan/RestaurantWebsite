@@ -9,7 +9,7 @@ export const Styled = {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 16px;
     max-width: 628px;
     padding: 0 16px;
     ${media.downToLargeDesktop`max-width: 546px;`}
@@ -29,11 +29,12 @@ export const Styled = {
     align-items: center;
     justify-content: flex-start;
     padding: 32px 48px 64px;
-
+    ${media.downToLargeDesktop`padding: 16px 32px 48px;`};
+    ${media.forMobile`padding: 16px 16px 32px;`}
   `,
   BlockForm:styled.form`
     width: 100%;
-    height: ${({open})=>open?"auto":0}px;
+    height: ${({open})=>open?"auto":0};
     ${animation(["height"])};
     overflow:hidden;
   `,

@@ -1,6 +1,6 @@
 import { Styled, Title, useAuthStyles } from "..";
 import { SVGNames } from "@eachbase/constants";
-import { change, check } from "@eachbase/utils";
+import { Change, Check } from "@eachbase/utils";
 import { useEffect, useState } from "react";
 import { Input } from "@eachbase/components";
 import { Button } from "@material-ui/core";
@@ -18,7 +18,7 @@ export const GetEmail = ({open}) => {
     event.preventDefault()
 
     if ( userData.email.value ){
-      check.email(setUserData)
+      Check.email(setUserData)
     }
     if( !userData.email.error ) {
       // dispatch(authActions.checkEmail({user: {email: userData.email.value}}))
@@ -41,8 +41,8 @@ export const GetEmail = ({open}) => {
         <Input.email
           icon={SVGNames.Email}
           {...userData.email}
-          onChange={value => change.email(value, setUserData)}
-          onBlur={() => check.email(setUserData)}
+          onChange={value => Change.text(value,"email", setUserData)}
+          onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
 

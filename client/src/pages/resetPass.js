@@ -1,15 +1,8 @@
-import { PageTitle } from "@eachbase/components";
+import { ResetPassword } from "@eachbase/fragments";
 
 
-export const ResetPassPage = ({resetToken}) =>{
-	return(
-		<>
+export const ResetPassPage = (props) => 	<ResetPassword {...props}/>
 
-		<h1 style={{marginTop:"100px"}}>ResetpassPage{resetToken}</h1>
-			<PageTitle>Reset Your Password</PageTitle>
 
-		</>
 
-	)
-}
 

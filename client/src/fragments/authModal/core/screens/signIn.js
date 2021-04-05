@@ -1,6 +1,6 @@
 import { Socials, Styled, Title, useAuthStyles } from ".."
 import { SVGNames } from "@eachbase/constants"
-import { check, change } from "@eachbase/utils"
+import { Check, Change } from "@eachbase/utils"
 import { Button } from "@material-ui/core"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,22 +24,20 @@ export const SignIn = ({open, close}) => {
   const handleSubmit = event => {
     event.preventDefault()
     console.log("submit")
-    if ( !userData.email.value || !userData.password.value ) {
-      check.email(setUserData)
-      check.pass(setUserData)
-    }
-    if ( !userData.email.error && !userData.password.error ) {
+    if(!Check.form(setUserData)){return 0}
+
+
       const user = {
         email: userData.email.value,
         password: userData.password.value
       };
       dispatch(authActions.signIn({user}))
       clicked = !clicked
-    }
+
   }
   const auth = useSelector(state=>state.auth)
 
-  console.log("auht from sign in",auth)
+  console.log("auth from sign in",auth)
 
   useEffect(()=>{
     if(auth.isAuthenticated) {
@@ -57,15 +55,15 @@ export const SignIn = ({open, close}) => {
         <Input.email
           icon={SVGNames.Email}
           {...userData.email}
-          onChange={value => change.email(value, setUserData)}
-          onBlur={() => check.email(setUserData)}
+          onChange={value => Change.email(value, setUserData)}
+          onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.pass
           icon={SVGNames.Password}
           {...userData.password}
-          onChange={value => change.pass(value, setUserData)}
-          onBlur={() => check.pass(setUserData)}
+          onChange={value => Change.text(value,"password", setUserData)}
+          onBlur={() => Check.pass(setUserData)}
           placeholder="Password"
         />
         {

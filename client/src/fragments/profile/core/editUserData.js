@@ -2,7 +2,7 @@ import { Styled } from "."
 import { useState } from "react";
 import { Input } from "../../../components";
 import { SVGNames } from "../../../constants";
-import { change, check } from "../../../utils";
+import { Change,Check } from "../../../utils";
 
 export const EditUserData = () =>{
 	let [readOnly, setReadOnly] = useState(true)
@@ -21,11 +21,13 @@ export const EditUserData = () =>{
 		<Styled.Block>
 			<Styled.SaveBtn onClick={handlerClick}> {readOnly ? "edit" : "save"}</Styled.SaveBtn>
 			<Styled.BlockForm open>
-				<Input.text
+				<Input.Text
 					icon={SVGNames.User}
 					{...userData.fullName}
-					onChange={value => change.text("fullName",value, setUserData)}
-					onBlur={() => check.text("fullName",setUserData)}
+					onChange={value => Change.text(value,"fullName", setUserData)}
+					onBlur={() =>
+						Check.text("fullName",setUserData,3,40,)
+					}
 					placeholder="full name"
 					readOnly={readOnly}
 					blockTitle="Full Name"
@@ -33,11 +35,11 @@ export const EditUserData = () =>{
 					mt={16}
 					mtt={8}
 				/>
-				<Input.email
+				<Input.Email
 					icon={SVGNames.Password}
 					{...userData.email}
-					onChange={value => change.email(value, setUserData)}
-					onBlur={() => check.email(setUserData)}
+					onChange={value => Change.text(value,"email", setUserData)}
+					onBlur={() => Check.email(setUserData)}
 					placeholder="email"
 					blockTitle="Email"
 					readOnly={readOnly}

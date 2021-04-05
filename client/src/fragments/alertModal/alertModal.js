@@ -4,12 +4,12 @@ import { SVGNames } from "@eachbase/constants"
 import CloseIcon from "@material-ui/icons/Close"
 import { useAlertStyles,Styled } from "./core"
 import { useState } from "react"
-import { change, check } from "@eachbase/utils"
+import { Change, Check } from "@eachbase/utils"
 
 
 export const AlertModal = ({status, submit, close}) => {
   let classes = useAlertStyles()
-  let [password,setPassword] = useState({value:"",error:""})
+  let [userData,setUserData] = useState({password: {value: "", error: ""}})
 
   return (
 
@@ -32,10 +32,10 @@ export const AlertModal = ({status, submit, close}) => {
         <Styled.Description one>Are you sure you want to delete your account? If you delete your account, you'll permanently lose your profile. </Styled.Description>
         <Styled.Description > To delete your account, please enter your password </Styled.Description>
         <Input.pass
-          {...password}
+          {...userData.password}
           icon={SVGNames.Password}
-          onChange={value=>change.pass(value,setPassword)}
-          onBlur={()=>check.pass(setPassword)}
+          onChange={value=>Change.text(value,"password",setUserData)}
+          onBlur={()=>Check.pass(setUserData)}
         />
         <Styled.Actions>
           <Button className={classes.submit } onClick={()=>submit(password.value)}>Delate</Button>

@@ -1,6 +1,6 @@
 import {  Styled, Title, useAuthStyles } from "..";
 import { SVGNames } from "@eachbase/constants";
-import { change, check } from "@eachbase/utils";
+// import { change, check } from "@eachbase/utils";
 import { useState } from "react";
 
 
@@ -17,8 +17,8 @@ export const ResetPass = ({open}) => {
 				type: "password",
 				icon: SVGNames.Password,
 				...userData.pass1,
-				onChange: value => change.pass(value, setUserData),
-				onBlur: () => check.pass(setUserData),
+				// onChange: value => change.pass(value, setUserData),
+				// onBlur: () => check.pass(setUserData),
 				placeholder: "new password",
 			},
 			{
@@ -26,8 +26,8 @@ export const ResetPass = ({open}) => {
 				type: "password",
 				icon: SVGNames.Password,
 				...userData.pass2,
-				onChange: value => change.pass(value, setUserData),
-				onBlur: () => check.pass(setUserData),
+				// onChange: value => change.pass(value, setUserData),
+				// onBlur: () => check.pass(setUserData),
 				placeholder: "conform password",
 			},
 

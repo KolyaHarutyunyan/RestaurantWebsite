@@ -41,7 +41,7 @@ export const Navbar = memo(
             ?
             <>
               <Button onClick={toggle} className={classes.toggleMenuBtn + ( status ? " opened" : "" )}>
-                <Icon name={SVGNames.toggleMenu} />
+                <Icon name={SVGNames.ToggleMenu} />
               </Button>
             </>
             :

@@ -1,7 +1,8 @@
 import { memo, useState } from "react"
-import { Input, Styled } from "./index"
+import {   Styled } from "./index"
 import { Icon } from "@eachbase/components"
 import { SVGNames } from "@eachbase/constants"
+import { Check,Change } from "@eachbase/utils"
 
 const EF = () => {
 }
@@ -10,6 +11,7 @@ export const TextInput =   memo(
      type,
      isDisabled,
      error,
+     setState,
      icon,
      brdType,
      blockTitle,
@@ -18,11 +20,12 @@ export const TextInput =   memo(
      mt,
      mtt,
      value,
-     onChange,
+     onChange=false,dataType,
      readOnly = false ,
      onFocus = EF,
      onBlur = EF,
      placeholder,
+     className=""
    }) => {
     let [isVisible, setIsVisible] = useState(false)
     let [isFocused, setIsFocused] = useState(false)
@@ -31,8 +34,13 @@ export const TextInput =   memo(
       setIsFocused(true)
       onFocus()
     }
+    const change = value =>{
+      if(onChange)onChange(value)
+      else Change(setState,dataType,value)
+    }
     const blur = () => {
       setIsFocused(false)
+      Check(setState,dataType)
       onBlur()
     }
     return (
@@ -45,7 +53,7 @@ export const TextInput =   memo(
 
 
         <Styled.InputBlock mt={mt} brd={brd} h={type === "textarea" && 130} brdType={brdType}
-                           className={(isDisabled ? " disabled" : "") + (isFocused ? " focused" : "") + (error ? " error" : "")}>
+                           className={className+(isDisabled ? " disabled" : "") + (isFocused ? " focused" : "") + (error ? " error" : "")}>
           <div className={`content ${(important && !value.length) ? "important" : ""}`}>
             {
               icon &&
@@ -56,7 +64,7 @@ export const TextInput =   memo(
                 <Styled.Input
                   type={type !== "password" || !isVisible ? type : "text"}
                   value={value}
-                  onChange={e => !readOnly && onChange(e.target.value)}
+                  onChange={e => !readOnly && change(e.target.value)}
                   onFocus={focus}
                   onBlur={blur}
                   placeholder={placeholder || ""}

@@ -53,8 +53,8 @@ export const useStyles = makeStyles((theme) => ({
 export const Styled = {
   Footer: styled.div`
     width: 100%;
-    color: ${colors.text.white};
-    background-color: ${colors.bg.active};
+    color: ${colors.white};
+    background-color: ${colors.primary};
     height: 64px;
     ${media.forMobile`height:auto`};
     ${props => props.fix && `
@@ -111,6 +111,7 @@ export const Styled = {
     align-items: center;
     ${media.downToDesktop`display:none`};
     p{
+      color: ${colors.white};
       margin-left: 8px;
       font: normal normal 600 16px/25px Poppins;
     }

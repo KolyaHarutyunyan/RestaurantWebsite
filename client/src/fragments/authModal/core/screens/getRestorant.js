@@ -1,5 +1,5 @@
 import {  Title, useAuthStyles } from "..";
-import { change, check } from "@eachbase/utils"
+import { Change, Check } from "@eachbase/utils"
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -34,8 +34,8 @@ export const GetRestaurant = ({close, open, user}) => {
         key: 0,
         type: "text",
         ...restaurantData.name,
-        onChange: value => change.text("name", value, setRestaurantData),
-        onBlur: () => check.text("name", setRestaurantData),
+        onChange: value => Change.text( value, "name", setRestaurantData),
+        onBlur: () => Check.text("name", setRestaurantData),
         placeholder: "Add your Restaurant Name ",
         important: true,
         brd: 8,
@@ -45,8 +45,8 @@ export const GetRestaurant = ({close, open, user}) => {
         type: "textarea",
         blockTitle: "Optional",
         ...restaurantData.description,
-        onChange: value => change.text("description", value, setRestaurantData),
-        onBlur: () => check.text("description", setRestaurantData),
+        onChange: value => Change.text( value,"description", setRestaurantData),
+        onBlur: () => Check.text("description", setRestaurantData),
         placeholder: "Add Brief Description",
         blockDescription: "Max 500 characters",
         brd: 8,

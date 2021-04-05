@@ -4,3 +4,4 @@ export { AuthModal } from "./authModal"
 
 export {Profile} from './profile'
 export {AlertModal} from './alertModal'
+export {ResetPassword} from './resetpassvord'
