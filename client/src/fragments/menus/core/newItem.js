@@ -30,12 +30,12 @@ export const Item = ({ item, newItem }) => {
 							<Styled.ContentLine mt={6}>
 								<p className="description">{item.description}</p>
 								
-								<button aria-describedby={item.id} type="button" onClick={toggleChecked}>
+								<button onClick={toggleChecked}>
 									<Icon name={SVGNames.More}/>
 								</button>
 								
 								
-								<Styled.ToolTip/>
+								<Styled.DropMenu status={openOptions}/>
 							</Styled.ContentLine>
 						
 						</>

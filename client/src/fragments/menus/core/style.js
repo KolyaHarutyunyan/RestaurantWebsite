@@ -92,13 +92,13 @@ export const Styled = {
       text-overflow: ellipsis;
     }
 	`,
-	ToolTip:styled.div`
-		visibility:visible;
-		opacity: 1;
+	DropMenu:styled.div`
+		visibility:${props => props.status?"visible":"hidden"};
+		opacity: ${props => props.status?1:0};
 		position: absolute;
 		top:19px;
 		z-index: 10000;
-		right: 0;
+		right: -16px;
 		width: 100px;
 		height: 200px;
 		background-color: olive;

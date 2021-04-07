@@ -5,8 +5,9 @@ import { colors, media } from "@eachbase/theme"
 export const Styled = {
 	Content: styled.div`
     padding: 80px 145px;
+    height: calc(100vh - 144px);
     ${media.downToLargeDesktop`padding: 64px 0`}
-    ${media.forMobile`padding: 48px 0`}
+    ${media.forMobile`padding: 48px 0;height: calc(100vh - 162px);`}
 	
 	`,
 	BlockTitle: styled.div`
