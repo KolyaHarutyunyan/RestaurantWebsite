@@ -1,7 +1,7 @@
-import { ResetPassword } from "@eachbase/fragments";
+import { ConfirmPassword } from "@eachbase/fragments";
 
 
-export const ResetPassPage = (props) => 	<ResetPassword {...props}/>
+export const ResetPassPage = (props) => 	<ConfirmPassword type={"reset"} {...props}/>
 
 
 

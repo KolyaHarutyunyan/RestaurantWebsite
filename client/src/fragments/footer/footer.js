@@ -16,6 +16,8 @@ export const Footer = (props) => {
   }
   useEffect(() => {
     checkType()
+    window.addEventListener("resize",checkType)
+    return ()=>window.removeEventListener("resize",checkType)
   },[router.pathname])
 
   return (

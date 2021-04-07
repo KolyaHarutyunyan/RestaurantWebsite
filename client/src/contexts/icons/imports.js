@@ -15,10 +15,20 @@ import EyeOff from "../../../public/assets/icons/eyeOffSecondary18x18.svg"
 import Password from "../../../public/assets/icons/PasswordIcon.svg"
 import DonePassword from "../../../public/assets/icons/DonePassword.svg"
 import DoneRestaurant from "../../../public/assets/icons/DoneRestaurant.svg"
+import AddIcon from "../../../public/assets/icons/AddIcon.svg"
+import Build from "../../../public/assets/icons/Building Icon.svg"
+import Call from "../../../public/assets/icons/Call Icon.svg"
+import Download from "../../../public/assets/icons/Download Icon.svg"
+import Hours from "../../../public/assets/icons/Hours Icon.svg"
+import Map from "../../../public/assets/icons/Map Icon.svg"
+import More from "../../../public/assets/icons/More Icon.svg"
+import Website from "../../../public/assets/icons/Website Icon.svg"
 import Back from "../../../public/assets/icons/BackIcon.svg"
+import Menu from "../../../public/assets/icons/Menu Icon.svg"
+
 
 export const SVGS = {
-  Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
-  LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
-  DoneRestaurant
+	Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
+	LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
+	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu
 }

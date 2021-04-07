@@ -23,7 +23,7 @@ export const header = {
 }
 export const  pageLinks = [
   {
-    title:"Restaurant Profile",
+    title:"Restaurant Verify",
     url: "/restaurant",
     icon: SVGNames.Restaurant
   },

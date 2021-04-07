@@ -4,5 +4,4 @@ export default function ResetPass(props){
   return <ResetPassPage {...props}/>
 }
 
-ResetPass.getInitialProps = (req,res)=>
-  ({resetToken:req.query["reset-token"]})
+ResetPass.getInitialProps = (req)=>  ({resetToken:req.query["reset-token"]})

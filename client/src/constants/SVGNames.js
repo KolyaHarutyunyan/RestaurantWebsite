@@ -18,4 +18,13 @@ export const SVGNames = {
   DonePassword:"DonePassword",
   DoneRestaurant:"DoneRestaurant",
   Back:"Back",
+  AddIcon:"AddIcon",
+  Build:"Build",
+  Call:"Call",
+  Download:"Download",
+  Hours:"Hours",
+  Map:"Map",
+  More:"More",
+  Menu:"Menu",
+  Website:"Website",
 }

@@ -24,10 +24,10 @@ export const EditUserData = () =>{
 				<Input.Text
 					icon={SVGNames.User}
 					{...userData.fullName}
-					// onChange={value => Change.text(value,"fullName", setUserData)}
-					// onBlur={() =>
-					// 	Check.text("fullName",setUserData,3,40,)
-					//}
+					onChange={value => Change.text(value,"fullName", setUserData)}
+					onBlur={() =>
+						Check.text("fullName",setUserData,3,40,)
+					}
 					placeholder="full name"
 					readOnly={readOnly}
 					blockTitle="Full Name"
@@ -38,8 +38,8 @@ export const EditUserData = () =>{
 				<Input.Email
 					icon={SVGNames.Password}
 					{...userData.email}
-					// onChange={value => Change.text(value,"email", setUserData)}
-					// onBlur={() => Check.email(setUserData)}
+					onChange={value => Change.text(value,"email", setUserData)}
+					onBlur={() => Check.email(setUserData)}
 					placeholder="email"
 					blockTitle="Email"
 					readOnly={readOnly}

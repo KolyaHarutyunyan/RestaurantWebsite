@@ -1,0 +1,2 @@
+
+export {RestaurantInfos} from './restaurantInfos'

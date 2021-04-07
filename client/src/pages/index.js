@@ -1,4 +1,5 @@
 export {HomePage} from "./home"
 export {ProfilePage} from './profile'
-export {RestaurantPage} from './reastaurant'
+export {RestaurantPage} from './restaurant'
 export {ResetPassPage} from './resetPass'
+export {VerifyPage} from './verify'
