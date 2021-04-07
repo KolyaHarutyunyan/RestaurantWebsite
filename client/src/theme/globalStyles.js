@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core';
-import theme from '.';
+import { makeStyles } from '@material-ui/core'
+import { theme } from '.'
 
-const useGlobalStyles = makeStyles({
+export const useGlobalStyles = makeStyles({
     containerFluid: (props) => ({
         paddingLeft: props && props.xs && props.xs.px ? props.xs.px : theme.spacing(2),
         paddingRight: props && props.xs && props.xs.px ? props.xs.px : theme.spacing(2),
@@ -14,8 +14,9 @@ const useGlobalStyles = makeStyles({
             paddingRight: props && props.lg && props.lg.px ? props.xs.px : '92px',
         },
     }),
+
     button: (props) => ({
-        color: '#fff',
+
         width: '100%',
         padding: '14.5px 32px',
         fontSize: '1rem',
@@ -38,6 +39,5 @@ const useGlobalStyles = makeStyles({
             padding: '12.7px 32px',
         },
     }),
-});
 
-export default useGlobalStyles;
+})

@@ -1,0 +1,2 @@
+
+export {ModalTitle} from './modalTitle'

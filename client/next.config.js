@@ -11,6 +11,7 @@ module.exports = withBundleAnalyzer({
       use: ['@svgr/webpack'],
     });
 
+
     return config;
   },
 });

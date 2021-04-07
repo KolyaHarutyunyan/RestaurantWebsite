@@ -1,14 +1,19 @@
 import Head from 'next/head'
+import { HomePage } from "@eachbase/pages"
 
-export default function Home() {
+
+export default function Home(props) {
   return (
-    <div>
+    <>
       <Head>
-        <title>welcome menuz</title>
-        <link rel="icon" href="/favicon.ico"/>
+        {props.meta || <title>welcome menuz</title>}
       </Head>
-
-      <h1>yu hu</h1>
-    </div>
+      <HomePage {...props.pageData}/>
+    </>
   )
+}
+
+Home.getInitialProps = async () => {
+  let res = {meta: null, pageData: null}
+  return {...res}
 }
