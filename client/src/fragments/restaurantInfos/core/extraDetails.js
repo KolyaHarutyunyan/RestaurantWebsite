@@ -28,7 +28,8 @@ export const ExtraDetails = () => {
 				<Icon name={SVGNames.Hours}/>
 				<button onClick={() => setOpenHours(current => !current)} className={"hours"}>hours <Icon
 					name={SVGNames.DropdownArrow}/></button>
-				<Styled.DropMenu status={openHours}>
+				<Styled.DropMenu status={openHours} onClick={() => setOpenHours(current => !current)}>
+					<div className="bg" />
 					<TimeLine day={extraDetails.hours.mon} name="MON"/>
 					<TimeLine day={extraDetails.hours.tue} name="TUE"/>
 					<TimeLine day={extraDetails.hours.wed} name="WED"/>

@@ -38,10 +38,13 @@ export const Styled = {
 		`};
     }
 
+		${props=>props.hasLogo && media.forMobile`
+			margin-left: 16px;
+    	width: calc(100% - 76px);
+		`};
     ${media.forMobile`
 			height: 60px;
-			margin-left: ${props => props.hasLogo ? 16 : 0}px;
-			width: calc(100% - ${props => props.hasLogo ? 76 : 0}px);
+			
 			font: normal normal bold 16px/25px Poppins;
 		`};
 	`,
@@ -76,11 +79,8 @@ export const Styled = {
     width: 100%;
     margin-top: 104px;
     font: normal normal normal 16px/24px Open Sans;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+
     color: ${colors.text};
     ${media.forMobile`
 			margin-top: 76px;
@@ -134,6 +134,17 @@ export const Styled = {
     ${media.forMobile`
       padding: 8px 16px 16px;
 	  `};
+
+    .bg {
+      display: ${props => props.status ? "block" : "none"};
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9999;
+      background-color: #0000;
+    }
 
     .line {
       width: 100%;

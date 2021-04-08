@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
+import { MenuInfos } from "@eachbase/fragments"
 
 let newMenu = {
 	id: "",
@@ -35,6 +36,7 @@ export const MenuPage = ({ tag }) => {
 	
 	return (
 		<>
+			<MenuInfos />
 			<div>
 				<Link href={"/restaurant"}>
 					<a >restaurant</a>

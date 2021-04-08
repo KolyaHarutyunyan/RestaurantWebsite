@@ -9,3 +9,4 @@ export {ConfirmPassword} from './confirmPassword'
 
 export {RestaurantInfos} from './restaurantInfos'
 export {Menus} from './menus'
+export {MenuInfos} from './menuInfos'
