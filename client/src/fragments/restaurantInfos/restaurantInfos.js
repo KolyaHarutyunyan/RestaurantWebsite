@@ -1,5 +1,12 @@
+import { Styled, Information, ExtraDetails } from "./core";
+
+
 export const RestaurantInfos = () =>{
 	return(
-		<h1>Restaurantinfos</h1>
+		<Styled.Content>
+			<Information/>
+			<ExtraDetails/>
+		</Styled.Content>
+	 
 	)
 }

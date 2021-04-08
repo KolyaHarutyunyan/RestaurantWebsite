@@ -4,10 +4,13 @@ import { colors, media } from "@eachbase/theme"
 
 export const Styled = {
 	Content: styled.div`
-    padding: 80px 145px;
-    height: calc(100vh - 144px);
-    ${media.downToLargeDesktop`padding: 64px 0`}
-    ${media.forMobile`padding: 48px 0;height: calc(100vh - 162px);`}
+    padding:0 145px 140px;
+    box-sizing: border-box;
+    display: block;
+    
+   
+    ${media.downToLargeDesktop`padding: 0 0 140px`}
+ 
 	
 	`,
 	BlockTitle: styled.div`
@@ -15,6 +18,10 @@ export const Styled = {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+		margin:80px 0 40px;
+    ${media.downToLargeDesktop`margin:64px 0 40px;`}
+    ${media.forMobile`margin-bottom: 24px;`}
+
 
     .page-title {
       margin: 0;

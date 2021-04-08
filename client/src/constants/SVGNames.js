@@ -27,4 +27,5 @@ export const SVGNames = {
   More:"More",
   Menu:"Menu",
   Website:"Website",
+  DropdownArrow:"DropdownArrow",
 }

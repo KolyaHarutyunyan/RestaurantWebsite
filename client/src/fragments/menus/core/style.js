@@ -19,15 +19,15 @@ export const Styled = {
     width: ${blockW}px;
     height: ${blockH}px;
     border-radius: 16px;
- 
-    box-shadow: 0 0 6px #0000001A;
+    cursor: pointer;
+    box-shadow: 0 0 6px ${colors.shadow};
     ${media.forMobile` width: 100%`};
 	
 	`,
 	ItemImage: styled.div`
     width: 100%;
     height: ${imageH}px;
-    background-color: #0000001A;
+    background-color: ${colors.shadow};
     ${props => props.bgi && `background-image: url("${props.bgi}")`};
     background-position: center;
     background-size: cover;
@@ -91,18 +91,52 @@ export const Styled = {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+		.dropBtn{
+			z-index: 100000;
+      position: absolute;
+			right: 0;
+			padding: 0;
+		}
 	`,
 	DropMenu:styled.div`
 		visibility:${props => props.status?"visible":"hidden"};
 		opacity: ${props => props.status?1:0};
 		position: absolute;
-		top:19px;
+		top:25px;
 		z-index: 10000;
 		right: -16px;
-		width: 100px;
-		height: 200px;
-		background-color: olive;
-		
+    width: 119px;
+    height: 132px;
+		border-radius: 6px;
+		box-shadow: 0 0 10px ${colors.shadow};
+		background-color: ${colors.white};
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 6px 0;
+		.bg{
+			display: ${props => props.status?"block":"none"};
+			width: 100%;
+			height: 100vh;
+      position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 9999;
+			background-color: #0000;
+		}
+	`,
+	DropAction:styled.button`
+		height: 40px;
+		z-index: 10010;
+		text-align: left;
+		padding: 9px 24px;
+    font: normal normal normal 16px/22px Open Sans;
+		&:hover{
+			background-color: #E9E9EB;
+		}
+		color: ${props => props.remove?colors.primary:colors.text};
 	`
+	
+	
 	
 }

@@ -31,7 +31,7 @@ export const AlertModal = ({status, submit, close}) => {
         <Styled.Title>Delete Account</Styled.Title>
         <Styled.Description one>Are you sure you want to delete your account? If you delete your account, you'll permanently lose your profile. </Styled.Description>
         <Styled.Description > To delete your account, please enter your password </Styled.Description>
-        <Input.pass
+        <Input
           {...userData.password}
           icon={SVGNames.Password}
           onChange={value=>Change.text(value,"password",setUserData)}

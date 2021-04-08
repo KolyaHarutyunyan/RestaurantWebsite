@@ -25,10 +25,11 @@ import More from "../../../public/assets/icons/More Icon.svg"
 import Website from "../../../public/assets/icons/Website Icon.svg"
 import Back from "../../../public/assets/icons/BackIcon.svg"
 import Menu from "../../../public/assets/icons/Menu Icon.svg"
+import DropdownArrow from "../../../public/assets/icons/Dropdown Arrow.svg"
 
 
 export const SVGS = {
 	Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
 	LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
-	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu
+	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu,DropdownArrow
 }

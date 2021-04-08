@@ -7,9 +7,9 @@ import { SVGNames } from "@eachbase/constants";
 import Link from "next/link"
 
 export const Footer = (props) => {
-  console.log(props)
+  // console.log(props)
   let router = useRouter()
-  console.log(router)
+  // console.log(router)
   let [fix, setFix] = useState(false)
   let checkType = () => {
     setFix(document.querySelector("#__next").clientHeight < window.innerHeight)
