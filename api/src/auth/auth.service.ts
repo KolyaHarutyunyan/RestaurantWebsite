@@ -69,6 +69,7 @@ export class AuthService {
     return { token, role };
   }
 
+
   /** Generates a token using an IAuth object */
   private async generateToken(
     auth: IAuth,

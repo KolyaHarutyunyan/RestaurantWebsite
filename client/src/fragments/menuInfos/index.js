@@ -1,0 +1,2 @@
+
+export {MenuInfos} from './menuInfos'
