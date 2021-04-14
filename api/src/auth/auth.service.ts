@@ -39,7 +39,7 @@ export class AuthService {
       const auth: IAuth = await new this.model({
         email: signupDTO.email,
         password: signupDTO.password,
-        role: Role.RESTAURANT_OWNER,
+        role: Role.RESTAURANT_OWNER,3
       }).save();
       //Set auth Id
       signupDTO.authId = auth.id;

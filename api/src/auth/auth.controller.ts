@@ -1,10 +1,5 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
-import {
-  ApiBody,
-  ApiOkResponse,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { SignupDTO, SignedInDTO } from './dto';
