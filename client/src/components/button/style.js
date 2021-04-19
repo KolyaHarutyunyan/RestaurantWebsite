@@ -1,4 +1,6 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core"
+import styled from "styled-components"
+import { colors, media } from "@eachbase/theme"
 
 export const useBtnStyles = makeStyles((theme) => ({
 
@@ -29,3 +31,31 @@ export const useBtnStyles = makeStyles((theme) => ({
 
 
 }));
+
+
+
+export const Styled = {
+  ActionBtn:styled.button`
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: flex-start;
+    font: normal normal normal 14px/21px Open Sans;
+    color: ${props => props.remove ? colors.primary : colors.action};
+  
+    .icon {
+      width: 24px;
+      height: 24px;
+      ${media.forMobile`
+        width: 18px;
+        height: 18px;
+      `};
+    }
+  
+    .btnTitle {
+      margin-left: 8px;
+      ${media.forMobile`display:none`};
+    }
+
+  `
+}

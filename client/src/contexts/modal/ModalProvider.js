@@ -1,11 +1,13 @@
 import { createContext, useState } from "react";
 import { AlertModal, AuthModal } from "@eachbase/fragments";
+import { RemoveMenuItem } from "../../modals/removeMenuItem";
 
 let initData = {status: false, props: {}}
 
 let initState = {
   auth: initData,
-  alert: initData
+  alert: initData,
+  rmMenuItem:initData,
 }
 
 export const ModalContext = createContext()
@@ -21,6 +23,7 @@ export const ModalProvider = ({children}) => {
   let openModal = {
     auth: (props = {}) => open("auth", props),
     alert: (props = {}) => open("alert", props),
+    rmMenuItem: (props = {}) => open("rmMenuItem", props),
   }
 
   return (
@@ -28,6 +31,7 @@ export const ModalProvider = ({children}) => {
 
       <AuthModal {...modal.auth} close={()=>close( "auth")}/>
       <AlertModal {...modal.alert} close={()=>close( "alert")}/>
+      <RemoveMenuItem {...modal.rmMenuItem} close={()=>close( "rmMenuItem")}/>
 
       {children}
     </ModalContext.Provider>

@@ -18,7 +18,6 @@ const initialState = {
     },
     webSite: "",
   },
-  activeMenuId: 0,
   menus: [
     {
       id:"879879",

@@ -5,7 +5,7 @@ import GoogleColor from '../../../public/assets/icons/GoogleIcon.svg'
 import FaceBook from '../../../public/assets/icons/FacebookIcon.svg'
 import Twitter from '../../../public/assets/icons/TwitterIcon.svg'
 import User from '../../../public/assets/icons/UserIcon.svg'
-import DownArrow from '../../../public/assets/icons/DownArrowIcon.svg'
+
 import LogOut from '../../../public/assets/icons/LogOutIcon.svg'
 import Profile from '../../../public/assets/icons/ProfileIcon.svg'
 import Restaurant from '../../../public/assets/icons/RestaurantIcon.svg'
@@ -26,10 +26,17 @@ import Website from "../../../public/assets/icons/Website Icon.svg"
 import Back from "../../../public/assets/icons/BackIcon.svg"
 import Menu from "../../../public/assets/icons/Menu Icon.svg"
 import DropdownArrow from "../../../public/assets/icons/Dropdown Arrow.svg"
+import Delete from "../../../public/assets/icons/Delete.svg"
+import DownArrow from "../../../public/assets/icons/DownArrowIcon.svg"
+import LeftArrow from "../../../public/assets/icons/Left ArrowIcon.svg"
+import Edit from "../../../public/assets/icons/Edit.svg"
+import Forward from "../../../public/assets/icons/Forward Icon.svg"
+import Checkmark from "../../../public/assets/icons/Checkmark.svg"
 
 
 export const SVGS = {
 	Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
 	LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
-	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu,DropdownArrow
+	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu,DropdownArrow,
+	Delete,	Edit,	Forward, LeftArrow,Checkmark
 }

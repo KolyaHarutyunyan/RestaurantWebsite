@@ -25,10 +25,10 @@ def run(args):
         names = args[1:]
 
     for name in names:
-        if name == name.capitalize():
-            lname = name.lower()
+#         if name == name.capitalize():
 
-            utils.add_import(name, "./%s" % lname, "src/fragments/%s/core/index.js" % fn)
-            fs = open("src/fragments/%s/core/%s.js" % (fn, lname), "w")
-            fs.write(utils.create_component(name))
-            fs.close()
+
+        utils.add_import(name.capitalize(), "./%s" % name, "src/fragments/%s/core/index.js" % fn)
+        fs = open("src/fragments/%s/core/%s.js" % (fn, name), "w")
+        fs.write(utils.create_component(name.capitalize()))
+        fs.close()

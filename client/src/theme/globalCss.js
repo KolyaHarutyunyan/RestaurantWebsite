@@ -3,8 +3,12 @@ import { withStyles } from '@material-ui/core';
 export const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
-
-        "input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button": {
+        "*":{
+          boxSizing: "border-box",
+          margin:0,
+          padding:0
+        },
+       "input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button": {
             '-webkit-appearance': 'none',
             margin: 0,
         },

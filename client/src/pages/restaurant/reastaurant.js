@@ -9,7 +9,7 @@ export const RestaurantPage = () => {
 	return (
 		<Styled.Content>
 			<Styled.BlockTitle>
-				<PageTitle>Restaurant</PageTitle>
+			 	<PageTitle>Restaurant</PageTitle>
 				{
 					QRImageUrl &&
 					<a href={"#QRImageUrl"} className="downloadBtn">
