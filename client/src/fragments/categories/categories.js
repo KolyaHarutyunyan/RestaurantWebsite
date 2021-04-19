@@ -42,15 +42,9 @@ export const Categories = () => {
 			<Styled.Content>
 				<Styled.LeftBlock>
 					<CategoriesTitle activeType={activeType} changeTo={changeTypeTo}/>
-					{
-						
-						desktop && activeCategoryId
-							
-							?
+					 
 							<CategoriesList activeType={activeType} activeCategoryId={activeCategoryId} changeTo={changeCategoryTo}/>
-							: null
-					}
-				
+						 
 				</Styled.LeftBlock>
 				 <Styled.RightBlock open={openRightBlock}>
 							<ItemsTitle activeType={activeType} activeCategory={activeCategoryId} close={closeRightBlock}/>

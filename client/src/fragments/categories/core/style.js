@@ -466,6 +466,7 @@ export const Styled = {
 					height: 18px;
           border: 1px solid ${colors.action};
           border-radius: 2px;
+          padding: 3px 2px;
 					background-color: unset;
 					margin-right: 16px;
 					${animation(["all"])};

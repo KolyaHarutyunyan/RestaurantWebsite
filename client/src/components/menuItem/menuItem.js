@@ -23,7 +23,7 @@ export const MenuItem = ({itemId}) =>{
 					<div className="option">{item.options || ""}</div>
 					<div className="actions">
 						<Button.Action  type={"edit"}/>
-						<Button.Action className={"remove"} type={"remove"} onClick={openModal.rmMenuItem}/>
+						<Button.Action className={"remove"} type={"remove"} onClick={()=>openModal.rmMenuItem({id:item.id,type:"menuItem"})}/>
 					</div>
 					
 				</div>

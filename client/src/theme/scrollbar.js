@@ -1,6 +1,6 @@
 export const ScrollBar = `
   &::-webkit-scrollbar {
-		width: 8px;
+		width: 6px;
 		border-radius: 5px;
 		right:8px
 	}
@@ -12,9 +12,9 @@ export const ScrollBar = `
 	}
 
 	&::-webkit-scrollbar-thumb {
-		width: 10px;
-		border-radius: 10px;
-		background: linear-gradient(#2B273C96, #2B273C, #2B273C96);
+		width: 6px;
+		border-radius: 6px;
+		background: linear-gradient(#2B273C, #2B273C96, #2B273C);
 		// background: #2B273C96 0% 0% no-repeat padding-box;
 		transition: all .5s;
 		cursor: pointer;

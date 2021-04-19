@@ -4,14 +4,20 @@ import { useEffect, useRef, useState } from "react"
 import { SVGNames } from "@eachbase/constants"
 import { useSelector } from "react-redux";
 
+let items =[]
+
 export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
 	let [ open, setOpen ] = useState(false)
 	let input = useRef()
-	let openItems = () => {
+	let toggleItems = () => {
 		if (open) {
 			//add selected items on category
+			console.log(items.filter(item=>item.selected))
 			setOpen(false)
-			
+			items = items.map(item=>{
+				item.selected = false
+				return item
+			})
 		} else {
 			input.current.focus()
 			setOpen(true)
@@ -22,28 +28,38 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
 		setNewItemName(value)
 		filterItems(value)
 	}
-	
-	let items = useSelector(state => state.menuItems.filter(item => item.type === activeType && item.parents.indexOf(activeCategoryId) === -1))
+	let allItems = useSelector(state => state.menuItems)
 	console.log(items)
 	let [ filteredItems, setFilteredItems ] = useState([])
-	let [ selectedItems, setSelectedItems ] = useState([])
+ 
 	
 	const filterItems = filter => setFilteredItems(items.filter(item => item.title.indexOf(filter) !== -1 || !filter))
-	useEffect(() => filterItems(), [])
-	
-	// const selectItem =(item.)
-	
-	console.log(selectedItems)
-	
-	let select = itemId => {
-		let newSelectedItems = selectedItems
+	useEffect(() => {
+		items = allItems
+			.filter(item => item.type === activeType && item.parents.indexOf(activeCategoryId) === -1)
+			.map(item=>{
+				item.selected=false
+				return item
+			})
 		
-		newSelectedItems.indexOf(itemId) === -1
-			? newSelectedItems.push(itemId)
-			: newSelectedItems.splice(newSelectedItems.indexOf(itemId), 1)
+		filterItems()
+	}, [])
+	
+ 
+	let select = itemId => {
+		items = items.map(item=>{
+			if(item.id === itemId)item.selected = !item.selected
+			return item
+		})
+		filterItems(newItemName)
+		
+		// console.log(itemId);
+		// newSelectedItems.indexOf(itemId) === -1
+		// 	? newSelectedItems.push(itemId)
+		// 	: newSelectedItems.splice(newSelectedItems.indexOf(itemId), 1)
 		
 	 
-		setSelectedItems(newSelectedItems		)
+		// setSelectedItems(newSelectedItems		)
 	}
 	
 	return (
@@ -59,14 +75,14 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
 					/>
 					<p>Choose from the List</p>
 					
-					<Icon name={SVGNames.DropdownArrow} onClick={openItems}/>
+					<Icon name={SVGNames.DropdownArrow} onClick={toggleItems}/>
 				</div>
-				<div className="bg" onClick={openItems}/>
+				<div className="bg" onClick={toggleItems}/>
 				<div className="items">
 					{filteredItems.length
 						? filteredItems.map(item =>
 							<div onClick={() => select(item.id)} key={item.id}
-									 className={`item whitCheckBox ${selectedItems.indexOf(item.id) !==-1 ? "selected":"" }`}>
+									 className={`item whitCheckBox ${item.selected ? "selected":"" }`}>
 								<div className="checkBox">
 									<Icon name={SVGNames.Checkmark}/>
 								</div>

@@ -1,2 +1,0 @@
-
-export {Categories} from './categories'
