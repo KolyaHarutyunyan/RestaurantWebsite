@@ -6,9 +6,9 @@ files:
   - source: /api
     destination: /var/www/menuzMini/api
   - source: /clientDist
-    destination: /var/www/menuzmini/webapp
+    destination: /var/www/menuzMini/webapp
   - source: /adminDist
-    destination: /var/www/menuzmini/admin
+    destination: /var/www/menuzMini/admin
   - source: /.npmrc
     destination: /var/www/menuzMini/api
 hooks:
