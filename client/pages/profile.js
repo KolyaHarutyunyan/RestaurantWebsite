@@ -5,7 +5,7 @@ export default function Profile(props) {
     return (
         <>
             <Head>{props.meta || <title>welcome menuz</title>}</Head>
-            <ProfilePage {...props.pageData}/>
+            {/* <ProfilePage {...props.pageData}/> */}
             <div>Profile Page</div>
         </>
     );
