@@ -2,21 +2,28 @@ import styled from "styled-components"
 import { colors, media } from "@eachbase/theme"
 
 let blockH = 251
-let blockW = 264
+
 let imageH = 172
 export const Styled = {
 	Content: styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, ${blockW}px);
+    grid-template-columns: repeat(auto-fill, calc(20% - 20px));
+
+
     justify-content: space-between;
     grid-row-gap: 20px;
     grid-column-gap: 20px;
-		${media.forMobile`grid-template-columns: repeat(auto-fill, 100%)`};
-	}
-		
+    ${media.forDesktop`grid-template-columns: repeat(auto-fill, calc(25% - 20px))`};
+    ${media.forTablet`grid-template-columns: repeat(auto-fill, calc(33% - 20px))`};
+    @media (min-width: 768px) and (max-width: 960px) {
+    grid-template-columns: repeat(auto-fill, calc(50% - 20px));
+  } ${media.forMobile`grid-template-columns: repeat(auto-fill, 100%)`};
+	
+	
 	`,
 	Item: styled.div`
-    width: ${blockW}px;
+    width: 100%;
+	 
     height: ${blockH}px;
     border-radius: 16px;
     cursor: pointer;
@@ -37,6 +44,7 @@ export const Styled = {
     align-items: center;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+
     .icon-Menu {
       width: 80px;
       height: 80px;
@@ -72,71 +80,76 @@ export const Styled = {
 	
 	ContentLine: styled.div`
     display: flex;
-		position: relative;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     margin-top: ${props => props.mt || 0}px;
     width: 100%;
-		.title{
+
+    .title {
       font: normal normal bold 16px/22px Open Sans;
-			color: ${colors.text};
-		}
+      color: ${colors.text};
+    }
+
     .description {
       width: calc(100% - 34px);
       height: 19px;
-			color: ${colors.text};
+      color: ${colors.text};
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-		.dropBtn{
-			z-index: 100000;
+
+    .dropBtn {
+      z-index: 100000;
       position: absolute;
-			right: 0;
-			padding: 0;
-		}
+      right: 0;
+      padding: 0;
+    }
 	`,
-	DropMenu:styled.div`
-		visibility:${props => props.status?"visible":"hidden"};
-		opacity: ${props => props.status?1:0};
-		position: absolute;
-		top:25px;
-		z-index: 10000;
-		right: -16px;
+	DropMenu: styled.div`
+    visibility: ${props => props.status ? "visible" : "hidden"};
+    opacity: ${props => props.status ? 1 : 0};
+    position: absolute;
+    top: 25px;
+    z-index: 10000;
+    right: 0;
     width: 119px;
     height: 132px;
-		border-radius: 6px;
-		box-shadow: 0 0 10px ${colors.shadow};
-		background-color: ${colors.white};
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		padding: 6px 0;
-		.bg{
-			display: ${props => props.status?"block":"none"};
-			width: 100%;
-			height: 100vh;
+    border-radius: 6px;
+    box-shadow: 0 0 10px ${colors.shadow};
+    background-color: ${colors.white};
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 6px 0;
+
+    .bg {
+      display: ${props => props.status ? "block" : "none"};
+      width: 100%;
+      height: 100vh;
       position: fixed;
-			left: 0;
-			top: 0;
-			z-index: 9999;
-			background-color: #0000;
-		}
+      left: 0;
+      top: 0;
+      z-index: 9999;
+      background-color: #0000;
+    }
 	`,
-	DropAction:styled.button`
-		height: 40px;
-		z-index: 10010;
-		text-align: left;
-		padding: 9px 24px;
+	DropAction: styled.button`
+    height: 40px;
+    z-index: 10010;
+    text-align: left;
+    padding: 9px 24px;
     font: normal normal normal 16px/22px Open Sans;
-		&:hover{
-			background-color: #E9E9EB;
-		}
-		color: ${props => props.remove?colors.primary:colors.text};
+
+    &:hover {
+      background-color: #E9E9EB;
+    }
+
+    color: ${props => props.remove ? colors.primary : colors.text};
 	`
-	
 	
 	
 }

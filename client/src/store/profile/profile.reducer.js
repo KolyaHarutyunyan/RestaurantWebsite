@@ -2,7 +2,7 @@ import { profileReducerTypes, profileTypes } from "./profile.types";
 
 const initialState = {
   email: "fhfd",
-  fullName: "dfghdfgh",
+  fullName: "Happy Birthday Harut jan",
   id: "fdghdfg",
   role: "fdghdfghd",
 
