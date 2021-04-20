@@ -39,7 +39,7 @@ export class AuthService {
       const auth: IAuth = await new this.model({
         email: signupDTO.email,
         password: signupDTO.password,
-        role: Role.RESTAURANT_OWNER,3
+        role: Role.RESTAURANT_OWNER,
       }).save();
       //Set auth Id
       signupDTO.authId = auth.id;
@@ -68,7 +68,6 @@ export class AuthService {
 
     return { token, role };
   }
-
 
   /** Generates a token using an IAuth object */
   private async generateToken(
