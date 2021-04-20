@@ -18,5 +18,6 @@ export const colors = {
   white:"#ffffff",
   action:"#007AFF",
   text:"#2B273C",
-  shadow:"#0000001A"
+  shadow:"#0000001A",
+  green:"#54C762"
 }
