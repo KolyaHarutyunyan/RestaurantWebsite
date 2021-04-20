@@ -5,10 +5,10 @@ files:
     destination: /etc/nginx/sites-enabled/
   - source: /api
     destination: /var/www/menuzMini/api
-  # - source: /clientDist
-  #   destination: /var/www/menuzmini/webapp
-  # - source: /adminDist
-  #   destination: /var/www/menuzmini/admin
+  - source: /clientDist
+    destination: /var/www/menuzmini/webapp
+  - source: /adminDist
+    destination: /var/www/menuzmini/admin
   - source: /.npmrc
     destination: /var/www/menuzMini/api
 hooks:
