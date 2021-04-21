@@ -15,7 +15,7 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
 		<Styled.CategoryItem active={categoryId === activeCategory} onClick={()=>changeTo(categoryId)}>
 			<div className="name">
 				{category.title}
-				<Button.Action onClick={()=>openModal.rmMenuItem({id:categoryId,type:"category"})} type={"remove"}/>
+				<Button.Action onClick={()=>openModal.removeCategory({id:categoryId,parentName:"menuName"})} type={"remove"}/>
 			</div>
 			<Icon name={SVGNames.LeftArrow} />
 		</Styled.CategoryItem>

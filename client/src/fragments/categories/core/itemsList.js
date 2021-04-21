@@ -8,6 +8,9 @@ export const ItemsList = ({ activeCategoryId }) => {
 	let itemIds = activeCategoryId
 		?useSelector(state=>state.categories.find(category=>category.id === activeCategoryId).items || [])
 		:[]
+	let activeCategoryName = activeCategoryId
+		?useSelector(state=>state.categories.find(category=>category.id === activeCategoryId).title || "")
+		:""
 	
 	console.log(itemIds)
 	return (
@@ -15,7 +18,7 @@ export const ItemsList = ({ activeCategoryId }) => {
 			<div className="content">
 				{
 					itemIds?
-						itemIds.map(item => <MenuItem key={item} itemId={item}/>)
+						itemIds.map(item => <MenuItem key={item} itemId={item} parentName={activeCategoryName}/>)
 						:<Styled.NotItem></Styled.NotItem>
 				}
 			</div>

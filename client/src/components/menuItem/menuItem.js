@@ -4,7 +4,7 @@ import {Button} from "@eachbase/components"
 import { useContext } from "react";
 import { ModalContext } from "../../contexts";
 
-export const MenuItem = ({itemId}) =>{
+export const MenuItem = ({itemId,parentName}) =>{
 	let item  = useSelector(state=>state.menuItems.find(menuItem=>menuItem.id === itemId) || false)
 	let { openModal } = useContext(ModalContext)
 	if(!item)return null
@@ -23,7 +23,7 @@ export const MenuItem = ({itemId}) =>{
 					<div className="option">{item.options || ""}</div>
 					<div className="actions">
 						<Button.Action  type={"edit"}/>
-						<Button.Action className={"remove"} type={"remove"} onClick={()=>openModal.rmMenuItem({id:item.id,type:"menuItem"})}/>
+						<Button.Action className={"remove"} type={"remove"} onClick={()=>openModal.removeMenuItem({id:item.id,parentName })}/>
 					</div>
 					
 				</div>

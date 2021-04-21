@@ -46,7 +46,7 @@ const initialState = [
 		options: "sdsdfsdfsd",
 		imageUrl: " https://www.gastronom.ru/binfiles/images/20151002/bc4c6ff2.jpg",
 		type:"foods",
-		parents:[],
+		parents:["879ddf87sdfas9","879ddf8sd79","879ddf8as79"],
 		price: 8888,
 	},
 	{

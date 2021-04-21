@@ -19,7 +19,7 @@ export const Title = ({title,id,status,changeStatus})=>{
 			<Styled.Title status={status}>
 				<PageTitle>Menu</PageTitle>
 				<div className="ctrl">
-					<Button.Action type={"remove"} className={"action remove"} onClick={()=>openModal.rmMenuItem({id,type:"menu"})} text={"Delete Menu"}/>
+					<Button.Action type={"remove"} className={"action remove"} onClick={()=>openModal.removeMenu({id})} text={"Delete Menu"}/>
 				 
 					<div className="action status">
 						<Switch onClick={changeStatus} status={status}/>
