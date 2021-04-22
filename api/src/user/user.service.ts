@@ -11,6 +11,15 @@ export class UserService {
     this.model = UserModel;
   }
   model: Model<IUser>;
+  
+  async findByEmail(email: string): Promise<any> {
+    const user = await this.model.findOne({ email: email });
+    if (!user) {
+      // throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      return null;
+    }
+    return user
+  }
 
   /** Service API */
   async create(createUserDTO: CreateUserDTO): Promise<UserResponseDTO> {

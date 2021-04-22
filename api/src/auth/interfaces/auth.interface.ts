@@ -6,6 +6,7 @@ export interface IAuth extends Document {
   googleId?: string;
   twitterId?: string;
   facebookId?: string;
+  invitation?:boolean;
   role: number;
   /**Mathods */
   comparePassword?: any;

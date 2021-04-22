@@ -3,9 +3,9 @@ import {
   AuthDTO,
   // ChangePassDTO,
   // ResetPassDTO,
-  // SigninDTO,
+  SigninDTO,
   SignupDTO,
-  // SocialLoginDTO,
+  SocialLoginDTO,
 } from './dto';
 import { IToken } from './interfaces';
 import * as jwt from 'jsonwebtoken';
@@ -33,6 +33,35 @@ export class AuthService {
   model: Model<IAuth>;
   sessionExpiratrion: string;
 
+  socialLogin = async (socialLoginDTO: SocialLoginDTO): Promise<AuthDTO> => {
+    let auth: IAuth = await this.model.findOne({
+      email: socialLoginDTO.email,
+    });
+    if (!auth) {
+      // Scenario 1: Brand New User
+      auth = new this.model({
+        email: socialLoginDTO.email,
+        [socialLoginDTO.providerKey]: socialLoginDTO.id,
+        invitation: false,
+        role: Role.MEMBER,
+      });
+    } else {
+      //existing record with this email
+      if (auth.invitation) {
+        //invited user that is not registered
+        auth.invitation = false;
+      }
+      if (!auth[socialLoginDTO.providerKey]) {
+        //Scenario 2: User is registered with a different method
+        auth[socialLoginDTO.providerKey] = socialLoginDTO.id;
+      }
+    }
+    auth = await auth.save();
+    socialLoginDTO.authId = auth._id;
+    socialLoginDTO.role = this.convertRole(auth.role);
+    return this.getSigninResponse(auth);
+  };
+
   /**Service API */
   signup = async (signupDTO: SignupDTO): Promise<AuthDTO> => {
     try {
@@ -45,6 +74,41 @@ export class AuthService {
       signupDTO.authId = auth.id;
       //Set the role
       signupDTO.role = this.convertRole(auth.role);
+      return await this.getSigninResponse(auth);
+    } catch (err) {
+      if (err.code === MONGO_DUPLICATE_KEY) {
+        throw new HttpException('User Exists', HttpStatus.FOUND);
+      }
+      throw err;
+    }
+  };
+  private checkAuth = (auth) => {
+    if (!auth) {
+      throw new HttpException(
+        'Such user does not exist in our records',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  };
+
+  private checkPassword = (isCorrect) => {
+    if (!isCorrect) {
+      throw new HttpException(
+        'user password does not match',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+  };
+
+
+  signin = async (signinDTO: SigninDTO): Promise<any> => {
+    try {
+      const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
+
+      this.checkAuth(auth);
+      const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
+      this.checkPassword(isPasswordCorrect);
+      
       return await this.getSigninResponse(auth);
     } catch (err) {
       if (err.code === MONGO_DUPLICATE_KEY) {

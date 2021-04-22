@@ -40,12 +40,27 @@ export const APPLE_CALLBACK_URL = `${BASE_URL}/auth/apple/redirected`;
 export const COMPANY_EMAIL = 'eachbase@gmail.com';
 
 /** Enums */
+// export enum Role {
+//   ADMIN = 230,
+//   RESTAURANT_OWNER = 231,
+// }
+
+// export enum ClientRole {
+//   ADMIN = 'ADMIN',
+//   RESTAURANT_OWNER = 'RESTAURANT_OWNER',
+// }
+
 export enum Role {
   ADMIN = 230,
   RESTAURANT_OWNER = 231,
+  MEMBER = 112,
+  VERIFIED_MEMBER = 113,
+  ORGANIZER = 114,
 }
 
 export enum ClientRole {
   ADMIN = 'ADMIN',
-  RESTAURANT_OWNER = 'RESTAURANT_OWNER',
+  MEMBER = 'MEMBER',
+  VERIFIED_MEMBER = ' VERIFIED_MEMBER',
+  ORGANIZER = 'ORGANIZER',
 }
