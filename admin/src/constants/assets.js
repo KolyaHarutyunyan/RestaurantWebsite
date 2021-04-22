@@ -1,3 +1,3 @@
 export const ASSETS = {
-  LOGO: "./assets/logo.svg",
+  LOGO: "/assets/logo.svg",
 };
