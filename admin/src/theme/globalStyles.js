@@ -5,6 +5,5 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     background: transparent linear-gradient(179deg, #FFFFFF 0%, #F3F3F3DF 53%, #E3E3E3B3 100%) 0% 0% no-repeat padding-box;
-    color: var(--text);
   }
 `;

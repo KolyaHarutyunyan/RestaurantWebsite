@@ -8,6 +8,6 @@ export const Colors = createGlobalStyle`
     --white: #FFFFFF;
     --head: #387DFF1A;
     --filling: #2B273C;
-    --text: #FFFFFFCC;
+    --light-text: #FFFFFFCC;
   }
 `;

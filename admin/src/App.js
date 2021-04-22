@@ -1,15 +1,20 @@
+import { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Board } from "@eachbase/pages";
+import { BoardLayout } from "@eachbase/fragments";
 import { Theme } from "@eachbase/theme";
+
+import { Restaurants } from "@eachbase/pages";
 
 function App() {
   return (
-    <>
+    <Fragment>
       <Theme />
-      <Switch>
-        <Route path="/" component={Board} />
-      </Switch>
-    </>
+      <BoardLayout>
+        <Switch>
+          <Route path="/" component={Restaurants} />
+        </Switch>
+      </BoardLayout>
+    </Fragment>
   );
 }
 

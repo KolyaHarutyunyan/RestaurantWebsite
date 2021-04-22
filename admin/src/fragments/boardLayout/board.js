@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import useMedia from "use-media";
-import { breakPoints } from "@eachbase/theme";
 
-import { Style } from "./style";
-import { SideBarStateContext } from "./core/viewPortContext";
+import { ViewPortLayoutContext } from "@eachbase/context";
 import { Header } from "./core/header";
 import { Sidebar } from "./core/sidebar";
-import { Main } from "./core/main";
+import { Content } from "./core/content";
+import { Container } from "./style";
 
-export const Board = () => {
+export const BoardLayout = ({ children }) => {
   const isTablet = useMedia(`(max-width: 1280px)`);
   const [sideBarIsOpen, setSideBarIsOpen] = useState(!isTablet);
 
@@ -17,14 +16,14 @@ export const Board = () => {
   }, [isTablet]);
 
   return (
-    <Style.Container>
+    <Container>
       <Header />
-      <SideBarStateContext.Provider
+      <ViewPortLayoutContext.Provider
         value={{ sideBarIsOpen, setSideBarIsOpen, isTablet }}
       >
         <Sidebar />
-        <Main>Board</Main>
-      </SideBarStateContext.Provider>
-    </Style.Container>
+        <Content>{children}</Content>
+      </ViewPortLayoutContext.Provider>
+    </Container>
   );
 };

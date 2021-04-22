@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
     "@eachbase/components": "file:./src/components",
     "@eachbase/constants": "file:./src/constants",
+    "@eachbase/context": "file:./src/context",
     "@eachbase/fragments": "file:./src/fragments",
     "@eachbase/pages": "file:./src/pages",
     "@eachbase/store": "file:./src/store",
