@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-const VerifyCallback = require('passport-facebook').VerifyCallback;
 
-import { Strategy } from 'passport-facebook';
+import { Strategy, VerifyFunction } from 'passport-facebook';
 import { CreateUserDTO } from '../../user/dto/createUser.dto';
 import {
     FACEBOOK_CALLBACK_URL,
@@ -15,7 +14,6 @@ import { SocialLoginDTO } from '../dto';
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     constructor() {
-        console.log('stex');
         super({
             clientID: FACEBOOK_APP_ID,
             clientSecret: FACEBOOK_APP_SECRET,
@@ -28,9 +26,8 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
         accessToken: string,
         refreshToken: string,
         profile: any,
-        done: typeof VerifyCallback,
+        done: any,
     ): Promise<any> {
-        console.log('mtav');
         const { provider, displayName, emails, photos, id } = profile;
 
         const socailLoginDTO: SocialLoginDTO = {

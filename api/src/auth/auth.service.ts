@@ -1,12 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   AuthDTO,
+  ChangePassDTO,
+  ResetPassDTO,
   // ChangePassDTO,
   // ResetPassDTO,
   SigninDTO,
   SignupDTO,
   SocialLoginDTO,
 } from './dto';
+import { JWT_SECRET_FORGET_PASS } from './constants';
+
 import { IToken } from './interfaces';
 import * as jwt from 'jsonwebtoken';
 import {
@@ -99,8 +103,26 @@ export class AuthService {
       );
     }
   };
-
-
+ /** if the user has signed up with the social logins, the password will be missing */
+ private checkNoPassword = (password?: string) => {
+  if (!password) {
+    throw new HttpException(
+      `Our records indicate that you have not created this account with a password. 
+      This means you have used one of the social login methods. 
+      Please use the reset password feature to add a password to your account.`,
+      HttpStatus.FORBIDDEN,
+    );
+  }
+};
+/** Confirms whether the newPassword and the confirmation are matching */
+private confirmPassword = (newPass, confirmation) => {
+  if (newPass !== confirmation) {
+    throw new HttpException(
+      'The new password does not match with the confirmation',
+      HttpStatus.CONFLICT,
+    );
+  }
+};
   signin = async (signinDTO: SigninDTO): Promise<any> => {
     try {
       const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
@@ -108,7 +130,7 @@ export class AuthService {
       this.checkAuth(auth);
       const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
       this.checkPassword(isPasswordCorrect);
-      
+
       return await this.getSigninResponse(auth);
     } catch (err) {
       if (err.code === MONGO_DUPLICATE_KEY) {
@@ -116,6 +138,47 @@ export class AuthService {
       }
       throw err;
     }
+  };
+  /**  Changing the user password **/
+  changePassword = async (changePassDTO: ChangePassDTO): Promise<AuthDTO> => {
+    let auth = await this.model.findOne({
+      _id: changePassDTO.user.authId,
+    });
+    this.checkNoPassword(auth.password);
+    const isPasswordCorrect = await auth.comparePassword(
+      changePassDTO.password,
+    );
+    this.checkPassword(isPasswordCorrect);
+    this.confirmPassword(changePassDTO.newPassword, changePassDTO.confirmation);
+    auth.password = changePassDTO.newPassword;
+    auth = await auth.save();
+    return await this.getSigninResponse(auth);
+  };
+
+  /** Forgot password. sends a link with a token to the users email to reset password*/
+  forgotPassword = async (email: string) => {
+    const auth = await this.model.findOne({ email });
+    this.checkAuth(auth);
+    const minutesToExpire = Math.floor(Date.now() / 1000) + 60 * 30; // 30 minutes to expire
+    const expString = minutesToExpire.toString();
+    const token = await this.generateToken(
+      auth,
+      JWT_SECRET_FORGET_PASS,
+      expString,
+    );
+    return {
+      token: token,
+      email: auth.email,
+    };
+  };
+
+  /** Resets users password */
+  resetPassword = async (resetPassDTO: ResetPassDTO): Promise<AuthDTO> => {
+    let auth = await this.model.findOne({ email: resetPassDTO.email });
+    this.checkAuth(auth);
+    auth.password = resetPassDTO.newPassword;
+    auth = await auth.save();
+    return this.getSigninResponse(auth);
   };
 
   /** Private Methods */
