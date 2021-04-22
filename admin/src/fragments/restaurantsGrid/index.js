@@ -1,0 +1,1 @@
+export { RestaurantsGrid } from "./restaurantsGrid";
