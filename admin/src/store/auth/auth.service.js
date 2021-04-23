@@ -1,21 +1,17 @@
-import { API_BASE } from '../constants';
-import axios from "axios";
-
-const path = `${API_BASE}`;
-const token = localStorage.getItem('access-token')
+import Axios from "axios";
+import { API_BASE } from "../constants";
 
 export const authService = {
+  signUp: (body) => Axios.post(`${API_BASE}/auth/signup`, body.user),
 
-    signIn: (body) => {
-        let endpoint = `${path}/auth/signin`;
-        const res = axios.post(endpoint, body);
-        return res;
-    },
+  signIn: (body) => Axios.post(`${API_BASE}/auth/signin`, body.user),
 
-    logOut: () => {
-        let endpoint = `${path}/auth/logout`;
-        const res = axios.get(endpoint, { headers: { 'access-token': token } } , { "token":   token});
-        return res;
-    }
+  signOut: (body) => Axios.post(`${API_BASE}/auth/signout`, body.user),
 
+  checkEmail: (body) => Axios.post(`${API_BASE}/auth/checkEmail`, body.user),
+
+  checkVerifyKey: (body) =>
+    Axios.post(`${API_BASE}/auth/checkEmail`, body.user),
+
+  resetPassword: (body) => Axios.post(`${API_BASE}/auth/checkEmail`, body.user),
 };

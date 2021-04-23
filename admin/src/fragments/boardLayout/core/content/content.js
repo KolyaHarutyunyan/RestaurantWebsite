@@ -7,7 +7,7 @@ export const Content = ({ children }) => {
   return (
     <Fragment>
       <Style.Container sideBarIsOpen={sideBarIsOpen} isTablet={isTablet}>
-        {children}
+        <div className="wrapper">{children}</div>
       </Style.Container>
       <Style.Fade sideBarIsOpen={sideBarIsOpen} isTablet={isTablet} />
     </Fragment>
