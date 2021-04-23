@@ -7,10 +7,14 @@ export const Style = {
     width: 100%;
     height: 100%;
     margin-top: 140px;
-    padding-left: ${({ sideBarIsOpen, isTablet }) =>
-      sideBarIsOpen && !isTablet ? "200px" : "90px"};
-    padding-right: 15px;
-    transition: margin, 0.3s ease-in-out, padding 0.3s ease-in-out;
+    .wrapper {
+      transition: margin 0.3s ease-in-out, padding 0.3s ease-in-out;
+      margin-left: ${({ sideBarIsOpen, isTablet }) =>
+        sideBarIsOpen && !isTablet ? "200px" : "90px"};
+      padding-right: 15px;
+      height: calc(100% - 145px);
+      overflow: auto;
+    }
   `,
   Fade: styled.div`
     opacity: ${({ sideBarIsOpen, isTablet }) =>

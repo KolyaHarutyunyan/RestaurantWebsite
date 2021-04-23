@@ -1,9 +1,10 @@
 import { fork } from "redux-saga/effects";
 import { watchAuth } from "../auth";
-import { watchRestaurants } from "../restaurants/restaurants.saga";
+import { watchProfile } from "../profile";
+import { watchRestaurant } from "../restaurant";
 
-/** Combined Sagas */
 export const appSaga = function* startForman() {
   yield fork(watchAuth);
-  yield fork(watchRestaurants);
+  yield fork(watchProfile);
+  yield fork(watchRestaurant);
 };

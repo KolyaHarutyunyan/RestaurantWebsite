@@ -15,5 +15,8 @@ export const Container = styled.ul`
     text-overflow: ellipsis;
     padding-left: 10px;
     color: var(--text);
+    &:nth-child(2) {
+      flex: 0 0 180px;
+    }
   }
 `;

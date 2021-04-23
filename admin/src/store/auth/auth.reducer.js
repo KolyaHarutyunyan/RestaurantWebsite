@@ -1,31 +1,29 @@
-import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAIL, CLEAR_ERROR } from './auth.types';
+import { authReducerTypes } from ".";
 
 const initialState = {
-    isAuthenticated: false,
-    loginErr:null,
-    loader:null,
-    admin:null
+  error: false,
+  isAuthenticated: false,
+  key: false,
 };
 
 export const authReducer = (state = initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case authReducerTypes.changeKeyType:
+      return { ...state, key: action.payload.key };
 
-        case  LOG_IN:
-            return {...state, loader:true}
+    case authReducerTypes.cleanError:
+      return { ...state, error: false };
 
-        case LOG_IN_SUCCESS:
-            return {...state,
-                accessToken:  localStorage.getItem('access-token'),
-                admin: JSON.parse(localStorage.getItem('userInfo'))
-            };
+    case authReducerTypes.cleanIsAuthed:
+      return initialState;
 
-        case LOG_IN_FAIL:
-            return {...state, loginErr: action.payload, loader:false};
+    case authReducerTypes.setError:
+      return { ...state, error: action.payload.error };
 
-        case CLEAR_ERROR:
-            return {...state, loginErr:[ ] };
+    case authReducerTypes.setIsAuthed:
+      return { ...state, isAuthenticated: true };
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
