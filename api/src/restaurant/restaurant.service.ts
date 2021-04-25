@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { CreateRestaurantDTO, RestaurantResponseDTO } from './dto';
+import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
 import { IRestaurant } from './interfaces';
 import { RestaurantModel } from './restaurant.schema';
 
@@ -15,14 +15,59 @@ export class RestaurantService {
   /** Create restaurant */
   create = async (createRestaurantDTO: CreateRestaurantDTO) => {
     const restaurant = await new this.model({
-      owner: createRestaurantDTO.restaurantOwner._id,
+      owner: createRestaurantDTO.ownerId,
       name: createRestaurantDTO.name,
       description: createRestaurantDTO.description,
       logoUrl: createRestaurantDTO.logoUrl,
+      website: createRestaurantDTO.website,
+      phoneNumber: createRestaurantDTO.phoneNumber,
+      status: true
     }).save();
     return this.sanitizeRestaurant(restaurant);
   };
 
+  /** API */
+  /** get restaurant */
+  getAllRestaurant = async () => {
+
+    const restaurant = await this.model.find({})
+    return restaurant
+
+  };
+
+  /** API */
+  /** get restaurant by id */
+  getRestaurantById = async (_id: string) => {
+
+    const getRestaurant = await this.model.findById({ _id }).populate("menus")
+    return getRestaurant
+
+  };
+
+  /** API */
+  /** update restaurant by id */
+  updateRestaurant = async (_id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
+
+    const updateRestaurant = await this.model.findOneAndUpdate({ _id }, {
+      name: updateRestaurantDto.name, description: updateRestaurantDto.description,
+      website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status
+    }, {new: true});
+
+    return this.sanitizeRestaurant(updateRestaurant);
+
+  };
+
+    /** API */
+  /** delete restaurant by id */
+  deleteRestaurant = async (_id: string) => {
+
+    const deleteRestaurant = await this.model.findOneAndDelete({_id});
+
+    return deleteRestaurant;
+
+  };
+
+  
   /** Private Members */
   private sanitizeRestaurant(restaurant: IRestaurant) {
     const sanitizedRestaurant: RestaurantResponseDTO = {
@@ -33,4 +78,5 @@ export class RestaurantService {
     };
     return sanitizedRestaurant;
   }
+
 }
