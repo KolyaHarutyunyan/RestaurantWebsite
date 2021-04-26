@@ -47,13 +47,24 @@ export class MenuItemService {
   findOne(id: number) {
     return `This action returns a #${id} menuItem`;
   }
+  /** API */
+  /** update menuItem by id */
+  async update(_id: string, updateMenuItemDto: UpdateMenuItemDto) {
+    const updateMenuItem = await this.model.findOneAndUpdate({ _id }, {
+      name: updateMenuItemDto.name, description: updateMenuItemDto.description,
+      option: updateMenuItemDto.option, price: updateMenuItemDto.price
+    }, {new: true});
 
-  update(id: number, updateMenuItemDto: UpdateMenuItemDto) {
-    return `This action updates a #${id} menuItem`;
+    return this.sanitizeMenuItem(updateMenuItem);
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menuItem`;
+  async remove(_id: string) {
+
+    const deleteMenuItem = await this.model.findOneAndDelete({_id});
+
+    return deleteMenuItem;
+
   }
   /** Private Members */
   private sanitizeMenuItem(item: IMenuItem) {

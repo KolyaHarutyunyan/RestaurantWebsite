@@ -27,12 +27,19 @@ export class MenuItemController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateMenuItemDto: UpdateMenuItemDto) {
-    return this.menuItemService.update(+id, updateMenuItemDto);
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  async update(@Param('id') id: string, @Body() updateMenuItemDto: UpdateMenuItemDto) {
+    const updateMenuItem = await this.menuItemService.update(id, updateMenuItemDto);
+
+    return updateMenuItem;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.menuItemService.remove(+id);
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  async remove(@Param('id') id: string) {
+    
+    const deleteMenuItem = await this.menuItemService.remove(id);
+
+    return deleteMenuItem;
   }
 }
