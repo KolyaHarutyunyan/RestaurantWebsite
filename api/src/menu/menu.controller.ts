@@ -5,15 +5,20 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ImageService } from '../image/image.service';
 
 @Controller('menu')
 export class MenuController {
-  constructor(private readonly menuService: MenuService) { }
+  constructor(private readonly menuService: MenuService, private readonly imageService: ImageService) { }
 
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @UseInterceptors(FileInterceptor('menuImg'))
-  async create(@UploadedFile() File, @Body() createMenuDto: CreateMenuDto) {
+  async create(@UploadedFile() file, @Body() createMenuDto: CreateMenuDto) {
+
+    const fileURLs = await this.imageService.saveEventImage(file);
+
+    createMenuDto.menuImg = fileURLs ? fileURLs.imageUrl : null;
 
     const createMenu = await this.menuService.create(createMenuDto);
 

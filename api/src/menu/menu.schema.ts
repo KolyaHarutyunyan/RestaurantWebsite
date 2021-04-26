@@ -6,7 +6,7 @@ const MenuSchema = new Schema({
     restaurantId: { type: Types.ObjectId, ref: 'restaurant' },
     name: { type: String, required: true },
     tagline: { type: String },
-    imageUrl: { type: String },
+    menuImg: { type: String },
     description: { type: String },
     foodCategories: [{ type: Types.ObjectId, ref: 'category' }],
     drinkCategories: [{ type: Types.ObjectId, ref: 'category' }],

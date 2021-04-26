@@ -10,7 +10,7 @@ export class MenuResponseDTO {
   @ApiProperty()
   description?: string;
   @ApiProperty()
-  imageUrl?: string;
+  menuImg?: string;
   @ApiProperty()
   isActive: Boolean;
 }

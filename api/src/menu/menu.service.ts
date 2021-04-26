@@ -23,7 +23,7 @@ export class MenuService {
       restaurantId: createMenuDTO.restaurantId,
       name: createMenuDTO.name,
       description: createMenuDTO.description,
-      logoUrl: createMenuDTO.imageUrl,
+      menuImg: createMenuDTO.menuImg,
       tagline: createMenuDTO.tagline,
       isActive: createMenuDTO.isActive
     }).save();
@@ -79,7 +79,7 @@ export class MenuService {
       name: menu.name,
       tagline: menu.tagline,
       description: menu.description,
-      imageUrl: menu.imageUrl,
+      menuImg: menu.menuImg,
       isActive: menu.isActive
     };
     return sanitizedMenu;

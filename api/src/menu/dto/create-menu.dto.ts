@@ -14,7 +14,7 @@ export class CreateMenuDto {
     tagline: string;
 
     @ApiProperty({ required: false })
-    imageUrl: string;
+    menuImg: string;
 
     @ApiProperty({ required: false })
     description: string;
