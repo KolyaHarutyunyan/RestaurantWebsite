@@ -1,30 +1,31 @@
-
-import styled from "styled-components"
+import styled from "styled-components";
 import { colors, media } from "@eachbase/theme";
-
-
 
 export const Styled = {
   Footer: styled.div`
+    position: relative;
+    z-index: 2;
     width: 100%;
     color: ${colors.white};
     background-color: ${colors.primary};
     height: 64px;
     ${media.forMobile`height:auto`};
-    ${props => props.fix && `
+    ${(props) =>
+      props.fix &&
+      `
       position: fixed;
       bottom: 0;
       left: 0;
     `};
   `,
-  Content:styled.div`
+  Content: styled.div`
     height: 64px;
     ${media.forMobile`height:auto;`};
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     ${media.forMobile`
       flex-direction: column;
       padding: 16px 0;
@@ -43,16 +44,15 @@ export const Styled = {
       `};
   `,
 
-  CopyRight:styled.div``,
-  Infos:styled.div`
+  CopyRight: styled.div``,
+  Infos: styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    a{
+    a {
       color: ${colors.white};
-      
     }
-    hr{
+    hr {
       display: inline-block;
       margin: 0 22px;
       height: 40px;
@@ -60,16 +60,15 @@ export const Styled = {
       color: ${colors.white}80;
     }
   `,
-  Logo:styled.div`
+  Logo: styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     ${media.downToDesktop`display:none`};
-    p{
+    p {
       color: ${colors.white};
       margin-left: 8px;
       font: normal normal 600 16px/25px Poppins;
     }
   `,
-
-}
+};
