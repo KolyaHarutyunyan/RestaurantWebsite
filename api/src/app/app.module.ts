@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseConnection } from './app.database';
 import { UserModule } from '../user/user.module';
-import { RestaurantModule } from 'src/restaurant/restaurant.module';
+import { RestaurantModule } from '../restaurant/restaurant.module';
 
 @Module({
   imports: [AuthModule, UserModule, RestaurantModule],

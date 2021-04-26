@@ -4,6 +4,6 @@ import { ClientRole } from '../constants';
 export class AuthDTO {
   @ApiProperty()
   token: string;
-  @ApiProperty({ enum: ClientRole })
+  @ApiProperty()
   role: string;
 }

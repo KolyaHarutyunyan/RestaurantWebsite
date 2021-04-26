@@ -7,8 +7,8 @@ export class SignedInDTO {
     this.auth = auth;
     this.user = user;
   }
-  // @ApiProperty({ type: AuthDTO })
+  @ApiProperty()
   auth: AuthDTO;
-  @ApiProperty({ type: UserResponseDTO })
+  @ApiProperty()
   user: UserResponseDTO;
 }

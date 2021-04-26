@@ -1,0 +1,1 @@
+export { SideStaticMenu } from "./sideStaticMenu";
