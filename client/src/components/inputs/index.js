@@ -16,5 +16,4 @@ export const Input = {
 	Phone: props => <TextInput icon={SVGNames.Call} {...props}/>,
 	Location: props => <TextInput icon={SVGNames.Map} {...props} />,
 	Image: props => <ImagePiker {...props} />,
-	
 }

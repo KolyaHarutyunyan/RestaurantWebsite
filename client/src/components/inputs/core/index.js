@@ -1,5 +1,4 @@
 export { Styled } from "./style"
 export { TextInput } from "./textInput"
 export { InputBlock } from "./InputBlock"
-export { FileInput } from "./fileInput"
 export { TextArea } from "./textArea"

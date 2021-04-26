@@ -5,15 +5,13 @@ import { Change, Check } from "@eachbase/utils"
 const EF = () => {
 }
 
-let k = 0
+
 export const TextInput = ({
 														type, isDisabled, error, setState, dataType, icon,inType,
 														important, brd, value, onChange = false,
 														onFocus = EF, onBlur = EF, placeholder, className
 													}) => {
-	
-	console.log("TextInput rendered ", k++)
-	console.log({ value })
+ 
 	let [ isVisible, setIsVisible ] = useState(false)
 	let [ isFocused, setIsFocused ] = useState(false)
 	

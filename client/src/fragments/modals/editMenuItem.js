@@ -27,14 +27,20 @@ export const EditMenuItem =
 			if (data)
 				setItem({
 					...data,
-					title: { ...InputTypes.text, placeholder:"title",dataType: "title", important: true, value: data.title || "" },
+					title: {
+						...InputTypes.text,
+						placeholder: "title",
+						dataType: "title",
+						important: true,
+						value: data.title || ""
+					},
 					description: {
 						...InputTypes.text,
 						important: true,
 						dataType: "description",
 						value: data.description || "",
 						maxLength: 500,
-						placeholder:"title"
+						placeholder: "title"
 					},
 					options: { ...InputTypes.text, dataType: "options", value: data.options || "", maxLength: 100 },
 					price: {
@@ -54,15 +60,15 @@ export const EditMenuItem =
 		if (item.id === -1) return null
 		console.log(item.title)
 		
-		const handlerSave = ()=>{
+		const handlerSave = () => {
 			let editedItem = {
-				id: item.id ||-1,
+				id: item.id || -1,
 				title: item.title.value || "",
-				description:item.description.value || "",
-				options:item.options.value || "",
-				imageUrl: item.imageUrl.value ||[],
-				type:item.type.value || "food",
-				parents:item.parents.value ||  [],
+				description: item.description.value || "",
+				options: item.options.value || "",
+				imageUrl: item.imageUrl.value || [],
+				type: item.type.value || "food",
+				parents: item.parents.value || [],
 				price: item.price.value || "",
 			}
 			
@@ -74,26 +80,22 @@ export const EditMenuItem =
 		return (
 			<BaseModal close={close} status={status}>
 				<Styled.Edit>
-					
 					<Styled.Title>{title} </Styled.Title>
-					
-					
 					<Styled.Row mt={40} mtT={32} mtM={32}>
-						<Input.Name {...item.title} setState={setItem} />
-						<Input.Prise {...item.price} setState={setItem} />
-					
+						<Input.Name {...item.title} setState={setItem}/>
+						<Input.Prise {...item.price} setState={setItem}/>
 					</Styled.Row>
 					<Styled.Row>
 						<Input.Description className={"description"} {...item.description} setState={setItem}/>
 					</Styled.Row>
 					<Styled.Row>
 						<Input.Options {...item.options} setState={setItem}/>
-					
 					</Styled.Row>
 					<Styled.Row mt={40} mtT={32} mtM={24}>
-						<Input.Image value={item.imageUrl} setState={setItem} count={6}/>
+						<Input.Image type={item.type} values={item.imageUrl}
+												 onChange={imageUrl => setItem(current => ({ ...current, imageUrl }))} setState={setItem}
+												 count={6}/>
 					</Styled.Row>
-					
 					<Button.Accept onClick={handlerSave} className={"save"}>Save</Button.Accept>
 				</Styled.Edit>
 			</BaseModal>

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { ModalContext } from "../../contexts";
 
 
-export const MenuInfos = ({ title, id,status, backgroundImage,description }) => {
+export const MenuInfos = ({ title, id,status, imageUrl,description }) => {
 	let {openModal} = useContext(ModalContext)
 	let toggle = () => console.log("change Status")
 	return (
@@ -13,7 +13,7 @@ export const MenuInfos = ({ title, id,status, backgroundImage,description }) => 
 			<Styled.Block>
 				<Button.Accept className="edit" onClick={()=>openModal.editMenu({title:"Edit Menu Information"})}>Edit</Button.Accept>
 				<div className="title">{title}</div>
-				<Styled.BlockAvatar bgi={backgroundImage}/>
+				<Styled.BlockAvatar bgi={imageUrl}/>
 				<Styled.BlockDescription>
 					<div className="title">{title}</div>
 					{description}

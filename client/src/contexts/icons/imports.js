@@ -32,11 +32,14 @@ import LeftArrow from "../../../public/assets/icons/Left ArrowIcon.svg"
 import Edit from "../../../public/assets/icons/Edit.svg"
 import Forward from "../../../public/assets/icons/Forward Icon.svg"
 import Checkmark from "../../../public/assets/icons/Checkmark.svg"
+import Food from "../../../public/assets/icons/Food Icon.svg"
+import Drink from "../../../public/assets/icons/Drinks Icon.svg"
+import Close from "../../../public/assets/icons/CloseIcon.svg"
 
 
 export const SVGS = {
 	Email, Back, Logo, GoogleColor, LogoWhite, FaceBook, Twitter, User, DownArrow,
 	LogOut, Profile, Restaurant, ToggleMenu, EyeOn, EyeOff, Password, DonePassword,
 	DoneRestaurant, AddIcon, Build, Call, Download, Hours, Map, More, Website, Menu,DropdownArrow,
-	Delete,	Edit,	Forward, LeftArrow,Checkmark
+	Delete,	Edit,	Forward, LeftArrow,Checkmark,Food,Drink,Close
 }

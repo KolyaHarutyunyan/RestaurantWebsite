@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { colors, media, theme } from "@eachbase/theme"
+import { colors, media, ScrollBar, theme } from "@eachbase/theme"
 
 
 export const Styled = {
@@ -18,7 +18,7 @@ export const Styled = {
 
     &.focused .content {
       border: 2px solid ${colors.text};
-			padding: 10px 16px;
+      padding: 10px 16px;
     }
 
     &.disabled .content {
@@ -27,12 +27,14 @@ export const Styled = {
 
     &.error .content {
       border: 2px solid ${colors.primary};
-			padding: 10px 16px;
+      padding: 10px 16px;
     }
-    &.file .content{
-      border:0!important;
+
+    &.file .content {
+      border: 0 !important;
       background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23333' stroke-width='3' stroke-dasharray='10%2c 16' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     }
+
     .content {
       height: 100%;
       border-radius: ${props => props.brd !== undefined ? props.brd : 8}px;
@@ -44,7 +46,7 @@ export const Styled = {
       align-items: center;
       justify-content: flex-start;
       position: relative;
-			
+
       .leftIcon {
         width: 24px;
         height: 24px;
@@ -52,7 +54,7 @@ export const Styled = {
         display: flex;
         justify-content: center;
         align-items: center;
-				
+
       }
 
       &.important:after {
@@ -65,8 +67,8 @@ export const Styled = {
         display: flex;
         z-index: 10000;
         top: 0;
-				padding: 8px 0 0 0;
-        left: ${props => props.hasIcon ? 48 : props.inType==="price"?33: 16}px
+        padding: 8px 0 0 0;
+        left: ${props => props.hasIcon ? 48 : props.inType === "price" ? 33 : 16}px
       }
     }
 
@@ -82,8 +84,9 @@ export const Styled = {
       font-size: 12px !important;
 
     }
-		.priceIcon{
-			margin-right: 8px;
+
+    .priceIcon {
+      margin-right: 8px;
       font: normal normal normal 16px/22px Open Sans;
       ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
 
@@ -94,10 +97,10 @@ export const Styled = {
     display: block;
     height: 100%;
 
-    width: calc(100% - ${props => (props.hasIcon?32:0) + (props.inType === "password"?26:0)+ (props.inType === "price"?17:0)}px);
+    width: calc(100% - ${props => (props.hasIcon ? 32 : 0) + (props.inType === "password" ? 26 : 0) + (props.inType === "price" ? 17 : 0)}px);
     line-height: 100%;
     font: normal normal normal 16px/22px Open Sans;
-		${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
+    ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
 
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
@@ -114,9 +117,9 @@ export const Styled = {
     position: relative;
     outline: none;
     border: 0;
-		
+	
 	`,
- 	Description:styled.textarea`
+	Description: styled.textarea`
     width: 100%;
     height: 124px;
     resize: none;
@@ -126,154 +129,67 @@ export const Styled = {
     ${media.forMobile`height: 106px;`};
     font: normal normal normal 16px/22px Open Sans;
     ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
- 
+    ${ScrollBar};
 	`,
-	ImagePiker:styled.div`
+	ImagePiker: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    .row {
+
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      gap: 16px;
+
+      .item {
+
+        width: 100px;
+        height: 100px;
+
+        .icon {
+          height: 42px;
+          width: 42px;
+        }
+      }
+
+      ${media.forMobile`
+				.item{
+					width: 80px;
+					height: 80px;
+					.icon{
+						height: 32px;
+						width: 32px;
+					}
+				}
+			`};
+    }
+
+    .title {
+      margin-top: 16px;
+      font: normal normal 600 18px/24px Open Sans;
+
+      .span {
+        color: ${colors.action};
+      }
+    }
+
+    .Description {
+      margin-top: 16px;
+      font: normal normal normal 12px/24px Open Sans;
+
+      .span {
+        color: ${colors.primary};
+      }
+    }
 	
 	`
 }
-
-
-export const InputBlock = styled.div`
-  display: flex;
-  margin-top: ${props => props.mt || 16}px;
-  align-items: center;
-  padding: 9px 16px;
-  width: ${props => props.w !== undefined ? props.w : '100%'};
-  height: ${props => props.h || '42'}px;
-  border-radius: ${props => props.brd !== undefined ? props.brd : 25}px;
-  border: 1px solid #2B273C80;
-  ${props => props.brdType !== undefined ? `border-style : ${props.brdType}` : ""};
-  overflow: hidden;
-  @media (min-width: 768px) {
-    height: ${props => props.h || '48'}px;
-    padding: 12px 16px;
-
-  }
-  background-color: #fff;
-  transition: all .5s;
-
-  &:hover {
-    border: 1px solid #2B273C;
-  }
-
-  &.focused {
-    border: 2px solid #2B273C;
-  }
-
-  &.disabled {
-    border: 1px solid #2B273C80;
-  }
-
-  &.error {
-    border: 2px solid #FF453A;
-  }
-
-  .content {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-
-    &.important:after {
-      content: '*';
-      position: absolute;
-      width: 20px;
-      color: #FF453A;
-      height: 20px;
-      display: block;
-      z-index: 10000;
-      top: 0;
-      left: 200px
-    }
-  }
-`
-
-export const InputBlockIcon = styled.div`
-  width: ${props => props.size !== undefined ? props.size : '24'}px;
-  height: ${props => props.size !== undefined ? props.size : '24'}px;
-  border-radius: ${props => props.brd || 0}px;
-  margin-left: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-`
-
-export const Input = styled.input`
-  display: block;
-  height: 100%;
-  margin-left: 8px;
-  width: calc(100% - ${props => props.w !== undefined ? props.w : '34'}px);
-  line-height: 100%;
-  font-size: ${props => props.fs || 14}px;
-  @media (min-width: 768px) {
-
-    font-size: ${props => props.fsb || props.fs || 16}px;
-
-  }
-
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    background-color: #FFFFFF !important;
-    -webkit-box-shadow: 0 0 0 50px white inset;
-  }
-
-  &:-webkit-autofill {
-    -webkit-text-fill-color: unset !important;
-  }
-
-  position: relative;
-  outline: none;
-  border: 0;
-
-
-  &:after {
-    content: '*';
-    position: absolute;
-    color: ${theme.palette.primary.main};
-  }
-
-  ${props => props.readonly && "&:read-only{}"}
-`
-
-export const InputTitle = styled.p`
-  display: block;
-  margin-bottom: -8px;
-  font: normal normal 600 14px/21px Open Sans;
-  margin-top: ${props => props.mtt || 16}px;
-
-`
-export const InputDescription = styled.p`
-  display: block;
-  margin: 8px 0 8px 16px;
-  font: normal normal normal 12px/17px Open Sans;
-`
-export const TextArea = styled.textarea`
-  font: normal normal normal 14px/19px Open Sans;
-  resize: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  outline: 0;
-`
-export const ErrorMessage = styled.p`
-  width: fit-content;
-  background-color: #fff;
-  text-align: left;
-  margin: 6px 0 0 48px;
-  line-height: 17px;
-  color: #FF453A;
-  padding: 0 10px;
-  display: block;
-  font-size: 12px !important;
-
-`
 
 

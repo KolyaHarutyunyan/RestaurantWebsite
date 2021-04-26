@@ -10,7 +10,7 @@ export const MenuItem = ({itemId,parentName,parentId}) =>{
 	if(!item)return null
 	return(
 		<Styled.Block>
-			<ItemImage url={item.imageUrl}  type={item.type} />
+			<ItemImage url={item.imageUrl[0]}  type={item.type} />
 		 	<Styled.BlockInfo>
 				<div className="title">
 					<span className="name">{item.title}</span>

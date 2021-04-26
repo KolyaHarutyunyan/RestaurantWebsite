@@ -32,4 +32,7 @@ export const SVGNames = {
 	LeftArrow:"LeftArrow",
 	Forward: "Forward",
 	Checkmark: "Checkmark",
+	Food:"Food",
+	Drink:"Drink",
+	Close:"Close",
 }
