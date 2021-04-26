@@ -25,7 +25,7 @@ export class AuthController {
   /** Sign up a user */
   @Post('signup')
   @ApiBody({ type: SignupDTO })
-  @ApiOkResponse({ type: SignedInDTO }) //inchi hamara?
+  @ApiOkResponse({ type: SignedInDTO })
   @ApiResponse({ status: HttpStatus.FOUND, description: 'User Exists' })
   async signup(@Body() signupDTO: SignupDTO): Promise<SignedInDTO> {
     const auth = await this.authService.signup(signupDTO);
@@ -38,7 +38,7 @@ export class AuthController {
    @UseGuards(new AuthGuard())
    @Post('changePassword')
    @ApiHeader({ name: ACCESS_TOKEN })
-   @ApiBody({ type: ChangePassDTO }) //inchi hamara?
+   @ApiBody({ type: ChangePassDTO })
    @ApiOkResponse({ type: PassChangedDTO })
    async changePassword(
      @Body() changePassDTO: ChangePassDTO,

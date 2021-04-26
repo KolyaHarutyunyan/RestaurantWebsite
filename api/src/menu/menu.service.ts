@@ -49,7 +49,7 @@ export class MenuService {
   /** get menu by id */
   async findOne(_id: string) {
 
-    const getMenu = await this.model.findById({ _id })
+    const getMenu = await this.model.findById({ _id }).populate('foodCategories').populate('drinkCategories');
     return getMenu
 
   }

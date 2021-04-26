@@ -6,6 +6,8 @@ import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageService } from '../image/image.service';
+import { ApiBody, ApiHeader, ApiOkResponse } from '@nestjs/swagger';
+import { ACCESS_TOKEN, RESET_TOKEN } from '../auth/constants';
 
 @Controller('menu')
 export class MenuController {
@@ -13,6 +15,7 @@ export class MenuController {
 
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @UseInterceptors(FileInterceptor('menuImg'))
   async create(@UploadedFile() file, @Body() createMenuDto: CreateMenuDto) {
 

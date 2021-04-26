@@ -12,30 +12,33 @@ export class CategoryController extends Object {
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async create(@Body() createCategoryDto: CreateCategoryDto) {
-    if(createCategoryDto.name !== "drinkCategories" && createCategoryDto.name !== "foodCategories"){
+    // if(createCategoryDto.name !== "drinkCategories" && createCategoryDto.name !== "foodCategories"){
 
-        return (new HttpException('BadGatewayException', HttpStatus.BAD_GATEWAY));
+    //     return (new HttpException('BadGatewayException', HttpStatus.BAD_GATEWAY));
 
-    }
+    // }
+
     const createCategory = await this.categoryService.create(createCategoryDto);
-
-
+    
     return createCategory;
   }
 
-  @Post('transferMenuItem')
+
+  @Post(':categoryId/addMenuItem')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
-  async transferMenuItem(@Body() createTransferDto: any) {
-   console.log(createTransferDto, 'aaaaaaaaaaaaaa');
-    const createCategory = await this.categoryService.transferMenuItem(createTransferDto);
+  async addMenuItem(@Body('menuItemId') menuItemId: string, @Param('categoryId') categoryId: string) {
+    const createCategory = await this.categoryService.addMenuItem(menuItemId,categoryId);
 
 
     return createCategory;
   }
 
-  @Get()
-  findAll() {
-    return this.categoryService.findAll();
+  @Post('getCategories')
+  // @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  async findAll(@Body('restaurantId') restaurantId: string) {
+   const allCategories = await this.categoryService.getAll(restaurantId);
+    return allCategories;
+    
   }
 
   @Get(':id')

@@ -6,8 +6,7 @@ export class CreateCategoryDto extends Object {
     @IsNotEmpty()
     name: string;
 
-    // @ApiProperty()
-    // @IsNotEmpty()
-    // menuId: string;
-
+    @ApiProperty()
+    @IsNotEmpty()
+    restaurantId: string;
 }

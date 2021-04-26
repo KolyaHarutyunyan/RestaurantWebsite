@@ -27,11 +27,12 @@ export class CategoryService extends Object {
   async create(createCategoryDto: CreateCategoryDto) {
 
     const addCategory = await new this.model({
-      name: createCategoryDto.name,
+      restaurantId: createCategoryDto.restaurantId,
+      name: createCategoryDto.name
     }).save();
     // const setCategory = await this.menuModel.findById({ _id: createCategoryDto.menuId });
 
-    const category = createCategoryDto.name;
+    // const category = createCategoryDto.name;
 
     // setCategory[category].push(setCategory._id);
     // await setCategory.save()
@@ -41,16 +42,18 @@ export class CategoryService extends Object {
 
   /** API */
   /** Create transferMenuItem */
-  async transferMenuItem(menuItem: any) {
-    const getMenuItem = await this.menuItemModel.findById({ _id: menuItem.menuItemId })
-    const getCategory = await this.model.findById({ _id: menuItem.categoryId })
-    getCategory.menuItems.push(getMenuItem._id);
-    await getCategory.save();
+  async addMenuItem(menuItemId: string, categoryId: string) {
+
+    const getCategory = await this.model.findByIdAndUpdate({ _id: categoryId },
+      { $addToSet: { menuItems: menuItemId } }, { new: true });
+
     return getCategory
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async findByCategoryIds(categoryIds: string[]) {
+    const findByCategoryIds = await this.model.find({_id: {$in: categoryIds}});
+
+    return findByCategoryIds
   }
 
   async findOne(_id: string) {
@@ -58,6 +61,12 @@ export class CategoryService extends Object {
     return getCategory
   }
 
+  async getAll(restaurantId: string) {
+    
+    const getAllCategory = await this.model.find({ restaurantId });
+    return getAllCategory
+  }
+  // update ara
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
     return `This action updates a #${id} category`;
   }
