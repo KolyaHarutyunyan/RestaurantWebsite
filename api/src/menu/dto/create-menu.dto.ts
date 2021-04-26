@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsUrl } from 'class-validator';
 
-export class CreateMenuDto {
+export class CreateMenuDto{
     @ApiProperty()
     @IsNotEmpty()
     restaurantId: string;

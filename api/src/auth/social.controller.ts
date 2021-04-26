@@ -34,7 +34,7 @@ export class SocialController {
     async facebookAuthRedirected(@Req() req) {
         const signedInDTO = await this.socialRedirectHandler(req.user);
         return {
-            url: `${DOMAIN_NAME}/socialLogin?token=${signedInDTO.auth.token}`,
+            url: `${DOMAIN_NAME}/socialLogin?token=${signedInDTO.auth}`,
         };
     }
     /**

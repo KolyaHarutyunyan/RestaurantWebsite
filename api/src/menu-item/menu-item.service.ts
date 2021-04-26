@@ -21,7 +21,7 @@ export class MenuItemService {
   private categoryModel: Model<ICategory>;
 
   /** API */
-  /** Create restaurant */
+  /** Create menuItem */
   async create(createMenuItemDto: CreateMenuItemDto) {
 
     const menuItem = await new this.model({
@@ -30,12 +30,13 @@ export class MenuItemService {
       option: createMenuItemDto.option,
       price: createMenuItemDto.price
     }).save();
-    menuItem.images.push({ url: "url", thumbURL: "thumbURL" });
-    menuItem.save();
 
-    const setMenuItem = await this.categoryModel.findById({ _id: createMenuItemDto.categoryId });
-    setMenuItem.menuItems.push(menuItem._id);
-    setMenuItem.save()
+    menuItem.images.push({ url: createMenuItemDto.imageUrl, thumbURL: createMenuItemDto.thumbnailUrl });
+    await menuItem.save();
+
+    // const setMenuItem = await this.categoryModel.findById({ _id: createMenuItemDto.categoryId });
+    // setMenuItem.menuItems.push(menuItem._id);
+    // await setMenuItem.save()
 
     return this.sanitizeMenuItem(menuItem);
   }
@@ -44,8 +45,9 @@ export class MenuItemService {
     return `This action returns all menuItem`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} menuItem`;
+  async findOne(_id: string) {
+    const getMenuItem = await this.model.findById({ _id })
+    return getMenuItem
   }
   /** API */
   /** update menuItem by id */
@@ -74,6 +76,7 @@ export class MenuItemService {
       description: item.description,
       option: item.option,
       price: item.price,
+      imageUrl: item.images[0]
     };
     return sanitizedMenuItem;
   }

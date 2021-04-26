@@ -4,11 +4,9 @@ import { UserResponseDTO } from '../../user/dto';
 
 export class SignedInDTO {
   constructor(auth: AuthDTO, user: UserResponseDTO) {
-    this.auth = auth;
-    this.user = user;
   }
   @ApiProperty()
-  auth: AuthDTO;
+  auth: () => AuthDTO;
   @ApiProperty()
-  user: UserResponseDTO;
+  user: () => UserResponseDTO;
 }

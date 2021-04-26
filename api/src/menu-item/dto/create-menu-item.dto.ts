@@ -3,10 +3,6 @@ import { IsNotEmpty, IsUrl,Contains } from 'class-validator';
 export class CreateMenuItemDto {
     @ApiProperty()
     @IsNotEmpty()
-    categoryId: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
     name: string;
 
     @ApiProperty()
@@ -21,4 +17,10 @@ export class CreateMenuItemDto {
 
     @ApiProperty()
     images?: string;
+
+    @ApiProperty()
+    thumbnailUrl?: string;
+
+    @ApiProperty()
+    imageUrl?: string;
 }

@@ -6,8 +6,8 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('category')
-export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+export class CategoryController extends Object {
+  constructor(private readonly categoryService: CategoryService) {super()}
 
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
@@ -23,6 +23,16 @@ export class CategoryController {
     return createCategory;
   }
 
+  @Post('transferMenuItem')
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  async transferMenuItem(@Body() createTransferDto: any) {
+   console.log(createTransferDto, 'aaaaaaaaaaaaaa');
+    const createCategory = await this.categoryService.transferMenuItem(createTransferDto);
+
+
+    return createCategory;
+  }
+
   @Get()
   findAll() {
     return this.categoryService.findAll();
@@ -30,7 +40,7 @@ export class CategoryController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+    return this.categoryService.findOne(id);
   }
 
   @Put(':id')

@@ -13,4 +13,7 @@ export class MenuItemResponseDTO {
   price: number;
   @ApiProperty()
   images?: string;
+
+  @ApiProperty()
+  imageUrl?: Object
 }
