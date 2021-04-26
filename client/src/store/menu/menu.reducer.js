@@ -8,7 +8,7 @@ const initialState = {
   
  
   categories:{
-    drinks:[], // "879ddf8as79"],
+    drinks:[ "879ddf8as79"],
     foods:[
       "879ddf879",
       "879ddf8sd79"

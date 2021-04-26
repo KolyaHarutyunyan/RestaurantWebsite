@@ -22,7 +22,10 @@ export const Styled = {
       height: fit-content;
       max-height: 100%;
       border-radius: 8px;
-
+      ${media.forMobile`
+				max-width: 343px;
+				width: 100%;
+			`};
 
       z-index: 100100;
       position: relative;

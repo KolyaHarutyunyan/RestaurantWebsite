@@ -12,7 +12,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
 	let toggleItems = () => {
 		if (open) {
 			//add selected items on category
-			console.log(items.filter(item=>item.selected))
+			// console.log(items.filter(item=>item.selected))
 			setOpen(false)
 			items = items.map(item=>{
 				item.selected = false
@@ -29,7 +29,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
 		filterItems(value)
 	}
 	let allItems = useSelector(state => state.menuItems)
-	console.log(items)
+	// console.log(items)
 	let [ filteredItems, setFilteredItems ] = useState([])
  
 	

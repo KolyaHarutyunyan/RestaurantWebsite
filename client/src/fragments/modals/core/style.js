@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { animation, colors, media } from "@eachbase/theme"
+import { animation, colors, media, ScrollBar } from "@eachbase/theme"
 
 export const Styled = {
 	Title: styled.div`
@@ -18,6 +18,77 @@ export const Styled = {
 			max-width: 311px;
 		`};
 	`,
+	
+	Edit: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    width: 500px;
+    max-height: calc(100vh - 168px);
+    ${media.forLargeDesktop`
+			margin-right: -27px;
+			padding-right: 21px;
+		`};
+
+    ${media.downToLargeDesktop`
+			width: 450px;
+			max-height: calc(100vh - 136px);
+			margin-right: -11px;
+			padding-right: 5px;
+		`};
+    ${media.forMobile`
+			max-width: 311px;
+			width: 100%;
+			max-height: calc(100vh - 104px);
+		`};
+
+
+    overflow: hidden auto;
+    ${ScrollBar};
+
+    .save {
+      border-radius: 8px;
+      margin-top: 40px;
+      ${media.downToLargeDesktop`margin-top: 32px;`}
+      ${media.forMobile`margin-top: 24px;`}
+    }
+	`,
+	
+	Row: styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: ${props => props.mt || 24}px;
+    column-gap: 24px;
+    ${props => props.Tmt
+            ? media.downToLargeDesktop(`margin-top: ${props.Tmt}px;`)
+            : media.downToLargeDesktop(`margin-top: 16px;`)
+    };
+		${props => props.Mmt
+            ? media.downToLargeDesktop(`margin-top: ${props.Mmt}px;`)
+            : media.downToLargeDesktop(`margin-top: 16px;`)
+    };
+    ${media.downToLargeDesktop(`column-gap: 16px;`)};
+		.description textarea{
+			height: 76px!important;
+		}
+	`,
+	
+	InputBox: styled.div`
+    height: 48px;
+    width: ${props => props.w || "100%"};
+    border: 1px solid ${colors.text}80;
+    border-radius: 8px;
+    ${media.forMobile(`height: 42px;`)};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	
+	`,
+	
 	Description: styled.p`
     margin-top: 24px;
     font: normal normal normal 20px/27px Open Sans;
@@ -35,7 +106,7 @@ export const Styled = {
     ${media.forMobile`margin-top: 24px;`};
 
     .action {
-			${props=>props.brd && `border-radius: ${props.brd}px;`}
+      ${props => props.brd && `border-radius: ${props.brd}px;`}
     }
 	`,
 	

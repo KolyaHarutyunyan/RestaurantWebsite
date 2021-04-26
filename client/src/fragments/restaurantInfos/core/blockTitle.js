@@ -1,7 +1,6 @@
 import { Styled } from "."
-import { Button, Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
-import { useSelector } from "react-redux";
+import { Button, Icon } from "@eachbase/components"
+import { SVGNames } from "@eachbase/constants"
 
 export const BlockTitle = ({ logo,hasLogo=false, title, editAction }) => {
 	

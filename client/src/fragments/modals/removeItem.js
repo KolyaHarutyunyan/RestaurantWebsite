@@ -10,14 +10,21 @@ let description = {
 }
 
 export const RemoveItem = ({ status, close, type, id, parentName }) => {
-	console.log(status, close, type, id)
+	// console.log(status, close, type, id)
 	let item = useSelector(state => {
-		if (type === "menuItem") return state.menuItems.find(item => item.id === id)
-		if (type === "category") return state.categories.find(item => item.id === id)
-		if (type === "menu") return state.menu
+		switch (type) {
+			case  "menuItem":
+				return state.menuItems.find(item => item.id === id)
+			case "category":
+				return state.categories.find(item => item.id === id)
+			case "menu":
+				return state.menu
+			default:
+				return false
+		}
 	})
 	
-	console.log(item)
+	// console.log(item)
 	let hasActions = item && item.parents && item.parents.length > 1 || false
 	let [ activeType, setActiveType ] = useState("one")
 	if (!item) return null

@@ -36,7 +36,7 @@ export const ResetPass = ({open}) => {
 		submit: {
 			event: event => {
 				event.preventDefault()
-				console.log("submit")
+				// console.log("submit")
 				open.done({type:"password"})
 			},
 			text: "Get Code",

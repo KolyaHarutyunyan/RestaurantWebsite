@@ -3,15 +3,18 @@ import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
 import { SVGNames } from "../../../constants";
 import { Icon } from "../../../components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TimeLine } from "./timeLine";
+import { ModalContext } from "../../../contexts";
 
 export const ExtraDetails = () => {
 	let extraDetails = useSelector(state => state.restaurant.extraDetails || {})
 	let [ openHours, setOpenHours ] = useState(false)
+	let { openModal } = useContext(ModalContext)
+	
 	return (
 		<Styled.Block>
-			<BlockTitle title={"Extra Details"} editAction={() => console.log("edit information")}/>
+			<BlockTitle title={"Extra Details"} editAction={() => openModal.editRestaurantExtraDetails()}/>
 			<Styled.Line notMt unSet={!extraDetails.webSite}>
 				<Icon name={SVGNames.Website}/>
 				<p className="info">{extraDetails.webSite || "Not Set"}</p>

@@ -31,7 +31,7 @@ export const GetEmail = ({open}) => {
      open.Verify({email: userData.email.value})
     }
   }, [auth.key])
-  console.log(auth)
+  // console.log(auth)
   return (
     <>
       <Title beforeText={"Forgot your Password?"}/>

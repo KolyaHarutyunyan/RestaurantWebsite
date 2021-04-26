@@ -10,7 +10,7 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
 	let category = useSelector(state => state.categories.find(category => category.id === categoryId) || false)
 	let { openModal } = useContext(ModalContext)
 	if (!category) return null
-	console.log(categoryId === activeCategory,activeCategory)
+	// console.log(categoryId === activeCategory,activeCategory)
 	return (
 		<Styled.CategoryItem active={categoryId === activeCategory} onClick={()=>changeTo(categoryId)}>
 			<div className="name">

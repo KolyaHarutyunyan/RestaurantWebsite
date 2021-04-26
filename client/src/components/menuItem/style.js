@@ -25,32 +25,7 @@ export const Styled = {
 			margin-top: 8px;
 		`}
 	`,
-	BlockImage: styled.div`
-    height: ${imgW}px;
-    width: ${imgW}px;
-    border-radius: 8px;
-    background-color: ${colors.shadow};
-    overflow: hidden;
-    background-image: url('${props => props.bgi || ""}');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-
-    .bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: ${colors.shadow};
-    }
-
-    ${media.forMobile(`
-			height: ${imgWM}px;
-			width: ${imgWM}px;
-		`)};
-	`,
+ 
 	BlockInfo: styled.div`
     width: calc(100% - ${imgW}px);
     margin-left: 16px;
