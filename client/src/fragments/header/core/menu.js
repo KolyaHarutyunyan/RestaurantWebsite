@@ -29,9 +29,12 @@ export const Menus = ({ status, type, user, toggleRef }) => {
     window.addEventListener("resize", windowResizeObserver);
     return () => window.removeEventListener("resize", windowResizeObserver);
   }, []);
+
+  const hoverableMenuItemClassName = `${classes.dropdownMenuItem} ${classes.dropdownMenuItemHover}`;
   return (
     <Box
-      className={className}
+      /* WARNING: toggle-header-menu className will be used in navbar component so dont remove it  */
+      className={`${className} toggle-header-menu`}
       style={{
         [xAxisOffset ? "left" : "right"]: `${xAxisOffset}px`,
       }}
@@ -42,7 +45,7 @@ export const Menus = ({ status, type, user, toggleRef }) => {
       {user.id && (
         <>
           {type && (
-            <Box>
+            <Box className={classes.dropdownMenuItem}>
               <Icon name={SVGNames.User} />
               {user.fullName}
             </Box>
@@ -50,13 +53,13 @@ export const Menus = ({ status, type, user, toggleRef }) => {
 
           {pageLinks.map((item, i) => (
             <Link href={item.url} key={i}>
-              <a className={classes.dropdownMenuItem}>
+              <a className={hoverableMenuItemClassName}>
                 <Icon name={item.icon} />
                 {item.title}
               </a>
             </Link>
           ))}
-          <button className={classes.dropdownMenuItem}>
+          <button className={hoverableMenuItemClassName}>
             <Icon name={SVGNames.LogOut} />
             Sign Up
           </button>

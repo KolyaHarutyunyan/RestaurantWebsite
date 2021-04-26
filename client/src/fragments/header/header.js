@@ -29,6 +29,10 @@ export const Header = () => {
           ref={collapseMenuToggleRef}
           status={openedMenu}
           toggle={() => setOpenedMenu((current) => !current)}
+          onRequestToClose={() => {
+            console.log(11);
+            setOpenedMenu(false);
+          }}
           isMobile={isMobile}
           user={profile}
         />

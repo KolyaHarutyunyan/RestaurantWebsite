@@ -115,19 +115,20 @@ export const useHeaderStyles = makeStyles((theme) => ({
     },
   },
   dropdownMenuItem: {
+    cursor: "pointer",
     width: "100%",
     display: "flex",
     height: "48px",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding: "0 8px",
     color: theme.palette.text.primary,
     font: "normal normal normal 16px/22px Open Sans",
-
     "& svg": {
       margin: "0 6px",
       fill: theme.palette.text.primary,
     },
+  },
+  dropdownMenuItemHover: {
     "&:hover": {
       color: theme.palette.primary.contrastText,
 
@@ -151,7 +152,6 @@ export const useHeaderStyles = makeStyles((theme) => ({
   toggleMenu: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
     position: "fixed",
     gap: "20px",
     width: "250px",
