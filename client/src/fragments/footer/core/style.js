@@ -10,13 +10,7 @@ export const Styled = {
     background-color: ${colors.primary};
     height: 64px;
     ${media.forMobile`height:auto`};
-    ${(props) =>
-      props.fix &&
-      `
-      position: fixed;
-      bottom: 0;
-      left: 0;
-    `};
+    ${(props) => props.fix && ``};
   `,
   Content: styled.div`
     height: 64px;

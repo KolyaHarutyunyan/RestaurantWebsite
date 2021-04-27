@@ -1,59 +1,58 @@
-import { makeStyles } from "@material-ui/core"
-import styled from "styled-components"
-import { theme } from "@eachbase/theme"
+import { makeStyles } from "@material-ui/core";
+import styled from "styled-components";
+import { theme } from "@eachbase/theme";
 
 export const useAuthStyles = makeStyles((theme) => ({
   dialog: {
-    '& .MuiDialog-paper': {
-      width: '100%',
+    "& .MuiDialog-paper": {
+      width: "100%",
 
       margin: "20px",
       borderRadius: "32px",
 
-      maxWidth: '548px !important',
+      maxWidth: "548px !important",
       padding: "64px 8px 64px 48px",
       overflow: "hidden",
-      [theme.breakpoints.down('md')]: {
-        maxWidth: '464px !important',
-        padding: "64px 8px 64px 32px"
+      [theme.breakpoints.down("md")]: {
+        maxWidth: "464px !important",
+        padding: "64px 8px 64px 32px",
       },
-      [theme.breakpoints.down('xs')]: {
-        maxWidth: '464px !important',
-        padding: "32px 16px"
+      [theme.breakpoints.down("xs")]: {
+        maxWidth: "464px !important",
+        padding: "32px 16px",
       },
 
-
-      '& .MuiDialogContent-root': {
+      "& .MuiDialogContent-root": {
         padding: 0,
-        display: 'flex',
+        display: "flex",
       },
-      '& .MuiDialogActions-root': {
-        position: 'absolute',
+      "& .MuiDialogActions-root": {
+        position: "absolute",
         bottom: 0,
         right: 0,
       },
-      '& .MuiBox-root': {
-        margin: 0
-      }
+      "& .MuiBox-root": {
+        margin: 0,
+      },
     },
   },
   closeIcon: {
-    width: '30px',
-    height: '30px',
-    position: 'absolute',
-    right: '16px',
-    top: '16px',
+    width: "30px",
+    height: "30px",
+    position: "absolute",
+    right: "16px",
+    top: "16px",
     zIndex: 10000,
     padding: 0,
-    backgroundColor: '#2B273C1A',
+    backgroundColor: "#2B273C1A",
     color: theme.palette.text.primary,
-    '&:hover': {
-      backgroundColor: '#2B273C1A',
+    "&:hover": {
+      backgroundColor: "#2B273C1A",
     },
-    '& .MuiSvgIcon-root': {
-      width: '16px',
-      height: '16px',
-    }
+    "& .MuiSvgIcon-root": {
+      width: "16px",
+      height: "16px",
+    },
   },
   authBox: {
     display: "flex",
@@ -62,16 +61,15 @@ export const useAuthStyles = makeStyles((theme) => ({
     alignItems: "center",
     transition: "all 1s",
     opacity: 1,
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '464px !important',
+    [theme.breakpoints.down("md")]: {
+      maxWidth: "464px !important",
       paddingRight: "16px",
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down("xs")]: {
       paddingRight: "0",
     },
     paddingRight: "32px",
     height: "100%",
-    overflow: "hidden auto",
     "&::-webkit-scrollbar": {
       width: "8px",
       borderRadius: "5px",
@@ -79,7 +77,6 @@ export const useAuthStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar-track": {
       backgroundColor: "#9993",
       borderRadius: "5px",
-
     },
     "&::-webkit-scrollbar-thumb": {
       width: "10px",
@@ -89,21 +86,20 @@ export const useAuthStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
     "&::-webkit-scrollbar-thumb:hover": {
-      background: "#4444"
+      background: "#4444",
     },
     "&:hover::-webkit-scrollbar-thumb": {
-      background: "#4444"
-    }
+      background: "#4444",
+    },
     // padding: "32px 16px",
   },
   submit: {
     width: "100%",
     height: "48px",
     font: "normal normal 600 16px/22px Open Sans",
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down("xs")]: {
       height: "42px",
       font: "normal normal 600 14px/19px Open Sans",
-
     },
     borderRadius: "25px",
     border: "0 !important",
@@ -116,44 +112,42 @@ export const useAuthStyles = makeStyles((theme) => ({
     },
     "&.brd8": {
       borderRadius: "8px",
-    }
+    },
   },
   lineBtn: {
     color: theme.palette.action.main,
     "&:hover": {
       textDecoration: "underline",
-      background: "unset"
+      background: "unset",
     },
     "&.dark": {
       color: theme.palette.text.primary,
     },
-    "&.mt24":{
-      marginTop:"24px",
+    "&.mt24": {
+      marginTop: "24px",
     },
-    "&.mt16":{
-      marginTop:"16px",
-    }
+    "&.mt16": {
+      marginTop: "16px",
+    },
   },
   backIcon: {
-    width: '30px',
-    height: '30px',
-    position: 'absolute',
-    left: '16px',
-    top: '16px',
+    width: "30px",
+    height: "30px",
+    position: "absolute",
+    left: "16px",
+    top: "16px",
     zIndex: 10000,
     padding: 0,
-    backgroundColor: '#2B273C1A',
+    backgroundColor: "#2B273C1A",
     color: theme.palette.text.primary,
-    '&:hover': {
-      backgroundColor: '#2B273C1A',
+    "&:hover": {
+      backgroundColor: "#2B273C1A",
     },
-    '& .MuiSvgIcon-root': {
-      width: '16px',
-      height: '16px',
-    }
-  }
-
-
+    "& .MuiSvgIcon-root": {
+      width: "16px",
+      height: "16px",
+    },
+  },
 }));
 
 export const TitleBlock = styled.div`
@@ -165,20 +159,20 @@ export const TitleBlock = styled.div`
   margin-bottom: 16px;
 
   p {
-    &.after, &.before {
+    &.after,
+    &.before {
       font: normal normal bold 24px/35px Poppins;
       margin: 0;
 
       @media (max-width: 768px) {
         font: normal normal bold 18px/27px Poppins;
       }
-
     }
 
     &.before {
       margin-top: 24px;
     }
- 
+
     &.after {
       margin-bottom: 24px;
     }
@@ -192,18 +186,17 @@ export const TitleBlock = styled.div`
       height: 80px;
     }
   }
-`
+`;
 
 export const FormBlock = styled.form`
   width: 100%;
-`
-
+`;
 
 export const Or = styled.div`
   width: 100%;
   height: 10px;
-  border-bottom: 1px solid #2B273C;
-  margin-top: ${props => props.mt || "24px"};
+  border-bottom: 1px solid #2b273c;
+  margin-top: ${(props) => props.mt || "24px"};
 
   p {
     display: block;
@@ -212,7 +205,7 @@ export const Or = styled.div`
     padding: 0 32px;
     background-color: #fff;
   }
-`
+`;
 export const SocialBlock = styled.div`
   width: 100%;
   display: flex;
@@ -239,32 +232,33 @@ export const SocialBlock = styled.div`
       height: 50px;
       border-radius: 25px;
       background-color: #fff;
-      box-shadow: 0 0 12px #0000001A;
+      box-shadow: 0 0 12px #0000001a;
       margin: 0 12px;
-
     }
 
     svg {
       margin: 0 10px;
     }
   }
-`
+`;
 
 export const Description = styled.p`
   text-align: center;
- 
+
   font: normal normal normal 16px/24px Open Sans;
   @media (max-width: 768px) {
     font: normal normal normal 14px/21px Open Sans;
   }
   margin: 0;
-  color: ${props => props.red? theme.palette.primary.main:theme.palette.text.primary};
+  color: ${(props) =>
+    props.red ? theme.palette.primary.main : theme.palette.text.primary};
 
-  margin-top: ${props  =>props.red? "16px": (props.mt ? ` ${props.mt}px`:"unset")}; 
+  margin-top: ${(props) =>
+    props.red ? "16px" : props.mt ? ` ${props.mt}px` : "unset"};
   span {
     width: 100%;
     text-align: center;
     color: ${theme.palette.action.main};
     display: block;
   }
-`
+`;

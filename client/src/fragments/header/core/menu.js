@@ -41,7 +41,6 @@ export const Menus = ({ status, type, user, toggleRef }) => {
     >
       {!user.id && <Button className={classes.button + " red"}>Sign In</Button>}
       {type && <CreateMenu isAuthed={user.id} className={classes.button} />}
-
       {user.id && (
         <>
           {type && (
@@ -50,7 +49,6 @@ export const Menus = ({ status, type, user, toggleRef }) => {
               {user.fullName}
             </Box>
           )}
-
           {pageLinks.map((item, i) => (
             <Link href={item.url} key={i}>
               <a className={hoverableMenuItemClassName}>

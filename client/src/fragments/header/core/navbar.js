@@ -12,9 +12,13 @@ export const Navbar = forwardRef(
     const { openModal } = useContext(ModalContext);
     const openAuth = () => openModal.auth();
     const openAvatar = () => openModal.avatar({ type: "userAvatar" });
+
     useEffect(() => {
       const documentClickHandler = ({ path }) => {
-        const conditionalClassList = ["user-toggle-button"];
+        const conditionalClassList = [
+          "user-toggle-button",
+          "mobile-side-toggle-button",
+        ];
         let classNameInList = false;
         for (const nodeElement of path) {
           if (nodeElement.classList) {
@@ -33,12 +37,16 @@ export const Navbar = forwardRef(
       window.addEventListener("click", documentClickHandler);
       return () => window.removeEventListener("click", documentClickHandler);
     }, []);
+
     return (
       <Box>
         {isMobile ? (
           <Button
             onClick={() => toggle()}
-            className={`${classes.toggleMenuBtn} ${status ? " opened" : ""}`}
+            /* WARNING: mobile-side-toggle-button className used above */
+            className={`${classes.toggleMenuBtn} ${
+              status ? " opened" : ""
+            } mobile-side-toggle-button`}
           >
             <Icon name={SVGNames.ToggleMenu} />
           </Button>
@@ -64,14 +72,9 @@ export const Navbar = forwardRef(
                   </Button>
                 </Box>
               ) : (
-                <>
-                  <Button
-                    className={`${classes.button} red`}
-                    onClick={openAuth}
-                  >
-                    Sign In
-                  </Button>
-                </>
+                <Button className={`${classes.button} red`} onClick={openAuth}>
+                  Sign In
+                </Button>
               )}
             </div>
             <div className={classes.listItem}>

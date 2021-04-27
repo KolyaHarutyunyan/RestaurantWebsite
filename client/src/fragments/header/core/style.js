@@ -7,9 +7,22 @@ export const useHeaderStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    height: "80px",
     padding: "0 100px",
     color: theme.palette.text.primary,
+    height: "80px",
+    [theme.breakpoints.down("md")]: {
+      padding: "0 42px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: "0 40px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      height: "60px",
+      padding: "0 16px",
+    },
+  },
+  headerSpace: {
+    height: "80px",
     [theme.breakpoints.down("md")]: {
       padding: "0 42px",
     },
@@ -99,6 +112,7 @@ export const useHeaderStyles = makeStyles((theme) => ({
     visibility: "hidden",
     position: "absolute",
     height: 0,
+    zIndex: 10,
     top: "88px",
     width: "264px",
     left: "0",
