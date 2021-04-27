@@ -13,7 +13,7 @@ import { UserService } from '../user/user.service';
 
 import { SignedInDTO, SocialLoginDTO } from './dto';
 import {
-    FacebookAuthGuard
+    FacebookAuthGuard, GoogleAuthGuard, TwitterAuthGuard
 } from './strategies/passport.guards';
 @Controller('auth')
 @ApiTags('social')
@@ -22,6 +22,26 @@ export class SocialController {
         private readonly authService: AuthService,
         private readonly userService: UserService,
     ) { }
+
+    /** Social Signin entry */
+    @Get('/google')
+    @UseGuards(GoogleAuthGuard)
+    @ApiResponse({ description: 'use to login with googles' })
+    async googleAuth(@Req() req) {
+        console.log(req);
+    }
+
+    /** Social Signin Redirect */
+    @Get('/google/redirected')
+    @UseGuards(GoogleAuthGuard)
+    @Redirect(DOMAIN_NAME, HttpStatus.PERMANENT_REDIRECT)
+    async googleAuthRedirected(@Req() req) {
+        const signedInDTO = await this.socialRedirectHandler(req.user);
+        return {
+            url: `${DOMAIN_NAME}/socialLogin?token=${signedInDTO.auth.token}`,
+        };
+    }
+
     @Get('/facebook')
     @UseGuards(FacebookAuthGuard)
     async facebookAuth() {
@@ -38,6 +58,26 @@ export class SocialController {
             url: `${DOMAIN_NAME}/socialLogin?token=${signedInDTO.auth}`,
         };
     }
+
+
+    @Get('/twitter')
+    @UseGuards(TwitterAuthGuard)
+    @ApiResponse({ description: 'use this to login with Twitter' })
+    async twitterAuth() {
+        console.log('Twitter login endpoint activated');
+    }
+
+    /** Social Signin Redirect */
+    @Get('/twitter/redirected')
+    @UseGuards(TwitterAuthGuard)
+    @Redirect(DOMAIN_NAME, HttpStatus.PERMANENT_REDIRECT)
+    async twitterAuthRedirected(@Req() req) {
+        const signedInDTO = await this.socialRedirectHandler(req.user);
+        return {
+            url: `${DOMAIN_NAME}/socialLogin?token=${signedInDTO.auth.token}`,
+        };
+    }
+
     /**
    * The function utlized by social login controller functions. It is generic and is meant to be reused for multiple login methods
    * @param req - the request object passed in
