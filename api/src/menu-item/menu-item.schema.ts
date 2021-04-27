@@ -5,6 +5,7 @@ const imageSchema = new Schema({
     thumbURL: {type: String, required: true}
 })
 const MenuItemSchema = new Schema({
+  restaurantId: { type: Types.ObjectId, ref: 'restaurant' },
   name: { type: String, required: true },
   description: { type: String },
   option: { type: String },

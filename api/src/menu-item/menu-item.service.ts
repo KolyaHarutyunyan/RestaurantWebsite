@@ -25,6 +25,7 @@ export class MenuItemService {
   async create(createMenuItemDto: CreateMenuItemDto) {
 
     const menuItem = await new this.model({
+      restaurantId: createMenuItemDto.restaurantId,
       name: createMenuItemDto.name,
       description: createMenuItemDto.description,
       option: createMenuItemDto.option,
@@ -71,6 +72,7 @@ export class MenuItemService {
   /** Private Members */
   private sanitizeMenuItem(item: IMenuItem) {
     const sanitizedMenuItem: MenuItemResponseDTO = {
+      restaurantId: item.restaurantId,
       id: item._id,
       name: item.name,
       description: item.description,

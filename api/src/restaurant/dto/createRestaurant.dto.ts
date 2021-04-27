@@ -20,6 +20,9 @@ export class CreateRestaurantDTO {
   // restaurantOwner?: IUser;
   status?: boolean;
 
+  @ApiProperty({ required: false })
   website?: string;
+
+  @ApiProperty({ required: false })
   phoneNumber?: string
 }

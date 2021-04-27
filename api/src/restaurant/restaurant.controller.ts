@@ -11,12 +11,13 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
 import { RestaurantService } from './restaurant.service';
 import { ImageService } from '../image/image.service';
+import { ACCESS_TOKEN } from 'src/constants';
 
 // NNkar@ ipload era pahe bazayi mej url@
 
@@ -29,6 +30,7 @@ export class RestaurantController {
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @UseInterceptors(FileInterceptor('logo'))
   @ApiBody({ type: CreateRestaurantDTO })
+  @ApiHeader({name: ACCESS_TOKEN})
   @ApiOkResponse({ type: RestaurantResponseDTO })
   async createRestaurant(@UploadedFile() file, @Body() createRestaurantDTO: CreateRestaurantDTO): Promise<RestaurantResponseDTO> {
 
