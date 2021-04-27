@@ -69,8 +69,9 @@ export class AuthController {
      return new SignedInDTO(auth, user);
    }
 
-   
+
   @Post('signin')
+  @ApiOkResponse({ type: SignedInDTO })
   @ApiBody({ type: SigninDTO })
   async login(@Body() signinDTO: SigninDTO): Promise<any> {
     const auth = await this.authService.signin(signinDTO);

@@ -44,6 +44,7 @@ export class RestaurantController {
 
   @Get()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   async getRestaurant() {
 
     const restaurant = await this.restaurantService.getAllRestaurant();
@@ -52,6 +53,7 @@ export class RestaurantController {
   }
 
   @Get(':id')
+  @ApiHeader({ name: ACCESS_TOKEN })
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async getRestaurantById(@Param('id') id: string) {
 
@@ -61,6 +63,8 @@ export class RestaurantController {
   }
 
   @Put(':id')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({type: UpdateRestaurantDTO})
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async update(@Param('id') id: string, @Body() updateRestaurantDto: UpdateRestaurantDTO) {
 

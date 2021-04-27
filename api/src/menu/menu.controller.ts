@@ -6,16 +6,17 @@ import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageService } from '../image/image.service';
-import { ApiBody, ApiHeader, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ACCESS_TOKEN, RESET_TOKEN } from '../auth/constants';
 
 @Controller('menu')
+@ApiTags('menus')
 export class MenuController {
   constructor(private readonly menuService: MenuService, private readonly imageService: ImageService) { }
-
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: CreateMenuDto })
   @UseInterceptors(FileInterceptor('menuImg'))
   async create(@UploadedFile() file, @Body() createMenuDto: CreateMenuDto) {
 
@@ -31,6 +32,7 @@ export class MenuController {
 
   @Get()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   async findAll() {
 
     const getAllMenu = await this.menuService.findAll();
@@ -40,11 +42,14 @@ export class MenuController {
 
   @Get(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   findOne(@Param('id') id: string) {
     return this.menuService.findOne(id);
   }
 
   @Put(':id')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: UpdateMenuDto })
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
     return this.menuService.update(id, updateMenuDto);
@@ -52,6 +57,7 @@ export class MenuController {
 
   @Delete(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   remove(@Param('id') id: string) {
     return this.menuService.remove(id);
   }

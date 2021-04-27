@@ -16,11 +16,12 @@ import {
     FacebookAuthGuard
 } from './strategies/passport.guards';
 @Controller('auth')
+@ApiTags('social')
 export class SocialController {
     constructor(
         private readonly authService: AuthService,
         private readonly userService: UserService,
-      ) {}
+    ) { }
     @Get('/facebook')
     @UseGuards(FacebookAuthGuard)
     async facebookAuth() {

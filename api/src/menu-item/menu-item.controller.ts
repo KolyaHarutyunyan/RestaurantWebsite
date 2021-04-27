@@ -3,16 +3,20 @@ import { MenuItemService } from './menu-item.service';
 import { CreateMenuItemDto } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
 import { AuthGuard } from 'src/auth/guards';
-import { Role } from 'src/auth/constants';
+import { ACCESS_TOKEN, Role } from 'src/auth/constants';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageService } from '../image/image.service';
+import { ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @Controller('menuItem')
+@ApiTags('menuItems')
 export class MenuItemController {
   constructor(private readonly menuItemService: MenuItemService, private readonly imageService: ImageService) { }
 
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: CreateMenuItemDto })
   @UseInterceptors(FileInterceptor('menuItemImg'))
   async create(@UploadedFile() file, @Body() createMenuItemDto: CreateMenuItemDto) {
 
@@ -32,12 +36,15 @@ export class MenuItemController {
 
   @Get(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   findOne(@Param('id') id: string) {
     return this.menuItemService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: UpdateMenuItemDto })
   async update(@Param('id') id: string, @Body() updateMenuItemDto: UpdateMenuItemDto) {
     const updateMenuItem = await this.menuItemService.update(id, updateMenuItemDto);
 

@@ -1,16 +1,20 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
-import { Role } from 'src/auth/constants';
+import { ApiBody, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ACCESS_TOKEN, Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('category')
+@ApiTags('categories')
 export class CategoryController extends Object {
   constructor(private readonly categoryService: CategoryService) {super()}
 
   @Post()
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: CreateCategoryDto })
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     // if(createCategoryDto.name !== "drinkCategories" && createCategoryDto.name !== "foodCategories"){
 
@@ -26,6 +30,7 @@ export class CategoryController extends Object {
 
   @Post(':categoryId/addMenuItem')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   async addMenuItem(@Body('menuItemId') menuItemId: string, @Param('categoryId') categoryId: string) {
     const createCategory = await this.categoryService.addMenuItem(menuItemId,categoryId);
 
@@ -34,7 +39,8 @@ export class CategoryController extends Object {
   }
 
   @Post('getCategories')
-  // @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   async findAll(@Body('restaurantId') restaurantId: string) {
    const allCategories = await this.categoryService.getAll(restaurantId);
     return allCategories;
@@ -42,6 +48,8 @@ export class CategoryController extends Object {
   }
 
   @Get(':id')
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(id);
   }
