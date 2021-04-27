@@ -47,6 +47,13 @@ export class MenuController {
     return this.menuService.findOne(id);
   }
 
+  @Get('duplicate/:menuId')
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  async duplicate(@Param('menuId') duplicateId: string) {
+    return this.menuService.duplicate(duplicateId);
+  }
+
   @Put(':id')
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: UpdateMenuDto })

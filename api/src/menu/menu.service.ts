@@ -53,7 +53,29 @@ export class MenuService {
     return getMenu
 
   }
+   /** API */
+  /** duplicate menu by id */
+  async duplicate(_id: string) {
 
+    const getMenu = await this.model.findById({ _id });
+    
+    var newDoc = getMenu;
+
+    delete newDoc['_id'];
+
+    const setDuplicateData = await new this.model({ 
+      restaurantId: newDoc.restaurantId,
+      name: newDoc.name,
+      description: newDoc.description,
+      menuImg: newDoc.menuImg,
+      tagline: newDoc.tagline,
+      isActive: newDoc.isActive
+     }).save();
+
+    return setDuplicateData
+
+  }
+  
   /** API */
   /** update menu by id */
   async update(_id: string, updateMenuDto: UpdateMenuDto) {
