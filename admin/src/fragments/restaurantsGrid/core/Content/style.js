@@ -20,6 +20,26 @@ export const Container = styled.div`
       align-items: center;
       flex: 1;
       padding-left: 10px;
+      &:nth-child(2) {
+        flex: 0 0 180px;
+      }
+    }
+
+    .restaurant-name {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      .logo {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+      }
+      .title {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: dotted;
+      }
     }
   }
 `;

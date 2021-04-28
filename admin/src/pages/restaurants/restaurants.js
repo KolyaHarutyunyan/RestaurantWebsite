@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { Route, Switch } from "react-router";
 import { CONSTANTS } from "@eachbase/constants";
 import { Category, CategoryItems, Menu } from "@eachbase/fragments";
+
 export const Restaurants = () => {
   return (
     <Fragment>
