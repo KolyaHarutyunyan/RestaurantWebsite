@@ -21,6 +21,15 @@ export class UserService {
     return user
   }
 
+  async findById(_id: string): Promise<any> {
+    const user = await this.model.findById({ _id });
+    if (!user) {
+      // throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      return null;
+    }
+    return user
+  }
+  
   /** Service API */
   async create(createUserDTO: CreateUserDTO): Promise<UserResponseDTO> {
     try {
