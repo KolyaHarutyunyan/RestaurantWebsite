@@ -1,3 +1,5 @@
 // import Axios from 'axios';
 
-export const restaurantService = {};
+export const menusService = {
+  getMenusByRestaurantId: (id) => {},
+};

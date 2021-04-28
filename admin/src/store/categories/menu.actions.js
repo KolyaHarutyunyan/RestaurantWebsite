@@ -1,3 +1,3 @@
 // import {restaurantTypes} from '.';
 
-export const restaurantActions = {};
+export const menusActions = {};

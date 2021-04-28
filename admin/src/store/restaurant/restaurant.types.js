@@ -1,3 +1,2 @@
-export const restaurantTypes = {};
-
-export const restaurantReducerTypes = {};
+export const GET_RESTAURANT = "GET_RESTAURANT";
+export const GET_RESTAURANT_SUCCESS = "GET_RESTAURANT_SUCCESS";

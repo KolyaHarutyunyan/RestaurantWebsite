@@ -1,10 +1,17 @@
 import { RestaurantsGrid } from "@eachbase/fragments";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Route, Switch } from "react-router";
 import { CONSTANTS } from "@eachbase/constants";
 import { Category, CategoryItems, Menu } from "@eachbase/fragments";
-
+import { useDispatch } from "react-redux";
+import { restaurantsActions } from "@eachbase/store";
 export const Restaurants = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(restaurantsActions.getRestaurants());
+  });
+
   return (
     <Fragment>
       <RestaurantsGrid />

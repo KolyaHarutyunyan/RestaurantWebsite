@@ -1,15 +1,15 @@
 import { Container } from "./style";
+import { useHistory } from "react-router-dom";
 
 export const Content = ({ restaurants }) => {
-  // const history = useHistory();
+  const history = useHistory();
   return (
     <Container>
       {restaurants.map((restaurant) => (
         <div
           className="row"
-          key={
-            restaurant.id
-          } /* onClick={() => history.push("/restaurants/1/2")} */
+          key={restaurant._id}
+          onClick={() => history.push(`/restaurants/${restaurant._id}`)}
         >
           <div className="col">{restaurant.owner || ""}</div>
           <div className="col">

@@ -1,24 +1,8 @@
-// import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
+import { GET_MENUS_SUCCESS, GET_MENUS } from "./menu.types";
 
-// function* updateAvatarSaga(payload) {
-//     try {
-//         const res = yield call(restaurantService.updateAvatar, payload);
-//         yield put({ type: types.UPDATE_AVATAR_SUCCESS, payload: res.data });
-//     } catch (err) {
-//         yield put({ type: types.UPDATE_AVATAR_ERROR, payload: err });
-//     }
-// }
-//
-// function* editProfileSaga(payload) {
-//     try {
-//         const res = yield call(restaurantService.updateAvatar, payload);
-//         yield put({ type: types.EDIT_PROFILE_SUCCESS, payload: res.data });
-//     } catch (err) {
-//         yield put({ type: types.EDIT_PROFILE_ERROR, payload: err });
-//     }
-// }
+function* getMenusByRestaurantId({ payload }) {}
 
-export function* watchRestaurant() {
-  // yield takeLatest(types.UPDATE_AVATAR, updateAvatarSaga);
-  // yield takeLatest(types.EDIT_PROFILE, editProfileSaga);
+export function* watchMenus() {
+  yield takeLatest(GET_MENUS, getMenusByRestaurantId);
 }
