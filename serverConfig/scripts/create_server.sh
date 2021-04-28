@@ -97,11 +97,12 @@ sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 0 12 * * * /usr/bin/certbot renew --quiet # for cron job scheduling for the automatic updates 
 
-sudo certbot --nginx -d menuz.eachbase.com # test certificates
-sudo certbot --nginx -d staging.menuz.org # Staging certificates
-sudo certbot --nginx -d menuz.org -d www.menuz.org # live certificates
+# sudo certbot --nginx -d menuz.eachbase.com # test certificates
+# sudo certbot --nginx -d staging.menuz.org # Staging certificates
+# sudo certbot --nginx -d menuz.org -d www.menuz.org # live certificates
 
 
+sudo certbot --nginx -d menuzmini.eachbase.com # test certificates
 
 # sudo add-apt-repository ppa:certbot/certbot     #install certbot
 # sudo apt install python-certbot-nginx   #install certbot nginx package
