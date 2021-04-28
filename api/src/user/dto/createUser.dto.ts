@@ -1,5 +1,5 @@
 export class CreateUserDTO {
-  fullName: string;
+  fullName?: string;
   email: string;
   authId?: string;
   phoneNumber?: string;
