@@ -1,4 +1,5 @@
 export const ScrollBar = `
+	 
   &::-webkit-scrollbar {
 		width: 6px;
 		border-radius: 5px;

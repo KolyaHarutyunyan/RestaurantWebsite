@@ -103,7 +103,7 @@ export const Styled = {
     }
 
     .dropBtn {
-      z-index: 100000;
+      z-index: 1000;
       position: absolute;
       right: 0;
       padding: 0;

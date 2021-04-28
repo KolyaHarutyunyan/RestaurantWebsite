@@ -26,18 +26,18 @@ export const EditPassword = () => {
       <Styled.BlockDescription>Use strong password to keep your account secure.</Styled.BlockDescription>
 
       <Styled.BlockForm open={!readOnly}>
-
-        <Input.pass
-          icon={SVGNames.Password}
-          {...passwords.current}
-          onChange={value => Change.text(value,"current", setPasswords)}
-          onBlur={() => Check.password(setPasswords,"current")}
-          placeholder="Password"
-          blockTitle={"Use at least 8 characters, 1 upper case and 1 digit"}
-          brd={8}
-          mt={24}
-          mtt={32}
-        />
+        
+        {/*<Input.pass*/}
+        {/*  icon={SVGNames.Password}*/}
+        {/*  {...passwords.current}*/}
+        {/*  onChange={value => Change.text(value,"current", setPasswords)}*/}
+        {/*  onBlur={() => Check.password(setPasswords,"current")}*/}
+        {/*  placeholder="Password"*/}
+        {/*  blockTitle={"Use at least 8 characters, 1 upper case and 1 digit"}*/}
+        {/*  brd={8}*/}
+        {/*  mt={24}*/}
+        {/*  mtt={32}*/}
+        {/*/>*/}
         {/*<Input.pass*/}
         {/*  icon={SVGNames.Password}*/}
         {/*  {...passwords.current}*/}

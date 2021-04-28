@@ -11,7 +11,7 @@ export const Profile = () =>{
 	let {openModal} = useContext(ModalContext)
 
 	let handlerRemove = ()=>{
- 		openModal.alert({submit:password=>dispatch(profileActions.remove({password}))})
+ 		openModal.removeAccount({submit:password=>dispatch(profileActions.remove({password}))})
 	}
 
 	return(

@@ -4,19 +4,24 @@ import { MenuItem } from "@eachbase/components"
 
 
 export const ItemsList = ({ activeCategoryId }) => {
-
-	let itemIds = activeCategoryId
-		?useSelector(state=>state.categories.find(category=>category.id === activeCategoryId).items || [])
-		:[]
 	
-	console.log(itemIds)
+	let itemIds = activeCategoryId
+		? useSelector(state => state.categories.find(category => category.id === activeCategoryId).items || [])
+		: []
+	let activeCategoryName = activeCategoryId
+		? useSelector(state => state.categories.find(category => category.id === activeCategoryId).title || "")
+		: ""
+	
+	// console.log(itemIds)
 	return (
-		<Styled.ItemsList className="items" hasScroll={itemIds.length>4}>
+		<Styled.ItemsList className="items" hasScroll={itemIds.length > 4}>
 			<div className="content">
 				{
-					itemIds?
-						itemIds.map(item => <MenuItem key={item} itemId={item}/>)
-						:<Styled.NotItem></Styled.NotItem>
+					itemIds
+						? itemIds.map(item =>
+							<MenuItem key={item} itemId={item} parentId={activeCategoryId} parentName={activeCategoryName}/>
+						)
+						: <Styled.NotItem></Styled.NotItem>
 				}
 			</div>
 		

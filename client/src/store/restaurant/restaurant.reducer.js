@@ -7,15 +7,43 @@ const initialState = {
   extraDetails:{
     location: "7035 Brickell St. Flemington, NJ 08822",
     phone: "",
-    hours: {
-      mon:["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
-      tue:["11:00 am - 02:00 pm"],
-      wed:["11:00 am - 02:00 pm","11:00 am - 02:00 pm"],
-      thu:[],
-      fri:[],
-      sat:[],
-      sun:["11:00 am - 02:00 pm","11:00 am - 02:00 pm"],
-    },
+    hours: [
+      {
+        name:"MON",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"TUE",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"WED",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"THU",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"fri",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"SAT",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+      {
+        name:"SUN",
+        hours: ["11:00 am - 02:00 pm","05:00 pm - 12:00 am"],
+        status:false,
+      },
+    ],
     webSite: "",
   },
   menus: [

@@ -6,3 +6,4 @@ export { ItemsTitle } from './itemsTitle'
 export { ItemsList } from './itemsList'
 export {SelectCategory} from "./selectCategory"
 export {SelectMenuItem} from "./selectMenuItem"
+export {AddNewMenuItem} from "./addMenuItem"

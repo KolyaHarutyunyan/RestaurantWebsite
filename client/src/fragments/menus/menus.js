@@ -12,7 +12,7 @@ let newItemData = {
 
 export const Menus = () => {
 	let menus = useSelector(state => state.restaurant.menus || [])
-	console.log("menus is :", menus)
+	// console.log("menus is :", menus)
 	return (
 		<Styled.Content>
 			<Item key={"0"} item={newItemData} newItem/>
