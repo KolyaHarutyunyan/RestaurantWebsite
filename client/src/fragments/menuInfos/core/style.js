@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { colors, media } from "@eachbase/theme";
 
 export const Styled = {
- 
+	
 	Navigator: styled.div`
     margin-top: 40px;
     display: flex;
@@ -25,9 +25,10 @@ export const Styled = {
       ${media.forMobile`
 				font: normal normal 600 14px/19px Open Sans;
 			`};
-			&:hover{
-				text-decoration: underline!important;
-			}
+
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
 
     box-sizing: border-box;
@@ -65,7 +66,7 @@ export const Styled = {
         color: ${colors.action}
       }
 
-      .icon  {
+      .icon {
         width: 32px;
         height: 32px;
         margin-right: 8px;
@@ -126,41 +127,58 @@ export const Styled = {
     	padding: 24px 16px;
     `};
 
-    .edit {
-      position: absolute;
-      top: 40px;
-      right: 40px;
-      margin: 0;
-      width: fit-content;
-      padding: 10px 40px;
-      //font: normal normal 600 16px/22px Open Sans;
-      
-      ${media.downToLargeDesktop`
+    .avatarBlock {
+      width: 450px;
+      height: 250px;
+      border-radius: 16px;
+      ${media.downToDesktop`width: 100%;`};
+      ${media.forMobile`
+			border-radius: 8px;
+			height: 125px;
+		`};
+      // background-color: ${colors.shadow};
+      // ${props => props.bgi && `background-image: url("${props.bgi}")`};
+      // background-position: center;
+      // background-size: cover;
+      // background-repeat: no-repeat;
+    }
+  }
+
+  .edit {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    margin: 0;
+    width: fit-content;
+    padding: 10px 40px;
+    //font: normal normal 600 16px/22px Open Sans;
+
+    ${media.downToLargeDesktop`
 				top: 32px;
 				right: 32px;
 			`};
-      ${media.forMobile`
+    ${media.forMobile`
 				top: 24px;
       	right: 16px;
       	height: 36px;
       	 padding: 9px 32px;
  
 			`};
-    }
+  }
 
-    .title {
-			display: none;
-			width: 100%;
-			text-align: left;
-			height: 42px;
-			align-items: center;
-			
-      font: normal normal bold 28px/42px Poppins;
-			${media.downToDesktop`
+  .title {
+    display: none;
+    width: 100%;
+    text-align: left;
+    height: 42px;
+    align-items: center;
+
+    font: normal normal bold 28px/42px Poppins;
+    ${media.downToDesktop`
 				display:flex;
 				margin-bottom: 32px;
 			`};
-      ${media.forMobile`
+    ${media.forMobile`
       	margin-bottom: 24px;
       	font: normal normal bold 16px/25px Poppins;
       	height: 36px;
@@ -168,19 +186,7 @@ export const Styled = {
 	`,
 	
 	BlockAvatar: styled.div`
-    width: 450px;
-    height: 250px;
-    border-radius: 16px;
-    ${media.downToDesktop`width: 100%;`};
-    ${media.forMobile`
-			border-radius: 8px;
-			height: 125px;
-		`};
-    background-color: ${colors.shadow};
-    ${props => props.bgi && `background-image: url("${props.bgi}")`};
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+	
 	
 	`,
 	BlockDescription: styled.div`
@@ -189,7 +195,7 @@ export const Styled = {
 
     .title {
       margin-bottom: 16px;
-      display:flex
+      display: flex
     }
 
     margin-left: 40px;
@@ -206,7 +212,7 @@ export const Styled = {
 		`};
 	
 	`,
-	BlockTitle:styled.div`
+	BlockTitle: styled.div`
 	
 	`
 	

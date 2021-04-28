@@ -4,13 +4,13 @@ export const TimeLine =({ day,name })=>
 			<div className="title">{name}</div>
 			<div className="description">
 				{
-					day.length
-						? <>
-							{
-								day.map((time,i)=><div key={i} className="row">{time}</div>)
-							}
-						</>
-						: <div className="row red">Closed</div>
+					// day.length
+					// 	? <>
+					// 		{
+					// 			day.map((time,i)=><div key={i} className="row">{time}</div>)
+					// 		}
+					// 	</>
+					// 	: <div className="row red">Closed</div>
 				}
 			</div>
 		</div>

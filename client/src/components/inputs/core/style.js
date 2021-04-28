@@ -175,16 +175,16 @@ export const Styled = {
       margin-top: 16px;
       font: normal normal 600 18px/24px Open Sans;
 
-      .span {
+      span {
         color: ${colors.action};
       }
     }
 
-    .Description {
-      margin-top: 16px;
+    .description {
+      margin-top: 8px;
       font: normal normal normal 12px/24px Open Sans;
 
-      .span {
+      span {
         color: ${colors.primary};
       }
     }

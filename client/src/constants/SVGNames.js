@@ -35,4 +35,6 @@ export const SVGNames = {
 	Food:"Food",
 	Drink:"Drink",
 	Close:"Close",
+	AddHours:"AddHours",
+	RemoveHours:"RemoveHours",
 }

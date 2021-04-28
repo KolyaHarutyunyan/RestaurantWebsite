@@ -11,10 +11,9 @@ export const Item = ({ item, newItem }) => {
 	let [ openOptions, setOpenOptions ] = useState(false)
 	let toggleChecked = () => setOpenOptions(!openOptions)
 	let router = useRouter()
-	let url = `/menu/${newItem?"newItem":item.tag}`
-	// console.log(item)
+ 
 	let openMenu = ()=>{
-		if(!newItem)router.push(url,url,{})
+		if(!newItem)router.push(`/menu/${ item.tag}`,`/menu/${ item.tag}`,{})
 		else {
 			openModal.editMenu({title:"Add Menu Information"})
 		}
@@ -29,12 +28,12 @@ export const Item = ({ item, newItem }) => {
 			<Styled.ItemContent>
 				{
 					newItem
-						? <Link href={"/menu/newMenu"}>
-							<a className="addNew">
+						?
+							<button className="addNew" onClick={openMenu}>
 								<Icon name={SVGNames.AddIcon}/>
 								Add Menu
-							</a>
-						</Link>
+							</button>
+					 
 						: <>
 							<Styled.ContentLine>
 								<div className="title">{item.title}</div>
@@ -50,9 +49,15 @@ export const Item = ({ item, newItem }) => {
 								
 								<Styled.DropMenu status={openOptions} >
 									<div className="bg" onClick={toggleChecked}/>
-									<Styled.DropAction onClick={()=>openModal.editMenu({title:"Edit Menu Information"})}>Edit</Styled.DropAction>
+									<Styled.DropAction onClick={()=> {
+										openModal.editMenu({ title: "Edit Menu Information" })
+										toggleChecked()
+									}}>Edit</Styled.DropAction>
 									<Styled.DropAction>Duplicate</Styled.DropAction>
-									<Styled.DropAction remove onClick={()=>openModal.removeMenu({id:item.id})}>Delete</Styled.DropAction>
+									<Styled.DropAction remove onClick={()=> {
+										openModal.removeMenu({ id: item.id })
+										toggleChecked()
+									}}>Delete</Styled.DropAction>
 								
 								</Styled.DropMenu>
 							</Styled.ContentLine>

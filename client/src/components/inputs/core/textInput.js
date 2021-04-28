@@ -14,6 +14,7 @@ export const TextInput = ({
  
 	let [ isVisible, setIsVisible ] = useState(false)
 	let [ isFocused, setIsFocused ] = useState(false)
+ 
 	
 	const focus = () => {
 		setIsFocused(true)
@@ -50,7 +51,7 @@ export const TextInput = ({
 				onChange={e => change(e)}
 				onFocus={focus}
 				onBlur={blur}
-				placeholder={important && "  " + placeholder || ""}
+				placeholder={important ? "  " + placeholder: placeholder || "" }
 				autocomplete={type === "email"}
 				readonly={isDisabled}
 				hasIcon={!!icon}

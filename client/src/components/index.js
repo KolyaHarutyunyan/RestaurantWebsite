@@ -1,5 +1,6 @@
 export {Icon} from "./icon"
 export {Input} from './inputs'
+export {InputTypes} from './inputs/core/formFunctions'
 export {ModalTitle} from './modalTitle'
 export {PageTitle} from './pageTitle'
 export {Button} from './button'

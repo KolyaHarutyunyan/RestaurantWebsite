@@ -1,9 +1,9 @@
-import { BaseModal, Input } from "@eachbase/components"
-import { Styled } from "./core"
-import { memo, useEffect, useState } from "react";
-import { Button } from "@eachbase/components";
-import { InputTypes } from "../../utils";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+import { BaseModal, Input, Button, InputTypes } from "@eachbase/components"
+import { Styled } from "./core"
+
 let initState = {
 	id: -1,
 	title: "",
@@ -11,11 +11,11 @@ let initState = {
 	imageUrl: "",
 }
 
-export const EditMenu  =
-	({ status, close,   title }) => {
-		console.log(status, close,  title )
+export const EditMenu =
+	({ status, close, title }) => {
+		console.log(status, close, title)
 		let [ item, setItem ] = useState(initState)
-		let data = useSelector(state=>state.menu)
+		let data = useSelector(state => state.menu)
 		useEffect(() => {
 			if (data)
 				setItem({
@@ -35,7 +35,7 @@ export const EditMenu  =
 						maxLength: 500,
 						placeholder: "description"
 					},
-			 
+					
 					imageUrl: data.imageUrl || ""
 				})
 			return () => setItem(initState)
@@ -66,7 +66,7 @@ export const EditMenu  =
 					
 					<Styled.Title>{title} </Styled.Title>
 					
-					<Styled.Row  >
+					<Styled.Row>
 						<Input.Name {...item.title} setState={setItem}/>
 					</Styled.Row>
 					
@@ -74,13 +74,16 @@ export const EditMenu  =
 						<Input.Description className={"description"} {...item.description} setState={setItem}/>
 					</Styled.Row>
 					
-					<Styled.Row  >
-						<Input.Image type={"menu"} values={item.imageUrl}
-												 onChange={imageUrl => setItem(current => ({ ...current, imageUrl }))}
-												 count={1}/>
+					<Styled.Row>
+						<Input.Image
+							title={<>Drag & Drop or <span>Upload</span> an Image </>}
+							description={"Max size 2MB"}
+							type={"menu"} values={item.imageUrl}
+							onChange={imageUrl => setItem(current => ({ ...current, imageUrl }))}
+							count={1}/>
 					</Styled.Row>
 					
-				<Button.Accept className={"save"} onClick={handlerSave}>Save</Button.Accept>
+					<Button.Accept className={"save"} onClick={handlerSave}>Save</Button.Accept>
 				</Styled.Edit>
 			</BaseModal>
 		)

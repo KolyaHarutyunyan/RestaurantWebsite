@@ -8,18 +8,18 @@ let newItem = {
 	title: "",
 	description: "",
 	options: "",
-	imageUrl: "",
-	type:"",
-	parents:[],
+	imageUrl: [ "", "", "", "", "", "" ],
+	type: "",
+	parents: [],
 	price: "",
 }
 
-export const AddNewMenuItem =({ activeCategory, activeType})=>{
+export const AddNewMenuItem = ({ activeCategory, activeType }) => {
 	let { openModal } = useContext(ModalContext);
-	newItem.type=activeType
-	newItem.parents = [activeCategory]
-	return(
-		<button className="add" onClick={()=>openModal.editMenuItem({data:newItem,title:"Add Menu Item"})}>
+	newItem.type = activeType
+	newItem.parents = [ activeCategory ]
+	return (
+		<button className="add" onClick={() => openModal.editMenuItem({ data: newItem, title: "Add Menu Item" })}>
 					<span className="iconBlock">
 					<Icon name={SVGNames.AddIcon}/>
 					

@@ -1,9 +1,7 @@
-import { BaseModal, NameInput } from "@eachbase/components"
+import { BaseModal } from "@eachbase/components"
 import { Styled } from "./core"
 import { useEffect, useState } from "react";
-import { Button, Input } from "@eachbase/components";
-import { Change, Check, InputTypes } from "@eachbase/utils";
-import { TextInput } from "../../components/inputs/core";
+import { Button, Input, InputTypes } from "@eachbase/components";
 
 
 let initState = {
@@ -11,7 +9,7 @@ let initState = {
 	title: "",
 	description: "",
 	options: "",
-	imageUrl: [],
+	imageUrl: [ "", "", "", "", "", "" ],
 	type: "",
 	parents: [],
 	price: "",
@@ -82,8 +80,8 @@ export const EditMenuItem =
 				<Styled.Edit>
 					<Styled.Title>{title} </Styled.Title>
 					<Styled.Row mt={40} mtT={32} mtM={32}>
-						<Input.Name {...item.title} setState={setItem}/>
-						<Input.Prise {...item.price} setState={setItem}/>
+						<Input.Name {...item.title} setState={setItem} className="nameInput"/>
+						<Input.Prise {...item.price} setState={setItem} className="priceInput"/>
 					</Styled.Row>
 					<Styled.Row>
 						<Input.Description className={"description"} {...item.description} setState={setItem}/>
@@ -92,9 +90,13 @@ export const EditMenuItem =
 						<Input.Options {...item.options} setState={setItem}/>
 					</Styled.Row>
 					<Styled.Row mt={40} mtT={32} mtM={24}>
-						<Input.Image type={item.type} values={item.imageUrl}
-												 onChange={imageUrl => setItem(current => ({ ...current, imageUrl }))} setState={setItem}
-												 count={6}/>
+						<Input.Image
+							type={item.type}
+							values={item.imageUrl}
+							onChange={imageUrl => setItem(current => ({ ...current, imageUrl }))}
+							title={<>Drag & Drop or <span> Upload</span> Images</>}
+							description={<><span>*</span>first image will be used as the main image</>}
+							count={6}/>
 					</Styled.Row>
 					<Button.Accept onClick={handlerSave} className={"save"}>Save</Button.Accept>
 				</Styled.Edit>

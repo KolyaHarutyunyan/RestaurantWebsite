@@ -1,5 +1,5 @@
 import { Styled, Title } from "./core"
-import {   Button} from "@eachbase/components"
+import { Button, ItemImage } from "@eachbase/components"
 import { useContext } from "react";
 import { ModalContext } from "../../contexts";
 
@@ -13,7 +13,8 @@ export const MenuInfos = ({ title, id,status, imageUrl,description }) => {
 			<Styled.Block>
 				<Button.Accept className="edit" onClick={()=>openModal.editMenu({title:"Edit Menu Information"})}>Edit</Button.Accept>
 				<div className="title">{title}</div>
-				<Styled.BlockAvatar bgi={imageUrl}/>
+				<ItemImage className={"avatarBlock"} url={imageUrl} type={"menu"}/>
+		 
 				<Styled.BlockDescription>
 					<div className="title">{title}</div>
 					{description}

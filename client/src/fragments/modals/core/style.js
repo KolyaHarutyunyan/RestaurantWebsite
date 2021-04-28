@@ -20,10 +20,10 @@ export const Styled = {
 	`,
 	
 	Edit: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    //display: flex;
+    //flex-direction: column;
+    //align-items: center;
+    //justify-content: flex-start;
     text-align: center;
     width: 500px;
     max-height: calc(100vh - 168px);
@@ -60,21 +60,31 @@ export const Styled = {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-top: ${props => props.mt || 24}px;
     column-gap: 24px;
     ${props => props.Tmt
             ? media.downToLargeDesktop(`margin-top: ${props.Tmt}px;`)
             : media.downToLargeDesktop(`margin-top: 16px;`)
     };
-		${props => props.Mmt
-            ? media.downToLargeDesktop(`margin-top: ${props.Mmt}px;`)
-            : media.downToLargeDesktop(`margin-top: 16px;`)
+    ${props => props.Mmt
+            ? media.forMobile(`margin-top: ${props.Mmt}px;`)
+            : media.forMobile(`margin-top: 16px;`)
     };
     ${media.downToLargeDesktop(`column-gap: 16px;`)};
-		.description textarea{
-			height: 76px!important;
-		}
+
+    .description textarea {
+      height: 76px !important;
+    }
+
+    .priceInput {
+      width: 100px;
+    }
+
+    .nameInput {
+      width: calc(100% - 100px);
+    }
+	
 	`,
 	
 	InputBox: styled.div`
@@ -161,6 +171,113 @@ export const Styled = {
 			}
 		`};
 	
-	`
+	`,
 	
+	Hours: styled.div`
+    width: 100%;
+
+    .ctrl {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font: normal normal 600 18px/27px Poppins;
+
+      .icon {
+        cursor: pointer;
+        transform: rotate(${props => props.status ? -90 : 90}deg);
+        ${animation([ "transform" ])}
+      }
+
+      p {
+        cursor: pointer;
+      }
+    }
+
+    .hours {
+      width: 100%;
+      height: ${props => props.status ?  props.h : 0}px;
+  
+      opacity: ${props => props.status ? 1 : 0};
+      visibility: ${props => props.status ? "visible" : "hidden"};
+      transform: rotateX(${props => props.status ? 0 : 90}deg);
+      ${animation([ "all" ])};
+
+
+      .day {
+        width: 100%;
+        background-color: ${colors.action}1A;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        ${media.downToLargeDesktop(`padding: 12px 16px;`)};
+        ${media.forMobile(`
+        	margin-top: 8px;
+        	padding: 10px 16px;
+        `)};
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        :nth-child(1) {
+          margin-top: 24px;
+          ${media.forMobile(`margin-top: 16px;`)};
+        }
+
+        .name {
+          font: normal normal bold 16px/20px Open Sans;
+          width: 40px;
+
+        }
+
+        .hour {
+          width: 225px;
+          margin-left: 24px;
+          margin-right: 8px;
+          display: flex;
+          font: normal normal normal 16px/20px Open Sans;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+
+          .line {
+            :nth-child(1) {
+              margin-top: 0;
+            }
+
+            width: 100%;
+            display: flex;
+            margin-top: 8px;
+            align-items: center;
+            justify-content: flex-start;
+
+
+          }
+
+
+          ${media.forMobile(`
+          	margin-left: 8px;
+          	margin-right: 0;
+          	font: normal normal normal 14px/20px Open Sans;
+          `)};
+
+          .actionBtn {
+            margin-left: 16px;
+            width: 18px;
+            height: 18px;
+            background-color: ${colors.white};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            cursor: pointer;
+          }
+        }
+
+        .status {
+
+        }
+      }
+    }
+	`,
 }
