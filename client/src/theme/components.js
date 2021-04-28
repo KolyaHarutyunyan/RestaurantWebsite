@@ -1,8 +1,16 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { media } from "./media";
 
 export const STYLED = {
-  Container:styled.div`
+  Main: styled.div`
+    width: 100%;
+    height: calc(100% - 80px);
+    ${media.forMobile`
+      height: calc(100% - 60px)
+    `};
+    overflow: auto;
+  `,
+  Container: styled.div`
     width: 100%;
     ${media.forLargeDesktop`
       padding:0 100px ;
@@ -16,9 +24,6 @@ export const STYLED = {
     ${media.forMobile`
       padding:0 16px;
     `};
-    
-    ${props=>props.main && media.forMobile`margin-top:60px` + media.upToMobile`margin-top:80px`}
-  `
-
-
-}
+    overflow: auto;
+  `,
+};

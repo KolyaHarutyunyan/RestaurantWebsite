@@ -1,6 +1,5 @@
-import { createMuiTheme, ThemeProvider,CssBaseline } from '@material-ui/core'
-import { GlobalCss } from "./globalCss"
-
+import { createMuiTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
+import { GlobalCss } from "./globalCss";
 
 export const defaultTheme = createMuiTheme();
 export const theme = createMuiTheme({
@@ -14,64 +13,61 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    action:{
-      main:"#007AFF"
+    action: {
+      main: "#007AFF",
     },
     primary: {
-      close:"#2B273C1A",
-      light: '#387DFF1A',
-      main: '#FF453A',
-      dark: '#26608C',
-      contrastText: '#fff',
+      close: "#2B273C1A",
+      light: "#387DFF1A",
+      main: "#FF453A",
+      dark: "#26608C",
+      contrastText: "#fff",
     },
     secondary: {
-      main: '#766DE8',
-      contrastText: '#fff',
+      main: "#766DE8",
+      contrastText: "#fff",
     },
     text: {
-      primary: '#2B273C',
-      secondary: '#252E48',
-      hint: '#545F7EB3',
+      primary: "#2B273C",
+      secondary: "#252E48",
+      hint: "#545F7EB3",
     },
     error: {
-      main: '#F07379',
+      main: "#F07379",
     },
     success: {
-      main: '#4FDC6F',
+      main: "#4FDC6F",
     },
     backfround: {
-      main: '#F5FAFE',
+      main: "#F5FAFE",
     },
-    shadow:{
-      main:"#0000001A"
-    }
+    shadow: {
+      main: "#0000001A",
+    },
   },
   overrides: {
     MuiCssBaseline: {
-      '@global': {
-        'html, body': {
-          fontSize: '16px',
-          fontFamily: 'Arial, Helvetica, sans-serif',
-          backgroundColor: '#ffffff !important',
-          overflow:"hidden auto"
+      "@global": {
+        "html, body": {
+          fontSize: "16px",
+          fontFamily: "Arial, Helvetica, sans-serif",
+          backgroundColor: "#ffffff !important",
         },
-
       },
     },
     MuiButton: {
       root: {
-
-        textTransform: 'initial',
+        textTransform: "initial",
       },
     },
   },
   spacing: 8,
 });
 
-
-export const Theme = ( {children} ) =>
+export const Theme = ({ children }) => (
   <ThemeProvider theme={theme}>
-    <GlobalCss/>
-    <CssBaseline/>
+    <GlobalCss />
+    <CssBaseline />
     {children}
   </ThemeProvider>
+);
