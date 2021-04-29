@@ -1,3 +1,5 @@
-// import Axios from 'axios';
+import axios from "axios";
 
-export const restaurantService = {};
+export const menuItemsService = {
+  getItems: () => axios.get(`/`),
+};

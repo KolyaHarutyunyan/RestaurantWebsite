@@ -17,12 +17,22 @@ export const Container = styled.div`
       height: 45px;
     }
   }
-  .content {
+  .menus {
     height: calc(100% - 105px);
-    padding: 0 15px;
-    overflow: auto;
-    padding: 10px 15px 0px 15px;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    .list-title {
+      font-weight: bold;
+      padding: 15px 15px;
+    }
+    .list {
+      height: 100%;
+      overflow: auto;
+      padding: 10px 15px 0px 15px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      @media ${breakPoints.mobile} {
+        grid-template-columns: 1fr;
+      }
+      gap: 15px;
+    }
   }
 `;

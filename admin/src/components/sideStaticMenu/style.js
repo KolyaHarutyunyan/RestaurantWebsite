@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { breakPoints } from "@eachbase/theme";
 export const Container = styled.div`
   position: fixed;
   top: 180px;
@@ -8,14 +8,20 @@ export const Container = styled.div`
   transform: translateX(${({ isOpen }) => (isOpen ? "0px" : "360px")});
   z-index: 1000;
   right: 10px;
-  width: 350px;
-  height: calc(100vh - 200px);
+  @media ${breakPoints.mobile} {
+    width: 350px;
+  }
+  width: 518px;
+  height: calc(100% - 200px);
   background-color: white;
   border: 1px solid var(--filling-third);
-  padding: 5px;
   border-radius: 3px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   .header {
+    flex: 0 0 40px;
+    padding: 5px;
     display: flex;
     justify-content: flex-end;
     height: 40px;
@@ -32,5 +38,9 @@ export const Container = styled.div`
         margin-left: 10px;
       }
     }
+  }
+  .content {
+    height: calc(100% - 40px);
+    flex: 1;
   }
 `;
