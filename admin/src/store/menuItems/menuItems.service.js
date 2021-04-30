@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const menuItemsService = {
-  getItems: () => axios.get(`/`),
+  getItems: () => axios.get(`/menuItem`, { auth: true }),
 };

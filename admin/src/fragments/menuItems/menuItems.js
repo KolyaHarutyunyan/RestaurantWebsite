@@ -1,25 +1,24 @@
-import { Container } from "./style";
 import { SideStaticMenu } from "@eachbase/components";
-import { useHistory, useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { MenuCard } from "@eachbase/components";
-import { menusActions } from "@eachbase/store";
+import { menuItemsActions } from "@eachbase/store";
+import { MenuItemCard } from "@eachbase/components";
 import { useEffect } from "react";
-
-export const Menus = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { Container } from "./style";
+export const MenuItems = () => {
   const history = useHistory();
-  const { restaurantId } = useParams();
-  const { restaurant, menus } = useSelector((store) => ({
+
+  const dispatch = useDispatch();
+  const { restaurant, menuItems } = useSelector((store) => ({
     restaurant: {
       name: store.restaurant ? store.restaurant.name : "Loading...",
       logo: store.restaurant ? store.restaurant.logoUrl : null,
     },
-    menus:
-      store.menus.filter((menu) => menu.restaurantId === restaurantId) || [],
+    menuItems: store.menuItems || [],
   }));
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(menusActions.getMenuItems());
+    dispatch(menuItemsActions.getMenuItems());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,13 +32,10 @@ export const Menus = () => {
           {restaurant.logo && <img src={restaurant.logo} alt="" />}
           <div className="name">{restaurant.name}</div>
         </div>
-        <div className="menus">
-          <div className="list-title">Menus</div>
-          <div className="list">
-            {menus.map((menu, index) => (
-              <MenuCard data={menu} key={index} />
-            ))}
-          </div>
+        <div className="content">
+          {menuItems.map((menuItem, key) => (
+            <MenuItemCard data={menuItem} key={key} />
+          ))}
         </div>
       </Container>
     </SideStaticMenu>

@@ -16,7 +16,7 @@ export const Container = styled.ul`
     padding-left: 10px;
     color: var(--text);
     &:nth-child(2) {
-      flex: 0 0 180px;
+      flex: 2;
     }
   }
 `;

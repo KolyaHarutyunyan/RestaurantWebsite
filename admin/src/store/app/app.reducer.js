@@ -6,6 +6,7 @@ import { restaurantReducer } from "../restaurant";
 import { restaurantsReducer } from "../restaurants";
 import { menuItemsReducer } from "../menuItems";
 import { categoriesReducer } from "../categories";
+import { menusReducer } from "../menus";
 
 const initialState = {
   isLoading: false,
@@ -42,4 +43,5 @@ export const appReducer = combineReducers({
   restaurants: restaurantsReducer,
   categories: categoriesReducer,
   menuItems: menuItemsReducer,
+  menus: menusReducer,
 });

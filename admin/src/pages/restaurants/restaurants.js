@@ -2,7 +2,7 @@ import { RestaurantsGrid } from "@eachbase/fragments";
 import { Fragment, useEffect } from "react";
 import { Route, Switch, useParams } from "react-router";
 import { CONSTANTS } from "@eachbase/constants";
-import { Category, CategoryItems, Menus } from "@eachbase/fragments";
+import { Category, MenuItems, Menus } from "@eachbase/fragments";
 import { useDispatch } from "react-redux";
 import { restaurantsActions } from "@eachbase/store";
 import { restaurantActions } from "@eachbase/store";
@@ -34,8 +34,8 @@ export const Restaurants = () => {
       />
       <Switch>
         <Route
-          path={CONSTANTS.BROWSER_HISTORY_PATHS.RESTAURANTS.CATEGORY_ITEMS}
-          component={CategoryItems}
+          path={CONSTANTS.BROWSER_HISTORY_PATHS.RESTAURANTS.MENU_ITEMS}
+          component={MenuItems}
         />
         <Route
           path={CONSTANTS.BROWSER_HISTORY_PATHS.RESTAURANTS.CATEGORIES}

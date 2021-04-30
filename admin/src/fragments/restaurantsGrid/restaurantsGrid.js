@@ -18,7 +18,7 @@ export const RestaurantsGrid = () => {
   const searchBarRestaurantsFilter = useCallback(
     () =>
       restaurants.filter(
-        (i) => i.name.toLowerCase().indexOf(searchBarValue) !== -1
+        (i) => i.name.toLowerCase().indexOf(searchBarValue.toLowerCase()) !== -1
       ),
     [searchBarValue, restaurants]
   );
@@ -60,7 +60,6 @@ export const RestaurantsGrid = () => {
         <Head />
         <Content restaurants={paginationRestaurantsFilter()} />
         <div className="pagination-wrapper">
-          <div className="noth">Active Page: {paginationPage + 1}</div>
           <Pagination
             containerClassName="pagination"
             pageCount={PAGINATION_PAGE_COUNT}
