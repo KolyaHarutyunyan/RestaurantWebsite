@@ -42,8 +42,9 @@ export class MenuItemService {
     return this.sanitizeMenuItem(menuItem);
   }
 
-  findAll() {
-    return `This action returns all menuItem`;
+  async findAll() {
+    const getMenuItem = await this.model.find({})
+    return getMenuItem
   }
 
   async findOne(_id: string) {
