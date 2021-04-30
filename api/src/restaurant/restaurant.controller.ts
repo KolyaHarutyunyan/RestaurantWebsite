@@ -77,10 +77,13 @@ export class RestaurantController {
   @Delete(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async remove(@Param('id') id: string) {
-
+ 
     const deleteRestaurant = await this.restaurantService.deleteRestaurant(id);
+    await this.imageService.deleteImages([
+      deleteRestaurant.logoUrl,
+    ]);
 
-    return deleteRestaurant;
+    return {status: true, message: `Successfully deleted`, data: null };
   }
 
 }
