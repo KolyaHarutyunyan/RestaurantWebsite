@@ -24,5 +24,14 @@ export class CreateRestaurantDTO {
   website?: string;
 
   @ApiProperty({ required: false })
-  phoneNumber?: string
+  phoneNumber?: string;
+
+  @ApiProperty({ required: true })
+  day: Date;
+
+  @ApiProperty({ required: true })
+  open: string;
+
+  @ApiProperty({ required: true })
+  close: Date
 }

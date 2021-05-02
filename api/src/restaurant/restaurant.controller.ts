@@ -19,7 +19,6 @@ import { RestaurantService } from './restaurant.service';
 import { ImageService } from '../image/image.service';
 import { ACCESS_TOKEN } from 'src/constants';
 
-// NNkar@ ipload era pahe bazayi mej url@
 
 @Controller('restaurant')
 @ApiTags('Restaurants')
