@@ -1,53 +1,26 @@
-import { memo, useEffect } from "react"
-import { useDispatch } from "react-redux";
-import { actions, authActions } from "../store";
-
+import { Fragment } from "react";
+import {
+  DigitalMenu,
+  Hero,
+  MenusAndMenuItems,
+  YourBusiness,
+  QRCode,
+  HowItWorks,
+} from "../fragments/homePageSections";
+import { STYLED } from "@eachbase/theme";
 export const HomePage = () => {
-
   return (
-    <>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-      <h1>Home Page</h1>
-    </>
-  )
-}
+    <Fragment>
+      <Hero />
+      <STYLED.Container>
+        <YourBusiness />
+      </STYLED.Container>
+      <QRCode />
+      <STYLED.Container>
+        <HowItWorks />
+        <DigitalMenu />
+      </STYLED.Container>
+      <MenusAndMenuItems />
+    </Fragment>
+  );
+};
