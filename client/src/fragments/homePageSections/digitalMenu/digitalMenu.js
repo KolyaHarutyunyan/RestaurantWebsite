@@ -16,6 +16,7 @@ export const DigitalMenu = () => {
           five centuries, but also the leap into electronic typesetting,
           remaining essentially unchanged. It was popularised in the 1960s.
         </Typography>
+        <Image src="./assets/homePage/qr_code_scanning.svg" />
       </div>
       <Image className="qr" src={"/assets/images/QR_Code.png"} />
     </Container>

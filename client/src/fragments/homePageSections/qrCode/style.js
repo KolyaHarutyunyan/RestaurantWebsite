@@ -16,6 +16,12 @@ export const Container = styled.div`
     margin: 0 10px;
   }
   .line:last-child {
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    @media (max-width: 1280px) {
+      padding-left: 10px;
+    }
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     width: 75%;

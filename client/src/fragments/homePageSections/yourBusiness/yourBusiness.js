@@ -9,7 +9,7 @@ export const YourBusiness = () => {
       </Typography>
       <ul>
         <li>
-          <Image />
+          <Image src="./assets/homePage/create.svg" />
           <Typography color="text" className="title" weight="bold">
             Create an Account
           </Typography>
@@ -19,7 +19,7 @@ export const YourBusiness = () => {
           </Typography>
         </li>
         <li>
-          <Image />
+          <Image src="./assets/homePage/add_menu.svg" />
           <Typography color="text" className="title" weight="bold">
             Add Menus
           </Typography>
@@ -29,7 +29,7 @@ export const YourBusiness = () => {
           </Typography>
         </li>
         <li>
-          <Image />
+          <Image src="./assets/homePage/download_qr_code.svg" />
           <Typography color="text" className="title" weight="bold">
             Add Menus
           </Typography>

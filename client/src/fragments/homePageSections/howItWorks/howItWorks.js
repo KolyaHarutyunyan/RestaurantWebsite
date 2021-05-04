@@ -11,6 +11,7 @@ export const HowItWorks = () => {
         <Image />
         <ul>
           <li>
+            <span className="num line">1</span>
             <Typography color="text" weight="bold" className="title">
               Create Restaurant Profile
             </Typography>
@@ -20,6 +21,7 @@ export const HowItWorks = () => {
             </Typography>
           </li>
           <li>
+            <span className="num line">2</span>
             <Typography color="text" weight="bold" className="title">
               Add Extra Details about the Restaurant
             </Typography>
@@ -29,6 +31,7 @@ export const HowItWorks = () => {
             </Typography>
           </li>
           <li>
+            <span className="num">3</span>
             <Typography color="text" weight="bold" className="title">
               Create Menus & Set their Status
             </Typography>

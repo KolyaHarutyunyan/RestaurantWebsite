@@ -8,15 +8,31 @@ export const Container = styled.section`
   gap: 80px;
   height: 720px;
   margin-bottom: 160px;
+  @media (max-width: 1280px) {
+    flex-direction: column-reverse;
+    margin-top: 420px;
+  }
   .image.main {
     flex: 0 0 540px;
+    @media (max-width: 1280px) {
+      max-width: 800px;
+      height: 446px;
+    }
   }
   .content {
     max-width: 610px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .g-title {
       margin-bottom: 72px;
       line-height: 50px;
       text-align: center;
+    }
+    .image {
+      margin-top: 64px;
+      width: 140px;
+      height: 120px;
     }
   }
   .qr {

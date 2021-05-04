@@ -17,6 +17,7 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 50px 100px;
     margin-top: 72px;
+    overflow: auto;
     li {
       &:nth-child(2n) {
         transform: scale(0.7);

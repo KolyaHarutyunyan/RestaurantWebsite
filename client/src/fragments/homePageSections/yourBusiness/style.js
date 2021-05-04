@@ -8,15 +8,25 @@ export const Container = styled.div`
   margin-bottom: 172px;
   ul {
     display: flex;
+    @media (max-width: 1280px) {
+      flex-direction: column;
+      max-width: 688px;
+      text-align: center;
+    }
     margin: 0 auto;
     justify-content: space-between;
     max-width: 1500px;
     gap: 100px;
     li {
-      .image {
-        height: 200px;
-      }
       flex: 1;
+      .image {
+        width: 100%;
+        height: 200px;
+        @media (max-width: 1280px) {
+          max-width: 356px;
+          height: 172px;
+        }
+      }
       height: 100%;
       p:first-of-type {
         text-align: center;
