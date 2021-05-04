@@ -3,8 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { Store } from "./store";
 import { BrowserRouter } from "react-router-dom";
+import { initAxiosInterceptors } from "./axios";
 import "reset-css";
 
+initAxiosInterceptors();
 ReactDOM.render(
   <React.StrictMode>
     <Store>

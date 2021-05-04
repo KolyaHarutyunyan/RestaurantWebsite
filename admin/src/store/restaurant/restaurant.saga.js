@@ -1,24 +1,22 @@
-// import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
+import { restaurantService } from "./restaurant.service";
+import { GET_RESTAURANT, GET_RESTAURANT_SUCCESS } from "./restaurant.types";
 
-// function* updateAvatarSaga(payload) {
-//     try {
-//         const res = yield call(restaurantService.updateAvatar, payload);
-//         yield put({ type: types.UPDATE_AVATAR_SUCCESS, payload: res.data });
-//     } catch (err) {
-//         yield put({ type: types.UPDATE_AVATAR_ERROR, payload: err });
-//     }
-// }
-//
-// function* editProfileSaga(payload) {
-//     try {
-//         const res = yield call(restaurantService.updateAvatar, payload);
-//         yield put({ type: types.EDIT_PROFILE_SUCCESS, payload: res.data });
-//     } catch (err) {
-//         yield put({ type: types.EDIT_PROFILE_ERROR, payload: err });
-//     }
-// }
-
-export function* watchRestaurant() {
-  // yield takeLatest(types.UPDATE_AVATAR, updateAvatarSaga);
-  // yield takeLatest(types.EDIT_PROFILE, editProfileSaga);
+function* getRestaurant({ payload }) {
+  try {
+    const res = yield call(() => restaurantService.getRestaurantById(payload));
+    yield put({
+      type: GET_RESTAURANT_SUCCESS,
+      payload: res.data,
+    });
+  } catch (e) {
+    if (e.response.data.statusCode === 422) {
+      /* [implement] */
+      //   yield put(logOut());
+    }
+  }
 }
+
+export const watchRestaurant = function* watchRestaurant() {
+  yield takeLatest(GET_RESTAURANT, getRestaurant);
+};

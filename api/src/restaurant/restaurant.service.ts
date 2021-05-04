@@ -30,7 +30,7 @@ export class RestaurantService {
   /** get restaurant */
   getAllRestaurant = async () => {
 
-    const restaurant = await this.model.find({})
+    const restaurant = await this.model.find({}).populate('owner')
     return restaurant
 
   };

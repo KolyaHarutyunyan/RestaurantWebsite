@@ -1,9 +1,8 @@
-// import axios from "axios";
-
-// const path = `${API_BASE}`;
-// const token = localStorage.getItem("access-token");
+import axios from "axios";
 
 export const restaurantsService = {
-  /* [implement] */
-  getResturants: () => {},
+  getResturants: () => axios.get(`/restaurant`, { auth: true }),
+  editRestaurant: (restaurant) =>
+    axios.put(`/restaurant/${restaurant._id}`, { data: { ...restaurant } }),
+  deleteRestaurant: (restaurantId) => axios.put(`/restaurant/${restaurantId}`),
 };

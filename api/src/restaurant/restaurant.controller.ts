@@ -11,7 +11,7 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
 import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';

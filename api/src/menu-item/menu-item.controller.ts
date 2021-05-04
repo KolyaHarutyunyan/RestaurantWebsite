@@ -30,6 +30,8 @@ export class MenuItemController {
   }
 
   @Get()
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   findAll() {
     return this.menuItemService.findAll();
   }

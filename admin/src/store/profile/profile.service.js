@@ -1,6 +1,6 @@
 import Axios from "axios";
-import { API_BASE } from "../constants";
+import { CONSTANTS } from "@eachbase/constants";
 
 export const profileService = {
-  remove: (body) => Axios.post(`${API_BASE}/auth/signup`, body.user),
+  remove: (body) => Axios.post(`${CONSTANTS.API_BASE}/auth/signup`, body.user),
 };

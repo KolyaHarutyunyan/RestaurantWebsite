@@ -12,5 +12,7 @@ export const Colors = createGlobalStyle`
     --filling-third: #2B273C4D;
     --text: #2B273C;
     --light-text: #FFFFFFCC;
+    --shadow: #0000001A;
+    --action: #007AFF;
   }
 `;

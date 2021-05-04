@@ -66,6 +66,12 @@ export class CategoryService extends Object {
     const getAllCategory = await this.model.find({ restaurantId });
     return getAllCategory
   }
+  async getAllCategories() {
+    
+    const getAllCategory = await this.model.find({ });
+    return getAllCategory
+  }
+  
   // update ara
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
     return `This action updates a #${id} category`;

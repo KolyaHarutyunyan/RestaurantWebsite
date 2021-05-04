@@ -2,7 +2,7 @@ import { model, Schema,Types } from 'mongoose';
 import { IRestaurant } from './interfaces/';
 
 const RestaurantSchema = new Schema({
-  owner: { type: String, required: true },
+  owner: { type: Types.ObjectId, ref: 'user' },
   name: { type: String, required: true },
   description: { type: String },
   logoUrl: { type: String },

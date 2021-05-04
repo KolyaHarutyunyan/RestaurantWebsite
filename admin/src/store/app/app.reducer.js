@@ -4,9 +4,9 @@ import { authReducer } from "../auth";
 import { profileReducer } from "../profile";
 import { restaurantReducer } from "../restaurant";
 import { restaurantsReducer } from "../restaurants";
-import { menuReducer } from "../menu";
 import { menuItemsReducer } from "../menuItems";
 import { categoriesReducer } from "../categories";
+import { menusReducer } from "../menus";
 
 const initialState = {
   isLoading: false,
@@ -23,12 +23,12 @@ const globalReducer = (state = initialState, action) => {
     case appTypes.REMOVE_FETCHING:
       return {
         ...state,
-        fetching: [...state.fetching, action.payload],
+        fetching: state.fetching.filter((i) => i !== action.payload),
       };
     case appTypes.APPEND_FETCHING:
       return {
         ...state,
-        fetching: state.fetching.filter((i) => i !== action.payload),
+        fetching: [...state.fetching, action.payload],
       };
     default:
       return state;
@@ -41,7 +41,7 @@ export const appReducer = combineReducers({
   profile: profileReducer,
   restaurant: restaurantReducer,
   restaurants: restaurantsReducer,
-  menu: menuReducer,
   categories: categoriesReducer,
   menuItems: menuItemsReducer,
+  menus: menusReducer,
 });

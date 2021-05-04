@@ -41,8 +41,16 @@ export class CategoryController extends Object {
   @Post('getCategories')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  async findAll(@Body('restaurantId') restaurantId: string) {
+  async findAll(@Param('restaurantId') restaurantId: string) {
    const allCategories = await this.categoryService.getAll(restaurantId);
+    return allCategories;
+    
+  }
+  @Get('getCategories')
+  @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  async findAllCategories() {
+   const allCategories = await this.categoryService.getAllCategories();
     return allCategories;
     
   }
