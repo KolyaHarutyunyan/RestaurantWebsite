@@ -20,5 +20,5 @@ export class UpdateRestaurantDTO {
 
     @ApiProperty()
     @IsNotEmpty()
-    status?: boolean;
+    status?: string;
 }

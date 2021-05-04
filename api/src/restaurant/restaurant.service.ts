@@ -16,6 +16,20 @@ export class RestaurantService {
   /** API */
   /** Create restaurant */
   create = async (createRestaurantDTO: CreateRestaurantDTO) => {
+
+    if(createRestaurantDTO.status === 'true'){
+
+      const findStatus = await this.model.findOne({status: true})
+      if(findStatus){
+
+        findStatus.status = false;
+  
+        await findStatus.save();
+
+      }
+
+    }
+
     const restaurant = await new this.model({
       owner: createRestaurantDTO.ownerId,
       name: createRestaurantDTO.name,
@@ -23,13 +37,15 @@ export class RestaurantService {
       logoUrl: createRestaurantDTO.logoUrl,
       website: createRestaurantDTO.website,
       phoneNumber: createRestaurantDTO.phoneNumber,
-      status: true
+      status: createRestaurantDTO.status
     }).save();
 
     restaurant.hours.push({ day: createRestaurantDTO.day, open: createRestaurantDTO.open, close: createRestaurantDTO.close });
+
     await restaurant.save();
 
     return this.sanitizeRestaurant(restaurant);
+
   };
 
   /** API */
@@ -38,7 +54,7 @@ export class RestaurantService {
 
     const generateQr = await QRCode.toFile(path.join(__dirname, '../../qrCodes/qrCode.png'), `domain/api/restaurant/${restaurantId}`);
     return generateQr;
-    
+
   };
 
   /** API */
@@ -62,7 +78,19 @@ export class RestaurantService {
   /** API */
   /** update restaurant by id */
   updateRestaurant = async (_id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
+    
+    if(updateRestaurantDto.status === 'true'){
+      
+      const findStatus = await this.model.findOne({status: true})
+      if(findStatus){
 
+        findStatus.status = false;
+  
+        await findStatus.save();
+
+      }
+
+    }
     const updateRestaurant = await this.model.findOneAndUpdate({ _id }, {
       name: updateRestaurantDto.name, description: updateRestaurantDto.description,
       website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status
