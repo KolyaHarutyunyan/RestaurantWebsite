@@ -23,6 +23,10 @@ export class RestaurantService {
       phoneNumber: createRestaurantDTO.phoneNumber,
       status: true
     }).save();
+
+    restaurant.hours.push({ day: createRestaurantDTO.day, open: createRestaurantDTO.open, close: createRestaurantDTO.close });
+    await restaurant.save();
+
     return this.sanitizeRestaurant(restaurant);
   };
 
@@ -51,23 +55,23 @@ export class RestaurantService {
     const updateRestaurant = await this.model.findOneAndUpdate({ _id }, {
       name: updateRestaurantDto.name, description: updateRestaurantDto.description,
       website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status
-    }, {new: true});
+    }, { new: true });
 
     return this.sanitizeRestaurant(updateRestaurant);
 
   };
 
-    /** API */
+  /** API */
   /** delete restaurant by id */
   deleteRestaurant = async (_id: string) => {
 
-    const deleteRestaurant = await this.model.findOneAndDelete({_id});
+    const deleteRestaurant = await this.model.findOneAndDelete({ _id });
 
     return deleteRestaurant;
 
   };
 
-  
+
   /** Private Members */
   private sanitizeRestaurant(restaurant: IRestaurant) {
     const sanitizedRestaurant: RestaurantResponseDTO = {

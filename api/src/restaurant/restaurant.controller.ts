@@ -19,7 +19,6 @@ import { RestaurantService } from './restaurant.service';
 import { ImageService } from '../image/image.service';
 import { ACCESS_TOKEN } from 'src/constants';
 
-// NNkar@ ipload era pahe bazayi mej url@
 
 @Controller('restaurant')
 @ApiTags('Restaurants')
@@ -77,10 +76,13 @@ export class RestaurantController {
   @Delete(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async remove(@Param('id') id: string) {
-
+ 
     const deleteRestaurant = await this.restaurantService.deleteRestaurant(id);
+    await this.imageService.deleteImages([
+      deleteRestaurant.logoUrl,
+    ]);
 
-    return deleteRestaurant;
+    return {status: true, message: `Successfully deleted`, data: null };
   }
 
 }

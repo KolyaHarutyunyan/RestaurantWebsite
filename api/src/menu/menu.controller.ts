@@ -65,7 +65,13 @@ export class MenuController {
   @Delete(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  remove(@Param('id') id: string) {
-    return this.menuService.remove(id);
+  async remove(@Param('id') id: string) {
+    const deleteMenuItem = await this.menuService.remove(id);
+    await this.imageService.deleteImages([
+      deleteMenuItem.menuImg
+    ]);
+    return { status: true, message: `Successfully deleted`, data: null };
+
+    // return this.menuService.remove(id);
   }
 }

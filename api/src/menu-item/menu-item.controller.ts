@@ -58,7 +58,11 @@ export class MenuItemController {
   async remove(@Param('id') id: string) {
 
     const deleteMenuItem = await this.menuItemService.remove(id);
+    await this.imageService.deleteImages([
+      deleteMenuItem.images[0]['url'],
+      deleteMenuItem.images[0]['thumbURL'],
+    ]);
 
-    return deleteMenuItem;
+    return { status: true, message: `Successfully deleted`, data: null };
   }
 }
