@@ -13,7 +13,6 @@ export const Container = styled.div`
   }
   .grid-wrapper {
     min-width: 1200px;
-
     .pagination-wrapper {
       display: flex;
       align-items: center;
