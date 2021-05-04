@@ -14,5 +14,4 @@ export const Font = createGlobalStyle`
       font-size: 16px;
     }
   }
-
 `;
