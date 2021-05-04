@@ -1,2 +1,2 @@
-export { Pages } from "./pages"
-export {SVGNames} from "./SVGNames"
+export { Pages } from "./pages";
+export { SVGNames } from "./SVGNames";

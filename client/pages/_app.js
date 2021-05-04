@@ -20,9 +20,7 @@ export default function MyApp({ Component, pageProps }) {
           <ContextProvider>
             <Header />
             <STYLED.Main main={true}>
-              <STYLED.Container>
-                <Component {...pageProps} />
-              </STYLED.Container>
+              <Component {...pageProps} />
               <Footer />
             </STYLED.Main>
           </ContextProvider>
