@@ -3,6 +3,8 @@ import { Model } from 'mongoose';
 import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
 import { IRestaurant } from './interfaces';
 import { RestaurantModel } from './restaurant.schema';
+import * as QRCode from 'qrcode';
+import * as path from 'path';
 
 @Injectable()
 export class RestaurantService {
@@ -28,6 +30,15 @@ export class RestaurantService {
     await restaurant.save();
 
     return this.sanitizeRestaurant(restaurant);
+  };
+
+  /** API */
+  /** Create Qr */
+  createQr = async (restaurantId: string) => {
+
+    const generateQr = await QRCode.toFile(path.join(__dirname, '../../qrCodes/qrCode.png'), `domain/api/restaurant/${restaurantId}`);
+    return generateQr;
+    
   };
 
   /** API */
@@ -78,7 +89,7 @@ export class RestaurantService {
       name: restaurant.name,
       description: restaurant.description,
       logoUrl: restaurant.logoUrl,
-      id: restaurant._id,
+      id: restaurant._id
     };
     return sanitizedRestaurant;
   }

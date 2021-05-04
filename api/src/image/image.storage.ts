@@ -29,6 +29,7 @@ import {
   
     //adding new files to the S3
     storeImage = async (file, folder: string): Promise<string> => {
+      console.log(file);
       const key = folder + '/' + file.originalname;
       const params: PutObjectCommandInput = {
         Bucket: IMAGE_BUCKET,
