@@ -1,29 +1,20 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
-import { profileTypes, profileReducerTypes, profileService } from ".";
-
-function* profileSignInSaga(payload) {
-  yield put({
-    type: profileReducerTypes.signIn,
-    payload: payload.payload.user,
-  });
-}
-
-function* profileSignOutSaga() {
-  yield put({ type: profileReducerTypes.signOut });
-}
-
-function* profileRemoveSaga(payload) {
+import { PROFILE_SIGN_IN, PROFILE_SIGN_IN_SUCCESS } from "./profile.types";
+import { profileService } from "./profile.service";
+import { history } from "@eachbase/utils";
+function* signIn({ payload }) {
   try {
-    yield call(profileService.remove, payload.payload);
-    yield put({ type: profileReducerTypes.signOut });
-  } catch (err) {
-    console.log(err.message);
-  }
+    const { data } = yield call(() => profileService.signIn(payload));
+    yield put({
+      type: PROFILE_SIGN_IN_SUCCESS,
+      payload: data.user,
+    });
+    localStorage.setItem("token", data.auth.token);
+    history.push("/");
+  } catch (err) {}
 }
 
 export function* watchProfile() {
-  yield takeLatest(profileTypes.signIn, profileSignInSaga);
-  yield takeLatest(profileTypes.signOut, profileSignOutSaga);
-  yield takeLatest(profileTypes.remove, profileRemoveSaga);
+  yield takeLatest(PROFILE_SIGN_IN, signIn);
 }

@@ -1,14 +1,13 @@
 import { SideStaticMenu } from "@eachbase/components";
 import { Container } from "./style";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Tabs, Menu } from "@eachbase/components";
 import { useState } from "react";
 import { useEffect } from "react";
 import { categoriesActions } from "@eachbase/store";
-
+import { history } from "@eachbase/utils";
 export const Category = () => {
-  const history = useHistory();
   const [activeTab, setActiveTab] = useState("food");
   const { restaurantId, menuId } = useParams();
   const { restaurant, categories } = useSelector((store) => ({

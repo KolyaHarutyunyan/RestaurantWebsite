@@ -1,11 +1,10 @@
 import { useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { menusActions } from "@eachbase/store";
 import { Switch } from "../switch";
 import { Container } from "./style";
-
+import { history } from "@eachbase/utils";
 export const MenuCard = ({ data }) => {
-  const history = useHistory();
   const { restaurantId } = useParams();
   const dispatch = useDispatch();
   return (

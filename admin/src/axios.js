@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CONSTANTS } from "@eachbase/constants";
+import { history } from "./utils/history";
 export const initAxiosInterceptors = () => {
   /* 
     configured request interceptor for private/public calls
@@ -9,7 +10,7 @@ export const initAxiosInterceptors = () => {
     if (config.auth) {
       const token = localStorage.getItem("token");
       if (!token) {
-        /* implement something if token not exists */
+        history.push("/login");
         throw new Error("token not found");
       }
       config.headers = {
@@ -29,6 +30,8 @@ export const initAxiosInterceptors = () => {
       return response;
     },
     (error) => {
+      localStorage.removeItem("token");
+      history.push("/login");
       return error;
     }
   );

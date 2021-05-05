@@ -2,10 +2,9 @@ import { useContext } from "react";
 import { Container } from "./style";
 import { ViewPortLayoutContext } from "@eachbase/context";
 import { HiChevronLeft, RiRestaurantLine } from "react-icons/all";
-import { useHistory } from "react-router";
+import { history } from "@eachbase/utils";
 export const Sidebar = () => {
   const { sideBarIsOpen, setSideBarIsOpen } = useContext(ViewPortLayoutContext);
-  const history = useHistory();
   return (
     <Container sideBarIsOpen={sideBarIsOpen}>
       <div

@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import { appTypes } from "./app.types";
-import { authReducer } from "../auth";
 import { profileReducer } from "../profile";
 import { restaurantReducer } from "../restaurant";
 import { restaurantsReducer } from "../restaurants";
@@ -37,7 +36,6 @@ const globalReducer = (state = initialState, action) => {
 
 export const appReducer = combineReducers({
   global: globalReducer,
-  auth: authReducer,
   profile: profileReducer,
   restaurant: restaurantReducer,
   restaurants: restaurantsReducer,

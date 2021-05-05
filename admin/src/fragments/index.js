@@ -1,3 +1,4 @@
+export { RestaurantsPage } from "./boardPages";
 export { BoardLayout } from "./boardLayout";
 export { RestaurantsGrid } from "./restaurantsGrid";
 export { Category } from "./category";

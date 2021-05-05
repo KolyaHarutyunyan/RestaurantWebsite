@@ -1,6 +1,6 @@
 import { RestaurantsGrid } from "@eachbase/fragments";
 import { Fragment, useEffect } from "react";
-import { Route, Switch, useParams } from "react-router";
+import { Route, Switch, useParams } from "react-router-dom";
 import { CONSTANTS } from "@eachbase/constants";
 import { Category, MenuItems, Menus } from "@eachbase/fragments";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ export const Restaurants = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("rendered");
     dispatch(restaurantsActions.getRestaurants());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

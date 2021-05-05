@@ -1,11 +1,10 @@
 import { Container } from "./style";
 import { Switch } from "@eachbase/components";
-import { useHistory } from "react-router-dom";
 import { BsChevronRight, IoTrash } from "react-icons/all";
 import { restaurantsActions } from "@eachbase/store";
 import { useDispatch } from "react-redux";
+import { history } from "@eachbase/utils";
 export const Content = ({ restaurants }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const statusLabel = (status) => (status ? "Deactivate" : "Activate");
 

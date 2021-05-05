@@ -3,11 +3,9 @@ import { menuItemsActions } from "@eachbase/store";
 import { MenuItemCard } from "@eachbase/components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { history } from "@eachbase/utils";
 import { Container } from "./style";
 export const MenuItems = () => {
-  const history = useHistory();
-
   const dispatch = useDispatch();
   const { restaurant, menuItems } = useSelector((store) => ({
     restaurant: {
