@@ -33,7 +33,6 @@ function* editRestaurant({ payload }) {
     });
   } catch (e) {
     if (e.response.data.statusCode === 422) {
-      /* [implement] */
       //   yield put(logOut());
     }
   }
