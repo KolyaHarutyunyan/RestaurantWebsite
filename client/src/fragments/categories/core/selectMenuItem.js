@@ -1,7 +1,7 @@
 import { Styled } from ".";
 import { Button, Icon } from "@eachbase/components";
 import { useEffect, useRef, useState } from "react";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { useSelector } from "react-redux";
 
 let items = [];
@@ -79,7 +79,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
           />
           <p>Choose from the List</p>
 
-          <Icon name={SVGNames.DropdownArrow} onClick={toggleItems} />
+          <Icon name={CONSTANTS.SVGNames.DropdownArrow} onClick={toggleItems} />
         </div>
         <div className="bg" onClick={toggleItems} />
         <div className="items">
@@ -93,7 +93,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
                 }`}
               >
                 <div className="checkBox">
-                  <Icon name={SVGNames.Checkmark} />
+                  <Icon name={CONSTANTS.SVGNames.Checkmark} />
                 </div>
                 <div className="title">{item.title}</div>
               </div>

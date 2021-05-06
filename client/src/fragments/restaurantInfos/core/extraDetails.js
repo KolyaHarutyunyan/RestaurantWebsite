@@ -1,19 +1,22 @@
 import { Styled } from "./style";
 import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
-import { SVGNames } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 import { Icon } from "../../../components";
 import { useContext, useState } from "react";
 import { TimeLine } from "./timeLine";
 import { ModalContext } from "../../../contexts";
 
 export const ExtraDetails = () => {
-  let extraDetails = useSelector(
-    (state) => state.restaurant.extraDetails || {}
+  let extraDetails = useSelector(({ restaurant }) =>
+    restaurant ? restaurant.extraDetails : null
   );
   const [openHours, setOpenHours] = useState(false);
   let { openModal } = useContext(ModalContext);
 
+  if (!extraDetails) {
+    return null;
+  }
   return (
     <Styled.Block>
       <BlockTitle
@@ -21,24 +24,24 @@ export const ExtraDetails = () => {
         editAction={() => openModal.editRestaurantExtraDetails()}
       />
       <Styled.Line notMt unSet={!extraDetails.webSite}>
-        <Icon name={SVGNames.Website} />
+        <Icon name={CONSTANTS.SVGNames.Website} />
         <p className="info">{extraDetails.webSite || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line unSet={!extraDetails.phone}>
-        <Icon name={SVGNames.Call} />
+        <Icon name={CONSTANTS.SVGNames.Call} />
         <p className="info">{extraDetails.phone || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line unSet={!extraDetails.location}>
-        <Icon name={SVGNames.Map} />
+        <Icon name={CONSTANTS.SVGNames.Map} />
         <p className="info">{extraDetails.location || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line>
-        <Icon name={SVGNames.Hours} />
+        <Icon name={CONSTANTS.SVGNames.Hours} />
         <button
           onClick={() => setOpenHours((current) => !current)}
           className={"hours"}
         >
-          hours <Icon name={SVGNames.DropdownArrow} />
+          hours <Icon name={CONSTANTS.SVGNames.DropdownArrow} />
         </button>
         <Styled.DropMenu
           status={openHours}

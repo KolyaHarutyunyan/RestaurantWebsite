@@ -1,19 +1,19 @@
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 
 export const socialData = (title) => ({
   title,
   icons: [
     {
       link: "/auth/google",
-      icon: SVGNames.GoogleColor,
+      icon: CONSTANTS.SVGNames.GoogleColor,
     },
     {
       link: "/auth/facebook",
-      icon: SVGNames.FaceBook,
+      icon: CONSTANTS.SVGNames.FaceBook,
     },
     {
       link: "/auth/twitter",
-      icon: SVGNames.Twitter,
+      icon: CONSTANTS.SVGNames.Twitter,
     },
   ],
 });

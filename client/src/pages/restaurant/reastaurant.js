@@ -1,18 +1,21 @@
 import { Styled } from "./style";
 import { Icon, PageTitle } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Menus, RestaurantInfos } from "@eachbase/fragments";
 import { useSelector } from "react-redux";
 
 export const RestaurantPage = () => {
-  let QRImageUrl = useSelector((state) => state.restaurant.QRImageUrl || false);
+  const QRImageUrl = useSelector(({ restaurant }) =>
+    restaurant ? restaurant.QRImageUrl : null
+  );
+
   return (
     <Styled.Content>
       <Styled.BlockTitle>
         <PageTitle>Restaurant</PageTitle>
         {QRImageUrl && (
           <a href={"#QRImageUrl"} className="downloadBtn">
-            <Icon name={SVGNames.Download} /> Download QR Code
+            <Icon name={CONSTANTS.SVGNames.Download} /> Download QR Code
           </a>
         )}
       </Styled.BlockTitle>

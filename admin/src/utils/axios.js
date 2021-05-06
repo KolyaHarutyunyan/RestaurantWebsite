@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CONSTANTS } from "@eachbase/constants";
-import { history } from "./utils/history";
+import { history } from "@eachbase/utils";
 export const initAxiosInterceptors = () => {
   /* 
     configured request interceptor for private/public calls

@@ -1,5 +1,5 @@
 import { Styled, Title, useAuthStyles } from "..";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Change, Check } from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Input } from "@eachbase/components";
@@ -21,13 +21,13 @@ export const GetEmail = ({ open }) => {
     if (!userData.email.error) {
     }
   };
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(({ auth = {} }) => state.auth);
   useEffect(() => {
     if (auth.key === "sanded") {
       open.Verify({ email: userData.email.value });
     }
   }, [auth.key]);
-  // console.log(auth)
+
   return (
     <>
       <Title beforeText={"Forgot your Password?"} />
@@ -37,7 +37,7 @@ export const GetEmail = ({ open }) => {
       </Styled.Description>
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.email
-          icon={SVGNames.Email}
+          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}

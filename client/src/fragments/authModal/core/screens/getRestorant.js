@@ -57,7 +57,7 @@ export const GetRestaurant = ({ close, open, user }) => {
       {
         key: 2,
         type: "file",
-        // icon: SVGNames.Password,
+        // icon: CONSTANTS.SVGNames.Password,
         // ...userData.password,
         // onChange: value => changePass(value, setUserData),
         // onBlur: () => checkIsPass(setUserData),
@@ -72,7 +72,7 @@ export const GetRestaurant = ({ close, open, user }) => {
       className: classes.submit + " brd8",
     },
   };
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(({ auth = {} }) => auth);
 
   useEffect(() => {}, [auth.done]);
 

@@ -1,7 +1,7 @@
 import { Styled } from ".";
 import { useState } from "react";
 import { Input } from "../../../components";
-import { SVGNames } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 import { Change, Check } from "@eachbase/components";
 
 export const EditUserData = () => {
@@ -25,7 +25,7 @@ export const EditUserData = () => {
       </Styled.SaveBtn>
       <Styled.BlockForm open>
         <Input.Text
-          icon={SVGNames.User}
+          icon={CONSTANTS.SVGNames.User}
           {...userData.fullName}
           onChange={(value) => Change.text(value, "fullName", setUserData)}
           onBlur={() => Check.text("fullName", setUserData, 3, 40)}
@@ -37,7 +37,7 @@ export const EditUserData = () => {
           mtt={8}
         />
         <Input.Email
-          icon={SVGNames.Password}
+          icon={CONSTANTS.SVGNames.Password}
           {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}

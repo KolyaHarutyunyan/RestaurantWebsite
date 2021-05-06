@@ -4,15 +4,13 @@ import { useSelector } from "react-redux";
 import { BaseModal, Input, Button, InputTypes } from "@eachbase/components";
 import { Styled } from "./core";
 
-let initState = {
-  id: -1,
-  title: "",
-  description: "",
-  imageUrl: "",
-};
-
 export const EditMenu = ({ status, close, title }) => {
-  const [item, setItem] = useState(initState);
+  const [item, setItem] = useState({
+    id: -1,
+    title: "",
+    description: "",
+    imageUrl: "",
+  });
   let data = useSelector((state) => state.menu);
   useEffect(() => {
     if (data)
@@ -36,7 +34,13 @@ export const EditMenu = ({ status, close, title }) => {
 
         imageUrl: data.imageUrl || "",
       });
-    return () => setItem(initState);
+    return () =>
+      setItem({
+        id: -1,
+        title: "",
+        description: "",
+        imageUrl: "",
+      });
   }, [status]);
 
   if (item.id === -1) return null;

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { ModalContext } from "@eachbase/context";
 
 let newItem = {
@@ -25,7 +25,7 @@ export const AddNewMenuItem = ({ activeCategory, activeType }) => {
       }
     >
       <span className="iconBlock">
-        <Icon name={SVGNames.AddIcon} />
+        <Icon name={CONSTANTS.SVGNames.AddIcon} />
       </span>
       Add New Menu Item
     </button>

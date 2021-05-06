@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { AddNewMenuItem, SelectMenuItem, Styled } from ".";
 import { Button, Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 
 export const ItemsTitle = ({ activeCategory, activeType, close }) => {
   let title = activeCategory
@@ -19,7 +19,7 @@ export const ItemsTitle = ({ activeCategory, activeType, close }) => {
       <div className="name">
         <p>
           <Styled.BackBtn onClick={close}>
-            <Icon name={SVGNames.LeftArrow} />
+            <Icon name={CONSTANTS.SVGNames.LeftArrow} />
           </Styled.BackBtn>
           {title}
         </p>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { STYLED } from "@eachbase/theme";
 import { Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import Link from "next/link";
 
 export const Footer = () => {
@@ -36,7 +36,7 @@ export const Footer = () => {
             </Link>
           </Styled.Infos>
           <Styled.Logo>
-            <Icon name={SVGNames.LogoWhite} />
+            <Icon name={CONSTANTS.SVGNames.LogoWhite} />
             <p>Menuz</p>
           </Styled.Logo>
         </Styled.Content>

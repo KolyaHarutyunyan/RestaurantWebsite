@@ -1,5 +1,5 @@
 import { Socials, Styled, Title, useAuthStyles } from "..";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Check, Change } from "@eachbase/components";
 import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
@@ -31,9 +31,7 @@ export const SignIn = ({ open, close }) => {
     };
     clicked = !clicked;
   };
-  const auth = useSelector((state) => state.auth);
-
-  console.log("auth from sign in", auth);
+  const auth = useSelector(({ auth = {} }) => auth);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
@@ -47,14 +45,14 @@ export const SignIn = ({ open, close }) => {
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.email
-          icon={SVGNames.Email}
+          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.email(value, setUserData)}
           onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.pass
-          icon={SVGNames.Password}
+          icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
           onBlur={() => Check.pass(setUserData)}

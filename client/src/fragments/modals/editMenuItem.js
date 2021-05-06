@@ -2,21 +2,17 @@ import { BaseModal } from "@eachbase/components";
 import { Styled } from "./core";
 import { useEffect, useState } from "react";
 import { Button, Input, InputTypes } from "@eachbase/components";
-
-let initState = {
-  id: -1,
-  title: "",
-  description: "",
-  options: "",
-  imageUrl: ["", "", "", "", "", ""],
-  type: "",
-  parents: [],
-  price: "",
-};
-let k = 0;
-
 export const EditMenuItem = ({ status, close, data, title }) => {
-  const [item, setItem] = useState(initState);
+  const [item, setItem] = useState({
+    id: -1,
+    title: "",
+    description: "",
+    options: "",
+    imageUrl: ["", "", "", "", "", ""],
+    type: "",
+    parents: [],
+    price: "",
+  });
 
   useEffect(() => {
     if (data)
@@ -54,7 +50,17 @@ export const EditMenuItem = ({ status, close, data, title }) => {
         },
         imageUrl: data.imageUrl,
       });
-    return () => setItem(initState);
+    return () =>
+      setItem({
+        id: -1,
+        title: "",
+        description: "",
+        options: "",
+        imageUrl: ["", "", "", "", "", ""],
+        type: "",
+        parents: [],
+        price: "",
+      });
   }, [status]);
 
   if (item.id === -1) return null;

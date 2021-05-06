@@ -1,3 +1,5 @@
-import Axios from "axios";
+import axios from "axios";
 
-export const restaurantService = {};
+export const restaurantService = {
+  getRestaurantById: (id) => axios.get(`/restaurant/${id}`, { auth: true }),
+};

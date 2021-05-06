@@ -16,7 +16,7 @@ export const Verify = ({ open, email }) => {
     if (!verifyKey.error) {
     }
   };
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(({ auth = {} }) => auth);
   useEffect(() => {
     // if ( auth.key === "checked" ) {
     open.ResetPass();

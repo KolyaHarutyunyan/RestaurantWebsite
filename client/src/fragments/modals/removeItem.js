@@ -12,18 +12,20 @@ let description = {
 };
 
 export const RemoveItem = ({ status, close, type, id, parentName }) => {
-  let item = useSelector((state) => {
-    switch (type) {
-      case "menuItem":
-        return state.menuItems.find((item) => item.id === id);
-      case "category":
-        return state.categories.find((item) => item.id === id);
-      case "menu":
-        return state.menu;
-      default:
-        return false;
+  const item = useSelector(
+    ({ categories = new Array(), menuItems = new Array(), menu = {} }) => {
+      switch (type) {
+        case "menuItem":
+          return menuItems.find((item) => item.id === id);
+        case "category":
+          return (categories || []).find((item) => item.id === id);
+        case "menu":
+          return menu;
+        default:
+          return false;
+      }
     }
-  });
+  );
   let hasActions = (item && item.parents && item.parents.length > 1) || false;
   const [activeType, setActiveType] = useState("one");
   if (!item) return null;

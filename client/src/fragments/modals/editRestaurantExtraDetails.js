@@ -3,16 +3,20 @@ import { useSelector } from "react-redux";
 import { BaseModal, Button, Input, InputTypes } from "@eachbase/components";
 import { Styled, Hours } from "./core";
 
-let initState = {
-  webSite: "",
-  phone: "",
-  location: "",
-  hours: "",
-};
-
 export const EditRestaurantExtraDetails = ({ status, close }) => {
-  const [item, setItem] = useState(initState);
-  let data = useSelector((state) => state.restaurant.extraDetails);
+  const [item, setItem] = useState({
+    webSite: "",
+    phone: "",
+    location: "",
+    hours: "",
+  });
+  const data = useSelector(({ restaurant }) => {
+    if (restaurant) {
+      return restaurant.menus || [];
+    } else {
+      return [];
+    }
+  });
 
   useEffect(() => {
     if (data)
@@ -38,7 +42,13 @@ export const EditRestaurantExtraDetails = ({ status, close }) => {
           placeholder: "location",
         },
       });
-    return () => setItem(initState);
+    return () =>
+      setItem({
+        webSite: "",
+        phone: "",
+        location: "",
+        hours: "",
+      });
   }, [status]);
 
   const handlerSave = () => {

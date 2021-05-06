@@ -12,12 +12,10 @@ let description = {
 };
 
 export const RemoveMenuCategoryMenuItem = ({ status, close, type, id }) => {
-  let item = useSelector((state) => {
-    if (type === "menuItem")
-      return state.menuItems.find((item) => item.id === id);
-    if (type === "category")
-      return state.categories.find((item) => item.id === id);
-    if (type === "menu") return state.menu;
+  const item = useSelector(({ menuItems = [], categories = [], menu = {} }) => {
+    if (type === "menuItem") return menuItems.find((item) => item.id === id);
+    if (type === "category") return categories.find((item) => item.id === id);
+    if (type === "menu") return menu;
   });
 
   let hasActions = (item && item.parents && item.parents.length > 1) || false;

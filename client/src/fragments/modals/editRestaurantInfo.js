@@ -34,7 +34,13 @@ export const EditRestaurantInfo = ({ status, close, title }) => {
 
         imageUrl: data.imageUrl || "",
       });
-    return () => setItem(initState);
+    return () =>
+      setItem({
+        webSite: "",
+        phone: "",
+        location: "",
+        hours: "",
+      });
   }, [status]);
 
   const handlerSave = () => {

@@ -1,6 +1,6 @@
 import { Title, Socials, useAuthStyles, Styled } from "..";
 import { Button } from "@material-ui/core";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Input } from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Change, Check } from "@eachbase/components";
@@ -17,7 +17,7 @@ export const SignUp = ({ open }) => {
   });
 
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(({ auth = {} }) => auth);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -58,21 +58,21 @@ export const SignUp = ({ open }) => {
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.text
-          icon={SVGNames.Profile}
+          icon={CONSTANTS.SVGNames.Profile}
           {...userData.fullName}
           onChange={(value) => Change.text(value, "fullName", setUserData)}
           onBlur={() => Check.text("fullName", setUserData)}
           placeholder="Full Name"
         />
         <Input.email
-          icon={SVGNames.Email}
+          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.pass
-          icon={SVGNames.Password}
+          icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
           onBlur={() => Check.pass(setUserData)}

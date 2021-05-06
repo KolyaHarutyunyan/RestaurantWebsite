@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon, Input, Button, PageTitle } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Change, Check, InputTypes, CheckForm } from "@eachbase/components";
 import { Styled } from "./core";
 
@@ -82,20 +82,20 @@ export const ConfirmPassword = ({ type, authToken }) => {
   console.log(userData);
   return (
     <Styled.Content>
-      <Icon name={SVGNames.Logo} />
+      <Icon name={CONSTANTS.SVGNames.Logo} />
       <PageTitle>{title}</PageTitle>
       <Styled.Block>
         <Styled.BlockDescription>{Description}</Styled.BlockDescription>
 
         <Input
-          icon={SVGNames.Password}
+          icon={CONSTANTS.SVGNames.Password}
           {...userData[dataType.newPass]}
           setState={setUserData}
         />
 
         {type === "reset" && (
           <Input
-            icon={SVGNames.Password}
+            icon={CONSTANTS.SVGNames.Password}
             {...userData[dataType.confirmPass]}
             setState={setUserData}
           />

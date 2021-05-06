@@ -1,6 +1,6 @@
 import { Styled } from ".";
 import { Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { colors } from "@eachbase/theme";
 
 export const InputBlock = ({
@@ -37,7 +37,7 @@ export const InputBlock = ({
           {type === "password" ? (
             <Icon
               onClick={toggleEye}
-              name={eye ? SVGNames.EyeOff : SVGNames.EyeOn}
+              name={eye ? CONSTANTS.SVGNames.EyeOff : CONSTANTS.SVGNames.EyeOn}
             />
           ) : null}
         </div>

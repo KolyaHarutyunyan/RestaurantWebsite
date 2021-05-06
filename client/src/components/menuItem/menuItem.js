@@ -6,8 +6,8 @@ import { ModalContext } from "../../contexts";
 
 export const MenuItem = ({ itemId, parentName, parentId }) => {
   let item = useSelector(
-    (state) =>
-      state.menuItems.find((menuItem) => menuItem.id === itemId) || false
+    ({ menuItems = [] }) =>
+      menuItems.find((menuItem) => menuItem.id === itemId) || false
   );
   let { openModal } = useContext(ModalContext);
   if (!item) return null;

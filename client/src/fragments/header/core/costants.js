@@ -1,4 +1,4 @@
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 export const header = {
   contactInfo: [
     {
@@ -25,11 +25,11 @@ export const pageLinks = [
   {
     title: "Restaurant Verify",
     url: "/restaurant",
-    icon: SVGNames.Restaurant,
+    icon: CONSTANTS.SVGNames.Restaurant,
   },
   {
     title: "Account Settings",
     url: "/profile",
-    icon: SVGNames.Profile,
+    icon: CONSTANTS.SVGNames.Profile,
   },
 ];

@@ -3,7 +3,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Screens, useAuthStyles } from "./core";
 import { memo, useState } from "react";
 import { Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { useDispatch } from "react-redux";
 
 const screens = {
@@ -79,7 +79,7 @@ export const AuthModal = memo(({ status, props, close }) => {
           className={classes.backIcon}
           onClick={open[activeScreen.props.backTo || "SignIn"]}
         >
-          <Icon name={SVGNames.Back} />
+          <Icon name={CONSTANTS.SVGNames.Back} />
         </IconButton>
       ) : null}
       {!activeScreen.props.notCloseBtn ? (

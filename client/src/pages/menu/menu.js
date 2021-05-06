@@ -17,9 +17,11 @@ let newMenu = {
 let getMenu = (tag, menus) => menus.find((menu) => menu.tag === tag);
 
 export const MenuPage = ({ tag }) => {
-  let menus = useSelector((state) => state.restaurant.menus || []);
+  const menus = useSelector(({ restaurant }) =>
+    restaurant ? restaurant.menus : []
+  );
   const [menu, setMenu] = useState({});
-  let router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     if (tag === "newMenu") {

@@ -1,7 +1,7 @@
 import { Styled } from ".";
 import { useState } from "react";
 import { Input } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Change, Check } from "@eachbase/components";
 
 export const EditPassword = () => {
@@ -32,7 +32,7 @@ export const EditPassword = () => {
 
       <Styled.BlockForm open={!readOnly}>
         {/*<Input.pass*/}
-        {/*  icon={SVGNames.Password}*/}
+        {/*  icon={CONSTANTS.SVGNames.Password}*/}
         {/*  {...passwords.current}*/}
         {/*  onChange={value => Change.text(value,"current", setPasswords)}*/}
         {/*  onBlur={() => Check.password(setPasswords,"current")}*/}
@@ -43,7 +43,7 @@ export const EditPassword = () => {
         {/*  mtt={32}*/}
         {/*/>*/}
         {/*<Input.pass*/}
-        {/*  icon={SVGNames.Password}*/}
+        {/*  icon={CONSTANTS.SVGNames.Password}*/}
         {/*  {...passwords.current}*/}
         {/*  onChange={value => change.pass(value, setPasswords)}*/}
         {/*  onBlur={() => check.pass(setPasswords)}*/}
@@ -51,7 +51,7 @@ export const EditPassword = () => {
         {/*  brd={8}*/}
         {/*/>*/}
         {/*<Input.pass*/}
-        {/*  icon={SVGNames.Password}*/}
+        {/*  icon={CONSTANTS.SVGNames.Password}*/}
         {/*  {...passwords.current}*/}
         {/*  onChange={value => change.pass(value, setPasswords)}*/}
         {/*  onBlur={() => check.pass(setPasswords)}*/}

@@ -2,7 +2,7 @@ import { Box, Button } from "@material-ui/core";
 import { pageLinks, useHeaderStyles, CreateMenu } from ".";
 import Link from "next/link";
 import { Icon } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { useEffect, useState } from "react";
 
 export const Menus = ({ status, type, user, toggleRef }) => {
@@ -45,7 +45,7 @@ export const Menus = ({ status, type, user, toggleRef }) => {
         <>
           {type && (
             <Box className={classes.dropdownMenuItem}>
-              <Icon name={SVGNames.User} />
+              <Icon name={CONSTANTS.SVGNames.User} />
               {user.fullName}
             </Box>
           )}
@@ -58,7 +58,7 @@ export const Menus = ({ status, type, user, toggleRef }) => {
             </Link>
           ))}
           <button className={hoverableMenuItemClassName}>
-            <Icon name={SVGNames.LogOut} />
+            <Icon name={CONSTANTS.SVGNames.LogOut} />
             Sign Up
           </button>
         </>

@@ -1,5 +1,5 @@
 import { Styled } from "./style";
-import { SVGNames } from "../../constants";
+import { CONSTANTS } from "../../constants";
 import { Icon } from "../icon";
 export const ItemImage = ({
   url,
@@ -9,10 +9,10 @@ export const ItemImage = ({
   onClick = () => {},
 }) => {
   let svg = {
-    foods: SVGNames.Food,
-    drinks: SVGNames.Drink,
-    restaurant: SVGNames.Build,
-    menu: SVGNames.Menu,
+    foods: CONSTANTS.SVGNames.Food,
+    drinks: CONSTANTS.SVGNames.Drink,
+    restaurant: CONSTANTS.SVGNames.Build,
+    menu: CONSTANTS.SVGNames.Menu,
   }[type];
 
   return (
@@ -28,7 +28,7 @@ export const ItemImage = ({
       {url && onRemove && (
         <button onClick={onRemove} className="removeItemImage">
           {" "}
-          <Icon name={SVGNames.Close} />{" "}
+          <Icon name={CONSTANTS.SVGNames.Close} />{" "}
         </button>
       )}
     </Styled.Block>

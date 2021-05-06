@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Styled } from ".";
 import { Icon, Button } from "@eachbase/components";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { useContext } from "react";
 import { ModalContext } from "../../../contexts";
 
@@ -27,7 +27,7 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
           type={"remove"}
         />
       </div>
-      <Icon name={SVGNames.LeftArrow} />
+      <Icon name={CONSTANTS.SVGNames.LeftArrow} />
     </Styled.CategoryItem>
   );
 };

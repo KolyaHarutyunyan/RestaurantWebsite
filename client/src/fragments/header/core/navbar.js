@@ -1,7 +1,7 @@
 import { forwardRef, useContext, useEffect } from "react";
 import { Box, Button } from "@material-ui/core";
 import { CreateMenu, useHeaderStyles } from ".";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { Icon } from "@eachbase/components";
 import { ModalContext } from "@eachbase/context";
 
@@ -49,7 +49,7 @@ export const Navbar = forwardRef(
               status ? " opened" : ""
             } mobile-side-toggle-button`}
           >
-            <Icon name={SVGNames.ToggleMenu} />
+            <Icon name={CONSTANTS.SVGNames.ToggleMenu} />
           </Button>
         ) : (
           <div className={classes.menu}>
@@ -67,9 +67,9 @@ export const Navbar = forwardRef(
                       user-toggle-button
                       `}
                   >
-                    <Icon name={SVGNames.User} />
+                    <Icon name={CONSTANTS.SVGNames.User} />
                     {user.fullName}
-                    <Icon name={SVGNames.DownArrow} />
+                    <Icon name={CONSTANTS.SVGNames.DownArrow} />
                   </Button>
                 </Box>
               ) : (

@@ -1,7 +1,7 @@
 import { Styled } from ".";
 import { Button, Icon } from "@eachbase/components";
 import { useEffect, useRef, useState } from "react";
-import { SVGNames } from "@eachbase/constants";
+import { CONSTANTS } from "@eachbase/constants";
 import { useSelector } from "react-redux";
 
 export const SelectCategory = ({ activeType }) => {
@@ -24,7 +24,7 @@ export const SelectCategory = ({ activeType }) => {
     filterItems(value);
   };
 
-  let menuId = useSelector((state) => state.menu.id);
+  const menuId = useSelector(({ menu = {} }) => menu.id || null);
 
   let categories = useSelector(
     (state) =>
@@ -64,7 +64,10 @@ export const SelectCategory = ({ activeType }) => {
           />
           <p>{newCategoryName || "Select / Create Category"}</p>
 
-          <Icon name={SVGNames.DropdownArrow} onClick={toggleCategories} />
+          <Icon
+            name={CONSTANTS.SVGNames.DropdownArrow}
+            onClick={toggleCategories}
+          />
         </div>
         <div className="bg" onClick={toggleCategories} />
         <div className="items">

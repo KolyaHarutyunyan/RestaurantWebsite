@@ -10,7 +10,7 @@ import {
 
 let desktopSize = 1279;
 export const Categories = () => {
-  let categories = useSelector((state) => state.menu.categories);
+  const categories = useSelector(({ menu = {} }) => (menu.categories = []));
   const [activeType, setActiveType] = useState("foods");
   const [desktop, setDesktop] = useState(false);
   const [openRightBlock, setOpenRightBlock] = useState(false);

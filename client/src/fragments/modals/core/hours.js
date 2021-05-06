@@ -1,7 +1,7 @@
 import { Styled } from ".";
 import { useState } from "react";
 import { Icon } from "../../../components";
-import { SVGNames } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 
 const getHeight = (hours) => {
   let count = 0;
@@ -22,7 +22,7 @@ export const Hours = ({ hours }) => {
         </p>
         <Icon
           onClick={() => setStatus((current) => !current)}
-          name={SVGNames.LeftArrow}
+          name={CONSTANTS.SVGNames.LeftArrow}
         />
       </div>
       <div className="hours">
@@ -34,10 +34,10 @@ export const Hours = ({ hours }) => {
                 <div className="line">
                   {item}
                   <div className="actionBtn">
-                    <Icon name={SVGNames.RemoveHours} />
+                    <Icon name={CONSTANTS.SVGNames.RemoveHours} />
                   </div>
                   <div className="actionBtn">
-                    <Icon name={SVGNames.AddHours} />
+                    <Icon name={CONSTANTS.SVGNames.AddHours} />
                   </div>
                 </div>
               ))}
