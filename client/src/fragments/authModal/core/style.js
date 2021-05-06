@@ -6,22 +6,18 @@ export const useAuthStyles = makeStyles((theme) => ({
   dialog: {
     "& .MuiDialog-paper": {
       width: "100%",
-
       margin: "20px",
       borderRadius: "32px",
-
       maxWidth: "548px !important",
-      padding: "64px 8px 64px 48px",
+      padding: "64px 8px 64px 8px",
       overflow: "hidden",
       [theme.breakpoints.down("md")]: {
         maxWidth: "464px !important",
-        padding: "64px 8px 64px 32px",
       },
       [theme.breakpoints.down("xs")]: {
         maxWidth: "464px !important",
         padding: "32px 16px",
       },
-
       "& .MuiDialogContent-root": {
         padding: 0,
         display: "flex",
@@ -57,18 +53,15 @@ export const useAuthStyles = makeStyles((theme) => ({
   authBox: {
     display: "flex",
     flexWrap: "wrap",
+    overflow: "auto",
     justifyContent: "center",
     alignItems: "center",
     transition: "all 1s",
     opacity: 1,
     [theme.breakpoints.down("md")]: {
       maxWidth: "464px !important",
-      paddingRight: "16px",
     },
-    [theme.breakpoints.down("xs")]: {
-      paddingRight: "0",
-    },
-    paddingRight: "32px",
+    padding: "0 32px",
     height: "100%",
     "&::-webkit-scrollbar": {
       width: "8px",
@@ -91,7 +84,6 @@ export const useAuthStyles = makeStyles((theme) => ({
     "&:hover::-webkit-scrollbar-thumb": {
       background: "#4444",
     },
-    // padding: "32px 16px",
   },
   submit: {
     width: "100%",
@@ -190,6 +182,9 @@ export const TitleBlock = styled.div`
 
 export const FormBlock = styled.form`
   width: 100%;
+  & > * {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Or = styled.div`

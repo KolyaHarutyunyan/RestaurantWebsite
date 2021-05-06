@@ -1,10 +1,7 @@
+import { Fragment } from "react";
+
 const NotFoundPage = () => {
-  return (
-    <>
-      {/*<NotFound />*/}
-      ade lav eli
-    </>
-  );
+  return <Fragment>404</Fragment>;
 };
 
 export default NotFoundPage;

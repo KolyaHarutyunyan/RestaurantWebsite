@@ -57,7 +57,7 @@ export const Change = (setState, type, value) =>
     },
   }));
 
-export const Check = (setState, type) =>
+export const Check = (setState = () => {}, type) =>
   setState((current) => ({
     ...current,
     [type]: {

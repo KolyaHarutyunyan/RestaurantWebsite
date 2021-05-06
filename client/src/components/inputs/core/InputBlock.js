@@ -16,33 +16,31 @@ export const InputBlock = ({
   toggleEye,
 }) => {
   return (
-    <>
-      <Styled.Block
-        className={className}
-        brd={brd}
-        hasIcon={!!icon}
-        inType={inType}
-      >
-        <div className={`content ${important && "important"}`}>
-          {icon && (
-            <Icon
-              className="leftIcon"
-              name={icon}
-              color={error ? colors.primary : ""}
-            />
-          )}
+    <Styled.Block
+      className={className}
+      brd={brd}
+      hasIcon={!!icon}
+      inType={inType}
+    >
+      <div className={`content ${important && "important"}`}>
+        {icon && (
+          <Icon
+            className="leftIcon"
+            name={icon}
+            color={error ? colors.primary : ""}
+          />
+        )}
 
-          {children}
+        {children}
 
-          {type === "password" ? (
-            <Icon
-              onClick={toggleEye}
-              name={eye ? CONSTANTS.SVGNames.EyeOff : CONSTANTS.SVGNames.EyeOn}
-            />
-          ) : null}
-        </div>
-        {error ? <p className="error">{error}</p> : null}
-      </Styled.Block>
-    </>
+        {type === "password" ? (
+          <Icon
+            onClick={toggleEye}
+            name={eye ? CONSTANTS.SVGNames.EyeOff : CONSTANTS.SVGNames.EyeOn}
+          />
+        ) : null}
+      </div>
+      {error ? <p className="error">{error}</p> : null}
+    </Styled.Block>
   );
 };

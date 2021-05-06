@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colors, media } from "@eachbase/theme";
 
-export const Styled = {
+export const Style = {
   Footer: styled.div`
     position: relative;
     z-index: 2;
@@ -11,6 +11,12 @@ export const Styled = {
     height: 64px;
     ${media.forMobile`height:auto`};
     ${(props) => props.fix && ``};
+    ${media.upToTablet`
+      padding: 0 100px;
+    `}
+    ${media.downToDesktop`
+      padding: 0 42px;
+    `}
   `,
   Content: styled.div`
     height: 64px;
@@ -19,7 +25,6 @@ export const Styled = {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     ${media.forMobile`
       flex-direction: column;
       padding: 16px 0;

@@ -16,8 +16,7 @@ export const Styled = {
     }
 
     &.focused .content {
-      border: 2px solid ${colors.text};
-      padding: 10px 16px;
+      box-shadow: 0 0 0 3px solid ${colors.text};
     }
 
     &.disabled .content {
@@ -25,8 +24,7 @@ export const Styled = {
     }
 
     &.error .content {
-      border: 2px solid ${colors.primary};
-      padding: 10px 16px;
+      box-shadow: 0 0 0 3px solid ${colors.primary};
     }
 
     &.file .content {
@@ -92,7 +90,7 @@ export const Styled = {
   Input: styled.input`
     display: block;
     height: 100%;
-
+    outline: 0;
     width: calc(
       100% -
         ${(props) =>

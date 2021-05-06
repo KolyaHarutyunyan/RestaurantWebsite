@@ -40,7 +40,9 @@ export const Menus = ({ status, type, user, toggleRef }) => {
       }}
     >
       {!user && <Button className={classes.button + " red"}>Sign In</Button>}
-      {type && <CreateMenu isAuthed={user.id} className={classes.button} />}
+      {user && type && (
+        <CreateMenu isAuthed={user.id} className={classes.button} />
+      )}
       {user && (
         <>
           {type && (

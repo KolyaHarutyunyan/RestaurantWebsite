@@ -1,4 +1,4 @@
-import { Styled } from "./core";
+import { Style } from "./core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { STYLED } from "@eachbase/theme";
@@ -20,27 +20,25 @@ export const Footer = () => {
   }, [router.pathname]);
 
   return (
-    <Styled.Footer fix={fix}>
-      <STYLED.Container>
-        <Styled.Content>
-          <Styled.CopyRight className="copyRight">
-            © 2021 Menuz. All Rights Reserved.
-          </Styled.CopyRight>
-          <Styled.Infos className="infos">
-            <Link href={"/"}>
-              <a>Terms & Conditions</a>
-            </Link>
-            <hr />
-            <Link href="/">
-              <a>Privacy Policy</a>
-            </Link>
-          </Styled.Infos>
-          <Styled.Logo>
-            <Icon name={CONSTANTS.SVGNames.LogoWhite} />
-            <p>Menuz</p>
-          </Styled.Logo>
-        </Styled.Content>
-      </STYLED.Container>
-    </Styled.Footer>
+    <Style.Footer fix={fix}>
+      <Style.Content>
+        <Style.CopyRight className="copyRight">
+          © 2021 Menuz. All Rights Reserved.
+        </Style.CopyRight>
+        <Style.Infos className="infos">
+          <Link href={"/"}>
+            <a>Terms & Conditions</a>
+          </Link>
+          <hr />
+          <Link href="/">
+            <a>Privacy Policy</a>
+          </Link>
+        </Style.Infos>
+        <Style.Logo>
+          <Icon name={CONSTANTS.SVGNames.LogoWhite} />
+          <p>Menuz</p>
+        </Style.Logo>
+      </Style.Content>
+    </Style.Footer>
   );
 };

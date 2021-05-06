@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Socials, Styled, Title, useAuthStyles } from "..";
 import { CONSTANTS } from "@eachbase/constants";
-import { Check, Change } from "@eachbase/components";
+import { Change } from "@eachbase/components";
 import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,10 +19,8 @@ export const SignIn = ({ open, close }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!Check.form(setUserData)) {
-      return 0;
-    }
   };
+
   const auth = useSelector(({ auth = {} }) => auth);
 
   useEffect(() => {
@@ -39,14 +37,12 @@ export const SignIn = ({ open, close }) => {
           icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.email(value, setUserData)}
-          onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.Password
           icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
-          onBlur={() => Check.pass(setUserData)}
           placeholder="Password"
         />
         {auth.error && (
