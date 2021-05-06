@@ -1,2 +1,1 @@
-
-export {Categories} from './categories'
+export { Categories } from "./categories";

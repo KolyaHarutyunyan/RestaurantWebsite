@@ -1,29 +1,30 @@
-import {   EditPassword, EditUserData, Styled } from "./core"
-import { useDispatch } from "react-redux"
-import { profileActions } from "@eachbase/store"
-import { useContext } from "react"
-import { ModalContext } from "@eachbase/context"
-import { PageTitle } from "@eachbase/components"
+import { EditPassword, EditUserData, Styled } from "./core";
+import { useDispatch } from "react-redux";
+import { profileActions } from "@eachbase/store";
+import { useContext } from "react";
+import { ModalContext } from "@eachbase/context";
+import { PageTitle } from "@eachbase/components";
 
+export const Profile = () => {
+  let dispatch = useDispatch();
+  let { openModal } = useContext(ModalContext);
 
-export const Profile = () =>{
- 	let dispatch = useDispatch()
-	let {openModal} = useContext(ModalContext)
+  let handlerRemove = () => {
+    openModal.removeAccount({
+      submit: (password) => dispatch(profileActions.remove({ password })),
+    });
+  };
 
-	let handlerRemove = ()=>{
- 		openModal.removeAccount({submit:password=>dispatch(profileActions.remove({password}))})
-	}
+  return (
+    <Styled.Content>
+      <PageTitle>Account Settings</PageTitle>
 
-	return(
-		 <Styled.Content>
-				<PageTitle>Account Settings</PageTitle>
+      <EditUserData />
+      <EditPassword />
 
-			 <EditUserData/>
-			 <EditPassword/>
-
-			 <Styled.RemoveBtn onClick={handlerRemove}>
-				 Delete my Account
-			 </Styled.RemoveBtn>
-		 </Styled.Content>
-	)
-}
+      <Styled.RemoveBtn onClick={handlerRemove}>
+        Delete my Account
+      </Styled.RemoveBtn>
+    </Styled.Content>
+  );
+};

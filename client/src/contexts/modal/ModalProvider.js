@@ -1,31 +1,30 @@
 import { createContext, useState } from "react";
-import {Modal, AlertModal, AuthModal } from "@eachbase/fragments";
+import { Modal, AlertModal, AuthModal } from "@eachbase/fragments";
 
-let initData = {status: false, props: {}}
+const initData = { status: false, props: {} };
 
-let initState = {
-  auth: initData,
-  removeMenuItem:initData,
-  removeCategory:initData,
-  removeMenu:initData,
-  removeAccount:initData,
-  editMenu:initData,
-  editMenuItem:initData,
-  editRestaurantInfo:initData,
-  editRestaurantExtraDetails:initData,
-}
+export const ModalContext = createContext();
 
-export const ModalContext = createContext()
+export const ModalProvider = ({ children }) => {
+  const [modal, setModal] = useState({
+    auth: initData,
+    removeMenuItem: initData,
+    removeCategory: initData,
+    removeMenu: initData,
+    removeAccount: initData,
+    editMenu: initData,
+    editMenuItem: initData,
+    editRestaurantInfo: initData,
+    editRestaurantExtraDetails: initData,
+  });
 
-export const ModalProvider = ({children}) => {
+  const close = (type) =>
+    setModal((current) => ({ ...current, [type]: initData }));
 
-  let [modal, setModal] = useState(initState)
+  const open = (type, props) =>
+    setModal((current) => ({ ...current, [type]: { status: true, ...props } }));
 
-  let close = (type) => setModal(current => ({...current, [type]: initData}))
-
-  let open = (type, props) => setModal(current => ({...current, [type]: {status: true, ...props}}))
-
-  let openModal = {
+  const openModal = {
     auth: (props = {}) => open("auth", props),
     removeMenuItem: (props = {}) => open("removeMenuItem", props),
     removeCategory: (props = {}) => open("removeCategory", props),
@@ -34,28 +33,46 @@ export const ModalProvider = ({children}) => {
     editMenu: (props = {}) => open("editMenu", props),
     editMenuItem: (props = {}) => open("editMenuItem", props),
     editRestaurantInfo: (props = {}) => open("editRestaurantInfo", props),
-    editRestaurantExtraDetails: (props = {}) => open("editRestaurantExtraDetails", props),
-  
-  }
+    editRestaurantExtraDetails: (props = {}) =>
+      open("editRestaurantExtraDetails", props),
+  };
 
   return (
-    <ModalContext.Provider value={{openModal}}>
+    <ModalContext.Provider value={{ openModal }}>
+      <AuthModal {...modal.auth} close={() => close("auth")} />
 
-      <AuthModal {...modal.auth} close={()=>close( "auth")}/>
-      
-      <Modal.RemoveMenu {...modal.removeMenu} close={()=>close( "removeMenu")}/>
-      <Modal.RemoveCategory {...modal.removeCategory} close={()=>close( "removeCategory")}/>
-      <Modal.RemoveMenuItem {...modal.removeMenuItem} close={()=>close( "removeMenuItem")}/>
-      <Modal.RemoveAccount {...modal.removeAccount} close={()=>close( "removeAccount")}/>
-      
-      <Modal.EditMenu {...modal.editMenu} close={()=>close( "editMenu")}/>
-      <Modal.EditMenuItem {...modal.editMenuItem} close={()=>close( "editMenuItem")}/>
-      <Modal.EditRestaurantInfo {...modal.editRestaurantInfo} close={()=>close( "editRestaurantInfo")}/>
-      <Modal.EditRestaurantExtraDetails {...modal.editRestaurantExtraDetails} close={()=>close( "editRestaurantExtraDetails")}/>
+      <Modal.RemoveMenu
+        {...modal.removeMenu}
+        close={() => close("removeMenu")}
+      />
+      <Modal.RemoveCategory
+        {...modal.removeCategory}
+        close={() => close("removeCategory")}
+      />
+      <Modal.RemoveMenuItem
+        {...modal.removeMenuItem}
+        close={() => close("removeMenuItem")}
+      />
+      <Modal.RemoveAccount
+        {...modal.removeAccount}
+        close={() => close("removeAccount")}
+      />
+
+      <Modal.EditMenu {...modal.editMenu} close={() => close("editMenu")} />
+      <Modal.EditMenuItem
+        {...modal.editMenuItem}
+        close={() => close("editMenuItem")}
+      />
+      <Modal.EditRestaurantInfo
+        {...modal.editRestaurantInfo}
+        close={() => close("editRestaurantInfo")}
+      />
+      <Modal.EditRestaurantExtraDetails
+        {...modal.editRestaurantExtraDetails}
+        close={() => close("editRestaurantExtraDetails")}
+      />
 
       {children}
     </ModalContext.Provider>
-  )
-}
-
-
+  );
+};

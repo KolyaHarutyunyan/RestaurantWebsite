@@ -1,2 +1,1 @@
-
-export {PageTitle} from './pageTitle'
+export { PageTitle } from "./pageTitle";

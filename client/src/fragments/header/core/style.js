@@ -137,8 +137,16 @@ export const useHeaderStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     color: theme.palette.text.primary,
     font: "normal normal normal 16px/22px Open Sans",
+    "& .link-item": {
+      flex: "0 0 48px",
+      justifyContent: "center",
+    },
     "& svg": {
+      flex: "0 0 48px",
       margin: "0 6px",
+      alignSelf: "flex-end",
+      width: "100%",
+      height: "34px",
       fill: theme.palette.text.primary,
     },
   },

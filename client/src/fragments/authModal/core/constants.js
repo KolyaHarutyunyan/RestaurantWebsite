@@ -1,22 +1,21 @@
 import { SVGNames } from "@eachbase/constants";
 
-
-export const socialData= title =>({
+export const socialData = (title) => ({
   title,
-  icons:[
+  icons: [
     {
-      "link": "/auth/google",
-      "icon": SVGNames.GoogleColor
+      link: "/auth/google",
+      icon: SVGNames.GoogleColor,
     },
     {
-      "link": "/auth/facebook",
-      "icon":SVGNames.FaceBook
+      link: "/auth/facebook",
+      icon: SVGNames.FaceBook,
     },
     {
-      "link": "/auth/twitter",
-      "icon": SVGNames.Twitter
+      link: "/auth/twitter",
+      icon: SVGNames.Twitter,
     },
-  ]
-} )
+  ],
+});
 
-export const VerifyKeyLength= 6
+export const VerifyKeyLength = 6;

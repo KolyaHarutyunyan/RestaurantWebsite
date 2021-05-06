@@ -1,2 +1,1 @@
-
-export {RestaurantInfos} from './restaurantInfos'
+export { RestaurantInfos } from "./restaurantInfos";

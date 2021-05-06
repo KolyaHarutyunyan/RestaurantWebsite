@@ -1,5 +1,3 @@
-export const RemoveMenuItem = () =>{
-	return(
-		<h1>Removemenuitem</h1>
-	)
-}
+export const RemoveMenuItem = () => {
+  return <h1>Removemenuitem</h1>;
+};

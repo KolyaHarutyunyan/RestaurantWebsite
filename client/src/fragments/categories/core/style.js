@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import { animation, colors, media, ScrollBar } from "../../../theme"
+import styled from "styled-components";
+import { animation, colors, media, ScrollBar } from "../../../theme";
 
 export const Styled = {
-	Content: styled.div`
+  Content: styled.div`
     margin-top: 160px;
     ${media.downToLargeDesktop`margin-top:128px`};
     ${media.forMobile`margin-top:80px`};
@@ -10,8 +10,8 @@ export const Styled = {
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
-	`,
-	LeftBlock: styled.div`
+  `,
+  LeftBlock: styled.div`
     width: calc(50% - 32px);
 
     .categories-preview {
@@ -20,7 +20,6 @@ export const Styled = {
       display: none;
     }
 
-
     ${media.downToDesktop`
     	width:100%;
     
@@ -28,12 +27,11 @@ export const Styled = {
 				display: block;
 			}
     `};
-	`,
-	RightBlock: styled.div`
-    left: ${props => props.open ? 0 : "100%"};
+  `,
+  RightBlock: styled.div`
+    left: ${(props) => (props.open ? 0 : "100%")};
     width: calc(50% - 32px);
-    ${animation([ "left" ],)};
-
+    ${animation(["left"])};
 
     ${media.downToDesktop(`
     	width:100%;
@@ -46,11 +44,10 @@ export const Styled = {
 			top: 0px;
 			background: white linear-gradient(180deg, #FFFFFF 0%, #F3F3F3DF 53%, #E3E3E3B3 100%) 0% 0% no-repeat padding-box;
     `)};
-		${media.forMobile(`padding:16px`)};
-	`,
-	
-	
-	DoubleBtnBlock: styled.div`
+    ${media.forMobile(`padding:16px`)};
+  `,
+
+  DoubleBtnBlock: styled.div`
     width: 100%;
     box-shadow: 0 0 6px ${colors.shadow};
     border-radius: 8px;
@@ -64,26 +61,25 @@ export const Styled = {
 		  height: 36px;
 		  font: normal normal 600 16px/22px Open Sans;
 		`};
-	
-	
-	`,
-	DoubleBlockButton: styled.button`
+  `,
+  DoubleBlockButton: styled.button`
     font: normal normal 600 20px/27px Open Sans;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: ${props => props.active ? colors.primary : colors.white};
-    color: ${props => props.active ? colors.white : colors.text};
+    background-color: ${(props) =>
+      props.active ? colors.primary : colors.white};
+    color: ${(props) => (props.active ? colors.white : colors.text)};
 
     ${media.forMobile`
 		  font: normal normal 600 16px/22px Open Sans;
 		`};
   }`,
-	
-	CategoryItem: styled.div`
-    ${props => props.active && `background-color: #e7e7e7;`};
+
+  CategoryItem: styled.div`
+    ${(props) => props.active && `background-color: #e7e7e7;`};
     width: 100%;
     border-radius: 8px;
     margin-top: 16px;
@@ -95,7 +91,6 @@ export const Styled = {
     :nth-child(1) {
       margin-top: 0;
     }
-
 
     display: flex;
     align-items: center;
@@ -114,16 +109,14 @@ export const Styled = {
       .icon-LeftArrow {
         width: 24px;
         height: 24px;
-
       }
     }
 
     button {
       z-index: 1000;
     }
-	
-	`,
-	CategoriesList: styled.div`
+  `,
+  CategoriesList: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -141,17 +134,17 @@ export const Styled = {
 			height: calc(100vh - 270px);
  		
 		`};
-	`,
-	CategoriesTitle: styled.div`
+  `,
+  CategoriesTitle: styled.div`
     .newCategory {
       margin-top: 40px;
-			display: flex;
-			.addCategory{
+      display: flex;
+      .addCategory {
         height: 48px;
       }
-			justify-content: space-between;
+      justify-content: space-between;
       ${media.downToLargeDesktop`margin-top: 32px;`};
-			
+
       ${media.forMobile`
 				margin-top: 16px;
 				flex-direction: column;
@@ -163,9 +156,9 @@ export const Styled = {
     
     `};
     }
-	`,
-	
-	ItemsList: styled.div`
+  `,
+
+  ItemsList: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -198,10 +191,9 @@ export const Styled = {
 				padding:0
 			}
 		`};
-		${media.forMobile(`height: calc(100vh - 230px);`)};
-	
-	`,
-	ItemsTitle: styled.div`
+    ${media.forMobile(`height: calc(100vh - 230px);`)};
+  `,
+  ItemsTitle: styled.div`
     padding: 0 16px;
     ${media.downToDesktop(`
 			padding: 24px;
@@ -210,9 +202,7 @@ export const Styled = {
 		`)};
     width: 100%;
     ${media.forMobile(`
-				padding:16px;`
-    )};
-
+				padding:16px;`)};
 
     display: flex;
     align-items: center;
@@ -254,7 +244,6 @@ export const Styled = {
 			`)}
     }
 
-
     .newItem {
       display: flex;
       flex-direction: row;
@@ -294,7 +283,6 @@ export const Styled = {
             width: 24px;
             height: 24px;
           }
-
         }
 
         ${media.forMobile(`
@@ -314,10 +302,10 @@ export const Styled = {
         margin: 0 24px;
         ${media.forMobile(`display:none`)};
       }
-			
+
       .addMenuItems {
         width: calc(100% - 280px);
-				height: 48px;
+        height: 48px;
         ${media.forMobile`
         	width:100%;
         	height: 42px;
@@ -325,9 +313,9 @@ export const Styled = {
         `};
       }
     }
-	`,
-	
-	BackBtn: styled.button`
+  `,
+
+  BackBtn: styled.button`
     display: none;
     margin-right: 16px;
 
@@ -338,9 +326,9 @@ export const Styled = {
     ${media.downToDesktop(`
 			display:block
 		`)}
-	`,
-	
-	SelectType: styled.div`
+  `,
+
+  SelectType: styled.div`
     width: 100%;
     display: flex;
     align-items: center;
@@ -363,10 +351,9 @@ export const Styled = {
       	margin-left: 0;
       	margin-top: 16px;
       `};
-
     }
-	`,
-	SelectBlock: styled.div`
+  `,
+  SelectBlock: styled.div`
     width: 100%;
     border: 1px solid ${colors.text}80;
     border-radius: 8px;
@@ -375,7 +362,7 @@ export const Styled = {
     position: relative;
 
     .bg {
-      display: ${props => props.open ? "block" : "none"};
+      display: ${(props) => (props.open ? "block" : "none")};
       width: 100%;
       height: 100vh;
       position: fixed;
@@ -394,7 +381,7 @@ export const Styled = {
       position: relative;
 
       input {
-        display: ${props => !props.open ? "none" : "block"};
+        display: ${(props) => (!props.open ? "none" : "block")};
         border: none;
         outline: none;
         background-color: unset;
@@ -402,31 +389,29 @@ export const Styled = {
         ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
         width: 100%;
         z-index: 10000;
-
-
       }
 
       p {
-        display: ${props => props.open ? "none" : "block"};
+        display: ${(props) => (props.open ? "none" : "block")};
         font: normal normal normal 16px/22px Open Sans;
         ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
       }
 
       .icon {
-        ${animation([ "transform" ])};
+        ${animation(["transform"])};
         cursor: pointer;
-        ${props => props.open && `transform:rotate(-180deg);`};
+        ${(props) => props.open && `transform:rotate(-180deg);`};
       }
     }
 
     .items {
       display: flex;
       flex-direction: column;
-			align-items: flex-start;
+      align-items: flex-start;
       justify-content: flex-start;
-      ${props => `opacity: ${props.open ? 1 : 0};
-			visibility: ${props.open ? 'visible' : 'hidden'};`};
-      ${animation([ "all" ])};
+      ${(props) => `opacity: ${props.open ? 1 : 0};
+			visibility: ${props.open ? "visible" : "hidden"};`};
+      ${animation(["all"])};
       position: absolute;
       top: calc(100% + 8px);
       left: -1px;
@@ -436,7 +421,7 @@ export const Styled = {
       padding: 8px 0;
       max-height: 304px;
       ${ScrollBar};
-			overflow: hidden auto;
+      overflow: hidden auto;
       box-shadow: 0 0 6px ${colors.shadow};
       z-index: 10000;
 
@@ -444,66 +429,65 @@ export const Styled = {
         width: 100%;
         font: normal normal normal 16px/22px Open Sans;
         height: 48px;
-				${media.forMobile`height: 42px;`};
+        ${media.forMobile`height: 42px;`};
         padding: 13px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        ${animation([ "all" ])};
+        ${animation(["all"])};
         cursor: pointer;
-        &:hover,&.selected {
-          background-color: #E9E9EB;
+        &:hover,
+        &.selected {
+          background-color: #e9e9eb;
         }
-				.title{
+        .title {
           display: -webkit-box;
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
-				}
-				.checkBox{
-					width: 18px;
-					height: 18px;
+        }
+        .checkBox {
+          width: 18px;
+          height: 18px;
           border: 1px solid ${colors.action};
           border-radius: 2px;
           padding: 3px 2px;
-					background-color: unset;
-					margin-right: 16px;
-					${animation(["all"])};
-					.icon{
+          background-color: unset;
+          margin-right: 16px;
+          ${animation(["all"])};
+          .icon {
             display: none;
-					}
-				}
-				&.selected{
-					.checkBox{
-						background-color: ${colors.action};
-						.icon{
+          }
+        }
+        &.selected {
+          .checkBox {
+            background-color: ${colors.action};
+            .icon {
               display: block;
-						}
-						
-					}
-				}
-				&.whitCheckBox{
-					.title{
-						width: calc(100% - 34px);
-					}
-				}
+            }
+          }
+        }
+        &.whitCheckBox {
+          .title {
+            width: calc(100% - 34px);
+          }
+        }
       }
     }
-	`,
-	
-	NotItem:styled.div`
+  `,
+
+  NotItem: styled.div`
     font: normal normal bold 28px/42px Poppins;
-		color: ${colors.text}80;
- 
+    color: ${colors.text}80;
+
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: calc(100Vh - 250px);
- 
+    height: calc(100vh - 250px);
+
     align-items: center;
-		${media.forMobile(` font: normal normal bold 16px/25px Poppins;`)}
-		
-	`
-}
+    ${media.forMobile(` font: normal normal bold 16px/25px Poppins;`)}
+  `,
+};

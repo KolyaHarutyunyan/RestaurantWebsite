@@ -1,5 +1,3 @@
-export const ModalTitle = () =>{
-	return(
-		<h1>Modaltitle</h1>
-	)
-}
+export const ModalTitle = () => {
+  return <h1>Modaltitle</h1>;
+};

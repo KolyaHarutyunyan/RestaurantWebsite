@@ -9,7 +9,7 @@ import Link from "next/link";
 export const Footer = () => {
   let router = useRouter();
 
-  let [fix, setFix] = useState(false);
+  const [fix, setFix] = useState(false);
   let checkType = () => {
     setFix(document.querySelector("#__next").clientHeight < window.innerHeight);
   };

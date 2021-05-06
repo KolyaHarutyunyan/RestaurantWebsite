@@ -1,25 +1,25 @@
-import styled from "styled-components"
-import { animation, colors, media, ScrollBar } from "@eachbase/theme"
+import styled from "styled-components";
+import { animation, colors, media, ScrollBar } from "@eachbase/theme";
 
 export const Styled = {
-	Title: styled.div`
+  Title: styled.div`
     width: 100%;
     color: ${colors.text};
     font: normal normal bold 24px/35px Poppins;
     ${media.forMobile`font: normal normal bold 18px/27px Poppins;`}
-	`,
-	
-	Remove: styled.div`
-    text-align: ${props => props.hasActions ? "left" : "center"};
+  `,
+
+  Remove: styled.div`
+    text-align: ${(props) => (props.hasActions ? "left" : "center")};
     width: 384px;
     ${media.downToLargeDesktop`width: 376px;`};
     ${media.forMobile`
 			width: 100%;
 			max-width: 311px;
 		`};
-	`,
-	
-	Edit: styled.div`
+  `,
+
+  Edit: styled.div`
     //display: flex;
     //flex-direction: column;
     //align-items: center;
@@ -44,7 +44,6 @@ export const Styled = {
 			max-height: calc(100vh - 104px);
 		`};
 
-
     overflow: hidden auto;
     ${ScrollBar};
 
@@ -54,23 +53,23 @@ export const Styled = {
       ${media.downToLargeDesktop`margin-top: 32px;`}
       ${media.forMobile`margin-top: 24px;`}
     }
-	`,
-	
-	Row: styled.div`
+  `,
+
+  Row: styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: ${props => props.mt || 24}px;
+    margin-top: ${(props) => props.mt || 24}px;
     column-gap: 24px;
-    ${props => props.Tmt
-            ? media.downToLargeDesktop(`margin-top: ${props.Tmt}px;`)
-            : media.downToLargeDesktop(`margin-top: 16px;`)
-    };
-    ${props => props.Mmt
-            ? media.forMobile(`margin-top: ${props.Mmt}px;`)
-            : media.forMobile(`margin-top: 16px;`)
-    };
+    ${(props) =>
+      props.Tmt
+        ? media.downToLargeDesktop(`margin-top: ${props.Tmt}px;`)
+        : media.downToLargeDesktop(`margin-top: 16px;`)};
+    ${(props) =>
+      props.Mmt
+        ? media.forMobile(`margin-top: ${props.Mmt}px;`)
+        : media.forMobile(`margin-top: 16px;`)};
     ${media.downToLargeDesktop(`column-gap: 16px;`)};
 
     .description textarea {
@@ -84,29 +83,27 @@ export const Styled = {
     .nameInput {
       width: calc(100% - 100px);
     }
-	
-	`,
-	
-	InputBox: styled.div`
+  `,
+
+  InputBox: styled.div`
     height: 48px;
-    width: ${props => props.w || "100%"};
+    width: ${(props) => props.w || "100%"};
     border: 1px solid ${colors.text}80;
     border-radius: 8px;
     ${media.forMobile(`height: 42px;`)};
     display: flex;
     align-items: center;
     justify-content: space-between;
-	
-	`,
-	
-	Description: styled.p`
+  `,
+
+  Description: styled.p`
     margin-top: 24px;
     font: normal normal normal 20px/27px Open Sans;
     ${media.downToLargeDesktop`margin-top: 16px;`};
     ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
-	`,
-	
-	Actions: styled.div`
+  `,
+
+  Actions: styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -116,11 +113,11 @@ export const Styled = {
     ${media.forMobile`margin-top: 24px;`};
 
     .action {
-      ${props => props.brd && `border-radius: ${props.brd}px;`}
+      ${(props) => props.brd && `border-radius: ${props.brd}px;`}
     }
-	`,
-	
-	Options: styled.div`
+  `,
+
+  Options: styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 27px;
@@ -170,10 +167,9 @@ export const Styled = {
 				}
 			}
 		`};
-	
-	`,
-	
-	Hours: styled.div`
+  `,
+
+  Hours: styled.div`
     width: 100%;
 
     .ctrl {
@@ -185,8 +181,8 @@ export const Styled = {
 
       .icon {
         cursor: pointer;
-        transform: rotate(${props => props.status ? -90 : 90}deg);
-        ${animation([ "transform" ])}
+        transform: rotate(${(props) => (props.status ? -90 : 90)}deg);
+        ${animation(["transform"])}
       }
 
       p {
@@ -196,13 +192,12 @@ export const Styled = {
 
     .hours {
       width: 100%;
-      height: ${props => props.status ?  props.h : 0}px;
-  
-      opacity: ${props => props.status ? 1 : 0};
-      visibility: ${props => props.status ? "visible" : "hidden"};
-      transform: rotateX(${props => props.status ? 0 : 90}deg);
-      ${animation([ "all" ])};
+      height: ${(props) => (props.status ? props.h : 0)}px;
 
+      opacity: ${(props) => (props.status ? 1 : 0)};
+      visibility: ${(props) => (props.status ? "visible" : "hidden")};
+      transform: rotateX(${(props) => (props.status ? 0 : 90)}deg);
+      ${animation(["all"])};
 
       .day {
         width: 100%;
@@ -227,7 +222,6 @@ export const Styled = {
         .name {
           font: normal normal bold 16px/20px Open Sans;
           width: 40px;
-
         }
 
         .hour {
@@ -250,10 +244,7 @@ export const Styled = {
             margin-top: 8px;
             align-items: center;
             justify-content: flex-start;
-
-
           }
-
 
           ${media.forMobile(`
           	margin-left: 8px;
@@ -275,9 +266,8 @@ export const Styled = {
         }
 
         .status {
-
         }
       }
     }
-	`,
-}
+  `,
+};

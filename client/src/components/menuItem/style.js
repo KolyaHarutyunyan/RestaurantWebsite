@@ -1,11 +1,10 @@
-import styled from "styled-components"
-import { colors, media } from "@eachbase/theme"
+import styled from "styled-components";
+import { colors, media } from "@eachbase/theme";
 
-let imgW = 118
-let imgWM = 89
+let imgW = 118;
+let imgWM = 89;
 export const Styled = {
-	Block: styled.div`
-
+  Block: styled.div`
     background-color: ${colors.white};
     border-radius: 8px;
     box-shadow: 0 0 6px ${colors.shadow};
@@ -24,9 +23,9 @@ export const Styled = {
 			border-radius: 0;
 			margin-top: 8px;
 		`}
-	`,
- 
-	BlockInfo: styled.div`
+  `,
+
+  BlockInfo: styled.div`
     width: calc(100% - ${imgW}px);
     margin-left: 16px;
     display: flex;
@@ -39,9 +38,9 @@ export const Styled = {
     .title {
       width: 100%;
       font: normal normal bold 18px/20px Open Sans;
-      
-			${media.forMobile(`font: normal normal bold 16px/20px Open Sans;`)};
-			
+
+      ${media.forMobile(`font: normal normal bold 16px/20px Open Sans;`)};
+
       display: flex;
       align-items: center;
       flex-direction: row;
@@ -50,7 +49,6 @@ export const Styled = {
       .price {
         width: 65px;
         text-align: right;
-
       }
 
       .name {
@@ -61,7 +59,6 @@ export const Styled = {
         overflow: hidden;
         text-overflow: ellipsis;
       }
-
     }
 
     .description {
@@ -109,18 +106,16 @@ export const Styled = {
         align-items: center;
         justify-content: flex-end;
         width: 160px;
-				.remove{
-					margin-left: 24px;
-				}
+        .remove {
+          margin-left: 24px;
+        }
         ${media.forMobile(`
 				width:52px;
 				.remove{
 					margin-left: 16px;
 				}
 			`)};
-
       }
     }
-	
-	`
-}
+  `,
+};

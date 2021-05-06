@@ -1,5 +1,5 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
 });
 module.exports = withBundleAnalyzer({
   webpack(config) {
@@ -8,9 +8,8 @@ module.exports = withBundleAnalyzer({
       issuer: {
         test: /\.(js|ts)x?$/,
       },
-      use: ['@svgr/webpack'],
+      use: ["@svgr/webpack"],
     });
-
 
     return config;
   },

@@ -1,39 +1,46 @@
-import { Title, Styled, useAuthStyles, VerifyKeyLength } from ".."
-import { Button } from "@material-ui/core"
-import {Input} from "@eachbase/components"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { Title, Styled, useAuthStyles, VerifyKeyLength } from "..";
+import { Button } from "@material-ui/core";
+import { Input } from "@eachbase/components";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+export const Verify = ({ open, email }) => {
+  email = email || "test@test.com";
+  let classes = useAuthStyles();
 
-export const Verify = ({open, email}) => {
-  email = email || "test@test.com"
-  let classes = useAuthStyles()
-
-  let [verifyKey,setVerifyKey] = useState({value:"",error:""})
+  const [verifyKey, setVerifyKey] = useState({ value: "", error: "" });
   const dispatch = useDispatch();
-  let handleSubmit = event => {
-    event.preventDefault()
+  let handleSubmit = (event) => {
+    event.preventDefault();
 
-    if( !verifyKey.error ) {
-      // dispatch(authActions.checkEmail({user: {key: verifyKey.value}}))
+    if (!verifyKey.error) {
     }
-
-  }
-  const auth = useSelector(state => state.auth)
+  };
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     // if ( auth.key === "checked" ) {
-    open.ResetPass()
+    open.ResetPass();
     // }
-  }, [auth.key])
+  }, [auth.key]);
   return (
     <>
-
-      <Title beforeText="Verification Code"/>
-      <Styled.Description>Enter the verification code sent to <span>{email}</span></Styled.Description>
-      <Input.verify verifyKeyLength={VerifyKeyLength} verifyKey={verifyKey.value} error={verifyKey.error} onChange={setVerifyKey}/>
-      <Styled.Description>If you don't receive a code <Button
-        onClick={() => console.log("resend")}>Resend</Button></Styled.Description>
-		  <Button className={classes.submit} onClick={handleSubmit}>Verify</Button>
+      <Title beforeText="Verification Code" />
+      <Styled.Description>
+        Enter the verification code sent to <span>{email}</span>
+      </Styled.Description>
+      <Input.verify
+        verifyKeyLength={VerifyKeyLength}
+        verifyKey={verifyKey.value}
+        error={verifyKey.error}
+        onChange={setVerifyKey}
+      />
+      <Styled.Description>
+        If you don't receive a code{" "}
+        <Button onClick={() => console.log("resend")}>Resend</Button>
+      </Styled.Description>
+      <Button className={classes.submit} onClick={handleSubmit}>
+        Verify
+      </Button>
     </>
-  )
-}
+  );
+};

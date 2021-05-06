@@ -1,7 +1,7 @@
-import {ResetPassPage} from "@eachbase/pages"
+import { ResetPassPage } from "@eachbase/pages";
 
-export default function ResetPass(props){
-  return <ResetPassPage {...props}/>
+export default function ResetPass(props) {
+  return <ResetPassPage {...props} />;
 }
 
-ResetPass.getInitialProps = (req)=>  ({resetToken:req.query["reset-token"]})
+ResetPass.getInitialProps = (req) => ({ resetToken: req.query["reset-token"] });

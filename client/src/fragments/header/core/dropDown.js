@@ -10,7 +10,7 @@ let user = {
 
 export const DropDown = ({ isAuthed, handlerClick }) => {
   let classes = useStyles();
-  let [openPopup, setOpenPopup] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
 
   return (
     <>

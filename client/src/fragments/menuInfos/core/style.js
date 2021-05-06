@@ -1,9 +1,8 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { colors, media } from "@eachbase/theme";
 
 export const Styled = {
-	
-	Navigator: styled.div`
+  Navigator: styled.div`
     margin-top: 40px;
     display: flex;
     align-items: center;
@@ -32,8 +31,8 @@ export const Styled = {
     }
 
     box-sizing: border-box;
-	`,
-	Title: styled.div`
+  `,
+  Title: styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,11 +58,11 @@ export const Styled = {
       cursor: pointer;
 
       &.remove {
-        color: ${colors.primary}
+        color: ${colors.primary};
       }
 
       &.status {
-        color: ${colors.action}
+        color: ${colors.action};
       }
 
       .icon {
@@ -104,9 +103,9 @@ export const Styled = {
 				}
 			`};
     }
-	`,
-	
-	Block: styled.div`
+  `,
+
+  Block: styled.div`
     display: flex;
     width: 100%;
     box-shadow: 0 0 6px ${colors.shadow};
@@ -137,7 +136,7 @@ export const Styled = {
 			height: 125px;
 		`};
       // background-color: ${colors.shadow};
-      // ${props => props.bgi && `background-image: url("${props.bgi}")`};
+      // ${(props) => props.bgi && `background-image: url("${props.bgi}")`};
       // background-position: center;
       // background-size: cover;
       // background-repeat: no-repeat;
@@ -184,18 +183,15 @@ export const Styled = {
       	height: 36px;
       `};
 	`,
-	
-	BlockAvatar: styled.div`
-	
-	
-	`,
-	BlockDescription: styled.div`
+
+  BlockAvatar: styled.div``,
+  BlockDescription: styled.div`
     width: calc(100% - 490px);
     font: normal normal normal 16px/24px Open Sans;
 
     .title {
       margin-bottom: 16px;
-      display: flex
+      display: flex;
     }
 
     margin-left: 40px;
@@ -210,11 +206,6 @@ export const Styled = {
     ${media.forMobile`
 			margin-top: 24px;
 		`};
-	
-	`,
-	BlockTitle: styled.div`
-	
-	`
-	
-	
-}
+  `,
+  BlockTitle: styled.div``,
+};

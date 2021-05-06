@@ -10,8 +10,9 @@ export const Navbar = forwardRef(
     const classes = useHeaderStyles();
 
     const { openModal } = useContext(ModalContext);
-    const openAuth = () => openModal.auth();
-    const openAvatar = () => openModal.avatar({ type: "userAvatar" });
+    const openAuth = () => {
+      openModal.auth();
+    };
 
     useEffect(() => {
       const documentClickHandler = ({ path }) => {
@@ -53,7 +54,7 @@ export const Navbar = forwardRef(
         ) : (
           <div className={classes.menu}>
             <div className={classes.listItem}>
-              {user.fullName ? (
+              {user ? (
                 <Box className={`${classes.userButtonContainer} `}>
                   {/* WARNING: user-toggle-button className used above in pure
                   javascript part */}
@@ -79,7 +80,7 @@ export const Navbar = forwardRef(
             </div>
             <div className={classes.listItem}>
               <CreateMenu
-                isAuthed={!!user.fullName}
+                isAuthed={!!user}
                 className={classes.button}
                 handlerClick={openAuth}
               />

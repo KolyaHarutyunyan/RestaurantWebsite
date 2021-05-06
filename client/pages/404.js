@@ -1,11 +1,10 @@
-
 const NotFoundPage = () => {
-    return (
-        <>
-            {/*<NotFound />*/}
-            ade lav eli
-        </>
-    );
+  return (
+    <>
+      {/*<NotFound />*/}
+      ade lav eli
+    </>
+  );
 };
 
 export default NotFoundPage;

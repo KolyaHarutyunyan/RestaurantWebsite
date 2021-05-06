@@ -1,9 +1,8 @@
-import styled from "styled-components"
-import { colors, media, ScrollBar, theme } from "@eachbase/theme"
-
+import styled from "styled-components";
+import { colors, media, ScrollBar, theme } from "@eachbase/theme";
 
 export const Styled = {
-	Block: styled.div`
+  Block: styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -37,7 +36,7 @@ export const Styled = {
 
     .content {
       height: 100%;
-      border-radius: ${props => props.brd !== undefined ? props.brd : 8}px;
+      border-radius: ${(props) => (props.brd !== undefined ? props.brd : 8)}px;
       border: 1px solid ${colors.text}80;
       width: 100%;
       display: flex;
@@ -54,11 +53,10 @@ export const Styled = {
         display: flex;
         justify-content: center;
         align-items: center;
-
       }
 
       &.important:after {
-        content: '*';
+        content: "*";
         position: absolute;
         width: 20px;
         color: ${colors.primary};
@@ -68,7 +66,8 @@ export const Styled = {
         z-index: 10000;
         top: 0;
         padding: 8px 0 0 0;
-        left: ${props => props.hasIcon ? 48 : props.inType === "price" ? 33 : 16}px
+        left: ${(props) =>
+          props.hasIcon ? 48 : props.inType === "price" ? 33 : 16}px;
       }
     }
 
@@ -79,25 +78,28 @@ export const Styled = {
       margin: 6px 0 0;
       line-height: 17px;
       color: ${colors.primary};
-      padding: 0 0 0 ${props => props.hasIcon ? 48 : 16}px;
+      padding: 0 0 0 ${(props) => (props.hasIcon ? 48 : 16)}px;
       display: block;
       font-size: 12px !important;
-
     }
 
     .priceIcon {
       margin-right: 8px;
       font: normal normal normal 16px/22px Open Sans;
       ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
-
     }
-	
-	`,
-	Input: styled.input`
+  `,
+  Input: styled.input`
     display: block;
     height: 100%;
 
-    width: calc(100% - ${props => (props.hasIcon ? 32 : 0) + (props.inType === "password" ? 26 : 0) + (props.inType === "price" ? 17 : 0)}px);
+    width: calc(
+      100% -
+        ${(props) =>
+          (props.hasIcon ? 32 : 0) +
+          (props.inType === "password" ? 26 : 0) +
+          (props.inType === "price" ? 17 : 0)}px
+    );
     line-height: 100%;
     font: normal normal normal 16px/22px Open Sans;
     ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
@@ -117,9 +119,8 @@ export const Styled = {
     position: relative;
     outline: none;
     border: 0;
-	
-	`,
-	Description: styled.textarea`
+  `,
+  Description: styled.textarea`
     width: 100%;
     height: 124px;
     resize: none;
@@ -130,8 +131,8 @@ export const Styled = {
     font: normal normal normal 16px/22px Open Sans;
     ${media.forMobile`font: normal normal normal 14px/19px Open Sans;`};
     ${ScrollBar};
-	`,
-	ImagePiker: styled.div`
+  `,
+  ImagePiker: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -139,7 +140,6 @@ export const Styled = {
     width: 100%;
 
     .row {
-
       width: 100%;
       display: flex;
       flex-wrap: wrap;
@@ -149,7 +149,6 @@ export const Styled = {
       gap: 16px;
 
       .item {
-
         width: 100px;
         height: 100px;
 
@@ -188,8 +187,5 @@ export const Styled = {
         color: ${colors.primary};
       }
     }
-	
-	`
-}
-
-
+  `,
+};

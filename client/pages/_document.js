@@ -1,28 +1,37 @@
-import { Children } from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import { theme } from '@eachbase/theme';
+import { Children } from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheets } from "@material-ui/core/styles";
+import { theme } from "@eachbase/theme";
 
 export default class MyDocument extends Document {
-    render() {
-        return (
-            <Html lang="en">
-                <Head>
-                    <meta charSet="utf-8" />
-                    {/* PWA primary color */}
-                    <meta name="theme-color" content={theme.palette.primary.main} />
-                    {/* Favicon  */}
-                    {/* <link rel="icon" href={meta.icon} type="image/x-icon" />
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <meta charSet="utf-8" />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={theme.palette.primary.main} />
+          {/* Favicon  */}
+          {/* <link rel="icon" href={meta.icon} type="image/x-icon" />
           <link rel="shortcut icon" href={meta.icon} type="image/x-icon" /> */}
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-          <script src="https://kit.fontawesome.com/030cda6e9e.js" crossOrigin="anonymous"/>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+          <script
+            src="https://kit.fontawesome.com/030cda6e9e.js"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
-        <Main/>
-        <NextScript/>
-        {/* <!--Start of Tawk.to Script--> */}
-        {/* <script
+          <Main />
+          <NextScript />
+          {/* <!--Start of Tawk.to Script--> */}
+          {/* <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -36,7 +45,7 @@ export default class MyDocument extends Document {
             })();`,
             }}
           /> */}
-        {/* <!--End of Tawk.to Script--> */}
+          {/* <!--End of Tawk.to Script--> */}
         </body>
       </Html>
     );
@@ -45,7 +54,7 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
-MyDocument.getInitialProps = async ( ctx ) => {
+MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
   // On the server:
@@ -74,7 +83,7 @@ MyDocument.getInitialProps = async ( ctx ) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: ( App ) => ( props ) => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -82,6 +91,9 @@ MyDocument.getInitialProps = async ( ctx ) => {
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    styles: [
+      ...Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
   };
 };

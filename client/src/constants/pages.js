@@ -1,10 +1,10 @@
-export const Pages={
-  home:{
-    title:"home",
-    href:"/"
+export const Pages = {
+  home: {
+    title: "home",
+    href: "/",
   },
-  createMenu:{
-    title:"Create Menu",
-    href:"/create-menu"
-  }
-}
+  createMenu: {
+    title: "Create Menu",
+    href: "/create-menu",
+  },
+};

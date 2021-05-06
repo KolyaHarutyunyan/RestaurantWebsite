@@ -1,7 +1,3 @@
-export const restaurantTypes = {
+export const restaurantTypes = {};
 
-}
-
-export const restaurantReducerTypes = {
-
-}
+export const restaurantReducerTypes = {};

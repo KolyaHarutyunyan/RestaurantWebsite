@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import { animation, colors, media } from "@eachbase/theme"
+import styled from "styled-components";
+import { animation, colors, media } from "@eachbase/theme";
 
 export const Styled = {
-	Dialog: styled.div`
+  Dialog: styled.div`
     position: fixed;
     width: 100%;
     height: 100vh;
@@ -10,9 +10,9 @@ export const Styled = {
     z-index: 100000;
     left: 0;
     top: 0;
-    visibility: ${props => props.open ? "visible" : "hidden"};
-    opacity: ${props => props.open ? 1 : 0};
-    ${animation([ "visibility", "opacity" ])};
+    visibility: ${(props) => (props.open ? "visible" : "hidden")};
+    opacity: ${(props) => (props.open ? 1 : 0)};
+    ${animation(["visibility", "opacity"])};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,18 +31,18 @@ export const Styled = {
       position: relative;
       background-color: ${colors.white};
 
-      ${props => props.type === "remove"
-              ? `
+      ${(props) =>
+        props.type === "remove"
+          ? `
               	padding:40px;
 							 	${media.downToLargeDesktop`padding:32px`};
 								${media.forMobile`padding:16px`};
 							`
-              : `
+          : `
               	padding:64px 48px;
 							 	${media.downToLargeDesktop`padding:48px 32px`};
 								${media.forMobile`padding:32px 16px`};
-              `
-      };
+              `};
     }
 
     .bg {
@@ -61,8 +61,7 @@ export const Styled = {
       right: 8px;
       width: 30px;
       height: 30px;
-      background-color: #2B273C1A;
+      background-color: #2b273c1a;
     }
-	
-	`,
-}
+  `,
+};

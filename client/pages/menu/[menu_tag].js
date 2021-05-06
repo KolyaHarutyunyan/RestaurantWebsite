@@ -1,7 +1,7 @@
-import {MenuPage} from "@eachbase/pages"
+import { MenuPage } from "@eachbase/pages";
 
-export default function ResetPass(props){
-	return <MenuPage {...props}/>
+export default function ResetPass(props) {
+  return <MenuPage {...props} />;
 }
 
-ResetPass.getInitialProps = (req)=>  ({tag:req.query["menu_tag"]})
+ResetPass.getInitialProps = (req) => ({ tag: req.query["menu_tag"] });

@@ -1,2 +1,1 @@
-
-export {RemoveMenuItem} from './removeMenuItem'
+export { RemoveMenuItem } from "./removeMenuItem";

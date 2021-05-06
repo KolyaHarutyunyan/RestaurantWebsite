@@ -21,7 +21,7 @@ export const RemoveMenuCategoryMenuItem = ({ status, close, type, id }) => {
   });
 
   let hasActions = (item && item.parents && item.parents.length > 1) || false;
-  let [activeType, setActiveType] = useState("one");
+  const [activeType, setActiveType] = useState("one");
   if (!item) return null;
 
   return (

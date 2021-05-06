@@ -1,8 +1,6 @@
-import { profileTypes } from '.';
+import { PROFILE_SIGN_IN, PROFILE_SIGN_OUT } from "./profile.types";
 
 export const profileActions = {
-  signIn: payload => ({type: profileTypes.signIn, payload}),
-  signOut: () => ({type: profileTypes.signOut}),
-  remove: payload => ({type: profileTypes.remove, payload})
-}
-
+  signIn: (payload) => ({ type: PROFILE_SIGN_IN, payload }),
+  signOut: () => ({ type: PROFILE_SIGN_OUT }),
+};

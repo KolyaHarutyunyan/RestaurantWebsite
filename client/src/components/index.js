@@ -1,5 +1,4 @@
 export { Icon } from "./icon";
-export { Input } from "./inputs";
 export { InputTypes } from "./inputs/core/formFunctions";
 export { ModalTitle } from "./modalTitle";
 export { PageTitle } from "./pageTitle";
@@ -10,3 +9,4 @@ export { BaseModal } from "./baseModal";
 export { ItemImage } from "./itemImage";
 export { Typography } from "./typography";
 export { Image } from "./Image";
+export { Change, Check, CheckForm, Input, Styled } from "./inputs";

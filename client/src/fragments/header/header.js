@@ -8,7 +8,7 @@ let mobileWidth = 768;
 
 export const Header = () => {
   const classes = useHeaderStyles();
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state) => state.profile || null);
   const collapseMenuToggleRef = useRef();
   const [openedMenu, setOpenedMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

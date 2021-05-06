@@ -30,7 +30,7 @@ export const Menus = ({ status, type, user, toggleRef }) => {
     return () => window.removeEventListener("resize", windowResizeObserver);
   }, []);
 
-  const hoverableMenuItemClassName = `${classes.dropdownMenuItem} ${classes.dropdownMenuItemHover}`;
+  const hoverableMenuItemClassName = `${classes.dropdownMenuItem} ${classes.dropdownMenuItemHover} link-item`;
   return (
     <Box
       /* WARNING: toggle-header-menu className will be used in navbar component so dont remove it  */
@@ -39,9 +39,9 @@ export const Menus = ({ status, type, user, toggleRef }) => {
         [xAxisOffset ? "left" : "right"]: `${xAxisOffset}px`,
       }}
     >
-      {!user.id && <Button className={classes.button + " red"}>Sign In</Button>}
+      {!user && <Button className={classes.button + " red"}>Sign In</Button>}
       {type && <CreateMenu isAuthed={user.id} className={classes.button} />}
-      {user.id && (
+      {user && (
         <>
           {type && (
             <Box className={classes.dropdownMenuItem}>

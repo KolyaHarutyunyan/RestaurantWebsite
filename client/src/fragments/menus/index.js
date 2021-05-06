@@ -1,2 +1,1 @@
-
-export {Menus} from './menus'
+export { Menus } from "./menus";

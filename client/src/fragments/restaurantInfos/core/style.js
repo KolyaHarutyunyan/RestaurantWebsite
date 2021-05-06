@@ -1,30 +1,30 @@
-import styled from "styled-components"
-import { colors, media } from "@eachbase/theme"
+import styled from "styled-components";
+import { colors, media } from "@eachbase/theme";
 
 export const Styled = {
-	Content: styled.div`
+  Content: styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, calc(50% - 10px));
     justify-content: space-between;
     grid-row-gap: 16px;
     grid-column-gap: 20px;
     ${media.downToDesktop`grid-template-columns: repeat(auto-fill, 100%);`}
-	`,
-	Block: styled.div`
+  `,
+  Block: styled.div`
     box-shadow: 0 0 10px ${colors.shadow};
     border-radius: 8px;
     width: 100%;
     padding: 32px 24px;
     ${media.forMobile`padding: 24px 16px;`};
-	`,
-	BlockTitle: styled.div`
+  `,
+  BlockTitle: styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 80px;
     float: left;
-    margin-left: ${props => props.hasLogo ? 24 : 0}px;
-    width: calc(100% - ${props => props.hasLogo ? 104 : 0}px);
+    margin-left: ${(props) => (props.hasLogo ? 24 : 0)}px;
+    width: calc(100% - ${(props) => (props.hasLogo ? 104 : 0)}px);
     font: normal normal bold 32px/48px Poppins;
 
     .editBtn {
@@ -38,7 +38,9 @@ export const Styled = {
 		`};
     }
 
-		${props=>props.hasLogo && media.forMobile`
+    ${(props) =>
+      props.hasLogo &&
+      media.forMobile`
 			margin-left: 16px;
     	width: calc(100% - 76px);
 		`};
@@ -47,13 +49,13 @@ export const Styled = {
 			
 			font: normal normal bold 16px/25px Poppins;
 		`};
-	`,
-	Logo: styled.div`
+  `,
+  Logo: styled.div`
     width: 80px;
     height: 80px;
     float: left;
-    ${props => !props.bgi && `background-color: ${colors.shadow};`};
-    ${props => props.bgi && `background-image: url("${props.bgi}")`};
+    ${(props) => !props.bgi && `background-color: ${colors.shadow};`};
+    ${(props) => props.bgi && `background-image: url("${props.bgi}")`};
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -74,24 +76,23 @@ export const Styled = {
 				height: 37.5px;
 			`};
     }
-	`,
-	Description: styled.div`
+  `,
+  Description: styled.div`
     width: 100%;
     margin-top: 104px;
     font: normal normal normal 16px/24px Open Sans;
-
 
     color: ${colors.text};
     ${media.forMobile`
 			margin-top: 76px;
 			font: normal normal normal 14px/21px Open Sans;
 		`};
-	`,
-	Line: styled.div`
+  `,
+  Line: styled.div`
     width: 100%;
     height: 24px;
     position: relative;
-    margin-top: ${props => props.notMt ? 104 : 16}px;
+    margin-top: ${(props) => (props.notMt ? 104 : 16)}px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -102,7 +103,7 @@ export const Styled = {
 
     .info {
       font: normal normal normal 16px/22px Open Sans;
-      color: ${colors.text}${props => props.unSet ? "80" : ""};
+      color: ${colors.text}${(props) => (props.unSet ? "80" : "")};
     }
 
     .hours {
@@ -115,10 +116,10 @@ export const Styled = {
         margin-left: 8px;
       }
     }
-	`,
-	DropMenu: styled.div`
-    visibility: ${props => props.status ? "visible" : "hidden"};
-    opacity: ${props => props.status ? 1 : 0};
+  `,
+  DropMenu: styled.div`
+    visibility: ${(props) => (props.status ? "visible" : "hidden")};
+    opacity: ${(props) => (props.status ? 1 : 0)};
     position: absolute;
     top: 32px;
     z-index: 10000;
@@ -136,7 +137,7 @@ export const Styled = {
 	  `};
 
     .bg {
-      display: ${props => props.status ? "block" : "none"};
+      display: ${(props) => (props.status ? "block" : "none")};
       width: 100%;
       height: 100vh;
       position: fixed;
@@ -184,5 +185,5 @@ export const Styled = {
         }
       }
     }
-	`
-}
+  `,
+};

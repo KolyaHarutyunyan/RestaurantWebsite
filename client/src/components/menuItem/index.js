@@ -1,2 +1,1 @@
-
-export {MenuItem} from './menuItem'
+export { MenuItem } from "./menuItem";

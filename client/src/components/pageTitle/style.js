@@ -1,6 +1,5 @@
-import styled from "styled-components"
-import {   colors, media } from "@eachbase/theme"
-
+import styled from "styled-components";
+import { colors, media } from "@eachbase/theme";
 
 export const Styled = {
   Title: styled.h1`
@@ -8,7 +7,7 @@ export const Styled = {
     text-align: center;
     font: normal normal bold 48px/72px Poppins;
     color: ${colors.text.primary};
-    margin:32px 0 32px;
+    margin: 32px 0 32px;
     ${media.downToLargeDesktop`
       font: normal normal bold 48px/72px Poppins;
       margin-bottom:16px
@@ -18,4 +17,4 @@ export const Styled = {
       margin-bottom:8px
       `}
   `,
-}
+};

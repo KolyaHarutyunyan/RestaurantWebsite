@@ -1,6 +1,5 @@
-import styled from "styled-components"
-import { animation, colors, media } from "@eachbase/theme"
-
+import styled from "styled-components";
+import { animation, colors, media } from "@eachbase/theme";
 
 export const Styled = {
   Content: styled.div`
@@ -13,12 +12,10 @@ export const Styled = {
     max-width: 628px;
     padding: 0 16px;
     ${media.downToLargeDesktop`max-width: 546px;`}
-
-
   `,
 
   Block: styled.div`
-    box-shadow: 0 0 6px #0000001A;
+    box-shadow: 0 0 6px #0000001a;
     border-radius: 8px;
     background-color: ${colors.bg.primary};
     margin-top: 40px;
@@ -32,11 +29,11 @@ export const Styled = {
     ${media.downToLargeDesktop`padding: 16px 32px 48px;`};
     ${media.forMobile`padding: 16px 16px 32px;`}
   `,
-  BlockForm:styled.form`
+  BlockForm: styled.form`
     width: 100%;
-    height: ${({open})=>open?"auto":0};
+    height: ${({ open }) => (open ? "auto" : 0)};
     ${animation(["height"])};
-    overflow:hidden;
+    overflow: hidden;
   `,
   RemoveBtn: styled.button`
     font: normal normal 600 16px/22px Open Sans;
@@ -61,6 +58,5 @@ export const Styled = {
     margin-top: 16px;
     font: normal normal 600 18px/24px Open Sans;
     color: ${colors.text.secondary};
-  `
-
-}
+  `,
+};

@@ -24,4 +24,4 @@ export const ScrollBar = `
 	&::-webkit-scrollbar-thumb:hover, &:hover::-webkit-scrollbar-thumb {
 		background: #2B273C 0% 0% no-repeat padding-box;
 	}
-`
+`;

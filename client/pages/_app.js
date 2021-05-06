@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Head from "next/head";
 import { Theme, STYLED } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
@@ -6,7 +7,7 @@ import { ContextProvider } from "@eachbase/context";
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <Fragment>
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -26,6 +27,6 @@ export default function MyApp({ Component, pageProps }) {
           </ContextProvider>
         </Theme>
       </Store>
-    </>
+    </Fragment>
   );
 }

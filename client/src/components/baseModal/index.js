@@ -1,1 +1,1 @@
-export {BaseModal} from "./baseModal"
+export { BaseModal } from "./baseModal";

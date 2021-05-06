@@ -1,2 +1,2 @@
-export {Styled} from "./style"
-export {Title} from "./title"
+export { Styled } from "./style";
+export { Title } from "./title";
