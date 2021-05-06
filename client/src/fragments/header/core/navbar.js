@@ -10,9 +10,7 @@ export const Navbar = forwardRef(
     const classes = useHeaderStyles();
 
     const { openModal } = useContext(ModalContext);
-    const openAuth = () => {
-      openModal.auth();
-    };
+    const openAuth = () => openModal.auth();
 
     useEffect(() => {
       const documentClickHandler = ({ path }) => {

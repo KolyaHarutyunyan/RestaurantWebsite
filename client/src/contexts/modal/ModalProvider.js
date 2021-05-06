@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { Modal, AlertModal, AuthModal } from "@eachbase/fragments";
+import { Modal, AuthModal } from "@eachbase/fragments";
 
 const initData = { status: false, props: {} };
 
@@ -40,7 +40,6 @@ export const ModalProvider = ({ children }) => {
   return (
     <ModalContext.Provider value={{ openModal }}>
       <AuthModal {...modal.auth} close={() => close("auth")} />
-
       <Modal.RemoveMenu
         {...modal.removeMenu}
         close={() => close("removeMenu")}
@@ -57,7 +56,6 @@ export const ModalProvider = ({ children }) => {
         {...modal.removeAccount}
         close={() => close("removeAccount")}
       />
-
       <Modal.EditMenu {...modal.editMenu} close={() => close("editMenu")} />
       <Modal.EditMenuItem
         {...modal.editMenuItem}
@@ -71,7 +69,6 @@ export const ModalProvider = ({ children }) => {
         {...modal.editRestaurantExtraDetails}
         close={() => close("editRestaurantExtraDetails")}
       />
-
       {children}
     </ModalContext.Provider>
   );

@@ -14,9 +14,9 @@ export const ImagePiker = ({
   description,
 }) => {
   const [selected, setSelected] = useState(-1);
-  let inputRefs = [...Array(count).keys()].map((_) => useRef());
+  const inputRefs = [...Array(count).keys()].map((_) => useRef());
 
-  let fileSelectHandler = (file, id = -1) => {
+  const fileSelectHandler = (file, id = -1) => {
     let reader = new FileReader();
     reader.onload = () => {
       if (id === -1) onChange(reader.result);
@@ -25,18 +25,18 @@ export const ImagePiker = ({
     reader.readAsDataURL(file[0]);
   };
 
-  let dragHandlerStart = (e, id) => {
+  const dragHandlerStart = (e, id) => {
     setSelected(id);
     console.log("dragHandlerStart", id);
   };
-  let dragHandlerEnd = (e) => {
+  const dragHandlerEnd = (e) => {
     e.target.style.boxShadow = "none";
   };
-  let dragHandlerOver = (e) => {
+  const dragHandlerOver = (e) => {
     e.preventDefault();
     e.target.style.boxShadow = "0 0 10px " + colors.shadow;
   };
-  let dragHandler = (e, id) => {
+  const dragHandler = (e, id) => {
     e.preventDefault();
     let list = values;
     if (selected !== -1) {
@@ -85,7 +85,7 @@ export const ImagePiker = ({
     }
     setSelected(-1);
   };
-  let removeItem = (id) =>
+  const removeItem = (id) =>
     onChange(id === -1 ? "" : values.map((item, i) => (id === i ? "" : item)));
 
   return (

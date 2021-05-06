@@ -7,7 +7,7 @@ export const VerifyInput = ({
   error,
   onBlur,
 }) => {
-  let inputs = [...Array(verifyKeyLength).keys()].map((id) => useRef());
+  const inputs = [...Array(verifyKeyLength).keys()].map((id) => useRef());
   const getKey = (value, id) => {
     let newVerifyKey = id ? verifyKey.slice(0, id) : "";
     if (!value.length) {

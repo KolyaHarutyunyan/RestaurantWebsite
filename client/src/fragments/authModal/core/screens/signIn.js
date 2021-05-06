@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Socials, Styled, Title, useAuthStyles } from "..";
 import { CONSTANTS } from "@eachbase/constants";
 import { Check, Change } from "@eachbase/components";
@@ -6,52 +7,42 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@eachbase/components";
 
-let clicked = false;
-
 export const SignIn = ({ open, close }) => {
-  let classes = useAuthStyles();
+  const classes = useAuthStyles();
 
   const [userData, setUserData] = useState({
     email: { value: "", error: null },
     password: { value: "", error: null },
   });
 
-  /** Connecting to the store */
   const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submit");
     if (!Check.form(setUserData)) {
       return 0;
     }
-
-    const user = {
-      email: userData.email.value,
-      password: userData.password.value,
-    };
-    clicked = !clicked;
   };
   const auth = useSelector(({ auth = {} }) => auth);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      console.log("closing");
       close();
     }
   }, [auth.isAuthenticated]);
 
   return (
-    <>
+    <Fragment>
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
-        <Input.email
+        <Input.Email
           icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.email(value, setUserData)}
           onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
-        <Input.pass
+        <Input.Password
           icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
@@ -86,6 +77,6 @@ export const SignIn = ({ open, close }) => {
         {" "}
         Doesn't have an account? Sign Up
       </Button>
-    </>
+    </Fragment>
   );
 };

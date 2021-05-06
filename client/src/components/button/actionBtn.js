@@ -12,8 +12,8 @@ export const ActionBtn = ({ onClick, className, type, text = false }) => {
       <Icon
         name={
           type === "remove"
-            ? CONSTANTS.CONSTANTS.SVGNames.Delete
-            : CONSTANTS.CONSTANTS.SVGNames.Edit
+            ? CONSTANTS.SVGNames.Delete
+            : CONSTANTS.SVGNames.Edit
         }
       />
       <div className="btnTitle">
