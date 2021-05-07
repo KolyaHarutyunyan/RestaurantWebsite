@@ -1,7 +1,6 @@
 import { Styled } from ".";
-import { Button, Icon } from "@eachbase/components";
+import { Button } from "@eachbase/components";
 import { useEffect, useRef, useState } from "react";
-import { CONSTANTS } from "@eachbase/constants";
 import { useSelector } from "react-redux";
 
 export const SelectCategory = ({ activeType }) => {
@@ -63,11 +62,7 @@ export const SelectCategory = ({ activeType }) => {
             onChange={(e) => changeNewCategoryName(e.target.value)}
           />
           <p>{newCategoryName || "Select / Create Category"}</p>
-
-          <Icon
-            name={CONSTANTS.SVGNames.DropdownArrow}
-            onClick={toggleCategories}
-          />
+          ICON
         </div>
         <div className="bg" onClick={toggleCategories} />
         <div className="items">

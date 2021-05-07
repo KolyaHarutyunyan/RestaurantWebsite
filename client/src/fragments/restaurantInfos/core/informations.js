@@ -2,7 +2,6 @@ import { Styled } from "./style";
 import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
-import { ModalContext } from "../../../contexts";
 
 export const Information = () => {
   let { name, description, logo } = useSelector(

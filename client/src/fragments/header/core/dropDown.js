@@ -1,8 +1,6 @@
-import { memo, useState } from "react";
+import { useState } from "react";
 import { Box, Button } from "@material-ui/core";
 import { useStyles } from "./style";
-import { Icon } from "../../../components";
-import { CONSTANTS } from "../../../contexts/constants";
 
 let user = {
   fullName: "Vzgo Vzgov",
@@ -20,9 +18,9 @@ export const DropDown = ({ isAuthed, handlerClick }) => {
             onClick={() => setOpenPopup(!openPopup)}
             className={classes.userButton + (openPopup ? " rotated" : "")}
           >
-            <Icon name={CONSTANTS.SVGNames.user} />
+            ICON
             {user.fullName}
-            <Icon name={CONSTANTS.SVGNames.arrowDown} />
+            ICON
           </Button>
           <Box className={classes.toggleMenu + (openPopup ? " opened" : "")}>
             <ul></ul>

@@ -1,6 +1,5 @@
 import { Styled } from "./style";
-import { Icon, PageTitle } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
+import { PageTitle } from "@eachbase/components";
 import { Menus, RestaurantInfos } from "@eachbase/fragments";
 import { useSelector } from "react-redux";
 
@@ -15,7 +14,7 @@ export const RestaurantPage = () => {
         <PageTitle>Restaurant</PageTitle>
         {QRImageUrl && (
           <a href={"#QRImageUrl"} className="downloadBtn">
-            <Icon name={CONSTANTS.SVGNames.Download} /> Download QR Code
+            ICON Download QR Code
           </a>
         )}
       </Styled.BlockTitle>

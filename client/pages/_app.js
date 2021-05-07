@@ -3,7 +3,6 @@ import Head from "next/head";
 import { Theme, MainWrapper } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
 import { Header, Footer } from "@eachbase/fragments";
-import { ContextProvider } from "@eachbase/context";
 import { initAxiosInterceptors } from "@eachbase/utils";
 
 initAxiosInterceptors();
@@ -20,13 +19,11 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <Store>
         <Theme>
-          <ContextProvider>
-            <Header />
-            <MainWrapper>
-              <Component {...pageProps} />
-              <Footer />
-            </MainWrapper>
-          </ContextProvider>
+          <Header />
+          <MainWrapper>
+            <Component {...pageProps} />
+            <Footer />
+          </MainWrapper>
         </Theme>
       </Store>
     </Fragment>

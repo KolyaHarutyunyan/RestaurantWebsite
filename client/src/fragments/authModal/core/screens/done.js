@@ -7,14 +7,12 @@ export const Done = ({ type, close }) => {
   let data = {
     restaurant: {
       title: {
-        logo: CONSTANTS.SVGNames.DoneRestaurant,
         beforeText: "Congrats you're all Set",
       },
       description: "Now you can create your first menu.Good Luck!",
     },
     password: {
       title: {
-        logo: CONSTANTS.SVGNames.DonePassword,
         beforeText: "Password Reset",
       },
       description: "Your Password has been reset successfully",

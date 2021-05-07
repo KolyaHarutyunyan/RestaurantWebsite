@@ -1,6 +1,5 @@
 import { Styled } from "./style";
-import { Icon } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
+import { Icons } from "@eachbase/components";
 
 export const ActionBtn = ({ onClick, className, type, text = false }) => {
   return (
@@ -9,13 +8,7 @@ export const ActionBtn = ({ onClick, className, type, text = false }) => {
       remove={type === "remove"}
       onClick={onClick}
     >
-      <Icon
-        name={
-          type === "remove"
-            ? CONSTANTS.SVGNames.Delete
-            : CONSTANTS.SVGNames.Edit
-        }
-      />
+      icon
       <div className="btnTitle">
         {text ? text : type === "remove" ? "Delete" : "Edit"}
       </div>

@@ -32,7 +32,6 @@ export const EditPassword = () => {
 
       <Styled.BlockForm open={!readOnly}>
         <Input.pass
-          icon={CONSTANTS.SVGNames.Password}
           {...passwords.current}
           onChange={(value) => Change.text(value, "current", setPasswords)}
           onBlur={() => Check.password(setPasswords, "current")}

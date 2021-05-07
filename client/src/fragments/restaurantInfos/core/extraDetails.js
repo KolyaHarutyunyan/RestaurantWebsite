@@ -1,11 +1,8 @@
 import { Styled } from "./style";
 import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
-import { CONSTANTS } from "../../../constants";
-import { Icon } from "../../../components";
 import { useContext, useState } from "react";
 import { TimeLine } from "./timeLine";
-import { ModalContext } from "../../../contexts";
 
 export const ExtraDetails = () => {
   let extraDetails = useSelector(({ restaurant }) =>
@@ -24,24 +21,24 @@ export const ExtraDetails = () => {
         editAction={() => openModal.editRestaurantExtraDetails()}
       />
       <Styled.Line notMt unSet={!extraDetails.webSite}>
-        <Icon name={CONSTANTS.SVGNames.Website} />
+        ICON
         <p className="info">{extraDetails.webSite || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line unSet={!extraDetails.phone}>
-        <Icon name={CONSTANTS.SVGNames.Call} />
+        ICON
         <p className="info">{extraDetails.phone || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line unSet={!extraDetails.location}>
-        <Icon name={CONSTANTS.SVGNames.Map} />
+        ICON
         <p className="info">{extraDetails.location || "Not Set"}</p>
       </Styled.Line>
       <Styled.Line>
-        <Icon name={CONSTANTS.SVGNames.Hours} />
+        ICON
         <button
           onClick={() => setOpenHours((current) => !current)}
           className={"hours"}
         >
-          hours <Icon name={CONSTANTS.SVGNames.DropdownArrow} />
+          hours ICON
         </button>
         <Styled.DropMenu
           status={openHours}

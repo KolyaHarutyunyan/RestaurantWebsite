@@ -1,4 +1,3 @@
-export { Icon } from "./icon";
 export { InputTypes } from "./inputs/core/formFunctions";
 export { ModalTitle } from "./modalTitle";
 export { PageTitle } from "./pageTitle";

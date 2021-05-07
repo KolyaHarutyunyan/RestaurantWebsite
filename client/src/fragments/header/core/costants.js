@@ -25,11 +25,9 @@ export const pageLinks = [
   {
     title: "Restaurant Verify",
     url: "/restaurant",
-    icon: CONSTANTS.SVGNames.Restaurant,
   },
   {
     title: "Account Settings",
     url: "/profile",
-    icon: CONSTANTS.SVGNames.Profile,
   },
 ];

@@ -1,7 +1,4 @@
 import { useContext } from "react";
-import { Icon } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
-import { ModalContext } from "@eachbase/context";
 
 let newItem = {
   title: "",
@@ -14,7 +11,7 @@ let newItem = {
 };
 
 export const AddNewMenuItem = ({ activeCategory, activeType }) => {
-  let { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
   newItem.type = activeType;
   newItem.parents = [activeCategory];
   return (
@@ -24,9 +21,7 @@ export const AddNewMenuItem = ({ activeCategory, activeType }) => {
         openModal.editMenuItem({ data: newItem, title: "Add Menu Item" })
       }
     >
-      <span className="iconBlock">
-        <Icon name={CONSTANTS.SVGNames.AddIcon} />
-      </span>
+      <span className="iconBlock">ICON</span>
       Add New Menu Item
     </button>
   );

@@ -1,9 +1,7 @@
 import { Styled } from "./style";
 import Link from "next/link";
-import { Icon, PageTitle, Switch, Button } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
+import { PageTitle, Switch, Button } from "@eachbase/components";
 import { useContext } from "react";
-import { ModalContext } from "../../../contexts";
 
 export const Title = ({ title, id, status, changeStatus }) => {
   let { openModal } = useContext(ModalContext);
@@ -13,8 +11,7 @@ export const Title = ({ title, id, status, changeStatus }) => {
         <Link href={"/restaurant"}>
           <a>restaurant</a>
         </Link>
-        <Icon name={CONSTANTS.SVGNames.Forward} />
-        Menu
+        ICON Menu
       </Styled.Navigator>
       <Styled.Title status={status}>
         <PageTitle>Menu</PageTitle>

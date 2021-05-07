@@ -47,22 +47,19 @@ export const Menus = ({ status, type, user, toggleRef }) => {
         <>
           {type && (
             <Box className={classes.dropdownMenuItem}>
-              <Icon name={CONSTANTS.SVGNames.User} />
+              ICON
               {user.fullName}
             </Box>
           )}
           {pageLinks.map((item, i) => (
             <Link href={item.url} key={i}>
               <a className={hoverableMenuItemClassName}>
-                <Icon name={item.icon} />
+                ICON
                 {item.title}
               </a>
             </Link>
           ))}
-          <button className={hoverableMenuItemClassName}>
-            <Icon name={CONSTANTS.SVGNames.LogOut} />
-            Sign Up
-          </button>
+          <button className={hoverableMenuItemClassName}>ICON Sign Up</button>
         </>
       )}
     </Box>

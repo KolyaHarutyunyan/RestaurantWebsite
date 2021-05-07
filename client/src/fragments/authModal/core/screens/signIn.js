@@ -34,13 +34,11 @@ export const SignIn = ({ open, close }) => {
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.Email
-          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.email(value, setUserData)}
           placeholder="Email"
         />
         <Input.Password
-          icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
           placeholder="Password"

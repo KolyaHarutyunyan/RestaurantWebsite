@@ -1,8 +1,6 @@
 import { Style } from "./core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Icon } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
 import Link from "next/link";
 
 export const Footer = () => {
@@ -35,7 +33,7 @@ export const Footer = () => {
           </Link>
         </Style.Infos>
         <Style.Logo>
-          <Icon name={CONSTANTS.SVGNames.LogoWhite} />
+          ICON
           <p>Menuz</p>
         </Style.Logo>
       </Style.Content>

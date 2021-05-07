@@ -1,16 +1,5 @@
 import { Styled } from ".";
 import { useState } from "react";
-import { Icon } from "../../../components";
-import { CONSTANTS } from "../../../constants";
-
-const getHeight = (hours) => {
-  let count = 0;
-  hours.map((item) => {
-    count += item.hours.length;
-  });
-  return count;
-};
-
 export const Hours = ({ hours }) => {
   console.log(hours);
   const [status, setStatus] = useState(true);
@@ -20,10 +9,7 @@ export const Hours = ({ hours }) => {
         <p onClick={() => setStatus((current) => !current)}>
           Hours of Operation
         </p>
-        <Icon
-          onClick={() => setStatus((current) => !current)}
-          name={CONSTANTS.SVGNames.LeftArrow}
-        />
+        ICON
       </div>
       <div className="hours">
         {hours.map((day) => (
@@ -33,12 +19,8 @@ export const Hours = ({ hours }) => {
               {day.hours.map((item) => (
                 <div className="line">
                   {item}
-                  <div className="actionBtn">
-                    <Icon name={CONSTANTS.SVGNames.RemoveHours} />
-                  </div>
-                  <div className="actionBtn">
-                    <Icon name={CONSTANTS.SVGNames.AddHours} />
-                  </div>
+                  <div className="actionBtn">ICON</div>
+                  <div className="actionBtn">ICON</div>
                 </div>
               ))}
             </div>

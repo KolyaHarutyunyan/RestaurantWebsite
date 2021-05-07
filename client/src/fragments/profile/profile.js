@@ -1,19 +1,11 @@
 import { EditPassword, EditUserData, Styled } from "./core";
 import { useDispatch } from "react-redux";
-import { profileActions } from "@eachbase/store";
-import { useContext } from "react";
-import { ModalContext } from "@eachbase/context";
 import { PageTitle } from "@eachbase/components";
 
 export const Profile = () => {
-  let dispatch = useDispatch();
-  let { openModal } = useContext(ModalContext);
+  const dispatch = useDispatch();
 
-  let handlerRemove = () => {
-    openModal.removeAccount({
-      submit: (password) => dispatch(profileActions.remove({ password })),
-    });
-  };
+  const handlerRemove = () => {};
 
   return (
     <Styled.Content>

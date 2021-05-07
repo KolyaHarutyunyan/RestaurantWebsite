@@ -2,8 +2,6 @@ import { Box, Dialog, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { Screens, useAuthStyles } from "./core";
 import { memo, useState } from "react";
-import { Icon } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
 import { useDispatch } from "react-redux";
 
 const screens = {
@@ -16,7 +14,7 @@ const screens = {
   resetPass: "ResetPass",
 };
 
-export const AuthModal = memo(({ status, props, close }) => {
+export const AuthModal = ({ status, props, close }) => {
   let classes = useAuthStyles();
   const [activeScreen, setActiveScreen] = useState({
     type: screens.signIn,
@@ -79,7 +77,7 @@ export const AuthModal = memo(({ status, props, close }) => {
           className={classes.backIcon}
           onClick={open[activeScreen.props.backTo || "SignIn"]}
         >
-          <Icon name={CONSTANTS.SVGNames.Back} />
+          icon
         </IconButton>
       ) : null}
       {!activeScreen.props.notCloseBtn ? (
@@ -96,4 +94,4 @@ export const AuthModal = memo(({ status, props, close }) => {
       </Box>
     </Dialog>
   );
-});
+};

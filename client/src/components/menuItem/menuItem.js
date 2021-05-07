@@ -2,7 +2,6 @@ import { Styled } from "./style";
 import { useSelector } from "react-redux";
 import { Button, ItemImage } from "@eachbase/components";
 import { useContext } from "react";
-import { ModalContext } from "../../contexts";
 
 export const MenuItem = ({ itemId, parentName, parentId }) => {
   let item = useSelector(

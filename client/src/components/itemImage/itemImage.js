@@ -1,6 +1,11 @@
 import { Styled } from "./style";
 import { CONSTANTS } from "../../constants";
-import { Icon } from "../icon";
+import {
+  FoodIcon,
+  DrinkIcon,
+  RedLineIcon,
+  MenuIcon,
+} from "@eachbase/components/icons";
 export const ItemImage = ({
   url,
   type,
@@ -8,12 +13,13 @@ export const ItemImage = ({
   onRemove,
   onClick = () => {},
 }) => {
-  let svg = {
-    foods: CONSTANTS.SVGNames.Food,
-    drinks: CONSTANTS.SVGNames.Drink,
-    restaurant: CONSTANTS.SVGNames.Build,
-    menu: CONSTANTS.SVGNames.Menu,
+  const svg = {
+    foods: FoodIcon,
+    drinks: DrinkIcon,
+    restaurant: RedLineIcon,
+    menu: MenuIcon,
   }[type];
+  const Icon = svg;
 
   return (
     <Styled.Block
@@ -24,11 +30,10 @@ export const ItemImage = ({
       }}
     >
       <div className="bgItemImage" />
-      {!url && <Icon name={svg} className="itemIcon" />}
+      {!url && <Icon />}
       {url && onRemove && (
         <button onClick={onRemove} className="removeItemImage">
-          {" "}
-          <Icon name={CONSTANTS.SVGNames.Close} />{" "}
+          <Icon />
         </button>
       )}
     </Styled.Block>

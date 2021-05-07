@@ -1,8 +1,6 @@
-import { memo } from "react";
 import { Styled, socialData } from "..";
-import { Icon } from "@eachbase/components";
 
-export const Socials = memo(({ type }) => {
+export const Socials = ({ type }) => {
   let socials = socialData(`${type} with your social media account`);
 
   return (
@@ -11,10 +9,10 @@ export const Socials = memo(({ type }) => {
       <div className="icons">
         {socials.icons.map((item, i) => (
           <a key={i} href={item.link}>
-            <Icon name={item.icon} />
+            icon
           </a>
         ))}
       </div>
     </Styled.SocialBlock>
   );
-});
+};

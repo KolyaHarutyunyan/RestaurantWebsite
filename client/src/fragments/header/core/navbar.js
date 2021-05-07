@@ -1,16 +1,12 @@
 import { forwardRef, useContext, useEffect } from "react";
 import { Box, Button } from "@material-ui/core";
 import { CreateMenu, useHeaderStyles } from ".";
-import { CONSTANTS } from "@eachbase/constants";
-import { Icon } from "@eachbase/components";
-import { ModalContext } from "@eachbase/context";
 
 export const Navbar = forwardRef(
   ({ toggle, isMobile, user, status, onRequestToClose }, toggleRef) => {
     const classes = useHeaderStyles();
 
-    const { openModal } = useContext(ModalContext);
-    const openAuth = () => openModal.auth();
+    const openAuth = () => {};
 
     useEffect(() => {
       const documentClickHandler = ({ path }) => {
@@ -47,7 +43,7 @@ export const Navbar = forwardRef(
               status ? " opened" : ""
             } mobile-side-toggle-button`}
           >
-            <Icon name={CONSTANTS.SVGNames.ToggleMenu} />
+            ICON
           </Button>
         ) : (
           <div className={classes.menu}>
@@ -65,9 +61,9 @@ export const Navbar = forwardRef(
                       user-toggle-button
                       `}
                   >
-                    <Icon name={CONSTANTS.SVGNames.User} />
+                    ICON
                     {user.fullName}
-                    <Icon name={CONSTANTS.SVGNames.DownArrow} />
+                    ICON
                   </Button>
                 </Box>
               ) : (

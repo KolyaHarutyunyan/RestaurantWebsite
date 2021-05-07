@@ -78,8 +78,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
             onChange={(e) => changeNewItemName(e.target.value)}
           />
           <p>Choose from the List</p>
-
-          <Icon name={CONSTANTS.SVGNames.DropdownArrow} onClick={toggleItems} />
+          ICON
         </div>
         <div className="bg" onClick={toggleItems} />
         <div className="items">
@@ -92,9 +91,7 @@ export const SelectMenuItem = ({ activeType, activeCategoryId }) => {
                   item.selected ? "selected" : ""
                 }`}
               >
-                <div className="checkBox">
-                  <Icon name={CONSTANTS.SVGNames.Checkmark} />
-                </div>
+                <div className="checkBox">ICON</div>
                 <div className="title">{item.title}</div>
               </div>
             ))

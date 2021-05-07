@@ -1,10 +1,7 @@
 import { Styled } from ".";
-import { Icon, Switch } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
+import { Switch } from "@eachbase/components";
 import { useContext, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { ModalContext } from "../../../contexts";
 
 export const Item = ({ item, newItem }) => {
   let { openModal } = useContext(ModalContext);
@@ -25,13 +22,12 @@ export const Item = ({ item, newItem }) => {
         onClick={openMenu}
         bgi={!newItem && item.backgroundImage}
       >
-        {newItem && <Icon name={CONSTANTS.SVGNames.Menu} />}
+        {newItem && "ICON"}
       </Styled.ItemImage>
       <Styled.ItemContent>
         {newItem ? (
           <button className="addNew" onClick={openMenu}>
-            <Icon name={CONSTANTS.SVGNames.AddIcon} />
-            Add Menu
+            ICON Add Menu
           </button>
         ) : (
           <>
@@ -43,7 +39,7 @@ export const Item = ({ item, newItem }) => {
               <p className="description">{item.description}</p>
 
               <button className={"dropBtn"} onClick={toggleChecked}>
-                <Icon name={CONSTANTS.SVGNames.More} />
+                ICON
               </button>
 
               <Styled.DropMenu status={openOptions}>

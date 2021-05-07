@@ -1,7 +1,6 @@
 import { Styled, Title } from "./core";
 import { Button, ItemImage } from "@eachbase/components";
 import { useContext } from "react";
-import { ModalContext } from "../../contexts";
 
 export const MenuInfos = ({ title, id, status, imageUrl, description }) => {
   let { openModal } = useContext(ModalContext);

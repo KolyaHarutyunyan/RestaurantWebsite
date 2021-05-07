@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Icon, Input, Button, PageTitle } from "@eachbase/components";
+import { Input, Button, PageTitle } from "@eachbase/components";
 import { CONSTANTS } from "@eachbase/constants";
-import { Change, Check, InputTypes, CheckForm } from "@eachbase/components";
+import { InputTypes, CheckForm } from "@eachbase/components";
 import { Styled } from "./core";
 
 let dataType = {
@@ -82,23 +82,15 @@ export const ConfirmPassword = ({ type, authToken }) => {
   console.log(userData);
   return (
     <Styled.Content>
-      <Icon name={CONSTANTS.SVGNames.Logo} />
+      ICON
       <PageTitle>{title}</PageTitle>
       <Styled.Block>
         <Styled.BlockDescription>{Description}</Styled.BlockDescription>
 
-        <Input
-          icon={CONSTANTS.SVGNames.Password}
-          {...userData[dataType.newPass]}
-          setState={setUserData}
-        />
+        <Input {...userData[dataType.newPass]} setState={setUserData} />
 
         {type === "reset" && (
-          <Input
-            icon={CONSTANTS.SVGNames.Password}
-            {...userData[dataType.confirmPass]}
-            setState={setUserData}
-          />
+          <Input {...userData[dataType.confirmPass]} setState={setUserData} />
         )}
         <Button.Accept onClick={handlerSubmit}>Sign In</Button.Accept>
       </Styled.Block>

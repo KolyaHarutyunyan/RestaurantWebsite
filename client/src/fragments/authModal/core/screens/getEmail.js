@@ -37,7 +37,6 @@ export const GetEmail = ({ open }) => {
       </Styled.Description>
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.email
-          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}

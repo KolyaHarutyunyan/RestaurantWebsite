@@ -58,21 +58,18 @@ export const SignUp = ({ open }) => {
       <Title afterText="Welcome to Menuz" />
       <Styled.FormBlock onSubmit={(e) => handleSubmit(e)}>
         <Input.text
-          icon={CONSTANTS.SVGNames.Profile}
           {...userData.fullName}
           onChange={(value) => Change.text(value, "fullName", setUserData)}
           onBlur={() => Check.text("fullName", setUserData)}
           placeholder="Full Name"
         />
         <Input.email
-          icon={CONSTANTS.SVGNames.Email}
           {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}
           placeholder="Email"
         />
         <Input.pass
-          icon={CONSTANTS.SVGNames.Password}
           {...userData.password}
           onChange={(value) => Change.text(value, "password", setUserData)}
           onBlur={() => Check.pass(setUserData)}
