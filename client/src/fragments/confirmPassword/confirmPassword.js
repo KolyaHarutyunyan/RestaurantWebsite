@@ -34,7 +34,6 @@ export const ConfirmPassword = ({ type, authToken }) => {
 
   let handlerSubmit = () => {
     if (!CheckForm(setUserData)) {
-      console.log("rewrite your data");
       return 0;
     }
     if (
@@ -63,11 +62,6 @@ export const ConfirmPassword = ({ type, authToken }) => {
             authToken,
             password: userData[dataType.newPass].value,
           };
-
-    console.log({
-      ...userData,
-      authToken,
-    });
   };
   let title = type === "reset" ? "Reset Password" : "Verify Your Account";
   let Description =
@@ -79,7 +73,6 @@ export const ConfirmPassword = ({ type, authToken }) => {
     ) : (
       "Enter your password."
     );
-  console.log(userData);
   return (
     <Styled.Content>
       ICON

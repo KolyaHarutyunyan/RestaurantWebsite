@@ -17,8 +17,6 @@ export const ItemsList = ({ activeCategoryId }) => {
             .title || ""
       )
     : "";
-
-  // console.log(itemIds)
   return (
     <Styled.ItemsList className="items" hasScroll={itemIds.length > 4}>
       <div className="content">

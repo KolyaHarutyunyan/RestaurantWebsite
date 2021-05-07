@@ -42,8 +42,6 @@ export const Categories = () => {
     setActiveCategoryId(val);
     if (!desktop) setOpenRightBlock(true);
   };
-
-  // console.log(activeType, activeCategoryId, desktop)
   return (
     <>
       <Styled.Content>

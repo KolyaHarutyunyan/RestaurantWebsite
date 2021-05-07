@@ -27,7 +27,6 @@ export const ImagePiker = ({
 
   const dragHandlerStart = (e, id) => {
     setSelected(id);
-    console.log("dragHandlerStart", id);
   };
   const dragHandlerEnd = (e) => {
     e.target.style.boxShadow = "none";
@@ -41,13 +40,11 @@ export const ImagePiker = ({
     let list = values;
     if (selected !== -1) {
       let t = list[id];
-      console.log(id, selected);
       list[id] = list[selected];
       list[selected] = t;
       setSelected(-1);
       onChange(list);
     } else {
-      console.log(id);
       if (id === -2) {
         let reader = new FileReader();
         reader.onload = () => {
@@ -55,12 +52,9 @@ export const ImagePiker = ({
         };
         reader.readAsDataURL([...e.dataTransfer.files][0]);
       } else {
-        console.log([...e.dataTransfer.files].length);
         let addImg = (files) => {
-          console.log(files.length);
           let reader = new FileReader();
           let _id = -1;
-          console.log(list);
           for (let i = 0; i < count; i++)
             if (!list[i]) {
               _id = i;
@@ -69,12 +63,10 @@ export const ImagePiker = ({
 
           if (_id === -1 || !files.length) {
             onChange(list);
-            console.log(_id, files.length);
             return;
           }
           reader.onload = () => {
             list = list.map((item, i) => (i === _id ? reader.result : item));
-            console.log(list);
 
             addImg(files.splice(1, files.length - 1));
           };

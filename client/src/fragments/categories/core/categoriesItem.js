@@ -10,7 +10,6 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
   );
   let { openModal } = useContext(ModalContext);
   if (!category) return null;
-  // console.log(categoryId === activeCategory,activeCategory)
   return (
     <Styled.CategoryItem
       active={categoryId === activeCategory}

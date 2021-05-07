@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 export const MenuInfos = ({ title, id, status, imageUrl, description }) => {
   let { openModal } = useContext(ModalContext);
-  let toggle = () => console.log("change Status");
+  let toggle = () => {};
   return (
     <>
       <Title title={title} status={status} id={id} changeStatus={toggle} />

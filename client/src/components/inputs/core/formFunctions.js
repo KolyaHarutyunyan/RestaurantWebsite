@@ -77,7 +77,6 @@ export const CheckForm = (setState) => {
         return 0;
       }
       newState[key].error = test[current[key].type]({ ...current[key] });
-      console.log(`${key} --> ${current[key].type}`);
       if (newState[key].error) notError = false;
       return 0;
     });
