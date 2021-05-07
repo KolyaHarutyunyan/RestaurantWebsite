@@ -1,6 +1,7 @@
 import { Style } from "./core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Icons } from "@eachbase/components";
 import Link from "next/link";
 
 export const Footer = () => {
@@ -33,7 +34,7 @@ export const Footer = () => {
           </Link>
         </Style.Infos>
         <Style.Logo>
-          ICON
+          <Icons.LogoInvert />
           <p>Menuz</p>
         </Style.Logo>
       </Style.Content>

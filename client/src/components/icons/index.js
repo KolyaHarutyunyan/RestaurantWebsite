@@ -1,34 +1,71 @@
-export * as AddIcon from "./svgs/add.svg";
-export * as CloseBurgerIcon from "./svgs/close_burger.svg";
-export * as FaceBookIcon from "./svgs/facebook.svg";
-export * as BackIcon from "./svgs/back.svg";
-export * as DeleteIcon from "./svgs/delete.svg";
-export * as FoodIcon from "./svgs/food.svg";
-export * as PasswordIcon from "./svgs/password.svg";
-export * as BuildingIocn from "./svgs/building.svg";
-export * as DoneIcon from "./svgs/done.svg";
-export * as GoogleIcon from "./svgs/google.svg";
-export * as PersonIcon from "./svgs/person.svg";
-export * as CallIcon from "./svgs/call.svg";
-export * as DownloadIcon from "./svgs/download.svg";
-export * as HoursIcon from "./svgs/hours.svg";
-export * as ProfileIcon from "./svgs/profile.svg";
-export * as CheckmarkIcon from "./svgs/checkmark.svg";
-export * as DrinkIcon from "./svgs/drink.svg";
-export * as LogoIcon from "./svgs/logo.svg";
-export * as RedLineIcon from "./svgs/red_line.svg";
-export * as ChevronIcon from "./svgs/chevron.svg";
-export * as EditIcon from "./svgs/edit.svg";
-export * as LogoInvert from "./svgs/logo_invert.svg";
-export * as ThreeDots from "./svgs/three_dots.svg";
-export * as ChevronDown from "./svgs/chevron_down.svg";
-export * as EmailIcon from "./svgs/email.svg";
-export * as LogoutIcon from "./svgs/logout.svg";
-export * as TwitterIcon from "./svgs/twitter.svg";
-export * as ChevronRight from "./svgs/chevron_right.svg";
-export * as EyeIcon from "./svgs/eye.svg";
-export * as MapIcon from "./svgs/map.svg";
-export * as WWWIcon from "./svgs/www.svg";
-export * as CloseIcon from "./svgs/close.svg";
-export * as EyeOffIcon from "./svgs/eye_off.svg";
-export * as MenuIcon from "./svgs/menu.svg";
+import AddIcon from "./svgs/add.svg";
+import CloseBurgerIcon from "./svgs/close_burger.svg";
+import FaceBookIcon from "./svgs/facebook.svg";
+import BackIcon from "./svgs/back.svg";
+import DeleteIcon from "./svgs/delete.svg";
+import FoodIcon from "./svgs/food.svg";
+import PasswordIcon from "./svgs/password.svg";
+import BuildingIocn from "./svgs/building.svg";
+import DoneIcon from "./svgs/done.svg";
+import GoogleIcon from "./svgs/google.svg";
+import PersonIcon from "./svgs/person.svg";
+import CallIcon from "./svgs/call.svg";
+import DownloadIcon from "./svgs/download.svg";
+import HoursIcon from "./svgs/hours.svg";
+import ProfileIcon from "./svgs/profile.svg";
+import CheckmarkIcon from "./svgs/checkmark.svg";
+import DrinkIcon from "./svgs/drink.svg";
+import LogoIcon from "./svgs/logo.svg";
+import RedLineIcon from "./svgs/red_line.svg";
+import ChevronIcon from "./svgs/chevron.svg";
+import EditIcon from "./svgs/edit.svg";
+import LogoInvert from "./svgs/logo_invert.svg";
+import ThreeDots from "./svgs/three_dots.svg";
+import ChevronDown from "./svgs/chevron_down.svg";
+import EmailIcon from "./svgs/email.svg";
+import LogoutIcon from "./svgs/logout.svg";
+import TwitterIcon from "./svgs/twitter.svg";
+import ChevronRight from "./svgs/chevron_right.svg";
+import EyeIcon from "./svgs/eye.svg";
+import MapIcon from "./svgs/map.svg";
+import WWWIcon from "./svgs/www.svg";
+import CloseIcon from "./svgs/close.svg";
+import EyeOffIcon from "./svgs/eye_off.svg";
+import MenuIcon from "./svgs/menu.svg";
+
+export {
+  AddIcon,
+  CloseBurgerIcon,
+  FaceBookIcon,
+  BackIcon,
+  DeleteIcon,
+  FoodIcon,
+  PasswordIcon,
+  BuildingIocn,
+  DoneIcon,
+  GoogleIcon,
+  PersonIcon,
+  CallIcon,
+  DownloadIcon,
+  HoursIcon,
+  ProfileIcon,
+  CheckmarkIcon,
+  DrinkIcon,
+  LogoIcon,
+  RedLineIcon,
+  ChevronIcon,
+  EditIcon,
+  LogoInvert,
+  ThreeDots,
+  ChevronDown,
+  EmailIcon,
+  LogoutIcon,
+  TwitterIcon,
+  ChevronRight,
+  EyeIcon,
+  MapIcon,
+  WWWIcon,
+  CloseIcon,
+  EyeOffIcon,
+  MenuIcon,
+};
