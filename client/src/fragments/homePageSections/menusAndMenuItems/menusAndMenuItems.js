@@ -1,10 +1,9 @@
 import { Container } from "./style";
 import { Image, Typography, Button } from "@eachbase/components";
-import { STYLED } from "@eachbase/theme";
 export const MenusAndMenuItems = () => {
   return (
     <Container>
-      <STYLED.Container>
+      <div className="container">
         <Typography className="g-title" color="text" size="3rem">
           Categorize Menus & Menu Items
         </Typography>
@@ -16,7 +15,7 @@ export const MenusAndMenuItems = () => {
           five centuries, but also the leap into electronic typesetting,
           remaining essentially unchanged. It was popularised in the 1960s.
         </Typography>
-      </STYLED.Container>
+      </div>
       <ul className="cards">
         <li>
           <Image />

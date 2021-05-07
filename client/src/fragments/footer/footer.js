@@ -1,18 +1,18 @@
 import { Style } from "./core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { STYLED } from "@eachbase/theme";
 import { Icon } from "@eachbase/components";
 import { CONSTANTS } from "@eachbase/constants";
 import Link from "next/link";
 
 export const Footer = () => {
-  let router = useRouter();
+  const router = useRouter();
 
   const [fix, setFix] = useState(false);
-  let checkType = () => {
+  const checkType = () => {
     setFix(document.querySelector("#__next").clientHeight < window.innerHeight);
   };
+
   useEffect(() => {
     checkType();
     window.addEventListener("resize", checkType);

@@ -7,6 +7,7 @@ const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const dispatch = useDispatch();
+
   return (
     <Context.Provider value={{}}>
       <IconProvider>

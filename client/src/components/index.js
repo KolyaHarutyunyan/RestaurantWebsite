@@ -10,3 +10,4 @@ export { ItemImage } from "./itemImage";
 export { Typography } from "./typography";
 export { Image } from "./Image";
 export { Change, Check, CheckForm, Input, Styled } from "./inputs";
+export * as Icons from "./icons";

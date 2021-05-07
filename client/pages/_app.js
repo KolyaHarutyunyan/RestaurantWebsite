@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { Theme, STYLED } from "@eachbase/theme";
+import { Theme, MainWrapper } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
 import { Header, Footer } from "@eachbase/fragments";
 import { ContextProvider } from "@eachbase/context";
@@ -22,10 +22,10 @@ export default function MyApp({ Component, pageProps }) {
         <Theme>
           <ContextProvider>
             <Header />
-            <STYLED.Main main={true}>
+            <MainWrapper>
               <Component {...pageProps} />
               <Footer />
-            </STYLED.Main>
+            </MainWrapper>
           </ContextProvider>
         </Theme>
       </Store>

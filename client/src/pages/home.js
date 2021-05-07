@@ -7,19 +7,18 @@ import {
   QRCode,
   HowItWorks,
 } from "../fragments/homePageSections";
-import { STYLED } from "@eachbase/theme";
 export const HomePage = () => {
   return (
     <Fragment>
       <Hero />
-      <STYLED.Container>
+      <div className="container">
         <YourBusiness />
-      </STYLED.Container>
+      </div>
       <QRCode />
-      <STYLED.Container>
+      <div className="container">
         <HowItWorks />
         <DigitalMenu />
-      </STYLED.Container>
+      </div>
       <MenusAndMenuItems />
     </Fragment>
   );

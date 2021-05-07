@@ -1,4 +1,3 @@
-import { SVGNames } from "./SVGNames";
 import { Pages } from "./pages";
 import { API_BASE } from "./server";
 
