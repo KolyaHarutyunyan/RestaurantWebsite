@@ -1,12 +1,12 @@
 import { forwardRef, useContext, useEffect } from "react";
 import { Box, Button } from "@material-ui/core";
 import { CreateMenu, useHeaderStyles } from ".";
-
+import { useModal } from "@eachbase/components";
 export const Navbar = forwardRef(
   ({ toggle, isMobile, user, status, onRequestToClose }, toggleRef) => {
     const classes = useHeaderStyles();
-
-    const openAuth = () => {};
+    const { open } = useModal();
+    const openAuth = () => open("sign-in");
 
     useEffect(() => {
       const documentClickHandler = ({ path }) => {

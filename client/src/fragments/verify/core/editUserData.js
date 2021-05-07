@@ -23,7 +23,6 @@ export const EditUserData = () => {
       </Styled.SaveBtn>
       <Styled.BlockForm open>
         <Input
-          {...userData.fullName}
           onChange={(value) => Change.text(value, "fullName", setUserData)}
           onBlur={() => Check.text("fullName", setUserData, 3, 40)}
           placeholder="full name"
@@ -34,7 +33,6 @@ export const EditUserData = () => {
           mtt={8}
         />
         <Input
-          {...userData.email}
           onChange={(value) => Change.text(value, "email", setUserData)}
           onBlur={() => Check.email(setUserData)}
           placeholder="email"

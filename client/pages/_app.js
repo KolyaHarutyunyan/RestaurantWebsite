@@ -4,7 +4,8 @@ import { Theme, MainWrapper } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
 import { Header, Footer } from "@eachbase/fragments";
 import { initAxiosInterceptors } from "@eachbase/utils";
-
+import { ModalProvider, Modal } from "@eachbase/components";
+import { SignInForm } from "@eachbase/fragments";
 initAxiosInterceptors();
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -18,13 +19,18 @@ export default function MyApp({ Component, pageProps }) {
         <title>Menuz</title>
       </Head>
       <Store>
-        <Theme>
-          <Header />
-          <MainWrapper>
-            <Component {...pageProps} />
-            <Footer />
-          </MainWrapper>
-        </Theme>
+        <ModalProvider>
+          <Theme>
+            <Header />
+            <MainWrapper>
+              <Component {...pageProps} />
+              <Footer />
+            </MainWrapper>
+          </Theme>
+          <Modal modalName="sign-in">
+            <SignInForm />
+          </Modal>
+        </ModalProvider>
       </Store>
     </Fragment>
   );
