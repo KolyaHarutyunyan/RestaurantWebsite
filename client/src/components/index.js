@@ -1,5 +1,4 @@
 export { InputTypes } from "./inputs/core/formFunctions";
-export { PageTitle } from "./pageTitle";
 export { Button } from "./button";
 export { Switch } from "./swich/Switch";
 export { MenuItem } from "./menuItem";
