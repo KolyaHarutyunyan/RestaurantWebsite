@@ -4,7 +4,7 @@ import { Change, Check } from "@eachbase/components";
 
 const EF = () => {};
 
-export const TextInput = ({
+export const Input = ({
   type,
   isDisabled,
   error,
