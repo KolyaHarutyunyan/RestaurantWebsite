@@ -5,7 +5,7 @@ export { Switch } from "./swich/Switch";
 export { MenuItem } from "./menuItem";
 export { ItemImage } from "./itemImage";
 export { Typography } from "./typography";
-export { Image } from "./Image";
+export { Image } from "./image";
 export { Change, Check, CheckForm, Input, Styled } from "./inputs";
 export * as Icons from "./icons";
 export { Modal, ModalProvider, useModal } from "./modal";

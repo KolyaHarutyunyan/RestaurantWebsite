@@ -1,6 +1,6 @@
 import { EditPassword, EditUserData, Styled } from "./core";
 import { useDispatch } from "react-redux";
-import { PageTitle } from "@eachbase/components";
+import { Typography } from "@eachbase/components";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ export const Profile = () => {
 
   return (
     <Styled.Content>
-      <PageTitle>Account Settings</PageTitle>
+      <Typography>Account Settings</Typography>
 
       <EditUserData />
       <EditPassword />

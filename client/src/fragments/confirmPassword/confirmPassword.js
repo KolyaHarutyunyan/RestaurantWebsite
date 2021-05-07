@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Input, Button, PageTitle } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
+import { Input, Button, Typography } from "@eachbase/components";
 import { InputTypes, CheckForm } from "@eachbase/components";
 import { Styled } from "./core";
 
@@ -76,7 +75,7 @@ export const ConfirmPassword = ({ type, authToken }) => {
   return (
     <Styled.Content>
       ICON
-      <PageTitle>{title}</PageTitle>
+      <Typograhpy>{title}</Typograhpy>
       <Styled.Block>
         <Styled.BlockDescription>{Description}</Styled.BlockDescription>
 

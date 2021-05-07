@@ -1,6 +1,6 @@
 import { Styled } from "./style";
 import Link from "next/link";
-import { PageTitle, Switch, Button } from "@eachbase/components";
+import { Typography, Switch, Button } from "@eachbase/components";
 import { useContext } from "react";
 
 export const Title = ({ title, id, status, changeStatus }) => {
@@ -14,7 +14,7 @@ export const Title = ({ title, id, status, changeStatus }) => {
         ICON Menu
       </Styled.Navigator>
       <Styled.Title status={status}>
-        <PageTitle>Menu</PageTitle>
+        <Typography>Menu</Typography>
         <div className="ctrl">
           <Button.Action
             type={"remove"}

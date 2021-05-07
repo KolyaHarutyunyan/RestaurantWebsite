@@ -1,5 +1,5 @@
 import { Styled } from "./style";
-import { PageTitle } from "@eachbase/components";
+import { Typography } from "@eachbase/components";
 import { Menus, RestaurantInfos } from "@eachbase/fragments";
 import { useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ export const RestaurantPage = () => {
   return (
     <Styled.Content>
       <Styled.BlockTitle>
-        <PageTitle>Restaurant</PageTitle>
+        <Typography>Restaurant</Typography>
         {QRImageUrl && (
           <a href={"#QRImageUrl"} className="downloadBtn">
             ICON Download QR Code
@@ -20,7 +20,7 @@ export const RestaurantPage = () => {
       </Styled.BlockTitle>
       <RestaurantInfos />
       <Styled.BlockTitle>
-        <PageTitle>Menus</PageTitle>
+        <Typography>Menus</Typography>
       </Styled.BlockTitle>
       <Menus />
     </Styled.Content>
