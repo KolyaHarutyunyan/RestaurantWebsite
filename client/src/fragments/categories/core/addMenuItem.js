@@ -11,16 +11,10 @@ let newItem = {
 };
 
 export const AddNewMenuItem = ({ activeCategory, activeType }) => {
-  const { openModal } = useContext(ModalContext);
   newItem.type = activeType;
   newItem.parents = [activeCategory];
   return (
-    <button
-      className="add"
-      onClick={() =>
-        openModal.editMenuItem({ data: newItem, title: "Add Menu Item" })
-      }
-    >
+    <button className="add" onClick={() => {}}>
       <span className="iconBlock">ICON</span>
       Add New Menu Item
     </button>

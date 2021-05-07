@@ -1,14 +1,12 @@
 import { Styled } from "./style";
 import { useSelector } from "react-redux";
 import { Button, ItemImage } from "@eachbase/components";
-import { useContext } from "react";
 
-export const MenuItem = ({ itemId, parentName, parentId }) => {
+export const MenuItem = ({ itemId, parentName }) => {
   let item = useSelector(
     ({ menuItems = [] }) =>
       menuItems.find((menuItem) => menuItem.id === itemId) || false
   );
-  let { openModal } = useContext(ModalContext);
   if (!item) return null;
   return (
     <Styled.Block>
