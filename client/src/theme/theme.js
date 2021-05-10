@@ -1,4 +1,8 @@
-import { createMuiTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
+import {
+  createMuiTheme,
+  ThemeProvider as ThemeProviderMaterialUI,
+  CssBaseline,
+} from "@material-ui/core";
 import { GlobalCss } from "./globalCss";
 
 export const defaultTheme = createMuiTheme();
@@ -64,10 +68,10 @@ export const theme = createMuiTheme({
   spacing: 8,
 });
 
-export const Theme = ({ children }) => (
-  <ThemeProvider theme={theme}>
+export const ThemeProvider = ({ children }) => (
+  <ThemeProviderMaterialUI theme={theme}>
     <GlobalCss />
     <CssBaseline />
     {children}
-  </ThemeProvider>
+  </ThemeProviderMaterialUI>
 );

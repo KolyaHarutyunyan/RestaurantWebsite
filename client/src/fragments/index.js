@@ -1,5 +1,4 @@
-export { Header } from "./header";
-export { Footer } from "./footer";
+export { Layout } from "./layout";
 
 export { Verify } from "./verify";
 export { Profile } from "./profile";
