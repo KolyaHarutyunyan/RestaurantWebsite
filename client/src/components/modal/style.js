@@ -2,7 +2,7 @@ import styled from "styled-components";
 export const ModalContainer = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   .fade {
-    opacity: ${({ isOpen }) => (isOpen ? "0.2" : "0")};
+    opacity: ${({ isOpen }) => (isOpen ? "0.5" : "0")};
     background-color: black;
     position: fixed;
     top: 0;

@@ -22,7 +22,14 @@ export const Modal = ({ modalName, children }) => {
           </div>
           <div className="content">{children}</div>
         </div>
-        <div className="fade" />
+        <div
+          className="fade"
+          onClick={() => {
+            if (window.confirm("Leave current window?")) {
+              setActiveModal("");
+            }
+          }}
+        />
       </ModalContainer>,
       document.getElementsByTagName("body")[0]
     );
