@@ -81,7 +81,7 @@ export const SelectCategory = ({ activeType }) => {
           )}
         </div>
       </Styled.SelectBlock>
-      <Button.Accept className={"add"}>Add</Button.Accept>
+      <Button className={"add"}>Add</Button>
     </Styled.SelectType>
   );
 };

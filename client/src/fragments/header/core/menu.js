@@ -2,10 +2,12 @@ import { Box, Button } from "@material-ui/core";
 import { pageLinks, useHeaderStyles, CreateMenu } from ".";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { useModal } from "@eachbase/components";
+import { MODAL_NAMES } from "@eachbase/constants";
 export const Menus = ({ status, type, user, toggleRef }) => {
   const classes = useHeaderStyles();
   const [xAxisOffset, setXAxisOffset] = useState(0);
+  const { open } = useModal();
   const className =
     (type ? classes.toggleMenu : classes.dropdownMenu) +
     (status ? " opened" : "");
@@ -39,7 +41,14 @@ export const Menus = ({ status, type, user, toggleRef }) => {
         [xAxisOffset ? "left" : "right"]: `${xAxisOffset}px`,
       }}
     >
-      {!user && <Button className={classes.button + " red"}>Sign In</Button>}
+      {!user && (
+        <Button
+          className={classes.button + " red"}
+          onClick={() => open(MODAL_NAMES.SIGN_IN)}
+        >
+          Sign In
+        </Button>
+      )}
       {user && type && (
         <CreateMenu isAuthed={user.id} className={classes.button} />
       )}
@@ -59,7 +68,7 @@ export const Menus = ({ status, type, user, toggleRef }) => {
               </a>
             </Link>
           ))}
-          <button className={hoverableMenuItemClassName}>ICON Sign Up</button>
+          <Button className={hoverableMenuItemClassName}>ICON Sign Up</Button>
         </>
       )}
     </Box>

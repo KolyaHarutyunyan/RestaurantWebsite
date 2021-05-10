@@ -17,7 +17,7 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
     >
       <div className="name">
         {category.title}
-        <Button.Action
+        <Button
           onClick={() =>
             openModal.removeCategory({ id: categoryId, parentName: "menuName" })
           }

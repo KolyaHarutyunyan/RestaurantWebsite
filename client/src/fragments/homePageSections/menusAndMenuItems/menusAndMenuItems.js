@@ -78,7 +78,7 @@ export const MenusAndMenuItems = () => {
           </Typography>
         </li>
       </ul>
-      <Button.Common>Add Menu FREE</Button.Common>
+      <Button>Add Menu FREE</Button>
     </Container>
   );
 };

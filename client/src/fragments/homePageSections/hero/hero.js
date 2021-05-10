@@ -15,7 +15,7 @@ export const Hero = () => {
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s.
         </Typography>
-        <Button.Common>Add Menu FREE</Button.Common>
+        <Button>Add Menu FREE</Button>
       </div>
       <div className="image-wrapper">
         <Image />

@@ -14,9 +14,9 @@ export const AddNewMenuItem = ({ activeCategory, activeType }) => {
   newItem.type = activeType;
   newItem.parents = [activeCategory];
   return (
-    <button className="add" onClick={() => {}}>
+    <Button className="add" onClick={() => {}}>
       <span className="iconBlock">ICON</span>
       Add New Menu Item
-    </button>
+    </Button>
   );
 };

@@ -20,7 +20,7 @@ export const ItemsTitle = ({ activeCategory, activeType, close }) => {
           <Styled.BackBtn onClick={close}>ICON</Styled.BackBtn>
           {title}
         </p>
-        <Button.Accept className={"preview"}>Preview</Button.Accept>
+        <Button className={"preview"}>Preview</Button>
       </div>
       <div className="newItem">
         <AddNewMenuItem

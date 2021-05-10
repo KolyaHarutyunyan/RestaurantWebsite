@@ -18,7 +18,7 @@ export const CategoriesTitle = ({ activeType, changeTo }) => {
         </Styled.DoubleBlockButton>
       </Styled.DoubleBtnBlock>
       <SelectCategory activeType={activeType} />
-      <Button.Accept className={"categories-preview"}>Preview</Button.Accept>
+      <Button className={"categories-preview"}>Preview</Button>
     </Styled.CategoriesTitle>
   );
 };

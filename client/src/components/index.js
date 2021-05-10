@@ -1,4 +1,4 @@
-export { Button } from "./button";
+export { Button } from "./buttons";
 export { Switch } from "./swich/Switch";
 export { MenuItem } from "./menuItem";
 export { ItemImage } from "./itemImage";

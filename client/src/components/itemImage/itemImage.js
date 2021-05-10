@@ -31,9 +31,9 @@ export const ItemImage = ({
       <div className="bgItemImage" />
       {!url && <Icon />}
       {url && onRemove && (
-        <button onClick={onRemove} className="removeItemImage">
+        <Button onClick={onRemove} className="removeItemImage">
           <Icon />
-        </button>
+        </Button>
       )}
     </Styled.Block>
   );

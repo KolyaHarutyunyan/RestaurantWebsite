@@ -20,13 +20,13 @@ export const MenuItem = ({ itemId, parentName }) => {
         <div className="options">
           <div className="option">{item.options || ""}</div>
           <div className="actions">
-            <Button.Action
+            <Button
               type={"edit"}
               onClick={() =>
                 openModal.editMenuItem({ data: item, title: "Edit Menu Item" })
               }
             />
-            <Button.Action
+            <Button
               className={"remove"}
               type={"remove"}
               onClick={() =>

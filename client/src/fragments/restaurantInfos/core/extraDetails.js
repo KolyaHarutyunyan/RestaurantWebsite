@@ -34,12 +34,12 @@ export const ExtraDetails = () => {
       </Styled.Line>
       <Styled.Line>
         ICON
-        <button
+        <Button
           onClick={() => setOpenHours((current) => !current)}
           className={"hours"}
         >
           hours ICON
-        </button>
+        </Button>
         <Styled.DropMenu
           status={openHours}
           onClick={() => setOpenHours((current) => !current)}

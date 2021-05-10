@@ -9,12 +9,12 @@ export const MenuInfos = ({ title, id, status, imageUrl, description }) => {
     <>
       <Title title={title} status={status} id={id} changeStatus={toggle} />
       <Styled.Block>
-        <Button.Accept
+        <Button
           className="edit"
           onClick={() => openModal.editMenu({ title: "Edit Menu Information" })}
         >
           Edit
-        </Button.Accept>
+        </Button>
         <div className="title">{title}</div>
         <ItemImage className={"avatarBlock"} url={imageUrl} type={"menu"} />
 
