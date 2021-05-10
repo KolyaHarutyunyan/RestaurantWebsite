@@ -1,4 +1,4 @@
-export { Button } from "./buttons";
+export { Button, Fab } from "./buttons";
 export { Switch } from "./swich/Switch";
 export { MenuItem } from "./menuItem";
 export { ItemImage } from "./itemImage";

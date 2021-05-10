@@ -10,7 +10,6 @@ export const ModalContainer = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: 10000;
-    transition: opacity 0.3s ease-in-out;
   }
   .container {
     .head {

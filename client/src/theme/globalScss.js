@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { media } from "@eachbase/theme";
+import { colors } from "@eachbase/theme";
 export const GlobalScss = createGlobalStyle`
   .container {
     width: 100%;
@@ -19,10 +20,30 @@ export const GlobalScss = createGlobalStyle`
     `};
     overflow: auto;
   }
+
+  /* CASTIL */
   .toggle-header-menu {
     display: none;
     @media only screen and (max-width: 768px){
       display: flex;
+    }
+  }
+  /* [CASTIL-END] */
+
+  .divider-or {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+    background-color: ${colors.text};
+    &::before {
+      position: absolute;
+      content: "OR";
+      left: calc(50% - (60px /2));
+      top: -10px;
+      background: white;
+      width: 60px;
+      text-align: center;
     }
   }
 `;
