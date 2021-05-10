@@ -25,6 +25,13 @@ export const InputContainer = styled.div`
       flex: 0 0 30px;
     }
     .input-container {
+      display: flex;
+      .controller-eye {
+        flex: 0 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       flex: 1;
       height: 100%;
       input {

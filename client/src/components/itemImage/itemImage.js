@@ -4,7 +4,7 @@ import {
   DrinkIcon,
   RedLineIcon,
   MenuIcon,
-} from "@eachbase/components/icons";
+} from "@eachbase/theme/icons";
 export const ItemImage = ({
   url,
   type,

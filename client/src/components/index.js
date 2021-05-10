@@ -6,4 +6,3 @@ export { Typography } from "./typography";
 export { Image } from "./image";
 export { Input, Textarea } from "./inputs";
 export { Modal, ModalProvider, useModal } from "./modal";
-export * as Icons from "./icons";

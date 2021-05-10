@@ -1,6 +1,6 @@
 import { Container } from "./style";
-import { Input, Typography, Icons, Button, Fab } from "@eachbase/components";
-
+import { Input, Typography, Button, Fab } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
 export const SignInForm = () => {
   return (
     <Container>

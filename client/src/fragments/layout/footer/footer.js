@@ -1,7 +1,7 @@
 import { Style } from "./core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Icons } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
 import Link from "next/link";
 
 export const Footer = () => {
