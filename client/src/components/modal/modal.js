@@ -4,12 +4,13 @@ import { AiOutlineClose } from "react-icons/ai";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
 import { Fragment } from "react";
+
 export const Modal = ({ modalName, children }) => {
   const { activeModal, setActiveModal } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
-  });
+  }, []);
 
   if (mounted) {
     return createPortal(

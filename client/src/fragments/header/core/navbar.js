@@ -1,12 +1,13 @@
-import { forwardRef, useContext, useEffect } from "react";
+import { forwardRef, useEffect } from "react";
 import { Box, Button } from "@material-ui/core";
 import { CreateMenu, useHeaderStyles } from ".";
 import { useModal } from "@eachbase/components";
+import { MODAL_NAMES } from "@eachbase/constants";
+
 export const Navbar = forwardRef(
   ({ toggle, isMobile, user, status, onRequestToClose }, toggleRef) => {
     const classes = useHeaderStyles();
     const { open } = useModal();
-    const openAuth = () => open("sign-in");
 
     useEffect(() => {
       const documentClickHandler = ({ path }) => {
@@ -67,7 +68,10 @@ export const Navbar = forwardRef(
                   </Button>
                 </Box>
               ) : (
-                <Button className={`${classes.button} red`} onClick={openAuth}>
+                <Button
+                  className={`${classes.button} red`}
+                  onClick={() => open(MODAL_NAMES.SIGN_IN)}
+                >
                   Sign In
                 </Button>
               )}
@@ -76,7 +80,7 @@ export const Navbar = forwardRef(
               <CreateMenu
                 isAuthed={!!user}
                 className={classes.button}
-                handlerClick={openAuth}
+                handlerClick={() => open(MODAL_NAMES.SIGN_IN)}
               />
             </div>
           </div>

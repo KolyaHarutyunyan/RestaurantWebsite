@@ -1,11 +1,11 @@
 import axios from "axios";
-import { CONSTANTS } from "@eachbase/constants";
+import { API_BASE } from "@eachbase/constants";
 export const initAxiosInterceptors = () => {
   /* 
     configured request interceptor for private/public calls
   */
   axios.interceptors.request.use((config) => {
-    config.url = `${CONSTANTS.API_BASE}${config.url}`;
+    config.url = `${API_BASE}${config.url}`;
     if (config.auth) {
       const token = localStorage.getItem("token");
       if (!token) {

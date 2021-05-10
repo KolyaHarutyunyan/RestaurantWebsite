@@ -1,4 +1,3 @@
-import { CONSTANTS } from "@eachbase/constants";
 export const header = {
   contactInfo: [
     {

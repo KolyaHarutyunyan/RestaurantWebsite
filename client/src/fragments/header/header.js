@@ -3,22 +3,13 @@ import { AppBar } from "@material-ui/core";
 import { useHeaderStyles, Logo, Menus } from "./core";
 import { Navbar } from "./core/navbar";
 import { useSelector } from "react-redux";
-
-let mobileWidth = 768;
-
+import useMedia from "use-media";
 export const Header = () => {
   const classes = useHeaderStyles();
   const profile = useSelector((state) => state.profile || null);
   const collapseMenuToggleRef = useRef();
+  const isMobile = useMedia({ maxWidth: 768 });
   const [openedMenu, setOpenedMenu] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const handleResize = () => setIsMobile(window.innerWidth < mobileWidth);
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <>

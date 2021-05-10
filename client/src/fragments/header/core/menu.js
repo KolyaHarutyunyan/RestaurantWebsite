@@ -1,8 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import { pageLinks, useHeaderStyles, CreateMenu } from ".";
 import Link from "next/link";
-import { Icon } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
 import { useEffect, useState } from "react";
 
 export const Menus = ({ status, type, user, toggleRef }) => {

@@ -1,7 +1,5 @@
 import { Styled } from ".";
-import { Button, Icon } from "@eachbase/components";
 import { useEffect, useRef, useState } from "react";
-import { CONSTANTS } from "@eachbase/constants";
 import { useSelector } from "react-redux";
 
 let items = [];

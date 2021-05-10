@@ -1,5 +1,4 @@
 import { Styled } from "./style";
-import { CONSTANTS } from "../../constants";
 import {
   FoodIcon,
   DrinkIcon,

@@ -6,6 +6,7 @@ import { Header, Footer } from "@eachbase/fragments";
 import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider, Modal } from "@eachbase/components";
 import { SignInForm } from "@eachbase/fragments";
+import { MODAL_NAMES } from "@eachbase/constants";
 initAxiosInterceptors();
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -20,6 +21,12 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <Store>
         <ModalProvider>
+          <Modal modalName={MODAL_NAMES.SIGN_IN}>
+            <SignInForm />
+          </Modal>
+          <Modal modalName={MODAL_NAMES.SIGN_UP}>
+            <SignInForm />
+          </Modal>
           <Theme>
             <Header />
             <MainWrapper>
@@ -27,9 +34,6 @@ export default function MyApp({ Component, pageProps }) {
               <Footer />
             </MainWrapper>
           </Theme>
-          <Modal modalName="sign-in">
-            <SignInForm />
-          </Modal>
         </ModalProvider>
       </Store>
     </Fragment>

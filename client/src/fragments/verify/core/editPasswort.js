@@ -1,7 +1,6 @@
 import { Styled } from ".";
 import { useState } from "react";
 import { Input } from "@eachbase/components";
-import { CONSTANTS } from "@eachbase/constants";
 import { Change, Check } from "@eachbase/components";
 
 export const EditPassword = () => {
@@ -41,22 +40,6 @@ export const EditPassword = () => {
           mt={24}
           mtt={32}
         />
-        {/*<Input.pass*/}
-        {/*  icon={CONSTANTS.SVGNames.Password}*/}
-        {/*  {...passwords.current}*/}
-        {/*  onChange={value => change.pass(value, setPasswords)}*/}
-        {/*  onBlur={() => check.pass(setPasswords)}*/}
-        {/*  placeholder="Password"*/}
-        {/*  brd={8}*/}
-        {/*/>*/}
-        {/*<Input.pass*/}
-        {/*  icon={CONSTANTS.SVGNames.Password}*/}
-        {/*  {...passwords.current}*/}
-        {/*  onChange={value => change.pass(value, setPasswords)}*/}
-        {/*  onBlur={() => check.pass(setPasswords)}*/}
-        {/*  placeholder="Password"*/}
-        {/*  brd={8}*/}
-        {/*/>*/}
       </Styled.BlockForm>
     </Styled.Block>
   );
