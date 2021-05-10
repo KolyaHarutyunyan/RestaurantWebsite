@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { AppBar } from "@material-ui/core";
 import { useHeaderStyles, Logo, Menus } from "./core";
 import { Navbar } from "./core/navbar";
 import { useSelector } from "react-redux";
 import useMedia from "use-media";
 export const Header = () => {
+  const isMobile = useMedia({ maxWidth: 768 });
   const classes = useHeaderStyles();
   const profile = useSelector((state) => state.profile || null);
   const collapseMenuToggleRef = useRef();
-  const isMobile = useMedia({ maxWidth: 768 });
   const [openedMenu, setOpenedMenu] = useState(false);
 
   return (
-    <>
+    <Fragment>
       <AppBar className={classes.header}>
         <Logo className={classes.logo} />
         <Navbar
@@ -31,6 +31,6 @@ export const Header = () => {
         type={isMobile}
         user={profile}
       />
-    </>
+    </Fragment>
   );
 };

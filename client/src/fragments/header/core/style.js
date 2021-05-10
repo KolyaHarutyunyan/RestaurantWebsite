@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-
+import { colors } from "@eachbase/theme";
 export const useHeaderStyles = makeStyles((theme) => ({
   header: {
     background: "#fff",
@@ -161,14 +161,9 @@ export const useHeaderStyles = makeStyles((theme) => ({
     },
   },
   toggleMenuBtn: {
-    "&.opened svg ": {
-      "& .ToggleMenuIcon_svg__close": { opacity: 0 },
-      "& .ToggleMenuIcon_svg__open": { opacity: 1 },
-    },
     "& svg": {
-      "& > *": { transition: "all .5s" },
-      "& .ToggleMenuIcon_svg__open": { opacity: 0 },
-      "& .ToggleMenuIcon_svg__close": { opacity: 1 },
+      fontSize: "40px",
+      color: colors.primary,
     },
   },
   toggleMenu: {

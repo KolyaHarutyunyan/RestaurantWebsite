@@ -5,7 +5,7 @@ import BackIcon from "./svgs/back.svg";
 import DeleteIcon from "./svgs/delete.svg";
 import FoodIcon from "./svgs/food.svg";
 import PasswordIcon from "./svgs/password.svg";
-import BuildingIocn from "./svgs/building.svg";
+import BuildingIcon from "./svgs/building.svg";
 import DoneIcon from "./svgs/done.svg";
 import GoogleIcon from "./svgs/google.svg";
 import PersonIcon from "./svgs/person.svg";
@@ -41,7 +41,7 @@ export {
   DeleteIcon,
   FoodIcon,
   PasswordIcon,
-  BuildingIocn,
+  BuildingIcon,
   DoneIcon,
   GoogleIcon,
   PersonIcon,

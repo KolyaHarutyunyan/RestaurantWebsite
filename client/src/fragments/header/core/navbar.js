@@ -3,17 +3,22 @@ import { Box, Button } from "@material-ui/core";
 import { CreateMenu, useHeaderStyles } from ".";
 import { useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { HiMenuAlt4 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
 
 export const Navbar = forwardRef(
   ({ toggle, isMobile, user, status, onRequestToClose }, toggleRef) => {
     const classes = useHeaderStyles();
     const { open } = useModal();
 
+    const mobileSideMenuIsOpen = status;
+
     useEffect(() => {
       const documentClickHandler = ({ path }) => {
         const conditionalClassList = [
           "user-toggle-button",
           "mobile-side-toggle-button",
+          "toggle-header-menu",
         ];
         let classNameInList = false;
         for (const nodeElement of path) {
@@ -39,12 +44,11 @@ export const Navbar = forwardRef(
         {isMobile ? (
           <Button
             onClick={() => toggle()}
-            /* WARNING: mobile-side-toggle-button className used above */
             className={`${classes.toggleMenuBtn} ${
               status ? " opened" : ""
             } mobile-side-toggle-button`}
           >
-            ICON
+            {mobileSideMenuIsOpen ? <AiOutlineClose /> : <HiMenuAlt4 />}
           </Button>
         ) : (
           <div className={classes.menu}>

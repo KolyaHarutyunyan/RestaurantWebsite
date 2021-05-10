@@ -9,11 +9,13 @@ export const Menus = ({ status, type, user, toggleRef }) => {
   const className =
     (type ? classes.toggleMenu : classes.dropdownMenu) +
     (status ? " opened" : "");
+
   useEffect(() => {
-    if (status && !type) {
+    if (status && !type && toggleRef.current) {
       setXAxisOffset(toggleRef.current.offsetParent.offsetLeft);
     }
   }, [status, type]);
+
   useEffect(() => {
     const windowResizeObserver = () => {
       if (toggleRef.current) {

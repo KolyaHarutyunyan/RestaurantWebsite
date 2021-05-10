@@ -24,9 +24,6 @@ export default function MyApp({ Component, pageProps }) {
           <Modal modalName={MODAL_NAMES.SIGN_IN}>
             <SignInForm />
           </Modal>
-          <Modal modalName={MODAL_NAMES.SIGN_UP}>
-            <SignInForm />
-          </Modal>
           <Theme>
             <Header />
             <MainWrapper>

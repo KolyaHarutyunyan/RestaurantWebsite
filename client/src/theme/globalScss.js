@@ -19,4 +19,10 @@ export const GlobalScss = createGlobalStyle`
     `};
     overflow: auto;
   }
+  .toggle-header-menu {
+    display: none;
+    @media only screen and (max-width: 768px){
+      display: flex;
+    }
+  }
 `;
