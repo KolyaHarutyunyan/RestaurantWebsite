@@ -34,6 +34,7 @@ export const InputContainer = styled.div`
       }
       flex: 1;
       height: 100%;
+
       input {
         padding: 0 5px 0 5px;
         margin: 0;
@@ -41,6 +42,12 @@ export const InputContainer = styled.div`
         width: 100%;
         border: none;
         outline: 0;
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          box-shadow: 0 0 0 30px white inset !important;
+        }
       }
     }
   }

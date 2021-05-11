@@ -38,12 +38,15 @@ export const SignInForm = () => {
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email")}
+          error={error}
         />
         <Input
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
           {...register("password")}
+          error={error}
+          helper={error ? "incorrect username or password" : ""}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
           Sign In

@@ -28,7 +28,7 @@ export const ModalContainer = styled.div`
     z-index: 10001;
     width: 464px;
     left: calc(50% - (464px / 2));
-    top: 20vh;
+    top: 10vh;
     max-height: 80vh;
     padding: 30px;
     @media only screen and (max-width: 768px) {

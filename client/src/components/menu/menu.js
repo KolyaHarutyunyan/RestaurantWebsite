@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Container } from "./style";
 
@@ -15,6 +15,7 @@ export const Menu = ({
     top: 0,
     left: 0,
   });
+  const menuRef = useRef();
 
   const getElementPosition = () => {
     let generatedPosition = {
@@ -42,8 +43,30 @@ export const Menu = ({
     setPosition(getElementPosition());
 
     const resizeObserver = () => setPosition(getElementPosition());
+    const windowClickObserver = ({ path }) => {
+      let toggleMenu = true;
+      for (const nodeElement of path) {
+        if (nodeElement instanceof Node) {
+          const isMenu = menuRef.current.isSameNode(nodeElement);
+          const isPositionalElement = positionalElementRef.current.isSameNode(
+            nodeElement
+          );
+          if (isMenu || isPositionalElement) {
+            toggleMenu = false;
+            break;
+          }
+        }
+      }
+      if (toggleMenu) {
+        onRequestToClose();
+      }
+    };
     window.addEventListener("resize", resizeObserver);
-    return () => window.removeEventListener("resize", resizeObserver);
+    window.addEventListener("click", windowClickObserver);
+    return () => {
+      window.removeEventListener("resize", resizeObserver);
+      window.removeEventListener("click", windowClickObserver);
+    };
   }, []);
 
   if (!mounted) {
@@ -57,6 +80,7 @@ export const Menu = ({
       }
       open={open}
       position={position}
+      ref={menuRef}
     >
       {children}
     </Container>,

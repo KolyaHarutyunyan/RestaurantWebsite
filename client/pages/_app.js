@@ -6,6 +6,7 @@ import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider, Modal } from "@eachbase/components";
 import { SignInForm, Layout } from "@eachbase/fragments";
 import { MODAL_NAMES } from "@eachbase/constants";
+
 initAxiosInterceptors();
 export default function MyApp({ Component, pageProps }) {
   return (
