@@ -1,9 +1,6 @@
 import axios from "axios";
 import { API_BASE } from "@eachbase/constants";
 export const initAxiosInterceptors = () => {
-  /* 
-    configured request interceptor for private/public calls
-  */
   axios.interceptors.request.use((config) => {
     config.url = `${API_BASE}${config.url}`;
     if (config.auth) {
@@ -19,17 +16,16 @@ export const initAxiosInterceptors = () => {
     return config;
   });
 
-  /* 
-    response interceptor also configurable and developer able to 
-    mutate data before he will fetch it 
-  */
   axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
+    (response) => response,
     (error) => {
-      localStorage.removeItem("token");
-      return error;
+      if (error.response.status >= 400 && error.response.status <= 403) {
+        localStorage.removeItem("token");
+      }
+      throw new Object({
+        data: error.response.data,
+        status: error.response.status,
+      });
     }
   );
 };
