@@ -18,6 +18,7 @@ import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from 
 import { RestaurantService } from './restaurant.service';
 import { ImageService } from '../image/image.service';
 import { ACCESS_TOKEN } from 'src/constants';
+import * as path from 'path';
 
 
 @Controller('restaurant')
@@ -29,16 +30,22 @@ export class RestaurantController {
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   @UseInterceptors(FileInterceptor('logo'))
   @ApiBody({ type: CreateRestaurantDTO })
-  @ApiHeader({name: ACCESS_TOKEN})
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: RestaurantResponseDTO })
-  async createRestaurant(@UploadedFile() file, @Body() createRestaurantDTO: CreateRestaurantDTO): Promise<RestaurantResponseDTO> {
+  async createRestaurant(@UploadedFile() file, @Body() createRestaurantDTO: CreateRestaurantDTO): Promise<any> {
 
     const fileURLs = await this.imageService.saveEventImage(file);
 
     createRestaurantDTO.logoUrl = fileURLs ? fileURLs.imageUrl : null;
-    
+
+
     const restaurant = await this.restaurantService.create(createRestaurantDTO);
-    return restaurant;
+
+    const createQr = await this.restaurantService.createQr(restaurant.id);
+
+    const qr = await this.imageService.saveQRImage(path.join(__dirname, '../../qrCodes/qrCode.png'));
+
+    return { restaurant, qr };
   }
 
   @Get()
@@ -63,7 +70,7 @@ export class RestaurantController {
 
   @Put(':id')
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiBody({type: UpdateRestaurantDTO})
+  @ApiBody({ type: UpdateRestaurantDTO })
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async update(@Param('id') id: string, @Body() updateRestaurantDto: UpdateRestaurantDTO) {
 
@@ -76,13 +83,13 @@ export class RestaurantController {
   @Delete(':id')
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
   async remove(@Param('id') id: string) {
- 
+
     const deleteRestaurant = await this.restaurantService.deleteRestaurant(id);
     await this.imageService.deleteImages([
       deleteRestaurant.logoUrl,
     ]);
 
-    return {status: true, message: `Successfully deleted`, data: null };
+    return { status: true, message: `Successfully deleted`, data: null };
   }
 
 }

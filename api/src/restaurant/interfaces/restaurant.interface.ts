@@ -6,7 +6,7 @@ export interface IRestaurant extends Document {
   name: string;
   description?: string;
   logoUrl?: string;
-  status?: boolean;
+  status: boolean;
   website?: string;
   phoneNumber?: string;
 }

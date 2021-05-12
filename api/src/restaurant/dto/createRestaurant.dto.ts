@@ -16,9 +16,11 @@ export class CreateRestaurantDTO {
   @ApiProperty({ required: false })
   logoUrl: string;
 
+  @ApiProperty({ required: false })
+  QR: string;
   //internally set
   // restaurantOwner?: IUser;
-  status?: boolean;
+  status: string;
 
   @ApiProperty({ required: false })
   website?: string;
