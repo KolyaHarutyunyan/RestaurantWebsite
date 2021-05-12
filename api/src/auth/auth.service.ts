@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import {
   AuthDTO,
   ChangePassDTO,
@@ -23,7 +23,10 @@ import {
 } from './constants';
 import { Model } from 'mongoose';
 import { AuthModel } from './auth.schema';
+import { UserModel } from '../user/user.schema';
+
 import { IAuth } from './interfaces';
+import { IUser } from 'src/user/interfaces';
 // import { SendEmailCommandInput } from '@aws-sdk/client-ses';
 // import { EditProfileDTO } from 'src/user/dto';
 
@@ -31,10 +34,13 @@ import { IAuth } from './interfaces';
 export class AuthService {
   constructor() {
     this.model = AuthModel;
+    this.userModel = UserModel;
+
     this.sessionExpiratrion = '7d';
   }
   //The Model
   model: Model<IAuth>;
+  userModel: Model<IUser>
   sessionExpiratrion: string;
 
   socialLogin = async (socialLoginDTO: SocialLoginDTO): Promise<AuthDTO> => {
@@ -103,26 +109,26 @@ export class AuthService {
       );
     }
   };
- /** if the user has signed up with the social logins, the password will be missing */
- private checkNoPassword = (password?: string) => {
-  if (!password) {
-    throw new HttpException(
-      `Our records indicate that you have not created this account with a password. 
+  /** if the user has signed up with the social logins, the password will be missing */
+  private checkNoPassword = (password?: string) => {
+    if (!password) {
+      throw new HttpException(
+        `Our records indicate that you have not created this account with a password. 
       This means you have used one of the social login methods. 
       Please use the reset password feature to add a password to your account.`,
-      HttpStatus.FORBIDDEN,
-    );
-  }
-};
-/** Confirms whether the newPassword and the confirmation are matching */
-private confirmPassword = (newPass, confirmation) => {
-  if (newPass !== confirmation) {
-    throw new HttpException(
-      'The new password does not match with the confirmation',
-      HttpStatus.CONFLICT,
-    );
-  }
-};
+        HttpStatus.FORBIDDEN,
+      );
+    }
+  };
+  /** Confirms whether the newPassword and the confirmation are matching */
+  private confirmPassword = (newPass, confirmation) => {
+    if (newPass !== confirmation) {
+      throw new HttpException(
+        'The new password does not match with the confirmation',
+        HttpStatus.CONFLICT,
+      );
+    }
+  };
   signin = async (signinDTO: SigninDTO): Promise<any> => {
     try {
       const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
@@ -139,6 +145,28 @@ private confirmPassword = (newPass, confirmation) => {
       throw err;
     }
   };
+  userInformation = async (token): Promise<any> => {
+    try {
+      if (!token) {
+        throw new HttpException('Token not found', HttpStatus.NOT_FOUND);
+      }
+      const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
+
+      const user: IUser = await this.userModel.findOne({ email: decoded.email });
+      if (!user) {
+        // throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        return null;
+      }
+      return user
+
+    } catch (err) {
+      if (err.code === MONGO_DUPLICATE_KEY) {
+        throw new HttpException('User Exists', HttpStatus.FOUND);
+      }
+      throw err;
+    }
+  };
+
   /**  Changing the user password **/
   changePassword = async (changePassDTO: ChangePassDTO): Promise<AuthDTO> => {
     let auth = await this.model.findOne({
