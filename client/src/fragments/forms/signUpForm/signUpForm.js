@@ -6,8 +6,9 @@ import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { BsPerson } from "react-icons/bs";
 
-export const SignInForm = () => {
+export const SignUpForm = () => {
   const dispatch = useDispatch();
   const { activeModal, close, open } = useModal();
 
@@ -36,6 +37,13 @@ export const SignInForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type="email"
+          icon={<BsPerson size={22} />}
+          placeholder="Full Name"
+          {...register("full_name")}
+          error={error}
+        />
+        <Input
+          type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email")}
@@ -50,7 +58,7 @@ export const SignInForm = () => {
           helper={error ? "incorrect username or password" : ""}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
-          Sign In
+          Sign Up
         </Button>
       </form>
       <Button
@@ -76,8 +84,8 @@ export const SignInForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button link action fullWidth onClick={() => open(MODAL_NAMES.SIGN_UP)}>
-        Doesn't have an account? Sign Up
+      <Button link action fullWidth onClick={() => open(MODAL_NAMES.SIGN_IN)}>
+        Already have an account? Sign In
       </Button>
     </Container>
   );

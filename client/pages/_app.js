@@ -4,7 +4,12 @@ import { ThemeProvider } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
 import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider, Modal } from "@eachbase/components";
-import { SignInForm, Layout } from "@eachbase/fragments";
+import {
+  SignInForm,
+  ForgotPasswordForm,
+  SignUpForm,
+  Layout,
+} from "@eachbase/fragments";
 import { MODAL_NAMES } from "@eachbase/constants";
 
 initAxiosInterceptors();
@@ -27,6 +32,16 @@ export default function MyApp({ Component, pageProps }) {
             </Layout>
             <Modal modalName={MODAL_NAMES.SIGN_IN}>
               <SignInForm />
+            </Modal>
+            <Modal
+              backButton
+              onBackButtonClick={({ open }) => open(MODAL_NAMES.SIGN_IN)}
+              modalName={MODAL_NAMES.FORGOT_PASSWORD}
+            >
+              <ForgotPasswordForm />
+            </Modal>
+            <Modal modalName={MODAL_NAMES.SIGN_UP}>
+              <SignUpForm />
             </Modal>
           </ModalProvider>
         </ThemeProvider>

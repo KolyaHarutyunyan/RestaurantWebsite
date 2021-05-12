@@ -12,7 +12,10 @@ const setBackgroundColor = ({ link, inactive, outlined }) => {
   return colors.primary;
 };
 
-const setColor = ({ inactive, outlined, link }) => {
+const setColor = ({ inactive, action, outlined, link }) => {
+  if ((link || outlined) && action) {
+    return colors.action;
+  }
   if ((link || outlined) && inactive) {
     return colors.text;
   }

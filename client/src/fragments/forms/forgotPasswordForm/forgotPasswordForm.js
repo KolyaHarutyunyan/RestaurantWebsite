@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-export const SignInForm = () => {
+export const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
-  const { activeModal, close, open } = useModal();
+  const { activeModal, close } = useModal();
 
   const { profile, error, onLoad } = useSelector(
     ({ profile, http_requests_on_load, http_errors }) => ({
@@ -29,10 +29,14 @@ export const SignInForm = () => {
   const onSubmit = (data) => dispatch(profileActions.signIn(data));
   return (
     <Container>
-      <Typography color="text" weight="bold" size={"1.250rem"}>
-        Welcome to Menuz
-      </Typography>
       <Icons.LogoIcon className="logo" />
+      <Typography color="text" weight="bold" size={"1.250rem"}>
+        Forgot your password?
+      </Typography>
+      <Typography color="text" className="helper">
+        Enter your email address and we'll send you a verification code to reset
+        your password.
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type="email"
@@ -41,44 +45,10 @@ export const SignInForm = () => {
           {...register("email")}
           error={error}
         />
-        <Input
-          icon={<Icons.PasswordIcon />}
-          type="password"
-          placeholder="Password"
-          {...register("password")}
-          error={error}
-          helper={error ? "incorrect username or password" : ""}
-        />
         <Button fullWidth type="submit" disabled={onLoad}>
-          Sign In
+          Get Code
         </Button>
       </form>
-      <Button
-        link
-        fullWidth
-        inactive
-        onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}
-      >
-        Forgot Password?
-      </Button>
-      <div className="divider-or" />
-      <Typography color="text">
-        Sign in with your social media account
-      </Typography>
-      <div className="social">
-        <Fab>
-          <Icons.GoogleIcon />
-        </Fab>
-        <Fab>
-          <Icons.FaceBookIcon />
-        </Fab>
-        <Fab>
-          <Icons.TwitterIcon />
-        </Fab>
-      </div>
-      <Button link action fullWidth onClick={() => open(MODAL_NAMES.SIGN_UP)}>
-        Doesn't have an account? Sign Up
-      </Button>
     </Container>
   );
 };

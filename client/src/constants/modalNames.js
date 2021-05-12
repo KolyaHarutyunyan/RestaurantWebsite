@@ -1,3 +1,5 @@
 export const MODAL_NAMES = {
   SIGN_IN: "SIGN_IN",
+  FORGOT_PASSWORD: "FORGOT_PASSWORD",
+  SIGN_UP: "SIGN_UP",
 };

@@ -1,10 +1,15 @@
 import { createPortal } from "react-dom";
 import { ModalContainer } from "./style";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineArrowLeft } from "react-icons/ai";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
 
-export const Modal = ({ modalName, children }) => {
+export const Modal = ({
+  modalName,
+  backButton,
+  onBackButtonClick = () => {},
+  children,
+}) => {
   const { activeModal, setActiveModal } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -15,9 +20,20 @@ export const Modal = ({ modalName, children }) => {
     return createPortal(
       <ModalContainer isOpen={activeModal === modalName}>
         <div className="container">
-          <div className="head">
-            <button onClick={() => setActiveModal("")}>
-              <AiOutlineClose />
+          <div className={`head ${backButton ? "back" : ""}`}>
+            <button
+              onClick={() => {
+                if (backButton) {
+                  onBackButtonClick({
+                    open: (modalName) => setActiveModal(modalName),
+                    close: () => setActiveModal(""),
+                  });
+                } else {
+                  setActiveModal("");
+                }
+              }}
+            >
+              {backButton ? <AiOutlineArrowLeft /> : <AiOutlineClose />}
             </button>
           </div>
           <div className="content">{children}</div>

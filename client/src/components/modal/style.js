@@ -15,6 +15,9 @@ export const ModalContainer = styled.div`
     .head {
       display: flex;
       justify-content: flex-end;
+      &.back {
+        justify-content: flex-start;
+      }
       button {
         outline: 0;
         line-height: 10px;
