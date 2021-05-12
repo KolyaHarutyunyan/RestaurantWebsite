@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Container } from "./style";
+import { Container, NavigationContainer } from "./style";
 import { Typography, Button, Menu, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { Icons } from "@eachbase/theme";
@@ -11,9 +11,48 @@ import useMedia from "use-media";
 export const Header = () => {
   const profileContainerRef = useRef(null);
   const { profile } = useSelector(({ profile }) => ({ profile }));
-  const { open } = useModal();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
+  const { open } = useModal();
+
+  const profileNavigationalList = () => {
+    return (
+      <NavigationContainer>
+        <li>
+          <div className="icon-container">
+            <Icons.PersonIcon />
+          </div>
+          <Typography color="text" weight="bold">
+            {profile.fullName}
+          </Typography>
+        </li>
+        <li>
+          <div className="icon-container">
+            <Icons.MenuIcon />
+          </div>
+          <Typography color="text" weight="bold">
+            Restaurant Profile
+          </Typography>
+        </li>
+        <li>
+          <div className="icon-container">
+            <BsPersonFill />
+          </div>
+          <Typography color="text" weight="bold">
+            Account Settings
+          </Typography>
+        </li>
+        <li>
+          <div className="icon-container">
+            <Icons.LogoutIcon />
+          </div>
+          <Typography color="text" weight="bold">
+            Sign out
+          </Typography>
+        </li>
+      </NavigationContainer>
+    );
+  };
 
   const renderProfileDropdown = () => {
     if (!isMobileViewport && profile) {
@@ -25,7 +64,7 @@ export const Header = () => {
             ref={profileContainerRef}
           >
             <BsPersonFill className="person-icon" />
-            <Typography color="text">Profile Name</Typography>
+            <Typography color="text">{profile.fullName}</Typography>
             <BsChevronUp
               className={`menu-toggle ${menuIsOpen ? "open" : ""}`}
             />
@@ -39,7 +78,7 @@ export const Header = () => {
             onRequestToClose={() => setMenuIsOpen(false)}
             positionalElementRef={profileContainerRef}
           >
-            ...
+            {profileNavigationalList()}
           </Menu>
         </div>
       );
@@ -73,6 +112,7 @@ export const Header = () => {
           </div>
           <div className={`menu ${menuIsOpen ? "open" : ""}`}>
             {renderSignInButtons()}
+            {profileNavigationalList()}
           </div>
         </div>
       );

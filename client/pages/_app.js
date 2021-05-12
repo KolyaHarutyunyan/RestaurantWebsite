@@ -9,6 +9,8 @@ import {
   ForgotPasswordForm,
   SignUpForm,
   Layout,
+  CheckEmailHelper,
+  SignUpSuccessHelper,
 } from "@eachbase/fragments";
 import { MODAL_NAMES } from "@eachbase/constants";
 
@@ -42,6 +44,12 @@ export default function MyApp({ Component, pageProps }) {
             </Modal>
             <Modal modalName={MODAL_NAMES.SIGN_UP}>
               <SignUpForm />
+            </Modal>
+            <Modal modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
+              <CheckEmailHelper />
+            </Modal>
+            <Modal modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
+              <SignUpSuccessHelper />
             </Modal>
           </ModalProvider>
         </ThemeProvider>

@@ -1,33 +1,41 @@
 import { Container } from "./style";
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import { profileActions, PROFILE_SIGN_IN } from "@eachbase/store";
+import { profileService, PROFILE_SIGN_IN_SUCCESS } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BsPerson } from "react-icons/bs";
+import { useState } from "react";
 
 export const SignUpForm = () => {
+  const { open } = useModal();
+
   const dispatch = useDispatch();
-  const { activeModal, close, open } = useModal();
-
-  const { profile, error, onLoad } = useSelector(
-    ({ profile, http_requests_on_load, http_errors }) => ({
-      profile,
-      onLoad: !!http_requests_on_load.find((type) => type === PROFILE_SIGN_IN),
-      error: http_errors.find((err) => err.type === PROFILE_SIGN_IN) || null,
-    })
-  );
-
-  useEffect(() => {
-    if (profile && activeModal === MODAL_NAMES.SIGN_IN) {
-      close();
-    }
-  }, [profile]);
+  const [onLoad, setOnLoad] = useState(false);
+  const [error, setError] = useState(false);
+  const [emailHelper, setEmailHelper] = useState("");
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => dispatch(profileActions.signIn(data));
+  const onSubmit = (data) => {
+    setOnLoad(true);
+    setEmailHelper("");
+    profileService
+      .signUp(data)
+      .then(({ data }) => {
+        open(MODAL_NAMES.SIGN_UP_SUCCESS_HELPER);
+        localStorage.setItem("token", data.auth.token);
+        dispatch({ type: PROFILE_SIGN_IN_SUCCESS, payload: data.user });
+      })
+      .catch((err) => {
+        setOnLoad(false);
+        if (err.status === 302) {
+          setEmailHelper("Email allready exists");
+        } else {
+          setError(true);
+        }
+      });
+  };
   return (
     <Container>
       <Typography color="text" weight="bold" size={"1.250rem"}>
@@ -36,26 +44,28 @@ export const SignUpForm = () => {
       <Icons.LogoIcon className="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          type="email"
+          type="text"
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
-          {...register("full_name")}
+          {...register("fullName", { required: true })}
           error={error}
+          helper={error ? "Full name should be at least 3 characters" : ""}
         />
         <Input
           type="email"
           icon={<Icons.EmailIcon />}
+          error={!!emailHelper}
+          helper={emailHelper}
           placeholder="Email"
-          {...register("email")}
-          error={error}
+          {...register("email", { required: true })}
         />
         <Input
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
-          {...register("password")}
+          {...register("password", { required: true })}
           error={error}
-          helper={error ? "incorrect username or password" : ""}
+          helper={error ? "Password should be at least 8 characters" : ""}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
           Sign Up
@@ -84,7 +94,12 @@ export const SignUpForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button link action fullWidth onClick={() => open(MODAL_NAMES.SIGN_IN)}>
+      <Button
+        link
+        actionColor
+        fullWidth
+        onClick={() => open(MODAL_NAMES.SIGN_IN)}
+      >
         Already have an account? Sign In
       </Button>
     </Container>

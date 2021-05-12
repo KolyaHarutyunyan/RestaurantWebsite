@@ -3,8 +3,8 @@ import { ButtonContainer } from "./style";
 export const Button = ({
   children,
   fullWidth = false,
-  inactive,
-  action,
+  inactive = false,
+  actionColor = 0,
   link = false,
   outlined = false,
   ...rest
@@ -15,7 +15,7 @@ export const Button = ({
       outlined={outlined}
       link={link}
       fullWidth={fullWidth}
-      action={action}
+      actionColor={actionColor}
       {...rest}
     >
       {children}

@@ -92,3 +92,34 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const NavigationContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+  width: 100%;
+  li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:first-child {
+      svg {
+        fill: ${colors.primary} !important;
+      }
+    }
+    .icon-container {
+      svg {
+        fill: ${colors.text};
+        transform: scale(0.8);
+        font-size: 40px;
+      }
+    }
+    &:hover {
+      background-color: #ffb3ae;
+    }
+    .icon-container {
+      flex: 0 0 40px;
+    }
+  }
+`;

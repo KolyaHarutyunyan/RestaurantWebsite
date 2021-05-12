@@ -1,32 +1,39 @@
 import { Container } from "./style";
-import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
+import { Input, Typography, Button, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import { profileActions, PROFILE_SIGN_IN } from "@eachbase/store";
+import { profileService } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
-  const { activeModal, close } = useModal();
-
-  const { profile, error, onLoad } = useSelector(
-    ({ profile, http_requests_on_load, http_errors }) => ({
-      profile,
-      onLoad: !!http_requests_on_load.find((type) => type === PROFILE_SIGN_IN),
-      error: http_errors.find((err) => err.type === PROFILE_SIGN_IN) || null,
-    })
-  );
-
-  useEffect(() => {
-    if (profile && activeModal === MODAL_NAMES.SIGN_IN) {
-      close();
-    }
-  }, [profile]);
-
+  const { open } = useModal();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => dispatch(profileActions.signIn(data));
+  const [error, setError] = useState(false);
+  const [onLoad, setOnLoad] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onSubmit = (data) => {
+    if (data.email) {
+      setOnLoad(true);
+      profileService
+        .forgotPassword(data.email)
+        .then((res) => open(MODAL_NAMES.CHECK_EMAIL_HELPER))
+        .catch((err) => {
+          setOnLoad(false);
+          setError(true);
+          setErrorMessage(
+            "We dont have registered user with this email address"
+          );
+        });
+    } else {
+      setError(true);
+      setErrorMessage("Write in this field you'r email address");
+    }
+  };
+
   return (
     <Container>
       <Icons.LogoIcon className="logo" />
@@ -42,8 +49,9 @@ export const ForgotPasswordForm = () => {
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
-          {...register("email")}
           error={error}
+          helper={errorMessage}
+          {...register("email")}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
           Get Code

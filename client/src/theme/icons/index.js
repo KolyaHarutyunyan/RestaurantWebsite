@@ -32,6 +32,7 @@ import WWWIcon from "./svgs/www.svg";
 import CloseIcon from "./svgs/close.svg";
 import EyeOffIcon from "./svgs/eye_off.svg";
 import MenuIcon from "./svgs/menu.svg";
+import SignUpSuccessGirl from "./svgs/sign_up_success_girl.svg";
 
 export {
   AddIcon,
@@ -68,4 +69,5 @@ export {
   CloseIcon,
   EyeOffIcon,
   MenuIcon,
+  SignUpSuccessGirl,
 };

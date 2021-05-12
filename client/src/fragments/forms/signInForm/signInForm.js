@@ -76,7 +76,12 @@ export const SignInForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button link action fullWidth onClick={() => open(MODAL_NAMES.SIGN_UP)}>
+      <Button
+        link
+        actionColor
+        fullWidth
+        onClick={() => open(MODAL_NAMES.SIGN_UP)}
+      >
         Doesn't have an account? Sign Up
       </Button>
     </Container>
