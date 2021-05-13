@@ -1,12 +1,14 @@
 import { Button, Typography } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
 
 import { Container } from "./style";
 import { IoMdDownload } from "react-icons/io";
+import { GoPlus } from "react-icons/go";
 export const RestaurantPageSections = () => {
   return (
     <Container className="container">
       <div className="header">
-        <Typography size="1.5rem" weight="bold">
+        <Typography color="text" size="1.5rem" weight="bold">
           Restaurant
         </Typography>
         <Button active link className="qr-button">
@@ -40,8 +42,20 @@ export const RestaurantPageSections = () => {
             </Typography>
             <Button>Edit</Button>
           </div>
+        </div> 
+        <div className="menu-list">
+          <Typography color="text" size="1.5rem" weight="bold">Menus</Typography>
+          <div className="list">
+            <div className="add-card">
+              <div className="image">
+                <Icons.MenuIcon />
+              </div>
+              <div className="footer">
+                <Button link inactive><GoPlus /> Add Menu</Button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="menu-list"></div>
       </div>
     </Container>
   );

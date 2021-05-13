@@ -37,7 +37,7 @@ const setBorder = ({ outlined, inactive }) => {
 };
 
 export const ButtonContainer = styled.button`
-  min-width: 200px;
+  min-width: ${({ link }) => link ? "fit-content" : '160px'};
   height: 48px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   background-color: ${setBackgroundColor};

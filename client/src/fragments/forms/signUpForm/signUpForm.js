@@ -23,9 +23,9 @@ export const SignUpForm = () => {
     profileService
       .signUp(data)
       .then(({ data }) => {
-        open(MODAL_NAMES.SIGN_UP_SUCCESS_HELPER);
         localStorage.setItem("token", data.auth.token);
         dispatch({ type: PROFILE_SIGN_IN_SUCCESS, payload: data.user });
+        open(MODAL_NAMES.CREATE_RESTAURANT);
       })
       .catch((err) => {
         setOnLoad(false);
@@ -68,7 +68,7 @@ export const SignUpForm = () => {
           helper={error ? "Password should be at least 8 characters" : ""}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
-          Sign Up
+          Continue
         </Button>
       </form>
       <Button
