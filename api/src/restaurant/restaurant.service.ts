@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
 import { IRestaurant } from './interfaces';
@@ -17,13 +17,13 @@ export class RestaurantService {
   /** Create restaurant */
   create = async (createRestaurantDTO: CreateRestaurantDTO) => {
 
-    if(createRestaurantDTO.status === 'true'){
+    if (createRestaurantDTO.status === 'true') {
 
-      const findStatus = await this.model.findOne({status: true})
-      if(findStatus){
+      const findStatus = await this.model.findOne({ status: true })
+      if (findStatus) {
 
         findStatus.status = false;
-  
+
         await findStatus.save();
 
       }
@@ -68,9 +68,10 @@ export class RestaurantService {
 
   /** API */
   /** get restaurant by id */
-  getRestaurantById = async (_id: string) => {
+  getRestaurantById = async (owner: string) => {
 
-    const getRestaurant = await this.model.findById({ _id }).populate("menus")
+    const getRestaurant = await this.model.findOne({ owner }).populate("menus");
+
     return getRestaurant
 
   };
@@ -78,14 +79,14 @@ export class RestaurantService {
   /** API */
   /** update restaurant by id */
   updateRestaurant = async (_id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
-    
-    if(updateRestaurantDto.status === 'true'){
-      
-      const findStatus = await this.model.findOne({status: true})
-      if(findStatus){
+
+    if (updateRestaurantDto.status === 'true') {
+
+      const findStatus = await this.model.findOne({ status: true })
+      if (findStatus) {
 
         findStatus.status = false;
-  
+
         await findStatus.save();
 
       }
