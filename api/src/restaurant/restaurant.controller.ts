@@ -8,6 +8,7 @@ import {
   Put,
   UploadedFile,
   UseGuards,
+  Request,
   UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -58,12 +59,11 @@ export class RestaurantController {
 
   }
 
-  @Get(':id')
+  @Get('byToken')
   @ApiHeader({ name: ACCESS_TOKEN })
   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
-  async getRestaurantById(@Param('id') id: string) {
-
-    const restaurant = await this.restaurantService.getRestaurantById(id);
+  async getRestaurantById(@Request() req: any) {
+    const restaurant = await this.restaurantService.getRestaurantById(req.body.user._id.toString());
     return restaurant;
 
   }
