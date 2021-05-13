@@ -10,12 +10,13 @@ import { useRef, useState } from "react";
 import useMedia from "use-media";
 
 export const Header = () => {
+  const router = useRouter();
   const profileContainerRef = useRef(null);
   const { profile } = useSelector(({ profile }) => ({ profile }));
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
   const { open } = useModal();
-  const router = useRouter();
+  
   const profileNavigationalList = () => {
     if (profile) {
       return (
@@ -32,7 +33,7 @@ export const Header = () => {
             <div className="icon-container">
               <Icons.MenuIcon />
             </div>
-            <Typography color="text" weight="bold">
+            <Typography color="text" weight="bold" onClick={() => router.push('/restaurant')}>
               Restaurant Profile
             </Typography>
           </li>

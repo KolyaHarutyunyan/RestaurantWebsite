@@ -22,6 +22,10 @@ export const Container = styled.div`
     gap: 20px;
     .restaurant-card,
     .extra-details-card {
+      box-shadow: 1px 1px 14px #d6d6d6;
+      margin: 10px 0;
+      border-radius: 5px;
+      padding: 20px;
       .header {
         .title {
         }

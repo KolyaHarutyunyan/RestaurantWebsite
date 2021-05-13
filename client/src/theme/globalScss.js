@@ -4,6 +4,7 @@ import { colors } from "./colors";
 export const GlobalScss = createGlobalStyle`
   .container {
     width: 100%;
+    overflow-x: visible;
     ${media.forLargeDesktop`
       margin: 0 auto;
       max-width: 1600px;
@@ -18,7 +19,6 @@ export const GlobalScss = createGlobalStyle`
     ${media.forMobile`
       padding:0 16px;
     `};
-    overflow: auto;
   }
 
   /* CASTIL */
