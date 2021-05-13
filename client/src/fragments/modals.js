@@ -14,8 +14,7 @@ export const Modals = () => {
   return (
     <Fragment>
       <Modal modalName={MODAL_NAMES.SIGN_IN}>
-        <CreateRestaurantForm />
-        {/* <SignInForm /> */}
+        <SignInForm />
       </Modal>
       <Modal
         backButton

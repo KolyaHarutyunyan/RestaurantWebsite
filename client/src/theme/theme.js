@@ -4,6 +4,7 @@ import {
   CssBaseline,
 } from "@material-ui/core";
 import { GlobalCss } from "./globalCss";
+import { GlobalScss } from "./globalScss";
 
 export const defaultTheme = createMuiTheme();
 export const theme = createMuiTheme({
@@ -71,6 +72,7 @@ export const theme = createMuiTheme({
 export const ThemeProvider = ({ children }) => (
   <ThemeProviderMaterialUI theme={theme}>
     <GlobalCss />
+    <GlobalScss />
     <CssBaseline />
     {children}
   </ThemeProviderMaterialUI>

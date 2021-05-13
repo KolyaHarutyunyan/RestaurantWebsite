@@ -21,4 +21,6 @@ export {
   ResetPasswordHelper,
   SignUpSuccessHelper,
 } from "./helpers";
+
+export { RestaurantPageSections } from "./restaurantPageSections";
 export { Modals } from "./modals";

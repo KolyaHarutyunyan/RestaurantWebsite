@@ -1,12 +1,12 @@
 import { createGlobalStyle } from "styled-components";
-import { media } from "@eachbase/theme";
-import { colors } from "@eachbase/theme";
+import { media } from "./media";
+import { colors } from "./colors";
 export const GlobalScss = createGlobalStyle`
   .container {
     width: 100%;
     ${media.forLargeDesktop`
       margin: 0 auto;
-      max-width: 1400px;
+      max-width: 1600px;
     `};
     ${media.forDesktop`
       margin: 0 auto;

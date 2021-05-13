@@ -4,7 +4,6 @@ import { Typography, Switch, Button } from "@eachbase/components";
 import { useContext } from "react";
 
 export const Title = ({ title, id, status, changeStatus }) => {
-  let { openModal } = useContext(ModalContext);
   return (
     <>
       <Styled.Navigator>

@@ -1,7 +1,7 @@
 import { Styled } from "./style";
 import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { TimeLine } from "./timeLine";
 
 export const ExtraDetails = () => {
@@ -9,7 +9,6 @@ export const ExtraDetails = () => {
     restaurant ? restaurant.extraDetails : null
   );
   const [openHours, setOpenHours] = useState(false);
-  let { openModal } = useContext(ModalContext);
 
   if (!extraDetails) {
     return null;

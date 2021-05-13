@@ -8,7 +8,7 @@ export const CategoriesItem = ({ categoryId, activeCategory, changeTo }) => {
     (state) =>
       state.categories.find((category) => category.id === categoryId) || false
   );
-  let { openModal } = useContext(ModalContext);
+
   if (!category) return null;
   return (
     <Styled.CategoryItem

@@ -3,7 +3,6 @@ import { Button, ItemImage } from "@eachbase/components";
 import { useContext } from "react";
 
 export const MenuInfos = ({ title, id, status, imageUrl, description }) => {
-  let { openModal } = useContext(ModalContext);
   let toggle = () => {};
   return (
     <>

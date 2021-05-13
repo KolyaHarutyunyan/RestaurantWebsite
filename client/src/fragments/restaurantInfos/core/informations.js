@@ -1,24 +1,15 @@
 import { Styled } from "./style";
 import { BlockTitle } from "./blockTitle";
 import { useSelector } from "react-redux";
-import { useContext } from "react";
 
 export const Information = () => {
   let { name, description, logo } = useSelector(
     (state) => state.restaurant || []
   );
-  let { openModal } = useContext(ModalContext);
 
   return (
     <Styled.Block>
-      <BlockTitle
-        hasLogo={true}
-        logo={logo}
-        title={name}
-        editAction={() =>
-          openModal.editRestaurantInfo({ title: "Edit Restaurant Information" })
-        }
-      />
+      <BlockTitle hasLogo={true} logo={logo} title={name} />
       <Styled.Description>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever

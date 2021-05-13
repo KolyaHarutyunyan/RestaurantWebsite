@@ -1,10 +1,9 @@
 import { Styled } from ".";
-import { Switch } from "@eachbase/components";
-import { useContext, useState } from "react";
+import { Switch, Button } from "@eachbase/components";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export const Item = ({ item, newItem }) => {
-  let { openModal } = useContext(ModalContext);
   const [openOptions, setOpenOptions] = useState(false);
   let toggleChecked = () => setOpenOptions(!openOptions);
   let router = useRouter();
