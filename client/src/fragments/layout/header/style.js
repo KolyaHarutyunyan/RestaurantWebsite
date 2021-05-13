@@ -100,6 +100,9 @@ export const NavigationContainer = styled.ul`
   padding: 10px 0;
   width: 100%;
   li {
+    @media only screen and (max-width: 768px) {
+      padding-left: 40px;
+    }
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -111,7 +114,7 @@ export const NavigationContainer = styled.ul`
     .icon-container {
       svg {
         fill: ${colors.text};
-        transform: scale(0.8);
+        transform: scale(0.7);
         font-size: 40px;
       }
     }

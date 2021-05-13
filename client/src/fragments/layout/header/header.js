@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Container, NavigationContainer } from "./style";
 import { Typography, Button, Menu, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
 import { BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
@@ -14,44 +15,55 @@ export const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
   const { open } = useModal();
-
+  const router = useRouter();
   const profileNavigationalList = () => {
-    return (
-      <NavigationContainer>
-        <li>
-          <div className="icon-container">
-            <Icons.PersonIcon />
-          </div>
-          <Typography color="text" weight="bold">
-            {profile.fullName}
-          </Typography>
-        </li>
-        <li>
-          <div className="icon-container">
-            <Icons.MenuIcon />
-          </div>
-          <Typography color="text" weight="bold">
-            Restaurant Profile
-          </Typography>
-        </li>
-        <li>
-          <div className="icon-container">
-            <BsPersonFill />
-          </div>
-          <Typography color="text" weight="bold">
-            Account Settings
-          </Typography>
-        </li>
-        <li>
-          <div className="icon-container">
-            <Icons.LogoutIcon />
-          </div>
-          <Typography color="text" weight="bold">
-            Sign out
-          </Typography>
-        </li>
-      </NavigationContainer>
-    );
+    if (profile) {
+      return (
+        <NavigationContainer>
+          <li>
+            <div className="icon-container">
+              <Icons.PersonIcon />
+            </div>
+            <Typography color="text" weight="bold">
+              {profile.fullName}
+            </Typography>
+          </li>
+          <li>
+            <div className="icon-container">
+              <Icons.MenuIcon />
+            </div>
+            <Typography color="text" weight="bold">
+              Restaurant Profile
+            </Typography>
+          </li>
+          <li>
+            <div className="icon-container">
+              <BsPersonFill />
+            </div>
+            <Typography color="text" weight="bold">
+              Account Settings
+            </Typography>
+          </li>
+          <li>
+            <div className="icon-container">
+              <Icons.LogoutIcon />
+            </div>
+            <Typography
+              color="text"
+              weight="bold"
+              onClick={() => {
+                localStorage.removeItem("token");
+                router.push("/");
+              }}
+            >
+              Sign out
+            </Typography>
+          </li>
+        </NavigationContainer>
+      );
+    }
+
+    return null;
   };
 
   const renderProfileDropdown = () => {

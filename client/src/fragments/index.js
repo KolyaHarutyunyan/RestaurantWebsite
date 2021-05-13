@@ -9,10 +9,16 @@ export { Menus } from "./menus";
 export { MenuInfos } from "./menuInfos";
 export { Categories } from "./categories";
 export { RemoveMenuItem } from "./removeMenuItem";
-export { SignInForm, ForgotPasswordForm, SignUpForm } from "./forms";
+export {
+  SignInForm,
+  ForgotPasswordForm,
+  SignUpForm,
+  CreateRestaurantForm,
+} from "./forms";
 export {
   CheckEmailHelper,
   ForgotPasswordSuccessHelper,
   ResetPasswordHelper,
   SignUpSuccessHelper,
 } from "./helpers";
+export { Modals } from "./modals";

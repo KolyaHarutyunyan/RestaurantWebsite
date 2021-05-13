@@ -3,16 +3,8 @@ import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
 import { Store } from "@eachbase/store";
 import { initAxiosInterceptors } from "@eachbase/utils";
-import { ModalProvider, Modal } from "@eachbase/components";
-import {
-  SignInForm,
-  ForgotPasswordForm,
-  SignUpForm,
-  Layout,
-  CheckEmailHelper,
-  SignUpSuccessHelper,
-} from "@eachbase/fragments";
-import { MODAL_NAMES } from "@eachbase/constants";
+import { ModalProvider } from "@eachbase/components";
+import { Layout, Modals } from "@eachbase/fragments";
 
 initAxiosInterceptors();
 export default function MyApp({ Component, pageProps }) {
@@ -32,25 +24,7 @@ export default function MyApp({ Component, pageProps }) {
             <Layout>
               <Component {...pageProps} />
             </Layout>
-            <Modal modalName={MODAL_NAMES.SIGN_IN}>
-              <SignInForm />
-            </Modal>
-            <Modal
-              backButton
-              onBackButtonClick={({ open }) => open(MODAL_NAMES.SIGN_IN)}
-              modalName={MODAL_NAMES.FORGOT_PASSWORD}
-            >
-              <ForgotPasswordForm />
-            </Modal>
-            <Modal modalName={MODAL_NAMES.SIGN_UP}>
-              <SignUpForm />
-            </Modal>
-            <Modal modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
-              <CheckEmailHelper />
-            </Modal>
-            <Modal modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
-              <SignUpSuccessHelper />
-            </Modal>
+            <Modals />
           </ModalProvider>
         </ThemeProvider>
       </Store>
