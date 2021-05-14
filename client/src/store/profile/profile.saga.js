@@ -7,6 +7,7 @@ import {
   PROFILE_SIGN_IN,
   PROFILE_SIGN_IN_SUCCESS,
   GET_USER_INFO,
+  PROFILE_SIGN_UP,
   GET_USER_INFO_SUCCESS,
 } from "./profile.types";
 import { profileService } from "./profile.service";
@@ -44,7 +45,25 @@ function* getUserInfo({ type }) {
   }
 }
 
+function* profileSignUp({ type, payload }) {
+  yield put(httpRequestsOnLoad.appendLoading(type));
+  yield put(httpErrorsActions.removeError(type));
+  try {
+    const { data } = yield call(profileService.signUp, payload);
+    localStorage.setItem("token", data.auth.token);
+    yield put({
+      type: PROFILE_SIGN_UP_SUCCESS,
+      payload: data,
+    });
+    yield put(httpRequestsOnLoad.removeLoading(type));
+  } catch (err) {
+    yield put(httpErrorsActions.appendError(type, err));
+    yield put(httpRequestsOnLoad.removeLoading(type));
+  }
+}
+
 export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_IN, signIn);
   yield takeLatest(GET_USER_INFO, getUserInfo);
+  yield takeLatest(PROFILE_SIGN_UP, profileSignUp);
 }

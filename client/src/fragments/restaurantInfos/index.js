@@ -1,1 +1,0 @@
-export { RestaurantInfos } from "./restaurantInfos";

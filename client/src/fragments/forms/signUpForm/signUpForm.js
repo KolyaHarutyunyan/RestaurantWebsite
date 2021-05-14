@@ -1,8 +1,8 @@
-import { Container } from "./style";
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { profileService, PROFILE_SIGN_IN_SUCCESS } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { BsPerson } from "react-icons/bs";
@@ -20,6 +20,7 @@ export const SignUpForm = () => {
   const onSubmit = (data) => {
     setOnLoad(true);
     setEmailHelper("");
+
     profileService
       .signUp(data)
       .then(({ data }) => {
@@ -36,9 +37,10 @@ export const SignUpForm = () => {
         }
       });
   };
+
   return (
     <Container>
-      <Typography color="text" weight="bold" size={"1.250rem"}>
+      <Typography color="text" weight="bold" size="1.250rem">
         Welcome to Menuz
       </Typography>
       <Icons.LogoIcon className="logo" />

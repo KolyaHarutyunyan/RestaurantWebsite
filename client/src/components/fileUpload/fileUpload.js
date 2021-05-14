@@ -24,8 +24,7 @@ export const FileUpload = ({
     accept: "image/*",
     onDrop,
   });
-
-  console.log(files);
+  
   return (
     <Container {...getRootProps()} isDragActive={isDragActive}>
       <div className="uploaded-files">

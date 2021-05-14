@@ -1,26 +1,15 @@
-export { Layout } from "./layout";
 
-export { Verify } from "./verify";
-export { Profile } from "./profile";
-export { ConfirmPassword } from "./confirmPassword";
-
-export { RestaurantInfos } from "./restaurantInfos";
-export { Menus } from "./menus";
-export { MenuInfos } from "./menuInfos";
-export { Categories } from "./categories";
-export { RemoveMenuItem } from "./removeMenuItem";
 export {
+  CreateRestaurantForm, ForgotPasswordForm,
   SignInForm,
-  ForgotPasswordForm,
-  SignUpForm,
-  CreateRestaurantForm,
-} from "./forms";
+  SignUpForm
+} from './forms';
 export {
   CheckEmailHelper,
   ForgotPasswordSuccessHelper,
   ResetPasswordHelper,
-  SignUpSuccessHelper,
-} from "./helpers";
-
-export { RestaurantPageSections } from "./restaurantPageSections";
-export { Modals } from "./modals";
+  SignUpSuccessHelper
+} from './helpers';
+export { Layout } from './layout';
+export { Modals } from './modals';
+export { HomePageSections, RestaurantPageSections } from './sections';
