@@ -1,11 +1,13 @@
 import axios from "axios";
 import { API_BASE } from "@eachbase/constants";
+import router from "next/router";
 export const initAxiosInterceptors = () => {
   axios.interceptors.request.use((config) => {
     config.url = `${API_BASE}${config.url}`;
     if (config.auth) {
       const token = localStorage.getItem("token");
       if (!token) {
+        router.push("/");
         throw new Error("token not found");
       }
       config.headers = {
@@ -21,6 +23,7 @@ export const initAxiosInterceptors = () => {
     (error) => {
       if (error.response.status >= 400 && error.response.status <= 403) {
         localStorage.removeItem("token");
+        router.push("/");
       }
       throw new Object({
         data: error.response.data,

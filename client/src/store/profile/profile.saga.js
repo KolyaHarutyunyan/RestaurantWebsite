@@ -6,9 +6,11 @@ import { httpRequestsOnLoad } from "../http_requests_on_load";
 import {
   PROFILE_SIGN_IN,
   PROFILE_SIGN_IN_SUCCESS,
-  GET_USER_INFO,
+  GET_PROFILE_INFO,
   PROFILE_SIGN_UP,
-  GET_USER_INFO_SUCCESS,
+  GET_PROFILE_INFO_SUCCESS,
+  UPDATE_PROFILE_INFO,
+  UPDATE_PROFILE_PASSWORD,
 } from "./profile.types";
 import { profileService } from "./profile.service";
 
@@ -35,7 +37,7 @@ function* getUserInfo({ type }) {
   try {
     const { data } = yield call(profileService.userInfo);
     yield put({
-      type: GET_USER_INFO_SUCCESS,
+      type: GET_PROFILE_INFO_SUCCESS,
       payload: data,
     });
     yield put(httpRequestsOnLoad.removeLoading(type));
@@ -45,7 +47,7 @@ function* getUserInfo({ type }) {
   }
 }
 
-function* profileSignUp({ type, payload }) {
+function* signUp({ type, payload }) {
   yield put(httpRequestsOnLoad.appendLoading(type));
   yield put(httpErrorsActions.removeError(type));
   try {
@@ -64,6 +66,6 @@ function* profileSignUp({ type, payload }) {
 
 export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_IN, signIn);
-  yield takeLatest(GET_USER_INFO, getUserInfo);
-  yield takeLatest(PROFILE_SIGN_UP, profileSignUp);
+  yield takeLatest(GET_PROFILE_INFO, getUserInfo);
+  yield takeLatest(PROFILE_SIGN_UP, signUp);
 }

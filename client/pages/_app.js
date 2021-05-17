@@ -1,13 +1,13 @@
 import { Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
-import { Store } from "@eachbase/store";
 import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
 import { Layout, Modals } from "@eachbase/fragments";
-
+import { reduxWrapper } from "@eachbase/store";
 initAxiosInterceptors();
-export default function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <Head>
@@ -18,16 +18,16 @@ export default function MyApp({ Component, pageProps }) {
         />
         <title>Menuz</title>
       </Head>
-      <Store>
-        <ThemeProvider>
-          <ModalProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <Modals />
-          </ModalProvider>
-        </ThemeProvider>
-      </Store>
+      <ThemeProvider>
+        <ModalProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Modals />
+        </ModalProvider>
+      </ThemeProvider>
     </Fragment>
   );
 }
+
+export default reduxWrapper().withRedux(MyApp);

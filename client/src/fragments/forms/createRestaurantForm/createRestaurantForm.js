@@ -17,19 +17,17 @@ export const CreateRestaurantForm = () => {
   } = useForm();
   const [restaurantIcon, setRestaurantIcon] = useState([]);
 
-
-  useEffect(() => {
-    console.log(111);
-  }, [])
-
-  const onSubmit = () => {
-    console.log(111);
-  }
+  const onSubmit = () => {};
 
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography className="title" weight="bold" color="text" size="1.250rem">
+        <Typography
+          className="title"
+          weight="bold"
+          color="text"
+          size="1.250rem"
+        >
           Last Step to Sign Up
         </Typography>
         <Input placeholder="Add your Restaurant Name" {...register("name")} />

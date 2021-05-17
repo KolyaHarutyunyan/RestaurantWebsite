@@ -8,6 +8,7 @@ export const Container = styled.div`
   box-shadow: 0px 2px 6px #0000001a;
   padding: 0 50px;
   .logo-container {
+    cursor: pointer;
     display: flex;
     align-items: center;
     flex: 0 0 200px;

@@ -7,6 +7,7 @@ import { categoriesReducer } from "../categories";
 import { menusReducer } from "../menus";
 import { httpErrorsReducer } from "../http_errors";
 import { httpRequestsOnLoadReducer } from "../http_requests_on_load";
+import { httpRequestsOnSuccessReducer } from "../http_requests_on_success";
 export const appReducer = combineReducers({
   profile: profileReducer,
   restaurant: restaurantReducer,
@@ -15,5 +16,6 @@ export const appReducer = combineReducers({
   menuItems: menuItemsReducer,
   menus: menusReducer,
   http_requests_on_load: httpRequestsOnLoadReducer,
+  http_requests_on_success: httpRequestsOnSuccessReducer,
   http_errors: httpErrorsReducer,
 });

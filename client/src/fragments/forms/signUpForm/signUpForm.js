@@ -1,10 +1,14 @@
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import { profileService, PROFILE_SIGN_IN_SUCCESS } from "@eachbase/store";
+import {
+  profileService,
+  PROFILE_SIGN_IN_SUCCESS,
+  profileActions,
+} from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsPerson } from "react-icons/bs";
 import { useState } from "react";
 
@@ -12,15 +16,20 @@ export const SignUpForm = () => {
   const { open } = useModal();
 
   const dispatch = useDispatch();
+  const profile = useSelector(({ profile }) => profile);
+
   const [onLoad, setOnLoad] = useState(false);
   const [error, setError] = useState(false);
   const [emailHelper, setEmailHelper] = useState("");
-
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
     setOnLoad(true);
     setEmailHelper("");
 
+    dispatch(profileActions.signUp(data));
+
+    return;
     profileService
       .signUp(data)
       .then(({ data }) => {

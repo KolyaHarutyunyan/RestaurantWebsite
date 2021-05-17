@@ -12,11 +12,11 @@ import useMedia from "use-media";
 export const Header = () => {
   const router = useRouter();
   const profileContainerRef = useRef(null);
-  const { profile } = useSelector(({ profile }) => ({ profile }));
+  const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
   const { open } = useModal();
-  
+
   const profileNavigationalList = () => {
     if (profile) {
       return (
@@ -33,7 +33,11 @@ export const Header = () => {
             <div className="icon-container">
               <Icons.MenuIcon />
             </div>
-            <Typography color="text" weight="bold" onClick={() => router.push('/restaurant')}>
+            <Typography
+              color="text"
+              weight="bold"
+              onClick={() => router.push("/restaurant")}
+            >
               Restaurant Profile
             </Typography>
           </li>
@@ -41,7 +45,11 @@ export const Header = () => {
             <div className="icon-container">
               <BsPersonFill />
             </div>
-            <Typography color="text" weight="bold">
+            <Typography
+              color="text"
+              weight="bold"
+              onClick={() => router.push("/profile")}
+            >
               Account Settings
             </Typography>
           </li>
@@ -136,7 +144,7 @@ export const Header = () => {
 
   return (
     <Container>
-      <div className="logo-container">
+      <div className="logo-container" onClick={() => router.push("/")}>
         <Icons.LogoIcon />
         <Typography weight="bold" color="text" size="1.250rem">
           Menuz

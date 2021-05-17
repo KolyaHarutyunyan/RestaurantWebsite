@@ -1,4 +1,4 @@
-export { Store } from "./store";
+export { reduxWrapper } from "./store";
 
 export { restaurantActions } from "./restaurant";
 export { categoriesActions } from "./categories";

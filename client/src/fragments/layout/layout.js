@@ -9,16 +9,14 @@ export const Layout = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(profileActions.getUserInfo());
-    }
+    dispatch(profileActions.getUserInfo());
   }, []);
 
   return (
     <Fragment>
       <Header />
       <MainWrapper>
-        {children}
+        <div className="page-content">{children}</div>
         <Footer />
       </MainWrapper>
     </Fragment>
