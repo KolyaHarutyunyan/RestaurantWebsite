@@ -1,7 +1,11 @@
 import { Container } from "./style";
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import { profileActions, PROFILE_SIGN_IN } from "@eachbase/store";
+import {
+  profileActions,
+  PROFILE_SIGN_IN,
+  useSagaHTTPState,
+} from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,13 +15,8 @@ export const SignInForm = () => {
   const dispatch = useDispatch();
   const { activeModal, close, open } = useModal();
 
-  const { profile, error, onLoad } = useSelector(
-    ({ profile, http_requests_on_load, http_errors }) => ({
-      profile,
-      onLoad: !!http_requests_on_load.find((type) => type === PROFILE_SIGN_IN),
-      error: http_errors.find((err) => err.type === PROFILE_SIGN_IN) || null,
-    })
-  );
+  const profile = useSelector((state) => state.profile);
+  const { onError, onLoad } = useSagaHTTPState(PROFILE_SIGN_IN);
 
   useEffect(() => {
     if (profile && activeModal === MODAL_NAMES.SIGN_IN) {
@@ -39,15 +38,15 @@ export const SignInForm = () => {
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email")}
-          error={error}
+          error={onError}
         />
         <Input
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
           {...register("password")}
-          error={error}
-          helper={error ? "incorrect username or password" : ""}
+          error={onError}
+          helper={onError ? "incorrect username or password" : ""}
         />
         <Button fullWidth type="submit" disabled={onLoad}>
           Sign In

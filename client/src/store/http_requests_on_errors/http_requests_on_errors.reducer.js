@@ -1,7 +1,7 @@
-import { APPEND_ERROR, REMOVE_ERROR } from "./http_errors.types";
+import { APPEND_ERROR, REMOVE_ERROR } from "./http_requests_on_errors.types";
 const initialState = [];
 
-export const httpErrorsReducer = (state = initialState, action) => {
+export const httpRequestsOnErrorsReducer = (state = initialState, action) => {
   switch (action.type) {
     case APPEND_ERROR:
       return [...state, action.payload];

@@ -1,4 +1,4 @@
-export { httpRequestsOnSuccess } from "./http_requests_on_success.actions";
+export { httpRequestsOnSuccessActions } from "./http_requests_on_success.actions";
 export { httpRequestsOnSuccessReducer } from "./http_requests_on_success.reducer";
 export {
   APPEND_SUCCESS,

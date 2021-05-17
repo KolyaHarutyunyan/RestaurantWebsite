@@ -9,7 +9,7 @@ export const httpRequestsOnSuccessReducer = (state = initialState, action) => {
     case APPEND_SUCCESS:
       return [...state, action.payload];
     case REMOVE_SUCCESS:
-      return state.filter((loading) => loading !== action.payload);
+      return state.filter((successData) => successData.type !== action.payload);
     default:
       return state;
   }

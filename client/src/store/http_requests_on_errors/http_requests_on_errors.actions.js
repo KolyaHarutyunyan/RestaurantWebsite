@@ -1,6 +1,6 @@
-import { APPEND_ERROR, REMOVE_ERROR } from "./http_errors.types";
+import { APPEND_ERROR, REMOVE_ERROR } from "./http_requests_on_errors.types";
 
-export const httpErrorsActions = {
+export const httpRequestsOnErrorsActions = {
   appendError: (type, error) => ({
     type: APPEND_ERROR,
     payload: {

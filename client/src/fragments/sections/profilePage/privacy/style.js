@@ -19,6 +19,9 @@ export const Container = styled.div`
       color: #2b273c80;
     }
   }
+  .input-descr {
+    margin-bottom: 5px;
+  }
   .input-box {
     margin-bottom: 10px;
   }

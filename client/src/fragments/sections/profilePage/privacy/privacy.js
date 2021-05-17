@@ -1,19 +1,41 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Typography, Button, Input } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
+import {
+  profileActions,
+  UPDATE_PROFILE_PASSWORD,
+  useSagaHTTPState,
+  useSagaHTTPStateActions,
+} from "@eachbase/store";
+
 export const Privacy = () => {
   const { register, handleSubmit } = useForm();
+  const { onLoad, onSuccess } = useSagaHTTPState(UPDATE_PROFILE_PASSWORD);
+  const { removeSuccess } = useSagaHTTPStateActions(UPDATE_PROFILE_PASSWORD);
+  const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState({
     password: "",
     newPassword: "",
-    repeatPassword: "",
+    confirmation: "",
   });
 
+  useEffect(() => () => removeSuccess(), [onSuccess]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    const { newPassword, confirmation } = data;
+    if (newPassword !== confirmation) {
+      setErrors({
+        ...errors,
+        confirmation: "Doesn't match which new password",
+      });
+      return;
+    }
+    setErrors({ ...errors, confirmation: "" });
+    dispatch(profileActions.updatePassword(data));
   };
 
   const renderNoth = () => {
@@ -28,39 +50,46 @@ export const Privacy = () => {
       </div>
     );
   };
+
   const renderForm = () => {
     return (
       <Fragment>
+        <div className="input-descr">
+          Use at least 8 characters, 1 upper case and 1 digit
+        </div>
         <div className="input-box">
           <Input
             error={!!errors.password.length}
-            helper={errors.helper}
+            helper={errors.password}
             icon={<Icons.PasswordIcon />}
             disabled={!editMode}
             placeholder="Password"
-            {...register("fullName", { required: true })}
+            type="password"
+            {...register("password", { required: true })}
           />
         </div>
         <div className="input-box">
           <Input
             error={!!errors.newPassword.length}
-            helper={errors.helper}
+            helper={errors.newPassword}
             icon={<Icons.PasswordIcon />}
             disabled={!editMode}
             placeholder="New Password"
-            type="email"
-            {...register("email", { required: true })}
+            type="password"
+            {...register("newPassword", { required: true })}
           />
         </div>
         <div className="input-box">
           <Input
-            error={!!errors.repeatPassword.length}
-            helper={errors.helper}
+            error={!!errors.confirmation.length}
+            helper={
+              onSuccess ? "Password successfuly changed" : errors.confirmation
+            }
             icon={<Icons.PasswordIcon />}
             disabled={!editMode}
             placeholder="Repeat Password"
-            type="email"
-            {...register("email", { required: true })}
+            type="password"
+            {...register("confirmation", { required: true })}
           />
         </div>
       </Fragment>
@@ -72,7 +101,7 @@ export const Privacy = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="head">
           {editMode ? (
-            <Button link actionColor type="submit">
+            <Button link actionColor type="submit" disabled={onLoad}>
               Save
             </Button>
           ) : (

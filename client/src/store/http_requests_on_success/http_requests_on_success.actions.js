@@ -3,13 +3,16 @@ import {
   REMOVE_SUCCESS,
 } from "./http_requests_on_success.types";
 
-export const httpRequestsOnSuccess = {
-  appendLoading: (loadingType) => ({
+export const httpRequestsOnSuccessActions = {
+  appendSuccess: (type, data) => ({
     type: APPEND_SUCCESS,
-    payload: loadingType,
+    payload: {
+      type,
+      data,
+    },
   }),
-  removeLoading: (loadingType) => ({
+  removeSuccess: (successType) => ({
     type: REMOVE_SUCCESS,
-    payload: loadingType,
+    payload: successType,
   }),
 };
