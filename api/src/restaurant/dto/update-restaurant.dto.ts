@@ -20,5 +20,9 @@ export class UpdateRestaurantDTO {
 
     @ApiProperty()
     @IsNotEmpty()
-    status?: string;
+    status: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    logoUrl: string;
 }

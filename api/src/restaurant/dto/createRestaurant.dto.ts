@@ -3,9 +3,9 @@ import { IsNotEmpty, IsUrl } from 'class-validator';
 import { IUser } from 'src/user/interfaces';
 
 export class CreateRestaurantDTO {
-  @ApiProperty()
-  @IsNotEmpty()
-  ownerId: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // ownerId: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -14,13 +14,15 @@ export class CreateRestaurantDTO {
   description: string;
 
   @ApiProperty({ required: false })
+  @IsNotEmpty()
   logoUrl: string;
 
   @ApiProperty({ required: false })
   QR: string;
   //internally set
   // restaurantOwner?: IUser;
-  status: string;
+  @IsNotEmpty()
+  status: boolean;
 
   @ApiProperty({ required: false })
   website?: string;
@@ -35,5 +37,5 @@ export class CreateRestaurantDTO {
   open: string;
 
   @ApiProperty({ required: true })
-  close: Date
+  close: string;
 }

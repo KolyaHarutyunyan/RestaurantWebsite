@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AVATAR_FOLDER, EVENT_FOLDER, QR_FOLDER } from './constants';
+import { AVATAR_FOLDER, EVENT_FOLDER, QR_FOLDER, RESTAURANT_FOLDER } from './constants';
 import { ImageStorage } from './image.storage';
 import * as sharp from 'sharp';
 import { EventImageDTO } from './dto';
@@ -10,6 +10,9 @@ export class ImageService {
 
   saveAvatarImage = async (file): Promise<string> => {
     return await this.storage.storeImage(file, AVATAR_FOLDER);
+  };
+  saveRestaurantLogoImage = async (file): Promise<string> => {
+    return await this.storage.storeImage(file, RESTAURANT_FOLDER);
   };
   saveQRImage = async (file): Promise<any> => {
     var datas: any = {};

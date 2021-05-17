@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from './util/swagger';
 import * as session from 'express-session';
 import { PORT } from './app/constants';
+import { AllExceptionsFilter } from './all-exception.filters';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -23,6 +24,7 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
+  // app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
