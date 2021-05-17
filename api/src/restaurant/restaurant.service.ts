@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
 import { IRestaurant } from './interfaces';
@@ -15,9 +15,8 @@ export class RestaurantService {
 
   /** API */
   /** Create restaurant */
-  create = async (createRestaurantDTO: CreateRestaurantDTO) => {
-
-    if (createRestaurantDTO.status === 'true') {
+  create = async (createRestaurantDTO: CreateRestaurantDTO, id: string) => {
+    if (createRestaurantDTO.status === true) {
 
       const findStatus = await this.model.findOne({ status: true })
       if (findStatus) {
@@ -31,7 +30,7 @@ export class RestaurantService {
     }
 
     const restaurant = await new this.model({
-      owner: createRestaurantDTO.ownerId,
+      owner: id,
       name: createRestaurantDTO.name,
       description: createRestaurantDTO.description,
       logoUrl: createRestaurantDTO.logoUrl,
@@ -78,7 +77,7 @@ export class RestaurantService {
 
   /** API */
   /** update restaurant by id */
-  updateRestaurant = async (_id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
+  updateRestaurant = async (owner: string, _id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
 
     if (updateRestaurantDto.status === 'true') {
 
@@ -92,9 +91,9 @@ export class RestaurantService {
       }
 
     }
-    const updateRestaurant = await this.model.findOneAndUpdate({ _id }, {
+    const updateRestaurant = await this.model.findOneAndUpdate({ owner, _id }, {
       name: updateRestaurantDto.name, description: updateRestaurantDto.description,
-      website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status
+      website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status, logoUrl: updateRestaurantDto.logoUrl
     }, { new: true });
 
     return this.sanitizeRestaurant(updateRestaurant);
@@ -103,10 +102,9 @@ export class RestaurantService {
 
   /** API */
   /** delete restaurant by id */
-  deleteRestaurant = async (_id: string) => {
+  deleteRestaurant = async (owner, _id: string) => {
 
-    const deleteRestaurant = await this.model.findOneAndDelete({ _id });
-
+    const deleteRestaurant = await this.model.findOneAndDelete({ owner, _id });
     return deleteRestaurant;
 
   };
