@@ -1,31 +1,25 @@
 import { Container } from "./style";
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import {
-  profileActions,
-  PROFILE_SIGN_IN,
-  useSagaHTTPState,
-} from "@eachbase/store";
+import { profileActions, useSagaStore } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export const SignInForm = () => {
-  const dispatch = useDispatch();
-  const { activeModal, close, open } = useModal();
+  const { open } = useModal();
 
   const profile = useSelector((state) => state.profile);
-  const { onError, onLoad } = useSagaHTTPState(PROFILE_SIGN_IN);
+  const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
 
   useEffect(() => {
-    if (profile && activeModal === MODAL_NAMES.SIGN_IN) {
-      close();
-    }
+    return () => destroy.all();
   }, [profile]);
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => dispatch(profileActions.signIn(data));
+  const onSubmit = (data) => dispatch(data);
+
   return (
     <Container>
       <Typography color="text" weight="bold" size={"1.250rem"}>
@@ -38,17 +32,17 @@ export const SignInForm = () => {
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email")}
-          error={onError}
+          error={status.onError}
         />
         <Input
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
           {...register("password")}
-          error={onError}
-          helper={onError ? "incorrect username or password" : ""}
+          error={status.onError}
+          helper={status.onError ? "incorrect username or password" : ""}
         />
-        <Button fullWidth type="submit" disabled={onLoad}>
+        <Button fullWidth type="submit" disabled={status.onLoad}>
           Sign In
         </Button>
       </form>

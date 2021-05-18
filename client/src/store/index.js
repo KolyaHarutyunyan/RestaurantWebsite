@@ -18,32 +18,52 @@ export { menuItemsActions } from "./menuItems";
 import { httpRequestsOnErrorsActions } from "./http_requests_on_errors";
 import { httpRequestsOnSuccessActions } from "./http_requests_on_success";
 
-export const useSagaHTTPState = (actionType) =>
-  useSelector(({ httpOnLoad, httpOnSuccess, httpOnError }) => ({
-    onLoad: !!httpOnLoad.find((type) => type === actionType),
-    onError: httpOnError.find((err) => err.type === actionType) || null,
-    onSuccess: httpOnSuccess.find((err) => err.type === actionType) || null,
-  }));
-
-export const useSagaHTTPStateActions = (actionType) => {
+export const useSagaStore = (actionCreator) => {
   const dispatch = useDispatch();
 
-  const removeSuccess = () => {
-    dispatch(httpRequestsOnSuccessActions.removeSuccess(actionType));
+  const mockArgs = [];
+  for (let i = 0; i < actionCreator.length; i++) {
+    mockArgs.push(null);
+  }
+
+  const { type: cActionCreatorType } = actionCreator(...mockArgs);
+
+  const invokeActionCreator = (...args) => {
+    dispatch(actionCreator(...args));
+    return true;
   };
 
-  const removeError = () => {
-    dispatch(httpRequestsOnErrorsActions.removeError(actionType));
-  };
+  const status = useSelector(({ httpOnLoad, httpOnSuccess, httpOnError }) => {
+    const onLoad = !!httpOnLoad.find((type) => type === cActionCreatorType);
+    const errorIsIn = httpOnError.find(
+      (err) => err.type === cActionCreatorType
+    );
+    const successIsIn = httpOnSuccess.find(
+      (err) => err.type === cActionCreatorType
+    );
+    return {
+      onLoad,
+      onError: errorIsIn ? errorIsIn.error : null,
+      onSuccess: successIsIn ? successIsIn.data : null,
+    };
+  });
 
-  const removeAll = () => {
-    removeSuccess();
-    removeError();
+  const destroyHTTPState = {
+    success() {
+      dispatch(httpRequestsOnSuccessActions.removeSuccess(cActionCreatorType));
+    },
+    error() {
+      dispatch(httpRequestsOnErrorsActions.removeError(cActionCreatorType));
+    },
+    all() {
+      this.success();
+      this.error();
+    },
   };
 
   return {
-    removeSuccess,
-    removeError,
-    removeAll,
+    dispatch: invokeActionCreator,
+    status,
+    destroy: destroyHTTPState,
   };
 };

@@ -1,21 +1,16 @@
 import { useState, Fragment, useEffect } from "react";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Typography, Button, Input } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import {
-  profileActions,
-  UPDATE_PROFILE_PASSWORD,
-  useSagaHTTPState,
-  useSagaHTTPStateActions,
-} from "@eachbase/store";
+import { profileActions, useSagaStore } from "@eachbase/store";
 
 export const Privacy = () => {
   const { register, handleSubmit } = useForm();
-  const { onLoad, onSuccess } = useSagaHTTPState(UPDATE_PROFILE_PASSWORD);
-  const { removeSuccess } = useSagaHTTPStateActions(UPDATE_PROFILE_PASSWORD);
-  const dispatch = useDispatch();
+  const { status, dispatch, destroy } = useSagaStore(
+    profileActions.updatePassword
+  );
+
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState({
     password: "",
@@ -23,7 +18,9 @@ export const Privacy = () => {
     confirmation: "",
   });
 
-  useEffect(() => () => removeSuccess(), [onSuccess]);
+  useEffect(() => {
+    return () => () => destroy.all();
+  }, []);
 
   const onSubmit = (data) => {
     const { newPassword, confirmation } = data;
@@ -35,7 +32,7 @@ export const Privacy = () => {
       return;
     }
     setErrors({ ...errors, confirmation: "" });
-    dispatch(profileActions.updatePassword(data));
+    dispatch(data);
   };
 
   const renderNoth = () => {
@@ -83,7 +80,9 @@ export const Privacy = () => {
           <Input
             error={!!errors.confirmation.length}
             helper={
-              onSuccess ? "Password successfuly changed" : errors.confirmation
+              status.onSuccess
+                ? "Password successfuly changed"
+                : errors.confirmation
             }
             icon={<Icons.PasswordIcon />}
             disabled={!editMode}
@@ -101,7 +100,7 @@ export const Privacy = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="head">
           {editMode ? (
-            <Button link actionColor type="submit" disabled={onLoad}>
+            <Button link actionColor type="submit" disabled={status.onLoad}>
               Save
             </Button>
           ) : (
