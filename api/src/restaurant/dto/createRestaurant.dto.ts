@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUrl } from 'class-validator';
 import { IUser } from 'src/user/interfaces';
 
 export class CreateRestaurantDTO {
@@ -23,6 +23,7 @@ export class CreateRestaurantDTO {
   // restaurantOwner?: IUser;
   @ApiProperty()
   @IsNotEmpty()
+  @IsBoolean()
   status: boolean;
 
   @ApiProperty({ required: false })
