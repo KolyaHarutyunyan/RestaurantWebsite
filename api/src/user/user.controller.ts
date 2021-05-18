@@ -26,6 +26,7 @@ export class UserController {
     }
     @Put()
     @ApiHeader({ name: ACCESS_TOKEN })
+    @ApiBody({ type: UpdateUsertDTO })
     @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
     async update(@Request() req: IRequest, @Body() updateUsertDto: UpdateUsertDTO) {
         const update = await this.userService.update(req.body.user._id.toString(), updateUsertDto);
