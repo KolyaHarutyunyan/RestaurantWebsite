@@ -27,6 +27,7 @@ import { UserModel } from '../user/user.schema';
 
 import { IAuth } from './interfaces';
 import { IUser } from 'src/user/interfaces';
+import { UpdateUsertDTO } from 'src/user/dto/updateUser.dto';
 // import { SendEmailCommandInput } from '@aws-sdk/client-ses';
 // import { EditProfileDTO } from 'src/user/dto';
 
@@ -253,5 +254,6 @@ export class AuthService {
         return 'RESTAURANT_OWNER';
     }
   }
+
 }
 //End of Service
