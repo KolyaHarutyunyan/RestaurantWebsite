@@ -21,6 +21,7 @@ export class CreateRestaurantDTO {
   QR: string;
   //internally set
   // restaurantOwner?: IUser;
+  @ApiProperty()
   @IsNotEmpty()
   status: boolean;
 
