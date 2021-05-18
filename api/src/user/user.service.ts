@@ -43,14 +43,24 @@ export class UserService {
       // return null;
     }
     const auth = await this.authModel.findOneAndUpdate({ _id: user.authId }, { email: user.email }, { new: true });
-    
-    return user
-    // update credentials
-
 
     return user
+
+
   }
+  async deleteUser(_id: string): Promise<any> {
+    const user = await this.model.findOneAndDelete({ _id});
+    if (!user) {
+      throw new HttpException('Owner not found', HttpStatus.NOT_FOUND);
+      // return null;
+    }
+    const auth = await this.authModel.findOneAndDelete({ _id });
 
+    return user
+
+
+  }
+  
 
   /** Service API */
   async create(createUserDTO: CreateUserDTO): Promise<UserResponseDTO> {

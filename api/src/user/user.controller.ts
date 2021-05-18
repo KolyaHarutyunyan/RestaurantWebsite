@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards, Request, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, Request, Put, Delete } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/auth/constants';
 import { AuthGuard } from 'src/auth/guards';
@@ -31,5 +31,15 @@ export class UserController {
         const update = await this.userService.update(req.body.user._id.toString(), updateUsertDto);
         return update;
 
+    }
+    @Delete()
+    @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+    @ApiHeader({ name: ACCESS_TOKEN })
+    async remove(@Request() req: IRequest) {
+  
+      const deleteRestaurant = await this.userService.deleteUser(req.body.user._id.toString());
+  
+  
+      return deleteRestaurant
     }
 }
