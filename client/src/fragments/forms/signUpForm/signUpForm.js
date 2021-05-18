@@ -1,51 +1,26 @@
 import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
-import {
-  profileService,
-  PROFILE_SIGN_IN_SUCCESS,
-  profileActions,
-} from "@eachbase/store";
+import { profileActions, useSagaStore } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { BsPerson } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect } from "react";
 
 export const SignUpForm = () => {
   const { open } = useModal();
+  const { status, dispatch, destroy } = useSagaStore(profileActions.signUp);
 
-  const dispatch = useDispatch();
-  const profile = useSelector(({ profile }) => profile);
-
-  const [onLoad, setOnLoad] = useState(false);
-  const [error, setError] = useState(false);
-  const [emailHelper, setEmailHelper] = useState("");
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    setOnLoad(true);
-    setEmailHelper("");
+  useEffect(() => () => destroy.all(), []);
+  useEffect(() => {
+    if (status.onSuccess) {
+      open(MODAL_NAMES.CREATE_RESTAURANT);
+    }
+  }, [status]);
 
-    dispatch(profileActions.signUp(data));
-
-    return;
-    profileService
-      .signUp(data)
-      .then(({ data }) => {
-        localStorage.setItem("token", data.auth.token);
-        dispatch({ type: PROFILE_SIGN_IN_SUCCESS, payload: data.user });
-        open(MODAL_NAMES.CREATE_RESTAURANT);
-      })
-      .catch((err) => {
-        setOnLoad(false);
-        if (err.status === 302) {
-          setEmailHelper("Email allready exists");
-        } else {
-          setError(true);
-        }
-      });
-  };
+  const onSubmit = (data) => dispatch(data);
 
   return (
     <Container>
@@ -59,14 +34,14 @@ export const SignUpForm = () => {
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
           {...register("fullName", { required: true })}
-          error={error}
-          helper={error ? "Full name should be at least 3 characters" : ""}
+          error={status.onError}
+          helper={
+            status.onError ? "Full name should be at least 3 characters" : ""
+          }
         />
         <Input
           type="email"
           icon={<Icons.EmailIcon />}
-          error={!!emailHelper}
-          helper={emailHelper}
           placeholder="Email"
           {...register("email", { required: true })}
         />
@@ -75,10 +50,12 @@ export const SignUpForm = () => {
           type="password"
           placeholder="Password"
           {...register("password", { required: true })}
-          error={error}
-          helper={error ? "Password should be at least 8 characters" : ""}
+          error={status.onError}
+          helper={
+            status.onError ? "Password should be at least 8 characters" : ""
+          }
         />
-        <Button fullWidth type="submit" disabled={onLoad}>
+        <Button fullWidth type="submit" disabled={status.onLoad}>
           Continue
         </Button>
       </form>
@@ -105,12 +82,7 @@ export const SignUpForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button
-        link
-        actionColor
-        fullWidth
-        onClick={() => open(MODAL_NAMES.SIGN_IN)}
-      >
+      <Button link fullWidth onClick={() => open(MODAL_NAMES.SIGN_IN)}>
         Already have an account? Sign In
       </Button>
     </Container>

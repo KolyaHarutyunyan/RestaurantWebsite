@@ -100,16 +100,11 @@ export const Privacy = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="head">
           {editMode ? (
-            <Button link actionColor type="submit" disabled={status.onLoad}>
+            <Button link colorVariant type="submit" disabled={status.onLoad}>
               Save
             </Button>
           ) : (
-            <Button
-              onClick={() => setEditMode(true)}
-              link
-              actionColor
-              type="button"
-            >
+            <Button onClick={() => setEditMode(true)} link type="button">
               Edit
             </Button>
           )}

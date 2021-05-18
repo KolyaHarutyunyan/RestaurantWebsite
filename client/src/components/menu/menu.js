@@ -47,12 +47,14 @@ export const Menu = ({
       let toggleMenu = true;
       for (const nodeElement of path) {
         if (nodeElement instanceof Node) {
-          const isMenu = menuRef.current.isSameNode(nodeElement);
-          const isPositionalElement =
-            positionalElementRef.current.isSameNode(nodeElement);
-          if (isMenu || isPositionalElement) {
-            toggleMenu = false;
-            break;
+          if (menuRef.current) {
+            const isMenu = menuRef.current.isSameNode(nodeElement);
+            const isPositionalElement =
+              positionalElementRef.current.isSameNode(nodeElement);
+            if (isMenu || isPositionalElement) {
+              toggleMenu = false;
+              break;
+            }
           }
         }
       }

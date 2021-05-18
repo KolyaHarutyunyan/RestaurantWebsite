@@ -17,6 +17,7 @@ export const colors = {
   primary: "#FF453A",
   white: "#ffffff",
   action: "#007AFF",
+  default: "#2B273C1A",
   text: "#2B273C",
   shadow: "#0000001A",
   green: "#54C762",

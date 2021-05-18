@@ -4,7 +4,7 @@ export const Button = ({
   children,
   fullWidth = false,
   inactive = false,
-  actionColor = 0,
+  colorVariant = "action",
   link = false,
   outlined = false,
   ...rest
@@ -15,7 +15,7 @@ export const Button = ({
       outlined={outlined}
       link={link}
       fullWidth={fullWidth}
-      actionColor={actionColor}
+      colorVariant={colorVariant}
       {...rest}
     >
       {children}

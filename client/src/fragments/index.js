@@ -3,6 +3,7 @@ export {
   ForgotPasswordForm,
   SignInForm,
   SignUpForm,
+  DeleteAccountForm,
 } from "./forms";
 export {
   CheckEmailHelper,
@@ -16,4 +17,5 @@ export {
   HomePageSections,
   RestaurantPageSections,
   ProfilePageSections,
+  MenuPageSections,
 } from "./sections";

@@ -14,9 +14,7 @@ export const PrimaryInfo = () => {
   });
   const profile = useSelector(({ profile }) => profile);
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = (data) => {};
 
   if (profile) {
     return (
@@ -24,16 +22,11 @@ export const PrimaryInfo = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="head">
             {editMode ? (
-              <Button link actionColor type="submit">
+              <Button link colorVariant type="submit">
                 Save
               </Button>
             ) : (
-              <Button
-                onClick={() => setEditMode(true)}
-                link
-                actionColor
-                type="button"
-              >
+              <Button onClick={() => setEditMode(true)} link type="button">
                 Edit
               </Button>
             )}

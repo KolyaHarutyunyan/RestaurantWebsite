@@ -12,9 +12,9 @@ const setBackgroundColor = ({ link, inactive, outlined }) => {
   return colors.primary;
 };
 
-const setColor = ({ inactive, actionColor, outlined, link }) => {
-  if ((link || outlined) && actionColor) {
-    return colors.action;
+const setColor = ({ inactive, colorVariant, outlined, link }) => {
+  if ((link || outlined) && colorVariant) {
+    return colors[colorVariant];
   }
   if ((link || outlined) && inactive) {
     return colors.text;
@@ -37,8 +37,8 @@ const setBorder = ({ outlined, inactive }) => {
 };
 
 export const ButtonContainer = styled.button`
-  min-width: ${({ link }) => link ? "fit-content" : '160px'};
-  height: 48px;
+  min-width: ${({ link }) => (link ? "fit-content" : "160px")};
+  height: 44px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   background-color: ${setBackgroundColor};
   color: ${setColor};

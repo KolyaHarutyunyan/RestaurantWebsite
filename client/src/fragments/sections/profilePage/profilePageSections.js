@@ -3,6 +3,7 @@ import { Title } from "./title";
 import { PrimaryInfo } from "./primaryInfo";
 import { Privacy } from "./privacy";
 import { DeleteAccount } from "./deleteAccount";
+
 export const ProfilePageSections = () => {
   return (
     <Fragment>

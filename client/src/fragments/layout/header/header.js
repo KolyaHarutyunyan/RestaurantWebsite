@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
 import { BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { useSagaStore, profileActions } from "@eachbase/store";
 import { useRef, useState } from "react";
 import useMedia from "use-media";
 
@@ -16,8 +17,15 @@ export const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
   const { open } = useModal();
+  const signOutSaga = useSagaStore(profileActions.signOut);
 
   const profileNavigationalList = () => {
+    const signOut = () => {
+      localStorage.removeItem("token");
+      signOutSaga.dispatch();
+      router.push("/");
+    };
+
     if (profile) {
       return (
         <NavigationContainer>
@@ -57,14 +65,7 @@ export const Header = () => {
             <div className="icon-container">
               <Icons.LogoutIcon />
             </div>
-            <Typography
-              color="text"
-              weight="bold"
-              onClick={() => {
-                localStorage.removeItem("token");
-                router.push("/");
-              }}
-            >
+            <Typography color="text" weight="bold" onClick={() => signOut()}>
               Sign out
             </Typography>
           </li>

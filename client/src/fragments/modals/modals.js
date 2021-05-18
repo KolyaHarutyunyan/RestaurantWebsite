@@ -8,9 +8,12 @@ import {
   CheckEmailHelper,
   SignUpSuccessHelper,
   CreateRestaurantForm,
+  DeleteAccountForm,
 } from "@eachbase/fragments";
-
+import { useRouter } from "next/router";
 export const Modals = () => {
+  const router = useRouter();
+
   return (
     <Fragment>
       <Modal modalName={MODAL_NAMES.SIGN_IN}>
@@ -26,7 +29,10 @@ export const Modals = () => {
       <Modal modalName={MODAL_NAMES.SIGN_UP}>
         <SignUpForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.CREATE_RESTAURANT}>
+      <Modal
+        modalName={MODAL_NAMES.CREATE_RESTAURANT}
+        fixed={router.pathname === "/restaurant"}
+      >
         <CreateRestaurantForm />
       </Modal>
       <Modal modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
@@ -34,6 +40,9 @@ export const Modals = () => {
       </Modal>
       <Modal modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
         <SignUpSuccessHelper />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
+        <DeleteAccountForm />
       </Modal>
     </Fragment>
   );

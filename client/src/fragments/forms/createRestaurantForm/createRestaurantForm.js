@@ -4,20 +4,37 @@ import {
   Textarea,
   Button,
   FileUpload,
+  useModal,
 } from "@eachbase/components";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-export const CreateRestaurantForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+import { useRouter } from "next/router";
+import { useSagaStore, restaurantsActions } from "@eachbase/store";
 
-  const onSubmit = () => {};
+export const CreateRestaurantForm = () => {
+  const { register, handleSubmit } = useForm();
+  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const { close } = useModal();
+  const { dispatch, status, destroy } = useSagaStore(
+    restaurantsActions.createRestaurant
+  );
+  const router = useRouter();
+
+  const title =
+    router.asPath === "/restaurant"
+      ? "Create Restaurant"
+      : "Last Step to Sign Up";
+
+  const onSubmit = (data) => {
+    dispatch({ ...data, icon: restaurantIcon[0] || null });
+  };
+
+  useEffect(() => {
+    if (status.onSuccess) {
+      close();
+    }
+  }, [status]);
 
   return (
     <Container>
@@ -28,9 +45,12 @@ export const CreateRestaurantForm = () => {
           color="text"
           size="1.250rem"
         >
-          Last Step to Sign Up
+          {title}
         </Typography>
-        <Input placeholder="Add your Restaurant Name" {...register("name")} />
+        <Input
+          placeholder="Add your Restaurant Name"
+          {...register("name", { required: true })}
+        />
         <div>
           <Typography weight="bold" color="text">
             Optional
@@ -38,15 +58,19 @@ export const CreateRestaurantForm = () => {
           <Textarea
             placeholder="Add Brief Description"
             rows={4}
-            {...register("description")}
+            {...register("description", { required: true })}
           />
         </div>
         <FileUpload
           files={restaurantIcon}
           title="Restaurant Logo"
-          onChange={(files) => setRestaurantIcon(files)}
+          onChange={(files) =>
+            setRestaurantIcon(files.length ? [files[0]] : [])
+          }
         />
-        <Button>Save</Button>
+        <Button type="submit" disabled={status.onLoad}>
+          Save
+        </Button>
       </form>
     </Container>
   );

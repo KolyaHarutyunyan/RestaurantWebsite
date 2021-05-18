@@ -4,11 +4,11 @@ import { Icons } from "@eachbase/theme";
 import { profileActions, useSagaStore } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export const SignInForm = () => {
-  const { open } = useModal();
+  const { open, close } = useModal();
 
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
@@ -16,6 +16,13 @@ export const SignInForm = () => {
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
+
+  useEffect(() => {
+    if (status.onSuccess) {
+      destroy.all();
+      close();
+    }
+  }, [status]);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => dispatch(data);
@@ -69,12 +76,7 @@ export const SignInForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button
-        link
-        actionColor
-        fullWidth
-        onClick={() => open(MODAL_NAMES.SIGN_UP)}
-      >
+      <Button link fullWidth onClick={() => open(MODAL_NAMES.SIGN_UP)}>
         Doesn't have an account? Sign Up
       </Button>
     </Container>

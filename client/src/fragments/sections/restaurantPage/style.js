@@ -35,7 +35,23 @@ export const Container = styled.div`
         .action {
         }
       }
-      .content {
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        li {
+          display: flex;
+          align-items: center;
+          .icon {
+            flex: 0 0 24px;
+            display: flex;
+            align-items: center;
+            margin-right: 8px;
+          }
+          &.hourse-menu-toggle {
+            cursor: pointer;
+          }
+        }
       }
     }
     .menu-list {
@@ -44,7 +60,7 @@ export const Container = styled.div`
       .list {
         margin: 40px 0;
         .add-card {
-          box-shadow: 0px 0px 6px #0000001A;
+          box-shadow: 0px 0px 6px #0000001a;
           width: 260px;
           display: flex;
           flex-direction: column;
@@ -54,7 +70,7 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #0000001A;
+            background-color: #0000001a;
             border-radius: 16px 16px 0 0;
             svg {
               width: 100%;
@@ -67,13 +83,35 @@ export const Container = styled.div`
             align-items: center;
             justify-content: center;
             flex: 0 0 80px;
-            border-radius: 0 0 16px 16px ;
+            border-radius: 0 0 16px 16px;
             button {
               display: flex;
               align-items: center;
-              color: #007AFF;
+              color: #007aff;
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+export const HourseMenuContainer = styled.div`
+  padding: 24px;
+  @media only screen and (max-width: 768px) {
+    padding: 16px;
+  }
+  ul {
+    li {
+      .title {
+        color: ${colors.text};
+        font-weight: bold;
+      }
+      .value {
+        display: flex;
+        flex-direction: column;
+        &.closed {
+          color: ${colors.primary};
         }
       }
     }
