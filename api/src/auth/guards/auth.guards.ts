@@ -27,17 +27,21 @@ export class AuthGuard implements CanActivate {
   private authService: AuthService;
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    var dateNow = new Date();
+
     const request: Request = context.switchToHttp().getRequest();
     const token: string = request.get(ACCESS_TOKEN);
     // Check token
     await this.isValidToken(token);
     // Verify token
     const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
+ 
     //check roles
     this.checkRoles(decoded.role);
     request.body.user = await this.checkUser(decoded.id);
+    
     return true;
-  }
+}
 
   /** Check Roles */
   private checkRoles(role: Role): boolean {

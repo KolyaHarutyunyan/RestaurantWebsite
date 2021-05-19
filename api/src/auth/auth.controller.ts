@@ -1,11 +1,11 @@
-import { Body, Controller, HttpStatus, Post, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Get, Param, UseGuards, Headers } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { ChangePassDTO, PassChangedDTO, ResetPassDTO, SignedInDTO, SignupDTO } from './dto';
 import { SigninDTO } from './dto/signin.dto';
 import { MailerService } from '../mailer';
-import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
+import { ACCESS_TOKEN, RESET_TOKEN, Role } from './constants';
 import { ResetPassGuard } from './guards/resetPass.guard';
 import { AuthGuard } from './guards';
 
@@ -79,7 +79,14 @@ export class AuthController {
 
     return new SignedInDTO(auth, user);
   }
- 
+
+  @Get('userInformation')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  async userInformation(@Headers('access-token') token: string): Promise<any> {
+    const userData = await this.authService.userInformation(token);
+
+    return userData;
+  }
 }
 /** End of Controller */
 
