@@ -16,7 +16,6 @@ export const RestaurantPageSections = () => {
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
   const { open } = useModal();
-
   useEffect(() => getRestaurantsSaga.dispatch(), []);
   useEffect(() => {
     if (restaurants !== null && !restaurants.length) {
@@ -33,7 +32,7 @@ export const RestaurantPageSections = () => {
     <Container className="container">
       <div className="header">
         <Typography color="text" size="1.5rem" weight="bold">
-          {restaurant.name}
+          Restaurant
         </Typography>
         <Button active link className="qr-button">
           <IoMdDownload />
@@ -44,7 +43,7 @@ export const RestaurantPageSections = () => {
         <div className="restaurant-card">
           <div className="header">
             <Typography color="text" size="1.5rem" weight="bold">
-              X Restaurant
+              {restaurant.name}
             </Typography>
             <Button>Edit</Button>
           </div>

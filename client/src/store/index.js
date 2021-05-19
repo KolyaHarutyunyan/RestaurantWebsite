@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
 export { reduxWrapper } from "./store";
 
 export { categoriesActions } from "./categories";

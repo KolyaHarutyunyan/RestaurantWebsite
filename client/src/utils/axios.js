@@ -1,6 +1,7 @@
 import axios from "axios";
-import { API_BASE } from "@eachbase/constants";
 import router from "next/router";
+import { API_BASE } from "@eachbase/constants";
+
 export const initAxiosInterceptors = () => {
   axios.interceptors.request.use((config) => {
     config.url = `${API_BASE}${config.url}`;
