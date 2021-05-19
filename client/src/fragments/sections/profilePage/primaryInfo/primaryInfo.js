@@ -2,19 +2,20 @@ import { useState } from "react";
 import { Container } from "./style";
 import { Typography, Button, Input } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
+import { profileActions, useSagaStore } from "@eachbase/store";
 import { useForm } from "react-hook-form";
 import { BsPerson } from "react-icons/bs";
 import { useSelector } from "react-redux";
 export const PrimaryInfo = () => {
   const { register, handleSubmit } = useForm();
   const [editMode, setEditMode] = useState(false);
+  const { dispatch, status } = useSagaStore(profileActions.updateUserInfo);
+  const profile = useSelector(({ profile }) => profile);
   const [errors, setErrors] = useState({
     fullName: "",
     email: "",
   });
-  const profile = useSelector(({ profile }) => profile);
-
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => dispatch(data);
 
   if (profile) {
     return (
@@ -22,11 +23,16 @@ export const PrimaryInfo = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="head">
             {editMode ? (
-              <Button link colorVariant type="submit">
+              <Button color="action" link colorVariant type="submit">
                 Save
               </Button>
             ) : (
-              <Button onClick={() => setEditMode(true)} link type="button">
+              <Button
+                color="action"
+                onClick={() => setEditMode(true)}
+                link
+                type="button"
+              >
                 Edit
               </Button>
             )}

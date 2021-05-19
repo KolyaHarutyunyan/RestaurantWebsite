@@ -6,6 +6,6 @@ export const useModal = () => {
   return {
     open: (modalName) => setActiveModal((_snapshot) => modalName),
     activeModal: activeModal || null,
-    close: () => setActiveModal(() => ""),
+    close: () => setActiveModal(""),
   };
 };

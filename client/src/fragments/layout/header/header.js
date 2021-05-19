@@ -23,7 +23,7 @@ export const Header = () => {
     const signOut = () => {
       localStorage.removeItem("token");
       signOutSaga.dispatch();
-      router.push("/");
+      router.push("/", undefined, { shallow: true });
     };
 
     if (profile) {
@@ -91,7 +91,7 @@ export const Header = () => {
               className={`menu-toggle ${menuIsOpen ? "open" : ""}`}
             />
           </div>
-          <Button outlined inactive>
+          <Button color="default" outlined inactive>
             Create Menu
           </Button>
           <Menu
@@ -113,7 +113,12 @@ export const Header = () => {
       return (
         <div className="sign-in-buttons">
           <Button onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
-          <Button onClick={() => open(MODAL_NAMES.SIGN_IN)} inactive outlined>
+          <Button
+            onClick={() => open(MODAL_NAMES.SIGN_IN)}
+            color="default"
+            outlined
+            inactive
+          >
             Create Menu
           </Button>
         </div>

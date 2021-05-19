@@ -30,9 +30,13 @@ export const CreateRestaurantForm = () => {
     dispatch({ ...data, icon: restaurantIcon[0] || null });
   };
 
+  useEffect(() => () => destroy.all(), []);
+
   useEffect(() => {
     if (status.onSuccess) {
       close();
+      destroy.success();
+      router.push("/restaurant");
     }
   }, [status]);
 

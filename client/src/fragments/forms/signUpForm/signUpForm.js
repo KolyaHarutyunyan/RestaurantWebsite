@@ -17,6 +17,7 @@ export const SignUpForm = () => {
   useEffect(() => {
     if (status.onSuccess) {
       open(MODAL_NAMES.CREATE_RESTAURANT);
+      destroy.all();
     }
   }, [status]);
 
@@ -62,7 +63,7 @@ export const SignUpForm = () => {
       <Button
         link
         fullWidth
-        inactive
+        color="default"
         onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}
       >
         Forgot Password?
@@ -82,7 +83,12 @@ export const SignUpForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button link fullWidth onClick={() => open(MODAL_NAMES.SIGN_IN)}>
+      <Button
+        link
+        color="action"
+        fullWidth
+        onClick={() => open(MODAL_NAMES.SIGN_IN)}
+      >
         Already have an account? Sign In
       </Button>
     </Container>

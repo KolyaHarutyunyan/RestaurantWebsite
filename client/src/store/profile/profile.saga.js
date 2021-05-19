@@ -13,12 +13,15 @@ import {
   UPDATE_PROFILE_PASSWORD,
   PROFILE_SIGN_UP_SUCCESS,
   DELETE_PROFILE,
+  UPDATE_PROFILE_INFO,
+  UPDATE_PROFILE_INFO_SUCCESS,
 } from "./profile.types";
 import { profileService } from "./profile.service";
 
 function* signIn({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   try {
     const { data } = yield call(profileService.signIn, payload);
     yield put({
@@ -41,9 +44,10 @@ function* getProfileInfo({ type }) {
     const { data } = yield call(profileService.userInfo);
     yield put({
       type: GET_PROFILE_INFO_SUCCESS,
-      payload: data,
+      payload: data || null,
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -56,19 +60,16 @@ function* signUp({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(profileService.signUp, payload);
-    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     localStorage.setItem("token", data.auth.token);
     yield put({
       type: PROFILE_SIGN_UP_SUCCESS,
-      payload: data,
+      payload: data.user,
     });
   } catch (err) {
-    console.log("err: ", err);
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   }
 }
 
@@ -78,12 +79,7 @@ function* updateProfilePassword({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     yield call(profileService.changePassword, payload);
-    yield put(
-      httpRequestsOnSuccessActions.appendSuccess(
-        type,
-        "Password successfuly changed"
-      )
-    );
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
@@ -98,12 +94,33 @@ function* deleteProfile({ type }) {
   try {
     yield call(profileService.deleteProfile);
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    yield put({
+      type: GET_PROFILE_INFO,
+      payload: null,
+    });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnErrorsActions.removeError(type));
+  } catch (err) {
+    yield put(httpRequestsOnErrorsActions.appendError(type, err));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
+}
+
+function* updateProfile({ type, payload }) {
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const { data } = yield call(profileService.updateProfileInfo, payload);
+    yield put({
+      type: UPDATE_PROFILE_INFO_SUCCESS,
+      payload: data,
+    });
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnErrorsActions.removeError(type));
   }
 }
 
@@ -113,4 +130,5 @@ export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_UP, signUp);
   yield takeLatest(UPDATE_PROFILE_PASSWORD, updateProfilePassword);
   yield takeLatest(DELETE_PROFILE, deleteProfile);
+  yield takeLatest(UPDATE_PROFILE_INFO, updateProfile);
 }

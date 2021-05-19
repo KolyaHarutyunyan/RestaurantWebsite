@@ -8,4 +8,5 @@ export const profileService = {
   forgotPassword: (email) => axios.get(`/auth/forgotPassword/${email}`),
   changePassword: (data) =>
     axios.post(`/auth/changePassword`, data, { auth: true }),
+  updateProfileInfo: (data) => axios.put("/user", data, { auth: true }),
 };

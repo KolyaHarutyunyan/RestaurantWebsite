@@ -4,12 +4,17 @@ import { useSagaStore, profileActions } from "@eachbase/store";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 export const DeleteAccountForm = () => {
+  const router = useRouter();
   const { close } = useModal();
-  const { dispatch, status } = useSagaStore(profileActions.deleteProfile);
+  const { dispatch, status, destroy } = useSagaStore(
+    profileActions.deleteProfile
+  );
 
   useEffect(() => {
     if (status.onSuccess) {
+      destroy.all();
       close();
+      setTimeout(() => router.push("/", undefined, { shallow: true }), 1000);
     }
   }, [status]);
 
@@ -32,7 +37,7 @@ export const DeleteAccountForm = () => {
         <Button onClick={() => deleteAccount()} disabled={status.onLoad}>
           Delete
         </Button>
-        <Button colorVariant="default" onClick={() => close()}>
+        <Button color="default" onClick={() => close()}>
           Cancel
         </Button>
       </div>

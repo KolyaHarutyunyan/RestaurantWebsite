@@ -55,8 +55,8 @@ export const SignInForm = () => {
       </form>
       <Button
         link
+        color="default"
         fullWidth
-        inactive
         onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}
       >
         Forgot Password?
@@ -76,7 +76,12 @@ export const SignInForm = () => {
           <Icons.TwitterIcon />
         </Fab>
       </div>
-      <Button link fullWidth onClick={() => open(MODAL_NAMES.SIGN_UP)}>
+      <Button
+        link
+        color="action"
+        fullWidth
+        onClick={() => open(MODAL_NAMES.SIGN_UP)}
+      >
         Doesn't have an account? Sign Up
       </Button>
     </Container>
