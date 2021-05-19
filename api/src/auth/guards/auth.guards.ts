@@ -32,6 +32,7 @@ export class AuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest();
     const token: string = request.get(ACCESS_TOKEN);
     // Check token
+    console.log('token');
     await this.isValidToken(token);
     // Verify token
     const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);

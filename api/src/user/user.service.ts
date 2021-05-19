@@ -54,11 +54,8 @@ export class UserService {
       throw new HttpException('Owner not found', HttpStatus.NOT_FOUND);
       // return null;
     }
-    const auth = await this.authModel.findOneAndDelete({ _id });
-
+    const auth = await this.authModel.findOneAndDelete({ _id: user.authId });
     return user
-
-
   }
   
 

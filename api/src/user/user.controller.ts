@@ -37,7 +37,7 @@ export class UserController {
     @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
     @ApiHeader({ name: ACCESS_TOKEN })
     async remove(@Request() req: IRequest) {
-  
+        console.log('user controller');
       const deleteRestaurant = await this.userService.deleteUser(req.body.user._id.toString());
   
   

@@ -133,7 +133,11 @@ export class AuthService {
   signin = async (signinDTO: SigninDTO): Promise<any> => {
     try {
       const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
+      console.log(auth);
+      if (!auth) {
+        throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'invalid_credentials' }, HttpStatus.BAD_REQUEST);
 
+      }
       this.checkAuth(auth);
       const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
       this.checkPassword(isPasswordCorrect);
