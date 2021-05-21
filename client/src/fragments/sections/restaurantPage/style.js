@@ -55,13 +55,18 @@ export const Container = styled.div`
       }
     }
     .menu-list {
-      padding-top: 30px;
-      grid-column: 1/2;
+      grid-column: 1/3;
       .list {
+        overflow: auto;
+        display: flex;
+        padding: 15px 2px 15px 00px;
+        gap: 15px;
         margin: 40px 0;
+        & > * {
+          flex: 0 0 260px;
+        }
         .add-card {
           box-shadow: 0px 0px 6px #0000001a;
-          width: 260px;
           display: flex;
           flex-direction: column;
           border-radius: 16px;

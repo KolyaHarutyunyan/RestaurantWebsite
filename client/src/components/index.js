@@ -6,3 +6,4 @@ export { Input, Textarea } from "./inputs";
 export { Modal, ModalProvider, useModal } from "./modal";
 export { Menu } from "./menu";
 export { FileUpload } from "./fileUpload";
+export { MenuCard } from "./menuCard";

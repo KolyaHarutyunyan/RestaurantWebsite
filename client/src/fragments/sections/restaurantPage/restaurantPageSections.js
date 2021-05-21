@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Button, Typography, Menu, useModal } from "@eachbase/components";
+import {
+  Button,
+  Typography,
+  Menu,
+  useModal,
+  MenuCard,
+} from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, restaurantsActions } from "@eachbase/store";
@@ -16,6 +22,7 @@ export const RestaurantPageSections = () => {
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
   const { open } = useModal();
+
   useEffect(() => getRestaurantsSaga.dispatch(), []);
   useEffect(() => {
     if (restaurants !== null && !restaurants.length) {
@@ -113,6 +120,27 @@ export const RestaurantPageSections = () => {
                 </Button>
               </div>
             </div>
+            <MenuCard
+              data={{
+                name: "Menu",
+                description: "Lorem ipsum is a dollar",
+                isActive: false,
+              }}
+            />
+            <MenuCard
+              data={{
+                name: "Menu",
+                description: "Lorem ipsum is a dollar",
+                isActive: false,
+              }}
+            />
+            <MenuCard
+              data={{
+                name: "Menu",
+                description: "Lorem ipsum is a dollar",
+                isActive: false,
+              }}
+            />
           </div>
         </div>
       </div>
