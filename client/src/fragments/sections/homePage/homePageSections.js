@@ -10,8 +10,8 @@ import { YourBusiness } from "./yourBusiness";
 export const HomePageSections = () => {
   return (
     <Fragment>
-      <DigitalMenu />
       <Hero />
+      <DigitalMenu />
       <HowItWorks />
       <MenusAndMenuItems />
       <QRCode />

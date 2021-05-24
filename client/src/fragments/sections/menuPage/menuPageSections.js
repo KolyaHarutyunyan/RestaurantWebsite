@@ -1,5 +1,14 @@
-import { Fragment } from "react";
+import { Container } from "./style";
+import { Categories } from "./categories";
+import { Items } from "./Items";
+import { Menu } from "./menu";
 
 export const MenuPageSections = () => {
-  return <Fragment>Menu Page</Fragment>;
+  return (
+    <Container className="container">
+      <Menu />
+      <Categories />
+      <Items />
+    </Container>
+  );
 };

@@ -14,7 +14,7 @@ export const Typography = ({
 );
 
 Typography.propTypes = {
-  color: PropTypes.oneOf(["primary", "text", "invert", "active"]),
+  color: PropTypes.oneOf(["primary", "text", "invert", "action"]),
   weight: PropTypes.oneOf(["bold", "normal"]),
   size: PropTypes.string,
 };

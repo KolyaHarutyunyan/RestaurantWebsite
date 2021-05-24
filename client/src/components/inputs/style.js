@@ -100,3 +100,11 @@ export const TextareaContainer = styled.div`
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
   }
 `;
+
+export const SelectContainer = styled.select`
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #2b273c80;
+  border-radius: 8px;
+  outline: 0;
+`;

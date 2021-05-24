@@ -12,7 +12,7 @@ export const colors = {
     primary: "#FF453A",
     text: "#2B273C",
     invert: "#FFFFFF",
-    active: "#007AFF",
+    action: "#007AFF",
   },
   primary: "#FF453A",
   white: "#ffffff",
