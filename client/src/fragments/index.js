@@ -4,6 +4,8 @@ export {
   SignInForm,
   SignUpForm,
   DeleteAccountForm,
+  EditRestaurantForm,
+  EditRestaurantExtraDetailsForm,
 } from "./forms";
 export {
   CheckEmailHelper,

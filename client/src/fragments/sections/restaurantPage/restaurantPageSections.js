@@ -38,10 +38,10 @@ export const RestaurantPageSections = () => {
   return (
     <Container className="container">
       <div className="header">
-        <Typography color="text" size="1.5rem" weight="bold">
+        <Typography size="1.5rem" weight="bold">
           Restaurant
         </Typography>
-        <Button active link className="qr-button">
+        <Button color="action" link className="qr-button">
           <IoMdDownload />
           Download QR Code
         </Button>
@@ -52,7 +52,9 @@ export const RestaurantPageSections = () => {
             <Typography color="text" size="1.5rem" weight="bold">
               {restaurant.name}
             </Typography>
-            <Button>Edit</Button>
+            <Button onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
+              Edit
+            </Button>
           </div>
           <div className="descr">{restaurant.description}</div>
         </div>
@@ -61,7 +63,11 @@ export const RestaurantPageSections = () => {
             <Typography color="text" size="1.5rem" weight="bold">
               Extra Details
             </Typography>
-            <Button>Edit</Button>
+            <Button
+              onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
+            >
+              Edit
+            </Button>
           </div>
           <ul className="list">
             <li>

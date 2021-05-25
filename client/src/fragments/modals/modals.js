@@ -9,6 +9,8 @@ import {
   SignUpSuccessHelper,
   CreateRestaurantForm,
   DeleteAccountForm,
+  EditRestaurantForm,
+  EditRestaurantExtraDetailsForm,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
 export const Modals = () => {
@@ -43,6 +45,12 @@ export const Modals = () => {
       </Modal>
       <Modal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
         <DeleteAccountForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT}>
+        <EditRestaurantForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
+        <EditRestaurantExtraDetailsForm />
       </Modal>
     </Fragment>
   );
