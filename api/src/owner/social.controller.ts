@@ -7,7 +7,7 @@ import { OwnerService } from "./owner.service";
 
 @Controller("owner/socials")
 @ApiTags("Owner- Social")
-export class OwnerController {
+export class SocialController {
   constructor(
     private readonly ownerService: OwnerService,
     private readonly authService: AuthService
