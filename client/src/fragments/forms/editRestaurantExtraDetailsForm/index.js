@@ -1,0 +1,1 @@
+export { EditRestaurantExtraDetailsForm } from "./editRestaurantExtraDetailsForm";

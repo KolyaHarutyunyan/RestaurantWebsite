@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { media } from "./media";
 
-export const STYLED = {
-  Main: styled.div`
-    width: 100%;
-    height: calc(100% - 80px);
-    ${media.forMobile`
-      height: calc(100% - 60px)
-    `};
-    overflow: auto;
-  `,
-  Container: ({ children }) => <div className="container">{children}</div>,
-};
+export const MainWrapper = styled.div`
+  width: 100%;
+  height: calc(100% - 80px);
+  ${media.forMobile`
+    height: calc(100% - 60px)
+  `};
+  overflow: auto;
+  .page-content {
+    min-height: calc(100vh - 80px - 64px);
+  }
+`;

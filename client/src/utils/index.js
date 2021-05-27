@@ -1,1 +1,1 @@
-export {Change,Check,CheckForm,InputTypes} from "../components/inputs/core/formFunctions"
+export { initAxiosInterceptors } from "./axios";

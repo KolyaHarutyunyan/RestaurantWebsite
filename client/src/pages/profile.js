@@ -1,9 +1,3 @@
-import {Profile} from "@eachbase/fragments"
+import { ProfilePageSections } from "@eachbase/fragments";
 
-
-export const ProfilePage = () =>{
-
-	return(
-		<Profile/>
-	)
-}
+export const ProfilePage = () => <ProfilePageSections />;

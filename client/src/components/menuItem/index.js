@@ -1,2 +1,0 @@
-
-export {MenuItem} from './menuItem'

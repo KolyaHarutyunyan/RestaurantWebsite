@@ -1,2 +1,0 @@
-
-export {RemoveMenuItem} from './removeMenuItem'

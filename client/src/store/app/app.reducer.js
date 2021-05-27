@@ -1,35 +1,19 @@
-import { combineReducers } from 'redux'
-import { appTypes } from './app.types'
-import { authReducer } from "../auth"
-import { profileReducer } from "../profile"
-import { restaurantReducer } from "../restaurant"
-import { menuReducer } from "../menu";
+import { combineReducers } from "redux";
+import { profileReducer } from "../profile";
+import { restaurantsReducer } from "../restaurants";
 import { menuItemsReducer } from "../menuItems";
 import { categoriesReducer } from "../categories";
-
-const initialState = {
-    isLoading: false,
-};
-
-
-const globalReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case appTypes.REQUEST_PENDING:
-            return {
-                ...state,
-                isLoading: action.payload,
-            };
-        default:
-            return state;
-    }
-};
-
+import { menusReducer } from "../menus";
+import { httpRequestsOnErrorsReducer } from "../http_requests_on_errors";
+import { httpRequestsOnLoadReducer } from "../http_requests_on_load";
+import { httpRequestsOnSuccessReducer } from "../http_requests_on_success";
 export const appReducer = combineReducers({
-    auth: authReducer,
-    profile: profileReducer,
-    restaurant: restaurantReducer,
-    menu:menuReducer,
-    categories:categoriesReducer,
-    menuItems:menuItemsReducer,
-    
+  profile: profileReducer,
+  restaurants: restaurantsReducer,
+  categories: categoriesReducer,
+  menuItems: menuItemsReducer,
+  menus: menusReducer,
+  httpOnLoad: httpRequestsOnLoadReducer,
+  httpOnSuccess: httpRequestsOnSuccessReducer,
+  httpOnError: httpRequestsOnErrorsReducer,
 });

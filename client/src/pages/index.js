@@ -1,6 +1,4 @@
 export { HomePage } from "./home";
+export { RestaurantPage } from "./reastaurant";
 export { ProfilePage } from "./profile";
-export { RestaurantPage } from "./restaurant";
-export { ResetPassPage } from "./resetPass";
-export { VerifyPage } from "./verify";
-export { MenuPage } from "./menu/menu";
+export { MenuPage } from "./menu";

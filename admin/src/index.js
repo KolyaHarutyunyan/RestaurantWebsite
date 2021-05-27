@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { Store } from "./store";
 import { Router } from "react-router-dom";
-import { initAxiosInterceptors } from "./axios";
+import { initAxiosInterceptors } from "./utils";
 import { history } from "./utils/history";
 import "reset-css";
 

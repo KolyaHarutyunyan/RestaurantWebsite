@@ -1,5 +1,5 @@
-export { restaurantActions } from "./menu.actions"
-export { categoriesReducer } from "./categories.reducer"
-export { watchRestaurant } from "./menu.saga"
-export { restaurantService } from "./menu.service"
-export { restaurantReducerTypes, restaurantTypes } from "./menu.types"
+export { categoriesActions } from "./categories.actions";
+export { categoriesReducer } from "./categories.reducer";
+export { watchCategories } from "./categories.saga";
+export { categoriesService } from "./categories.service";
+export { GET_CATEGORIES } from "./categories.types";

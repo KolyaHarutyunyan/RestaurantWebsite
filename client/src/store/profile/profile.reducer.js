@@ -1,29 +1,21 @@
-import { profileReducerTypes, profileTypes } from "./profile.types";
+import {
+  PROFILE_SIGN_IN_SUCCESS,
+  PROFILE_SIGN_OUT,
+  GET_PROFILE_INFO_SUCCESS,
+  PROFILE_SIGN_UP_SUCCESS,
+} from "./profile.types";
 
-const initialState = {
-  email: "fhfd",
-  fullName: "Happy Birthday Harut jan",
-  id: "fdghdfg",
-  role: "fdghdfghd",
-
-};
+const initialState = null;
 
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case profileReducerTypes.signIn:
-
-      return {
-        fullName: action.payload.fullName,
-        email: action.payload.email,
-        id: action.payload.id,
-        role: action.payload.role
-      }
-    case profileReducerTypes.signOut:
-      return {
-        fullName: "",
-        email: ""
-      }
-
+    case PROFILE_SIGN_IN_SUCCESS:
+    case GET_PROFILE_INFO_SUCCESS:
+      return action.payload;
+    case PROFILE_SIGN_OUT:
+      return null;
+    case PROFILE_SIGN_UP_SUCCESS:
+      return action.payload;
     default:
       return state;
   }
