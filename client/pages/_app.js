@@ -1,10 +1,11 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
 import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
-import { Layout, Modals } from "@eachbase/fragments";
+import { Modals } from "@eachbase/fragments";
 import { reduxWrapper } from "@eachbase/store";
+
 initAxiosInterceptors();
 function MyApp({ Component, pageProps }) {
   return (
@@ -24,9 +25,8 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider>
         <ModalProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
+
           <Modals />
         </ModalProvider>
       </ThemeProvider>
