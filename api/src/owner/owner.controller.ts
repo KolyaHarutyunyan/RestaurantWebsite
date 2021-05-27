@@ -1,14 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { AuthService, AuthDTO } from '../auth';
-import { CreateOwnerDTO } from './dto';
-import { OwnerService } from './owner.service';
+import { Body, Controller, Post } from "@nestjs/common";
+import { ApiBody, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { AuthService, AuthDTO } from "../auth";
+import { CreateOwnerDTO } from "./dto";
+import { OwnerService } from "./owner.service";
 
-@Controller('owner')
+@Controller("owner")
+@ApiTags("Owner")
 export class OwnerController {
   constructor(
     private readonly ownerService: OwnerService,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   /** Create a new owner */
