@@ -1,7 +1,6 @@
 export class CreateUserDTO {
   fullName?: string;
   email: string;
-  authId?: string;
+  id?: string;
   phoneNumber?: string;
-  role?: string;
 }

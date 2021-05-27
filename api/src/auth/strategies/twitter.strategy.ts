@@ -30,7 +30,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
     const socialLoginDTO: SocialLoginDTO = {
       email: emails[0].value,
       providerKey: provider + 'Id',
-      id: id,
+      providerId: id,
       fullName: displayName,
       avatarURL: photos[0].value,
     };

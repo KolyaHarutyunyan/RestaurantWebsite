@@ -10,7 +10,8 @@ import { AuthTemplate } from './templates';
 
 @Injectable()
 export class MailerService {
-  constructor(private readonly authTemplate: AuthTemplate) {
+  constructor() {
+    this.authTemplate = new AuthTemplate();
     this.mailer = new SESClient({
       region: SES_REGION,
       credentials: {
@@ -20,6 +21,7 @@ export class MailerService {
     });
   }
   private mailer: SESClient;
+  private authTemplate: AuthTemplate;
 
   //TestMail
   sendTestMail = async () => {

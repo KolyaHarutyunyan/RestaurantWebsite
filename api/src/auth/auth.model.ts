@@ -9,7 +9,8 @@ const AuthSchema = new Schema({
   facebookId: String,
   twitterId: String,
   password: String,
-  role: Number,
+  session: String,
+  role: String,
 });
 
 const SALT_ROUNDS = 8;

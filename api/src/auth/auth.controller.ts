@@ -1,92 +1,88 @@
-import { Body, Controller, HttpStatus, Post, Get, Param, UseGuards, Headers } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserService } from '../user/user.service';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  UseGuards,
+  Patch,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { ChangePassDTO, PassChangedDTO, ResetPassDTO, SignedInDTO, SignupDTO } from './dto';
-import { SigninDTO } from './dto/signin.dto';
-import { MailerService } from '../mailer';
-import { ACCESS_TOKEN, RESET_TOKEN, Role } from './constants';
-import { ResetPassGuard } from './guards/resetPass.guard';
+import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO } from './dto';
+import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
+import { ResetPassGuard } from './guards';
 import { AuthGuard } from './guards';
-
+import { ParseObjectIdPipe } from 'src/util/pipes';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
 export class AuthController {
   /** Dependency Injection */
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
-    private readonly mailerService: MailerService,
+  constructor(private readonly authService: AuthService) {}
 
-  ) { }
-
-  /** Router Handlers */
-  /** Sign up a user */
-  @Post('signup')
-  @ApiBody({ type: SignupDTO })
-  @ApiOkResponse({ type: SignedInDTO })
-  @ApiResponse({ status: HttpStatus.FOUND, description: 'User Exists' })
-  async signup(@Body() signupDTO: SignupDTO): Promise<SignedInDTO> {
-    const auth = await this.authService.signup(signupDTO);
-    console.log(auth);
-    const user = await this.userService.create(signupDTO);
-    return new SignedInDTO(auth, user);
+  /** Sign in a user */
+  @Post('signin')
+  @ApiBody({ type: SigninDTO })
+  @ApiOkResponse({ type: AuthDTO })
+  async login(@Body() signinDTO: SigninDTO): Promise<AuthDTO> {
+    const auth = await this.authService.signin(signinDTO);
+    return auth;
   }
 
-   /** Changing user password */
-   @UseGuards(new AuthGuard())
-   @Post('changePassword')
-   @ApiHeader({ name: ACCESS_TOKEN })
-   @ApiBody({ type: ChangePassDTO })
-   @ApiOkResponse({ type: PassChangedDTO })
-   async changePassword(
-     @Body() changePassDTO: ChangePassDTO,
-   ): Promise<PassChangedDTO> {
-     const auth = await this.authService.changePassword(changePassDTO);
-     return new PassChangedDTO(auth.token);
-   }
-   
+  /** Changing user password */
+  @UseGuards(new AuthGuard())
+  @Patch(':id/changePassword')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiParam({ name: 'id' })
+  @ApiBody({ type: ChangePassDTO })
+  @ApiOkResponse({ type: AuthDTO })
+  async changePassword(
+    @Param('id', ParseObjectIdPipe) userId: string,
+    @Body() changePassDTO: ChangePassDTO,
+  ): Promise<AuthDTO> {
+    const auth = await this.authService.changePassword(userId, changePassDTO);
+    return auth;
+  }
+
   /** Forgot Password */
   @Get('forgotPassword/:email')
+  @ApiParam({ name: 'email' })
   async forgotPassword(@Param('email') email: string) {
-    const emailOptions = await this.authService.forgotPassword(email);
-    await this.mailerService.sendForgetPasswordMail(emailOptions);
-    return;
+    const emailedResponse = await this.authService.forgotPassword(email);
+    return emailedResponse;
   }
 
-   /** Reseting the password */
-   @Post('resetPassword')
-   @ApiBody({ type: ResetPassDTO })
-   @ApiHeader({ name: RESET_TOKEN })
-   @ApiOkResponse({ type: SignedInDTO })
-   @UseGuards(new ResetPassGuard())
-   async resetPassword(
-     @Body() resetPassDTO: ResetPassDTO,
-   ): Promise<SignedInDTO> {
-     const auth = await this.authService.resetPassword(resetPassDTO);
-     const user = await this.userService.findByEmail(resetPassDTO.email);
-     return new SignedInDTO(auth, user);
-   }
-
-
-  @Post('signin')
-  @ApiOkResponse({ type: SignedInDTO })
-  @ApiBody({ type: SigninDTO })
-  async login(@Body() signinDTO: SigninDTO): Promise<any> {
-    const auth = await this.authService.signin(signinDTO);
-    const user = await this.userService.findByEmail(signinDTO.email);
-
-    return new SignedInDTO(auth, user);
+  /** Reseting the password */
+  @Post('resetPassword')
+  @ApiBody({ type: ResetPassDTO })
+  @ApiHeader({ name: RESET_TOKEN })
+  @ApiOkResponse({ type: AuthDTO })
+  @UseGuards(new ResetPassGuard())
+  async resetPassword(@Body() resetPassDTO: ResetPassDTO): Promise<AuthDTO> {
+    const auth = await this.authService.resetPassword(resetPassDTO);
+    return auth;
   }
 
-  @Get('userInformation')
+  /** logout the user */
+  @Patch(':id/logout')
+  @ApiParam({ name: 'id', description: 'users Id' })
   @ApiHeader({ name: ACCESS_TOKEN })
-  async userInformation(@Headers('access-token') token: string): Promise<any> {
-    const userData = await this.authService.userInformation(token);
-
-    return userData;
+  @ApiOkResponse({
+    type: String,
+    description: 'the token that was invalidated',
+  })
+  async logout(
+    @Param('id', ParseObjectIdPipe) userId: string,
+  ): Promise<string> {
+    const sessionToken = await this.authService.logout(userId);
+    return sessionToken;
   }
 }
 /** End of Controller */
-

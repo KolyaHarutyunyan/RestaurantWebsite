@@ -1,98 +1,170 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import * as jwt from 'jsonwebtoken';
 import {
   AuthDTO,
   ChangePassDTO,
   ResetPassDTO,
-  // ChangePassDTO,
-  // ResetPassDTO,
   SigninDTO,
   SignupDTO,
   SocialLoginDTO,
 } from './dto';
-import { JWT_SECRET_FORGET_PASS } from './constants';
-
-import { IToken } from './interfaces';
-import * as jwt from 'jsonwebtoken';
-import {
-  // COMPANY_EMAIL,
-  // DOMAIN_NAME,
-  // JWT_SECRET_FORGET_PASS,
-  JWT_SECRET_SIGNIN,
-  MONGO_DUPLICATE_KEY,
-  Role,
-} from './constants';
-import { Model } from 'mongoose';
-import { AuthModel } from './auth.schema';
-import { UserModel } from '../user/user.schema';
-
-import { IAuth } from './interfaces';
-import { IUser } from 'src/user/interfaces';
-import { UpdateUsertDTO } from 'src/user/dto/updateUser.dto';
-// import { SendEmailCommandInput } from '@aws-sdk/client-ses';
-// import { EditProfileDTO } from 'src/user/dto';
+import { JWT_SECRET_FORGET_PASS, JWT_SECRET_SIGNIN } from './constants';
+import { AuthModel } from './auth.model';
+import { IAuth, IToken } from './interfaces';
+import { MongooseUtil } from '../util';
+import { MailerService } from 'src/mailer';
 
 @Injectable()
 export class AuthService {
   constructor() {
+    this.mongooseUtil = new MongooseUtil();
     this.model = AuthModel;
-    this.userModel = UserModel;
-
-    this.sessionExpiratrion = '7d';
   }
   //The Model
-  model: Model<IAuth>;
-  userModel: Model<IUser>
-  sessionExpiratrion: string;
+  private model: Model<IAuth>;
+  private mailerService: MailerService;
+  mongooseUtil: MongooseUtil;
 
-  socialLogin = async (socialLoginDTO: SocialLoginDTO): Promise<AuthDTO> => {
+  /************************** Service API *************************/
+
+  /** Signup a new user with the username and password */
+  signup = async (signupDTO: SignupDTO): Promise<AuthDTO> => {
+    try {
+      let auth: IAuth = await new this.model({
+        _id: signupDTO.id,
+        email: signupDTO.email,
+        password: signupDTO.password,
+        role: signupDTO.role,
+        session: null,
+      });
+      auth.session = await this.createSession(auth);
+      auth = await auth.save();
+      return new AuthDTO(auth);
+    } catch (err) {
+      this.mongooseUtil.checkDuplicateKey(err, 'User with this email exists');
+      throw err;
+    }
+  };
+
+  /** Singn in a new user with username and password */
+  signin = async (signinDTO: SigninDTO): Promise<any> => {
+    const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
+    this.checkAuth(auth);
+    const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
+    this.checkPassword(isPasswordCorrect);
+    auth.session = await this.createSession(auth);
+    await auth.save();
+    return await new AuthDTO(auth);
+  };
+
+  /** Login or Signup a user with social logins */
+  socialLogin = async (dto: SocialLoginDTO): Promise<AuthDTO> => {
     let auth: IAuth = await this.model.findOne({
-      email: socialLoginDTO.email,
+      email: dto.email,
     });
     if (!auth) {
       // Scenario 1: Brand New User
       auth = new this.model({
-        email: socialLoginDTO.email,
-        [socialLoginDTO.providerKey]: socialLoginDTO.id,
-        invitation: false,
-        role: Role.MEMBER,
+        _id: dto.id,
+        email: dto.email,
+        [dto.providerKey]: dto.providerId,
+        role: dto.role,
       });
     } else {
-      //existing record with this email
-      if (auth.invitation) {
-        //invited user that is not registered
-        auth.invitation = false;
-      }
-      if (!auth[socialLoginDTO.providerKey]) {
+      if (!auth[dto.providerKey]) {
         //Scenario 2: User is registered with a different method
-        auth[socialLoginDTO.providerKey] = socialLoginDTO.id;
+        auth[dto.providerKey] = dto.id;
       }
     }
+    auth.session = await this.createSession(auth);
     auth = await auth.save();
-    socialLoginDTO.authId = auth._id;
-    socialLoginDTO.role = this.convertRole(auth.role);
-    return this.getSigninResponse(auth);
+    return new AuthDTO(auth);
   };
 
-  /**Service API */
-  signup = async (signupDTO: SignupDTO): Promise<AuthDTO> => {
-    try {
-      const auth: IAuth = await new this.model({
-        email: signupDTO.email,
-        password: signupDTO.password,
-        role: Role.RESTAURANT_OWNER,
-      }).save();
-      //Set auth Id
-      signupDTO.authId = auth.id;
-      //Set the role
-      signupDTO.role = this.convertRole(auth.role);
-      return await this.getSigninResponse(auth);
-    } catch (err) {
-      if (err.code === MONGO_DUPLICATE_KEY) {
-        throw new HttpException('User Exists', HttpStatus.FOUND);
-      }
-      throw err;
-    }
+  /** Logs out the session by finding the used and deleting its session token
+   * @Returns the invalidated session token
+   */
+  logout = async (userId: string): Promise<string> => {
+    const auth = await this.model.findOneAndUpdate(
+      { _id: userId },
+      { $set: { session: null } },
+    );
+    return auth.session;
   };
+
+  /** Changing the user password **/
+  changePassword = async (
+    userId: string,
+    dto: ChangePassDTO,
+  ): Promise<AuthDTO> => {
+    let auth = await this.model.findOne({ _id: userId });
+    this.confirmPassword(dto.newPassword, dto.confirmation);
+    auth.password = dto.newPassword;
+    auth.session = await this.createSession(auth);
+    auth = await auth.save();
+    return new AuthDTO(auth);
+  };
+
+  /** Forgot password. sends a link with a token to the users email to reset password*/
+  forgotPassword = async (email: string) => {
+    const auth = await this.model.findOne({ email });
+    this.checkAuth(auth);
+    const minutesToExpire = Math.floor(Date.now() / 1000) + 60 * 30; // 30 minutes to expire
+    const expString = minutesToExpire.toString();
+    const tokenEntity: IToken = {
+      email: auth.email,
+      id: auth.id,
+      role: auth.role,
+    };
+    const token = await jwt.sign(
+      tokenEntity,
+      JWT_SECRET_FORGET_PASS,
+      expString,
+    );
+    // send email to the user with the reset link
+    const response = await this.mailerService.sendForgetPasswordMail({
+      token,
+      email: auth.email,
+    });
+    console.log(response);
+    return response;
+  };
+
+  /** Resets users password */
+  resetPassword = async (dto: ResetPassDTO): Promise<AuthDTO> => {
+    let auth = await this.model.findOne({ email: dto.email });
+    this.checkAuth(auth);
+    this.confirmPassword(dto.newPassword, dto.confirmation);
+    auth.password = dto.newPassword;
+    auth.session = await this.createSession(auth);
+    auth = await auth.save();
+    return new AuthDTO(auth);
+  };
+
+  /** find the user with the id */
+  findById = async (id: string): Promise<IAuth> => {
+    const auth = await this.model.findById(id);
+    this.checkAuth(auth);
+    return auth;
+  };
+
+  /*********************** Private Methods ***********************/
+
+  /** @Creates a session token from an auth object */
+  private async createSession(auth: IAuth): Promise<string> {
+    const sessionExpiration = '7d';
+    const tokenEntity: IToken = {
+      email: auth.email,
+      id: auth.id,
+      role: auth.role,
+    };
+    return await jwt.sign(tokenEntity, JWT_SECRET_SIGNIN, {
+      expiresIn: sessionExpiration,
+    });
+  }
+
+  /** @throws error if the auth is undefined */
   private checkAuth = (auth) => {
     if (!auth) {
       throw new HttpException(
@@ -102,6 +174,7 @@ export class AuthService {
     }
   };
 
+  /** @throws error is the password is incorrect */
   private checkPassword = (isCorrect) => {
     if (!isCorrect) {
       throw new HttpException(
@@ -110,18 +183,8 @@ export class AuthService {
       );
     }
   };
-  /** if the user has signed up with the social logins, the password will be missing */
-  private checkNoPassword = (password?: string) => {
-    if (!password) {
-      throw new HttpException(
-        `Our records indicate that you have not created this account with a password. 
-      This means you have used one of the social login methods. 
-      Please use the reset password feature to add a password to your account.`,
-        HttpStatus.FORBIDDEN,
-      );
-    }
-  };
-  /** Confirms whether the newPassword and the confirmation are matching */
+
+  /** @throws error is the new password is not matching the confirmation */
   private confirmPassword = (newPass, confirmation) => {
     if (newPass !== confirmation) {
       throw new HttpException(
@@ -130,130 +193,5 @@ export class AuthService {
       );
     }
   };
-  signin = async (signinDTO: SigninDTO): Promise<any> => {
-    try {
-      const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
-
-      this.checkAuth(auth);
-      const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
-      this.checkPassword(isPasswordCorrect);
-
-      return await this.getSigninResponse(auth);
-    } catch (err) {
-      if (err.code === MONGO_DUPLICATE_KEY) {
-        throw new HttpException('User Exists', HttpStatus.FOUND);
-      }
-      throw err;
-    }
-  };
-  userInformation = async (token): Promise<any> => {
-    try {
-      if (!token) {
-        throw new HttpException('Token not found', HttpStatus.NOT_FOUND);
-      }
-      const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
-
-      const user: IUser = await this.userModel.findOne({ email: decoded.email });
-      if (!user) {
-        // throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-        return null;
-      }
-      return user
-
-    } catch (err) {
-      if (err.code === MONGO_DUPLICATE_KEY) {
-        throw new HttpException('User Exists', HttpStatus.FOUND);
-      }
-      throw err;
-    }
-  };
-
-  /**  Changing the user password **/
-  changePassword = async (changePassDTO: ChangePassDTO): Promise<AuthDTO> => {
-    let auth = await this.model.findOne({
-      _id: changePassDTO.user.authId,
-    });
-    this.checkNoPassword(auth.password);
-    const isPasswordCorrect = await auth.comparePassword(
-      changePassDTO.password,
-    );
-    this.checkPassword(isPasswordCorrect);
-    this.confirmPassword(changePassDTO.newPassword, changePassDTO.confirmation);
-    auth.password = changePassDTO.newPassword;
-    auth = await auth.save();
-    return await this.getSigninResponse(auth);
-  };
-
-  /** Forgot password. sends a link with a token to the users email to reset password*/
-  forgotPassword = async (email: string) => {
-    const auth = await this.model.findOne({ email });
-    this.checkAuth(auth);
-    const minutesToExpire = Math.floor(Date.now() / 1000) + 60 * 30; // 30 minutes to expire
-    const expString = minutesToExpire.toString();
-    const token = await this.generateToken(
-      auth,
-      JWT_SECRET_FORGET_PASS,
-      expString,
-    );
-    return {
-      token: token,
-      email: auth.email,
-    };
-  };
-
-  /** Resets users password */
-  resetPassword = async (resetPassDTO: ResetPassDTO): Promise<AuthDTO> => {
-    let auth = await this.model.findOne({ email: resetPassDTO.email });
-    this.checkAuth(auth);
-    auth.password = resetPassDTO.newPassword;
-    auth = await auth.save();
-    return this.getSigninResponse(auth);
-  };
-
-  /** Private Methods */
-  /** Generates the signed in response */
-  private async getSigninResponse(auth: IAuth): Promise<AuthDTO> {
-    const token = await this.generateToken(
-      auth,
-      JWT_SECRET_SIGNIN,
-      this.sessionExpiratrion,
-    );
-    console.log(auth.role);
-
-    const role = this.convertRole(auth.role);
-
-    return { token, role };
-  }
-
-  /** Generates a token using an IAuth object */
-  private async generateToken(
-    auth: IAuth,
-    secret: string,
-    expiration?: string,
-  ): Promise<string> {
-    const tokenEntity: IToken = {
-      email: auth.email,
-      id: auth.id,
-      role: +auth.role,
-    };
-    if (expiration) {
-      return await jwt.sign(tokenEntity, secret, { expiresIn: expiration });
-    } else {
-      return await jwt.sign(tokenEntity, secret);
-    }
-  }
-
-  /** Converts the system role to a client usable form */
-  private convertRole(role: Role): string {
-    console.log(role, ' Switch');
-
-    switch (role) {
-      case Role.ADMIN:
-        return 'ADMIN';
-      case Role.RESTAURANT_OWNER:
-        return 'RESTAURANT_OWNER';
-    }
-  }
-
 }
 //End of Service

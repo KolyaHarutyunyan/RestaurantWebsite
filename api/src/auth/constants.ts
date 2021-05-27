@@ -42,27 +42,8 @@ export const COMPANY_EMAIL = 'eachbase@gmail.com';
 export const ACCESS_TOKEN = 'access-token';
 export const RESET_TOKEN = 'reset-token';
 /** Enums */
-// export enum Role {
-//   ADMIN = 230,
-//   RESTAURANT_OWNER = 231,
-// }
-
-// export enum ClientRole {
-//   ADMIN = 'ADMIN',
-//   RESTAURANT_OWNER = 'RESTAURANT_OWNER',
-// }
 
 export enum Role {
-  ADMIN = 230,
-  RESTAURANT_OWNER = 231,
-  MEMBER = 112,
-  VERIFIED_MEMBER = 113,
-  ORGANIZER = 114,
-}
-
-export enum ClientRole {
   ADMIN = 'ADMIN',
-  MEMBER = 'MEMBER',
-  VERIFIED_MEMBER = ' VERIFIED_MEMBER',
-  ORGANIZER = 'ORGANIZER',
+  OWNER = 'OWNER',
 }

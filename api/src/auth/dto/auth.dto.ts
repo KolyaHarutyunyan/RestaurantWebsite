@@ -1,9 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ClientRole } from '../constants';
+import { Role } from '../constants';
+import { IAuth } from '../interfaces';
 
 export class AuthDTO {
+  constructor(auth: IAuth) {
+    this.accessToken = auth.session;
+    this.role = auth.role;
+  }
   @ApiProperty()
-  token: string;
+  accessToken: string;
   @ApiProperty()
-  role: string;
+  role: Role;
 }

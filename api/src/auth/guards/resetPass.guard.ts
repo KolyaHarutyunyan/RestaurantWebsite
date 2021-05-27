@@ -1,44 +1,42 @@
 import {
-    CanActivate,
-    ExecutionContext,
-    HttpException,
-    HttpStatus,
-    Injectable,
-  } from '@nestjs/common';
-  import * as jwt from 'jsonwebtoken';
-  import { JWT_SECRET_FORGET_PASS } from '../constants';
-  import { IToken } from '../interfaces';
-  
-  @Injectable()
-  export class ResetPassGuard implements CanActivate {
-    async canActivate(context: ExecutionContext): Promise<boolean> {
-      const request = context.switchToHttp().getRequest();
-      try {
-        const token = request.get('reset-token');
-        this.checkToken(token);
-        const decoded: IToken = await jwt.verify(token, JWT_SECRET_FORGET_PASS);
-        request.body.email = decoded.email;
-        return true;
-      } catch (err) {
-        if (err.name === 'TokenExpiredError') {
-          throw new HttpException(
-            'Token is expired, request another reset',
-            HttpStatus.FORBIDDEN,
-          );
-        }
-        //unknown error
-        throw err;
-      }
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import { JWT_SECRET_FORGET_PASS } from '../constants';
+import { IToken } from '../interfaces';
+
+@Injectable()
+export class ResetPassGuard implements CanActivate {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    const token = request.get('reset-token');
+    // check if the token is valid
+    const decoded: IToken = await this.decodeToken(token);
+    request.body.email = decoded.email;
+    return true;
+  }
+
+  /** Checks for the tokens validity */
+  private async decodeToken(token: string): Promise<IToken> {
+    if (!token) {
+      throw new HttpException(
+        'An access token must be set to access this resource',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
-  
-    //private members
-    private checkToken(token: string) {
-      if (!token) {
-        throw new HttpException(
-          'reset-token header was not set',
-          HttpStatus.UNAUTHORIZED,
-        );
-      }
+    try {
+      // Verify token
+      const decoded: IToken = await jwt.verify(token, JWT_SECRET_FORGET_PASS);
+      return decoded;
+    } catch (err) {
+      throw new HttpException(
+        'Your session is expired, please login again',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
-  
+}

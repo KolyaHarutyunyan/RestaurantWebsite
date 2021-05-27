@@ -28,7 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const socialLoginDTO: SocialLoginDTO = {
       email: emails[0].value,
       providerKey: provider + 'Id',
-      id: id,
+      providerId: id,
       fullName: displayName,
       avatarURL: photos[0].value,
     };

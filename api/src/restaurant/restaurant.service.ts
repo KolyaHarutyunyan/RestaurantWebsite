@@ -1,124 +1,124 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
-import { IRestaurant } from './interfaces';
-import { RestaurantModel } from './restaurant.schema';
-import * as QRCode from 'qrcode';
-import * as path from 'path';
+// import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+// import { Model } from 'mongoose';
+// import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
+// import { IRestaurant } from './interfaces';
+// import { RestaurantModel } from './restaurant.schema';
+// import * as QRCode from 'qrcode';
+// import * as path from 'path';
 
-@Injectable()
-export class RestaurantService {
-  constructor() {
-    this.model = RestaurantModel;
-  }
-  private model: Model<IRestaurant>;
+// @Injectable()
+// export class RestaurantService {
+//   constructor() {
+//     this.model = RestaurantModel;
+//   }
+//   private model: Model<IRestaurant>;
 
-  /** API */
-  /** Create restaurant */
-  create = async (createRestaurantDTO: CreateRestaurantDTO, id: string) => {
-    if (createRestaurantDTO.status === true) {
+//   /** API */
+//   /** Create restaurant */
+//   create = async (createRestaurantDTO: CreateRestaurantDTO, id: string) => {
+//     if (createRestaurantDTO.status === true) {
 
-      const findStatus = await this.model.findOne({ status: true })
-      if (findStatus) {
+//       const findStatus = await this.model.findOne({ status: true })
+//       if (findStatus) {
 
-        findStatus.status = false;
+//         findStatus.status = false;
 
-        await findStatus.save();
+//         await findStatus.save();
 
-      }
+//       }
 
-    }
+//     }
 
-    const restaurant = await new this.model({
-      owner: id,
-      name: createRestaurantDTO.name,
-      description: createRestaurantDTO.description,
-      logoUrl: createRestaurantDTO.logoUrl,
-      website: createRestaurantDTO.website,
-      phoneNumber: createRestaurantDTO.phoneNumber,
-      status: createRestaurantDTO.status
-    }).save();
+//     const restaurant = await new this.model({
+//       owner: id,
+//       name: createRestaurantDTO.name,
+//       description: createRestaurantDTO.description,
+//       logoUrl: createRestaurantDTO.logoUrl,
+//       website: createRestaurantDTO.website,
+//       phoneNumber: createRestaurantDTO.phoneNumber,
+//       status: createRestaurantDTO.status
+//     }).save();
 
-    restaurant.hours.push({ day: createRestaurantDTO.day, open: createRestaurantDTO.open, close: createRestaurantDTO.close });
+//     restaurant.hours.push({ day: createRestaurantDTO.day, open: createRestaurantDTO.open, close: createRestaurantDTO.close });
 
-    await restaurant.save();
+//     await restaurant.save();
 
-    return this.sanitizeRestaurant(restaurant);
+//     return this.sanitizeRestaurant(restaurant);
 
-  };
+//   };
 
-  /** API */
-  /** Create Qr */
-  createQr = async (restaurantId: string) => {
+//   /** API */
+//   /** Create Qr */
+//   createQr = async (restaurantId: string) => {
 
-    const generateQr = await QRCode.toFile(path.join(__dirname, '../../qrCodes/qrCode.png'), `domain/api/restaurant/${restaurantId}`);
-    return generateQr;
+//     const generateQr = await QRCode.toFile(path.join(__dirname, '../../qrCodes/qrCode.png'), `domain/api/restaurant/${restaurantId}`);
+//     return generateQr;
 
-  };
+//   };
 
-  /** API */
-  /** get restaurant */
-  getAllRestaurant = async () => {
+//   /** API */
+//   /** get restaurant */
+//   getAllRestaurant = async () => {
 
-    const restaurant = await this.model.find({}).populate('owner')
-    return restaurant
+//     const restaurant = await this.model.find({}).populate('owner')
+//     return restaurant
 
-  };
+//   };
 
-  /** API */
-  /** get restaurant by id */
-  getRestaurantById = async (owner: string) => {
+//   /** API */
+//   /** get restaurant by id */
+//   getRestaurantById = async (owner: string) => {
 
-    const getRestaurant = await this.model.findOne({ owner }).populate("menus");
+//     const getRestaurant = await this.model.findOne({ owner }).populate("menus");
 
-    return getRestaurant
+//     return getRestaurant
 
-  };
+//   };
 
-  /** API */
-  /** update restaurant by id */
-  updateRestaurant = async (owner: string, _id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
+//   /** API */
+//   /** update restaurant by id */
+//   updateRestaurant = async (owner: string, _id: string, updateRestaurantDto: UpdateRestaurantDTO) => {
 
-    if (updateRestaurantDto.status === 'true') {
+//     if (updateRestaurantDto.status === 'true') {
 
-      const findStatus = await this.model.findOne({ status: true })
-      if (findStatus) {
+//       const findStatus = await this.model.findOne({ status: true })
+//       if (findStatus) {
 
-        findStatus.status = false;
+//         findStatus.status = false;
 
-        await findStatus.save();
+//         await findStatus.save();
 
-      }
+//       }
 
-    }
-    const updateRestaurant = await this.model.findOneAndUpdate({ owner, _id }, {
-      name: updateRestaurantDto.name, description: updateRestaurantDto.description,
-      website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status, logoUrl: updateRestaurantDto.logoUrl
-    }, { new: true });
+//     }
+//     const updateRestaurant = await this.model.findOneAndUpdate({ owner, _id }, {
+//       name: updateRestaurantDto.name, description: updateRestaurantDto.description,
+//       website: updateRestaurantDto.website, phoneNumber: updateRestaurantDto.phoneNumber, status: updateRestaurantDto.status, logoUrl: updateRestaurantDto.logoUrl
+//     }, { new: true });
 
-    return this.sanitizeRestaurant(updateRestaurant);
+//     return this.sanitizeRestaurant(updateRestaurant);
 
-  };
+//   };
 
-  /** API */
-  /** delete restaurant by id */
-  deleteRestaurant = async (owner, _id: string) => {
+//   /** API */
+//   /** delete restaurant by id */
+//   deleteRestaurant = async (owner, _id: string) => {
 
-    const deleteRestaurant = await this.model.findOneAndDelete({ owner, _id });
-    return deleteRestaurant;
+//     const deleteRestaurant = await this.model.findOneAndDelete({ owner, _id });
+//     return deleteRestaurant;
 
-  };
+//   };
 
 
-  /** Private Members */
-  private sanitizeRestaurant(restaurant: IRestaurant) {
-    const sanitizedRestaurant: RestaurantResponseDTO = {
-      name: restaurant.name,
-      description: restaurant.description,
-      logoUrl: restaurant.logoUrl,
-      id: restaurant._id
-    };
-    return sanitizedRestaurant;
-  }
+//   /** Private Members */
+//   private sanitizeRestaurant(restaurant: IRestaurant) {
+//     const sanitizedRestaurant: RestaurantResponseDTO = {
+//       name: restaurant.name,
+//       description: restaurant.description,
+//       logoUrl: restaurant.logoUrl,
+//       id: restaurant._id
+//     };
+//     return sanitizedRestaurant;
+//   }
 
-}
+// }

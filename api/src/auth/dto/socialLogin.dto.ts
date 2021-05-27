@@ -4,9 +4,9 @@ import { Role } from '../constants';
 export class SocialLoginDTO {
   fullName?: string;
   email: string;
-  id: string;
+  id?: string;
+  providerId: string;
   providerKey: string;
-  role?: string;
-  authId?: string;
-  avatarURL?: string
+  role?: Role;
+  avatarURL?: string;
 }

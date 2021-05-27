@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app';
 import { ValidationPipe } from '@nestjs/common';
-import { setupSwagger } from './util/swagger';
+import { SwaggerUtil } from './util';
 import * as session from 'express-session';
-import { PORT } from './app/constants';
-import { AllExceptionsFilter } from './all-exception.filters';
+import { PORT } from './constants';
+// import { AllExceptionsFilter } from './all-exception.filters';
 
 async function bootstrap() {
+  const swaggerUtil = new SwaggerUtil();
   const app = await NestFactory.create(AppModule, {
     cors: {
       origin: true,
@@ -32,9 +33,8 @@ async function bootstrap() {
   );
 
   //swagger documentation setup
- setupSwagger(app);
+  swaggerUtil.setup(app);
 
-  
   await app
     .listen(PORT)
     .then(() => console.log(`server running on port ${PORT}`));

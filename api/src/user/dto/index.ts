@@ -1,2 +1,2 @@
 export { CreateUserDTO } from './createUser.dto';
-export { UserResponseDTO } from './userResponse.dto';
+export { UserDTO } from './user.dto';
