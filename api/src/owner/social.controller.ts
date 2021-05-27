@@ -5,7 +5,7 @@ import { DOMAIN_NAME } from "../constants";
 import { AuthService, SocialLoginDTO } from "../auth";
 import { OwnerService } from "./owner.service";
 
-@Controller("owner/socials")
+@Controller("owners/socials")
 @ApiTags("Owner- Social")
 export class SocialController {
   constructor(

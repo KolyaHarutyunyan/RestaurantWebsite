@@ -4,7 +4,7 @@ import { AuthService, AuthDTO } from "../auth";
 import { CreateOwnerDTO } from "./dto";
 import { OwnerService } from "./owner.service";
 
-@Controller("owner")
+@Controller("owners")
 @ApiTags("Owner")
 export class OwnerController {
   constructor(
