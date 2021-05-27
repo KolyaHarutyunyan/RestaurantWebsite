@@ -1,7 +1,16 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiBody, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from "@nestjs/swagger";
+import { AuthGuard } from "src/auth/guards";
+import { ACCESS_TOKEN } from "src/constants";
+import { ParseObjectIdPipe } from "src/util/pipes";
 import { AuthService, AuthDTO } from "../auth";
-import { CreateOwnerDTO } from "./dto";
+import { CreateOwnerDTO, OwnerDTO } from "./dto";
 import { OwnerService } from "./owner.service";
 
 @Controller("owners")
@@ -20,5 +29,17 @@ export class OwnerController {
     await this.ownerService.create(createOwnerDTO);
     const auth = await this.authService.signup(createOwnerDTO);
     return auth;
+  }
+
+  /** Get the user */
+  @Get()
+  @UseGuards(new AuthGuard())
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: OwnerDTO })
+  async getUser(
+    @Body("id", ParseObjectIdPipe) userId: string
+  ): Promise<OwnerDTO> {
+    const owner = await this.ownerService.getOwner(userId);
+    return owner;
   }
 }
