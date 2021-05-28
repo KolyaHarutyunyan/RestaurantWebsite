@@ -5,7 +5,7 @@
 //     thumbURL: {type: String, required: true}
 // })
 // const MenuItemSchema = new Schema({
-//   restaurantId: { type: Types.ObjectId, ref: 'restaurant' },
+//   businessId: { type: Types.ObjectId, ref: 'business' },
 //   name: { type: String, required: true },
 //   description: { type: String },
 //   option: { type: String },
@@ -17,5 +17,3 @@
 //   'menuItem',
 //   MenuItemSchema,
 // );
-
-

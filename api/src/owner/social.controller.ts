@@ -1,28 +1,28 @@
-import { Controller, Get, Redirect, Req, UseGuards } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { FacebookAuthGuard, GoogleAuthGuard, TwitterAuthGuard } from "../auth";
-import { DOMAIN_NAME } from "../constants";
-import { AuthService, SocialLoginDTO } from "../auth";
-import { OwnerService } from "./owner.service";
+import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FacebookAuthGuard, GoogleAuthGuard, TwitterAuthGuard } from '../auth';
+import { DOMAIN_NAME } from '../constants';
+import { AuthService, SocialLoginDTO } from '../auth';
+import { OwnerService } from './owner.service';
 
-@Controller("owners/socials")
-@ApiTags("Owner- Social")
+@Controller('owners/socials')
+@ApiTags('Owner- Social')
 export class SocialController {
   constructor(
     private readonly ownerService: OwnerService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) {}
 
   /** Google endpoint */
-  @Get("/google")
+  @Get('/google')
   @UseGuards(GoogleAuthGuard)
-  @ApiResponse({ description: "use to login with google" })
+  @ApiResponse({ description: 'use to login with google' })
   async googleAuth(@Req() req) {
-    console.log("google login");
+    console.log('google login');
   }
 
   /** Social Signin Redirect */
-  @Get("/google/redirected")
+  @Get('/google/redirected')
   @UseGuards(GoogleAuthGuard)
   @Redirect(DOMAIN_NAME)
   async googleAuthRedirected(@Req() req) {
@@ -31,14 +31,14 @@ export class SocialController {
   }
 
   /** Facebook login */
-  @Get("/facebook")
+  @Get('/facebook')
   @UseGuards(FacebookAuthGuard)
   async facebookAuth() {
-    console.log("facebook login");
+    console.log('facebook login');
   }
 
   /** Social Signin Redirect */
-  @Get("/facebook/redirected")
+  @Get('/facebook/redirected')
   @UseGuards(FacebookAuthGuard)
   @Redirect(DOMAIN_NAME)
   async facebookAuthRedirected(@Req() req) {
@@ -47,15 +47,15 @@ export class SocialController {
   }
 
   /** Twitter login */
-  @Get("/twitter")
+  @Get('/twitter')
   @UseGuards(TwitterAuthGuard)
-  @ApiResponse({ description: "use this to login with Twitter" })
+  @ApiResponse({ description: 'use this to login with Twitter' })
   async twitterAuth() {
-    console.log("twitter login");
+    console.log('twitter login');
   }
 
   /** Social Signin Redirect */
-  @Get("/twitter/redirected")
+  @Get('/twitter/redirected')
   @UseGuards(TwitterAuthGuard)
   @Redirect(DOMAIN_NAME)
   async twitterAuthRedirected(@Req() req) {

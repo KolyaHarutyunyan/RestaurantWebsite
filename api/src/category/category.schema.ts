@@ -2,7 +2,7 @@
 // import { ICategory } from './interfaces/';
 
 // const CategorySchema = new Schema({
-//   restaurantId: { type: Types.ObjectId, ref: 'restaurant' },
+//   businessId: { type: Types.ObjectId, ref: 'business' },
 //   name: { type: String, required: true },
 //   menuItems: [{ type: Types.ObjectId, ref: 'menuItem' }]
 // });

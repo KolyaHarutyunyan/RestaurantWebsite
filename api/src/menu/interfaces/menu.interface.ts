@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 export interface IMenu extends Document {
   [x: string]: any;
-    // restaurantId: string;
+  // businessId: string;
   name: string;
   tagline?: string;
   imageUrl?: string;

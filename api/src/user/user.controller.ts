@@ -42,7 +42,7 @@
 
 //   /** Get user by id */
 //   //   @Get(':id')
-//   //   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   //   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   //   async getById(@Param('id') id: string): Promise<any> {
 //   //     const getOwner = await this.userService.findById(id);
 //   //     return getOwner;
@@ -50,7 +50,7 @@
 
 //   @Put('')
 //   @ApiBody({ type: UpdateUsertDTO })
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   async update(
 //     @Request() req: IRequest,
 //     @Body() updateUsertDto: UpdateUsertDTO,
@@ -63,11 +63,11 @@
 //   }
 
 //   @Delete()
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   async remove(@Request() req: IRequest) {
-//     const deleteRestaurant = await this.userService.deleteUser(
+//     const deletebusiness = await this.userService.deleteUser(
 //       req.body.user._id.toString(),
 //     );
-//     return deleteRestaurant;
+//     return deletebusiness;
 //   }
 // }

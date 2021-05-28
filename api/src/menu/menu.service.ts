@@ -1,10 +1,10 @@
 // import { Injectable } from '@nestjs/common';
 // import { CreateMenuDto, UpdateMenuDto, MenuResponseDTO } from './dto';
 // import { MenuModel } from './menu.schema';
-// import { RestaurantModel } from "../restaurant/restaurant.schema";
+// import { businessModel } from "../business/business.schema";
 
 // import { IMenu } from './interfaces';
-// import { IRestaurant } from '../restaurant/interfaces';
+// import { Ibusiness } from '../business/interfaces';
 
 // import { Model } from 'mongoose';
 
@@ -12,15 +12,15 @@
 // export class MenuService {
 //   constructor() {
 //     this.model = MenuModel;
-//     this.restaurantModel = RestaurantModel;
+//     this.businessModel = businessModel;
 //   }
 //   private model: Model<IMenu>;
-//   private restaurantModel: Model<IRestaurant>
+//   private businessModel: Model<Ibusiness>
 //   /** API */
 //   /** Create menu */
 //   create = async (createMenuDTO: CreateMenuDto) => {
 //     const menu = await new this.model({
-//       restaurantId: createMenuDTO.restaurantId,
+//       businessId: createMenuDTO.businessId,
 //       name: createMenuDTO.name,
 //       description: createMenuDTO.description,
 //       menuImg: createMenuDTO.menuImg,
@@ -28,7 +28,7 @@
 //       isActive: createMenuDTO.isActive
 //     }).save();
 
-//     const setMenu = await this.restaurantModel.findById({ _id: createMenuDTO.restaurantId });
+//     const setMenu = await this.businessModel.findById({ _id: createMenuDTO.businessId });
 //     setMenu.menus.push(menu._id);
 
 //     await setMenu.save()
@@ -37,7 +37,7 @@
 //   };
 
 //   /** API */
-//   /** get restaurant */
+//   /** get business */
 //   async findAll() {
 
 //     const getAllMenu = await this.model.find({})
@@ -58,13 +58,13 @@
 //   async duplicate(_id: string) {
 
 //     const getMenu = await this.model.findById({ _id });
-    
+
 //     var newDoc = getMenu;
 
 //     delete newDoc['_id'];
 
-//     const setDuplicateData = await new this.model({ 
-//       restaurantId: newDoc.restaurantId,
+//     const setDuplicateData = await new this.model({
+//       businessId: newDoc.businessId,
 //       name: newDoc.name,
 //       description: newDoc.description,
 //       menuImg: newDoc.menuImg,
@@ -75,7 +75,7 @@
 //     return setDuplicateData
 
 //   }
-  
+
 //   /** API */
 //   /** update menu by id */
 //   async update(_id: string, updateMenuDto: UpdateMenuDto) {

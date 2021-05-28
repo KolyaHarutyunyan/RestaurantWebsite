@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IRestaurant extends Document {
+export interface IBusiness extends Document {
   [x: string]: any;
   owner: string;
   name: string;

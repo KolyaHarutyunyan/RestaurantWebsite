@@ -7,6 +7,6 @@ export const QR_FOLDER = 'qr';
 export const EVENT_FOLDER = 'events';
 export const MENU_ITEM_FOLDER = 'menuItem';
 export const THUMBNAIL_FOLDER = 'thumbnail';
-export const RESTAURANT_FOLDER = 'restaurants';
+export const business_FOLDER = 'businesss';
 
 export const IMAGE_BUCKET = 'armat-images';

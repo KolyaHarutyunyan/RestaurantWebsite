@@ -27,7 +27,7 @@
 //   async create(createCategoryDto: CreateCategoryDto) {
 
 //     const addCategory = await new this.model({
-//       restaurantId: createCategoryDto.restaurantId,
+//       businessId: createCategoryDto.businessId,
 //       name: createCategoryDto.name
 //     }).save();
 //     // const setCategory = await this.menuModel.findById({ _id: createCategoryDto.menuId });
@@ -61,17 +61,17 @@
 //     return getCategory
 //   }
 
-//   async getAll(restaurantId: string) {
-    
-//     const getAllCategory = await this.model.find({ restaurantId });
+//   async getAll(businessId: string) {
+
+//     const getAllCategory = await this.model.find({ businessId });
 //     return getAllCategory
 //   }
 //   async getAllCategories() {
-    
+
 //     const getAllCategory = await this.model.find({ });
 //     return getAllCategory
 //   }
-  
+
 //   // update ara
 //   update(id: number, updateCategoryDto: UpdateCategoryDto) {
 //     return `This action updates a #${id} category`;

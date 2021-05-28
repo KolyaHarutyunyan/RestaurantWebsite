@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class MenuItemResponseDTO {
   @ApiProperty()
-  restaurantId: string;
+  businessId: string;
   @ApiProperty()
   id: string;
   @ApiProperty()
@@ -17,5 +17,5 @@ export class MenuItemResponseDTO {
   images?: string;
 
   @ApiProperty()
-  imageUrl?: Object
+  imageUrl?: Object;
 }

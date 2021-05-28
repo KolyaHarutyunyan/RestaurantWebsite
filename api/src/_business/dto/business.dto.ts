@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RestaurantResponseDTO {
+export class BusinessDTO {
   @ApiProperty()
   id: string;
   @ApiProperty()

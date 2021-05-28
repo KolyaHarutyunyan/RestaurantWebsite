@@ -14,7 +14,7 @@
 //   constructor(private readonly menuItemService: MenuItemService, private readonly imageService: ImageService) { }
 
 //   @Post()
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   @ApiBody({ type: CreateMenuItemDto })
 //   @UseInterceptors(FileInterceptor('menuItemImg'))
@@ -30,21 +30,21 @@
 //   }
 
 //   @Get()
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   findAll() {
 //     return this.menuItemService.findAll();
 //   }
 
 //   @Get(':id')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   findOne(@Param('id') id: string) {
 //     return this.menuItemService.findOne(id);
 //   }
 
 //   @Put(':id')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   @ApiBody({ type: UpdateMenuItemDto })
 //   async update(@Param('id') id: string, @Body() updateMenuItemDto: UpdateMenuItemDto) {
@@ -54,7 +54,7 @@
 //   }
 
 //   @Delete(':id')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   async remove(@Param('id') id: string) {
 
 //     const deleteMenuItem = await this.menuItemService.remove(id);

@@ -3,7 +3,7 @@
 // import { CreateMenuItemDto } from './dto/create-menu-item.dto';
 // import { MenuItemResponseDTO } from './dto/menuItem.dto';
 // import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
-// // import { CreateRestaurantDTO, RestaurantResponseDTO, UpdateRestaurantDTO } from './dto';
+// // import { CreatebusinessDTO, businessResponseDTO, UpdatebusinessDTO } from './dto';
 // import { IMenuItem } from './interfaces';
 // import { ICategory } from '../category/interfaces';
 
@@ -25,7 +25,7 @@
 //   async create(createMenuItemDto: CreateMenuItemDto) {
 
 //     const menuItem = await new this.model({
-//       restaurantId: createMenuItemDto.restaurantId,
+//       businessId: createMenuItemDto.businessId,
 //       name: createMenuItemDto.name,
 //       description: createMenuItemDto.description,
 //       option: createMenuItemDto.option,
@@ -73,7 +73,7 @@
 //   /** Private Members */
 //   private sanitizeMenuItem(item: IMenuItem) {
 //     const sanitizedMenuItem: MenuItemResponseDTO = {
-//       restaurantId: item.restaurantId,
+//       businessId: item.businessId,
 //       id: item._id,
 //       name: item.name,
 //       description: item.description,

@@ -2,8 +2,8 @@
 // import { IMenu } from './interfaces/';
 
 // const MenuSchema = new Schema({
-//     //   restaurantId: { type: String, required: true },
-//     restaurantId: { type: Types.ObjectId, ref: 'restaurant' },
+//     //   businessId: { type: String, required: true },
+//     businessId: { type: Types.ObjectId, ref: 'business' },
 //     name: { type: String, required: true },
 //     tagline: { type: String },
 //     menuImg: { type: String },

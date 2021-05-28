@@ -12,7 +12,7 @@
 //   constructor(private readonly categoryService: CategoryService) {super()}
 
 //   @Post()
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   @ApiBody({ type: CreateCategoryDto })
 //   async create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -23,40 +23,38 @@
 //     // }
 
 //     const createCategory = await this.categoryService.create(createCategoryDto);
-    
+
 //     return createCategory;
 //   }
 
-
 //   @Post(':categoryId/addMenuItem')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   async addMenuItem(@Body('menuItemId') menuItemId: string, @Param('categoryId') categoryId: string) {
 //     const createCategory = await this.categoryService.addMenuItem(menuItemId,categoryId);
-
 
 //     return createCategory;
 //   }
 
 //   @Post('getCategories')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
-//   async findAll(@Param('restaurantId') restaurantId: string) {
-//    const allCategories = await this.categoryService.getAll(restaurantId);
+//   async findAll(@Param('businessId') businessId: string) {
+//    const allCategories = await this.categoryService.getAll(businessId);
 //     return allCategories;
-    
+
 //   }
 //   @Get('getCategories')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   async findAllCategories() {
 //    const allCategories = await this.categoryService.getAllCategories();
 //     return allCategories;
-    
+
 //   }
 
 //   @Get(':id')
-//   @UseGuards(new AuthGuard([Role.RESTAURANT_OWNER]))
+//   @UseGuards(new AuthGuard([Role.business_OWNER]))
 //   @ApiHeader({ name: ACCESS_TOKEN })
 //   findOne(@Param('id') id: string) {
 //     return this.categoryService.findOne(id);

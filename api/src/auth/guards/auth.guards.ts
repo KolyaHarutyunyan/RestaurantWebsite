@@ -31,6 +31,7 @@ export class AuthGuard implements CanActivate {
     this.checkRoles(decoded.role);
     const auth = await this.authService.findById(decoded.id);
     this.checkSession(auth.session, token);
+    request.body.userid = auth.id;
     return true;
   }
 
