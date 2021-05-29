@@ -23,6 +23,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.13.1",
     "@aws-sdk/client-ses": "^3.7.0",
+    "@googlemaps/google-maps-services-js": "^3.1.16",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/passport": "^7.1.5",
@@ -40,6 +41,7 @@
     "passport-google": "^0.3.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-twitter": "^1.0.4",
+    "path": "^0.12.7",
     "qrcode": "^1.4.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

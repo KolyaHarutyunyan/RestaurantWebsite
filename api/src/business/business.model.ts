@@ -1,4 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
+import { BusinessStatus } from './business.constants';
 import { IBusiness } from './interface';
 
 const hourSchema = new Schema({
@@ -12,11 +13,13 @@ const businessSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   logoUrl: { type: String },
-  status: { type: Boolean },
-  menus: [{ type: Types.ObjectId, ref: 'menu', required: true }],
+  status: { type: String, enum: [BusinessStatus], required: true },
+  menus: [{ type: Types.ObjectId, ref: 'menu' }],
   website: { type: String },
   phoneNumber: { type: String },
+  address: { type: String },
   hours: [hourSchema],
+  qrUrl: { type: String, required: true, unique: true },
 });
 
 export const BusinessModel = model<IBusiness>('business', businessSchema);
