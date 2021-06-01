@@ -5,8 +5,8 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { IRequest } from '../../util';
 import { ACCESS_TOKEN } from '../../constants';
 import { AuthService } from '../auth.service';
 import { JWT_SECRET_SIGNIN, Role } from '../constants';
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
   private authService: AuthService;
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request: Request = context.switchToHttp().getRequest();
+    const request: IRequest = context.switchToHttp().getRequest();
     const token: string = request.get(ACCESS_TOKEN);
     // Verify token
     const decoded: IToken = await this.decodeToken(token);
@@ -31,6 +31,8 @@ export class AuthGuard implements CanActivate {
     this.checkRoles(decoded.role);
     const auth = await this.authService.findById(decoded.id);
     this.checkSession(auth.session, token);
+    request.body.userId = auth.id;
+    request.userId = auth.id;
     return true;
   }
 

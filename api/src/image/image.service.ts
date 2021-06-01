@@ -1,63 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { AVATAR_FOLDER, EVENT_FOLDER, QR_FOLDER, RESTAURANT_FOLDER } from './constants';
 import { ImageStorage } from './image.storage';
-import * as sharp from 'sharp';
-import { EventImageDTO } from './dto';
-import * as fs from "fs";
+import * as fs from 'fs';
+import * as qrcode from 'qrcode';
+import * as path from 'path';
+
 @Injectable()
 export class ImageService {
-  constructor(private readonly storage: ImageStorage) { }
+  constructor(private readonly storage: ImageStorage) {}
 
-  saveAvatarImage = async (file): Promise<string> => {
-    return await this.storage.storeImage(file, AVATAR_FOLDER);
-  };
-  saveRestaurantLogoImage = async (file): Promise<string> => {
-    return await this.storage.storeImage(file, RESTAURANT_FOLDER);
-  };
-  saveQRImage = async (file): Promise<any> => {
-    var datas: any = {};
-   const readFile =  fs.readFileSync(file)
-      datas.buffer = readFile;
-      datas.mimetype = 'image/png';
-      datas.originalname = 'qrCode.png'
-    return await this.storage.storeImage(datas, QR_FOLDER);
-
-  };
-  /** if the file is attached, it saves the file for the event and returns the image object */
-  saveEventImage = async (file): Promise<EventImageDTO> => {
-    if (!file) {
-      return null;
-    }
-    const thumbnailBuffer = await sharp(file.buffer)
-      .resize({ width: 200, height: 200, fit: 'cover' })
-      .toBuffer();
-    const thumbnailfile = {
-      originalname: 'thumbnail_' + file.originalname,
-      mimetype: file.mimetype,
-      buffer: thumbnailBuffer,
+  /** Generates a qr code file based on a url, stores in in S3 and @returns the urls of the stored file */
+  generateQRCode = async (encodingURL: string) => {
+    await qrcode.toFile(path.join(__dirname, '/qrCode.png'), encodingURL);
+    const fileBuffer = fs.readFileSync(path.join(__dirname, '/qrCode.png'));
+    const file = {
+      buffer: fileBuffer,
+      mimetype: 'image/png',
+      originalname: Date.now() + '/qrcode.png',
     };
-    const [imageUrl, thumbnailUrl] = await Promise.all([
-      this.storage.storeImage(file, EVENT_FOLDER),
-      this.storage.storeImage(thumbnailfile, EVENT_FOLDER),
-    ]);
-    return {
-      imageUrl,
-      thumbnailUrl,
-    };
+    const imageUrl = await this.storage.storeImage(file);
+    return imageUrl;
   };
 
-  /** NOT USER: saves multiple images for the event */
-  saveEventImages = async (files) => {
-    try {
-      const urls = await Promise.all(
-        files.map((file: any) => this.storage.storeImage(file, EVENT_FOLDER)),
-      );
-      return urls;
-    } catch (err) {
-      throw err;
-    }
+  /** Saves a file to the S3 and @returns the url */
+  saveFile = async (file): Promise<string> => {
+    return await this.storage.storeImage(file);
   };
 
+  /** Deletes an image from the S3 */
   deleteImages = async (files: string[]) => {
     return await this.storage.deleteImages(files);
   };

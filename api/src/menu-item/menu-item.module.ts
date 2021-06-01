@@ -1,11 +1,9 @@
-// import { Module } from '@nestjs/common';
-// import { MenuItemService } from './menu-item.service';
-// import { MenuItemController } from './menu-item.controller';
-// import { ImageModule } from '../image/image.module';
+import { Module } from '@nestjs/common';
+import { MenuItemController } from './menu-item.controller';
+import { MenuItemService } from './menu-item.service';
 
-// @Module({
-//   imports: [ImageModule],
-//   controllers: [MenuItemController],
-//   providers: [MenuItemService]
-// })
-// export class MenuItemModule {}
+@Module({
+  controllers: [MenuItemController],
+  providers: [MenuItemService]
+})
+export class MenuItemModule {}

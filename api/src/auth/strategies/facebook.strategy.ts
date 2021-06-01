@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { Strategy, VerifyFunction } from 'passport-facebook';
-import { CreateUserDTO } from '../../user/dto/createUser.dto';
 import {
   FACEBOOK_CALLBACK_URL,
   FACEBOOK_APP_ID,

@@ -1,3 +1,3 @@
-export { CreateMenuDto } from './create-menu.dto';
-export { MenuResponseDTO } from './menuResponse.dto';
-export { UpdateMenuDto } from './update-menu.dto';
+export { CreateMenuDTO } from './createMenu.dto';
+export { MenuDTO } from './menu.dto';
+export { UpdateMenuDTO } from './updateMenu.dto';

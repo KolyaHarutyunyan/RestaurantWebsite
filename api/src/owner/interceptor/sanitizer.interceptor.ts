@@ -1,7 +1,8 @@
+import { ISanitize } from '../../util';
 import { OwnerDTO } from '../dto';
 import { IOwner } from '../interfaces';
 
-export class OwnerSanitizer {
+export class OwnerSanitizer implements ISanitize {
   sanitize(user: IOwner): OwnerDTO {
     const sanitizedUser: OwnerDTO = {
       id: user.id,
@@ -9,5 +10,13 @@ export class OwnerSanitizer {
       email: user.email,
     };
     return sanitizedUser;
+  }
+
+  sanitizeMany(owners: IOwner[]): OwnerDTO[] {
+    const sanitizedOwners: OwnerDTO[] = [];
+    for (let i = 0; i < owners.length; i++) {
+      sanitizedOwners.push(this.sanitize(owners[i]));
+    }
+    return sanitizedOwners;
   }
 }

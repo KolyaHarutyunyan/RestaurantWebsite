@@ -1,1 +1,0 @@
-export { IMenuItem } from './menuItem.interface';

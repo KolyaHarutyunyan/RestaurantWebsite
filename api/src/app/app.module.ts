@@ -3,23 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseConnection } from './app.database';
-// import { UserModule } from '../user/user.module';
-// import { RestaurantModule } from '../restaurant/restaurant.module';
-// import { MenuModule } from '../menu/menu.module';
-// import { CategoryModule } from '../category/category.module';
-// import { MenuItemModule } from '../menu-item/menu-item.module';
 import { OwnerModule } from '../owner';
+import { BusinessModule } from 'src/business';
+import { MenuModule } from 'src/menu';
 
 @Module({
-  imports: [
-    AuthModule,
-    OwnerModule,
-    // UserModule,
-    // RestaurantModule,
-    // MenuModule,
-    // CategoryModule,
-    // MenuItemModule,
-  ],
+  imports: [AuthModule, OwnerModule, BusinessModule, MenuModule],
   controllers: [AppController],
   providers: [AppService, DatabaseConnection],
 })
