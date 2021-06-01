@@ -1,16 +1,9 @@
 import styled from "styled-components";
 export const ModalContainer = styled.div`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  .fade {
-    opacity: ${({ isOpen }) => (isOpen ? "0.5" : "0")};
-    background-color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10000;
-  }
+  z-index: ${({ isOpen }) => (isOpen ? "9999" : "-9999")};
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transition: all 0.3s ease-in-out;
   .container {
     .head {
       display: flex;
@@ -42,5 +35,15 @@ export const ModalContainer = styled.div`
     border-radius: 32px;
     opacity: 1;
     background-color: white;
+  }
+  .fade {
+    opacity: ${({ isOpen }) => (isOpen ? "0.5" : "0")};
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
   }
 `;
