@@ -14,12 +14,11 @@ export const HomePageSections = () => {
       <div className="container">
         <DigitalMenu />
         <HowItWorks />
-        <MenusAndMenuItems />
-      </div>
-      <QRCode />
-      <div className="container">
+
         <YourBusiness />
       </div>
+      <QRCode />
+      <MenusAndMenuItems />
     </Fragment>
   );
 };
