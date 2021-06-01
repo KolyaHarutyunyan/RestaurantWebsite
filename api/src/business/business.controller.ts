@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFile,
   UseGuards,
@@ -8,18 +10,19 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Role } from 'src/auth';
-import { AuthGuard } from 'src/auth/guards';
-import { ACCESS_TOKEN } from 'src/constants';
+import { Role, AuthGuard } from '../auth';
+import { ACCESS_TOKEN } from '../constants';
+import { OwnerInterceptor } from '../owner/interceptor';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { ImageService } from '../image';
 import { BusinessService } from './business.service';
 import { CreateBusinessDTO } from './dto';
 import { BusinessDTO } from './dto/business.dto';
-import { BusinessInterceptor } from './interceptor';
+import { EditBusinessDTO } from './dto/editBusiness.dto';
 
-@Controller('business')
-@ApiTags('Business')
+@Controller('businesses')
+@ApiTags('Businesses')
+@ApiHeader({ name: ACCESS_TOKEN })
 export class BusinessController {
   constructor(
     private readonly businessService: BusinessService,
@@ -29,20 +32,47 @@ export class BusinessController {
   /** Create a new business */
   @Post()
   @UseGuards(new AuthGuard([Role.OWNER]))
-  @UseInterceptors(BusinessInterceptor)
+  @UseInterceptors(OwnerInterceptor)
   @UseInterceptors(FileInterceptor('logo'))
   @ApiBody({ type: CreateBusinessDTO })
-  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: BusinessDTO })
   async createbusiness(
     @UploadedFile() file,
-    @Body('userId', ParseObjectIdPipe) ownerId: string,
     @Body() businessInfo: CreateBusinessDTO,
   ): Promise<any> {
     businessInfo.logo = file;
-    console.log(businessInfo, 'Should print');
-    const business = await this.businessService.create(ownerId, businessInfo);
+    const business = await this.businessService.create(businessInfo);
     return business;
+  }
+
+  /** Edit business */
+  @Post(':id')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @UseInterceptors(OwnerInterceptor)
+  @UseInterceptors(FileInterceptor('logo'))
+  @ApiBody({ type: EditBusinessDTO })
+  @ApiOkResponse({ type: BusinessDTO })
+  async editBusiness(
+    @UploadedFile() file,
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() editBusinessDTO: EditBusinessDTO,
+  ) {
+    editBusinessDTO.logo = file;
+    const business = await this.businessService.edit(id, editBusinessDTO);
+    return business;
+  }
+
+  /** Get users business */
+  @Get('mybusiness')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  async getMyBusiness(@Body('userId') ownerId: string): Promise<BusinessDTO> {
+    return await this.businessService.getByOwnerID(ownerId)[0];
+  }
+
+  @Get('owner/:id')
+  async getByOwnerId(@Param('id', ParseObjectIdPipe) ownerId: string) {
+    return await this.businessService.getByOwnerID(ownerId);
   }
 }
 /** END OF CONTROLLER */

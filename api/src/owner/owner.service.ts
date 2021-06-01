@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { Model } from "mongoose";
-import { Role, SocialLoginDTO } from "../auth";
-import { MongooseUtil } from "../util";
-import { CreateOwnerDTO, OwnerDTO } from "./dto";
-import { OwnerSanitizer } from "./interceptor";
-import { IOwner } from "./interfaces";
-import { OwnerModel } from "./owner.model";
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { Role, SocialLoginDTO } from '../auth';
+import { MongooseUtil } from '../util';
+import { CreateOwnerDTO, OwnerDTO } from './dto';
+import { OwnerSanitizer } from './interceptor';
+import { IOwner } from './interfaces';
+import { OwnerModel } from './owner.model';
 
 @Injectable()
 export class OwnerService {
@@ -30,7 +30,7 @@ export class OwnerService {
       dto.role = Role.OWNER;
       return this.sanitizer.sanitize(owner);
     } catch (err) {
-      this.mongooseUtil.checkDuplicateKey(err, "User already exists");
+      this.mongooseUtil.checkDuplicateKey(err, 'User already exists');
       throw err;
     }
   }
@@ -53,5 +53,11 @@ export class OwnerService {
   async getOwner(userId: string): Promise<OwnerDTO> {
     const owner = await this.model.findById(userId);
     return this.sanitizer.sanitize(owner);
+  }
+
+  /** Get owners */
+  async getAll(): Promise<OwnerDTO[]> {
+    const owners = await this.model.find();
+    return this.sanitizer.sanitizeMany(owners);
   }
 }

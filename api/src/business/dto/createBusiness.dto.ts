@@ -10,4 +10,7 @@ export class CreateBusinessDTO {
   description: string;
   @ApiProperty({ type: 'string', format: 'binary' })
   logo: any;
+
+  /** Set by the system */
+  userId?: string;
 }

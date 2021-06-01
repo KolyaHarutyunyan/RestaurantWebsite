@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
+import { IAddress } from '../../address';
 import { BusinessStatus } from '../business.constants';
-import { IHours } from './hours.interface';
+import { IWorkWeek } from './workWeek.interface';
 
 export interface IBusiness extends Document {
   owner: string;
@@ -11,7 +12,7 @@ export interface IBusiness extends Document {
   menus: string[];
   website: string;
   phoneNumber: string;
-  address: string;
-  hours: IHours[];
+  address: IAddress;
+  hours?: IWorkWeek;
   qrUrl: string;
 }

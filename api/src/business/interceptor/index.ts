@@ -1,1 +1,2 @@
-export { BusinessInterceptor } from './business.interceptor';
+export { BusinessSanitizer } from './sanitizer.interceptor';
+export { BusinessValidator } from './validator.interceptor';

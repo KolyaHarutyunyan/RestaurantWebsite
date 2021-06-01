@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { IRequest } from '../../util';
 
 @Injectable()
-export class BusinessInterceptor implements NestInterceptor {
+export class OwnerInterceptor implements NestInterceptor {
   // constructor() {}
   async intercept(
     context: ExecutionContext,

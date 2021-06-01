@@ -3,6 +3,7 @@ import {
   ApiBody,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
@@ -41,5 +42,13 @@ export class OwnerController {
   ): Promise<OwnerDTO> {
     const owner = await this.ownerService.getOwner(userId);
     return owner;
+  }
+
+  /** Get all owners */
+  @Get()
+  @ApiOperation({ summary: 'Get all owners' })
+  async getOwners(): Promise<OwnerDTO[]> {
+    const owners = await this.ownerService.getAll();
+    return owners;
   }
 }

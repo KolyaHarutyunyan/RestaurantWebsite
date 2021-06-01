@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { AddressDTO } from '../../address';
 import { BusinessStatus } from '../business.constants';
-import { BusinessHoursDTO } from './hours.dto';
+import { WorkWeekDTO } from './workWeek.dto';
 
 export class BusinessDTO {
   @ApiProperty()
@@ -15,12 +16,12 @@ export class BusinessDTO {
   logoUrl?: string;
   @ApiProperty({ required: false })
   website?: string;
-  @ApiProperty({ required: false })
-  address?: string;
+  @ApiProperty({ type: AddressDTO, required: false })
+  address?: AddressDTO;
   @ApiProperty({ required: false })
   phoneNumber?: string;
-  @ApiProperty({ type: [BusinessHoursDTO], required: false })
-  hours?: BusinessHoursDTO[];
+  @ApiProperty({ type: [WorkWeekDTO], required: false })
+  hours?: WorkWeekDTO;
   @ApiProperty()
   qrUrl: string;
 }

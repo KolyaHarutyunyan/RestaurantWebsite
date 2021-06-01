@@ -9,11 +9,11 @@ import { ApiTags } from '@nestjs/swagger';
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
-  /** Converts the address to a geocoded full address */
-  @Post()
-  @Public()
-  async convertAddress(@Body('address') address: string): Promise<IAddress> {
-    const x = await this.addressService.getAddress(address);
-    return x;
-  }
+  // /** Converts the address to a geocoded full address */
+  // @Post()
+  // @Public()
+  // async convertAddress(@Body('address') address: string): Promise<IAddress> {
+  //   const x = await this.addressService.getAddress(address);
+  //   return x;
+  // }
 }
