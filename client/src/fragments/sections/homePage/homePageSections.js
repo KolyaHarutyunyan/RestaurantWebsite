@@ -14,7 +14,6 @@ export const HomePageSections = () => {
       <div className="container">
         <DigitalMenu />
         <HowItWorks />
-
         <YourBusiness />
       </div>
       <QRCode />
