@@ -1,11 +1,13 @@
-// import { Module } from '@nestjs/common';
-// import { MenuService } from './menu.service';
-// import { MenuController } from './menu.controller';
-// import { ImageModule } from '../image/image.module';
+import { Module } from '@nestjs/common';
+import { BusinessModule } from 'src/business';
+import { ImageModule } from 'src/image';
+import { MenuSanitizer } from './interceptor';
+import { MenuController } from './menu.controller';
+import { MenuService } from './menu.service';
 
-// @Module({
-//   imports: [ImageModule],
-//   controllers: [MenuController],
-//   providers: [MenuService]
-// })
-// export class MenuModule {}
+@Module({
+  imports: [ImageModule, BusinessModule],
+  controllers: [MenuController],
+  providers: [MenuService, MenuSanitizer],
+})
+export class MenuModule {}
