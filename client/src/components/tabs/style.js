@@ -6,14 +6,19 @@ export const HeaderContainer = styled.div`
   height: 42px;
   display: flex;
   justify-content: space-between;
-  & > *:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-  & > *:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
+  ${({ square }) =>
+    square
+      ? null
+      : `
+        & > *:first-child {
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+        & > *:last-child {
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+    `}
 `;
 export const TabTitleContainer = styled.div`
   display: flex;

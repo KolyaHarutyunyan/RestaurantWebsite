@@ -20,4 +20,5 @@ export {
   RestaurantPageSections,
   ProfilePageSections,
   MenuPageSections,
+  PreviewPageSections,
 } from "./sections";
