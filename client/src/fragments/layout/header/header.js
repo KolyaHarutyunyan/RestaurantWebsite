@@ -150,7 +150,7 @@ export const Header = () => {
 
   return (
     <Container>
-      <div className="wrapper container">
+      <div className="container">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />
           <Typography weight="bold" color="text" size="1.250rem">
