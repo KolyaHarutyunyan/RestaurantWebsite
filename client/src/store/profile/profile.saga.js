@@ -24,13 +24,16 @@ function* signIn({ type, payload }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   try {
     const { data } = yield call(profileService.signIn, payload);
-    yield put({
-      type: PROFILE_SIGN_IN_SUCCESS,
-      payload: data.user,
-    });
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    localStorage.setItem("token", data.auth.token);
+    localStorage.setItem("token", data.accessToken);
+    try {
+      const { data } = yield call(profileService.userInfo, payload);
+      yield put({
+        type: PROFILE_SIGN_IN_SUCCESS,
+        payload: data.user,
+      });
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (err) {}
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -62,11 +65,18 @@ function* signUp({ type, payload }) {
     const { data } = yield call(profileService.signUp, payload);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    localStorage.setItem("token", data.auth.token);
-    yield put({
-      type: PROFILE_SIGN_UP_SUCCESS,
-      payload: data.user,
-    });
+    localStorage.setItem("token", data.accessToken);
+    try {
+      const { data } = yield call(profileService.userInfo, payload);
+      yield put({
+        type: PROFILE_SIGN_IN_SUCCESS,
+        payload: data.user,
+      });
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (err) {
+      console.log("signUp: ", err);
+    }
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
