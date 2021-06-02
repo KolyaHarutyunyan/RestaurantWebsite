@@ -20,7 +20,7 @@ function* getMyBusiness() {
     const { data } = yield call(businessesService.getMyBusiness);
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
-      payload: data,
+      payload: data || {},
     });
   } catch (e) {
     if (e.response.data.statusCode === 422) {

@@ -17,7 +17,7 @@ import { IoMdDownload } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 
 export const RestaurantPageSections = () => {
-  const businesses = useSelector(({ businesses }) => businesses);
+  const business = useSelector(({ businesses }) => businesses);
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
@@ -25,16 +25,15 @@ export const RestaurantPageSections = () => {
 
   useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
-    if (businesses !== null && !businesses.length) {
-      open(MODAL_NAMES.CREATE_RESTAURANT);
-    }
-  }, [businesses]);
+    // if (business !== null && !Object.keys(business).length) {
+    //   open(MODAL_NAMES.CREATE_RESTAURANT);
+    // }
+  }, [business]);
 
-  if (businesses === null || !businesses.length) {
+  if (business === null) {
     return null;
   }
 
-  const business = businesses[0];
   return (
     <Container className="container">
       <div className="header">
