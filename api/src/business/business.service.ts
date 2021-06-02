@@ -44,7 +44,6 @@ export class BusinessService {
     business.qrUrl = qrUrl;
     business = await business.save();
     // console.log(business);
-
     return this.sanitizer.sanitize(business);
   };
 

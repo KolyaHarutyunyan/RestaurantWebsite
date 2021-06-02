@@ -5,7 +5,8 @@ import { MenuDTO } from '../dto';
 
 @Injectable()
 export class MenuSanitizer implements ISanitize {
-  sanitize(menu: IMenu) {
+  /** Sanitizes a menu by turning IMenu instance to MenuDTO */
+  sanitize(menu: IMenu): MenuDTO {
     const sanitizedMenu: MenuDTO = {
       id: menu._id,
       name: menu.name,
@@ -15,5 +16,14 @@ export class MenuSanitizer implements ISanitize {
       isActive: menu.isActive,
     };
     return sanitizedMenu;
+  }
+
+  /** @param - menus (IMenu array). @returns sanitized menus as MenuDTO array */
+  sanitizeMany(menus: IMenu[]): MenuDTO[] {
+    const sanitizedMenus: MenuDTO[] = [];
+    for (let i = 0; i < menus.length; i++) {
+      sanitizedMenus.push(this.sanitize(menus[i]));
+    }
+    return sanitizedMenus;
   }
 }

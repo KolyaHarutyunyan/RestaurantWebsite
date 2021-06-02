@@ -153,14 +153,14 @@ export class AuthService {
 
   /** @Creates a session token from an auth object */
   private async createSession(auth: IAuth): Promise<string> {
-    const sessionExpiration = '7d';
+    // const sessionExpiration = '7d';
     const tokenEntity: IToken = {
       email: auth.email,
       id: auth.id,
       role: auth.role,
     };
     return await jwt.sign(tokenEntity, JWT_SECRET_SIGNIN, {
-      expiresIn: sessionExpiration,
+      // expiresIn: sessionExpiration,
     });
   }
 
