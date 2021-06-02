@@ -7,7 +7,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth/guards';
+import { AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from 'src/constants';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { AuthService, AuthDTO } from '../auth';
@@ -38,7 +38,7 @@ export class OwnerController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: OwnerDTO })
   async getUser(
-    @Body('id', ParseObjectIdPipe) userId: string,
+    @Body('userId', ParseObjectIdPipe) userId: string,
   ): Promise<OwnerDTO> {
     const owner = await this.ownerService.getOwner(userId);
     return owner;

@@ -5,26 +5,17 @@ export class UpdateMenuDTO {
   @ApiProperty()
   @IsNotEmpty()
   businessId: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  name: string;
-
   @ApiProperty({ required: false })
-  tagline: string;
-
+  name?: string;
   @ApiProperty({ required: false })
-  menuImage: string;
-
+  tagline?: string;
   @ApiProperty({ required: false })
-  description: string;
-
+  description?: string;
   @ApiProperty({ required: false })
-  foodCategories: Array<any>;
-
+  menuImage?: string;
   @ApiProperty({ required: false })
-  drinkCategories: Array<any>;
+  removeImage?: boolean;
 
-  @ApiProperty()
-  isActive: boolean;
+  /** Set by the system */
+  userId?: string;
 }
