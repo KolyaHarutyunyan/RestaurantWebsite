@@ -8,9 +8,9 @@ export const Container = styled.section`
   gap: 80px;
   height: 720px;
   margin-bottom: 160px;
-  @media (max-width: 1280px) {
+  @media only screen and (max-width: 1280px) {
     flex-direction: column-reverse;
-    margin-top: 420px;
+    margin-top: 460px;
   }
   .image.main {
     flex: 0 0 540px;

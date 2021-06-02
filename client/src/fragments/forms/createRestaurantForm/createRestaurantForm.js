@@ -10,19 +10,19 @@ import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 
 export const CreateRestaurantForm = () => {
   const { register, handleSubmit } = useForm();
   const [restaurantIcon, setRestaurantIcon] = useState([]);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.createBusiness
   );
   const router = useRouter();
 
   const title =
-    router.asPath === "/restaurant"
+    router.asPath === "/business"
       ? "Create Restaurant"
       : "Last Step to Sign Up";
 
@@ -36,7 +36,7 @@ export const CreateRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/restaurant");
+      router.push("/business");
     }
   }, [status]);
 

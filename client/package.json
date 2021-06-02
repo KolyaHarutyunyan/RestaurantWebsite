@@ -40,6 +40,7 @@
     "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.2",
     "react-spring": "^8.0.27",
+    "react-use": "^17.2.4",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.1.3",

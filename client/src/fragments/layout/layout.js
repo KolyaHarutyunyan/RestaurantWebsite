@@ -15,7 +15,7 @@ export const Layout = ({ children }) => {
   return (
     <Fragment>
       <Header />
-      <MainWrapper>
+      <MainWrapper className="main-wrapper">
         <div className="page-content">{children}</div>
         <Footer />
       </MainWrapper>

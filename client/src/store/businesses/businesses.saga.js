@@ -3,24 +3,24 @@ import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
 
-import { restaurantsService } from "./restaurants.service";
+import { businessesService } from "./businesses.service";
 import {
-  DELETE_RESTAURANT,
-  DELETE_RESTAURANT_SUCCESS,
-  EDIT_RESTAURANT,
-  EDIT_RESTAURANT_SUCCESS,
-  GET_RESTAURANTS,
-  GET_RESTAURANTS_SUCCESS,
-  CREATE_RESTAURANT,
-  CREATE_RESTAURANT_SUCCESS,
-} from "./restaurants.types";
+  DELETE_BUSINESS,
+  DELETE_BUSINESS_SUCCESS,
+  EDIT_BUSINESS,
+  EDIT_BUSINESS_SUCCESS,
+  GET_MY_BUSINESS,
+  GET_MY_BUSINESS_SUCCESS,
+  CREATE_BUSINESS,
+  CREATE_BUSINESS_SUCCESS,
+} from "./businesses.types";
 
-function* getRestaurants() {
+function* getMyBusiness() {
   try {
-    const { data } = yield call(restaurantsService.getResturants);
+    const { data } = yield call(businessesService.getMyBusiness);
     yield put({
-      type: GET_RESTAURANTS_SUCCESS,
-      payload: data ? [data] : [],
+      type: GET_MY_BUSINESS_SUCCESS,
+      payload: data,
     });
   } catch (e) {
     if (e.response.data.statusCode === 422) {
@@ -30,11 +30,11 @@ function* getRestaurants() {
   }
 }
 
-function* editRestaurant({ payload }) {
+function* editBusiness({ payload }) {
   try {
     yield call(() => restaurantsService.editRestaurant(payload));
     yield put({
-      type: EDIT_RESTAURANT_SUCCESS,
+      type: EDIT_BUSINESS_SUCCESS,
       payload: payload,
     });
   } catch (e) {
@@ -44,11 +44,11 @@ function* editRestaurant({ payload }) {
   }
 }
 
-function* deleteRestaurant({ payload }) {
+function* deleteBusiness({ payload }) {
   try {
     yield call(() => restaurantsService.deleteRestaurant(payload));
     yield put({
-      type: DELETE_RESTAURANT_SUCCESS,
+      type: DELETE_BUSINESS_SUCCESS,
       payload: payload,
     });
   } catch (e) {
@@ -59,7 +59,7 @@ function* deleteRestaurant({ payload }) {
   }
 }
 
-function* createRestaurant({ payload, type }) {
+function* createBusiness({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
@@ -77,8 +77,8 @@ function* createRestaurant({ payload, type }) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
-      type: CREATE_RESTAURANT_SUCCESS,
-      payload: data.restaurant,
+      type: CREATE_BUSINESS_SUCCESS,
+      payload: data.business,
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
@@ -88,9 +88,9 @@ function* createRestaurant({ payload, type }) {
   }
 }
 
-export const watchRestaurants = function* watchRestaurants() {
-  yield takeLatest(GET_RESTAURANTS, getRestaurants);
-  yield takeLatest(EDIT_RESTAURANT, editRestaurant);
-  yield takeLatest(DELETE_RESTAURANT, deleteRestaurant);
-  yield takeLatest(CREATE_RESTAURANT, createRestaurant);
+export const watchBusinesses = function* watchBusinesses() {
+  yield takeLatest(GET_MY_BUSINESS, getMyBusiness);
+  yield takeLatest(EDIT_BUSINESS, editBusiness);
+  yield takeLatest(DELETE_BUSINESS, deleteBusiness);
+  yield takeLatest(CREATE_BUSINESS, createBusiness);
 };

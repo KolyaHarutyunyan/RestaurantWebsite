@@ -33,7 +33,7 @@ export const Modals = () => {
       </Modal>
       <Modal
         modalName={MODAL_NAMES.CREATE_RESTAURANT}
-        fixed={router.pathname === "/restaurant"}
+        fixed={router.pathname === "/business"}
       >
         <CreateRestaurantForm />
       </Modal>

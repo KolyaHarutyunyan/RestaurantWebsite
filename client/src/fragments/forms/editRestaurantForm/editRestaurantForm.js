@@ -9,19 +9,19 @@ import {
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 import { useSelector } from "react-redux";
 
 export const EditRestaurantForm = () => {
   const { register, handleSubmit } = useForm();
 
-  const restaurant = useSelector(({ restaurants }) =>
-    restaurants ? restaurants[0] : {}
+  const business = useSelector(({ businesses }) =>
+    businesses ? businesses[0] : {}
   );
   const [restaurantIcon, setRestaurantIcon] = useState([]);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.createBusiness
   );
 
   const onSubmit = (data) => {
@@ -34,7 +34,7 @@ export const EditRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/restaurant");
+      router.push("/business");
     }
   }, [status]);
 
@@ -47,11 +47,11 @@ export const EditRestaurantForm = () => {
           color="text"
           size="1.250rem"
         >
-          {restaurant.name}
+          {business.name}
         </Typography>
         <Input
           placeholder="Restaurant Name"
-          defaultValue={restaurant.name}
+          defaultValue={business.name}
           {...register("name", { required: true })}
         />
         <div>
@@ -60,7 +60,7 @@ export const EditRestaurantForm = () => {
           </Typography>
           <Textarea
             placeholder="Brief Description"
-            defaultValue={restaurant.description}
+            defaultValue={business.description}
             rows={4}
             {...register("description", { required: true })}
           />

@@ -20,7 +20,7 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    .restaurant-card,
+    .business-card,
     .extra-details-card {
       box-shadow: 1px 1px 14px #d6d6d6;
       margin: 10px 0;

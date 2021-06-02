@@ -16,8 +16,8 @@ export const Header = () => {
   const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
-  const { open } = useModal();
   const signOutSaga = useSagaStore(profileActions.signOut);
+  const { open } = useModal();
 
   const profileNavigationalList = () => {
     const signOut = () => {
@@ -44,7 +44,7 @@ export const Header = () => {
             <Typography
               color="text"
               weight="bold"
-              onClick={() => router.push("/restaurant")}
+              onClick={() => router.push("/business")}
             >
               Restaurant Profile
             </Typography>

@@ -10,7 +10,7 @@ import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 import { BiChevronDown } from "react-icons/bi";
 import { BiPhoneCall } from "react-icons/bi";
 export const EditRestaurantExtraDetailsForm = () => {
@@ -21,7 +21,7 @@ export const EditRestaurantExtraDetailsForm = () => {
   const [address, setAddress] = useState("");
   const [toggleHoursOperations, setToggleHourseOperations] = useState(false);
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.createBusiness
   );
 
   const onSubmit = (data) => {
@@ -34,7 +34,7 @@ export const EditRestaurantExtraDetailsForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/restaurant");
+      router.push("/business");
     }
   }, [status]);
 

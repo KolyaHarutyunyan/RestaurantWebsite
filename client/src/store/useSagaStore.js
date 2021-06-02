@@ -6,6 +6,7 @@ export const useSagaStore = (actionCreator) => {
   const dispatch = useDispatch();
 
   const mockArgs = [];
+
   for (let i = 0; i < actionCreator.length; i++) {
     mockArgs.push(null);
   }

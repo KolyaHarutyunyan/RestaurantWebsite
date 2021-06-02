@@ -4,8 +4,12 @@ export const Container = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 50px 130px 50px;
-  @media (max-width: 1280px) {
+  margin: 0 0 130px 0;
+  padding: 60px 50px 0 50px;
+  background: transparent
+    linear-gradient(180deg, #80808033 0%, #e8e8e899 41%, #ffffff 100%) 0% 0%
+    no-repeat padding-box;
+  @media only screen and (max-width: 1280px) {
     flex-direction: column;
   }
   .content {

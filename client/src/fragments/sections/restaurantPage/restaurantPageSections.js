@@ -8,33 +8,33 @@ import {
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
-
+import { useSagaStore, businessesActions } from "@eachbase/store";
 import { Container, HourseMenuContainer } from "./style";
-import { IoMdDownload } from "react-icons/io";
-import { GoPlus } from "react-icons/go";
-import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
+import { BsChevronUp, BsChevronDown } from "react-icons/bs";
+import { IoMdDownload } from "react-icons/io";
+import { GoPlus } from "react-icons/go";
+
 export const RestaurantPageSections = () => {
-  const restaurants = useSelector(({ restaurants }) => restaurants);
-  const getRestaurantsSaga = useSagaStore(restaurantsActions.getRestaurants);
+  const businesses = useSelector(({ businesses }) => businesses);
+  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
   const { open } = useModal();
 
-  useEffect(() => getRestaurantsSaga.dispatch(), []);
+  useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
-    if (restaurants !== null && !restaurants.length) {
+    if (businesses !== null && !businesses.length) {
       open(MODAL_NAMES.CREATE_RESTAURANT);
     }
-  }, [restaurants]);
+  }, [businesses]);
 
-  if (restaurants === null || !restaurants.length) {
+  if (businesses === null || !businesses.length) {
     return null;
   }
 
-  const restaurant = restaurants[0];
+  const business = businesses[0];
   return (
     <Container className="container">
       <div className="header">
@@ -47,16 +47,16 @@ export const RestaurantPageSections = () => {
         </Button>
       </div>
       <div className="content">
-        <div className="restaurant-card">
+        <div className="business-card">
           <div className="header">
             <Typography color="text" size="1.5rem" weight="bold">
-              {restaurant.name}
+              {business.name}
             </Typography>
             <Button onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
               Edit
             </Button>
           </div>
-          <div className="descr">{restaurant.description}</div>
+          <div className="descr">{business.description}</div>
         </div>
         <div className="extra-details-card">
           <div className="header">
@@ -80,13 +80,13 @@ export const RestaurantPageSections = () => {
               <div className="icon">
                 <Icons.CallIcon />
               </div>
-              <div className="value">{restaurant.phone || "Not Set"}</div>
+              <div className="value">{business.phone || "Not Set"}</div>
             </li>
             <li>
               <div className="icon">
                 <Icons.MapIcon />
               </div>
-              <div className="value">{restaurant.address || "Not Set"}</div>
+              <div className="value">{business.address || "Not Set"}</div>
             </li>
             <li
               ref={hourseMenuToggleRef}
