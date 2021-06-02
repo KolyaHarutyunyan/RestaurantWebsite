@@ -11,13 +11,13 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSagaStore, businessesActions } from "@eachbase/store";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export const EditRestaurantForm = () => {
   const { register, handleSubmit } = useForm();
 
-  const business = useSelector(({ businesses }) =>
-    businesses ? businesses[0] : {}
-  );
+  const router = useRouter();
+  const business = useSelector(({ businesses }) => businesses || {});
   const [restaurantIcon, setRestaurantIcon] = useState([]);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
@@ -34,7 +34,7 @@ export const EditRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/business");
+      router.push("/restaurant");
     }
   }, [status]);
 

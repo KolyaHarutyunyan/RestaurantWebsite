@@ -12,7 +12,7 @@ export const businessesReducer = (state = initialState, action) => {
     case GET_MY_BUSINESS_SUCCESS:
       return action.payload;
     case CREATE_BUSINESS_SUCCESS:
-      return [action.payload];
+      return action.payload;
     case EDIT_BUSINESS_SUCCESS:
       return action.payload;
     case DELETE_BUSINESS_SUCCESS:

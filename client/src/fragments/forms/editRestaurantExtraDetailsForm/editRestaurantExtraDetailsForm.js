@@ -34,7 +34,7 @@ export const EditRestaurantExtraDetailsForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/business");
+      router.push("/restaurant");
     }
   }, [status]);
 

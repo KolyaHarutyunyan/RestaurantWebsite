@@ -11,7 +11,6 @@ import {
   PROFILE_SIGN_UP,
   GET_PROFILE_INFO_SUCCESS,
   UPDATE_PROFILE_PASSWORD,
-  PROFILE_SIGN_UP_SUCCESS,
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
   UPDATE_PROFILE_INFO_SUCCESS,
@@ -29,11 +28,13 @@ function* signIn({ type, payload }) {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({
         type: PROFILE_SIGN_IN_SUCCESS,
-        payload: data.user,
+        payload: data,
       });
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (err) {}
+    } catch (err) {
+      console.log("signIn error: ", err);
+    }
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

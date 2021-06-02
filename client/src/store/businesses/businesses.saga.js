@@ -32,7 +32,7 @@ function* getMyBusiness() {
 
 function* editBusiness({ payload }) {
   try {
-    yield call(() => restaurantsService.editRestaurant(payload));
+    yield call(() => businessesService.editBusiness(payload));
     yield put({
       type: EDIT_BUSINESS_SUCCESS,
       payload: payload,
@@ -46,7 +46,7 @@ function* editBusiness({ payload }) {
 
 function* deleteBusiness({ payload }) {
   try {
-    yield call(() => restaurantsService.deleteRestaurant(payload));
+    yield call(() => businessesService.deleteBusiness(payload));
     yield put({
       type: DELETE_BUSINESS_SUCCESS,
       payload: payload,
@@ -65,9 +65,8 @@ function* createBusiness({ payload, type }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     /* partial implementation  (should be implemented logo upload) */
-
     const { data } = yield call(() =>
-      restaurantsService.createRestaurant({
+      businessesService.createBusiness({
         ...payload,
         status: true,
         logoUrl:
@@ -78,10 +77,11 @@ function* createBusiness({ payload, type }) {
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
       type: CREATE_BUSINESS_SUCCESS,
-      payload: data.business,
+      payload: data,
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
+    console.log("err: ", e);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnErrorsActions.appendError(type));

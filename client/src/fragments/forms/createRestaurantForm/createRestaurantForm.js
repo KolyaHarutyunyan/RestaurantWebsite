@@ -22,7 +22,7 @@ export const CreateRestaurantForm = () => {
   const router = useRouter();
 
   const title =
-    router.asPath === "/business"
+    router.asPath === "/restaurant"
       ? "Create Restaurant"
       : "Last Step to Sign Up";
 
@@ -36,7 +36,7 @@ export const CreateRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
-      router.push("/business");
+      router.push("/restaurant");
     }
   }, [status]);
 

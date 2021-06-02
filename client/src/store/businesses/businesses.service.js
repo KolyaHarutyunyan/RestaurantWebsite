@@ -8,7 +8,7 @@ export const businessesService = {
     axios.put(`/business/${business._id}`, { data: { ...business } }),
   deleteBusiness: (restaurantId) => axios.put(`/business/${restaurantId}`),
   createBusiness: (restaurantData) =>
-    axios.post(`/business`, restaurantData, { auth: true }),
+    axios.post(`/businesses`, restaurantData, { auth: true }),
   addBusinessImage: (file) =>
     axios.post(`/business/image`, file, { auth: true, headers: {} }),
 };

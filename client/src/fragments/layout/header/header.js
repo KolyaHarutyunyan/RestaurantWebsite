@@ -44,7 +44,7 @@ export const Header = () => {
             <Typography
               color="text"
               weight="bold"
-              onClick={() => router.push("/business")}
+              onClick={() => router.push("/restaurant")}
             >
               Restaurant Profile
             </Typography>
