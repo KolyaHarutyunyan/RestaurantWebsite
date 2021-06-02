@@ -73,7 +73,7 @@ export class AuthGuard implements CanActivate {
   }
 
   /** Checks if the session is correct */
-  private async checkSession(session: string, token: string) {
+  private checkSession(session: string, token: string) {
     if (session != token) {
       throw new HttpException(
         'The session is invalid',

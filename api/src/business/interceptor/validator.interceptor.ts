@@ -24,7 +24,7 @@ export class BusinessValidator {
     }
     if (!businesses || businesses.length < 1) {
       throw new HttpException(
-        'not businesses under this account was found',
+        'We could not find businesses for your account',
         HttpStatus.NOT_FOUND,
       );
     }

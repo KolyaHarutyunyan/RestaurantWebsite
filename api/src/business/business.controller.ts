@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFile,
   UseGuards,
@@ -46,7 +47,7 @@ export class BusinessController {
   }
 
   /** Edit business */
-  @Post(':id')
+  @Patch(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @UseInterceptors(OwnerInterceptor)
   @UseInterceptors(FileInterceptor('logo'))

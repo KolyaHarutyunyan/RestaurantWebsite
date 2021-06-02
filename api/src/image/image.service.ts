@@ -28,6 +28,9 @@ export class ImageService {
 
   /** Deletes an image from the S3 */
   deleteImages = async (files: string[]) => {
+    if (!files || files.length < 0) {
+      return;
+    }
     return await this.storage.deleteImages(files);
   };
 }

@@ -6,7 +6,7 @@ export interface IMenu extends Document {
   tagline?: string;
   imageUrl?: string;
   description?: string;
-  foodCategories: Array<any>;
-  drinkCategories: Array<any>;
+  foodCategories: Array<string>;
+  drinkCategories: Array<string>;
   isActive: boolean;
 }

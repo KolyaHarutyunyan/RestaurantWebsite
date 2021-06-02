@@ -42,7 +42,7 @@ export class ImageStorage {
     return location;
   };
 
-  //removes files from the s3 bucket
+  /** removes files from the s3 bucket. If the  */
   deleteImages = (fileUrls: string[]): Promise<unknown> => {
     const objects = [];
     for (let i = 0; i < fileUrls.length; i++) {
