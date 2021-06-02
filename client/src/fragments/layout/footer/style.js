@@ -4,11 +4,13 @@ import { colors } from "@eachbase/theme";
 export const Container = styled.div`
   height: 64px;
   @media only screen and (max-width: 1280px) {
-    height: 100px;
     text-align: center;
   }
   overflow: hidden;
   background-color: ${colors.primary};
+  @media only screen and (max-width: 768px) {
+    height: 100px;
+  }
   .container {
     display: flex;
     justify-content: space-between;
@@ -20,6 +22,7 @@ export const Container = styled.div`
       padding-bottom: 15px;
     }
     @media only screen and (max-width: 768px) {
+      height: 100px;
       flex-direction: column-reverse;
     }
     .copyright {

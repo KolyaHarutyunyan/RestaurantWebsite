@@ -5,7 +5,7 @@ export const Container = styled.div`
   .header {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
+    margin: 20px 0 5px 0;
     .qr-button {
       display: flex;
       align-items: center;
@@ -61,7 +61,7 @@ export const Container = styled.div`
         display: flex;
         padding: 15px 2px 15px 00px;
         gap: 15px;
-        margin: 40px 0;
+        margin: 15px 0;
         & > * {
           flex: 0 0 260px;
         }

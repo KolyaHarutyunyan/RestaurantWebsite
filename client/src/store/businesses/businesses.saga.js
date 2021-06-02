@@ -18,6 +18,7 @@ import {
 function* getMyBusiness() {
   try {
     const { data } = yield call(businessesService.getMyBusiness);
+    console.log(data);
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
       payload: data || {},

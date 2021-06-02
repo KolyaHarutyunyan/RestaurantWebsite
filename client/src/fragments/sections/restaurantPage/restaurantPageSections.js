@@ -8,7 +8,7 @@ import {
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { useSagaStore, businessesActions } from "@eachbase/store";
+import { useSagaStore, menusActions, businessesActions } from "@eachbase/store";
 import { Container, HourseMenuContainer } from "./style";
 import { useSelector } from "react-redux";
 
@@ -19,16 +19,15 @@ import { GoPlus } from "react-icons/go";
 export const RestaurantPageSections = () => {
   const business = useSelector(({ businesses }) => businesses);
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
+
+  // call when menus list will be ready
+  const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
+
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
   const { open } = useModal();
 
   useEffect(() => getBusinessesSaga.dispatch(), []);
-  useEffect(() => {
-    // if (business !== null && !Object.keys(business).length) {
-    //   open(MODAL_NAMES.CREATE_RESTAURANT);
-    // }
-  }, [business]);
 
   if (business === null) {
     return null;
@@ -125,20 +124,6 @@ export const RestaurantPageSections = () => {
                 </Button>
               </div>
             </div>
-            <MenuCard
-              data={{
-                name: "Menu",
-                description: "Lorem ipsum is a dollar",
-                isActive: false,
-              }}
-            />
-            <MenuCard
-              data={{
-                name: "Menu",
-                description: "Lorem ipsum is a dollar",
-                isActive: false,
-              }}
-            />
             <MenuCard
               data={{
                 name: "Menu",

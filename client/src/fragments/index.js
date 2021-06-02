@@ -21,4 +21,5 @@ export {
   ProfilePageSections,
   MenuPageSections,
   PreviewPageSections,
+  NotFoundPage,
 } from "./sections";

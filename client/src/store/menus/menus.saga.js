@@ -7,9 +7,9 @@ import {
 } from "./menus.types";
 import { menusService } from "./menus.service";
 
-function* getMenus() {
+function* getMenus({ payload }) {
   try {
-    const res = yield call(() => menusService.getItems());
+    const res = yield call(menusService.getMenusByBusiness, payload);
     yield put({
       type: GET_MENUS_SUCCESS,
       payload: res.data,
@@ -20,6 +20,7 @@ function* getMenus() {
     }
   }
 }
+
 function* editMenu({ payload }) {
   try {
     yield call(() => menusService.editMenu(payload));
