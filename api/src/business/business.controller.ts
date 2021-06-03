@@ -68,7 +68,8 @@ export class BusinessController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   async getMyBusiness(@Body('userId') ownerId: string): Promise<BusinessDTO> {
-    return await this.businessService.getByOwnerID(ownerId)[0];
+    const business = (await this.businessService.getByOwnerID(ownerId))[0];
+    return business;
   }
 
   @Get('owner/:id')
