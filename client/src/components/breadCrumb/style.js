@@ -1,8 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const BeadCrumbContainer = styled.ul`
-
-`
-export const BeadCrumbItemContainer = styled.li`
-
-`
+export const BeadCrumbContainer = styled.ul``;
+export const BeadCrumbItemContainer = styled.li``;

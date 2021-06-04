@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { ModalContext } from "./context";
 export const useModal = () => {
-  const { activeModal, setActiveModal } = useContext(ModalContext);
+  const { activeModal, setActiveModal, params, setParams } =
+    useContext(ModalContext);
 
   return {
-    open: (modalName) => setActiveModal((_snapshot) => modalName),
+    open: (modalName, params = {}) => {
+      setActiveModal((_snapshot) => modalName);
+      setParams(params);
+    },
+    params,
     activeModal: activeModal || null,
     close: () => setActiveModal(""),
   };

@@ -19,6 +19,9 @@ export const Container = styled.div`
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    @media only screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
     gap: 20px;
     .business-card,
     .extra-details-card {
@@ -56,38 +59,51 @@ export const Container = styled.div`
     }
     .menu-list {
       grid-column: 1/3;
+      @media only screen and (max-width: 768px) {
+        grid-column: auto;
+      }
       .list {
-        overflow: auto;
-        display: flex;
-        padding: 15px 2px 15px 00px;
-        gap: 15px;
-        margin: 15px 0;
+        padding: 0px 2px 15px 0px;
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        @media only screen and (max-width: 1600px) {
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        @media only screen and (max-width: 1280px) {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+        @media only screen and (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+        gap: 10px;
         & > * {
-          flex: 0 0 260px;
+          height: 260px;
         }
         .add-card {
           box-shadow: 0px 0px 6px #0000001a;
-          display: flex;
-          flex-direction: column;
           border-radius: 16px;
           .image {
-            flex: 0 0 172px;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 170px;
             background-color: #0000001a;
             border-radius: 16px 16px 0 0;
             svg {
               width: 100%;
-              transform: scale(0.5);
+              transform: scale(0.3);
+              @media only screen and (max-width: 768px) {
+                transform: scale(0.2);
+              }
             }
           }
           .footer {
+            height: 80px;
             background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 0 0 80px;
             border-radius: 0 0 16px 16px;
             button {
               display: flex;
@@ -102,12 +118,32 @@ export const Container = styled.div`
 `;
 
 export const HourseMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 24px;
+  gap: 5px;
   @media only screen and (max-width: 768px) {
     padding: 16px;
   }
+  div {
+    & > p {
+      flex: 0 0 40px;
+    }
+  }
+  & > div {
+    display: flex;
+    gap: 5px;
+    p {
+      font-weight: bold;
+    }
+  }
   ul {
     li {
+      &.danger {
+        color: ${colors.primary};
+      }
+      display: flex;
+      gap: 5px;
       .title {
         color: ${colors.text};
         font-weight: bold;

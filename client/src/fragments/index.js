@@ -6,6 +6,7 @@ export {
   DeleteAccountForm,
   EditRestaurantForm,
   EditRestaurantExtraDetailsForm,
+  MenuForm,
 } from "./forms";
 export {
   CheckEmailHelper,

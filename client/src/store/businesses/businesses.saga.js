@@ -18,7 +18,6 @@ import {
 function* getMyBusiness() {
   try {
     const { data } = yield call(businessesService.getMyBusiness);
-    console.log(data);
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
       payload: data || {},
@@ -65,7 +64,6 @@ function* createBusiness({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    /* partial implementation  (should be implemented logo upload) */
     const { data } = yield call(() =>
       businessesService.createBusiness({
         ...payload,
@@ -82,7 +80,6 @@ function* createBusiness({ payload, type }) {
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("err: ", e);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnErrorsActions.appendError(type));

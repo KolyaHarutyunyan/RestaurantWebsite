@@ -1,4 +1,8 @@
-import { GET_MENUS_SUCCESS, EDIT_MENU_SUCCESS } from "./menus.types";
+import {
+  GET_MENUS_SUCCESS,
+  EDIT_MENU_SUCCESS,
+  CREATE_MENU_SUCCESS,
+} from "./menus.types";
 const initialState = [];
 
 export const menusReducer = (state = initialState, action) => {
@@ -9,6 +13,8 @@ export const menusReducer = (state = initialState, action) => {
       return state.map((menu) =>
         menu._id === action.payload._id ? action.payload : menu
       );
+    case CREATE_MENU_SUCCESS:
+      return [action.payload, ...state];
     default:
       return state;
   }

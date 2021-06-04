@@ -11,11 +11,12 @@ import {
   DeleteAccountForm,
   EditRestaurantForm,
   EditRestaurantExtraDetailsForm,
+  MenuForm,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
+
 export const Modals = () => {
   const router = useRouter();
-
   return (
     <Fragment>
       <Modal modalName={MODAL_NAMES.SIGN_IN}>
@@ -51,6 +52,9 @@ export const Modals = () => {
       </Modal>
       <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
         <EditRestaurantExtraDetailsForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.MENU_FORM}>
+        <MenuForm />
       </Modal>
     </Fragment>
   );

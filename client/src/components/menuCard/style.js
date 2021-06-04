@@ -5,7 +5,7 @@ export const Container = styled.div`
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 1px #dedede;
-  padding: 16px 8px 0 8px;
+  padding: 16px 8px 16px 8px;
   color: var(--text);
   .action-bar {
     display: flex;

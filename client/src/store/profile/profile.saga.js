@@ -32,9 +32,7 @@ function* signIn({ type, payload }) {
       });
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (err) {
-      console.log("signIn error: ", err);
-    }
+    } catch (err) {}
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -75,9 +73,7 @@ function* signUp({ type, payload }) {
       });
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (err) {
-      console.log("signUp: ", err);
-    }
+    } catch (err) {}
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

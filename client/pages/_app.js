@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider>
         <ModalProvider>
           <Component {...pageProps} />
-
           <Modals />
         </ModalProvider>
       </ThemeProvider>

@@ -5,6 +5,10 @@ export const ModalContainer = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transition: all 0.3s ease-in-out;
   .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 5px;
     .head {
       display: flex;
       justify-content: flex-end;
@@ -19,6 +23,10 @@ export const ModalContainer = styled.div`
         font-size: 20px;
         background: #2b273c1a 0% 0% no-repeat padding-box;
       }
+    }
+    .content {
+      flex: 3;
+      overflow: auto;
     }
     position: fixed;
     z-index: 10001;

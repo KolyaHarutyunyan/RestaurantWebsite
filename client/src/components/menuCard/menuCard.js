@@ -3,7 +3,12 @@ import { Switch } from "../swich";
 import { Container, DropDownMenuContainer } from "./style";
 import { Icons } from "@eachbase/theme";
 import { Menu } from "@eachbase/components";
-export const MenuCard = ({ data }) => {
+export const MenuCard = ({
+  data,
+  onRequestToDelete = () => {},
+  onRequestToEdit = () => {},
+  onRequestToDuplicate = () => {},
+}) => {
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
@@ -29,9 +34,11 @@ export const MenuCard = ({ data }) => {
         onRequestToClose={() => setMenuIsOpen(false)}
       >
         <DropDownMenuContainer>
-          <li>Edit</li>
-          <li>Duplicate</li>
-          <li className="danger">Delete</li>
+          <li onClick={() => onRequestToEdit()}>Edit</li>
+          <li onClick={() => onRequestToDuplicate()}>Duplicate</li>
+          <li onClick={() => onRequestToDelete()} className="danger">
+            Delete
+          </li>
         </DropDownMenuContainer>
       </Menu>
     </Container>
