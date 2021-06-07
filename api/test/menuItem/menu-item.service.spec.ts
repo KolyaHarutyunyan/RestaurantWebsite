@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MenuItemService } from '../../src/menu-item/menu-item.service';
+import { MenuItemService } from '../../src/item/item.service';
 
 describe('MenuItemService', () => {
   let service: MenuItemService;
