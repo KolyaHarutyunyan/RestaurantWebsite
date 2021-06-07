@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: ${({ open }) => (open ? "block" : "none")};
+  z-index: ${({ open }) => (open ? "1000" : "-10000")};
+  transition: visibility 1s ease-in-out, opacity 0.2s ease-in-out;
+  visibility: ${({ open }) => (open ? "visible" : "none")};
+  opacity: ${({ open }) => (open ? "1" : "0")};
   position: fixed;
   top: 0;
   left: 0;

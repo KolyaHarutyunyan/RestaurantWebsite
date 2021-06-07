@@ -55,11 +55,15 @@ export const Container = styled.div`
 export const DropDownMenuContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
+  padding: 10px 0px;
+  background: white;
   li {
     cursor: pointer;
     color: #2b273c;
+    padding: 5px 2px;
+    &:hover {
+      background: #e9e9eb;
+    }
     &.danger {
       color: #ff453a;
     }

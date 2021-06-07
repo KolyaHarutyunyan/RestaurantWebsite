@@ -1,5 +1,6 @@
-import { Container } from "./style";
 import { useCallback } from "react";
+import { Icons } from "@eachbase/theme";
+import { Container } from "./style";
 import { useDropzone } from "react-dropzone";
 import { v4 as uuid } from "uuid";
 import { TiDelete } from "react-icons/ti";
@@ -8,43 +9,86 @@ export const FileUpload = ({
   title = "File",
   maxSize = 2048,
   files = [],
+  mainImageId = false,
+  limit = false,
   onChange = () => {},
 }) => {
   const onDrop = useCallback((acceptedFiles) => {
-    onChange(
-      acceptedFiles.map((file) =>
+    const files = acceptedFiles
+      .map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
           id: uuid(),
         })
       )
-    );
+      .filter((_file, index) => !limit || (limit && index < limit));
+    onChange(files, "UPLOAD", files[0].id, mainImageId ? mainImageId : null);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
     onDrop,
   });
 
+  const onImagePreviewClick = (currentImageId) =>
+    onChange(files, "NEW_MAIN", currentImageId);
+
+  const onImageRemoveClick = (file) => {
+    const filteredFiles = files.filter((cFile) => cFile.id !== file.id);
+    if (mainImageId === file.id && files.length) {
+      onChange(
+        filteredFiles,
+        "DELETE",
+        filteredFiles.length ? filteredFiles[0].id : null
+      );
+    } else {
+      onChange(filteredFiles, "DELETE", mainImageId);
+    }
+  };
+
+  const renderMockPreview = () => {
+    const mockPreview = [];
+    if (files.length !== limit) {
+      for (let i = 0; i < limit - files.length; i++) {
+        mockPreview.push(
+          <div key={i} className="file-mock-preview">
+            <Icons.MenuIcon />
+          </div>
+        );
+      }
+    }
+    return mockPreview;
+  };
+
   return (
     <Container {...getRootProps()} isDragActive={isDragActive}>
       <div className="uploaded-files">
-        {files.map((file) => (
-          <div
-            key={file.id}
-            className="file-preview"
-            style={{ backgroundImage: `url(${file.preview})` }}
-          >
+        {files
+          .filter((_f, index) => (limit ? index <= limit : true))
+          .map((file) => (
             <div
-              className="remove"
+              key={file.id}
+              className={`file-preview ${
+                mainImageId === file.id ? "main" : ""
+              }`}
+              style={{ backgroundImage: `url(${file.preview})` }}
               onClick={(e) => {
                 e.stopPropagation();
-                onChange(files.filter((cFile) => cFile.id !== file.id));
+                onImagePreviewClick(file.id);
               }}
             >
-              <TiDelete />
+              <div
+                className="remove"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onImageRemoveClick(file);
+                }}
+              >
+                <TiDelete />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        {renderMockPreview()}
       </div>
       <div className="content-container">
         <div className="title">
@@ -53,6 +97,11 @@ export const FileUpload = ({
         <div className="acceptable-file-size-noth">
           Max size {Math.round(maxSize / 1024)}mb
         </div>
+        {mainImageId !== false ? (
+          <div className="acceptable-file-size-noth">
+            Selected image will be used as the main
+          </div>
+        ) : null}
       </div>
       <input {...getInputProps()} />
     </Container>

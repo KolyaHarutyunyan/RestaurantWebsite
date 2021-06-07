@@ -11,11 +11,11 @@ export const Menu = ({
 }) => {
   const menuRef = useRef();
   const [mounted, setMounted] = useState(false);
-  const [calculatedWidth, setCalculatedWidth] = useState(null);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
   });
+  const [calculatedWidth, setCalculatedWidth] = useState(null);
 
   const getElementPosition = () =>
     new Promise((res) => {

@@ -243,6 +243,7 @@ export const RestaurantPageSections = () => {
               <MenuCard
                 key={index}
                 data={menu}
+                onTitleClick={() => history.push("/menu")}
                 // onRequestToDelete={() => deleteMenusSaga.dispatch(menu.id)}
                 onRequestToDuplicate={() =>
                   createMenuSaga.dispatch({ businessId: business.id, ...menu })

@@ -5,6 +5,7 @@ import { Icons } from "@eachbase/theme";
 import { Menu } from "@eachbase/components";
 export const MenuCard = ({
   data,
+  onTitleClick = () => {},
   onRequestToDelete = () => {},
   onRequestToEdit = () => {},
   onRequestToDuplicate = () => {},
@@ -15,7 +16,7 @@ export const MenuCard = ({
     <Container coverImg={data.menuImg}>
       <div className="cover" />
       <div className="action-bar">
-        <div className="title" onClick={() => {}}>
+        <div className="title" onClick={() => onTitleClick()}>
           {data.name}
         </div>
         <div className="action">
