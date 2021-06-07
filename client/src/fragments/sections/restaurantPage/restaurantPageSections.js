@@ -28,6 +28,7 @@ export const RestaurantPageSections = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
+  const toggleMenuActivitySaga = useSagaStore(menusActions.toggleMenuActivity);
   // const deleteMenusSaga = useSagaStore(menusActions.deleteMenu);
 
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);

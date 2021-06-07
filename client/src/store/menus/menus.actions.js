@@ -1,4 +1,10 @@
-import { GET_MENUS, EDIT_MENU, CREATE_MENU, DELETE_MENU } from "./menus.types";
+import {
+  GET_MENUS,
+  EDIT_MENU,
+  CREATE_MENU,
+  DELETE_MENU,
+  TOGGLE_MENU_ACTIVITY,
+} from "./menus.types";
 
 export const menusActions = {
   getMenusByBusiness: (businessId) => ({
@@ -16,5 +22,9 @@ export const menusActions = {
   deleteMenu: (menu) => ({
     type: DELETE_MENU,
     payload: menu,
+  }),
+  toggleMenuActivity: (menuId) => ({
+    type: TOGGLE_MENU_ACTIVITY,
+    payload: menuId,
   }),
 };

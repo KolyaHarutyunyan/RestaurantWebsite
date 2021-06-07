@@ -87,7 +87,7 @@ export const Container = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 170px;
+            height: 190px;
             background-color: #0000001a;
             border-radius: 16px 16px 0 0;
             svg {
@@ -99,7 +99,7 @@ export const Container = styled.div`
             }
           }
           .footer {
-            height: 80px;
+            height: 70px;
             background-color: white;
             display: flex;
             align-items: center;

@@ -40,7 +40,13 @@ export const MenuForm = () => {
       setValue("description", editableMenu.description);
     }
   }, [editableMenu]);
-  useEffect(() => () => destroy.all(), []);
+  useEffect(
+    () => () => {
+      createMenuSaga.destroy.all();
+      editMenuSaga.destroy.all();
+    },
+    []
+  );
 
   const onSubmit = (data) => {
     editableMenu
