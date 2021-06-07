@@ -3,6 +3,8 @@ import { ImageStorage } from './image.storage';
 import * as fs from 'fs';
 import * as qrcode from 'qrcode';
 import * as path from 'path';
+import * as sharp from 'sharp';
+import { IImage } from './interface';
 
 @Injectable()
 export class ImageService {
@@ -23,14 +25,35 @@ export class ImageService {
 
   /** Saves a file to the S3 and @returns the url */
   saveFile = async (file): Promise<string> => {
+    if (!file) return null;
     return await this.storage.storeImage(file);
+  };
+
+  /** Saves a file and its thumbnail version */
+  saveWithThumb = async (file): Promise<IImage> => {
+    if (!file) return null;
+    const thumbnailBuffer = await sharp(file.buffer)
+      .resize({ width: 200, height: 200, fit: 'cover' })
+      .toBuffer();
+    // file.originalname = file.originalname;
+    const thumbnailfile = {
+      originalname: 'thumbnail_' + file.originalname,
+      mimetype: file.mimetype,
+      buffer: thumbnailBuffer,
+    };
+    const [originalUrl, thumbUrl] = await Promise.all([
+      this.storage.storeImage(file),
+      this.storage.storeImage(thumbnailfile),
+    ]);
+    return {
+      originalUrl,
+      thumbUrl,
+    };
   };
 
   /** Deletes an image from the S3 */
   deleteImages = async (files: string[]) => {
-    if (!files || files.length < 0) {
-      return;
-    }
+    if (!files || files.length < 0) return null;
     return await this.storage.deleteImages(files);
   };
 }
