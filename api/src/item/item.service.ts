@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { BusinessValidator } from 'src/business';
 import { CreateItemDTO, EditItemDTO, ItemDTO } from './dto';
@@ -11,7 +11,7 @@ import { ItemModel } from './item.model';
 export class ItemService {
   constructor(
     private readonly sanitizer: ItemSanitizer,
-    private readonly businessValidator: BusinessValidator,
+    private readonly bsnValidator: BusinessValidator,
     private readonly itemImageService: ItemImageService,
   ) {
     this.model = ItemModel;
@@ -20,7 +20,7 @@ export class ItemService {
 
   /** Public API */
   create = async (itemDTO: CreateItemDTO): Promise<ItemDTO> => {
-    await this.businessValidator.validateBusiness(
+    await this.bsnValidator.validateBusiness(
       itemDTO.userId,
       itemDTO.businessId,
     );
@@ -30,25 +30,19 @@ export class ItemService {
       price: itemDTO.price,
       option: itemDTO.option,
     });
-    const [mainImage, images] = await Promise.all([
-      this.itemImageService.saveImage(itemDTO.mainImage),
-      this.itemImageService.saveImages(itemDTO.images),
-    ]);
-    item.mainImage = mainImage;
-    item.images = images;
+    if (item.images && item.images.length > 0) {
+      const images = await this.itemImageService.saveImages(itemDTO.images);
+      item.mainImage = images.shift();
+      item.images = images;
+    }
     item = await item.save();
     return this.sanitizer.sanitize(item);
   };
 
   /** Edit the menu item info */
   edit = async (itemId: string, itemDTO: EditItemDTO): Promise<ItemDTO> => {
-    let [, item] = await Promise.all([
-      this.businessValidator.validateBusiness(
-        itemDTO.userId,
-        itemDTO.businessId,
-      ),
-      this.model.findById(itemId),
-    ]);
+    let item = await this.model.findById(itemId);
+    await this.bsnValidator.validateBusiness(itemDTO.userId, item.businessId);
     if (itemDTO.name) {
       item.name = itemDTO.name;
     }
@@ -65,5 +59,23 @@ export class ItemService {
     return this.sanitizer.sanitize(item);
   };
 
+  /** Delets an item with a given id */
+  delete = async (id: string, ownerId: string) => {
+    let item = await this.model.findById(id);
+    this.checkItem(item);
+    await this.bsnValidator.validateBusiness(ownerId, item.businessId);
+    item = await this.model.findOneAndDelete({ _id: id });
+    if (item) {
+      return item._id;
+    } else {
+      throw new HttpException('Item was not found', HttpStatus.NOT_FOUND);
+    }
+  };
+
   /** Private Methods */
+  private checkItem(item) {
+    if (!item) {
+      throw new HttpException('item was not found', HttpStatus.NOT_FOUND);
+    }
+  }
 }

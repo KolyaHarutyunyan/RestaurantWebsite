@@ -1,3 +1,4 @@
 export const summaries = {
-  ACTIVATE: `Activates the menu with the given ID and inactivates all other menu. Returns Menu Id of the activated menu`,
+  ACTIVATE: `Toggles the menu status. If the menu was active, it inactives it. 
+  If the menu was inactive, it activates it and inactivates all other menus that are acive`,
 };
