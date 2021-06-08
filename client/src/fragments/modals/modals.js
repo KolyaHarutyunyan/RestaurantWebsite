@@ -1,6 +1,6 @@
 import { Modal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
   SignInForm,
   ForgotPasswordForm,

@@ -5,6 +5,7 @@ export const Button = ({
   color = "active",
   link = false,
   outlined = false,
+  hoverable = true,
   ...rest
 }) => {
   return (
@@ -16,6 +17,7 @@ export const Button = ({
       {...rest}
     >
       {children}
+      {hoverable ? <div className="b-fade" /> : null}
     </ButtonContainer>
   );
 };

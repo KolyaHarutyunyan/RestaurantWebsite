@@ -55,7 +55,7 @@ export const Container = styled.div`
 export const DropDownMenuContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  padding: 10px 0px;
+  margin: 10px 0px;
   background: white;
   li {
     cursor: pointer;

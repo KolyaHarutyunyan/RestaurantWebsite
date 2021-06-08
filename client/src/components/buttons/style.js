@@ -7,12 +7,25 @@ const colors = {
 };
 
 export const ButtonContainer = styled.button`
+  position: relative;
   min-width: ${({ link }) => (link ? "fit-content" : "160px")};
   height: 44px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   border-radius: 24px;
   border: 1px solid;
   font: normal normal 600 14px/19px Arial, Helvetica, sans-serif;
+  .b-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    transition: background 0.3s ease-in-out;
+    &:hover {
+      background: #0000001a;
+    }
+  }
   ${({ color, link, outlined }) => {
     if (link) {
       return `
@@ -21,7 +34,6 @@ export const ButtonContainer = styled.button`
         color: ${color === "default" ? "#2B273C" : colors[color]};
       `;
     }
-
     if (outlined) {
       return `
         border-color: ${color === "default" ? "#2B273C" : colors[color]};
@@ -29,7 +41,6 @@ export const ButtonContainer = styled.button`
         background-color: transparent;
       `;
     }
-
     return `
         border-color: transparent;
         color: ${color === "default" ? "#2B273C" : "white"};

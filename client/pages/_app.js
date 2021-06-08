@@ -1,36 +1,37 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
 import { initAxiosInterceptors } from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
 import { Modals } from "@eachbase/fragments";
 import { reduxWrapper } from "@eachbase/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 initAxiosInterceptors();
-function MyApp({ Component, pageProps }) {
-  return (
-    <Fragment>
-      <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
-          rel="stylesheet"
-        />
-        <script
-          async
-          defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnEVZH42jb76dK1GxIj1fqMXEWkBFJe80&libraries=places"
-        ></script>
-        <title>Menuz</title>
-      </Head>
-      <ThemeProvider>
-        <ModalProvider>
-          <Component {...pageProps} />
-          <Modals />
-        </ModalProvider>
-      </ThemeProvider>
-    </Fragment>
-  );
-}
+const MyApp = ({ Component, pageProps }) => (
+  <Fragment>
+    <Head>
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+        rel="stylesheet"
+      />
+      <script
+        async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnEVZH42jb76dK1GxIj1fqMXEWkBFJe80&libraries=places"
+      />
+      <title>Menuz</title>
+    </Head>
+    <ThemeProvider>
+      <ModalProvider>
+        <Component {...pageProps} />
+        <Modals />
+        <ToastContainer hideProgressBar position="bottom-right" />
+      </ModalProvider>
+    </ThemeProvider>
+  </Fragment>
+);
 
 export default reduxWrapper().withRedux(MyApp);
