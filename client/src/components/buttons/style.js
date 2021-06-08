@@ -14,6 +14,10 @@ export const ButtonContainer = styled.button`
   border-radius: 24px;
   border: 1px solid;
   font: normal normal 600 14px/19px Arial, Helvetica, sans-serif;
+  .loader-wrapper {
+    position: relative;
+    top: 3px;
+  }
   .b-fade {
     position: absolute;
     top: 0;

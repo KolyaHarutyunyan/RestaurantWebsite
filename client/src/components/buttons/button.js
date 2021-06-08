@@ -1,4 +1,5 @@
 import { ButtonContainer } from "./style";
+import PulseLoader from "react-spinners/PulseLoader";
 export const Button = ({
   children,
   fullWidth = false,
@@ -6,18 +7,29 @@ export const Button = ({
   link = false,
   outlined = false,
   hoverable = true,
+  onLoad = true,
   ...rest
-}) => {
-  return (
-    <ButtonContainer
-      fullWidth={fullWidth}
-      color={color}
-      link={link}
-      outlined={outlined}
-      {...rest}
-    >
-      {children}
-      {hoverable ? <div className="b-fade" /> : null}
-    </ButtonContainer>
-  );
-};
+}) => (
+  <ButtonContainer
+    fullWidth={fullWidth}
+    color={color}
+    link={link}
+    outlined={outlined}
+    {...rest}
+    disabled={onLoad}
+  >
+    {onLoad ? (
+      <div className="loader-wrapper">
+        <PulseLoader
+          className="loader"
+          color={color === "active" ? "white" : "black"}
+        />
+      </div>
+    ) : (
+      <Fragment>
+        {children}
+        {hoverable ? <div className="b-fade" /> : null}
+      </Fragment>
+    )}
+  </ButtonContainer>
+);
