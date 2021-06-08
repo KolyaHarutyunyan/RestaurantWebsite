@@ -1,5 +1,5 @@
-import { NotFound } from "@eachbase/pages";
+import { NotFoundPage } from "@eachbase/pages";
 
-const NotFoundPage = () => <NotFound />;
+const NotFound = () => <NotFoundPage />;
 
-export default NotFoundPage;
+export default NotFound;

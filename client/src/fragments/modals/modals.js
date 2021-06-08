@@ -12,6 +12,7 @@ import {
   EditRestaurantForm,
   EditRestaurantExtraDetailsForm,
   MenuForm,
+  ResetPasswordHelper,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
 
@@ -55,6 +56,9 @@ export const Modals = () => {
       </Modal>
       <Modal modalName={MODAL_NAMES.MENU_FORM}>
         <MenuForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
+        <ResetPasswordHelper />
       </Modal>
     </Fragment>
   );

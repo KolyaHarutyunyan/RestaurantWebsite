@@ -5,11 +5,13 @@ import { Header } from "./header";
 import { Footer } from "./footer";
 import { useDispatch } from "react-redux";
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(profileActions.getUserInfo());
+    if (privatePage) {
+      dispatch(profileActions.getUserInfo());
+    }
   }, []);
 
   return (

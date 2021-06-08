@@ -104,9 +104,10 @@ export const InputContainer = styled.div`
     height: 100%;
     border: 1px solid;
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
-    height: 36px;
+    height: 48px;
     border-radius: 8px;
     .icon-container {
+      padding-left: 16px;
       display: ${({ icon }) => (icon !== null ? "flex" : "none")};
       justify-content: center;
       align-items: center;
@@ -144,6 +145,7 @@ export const InputContainer = styled.div`
     padding-top: 2px;
     padding-left: 5px;
     font-size: 0.8rem;
+    text-align: left;
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
   }
 `;

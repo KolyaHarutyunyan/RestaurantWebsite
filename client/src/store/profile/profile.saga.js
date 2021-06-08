@@ -14,6 +14,7 @@ import {
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
   UPDATE_PROFILE_INFO_SUCCESS,
+  RESET_PASSWORD,
 } from "./profile.types";
 import { profileService } from "./profile.service";
 
@@ -131,6 +132,34 @@ function* updateProfile({ type, payload }) {
   }
 }
 
+function* resetPassword({ type, payload }) {
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const { data } = yield call(
+      profileService.resetPassword,
+      payload.data,
+      payload.token
+    );
+    localStorage.setItem("token", data.accessToken);
+    try {
+      const { data } = yield call(profileService.userInfo, payload);
+      yield put({
+        type: PROFILE_SIGN_IN_SUCCESS,
+        payload: data,
+      });
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+    } catch (err) {}
+  } catch (err) {
+    yield put(httpRequestsOnErrorsActions.appendError(type, err));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  }
+}
+
 export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_IN, signIn);
   yield takeLatest(GET_PROFILE_INFO, getProfileInfo);
@@ -138,4 +167,5 @@ export function* watchProfile() {
   yield takeLatest(UPDATE_PROFILE_PASSWORD, updateProfilePassword);
   yield takeLatest(DELETE_PROFILE, deleteProfile);
   yield takeLatest(UPDATE_PROFILE_INFO, updateProfile);
+  yield takeLatest(RESET_PASSWORD, resetPassword);
 }

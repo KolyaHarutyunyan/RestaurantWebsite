@@ -22,5 +22,6 @@ export {
   ProfilePageSections,
   MenuPageSections,
   PreviewPageSections,
-  NotFoundPage,
+  NotFoundPageSections,
+  ResetPasswordPageSections,
 } from "./sections";

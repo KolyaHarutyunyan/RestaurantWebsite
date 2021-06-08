@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ButtonContainer } from "./style";
 import PulseLoader from "react-spinners/PulseLoader";
 export const Button = ({
@@ -28,7 +29,7 @@ export const Button = ({
     ) : (
       <Fragment>
         {children}
-        {hoverable ? <div className="b-fade" /> : null}
+        {hoverable && !link ? <div className="b-fade" /> : null}
       </Fragment>
     )}
   </ButtonContainer>

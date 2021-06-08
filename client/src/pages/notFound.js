@@ -1,9 +1,10 @@
 import { Layout } from "@eachbase/fragments";
-import { NotFoundPage } from "@eachbase/fragments";
-export const NotFound = () => {
+import { NotFoundPageSections } from "@eachbase/fragments";
+
+export const NotFoundPage = () => {
   return (
     <Layout>
-      <NotFoundPage />
+      <NotFoundPageSections />
     </Layout>
   );
 };

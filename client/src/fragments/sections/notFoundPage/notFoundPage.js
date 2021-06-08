@@ -2,7 +2,7 @@ import { Container } from "./style";
 import { Typography, Button, Image } from "@eachbase/components";
 import { useRouter } from "next/dist/client/router";
 
-export const NotFoundPage = () => {
+export const NotFoundPageSections = () => {
   const router = useRouter();
   return (
     <Container>
