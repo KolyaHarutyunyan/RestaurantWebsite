@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ItemImageDTO {
   @ApiProperty()
-  order: number;
+  id: string;
   @ApiProperty()
   originalUrl: string;
   @ApiProperty()

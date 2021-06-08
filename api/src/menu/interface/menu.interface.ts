@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface IMenu extends Document {
-  // businessId: string;
+  businessId: string;
   name: string;
   tagline?: string;
   imageUrl?: string;

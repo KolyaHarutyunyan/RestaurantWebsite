@@ -87,14 +87,20 @@ export class MenuController {
   }
 
   /** Set menu active */
-  @Patch(':id/activate')
+  @Patch(':id/toggle')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiOkResponse({ type: String, description: 'Id of the activated menu' })
   @ApiOperation({ summary: summaries.ACTIVATE })
   async activateMenu(
     @Param('id', ParseObjectIdPipe) menuId: string,
+    @Body('businessId', ParseObjectIdPipe) businessId: string,
+    @Body('userId') ownerId: string,
   ): Promise<string> {
-    const activatedMenuId = await this.menuService.activate(menuId);
-    return activatedMenuId;
+    const activeId = await this.menuService.toggleActive(
+      menuId,
+      ownerId,
+      businessId,
+    );
+    return activeId;
   }
 }

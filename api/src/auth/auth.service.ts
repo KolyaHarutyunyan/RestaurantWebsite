@@ -19,6 +19,7 @@ import { MailerService } from 'src/mailer';
 export class AuthService {
   constructor() {
     this.mongooseUtil = new MongooseUtil();
+    this.mailerService = new MailerService();
     this.model = AuthModel;
   }
   //The Model
@@ -117,17 +118,14 @@ export class AuthService {
       id: auth.id,
       role: auth.role,
     };
-    const token = await jwt.sign(
-      tokenEntity,
-      JWT_SECRET_FORGET_PASS,
-      expString,
-    );
+    const token = await jwt.sign(tokenEntity, JWT_SECRET_FORGET_PASS, {
+      expiresIn: expString,
+    });
     // send email to the user with the reset link
     const response = await this.mailerService.sendForgetPasswordMail({
       token,
       email: auth.email,
     });
-    console.log(response);
     return response;
   };
 
