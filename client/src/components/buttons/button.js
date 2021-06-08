@@ -7,7 +7,7 @@ export const Button = ({
   link = false,
   outlined = false,
   hoverable = true,
-  onLoad = true,
+  onLoad = false,
   ...rest
 }) => (
   <ButtonContainer
