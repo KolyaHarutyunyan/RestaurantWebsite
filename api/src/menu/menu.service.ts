@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
 import { ImageService } from '../image';
 import { IMenu } from './interface';
-import { MenuSanitizer } from './interceptor/sanitizer.interceptor';
+import { MenuSanitizer } from './interceptor';
 import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
 import { BusinessValidator } from 'src/business';
 
@@ -12,7 +12,7 @@ export class MenuService {
   constructor(
     private readonly imageService: ImageService,
     private readonly sanitizer: MenuSanitizer,
-    private readonly businessValidator: BusinessValidator,
+    private readonly bsnValidator: BusinessValidator,
   ) {
     this.model = MenuModel;
     // this.businessModel = businessModel;
@@ -23,7 +23,7 @@ export class MenuService {
   /** Create menu */
   create = async (menuDTO: CreateMenuDTO): Promise<MenuDTO> => {
     // check if the correct user is creating a business
-    await this.businessValidator.validateBusiness(
+    await this.bsnValidator.validateBusiness(
       menuDTO.userId,
       menuDTO.businessId,
     );
@@ -46,12 +46,9 @@ export class MenuService {
 
   /** Update the menu fields */
   edit = async (menuId: string, updateDTO: UpdateMenuDTO): Promise<MenuDTO> => {
-    await this.businessValidator.validateBusiness(
-      updateDTO.userId,
-      updateDTO.businessId,
-    );
     let menu = await this.model.findById(menuId);
     this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(updateDTO.userId, menu.businessId);
     //update image
     if (updateDTO.removeImage === true) {
       await this.imageService.deleteImages([menu.imageUrl]);
@@ -77,16 +74,26 @@ export class MenuService {
   };
 
   /** Activate a menu. @returns the id of the active menu*/
-  activate = async (menuId: string): Promise<string> => {
-    const activeMenu = await this.model.findOneAndUpdate(
-      { isActive: true },
-      { $set: { isActive: false } },
+  toggleActive = async (
+    menuId: string,
+    ownerId: string,
+    businessId: string,
+  ): Promise<string> => {
+    //find the active menu for this business and set it to inactive
+    await this.bsnValidator.validateBusiness(ownerId, businessId);
+    let menu = await this.model.findOneAndUpdate(
+      { isActive: true, businessId: businessId },
+      { isActive: false },
+      { new: true },
     );
-    const menu = await this.model.findOneAndUpdate(
-      { _id: menuId },
-      { $set: { isActive: true } },
-    );
-    this.checkMenu(menu);
+    // if the menu was not the one that needs toggling, find the menu and set it to active
+    if (menu && menu._id != menuId) {
+      menu = await this.model.findById(menuId);
+      this.checkMenu(menu);
+      await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
+      menu.isActive = true;
+      menu = await menu.save();
+    }
     return menu._id;
   };
 
@@ -95,7 +102,7 @@ export class MenuService {
     businessId: string,
     ownerId: string,
   ): Promise<MenuDTO[]> => {
-    await this.businessValidator.validateBusiness(ownerId, businessId);
+    await this.bsnValidator.validateBusiness(ownerId, businessId);
     const menus = await this.model.find({ businessId });
     return this.sanitizer.sanitizeMany(menus);
   };
