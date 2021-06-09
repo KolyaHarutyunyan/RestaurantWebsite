@@ -21,7 +21,7 @@ export class ItemSanitizer implements ISanitize {
         item.mainImage as IImage,
       ])[0];
     }
-    if (item.images) {
+    if (item.images && item.images.length > 0) {
       sanitizedItem.images = this.sanitizeImages(item.images as IImage[]);
     }
     return sanitizedItem;

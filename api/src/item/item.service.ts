@@ -22,7 +22,7 @@ export class ItemService {
       itemDTO.userId,
       itemDTO.businessId,
     );
-    const item = await new this.model({
+    let item = await new this.model({
       name: itemDTO.name,
       description: itemDTO.description,
       price: itemDTO.price,
@@ -30,8 +30,8 @@ export class ItemService {
       mainImage: itemDTO.mainImage,
       images: itemDTO.images,
     }).save();
-    item.populate('')
-    ///CONINUE WITH POPULATNG 
+    item = await item.populate('mainImage').populate('images').execPopulate();
+    ///CONINUE WITH POPULATNG
     return this.sanitizer.sanitize(item);
   };
 
@@ -59,6 +59,7 @@ export class ItemService {
       item.images = itemDTO.images;
     }
     item = await item.save();
+    item = await item.populate('mainImage').populate('images').execPopulate();
     return this.sanitizer.sanitize(item);
   };
 
