@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
-import { ImageService } from '../image';
 import { IMenu } from './interface';
 import { MenuSanitizer } from './interceptor';
 import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
@@ -10,7 +9,6 @@ import { BusinessValidator } from 'src/business';
 @Injectable()
 export class MenuService {
   constructor(
-    private readonly imageService: ImageService,
     private readonly sanitizer: MenuSanitizer,
     private readonly bsnValidator: BusinessValidator,
   ) {
@@ -18,7 +16,6 @@ export class MenuService {
     // this.businessModel = businessModel;
   }
   private model: Model<IMenu>;
-  //   private businessModel: Model<Ibusiness>;
 
   /** Create menu */
   create = async (menuDTO: CreateMenuDTO): Promise<MenuDTO> => {
@@ -37,10 +34,13 @@ export class MenuService {
     if (menuDTO.description) {
       menu.description = menuDTO.description;
     }
-    if (menuDTO.menuImage) {
-      menu.imageUrl = await this.imageService.saveFile(menuDTO.menuImage);
+    if (menuDTO.mainImage) {
+      menu.image = menuDTO.mainImage;
     }
     menu = await menu.save();
+    if (menu.image) {
+      menu = await menu.populate('image').execPopulate();
+    }
     return this.sanitizer.sanitize(menu);
   };
 
@@ -50,15 +50,12 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(updateDTO.userId, menu.businessId);
     //update image
-    if (updateDTO.removeImage === true) {
-      await this.imageService.deleteImages([menu.imageUrl]);
-      menu.imageUrl = undefined;
-    } else if (updateDTO.menuImage) {
-      const [imageUrl, deletedImages] = await Promise.all([
-        this.imageService.saveFile(updateDTO.menuImage),
-        this.imageService.deleteImages([menu.imageUrl]),
-      ]);
-      menu.imageUrl = imageUrl;
+    if (updateDTO.mainImage) {
+      if (updateDTO.mainImage === 'DELETE') {
+        menu.image = undefined;
+      } else {
+        menu.image = updateDTO.mainImage;
+      }
     }
     if (updateDTO.name) {
       menu.name = updateDTO.name;
@@ -70,6 +67,9 @@ export class MenuService {
       menu.description = updateDTO.description;
     }
     menu = await menu.save();
+    if (menu.image) {
+      menu = await menu.populate('image').execPopulate();
+    }
     return this.sanitizer.sanitize(menu);
   };
 
@@ -103,13 +103,13 @@ export class MenuService {
     ownerId: string,
   ): Promise<MenuDTO[]> => {
     await this.bsnValidator.validateBusiness(ownerId, businessId);
-    const menus = await this.model.find({ businessId });
+    const menus = await this.model.find({ businessId }).populate('image');
     return this.sanitizer.sanitizeMany(menus);
   };
 
   /** Gets a menu with menu Id */
   getById = async (menuId: string): Promise<MenuDTO> => {
-    const menu = await this.model.findById(menuId);
+    const menu = await (await this.model.findById(menuId)).populated('image');
     return this.sanitizer.sanitize(menu);
   };
 

@@ -5,11 +5,8 @@ import {
   Param,
   Patch,
   Post,
-  UploadedFile,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBody,
   ApiHeader,
@@ -19,8 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { OwnerInterceptor } from 'src/owner/interceptor';
-import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
+import { CreateMenuDTO, MenuDTO, ToggleMenuDTO, UpdateMenuDTO } from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
@@ -34,14 +30,9 @@ export class MenuController {
   /** Create a menu for the business */
   @Post()
   @UseGuards(new AuthGuard([Role.OWNER]))
-  @UseInterceptors(FileInterceptor('menuImage'), OwnerInterceptor)
   @ApiBody({ type: CreateMenuDTO })
   @ApiOkResponse({ type: MenuDTO })
-  async create(
-    @UploadedFile() file,
-    @Body() createMenuDTO: CreateMenuDTO,
-  ): Promise<MenuDTO> {
-    createMenuDTO.menuImage = file;
+  async create(@Body() createMenuDTO: CreateMenuDTO): Promise<MenuDTO> {
     const createMenu = await this.menuService.create(createMenuDTO);
     return createMenu;
   }
@@ -49,16 +40,12 @@ export class MenuController {
   /** Update the menu fields */
   @Patch(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
-  @UseInterceptors(FileInterceptor('menuImage'), OwnerInterceptor)
   @ApiBody({ type: UpdateMenuDTO })
   @ApiOkResponse({ type: MenuDTO })
   async editMenu(
-    @UploadedFile() file,
     @Param('id', ParseObjectIdPipe) menuId: string,
     @Body() updateMenuDTO: UpdateMenuDTO,
   ): Promise<MenuDTO> {
-    console.log(updateMenuDTO);
-    updateMenuDTO.menuImage = file;
     const menu = await this.menuService.edit(menuId, updateMenuDTO);
     return menu;
   }
@@ -89,6 +76,7 @@ export class MenuController {
   /** Set menu active */
   @Patch(':id/toggle')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiBody({ type: ToggleMenuDTO })
   @ApiOkResponse({ type: String, description: 'Id of the activated menu' })
   @ApiOperation({ summary: summaries.ACTIVATE })
   async activateMenu(

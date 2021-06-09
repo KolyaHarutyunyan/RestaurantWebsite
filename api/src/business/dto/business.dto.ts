@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ImageDTO } from '../../image';
 import { AddressDTO } from '../../address';
 import { BusinessStatus } from '../business.constants';
 import { WorkWeekDTO } from './workWeek.dto';
@@ -13,7 +14,7 @@ export class BusinessDTO {
   @ApiProperty({ required: false })
   description?: string;
   @ApiProperty({ required: false })
-  logoUrl?: string;
+  logo?: ImageDTO;
   @ApiProperty({ required: false })
   website?: string;
   @ApiProperty({ type: AddressDTO, required: false })

@@ -1,10 +1,14 @@
 import { AddressSanitizer } from 'src/address';
+import { IImage, ImageSanitizer } from 'src/image';
 import { ISanitize } from 'src/util';
 import { BusinessDTO } from '../dto';
 import { IBusiness } from '../interface';
 
 export class BusinessSanitizer implements ISanitize {
-  constructor(private readonly addressSanitizer: AddressSanitizer) {}
+  constructor(
+    private readonly addressSanitizer: AddressSanitizer,
+    private readonly imgSanitizer: ImageSanitizer,
+  ) {}
 
   sanitize(business: IBusiness): BusinessDTO {
     const santizedBusiness: BusinessDTO = {
@@ -16,8 +20,10 @@ export class BusinessSanitizer implements ISanitize {
     if (business.description) {
       santizedBusiness.description = business.description;
     }
-    if (business.logoUrl) {
-      santizedBusiness.logoUrl = business.logoUrl;
+    if (business.logo) {
+      santizedBusiness.logo = this.imgSanitizer.sanitize(
+        business.logo as IImage,
+      );
     }
     if (business.website) {
       santizedBusiness.website = business.website;

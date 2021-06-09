@@ -1,1 +1,1 @@
-export { EventImageDTO } from './eventImage.dto';
+export { ImageDTO } from './image.dto';
