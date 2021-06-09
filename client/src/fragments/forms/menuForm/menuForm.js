@@ -90,7 +90,11 @@ export const MenuForm = () => {
             setRestaurantIcon(files.length ? [files[0]] : [])
           }
         />
-        <Button type="submit" disabled={createMenuSaga.status.onLoad}>
+        <Button
+          type="submit"
+          onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}
+          disabled={createMenuSaga.status.onLoad}
+        >
           Save
         </Button>
       </form>

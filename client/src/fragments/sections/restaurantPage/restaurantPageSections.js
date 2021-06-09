@@ -28,7 +28,7 @@ export const RestaurantPageSections = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
-  const toggleMenuActivitySaga = useSagaStore(menusActions.toggleMenuActivity);
+  const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   // const deleteMenusSaga = useSagaStore(menusActions.deleteMenu);
 
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
@@ -244,13 +244,14 @@ export const RestaurantPageSections = () => {
                 key={index}
                 data={menu}
                 onTitleClick={() => history.push("/menu")}
-                // onRequestToDelete={() => deleteMenusSaga.dispatch(menu.id)}
+                onRequestToSwitch={() => switchMenuStatusSaga.dispatch(menu.id)}
                 onRequestToDuplicate={() =>
                   createMenuSaga.dispatch({ businessId: business.id, ...menu })
                 }
                 onRequestToEdit={() =>
                   open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
                 }
+                // onRequestToDelete={() => deleteMenusSaga.dispatch(menu.id)}
               />
             ))}
           </div>

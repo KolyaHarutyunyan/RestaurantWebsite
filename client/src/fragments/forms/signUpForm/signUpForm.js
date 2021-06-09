@@ -56,7 +56,7 @@ export const SignUpForm = () => {
             status.onError ? "Password should be at least 8 characters" : ""
           }
         />
-        <Button fullWidth type="submit" disabled={status.onLoad}>
+        <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
         </Button>
       </form>

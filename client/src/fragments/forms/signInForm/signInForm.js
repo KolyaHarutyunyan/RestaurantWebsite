@@ -49,7 +49,7 @@ export const SignInForm = () => {
           error={status.onError}
           helper={status.onError ? "incorrect username or password" : ""}
         />
-        <Button fullWidth type="submit" disabled={status.onLoad}>
+        <Button fullWidth type="submit" onLoad={status.onLoad}>
           Sign In
         </Button>
       </form>

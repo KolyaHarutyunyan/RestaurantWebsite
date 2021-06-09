@@ -34,7 +34,7 @@ export const DeleteAccountForm = () => {
         account, you'll permanently lose your profile.
       </Typography>
       <div className="actions">
-        <Button onClick={() => deleteAccount()} disabled={status.onLoad}>
+        <Button onLoad={status.onLoad} onClick={() => deleteAccount()}>
           Delete
         </Button>
         <Button color="default" onClick={() => close()}>

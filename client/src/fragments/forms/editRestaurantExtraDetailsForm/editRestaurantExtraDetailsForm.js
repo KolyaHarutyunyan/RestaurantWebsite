@@ -109,7 +109,7 @@ export const EditRestaurantExtraDetailsForm = () => {
             />
           )}
         </div>
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

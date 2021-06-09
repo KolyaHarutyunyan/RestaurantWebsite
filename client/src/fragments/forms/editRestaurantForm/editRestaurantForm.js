@@ -104,7 +104,7 @@ export const EditRestaurantForm = () => {
             onFileUploadChange(files, actionType, mainImageId)
           }
         />
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

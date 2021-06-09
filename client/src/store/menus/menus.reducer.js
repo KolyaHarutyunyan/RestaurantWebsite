@@ -2,7 +2,7 @@ import {
   GET_MENUS_SUCCESS,
   EDIT_MENU_SUCCESS,
   CREATE_MENU_SUCCESS,
-  TOGGLE_MENU_ACTIVITY_SUCCESS,
+  SWITCH_MENU_STATUS_SUCCESS,
 } from "./menus.types";
 const initialState = [];
 
@@ -16,12 +16,18 @@ export const menusReducer = (state = initialState, action) => {
       );
     case CREATE_MENU_SUCCESS:
       return [action.payload, ...state];
-    case TOGGLE_MENU_ACTIVITY_SUCCESS:
+    case SWITCH_MENU_STATUS_SUCCESS:
       return state.map((menu) => {
         if (menu.id === payload) {
-          return !menu.isActive;
+          return {
+            ...menu,
+            isActive: !menu.isActive,
+          };
         }
-        return menu;
+        return {
+          ...menu,
+          isActive: false,
+        };
       });
     default:
       return state;

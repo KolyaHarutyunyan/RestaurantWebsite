@@ -72,7 +72,7 @@ export const CreateRestaurantForm = () => {
             setRestaurantIcon(files.length ? [files[0]] : [])
           }
         />
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

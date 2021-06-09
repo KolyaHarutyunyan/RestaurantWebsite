@@ -9,6 +9,7 @@ export const MenuCard = ({
   onRequestToDelete = () => {},
   onRequestToEdit = () => {},
   onRequestToDuplicate = () => {},
+  onRequestToSwitch = () => {},
 }) => {
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -20,7 +21,10 @@ export const MenuCard = ({
           {data.name}
         </div>
         <div className="action">
-          <Switch status={data.isActive || false} onClick={() => {}} />
+          <Switch
+            status={data.isActive || false}
+            onClick={() => onRequestToSwitch()}
+          />
         </div>
       </div>
       <div className="descr-bar" ref={descrBarRef}>

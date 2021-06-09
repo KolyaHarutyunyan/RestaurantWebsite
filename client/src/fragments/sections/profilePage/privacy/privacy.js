@@ -105,7 +105,7 @@ export const Privacy = () => {
               link
               colorVariant
               type="submit"
-              disabled={status.onLoad}
+              onLoad={status.onLoad}
             >
               Save
             </Button>
@@ -115,6 +115,7 @@ export const Privacy = () => {
               onClick={() => setEditMode(true)}
               link
               type="button"
+              onLoad={status.onLoad}
             >
               Edit
             </Button>

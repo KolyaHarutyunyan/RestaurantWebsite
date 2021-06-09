@@ -3,7 +3,7 @@ import {
   EDIT_MENU,
   CREATE_MENU,
   DELETE_MENU,
-  TOGGLE_MENU_ACTIVITY,
+  SWITCH_MENU_STATUS,
 } from "./menus.types";
 
 export const menusActions = {
@@ -23,8 +23,8 @@ export const menusActions = {
     type: DELETE_MENU,
     payload: menu,
   }),
-  toggleMenuActivity: (menuId) => ({
-    type: TOGGLE_MENU_ACTIVITY,
+  switchMenuStatus: (menuId) => ({
+    type: SWITCH_MENU_STATUS,
     payload: menuId,
   }),
 };
