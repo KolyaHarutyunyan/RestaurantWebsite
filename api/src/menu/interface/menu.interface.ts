@@ -1,12 +1,11 @@
 import { Document } from 'mongoose';
+import { IImage } from '../../image';
 
 export interface IMenu extends Document {
   businessId: string;
   name: string;
   tagline?: string;
-  imageUrl?: string;
+  image?: string | IImage;
   description?: string;
-  foodCategories: Array<string>;
-  drinkCategories: Array<string>;
   isActive: boolean;
 }

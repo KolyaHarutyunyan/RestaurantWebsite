@@ -12,9 +12,7 @@ export class UpdateMenuDTO {
   @ApiProperty({ required: false })
   description?: string;
   @ApiProperty({ required: false })
-  menuImage?: string;
-  @ApiProperty({ required: false })
-  removeImage?: boolean;
+  mainImage?: string;
 
   /** Set by the system */
   userId?: string;

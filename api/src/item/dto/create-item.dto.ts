@@ -14,10 +14,10 @@ export class CreateItemDTO {
   price: number;
   @ApiProperty({ required: false })
   option?: string;
-  @ApiProperty({ type: 'string', format: 'binary', required: false })
-  mainImage?: any;
-  @ApiProperty({ type: ['string'], format: 'binary', required: false })
-  images?: any;
+  @ApiProperty({ required: false })
+  mainImage?: string;
+  @ApiProperty({ required: false })
+  images?: string[];
   @ApiProperty()
   @IsNotEmpty()
   businessId: string;

@@ -8,8 +8,8 @@ export class CreateBusinessDTO {
   name: string;
   @ApiProperty()
   description: string;
-  @ApiProperty({ type: 'string', format: 'binary' })
-  logo: any;
+  @ApiProperty({ required: false })
+  logo: string;
 
   /** Set by the system */
   userId?: string;

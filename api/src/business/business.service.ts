@@ -37,12 +37,12 @@ export class BusinessService {
     }
     /** Set the logo if it exists*/
     if (businessDTO.logo) {
-      business.logoUrl = await this.imageService.saveFile(businessDTO.logo);
+      business.logo = businessDTO.logo;
     }
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
     const qrUrl = await this.imageService.generateQRCode(accessLink);
     business.qrUrl = qrUrl;
-    business = await business.save();
+    business = await (await business.save()).populate('logo').execPopulate();
     // console.log(business);
     return this.sanitizer.sanitize(business);
   };
@@ -76,26 +76,24 @@ export class BusinessService {
       business.phoneNumber = businessDTO.phoneNumber;
     }
     /** Decide what to do with the logo */
-    if (businessDTO.removeLogo) {
-      this.imageService.deleteImages([business.logoUrl]);
-      business.logoUrl = null;
+    if (businessDTO.logo === 'DELETE') {
+      business.logo = undefined;
     } else if (businessDTO.logo) {
-      const [imageURL] = await Promise.all([
-        this.imageService.saveFile(businessDTO.logo),
-        this.imageService.deleteImages([business.logoUrl]),
-      ]);
-      business.logoUrl = imageURL;
+      business.logo = businessDTO.logo;
     }
+
     if (businessDTO.hours) {
       business.hours = businessDTO.hours as IWorkWeek;
     }
-    business = await business.save();
+    business = await (await business.save()).populate('logo').execPopulate();
     return this.sanitizer.sanitize(business);
   };
 
   /** Get all businesses with the ownerId */
   getByOwnerID = async (ownerId: string): Promise<BusinessDTO[]> => {
-    const businesses = await this.model.find({ owner: ownerId });
+    const businesses = await this.model
+      .find({ owner: ownerId })
+      .populate('logo');
     return this.sanitizer.sanitizeMany(businesses);
   };
 

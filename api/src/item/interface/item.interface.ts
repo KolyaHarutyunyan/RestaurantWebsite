@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IItemImage } from './item-image.interface';
+import { IImage } from '../../image';
 
 export interface IItem extends Document {
   businessId: string;
@@ -7,6 +7,6 @@ export interface IItem extends Document {
   description?: string;
   option?: string;
   price: number;
-  mainImage: IItemImage;
-  images?: IItemImage[];
+  mainImage: string | IImage;
+  images?: string[] | IImage[];
 }
