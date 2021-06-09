@@ -5,12 +5,13 @@ export const Container = styled.div`
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 1px #dedede;
-  padding: 16px 8px 16px 8px;
+  padding: 0px 0px 16px 0px;
   color: var(--text);
   .action-bar {
     display: flex;
     height: 30px;
-    margin-top: 16px;
+    margin-top: 8px;
+    padding: 0 8px;
     .title {
       cursor: pointer;
       font-weight: bold;
@@ -33,6 +34,8 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 8px 0px 15px;
+    gap: 5p;
     .descr {
       font-size: 0.9rem;
       overflow: hidden;
@@ -45,10 +48,17 @@ export const Container = styled.div`
     }
   }
   .cover {
-    background: ${({ coverImg }) => (coverImg ? `url(${coverImg})` : ``)};
+    background: ${({ coverImg }) =>
+      coverImg ? `url(${coverImg})` : `#e0e0e0`};
     background-position: center;
     background-size: cover;
-    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    svg {
+      transform: scale(0.4);
+    }
+    height: 78%;
   }
 `;
 

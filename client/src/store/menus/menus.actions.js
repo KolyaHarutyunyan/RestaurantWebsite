@@ -23,8 +23,8 @@ export const menusActions = {
     type: DELETE_MENU,
     payload: menu,
   }),
-  switchMenuStatus: (menuId) => ({
+  switchMenuStatus: (menuId, businessId) => ({
     type: SWITCH_MENU_STATUS,
-    payload: menuId,
+    payload: { menuId, businessId },
   }),
 };

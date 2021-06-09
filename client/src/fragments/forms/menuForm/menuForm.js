@@ -13,11 +13,14 @@ import {
 import { useSelector } from "react-redux";
 
 export const MenuForm = () => {
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const { register, handleSubmit, setValue } = useForm({});
   const { close, params } = useModal();
+  const [restaurantIcons, setRestaurantIcons] = useState({
+    mainIconId: null,
+    files: [],
+  });
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const editMenuSaga = useSagaStore(menusActions.editMenu);
-  const { register, handleSubmit, setValue } = useForm({});
 
   const business = useSelector(({ businesses }) => businesses);
   const editableMenu = useSelector(({ menus }) =>
@@ -34,12 +37,14 @@ export const MenuForm = () => {
       editMenuSaga.destroy.success();
     }
   }, [createMenuSaga.destroy, editMenuSaga]);
+
   useEffect(() => {
     if (editableMenu) {
       setValue("name", editableMenu.name);
       setValue("description", editableMenu.description);
     }
   }, [editableMenu]);
+
   useEffect(
     () => () => {
       createMenuSaga.destroy.all();
@@ -48,14 +53,21 @@ export const MenuForm = () => {
     []
   );
 
+  console.log(restaurantIcons);
+
   const onSubmit = (data) => {
     editableMenu
       ? editMenuSaga.dispatch({
           ...data,
           id: editableMenu.id,
           businessId: business.id,
+          restaurantIcons,
         })
-      : createMenuSaga.dispatch({ ...data, businessId: business.id });
+      : createMenuSaga.dispatch({
+          ...data,
+          businessId: business.id,
+          restaurantIcons,
+        });
   };
 
   return (
@@ -84,10 +96,12 @@ export const MenuForm = () => {
           />
         </div>
         <FileUpload
-          files={restaurantIcon}
+          files={restaurantIcons.files}
           title="Menu Logo"
-          onChange={(files) =>
-            setRestaurantIcon(files.length ? [files[0]] : [])
+          limit={6}
+          mainImageId={restaurantIcons.mainIconId}
+          onChange={(files, actionType, mainIconId) =>
+            setRestaurantIcons({ files, mainIconId })
           }
         />
         <Button

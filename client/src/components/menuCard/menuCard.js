@@ -14,8 +14,8 @@ export const MenuCard = ({
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
-    <Container coverImg={data.menuImg}>
-      <div className="cover" />
+    <Container coverImg={data.image ? data.image.originalUrl : null}>
+      <div className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
       <div className="action-bar">
         <div className="title" onClick={() => onTitleClick()}>
           {data.name}

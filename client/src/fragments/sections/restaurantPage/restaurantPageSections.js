@@ -11,7 +11,6 @@ import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, menusActions, businessesActions } from "@eachbase/store";
 import { Container, HourseMenuContainer } from "./style";
 import { useSelector } from "react-redux";
-
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { IoMdDownload } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
@@ -244,14 +243,15 @@ export const RestaurantPageSections = () => {
                 key={index}
                 data={menu}
                 onTitleClick={() => history.push("/menu")}
-                onRequestToSwitch={() => switchMenuStatusSaga.dispatch(menu.id)}
+                onRequestToSwitch={() =>
+                  switchMenuStatusSaga.dispatch(menu.id, business.id)
+                }
                 onRequestToDuplicate={() =>
                   createMenuSaga.dispatch({ businessId: business.id, ...menu })
                 }
                 onRequestToEdit={() =>
                   open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
                 }
-                // onRequestToDelete={() => deleteMenusSaga.dispatch(menu.id)}
               />
             ))}
           </div>
