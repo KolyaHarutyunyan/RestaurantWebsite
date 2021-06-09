@@ -8,6 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBody,
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
@@ -29,6 +30,7 @@ export class ItemController {
   @Post()
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: CreateItemDTO })
   @ApiOkResponse({ type: ItemDTO })
   @ApiOperation({ summary: summaries.CREATE_ITEM })
   async createItem(@Body() createItemDTO: CreateItemDTO): Promise<ItemDTO> {
@@ -39,7 +41,9 @@ export class ItemController {
   /** Edit an item */
   @Patch(':itemId')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.EDIT_ITEM })
+  @ApiBody({ type: EditItemDTO })
   @ApiOkResponse({ type: ItemDTO })
   async editItem(
     @Param('itemId', ParseObjectIdPipe) itemId: string,
@@ -52,6 +56,7 @@ export class ItemController {
   /** Delete an item */
   @Delete(':itemId')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.DELETE_ITEM })
   @ApiOkResponse({ type: String, description: 'Id of the deleted item' })
   async deleteItem(

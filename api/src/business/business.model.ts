@@ -28,7 +28,7 @@ const businessSchema = new Schema({
   owner: { type: Types.ObjectId, ref: 'user', required: true },
   name: { type: String, required: true },
   description: { type: String },
-  logoUrl: { type: String },
+  logo: { type: Types.ObjectId, ref: 'image' },
   status: { type: String, enum: [BusinessStatus], required: true },
   menus: [{ type: Types.ObjectId, ref: 'menu' }],
   website: { type: String },

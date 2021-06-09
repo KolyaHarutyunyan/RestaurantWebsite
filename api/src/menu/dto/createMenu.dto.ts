@@ -14,7 +14,7 @@ export class CreateMenuDTO {
   description: string;
 
   @ApiProperty({ required: false })
-  menuImage: string;
+  mainImage: string;
 
   /** Set by server */
   userId: string;

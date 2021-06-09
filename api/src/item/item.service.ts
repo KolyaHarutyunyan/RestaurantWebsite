@@ -29,8 +29,11 @@ export class ItemService {
       option: itemDTO.option,
       mainImage: itemDTO.mainImage,
       images: itemDTO.images,
-    }).save();
-    item = await item.populate('mainImage').populate('images').execPopulate();
+    });
+    item = await (await item.save())
+      .populate('mainImage')
+      .populate('images')
+      .execPopulate();
     ///CONINUE WITH POPULATNG
     return this.sanitizer.sanitize(item);
   };
@@ -58,8 +61,10 @@ export class ItemService {
     if (itemDTO.images) {
       item.images = itemDTO.images;
     }
-    item = await item.save();
-    item = await item.populate('mainImage').populate('images').execPopulate();
+    item = await (await item.save())
+      .populate('mainImage')
+      .populate('images')
+      .execPopulate();
     return this.sanitizer.sanitize(item);
   };
 

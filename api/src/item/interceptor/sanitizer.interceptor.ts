@@ -1,9 +1,13 @@
 import { ISanitize } from '../../util';
 import { ItemDTO } from '../dto';
 import { IItem } from '../interface';
-import { ImageDTO, IImage } from '../../image';
+import { IImage, ImageSanitizer } from '../../image';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ItemSanitizer implements ISanitize {
+  constructor(private readonly imgSanitizer: ImageSanitizer) {}
+
   sanitize(item: IItem): ItemDTO {
     const sanitizedItem: ItemDTO = {
       id: item.id,
@@ -17,33 +21,24 @@ export class ItemSanitizer implements ISanitize {
       sanitizedItem.option = item.option;
     }
     if (item.mainImage) {
-      sanitizedItem.mainImage = this.sanitizeImages([
+      sanitizedItem.mainImage = this.imgSanitizer.sanitize(
         item.mainImage as IImage,
-      ])[0];
+      );
     }
     if (item.images && item.images.length > 0) {
-      sanitizedItem.images = this.sanitizeImages(item.images as IImage[]);
+      sanitizedItem.images = this.imgSanitizer.sanitizeMany(
+        item.images as IImage[],
+      );
     }
     return sanitizedItem;
   }
 
+  // Sanitize manu
   sanitizeMany(items: IItem[]): ItemDTO[] {
     const sanitizedItems: ItemDTO[] = [];
     for (let i = 0; i < items.length; i++) {
       sanitizedItems.push(this.sanitize(items[i]));
     }
     return sanitizedItems;
-  }
-
-  /** Private Methods */
-  private sanitizeImages(images: IImage[]): ImageDTO[] {
-    const sanitizedImages: ImageDTO[] = [];
-    for (let i = 0; i < images.length; i++) {
-      sanitizedImages.push({
-        id: images[i]._id,
-        originalUrl: images[i].originalUrl,
-      });
-    }
-    return sanitizedImages;
   }
 }

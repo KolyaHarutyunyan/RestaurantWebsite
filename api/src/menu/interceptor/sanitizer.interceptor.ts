@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { IImage, ImageSanitizer } from 'src/image';
 import { IMenu } from 'src/menu/interface';
 import { ISanitize } from 'src/util';
 import { MenuDTO } from '../dto';
 
 @Injectable()
 export class MenuSanitizer implements ISanitize {
+  constructor(private readonly imageSanitizer: ImageSanitizer) {}
   /** Sanitizes a menu by turning IMenu instance to MenuDTO */
   sanitize(menu: IMenu): MenuDTO {
     const sanitizedMenu: MenuDTO = {
@@ -12,9 +14,11 @@ export class MenuSanitizer implements ISanitize {
       name: menu.name,
       tagline: menu.tagline,
       description: menu.description,
-      imageUrl: menu.imageUrl,
       isActive: menu.isActive,
     };
+    if (menu.image) {
+      sanitizedMenu.image = this.imageSanitizer.sanitize(menu.image as IImage);
+    }
     return sanitizedMenu;
   }
 
