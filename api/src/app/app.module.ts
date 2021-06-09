@@ -4,12 +4,20 @@ import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseConnection } from './app.database';
 import { OwnerModule } from '../owner';
-import { BusinessModule } from 'src/business';
-import { MenuModule } from 'src/menu';
-import { ItemModule } from 'src/item';
+import { BusinessModule } from '../business';
+import { MenuModule } from '../menu';
+import { ItemModule } from '../item';
+import { ImageModule } from '../image';
 
 @Module({
-  imports: [AuthModule, OwnerModule, BusinessModule, MenuModule, ItemModule],
+  imports: [
+    AuthModule,
+    OwnerModule,
+    BusinessModule,
+    MenuModule,
+    ItemModule,
+    ImageModule,
+  ],
   controllers: [AppController],
   providers: [AppService, DatabaseConnection],
 })

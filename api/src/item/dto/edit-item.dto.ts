@@ -13,10 +13,14 @@ export class EditItemDTO {
   @IsOptional()
   @Length(4, 4)
   @Type(() => Number)
-  price: number;
+  price?: number;
   @ApiProperty()
   @IsNotEmpty()
   businessId: string;
+  @ApiProperty()
+  mainImage?: string;
+  @ApiProperty()
+  images?: string[];
 
   /** set by the system */
   userId: string;

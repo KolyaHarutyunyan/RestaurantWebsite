@@ -1,10 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { BusinessValidator } from 'src/business';
+import { BusinessValidator } from '../business';
 import { CreateItemDTO, EditItemDTO, ItemDTO } from './dto';
-import { ItemSanitizer } from './interceptor/sanitizer.interceptor';
+import { ItemSanitizer } from './interceptor';
 import { IItem } from './interface';
-import { ItemImageService } from './item-image.service';
 import { ItemModel } from './item.model';
 
 @Injectable()
@@ -12,7 +11,6 @@ export class ItemService {
   constructor(
     private readonly sanitizer: ItemSanitizer,
     private readonly bsnValidator: BusinessValidator,
-    private readonly itemImageService: ItemImageService,
   ) {
     this.model = ItemModel;
   }
@@ -24,24 +22,23 @@ export class ItemService {
       itemDTO.userId,
       itemDTO.businessId,
     );
-    let item = new this.model({
+    const item = await new this.model({
       name: itemDTO.name,
       description: itemDTO.description,
       price: itemDTO.price,
       option: itemDTO.option,
-    });
-    if (item.images && item.images.length > 0) {
-      const images = await this.itemImageService.saveImages(itemDTO.images);
-      item.mainImage = images.shift();
-      item.images = images;
-    }
-    item = await item.save();
+      mainImage: itemDTO.mainImage,
+      images: itemDTO.images,
+    }).save();
+    item.populate('')
+    ///CONINUE WITH POPULATNG 
     return this.sanitizer.sanitize(item);
   };
 
   /** Edit the menu item info */
   edit = async (itemId: string, itemDTO: EditItemDTO): Promise<ItemDTO> => {
     let item = await this.model.findById(itemId);
+    this.checkItem(item);
     await this.bsnValidator.validateBusiness(itemDTO.userId, item.businessId);
     if (itemDTO.name) {
       item.name = itemDTO.name;
@@ -55,12 +52,18 @@ export class ItemService {
     if (itemDTO.description) {
       item.price = itemDTO.price;
     }
+    if (itemDTO.mainImage) {
+      item.mainImage = itemDTO.mainImage;
+    }
+    if (itemDTO.images) {
+      item.images = itemDTO.images;
+    }
     item = await item.save();
     return this.sanitizer.sanitize(item);
   };
 
   /** Delets an item with a given id */
-  delete = async (id: string, ownerId: string) => {
+  delete = async (id: string, ownerId: string): Promise<string> => {
     let item = await this.model.findById(id);
     this.checkItem(item);
     await this.bsnValidator.validateBusiness(ownerId, item.businessId);

@@ -1,6 +1,7 @@
 import { ISanitize } from '../../util';
-import { ItemDTO, ItemImageDTO } from '../dto';
-import { IItem, IItemImage } from '../interface';
+import { ItemDTO } from '../dto';
+import { IItem } from '../interface';
+import { ImageDTO, IImage } from '../../image';
 
 export class ItemSanitizer implements ISanitize {
   sanitize(item: IItem): ItemDTO {
@@ -16,10 +17,12 @@ export class ItemSanitizer implements ISanitize {
       sanitizedItem.option = item.option;
     }
     if (item.mainImage) {
-      sanitizedItem.mainImage = this.sanitizeImages([item.mainImage])[0];
+      sanitizedItem.mainImage = this.sanitizeImages([
+        item.mainImage as IImage,
+      ])[0];
     }
     if (item.images) {
-      sanitizedItem.images = this.sanitizeImages(item.images);
+      sanitizedItem.images = this.sanitizeImages(item.images as IImage[]);
     }
     return sanitizedItem;
   }
@@ -33,13 +36,12 @@ export class ItemSanitizer implements ISanitize {
   }
 
   /** Private Methods */
-  private sanitizeImages(images: IItemImage[]): ItemImageDTO[] {
-    const sanitizedImages: ItemImageDTO[] = [];
+  private sanitizeImages(images: IImage[]): ImageDTO[] {
+    const sanitizedImages: ImageDTO[] = [];
     for (let i = 0; i < images.length; i++) {
       sanitizedImages.push({
         id: images[i]._id,
-        originalUrl: images[i].url,
-        thumbUrl: images[i].thumbURL,
+        originalUrl: images[i].originalUrl,
       });
     }
     return sanitizedImages;
