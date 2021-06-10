@@ -53,8 +53,6 @@ export const MenuForm = () => {
     []
   );
 
-  console.log(restaurantIcons);
-
   const onSubmit = (data) => {
     editableMenu
       ? editMenuSaga.dispatch({

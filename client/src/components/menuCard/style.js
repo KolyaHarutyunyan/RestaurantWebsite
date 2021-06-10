@@ -11,7 +11,7 @@ export const Container = styled.div`
     display: flex;
     height: 30px;
     margin-top: 8px;
-    padding: 0 8px;
+    padding: 0 14px 0px 8px;
     .title {
       cursor: pointer;
       font-weight: bold;
@@ -34,7 +34,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 8px 0px 15px;
+    padding: 0 15px 0px 15px;
     gap: 5p;
     .descr {
       font-size: 0.9rem;

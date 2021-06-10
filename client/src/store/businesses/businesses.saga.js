@@ -23,24 +23,27 @@ function* getMyBusiness() {
       payload: data || {},
     });
   } catch (e) {
-    if (e.response.data.statusCode === 422) {
-      /* [implement] */
-      //   yield put(logOut());
-    }
+    console.log("getMyBusiness error: ", e);
   }
 }
 
-function* editBusiness({ payload }) {
+function* editBusiness({ type, payload }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     yield call(() => businessesService.editBusiness(payload));
     yield put({
       type: EDIT_BUSINESS_SUCCESS,
       payload: payload,
     });
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    if (e.response.data.statusCode === 422) {
-      //   yield put(logOut());
-    }
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
   }
 }
 

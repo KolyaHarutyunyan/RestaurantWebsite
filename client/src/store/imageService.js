@@ -4,7 +4,7 @@ export const imageService = {
   uploadImages: (images) => {
     const formData = new FormData();
     images.forEach((image) => {
-      formData.append("image[]", image);
+      formData.append("images", image);
     });
 
     return axios.post("/images/addMany", formData, {

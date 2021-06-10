@@ -25,11 +25,11 @@ export const EditRestaurantForm = () => {
   });
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
-    businessesActions.createBusiness
+    businessesActions.editBusiness
   );
 
   const onSubmit = (data) => {
-    dispatch({ ...data, icon: restaurantIcon[0] || null });
+    dispatch({ ...business, ...data, icon: restaurantIcon[0] || null });
   };
 
   useEffect(() => () => destroy.all(), []);

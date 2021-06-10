@@ -76,7 +76,7 @@ export const Container = styled.div`
         @media only screen and (max-width: 768px) {
           grid-template-columns: 1fr;
         }
-        gap: 10px;
+        gap: 25px;
         & > * {
           height: 260px;
         }
