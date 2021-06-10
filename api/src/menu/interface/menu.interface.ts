@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { ICategory } from '../../category';
 import { IImage } from '../../image';
 
 export interface IMenu extends Document {
@@ -8,5 +9,6 @@ export interface IMenu extends Document {
   tagline?: string;
   image?: string | IImage;
   description?: string;
+  categories: string[] & ICategory[];
   isActive: boolean;
 }

@@ -29,8 +29,7 @@ export class MenuService {
       businessId: menuDTO.businessId,
       name: menuDTO.name,
       isActive: false,
-      foodCategories: [],
-      drinkCategories: [],
+      categories: [],
     });
     if (menuDTO.description) {
       menu.description = menuDTO.description;
@@ -92,6 +91,39 @@ export class MenuService {
       menu = await menu.save();
     }
     return menu._id;
+  };
+
+  /** Remove Item from Category */
+  addCategory = async (
+    menuId: string,
+    catId: string,
+    userId: string,
+  ): Promise<MenuDTO> => {
+    let menu = await this.model.findOne({ _id: menuId });
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    menu.categories.push(catId);
+    menu = await (await menu.save()).populate('categories').execPopulate();
+    return this.sanitizer.sanitize(menu);
+  };
+
+  /** Remove Item from Category */
+  removeCategory = async (
+    catId: string,
+    itemId: string,
+    userId: string,
+  ): Promise<MenuDTO> => {
+    let menu = await this.model.findOne({ _id: catId });
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    for (let i = 0; i < menu.categories.length; i++) {
+      if (menu.categories[i] == itemId) {
+        menu.categories.splice(i, 1);
+        i--;
+      }
+    }
+    menu = await (await menu.save()).populate('categories').execPopulate();
+    return this.sanitizer.sanitize(menu);
   };
 
   /** Gets the menus for the business */

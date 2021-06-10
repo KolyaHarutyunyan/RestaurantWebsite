@@ -8,6 +8,7 @@ const MenuSchema = new Schema({
   tagline: { type: String },
   image: { type: Types.ObjectId, ref: 'image' },
   description: { type: String },
+  categories: [{ type: Types.ObjectId, ref: 'category' }],
   isActive: { type: Boolean, required: true },
 });
 

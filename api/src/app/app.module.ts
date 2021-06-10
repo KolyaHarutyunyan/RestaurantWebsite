@@ -8,6 +8,7 @@ import { BusinessModule } from '../business';
 import { MenuModule } from '../menu';
 import { ItemModule } from '../item';
 import { ImageModule } from '../image';
+import { CategoryModule } from '../category';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ImageModule } from '../image';
     MenuModule,
     ItemModule,
     ImageModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConnection],

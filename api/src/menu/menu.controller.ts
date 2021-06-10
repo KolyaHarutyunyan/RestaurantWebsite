@@ -85,4 +85,40 @@ export class MenuController {
     const activeId = await this.menuService.toggleActive(menuId, ownerId);
     return activeId;
   }
+
+  /** remove an item to the category */
+  @Patch(':menuId/removeCategory/:categoryId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: MenuDTO })
+  async removeCategory(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.removeCategory(
+      menuId,
+      categoryId,
+      ownerId,
+    );
+    return menu;
+  }
+
+  /** Add an item to the category */
+  @Patch(':menuId/addCategory/:categoryId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: MenuDTO })
+  async addCategory(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuDTO> {
+    const category = await this.menuService.addCategory(
+      menuId,
+      categoryId,
+      ownerId,
+    );
+    return category;
+  }
 }
