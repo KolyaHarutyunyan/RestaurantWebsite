@@ -2,7 +2,7 @@ import { model, Schema, Types } from 'mongoose';
 import { IItem } from './interface';
 
 const itemSchema = new Schema({
-  businessId: { type: Types.ObjectId, ref: 'business' },
+  businessId: { type: Types.ObjectId, ref: 'business', required: true },
   name: { type: String, required: true },
   description: { type: String },
   option: { type: String },

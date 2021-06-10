@@ -16,7 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { CreateMenuDTO, MenuDTO, ToggleMenuDTO, UpdateMenuDTO } from './dto';
+import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
@@ -76,19 +76,49 @@ export class MenuController {
   /** Set menu active */
   @Patch(':id/toggle')
   @UseGuards(new AuthGuard([Role.OWNER]))
-  @ApiBody({ type: ToggleMenuDTO })
   @ApiOkResponse({ type: String, description: 'Id of the activated menu' })
   @ApiOperation({ summary: summaries.ACTIVATE })
   async activateMenu(
     @Param('id', ParseObjectIdPipe) menuId: string,
-    @Body('businessId', ParseObjectIdPipe) businessId: string,
     @Body('userId') ownerId: string,
   ): Promise<string> {
-    const activeId = await this.menuService.toggleActive(
-      menuId,
-      ownerId,
-      businessId,
-    );
+    const activeId = await this.menuService.toggleActive(menuId, ownerId);
     return activeId;
+  }
+
+  /** remove an item to the category */
+  @Patch(':menuId/removeCategory/:categoryId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: MenuDTO })
+  async removeCategory(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.removeCategory(
+      menuId,
+      categoryId,
+      ownerId,
+    );
+    return menu;
+  }
+
+  /** Add an item to the category */
+  @Patch(':menuId/addCategory/:categoryId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: MenuDTO })
+  async addCategory(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuDTO> {
+    const category = await this.menuService.addCategory(
+      menuId,
+      categoryId,
+      ownerId,
+    );
+    return category;
   }
 }

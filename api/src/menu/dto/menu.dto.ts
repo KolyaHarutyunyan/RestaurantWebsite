@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CategoryDTO } from '../../category/dto';
 import { ImageDTO } from 'src/image';
 
 export class MenuDTO {
@@ -14,4 +15,8 @@ export class MenuDTO {
   image?: ImageDTO;
   @ApiProperty()
   isActive: boolean;
+  @ApiProperty({ type: [CategoryDTO] })
+  foodCategories: CategoryDTO[];
+  @ApiProperty({ type: [CategoryDTO] })
+  drinkCategories: CategoryDTO[];
 }

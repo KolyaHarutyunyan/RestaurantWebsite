@@ -25,11 +25,11 @@ export class MenuService {
       menuDTO.businessId,
     );
     let menu = new this.model({
+      owner: menuDTO.userId,
       businessId: menuDTO.businessId,
       name: menuDTO.name,
       isActive: false,
-      foodCategories: [],
-      drinkCategories: [],
+      categories: [],
     });
     if (menuDTO.description) {
       menu.description = menuDTO.description;
@@ -46,9 +46,11 @@ export class MenuService {
 
   /** Update the menu fields */
   edit = async (menuId: string, updateDTO: UpdateMenuDTO): Promise<MenuDTO> => {
-    let menu = await this.model.findById(menuId);
+    let menu = await this.model.findOne({
+      _id: menuId,
+      owner: updateDTO.userId,
+    });
     this.checkMenu(menu);
-    await this.bsnValidator.validateBusiness(updateDTO.userId, menu.businessId);
     //update image
     if (updateDTO.mainImage) {
       if (updateDTO.mainImage === 'DELETE') {
@@ -74,27 +76,54 @@ export class MenuService {
   };
 
   /** Activate a menu. @returns the id of the active menu*/
-  toggleActive = async (
-    menuId: string,
-    ownerId: string,
-    businessId: string,
-  ): Promise<string> => {
+  toggleActive = async (menuId: string, ownerId: string): Promise<string> => {
     //find the active menu for this business and set it to inactive
-    await this.bsnValidator.validateBusiness(ownerId, businessId);
     let menu = await this.model.findOneAndUpdate(
-      { isActive: true, businessId: businessId },
+      { isActive: true, owner: ownerId },
       { isActive: false },
       { new: true },
     );
     // if the menu was not the one that needs toggling, find the menu and set it to active
-    if (menu && menu._id != menuId) {
-      menu = await this.model.findById(menuId);
+    if (menu?._id != menuId) {
+      menu = await this.model.findOne({ _id: menuId, owner: ownerId });
       this.checkMenu(menu);
-      await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
       menu.isActive = true;
       menu = await menu.save();
     }
     return menu._id;
+  };
+
+  /** Remove Item from Category */
+  addCategory = async (
+    menuId: string,
+    catId: string,
+    userId: string,
+  ): Promise<MenuDTO> => {
+    let menu = await this.model.findOne({ _id: menuId });
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    menu.categories.push(catId);
+    menu = await (await menu.save()).populate('categories').execPopulate();
+    return this.sanitizer.sanitize(menu);
+  };
+
+  /** Remove Item from Category */
+  removeCategory = async (
+    catId: string,
+    itemId: string,
+    userId: string,
+  ): Promise<MenuDTO> => {
+    let menu = await this.model.findOne({ _id: catId });
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    for (let i = 0; i < menu.categories.length; i++) {
+      if (menu.categories[i] == itemId) {
+        menu.categories.splice(i, 1);
+        i--;
+      }
+    }
+    menu = await (await menu.save()).populate('categories').execPopulate();
+    return this.sanitizer.sanitize(menu);
   };
 
   /** Gets the menus for the business */
