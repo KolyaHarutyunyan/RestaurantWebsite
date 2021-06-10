@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common';
 import { AddressSanitizer } from 'src/address';
 import { IImage, ImageSanitizer } from 'src/image';
 import { ISanitize } from 'src/util';
 import { BusinessDTO } from '../dto';
 import { IBusiness } from '../interface';
 
+@Injectable()
 export class BusinessSanitizer implements ISanitize {
   constructor(
     private readonly addressSanitizer: AddressSanitizer,

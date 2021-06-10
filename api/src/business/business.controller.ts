@@ -54,8 +54,10 @@ export class BusinessController {
     return business;
   }
 
-  @Get('owner/:id')
-  async getByOwnerId(@Param('id', ParseObjectIdPipe) ownerId: string) {
+  @Get('owner')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  async getByOwnerId(@Body('userId') ownerId: string) {
     return await this.businessService.getByOwnerID(ownerId);
   }
 }

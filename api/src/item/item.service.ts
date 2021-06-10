@@ -29,12 +29,12 @@ export class ItemService {
       option: itemDTO.option,
       mainImage: itemDTO.mainImage,
       images: itemDTO.images,
+      businessId: itemDTO.businessId,
     });
     item = await (await item.save())
       .populate('mainImage')
       .populate('images')
       .execPopulate();
-    ///CONINUE WITH POPULATNG
     return this.sanitizer.sanitize(item);
   };
 
@@ -43,24 +43,12 @@ export class ItemService {
     let item = await this.model.findById(itemId);
     this.checkItem(item);
     await this.bsnValidator.validateBusiness(itemDTO.userId, item.businessId);
-    if (itemDTO.name) {
-      item.name = itemDTO.name;
-    }
-    if (itemDTO.description) {
-      item.description = itemDTO.description;
-    }
-    if (itemDTO.option) {
-      item.option = itemDTO.option;
-    }
-    if (itemDTO.description) {
-      item.price = itemDTO.price;
-    }
-    if (itemDTO.mainImage) {
-      item.mainImage = itemDTO.mainImage;
-    }
-    if (itemDTO.images) {
-      item.images = itemDTO.images;
-    }
+    if (itemDTO.name) item.name = itemDTO.name;
+    if (itemDTO.description) item.description = itemDTO.description;
+    if (itemDTO.option) item.option = itemDTO.option;
+    if (itemDTO.description) item.price = itemDTO.price;
+    if (itemDTO.mainImage) item.mainImage = itemDTO.mainImage;
+    if (itemDTO.images) item.images = itemDTO.images;
     item = await (await item.save())
       .populate('mainImage')
       .populate('images')

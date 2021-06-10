@@ -43,7 +43,6 @@ export class BusinessService {
     const qrUrl = await this.imageService.generateQRCode(accessLink);
     business.qrUrl = qrUrl;
     business = await (await business.save()).populate('logo').execPopulate();
-    // console.log(business);
     return this.sanitizer.sanitize(business);
   };
 
@@ -128,8 +127,8 @@ export class BusinessService {
   /** creates workDay */
   private createWorkDay(): IWorkDay {
     const hour: IWorkHour = {
-      open: '8:00am',
-      close: '8:00pm',
+      open: new Date().toUTCString(),
+      close: new Date().toUTCString(),
     };
     return {
       status: WorkDayStatus.CLOSED,
