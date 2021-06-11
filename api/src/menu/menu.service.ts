@@ -138,7 +138,7 @@ export class MenuService {
 
   /** Gets a menu with menu Id */
   getById = async (menuId: string): Promise<MenuDTO> => {
-    const menu = await (await this.model.findById(menuId)).populated('image');
+    const menu = await this.model.findById(menuId).populate('image');
     return this.sanitizer.sanitize(menu);
   };
 
