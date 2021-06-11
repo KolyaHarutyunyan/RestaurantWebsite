@@ -93,6 +93,7 @@ export class BusinessService {
     const businesses = await this.model
       .find({ owner: ownerId })
       .populate('logo');
+    this.checkBusiness(businesses[0]);
     return this.sanitizer.sanitizeMany(businesses);
   };
 
