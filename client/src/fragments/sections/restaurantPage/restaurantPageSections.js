@@ -14,10 +14,11 @@ import { useSelector } from "react-redux";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { IoMdDownload } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
+import { useRouter } from "next/router";
 
 export const RestaurantPageSections = () => {
   const { open } = useModal();
-
+  const router = useRouter();
   const { businesses: business, menus } = useSelector(
     ({ businesses, menus }) => ({
       businesses,
@@ -40,7 +41,7 @@ export const RestaurantPageSections = () => {
     }
   }, [business]);
 
-  if (business === null) {
+  if (business === null || !Object.keys(business).length) {
     return null;
   }
 
@@ -242,7 +243,9 @@ export const RestaurantPageSections = () => {
               <MenuCard
                 key={index}
                 data={menu}
-                onTitleClick={() => history.push("/menu")}
+                onTitleClick={() =>
+                  router.push(`/menu/${business.id}/${menu.id}`)
+                }
                 onRequestToSwitch={() =>
                   switchMenuStatusSaga.dispatch(menu.id, business.id)
                 }

@@ -20,6 +20,10 @@ export const Container = styled.div`
       height: 80px;
       background: #0000001a;
       margin: 10px;
+      &.big-one {
+        width: 120px;
+        height: 120px;
+      }
       svg {
         width: 42px;
         height: 42px;
@@ -33,6 +37,13 @@ export const Container = styled.div`
       position: relative;
       width: 80px;
       height: 80px;
+      &.big-one {
+        width: 120px;
+        height: 120px;
+        .remove {
+          left: 77% !important;
+        }
+      }
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;

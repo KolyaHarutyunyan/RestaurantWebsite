@@ -5,7 +5,7 @@ import { Layout } from "@eachbase/fragments";
 export default function Home(props) {
   return (
     <Fragment>
-      <Head>{props.meta || <title>welcome menuz</title>}</Head>
+      <Head>{props.meta || <title>Welcome menuz</title>}</Head>
       <Layout>
         <HomePage {...props.pageData} />
       </Layout>

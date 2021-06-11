@@ -4,6 +4,7 @@ import {
   CREATE_MENU,
   DELETE_MENU,
   SWITCH_MENU_STATUS,
+  GET_CURRENT_MENU,
 } from "./menus.types";
 
 export const menusActions = {
@@ -22,6 +23,10 @@ export const menusActions = {
   deleteMenu: (menu) => ({
     type: DELETE_MENU,
     payload: menu,
+  }),
+  getCurrentMenu: (menuId) => ({
+    type: GET_CURRENT_MENU,
+    payload: menuId,
   }),
   switchMenuStatus: (menuId, businessId) => ({
     type: SWITCH_MENU_STATUS,

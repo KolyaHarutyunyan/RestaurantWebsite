@@ -14,7 +14,7 @@ import { useSagaStore, businessesActions } from "@eachbase/store";
 
 export const CreateRestaurantForm = () => {
   const { register, handleSubmit } = useForm();
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const [restaurantIcon, setRestaurantIcon] = useState(null);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.createBusiness
@@ -27,7 +27,7 @@ export const CreateRestaurantForm = () => {
       : "Last Step to Sign Up";
 
   const onSubmit = (data) => {
-    dispatch({ ...data, icon: restaurantIcon[0] || null });
+    dispatch({ data, icon: restaurantIcon });
   };
 
   useEffect(() => () => destroy.all(), []);
@@ -66,10 +66,11 @@ export const CreateRestaurantForm = () => {
           />
         </div>
         <FileUpload
-          files={restaurantIcon}
+          files={restaurantIcon ? [restaurantIcon] : []}
           title="Restaurant Logo"
+          limit={1}
           onChange={(files) =>
-            setRestaurantIcon(files.length ? [files[0]] : [])
+            setRestaurantIcon(files.length ? [files[0]] : null)
           }
         />
         <Button type="submit" onLoad={status.onLoad}>

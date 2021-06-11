@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const Container = styled.div`
   .select-create-category {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 32px;
-    margin: 40px 0;
-    select {
+    margin: 20px 0;
+    .select-wrapper {
       flex: 1;
     }
     button {

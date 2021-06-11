@@ -51,7 +51,10 @@ export const FileUpload = ({
     if (files.length !== limit) {
       for (let i = 0; i < limit - files.length; i++) {
         mockPreview.push(
-          <div key={i} className="file-mock-preview">
+          <div
+            key={i}
+            className={`file-mock-preview ${limit === 1 ? "big-one" : ""}`}
+          >
             <Icons.MenuIcon />
           </div>
         );
@@ -70,7 +73,7 @@ export const FileUpload = ({
               key={file.id}
               className={`file-preview ${
                 mainImageId === file.id ? "main" : ""
-              }`}
+              } ${limit === 1 ? "big-one" : ""}`}
               style={{ backgroundImage: `url(${file.preview})` }}
               onClick={(e) => {
                 e.stopPropagation();

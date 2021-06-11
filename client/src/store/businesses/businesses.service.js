@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const businessesService = {
   getMyBusiness: () => axios.get(`/businesses/mybusiness`, { auth: true }),
+  getBusinessById: (id) => axios.get(`/businesses/${id}`, { auth: true }),
   getBusinessesByOwnerId: (ownerId) =>
     axios.get(`/businesses/owner/${ownerId}`, { auth: true }),
   editBusiness: (business) =>

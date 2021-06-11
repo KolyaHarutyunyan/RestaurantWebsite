@@ -1,10 +1,14 @@
 import { Container } from "./style";
-import { Tabs, Select, Button } from "@eachbase/components";
+import { Tabs, Select, Button, ProSelect } from "@eachbase/components";
 import { useState } from "react";
 import { Typography } from "@material-ui/core";
 import { IoIosTrash } from "react-icons/io";
 export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
+  const [categoriesSelect, setCategoriesSelect] = useState({
+    value: null,
+    options: [],
+  });
 
   return (
     <Container>
@@ -17,9 +21,19 @@ export const Categories = () => {
           <Tabs.TabTitle tabName="drinks">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
         <div className="select-create-category">
-          <Select>
-            <option>Select / Create Category</option>
-          </Select>
+          <div className="select-wrapper">
+            <ProSelect
+              onChange={(value, options) => {
+                setCategoriesSelect({
+                  value,
+                  options,
+                });
+              }}
+              options={categoriesSelect.options}
+              value={categoriesSelect.value}
+            />
+          </div>
+
           <Button>Add</Button>
         </div>
         <Tabs.TabContent contentOf="food">

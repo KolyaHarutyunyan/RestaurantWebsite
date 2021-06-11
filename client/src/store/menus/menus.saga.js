@@ -7,8 +7,9 @@ import {
   GET_MENUS,
   GET_MENUS_SUCCESS,
   SWITCH_MENU_STATUS,
-  DELETE_MENU,
   SWITCH_MENU_STATUS_SUCCESS,
+  GET_CURRENT_MENU,
+  GET_CURRENT_MENU_SUCCESS,
 } from "./menus.types";
 import { menusService } from "./menus.service";
 import { imageService } from "../imageService";
@@ -62,31 +63,18 @@ function* createMenu({ type, payload }) {
           (cFile) => cFile.id === payload.restaurantIcons.mainIconId
         )
       );
-      let imageIds = undefined;
-      const images = payload.restaurantIcons.files.filter(
-        (file) => file.id !== payload.restaurantIcons.mainIconId
-      );
-      if (images.length) {
-        try {
-          const { data } = yield call(imageService.uploadImages, images);
-          imageIds = data;
-        } catch (err) {
-          yield put(httpRequestsOnLoadActions.removeLoading(type));
-          yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-          yield put(httpRequestsOnErrorsActions.appendError(type));
-        }
-      }
       try {
         const { data } = yield call(menusService.createMenu, {
           ...payload,
           mainImage: mainImageId,
-          image: images,
         });
         yield put({
           type: CREATE_MENU_SUCCESS,
           payload: data,
         });
         yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+        yield put(httpRequestsOnErrorsActions.removeError(type));
+        yield put(httpRequestsOnLoadActions.removeLoading(type));
       } catch (err) {
         yield put(httpRequestsOnLoadActions.removeLoading(type));
         yield put(httpRequestsOnSuccessActions.removeSuccess(type));
@@ -135,9 +123,31 @@ function* switchMenuStatus({ type, payload }) {
   }
 }
 
+function* getCurrentMenu({ type, payload }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const { data } = yield call(menusService.getCurrentMenu, payload);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put({
+      type: GET_CURRENT_MENU_SUCCESS,
+      payload: data,
+    });
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    console.log("err: ", e);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
+}
+
 export function* watchMenus() {
   yield takeLatest(GET_MENUS, getMenus);
   yield takeLatest(EDIT_MENU, editMenu);
   yield takeLatest(CREATE_MENU, createMenu);
   yield takeLatest(SWITCH_MENU_STATUS, switchMenuStatus);
+  yield takeLatest(GET_CURRENT_MENU, getCurrentMenu);
 }

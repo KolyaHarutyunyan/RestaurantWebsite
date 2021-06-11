@@ -3,6 +3,7 @@ import {
   EDIT_BUSINESS,
   CREATE_BUSINESS,
   DELETE_BUSINESS,
+  GET_CURRENT_BUSINESS,
 } from "./businesses.types";
 
 export const businessesActions = {
@@ -13,12 +14,16 @@ export const businessesActions = {
     type: EDIT_BUSINESS,
     payload: business,
   }),
-  createBusiness: (business) => ({
+  createBusiness: (business, icon) => ({
     type: CREATE_BUSINESS,
-    payload: business,
+    payload: { business, icon },
   }),
   deleteBusiness: (restaurantId) => ({
     type: DELETE_BUSINESS,
     payload: restaurantId,
+  }),
+  getCurentBusiness: (businessId) => ({
+    type: GET_CURRENT_BUSINESS,
+    payload: businessId,
   }),
 };

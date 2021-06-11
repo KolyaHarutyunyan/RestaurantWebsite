@@ -29,14 +29,14 @@ export const MenuForm = () => {
 
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
+      createMenuSaga.destroy.all();
       close();
-      createMenuSaga.destroy.success();
     }
     if (editMenuSaga.status.onSuccess) {
+      createMenuSaga.destroy.all();
       close();
-      editMenuSaga.destroy.success();
     }
-  }, [createMenuSaga.destroy, editMenuSaga]);
+  }, [createMenuSaga.status, editMenuSaga.status]);
 
   useEffect(() => {
     if (editableMenu) {
@@ -96,7 +96,7 @@ export const MenuForm = () => {
         <FileUpload
           files={restaurantIcons.files}
           title="Menu Logo"
-          limit={6}
+          limit={1}
           mainImageId={restaurantIcons.mainIconId}
           onChange={(files, actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })

@@ -23,7 +23,7 @@ const MyApp = ({ Component, pageProps }) => (
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@700&display=swap"
         rel="stylesheet"
       ></link>
-      <title>Menuz</title>
+      <title>Welcome Menuz</title>
     </Head>
     <ThemeProvider>
       <ModalProvider>
