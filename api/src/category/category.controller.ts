@@ -110,15 +110,4 @@ export class CategoryController {
     return category;
   }
 
-  /** Delete a category from this collection  -- THIS FUNTIONALITY IS GIVEN BY THE MENU MODULE*/
-  //   @Delete(':categoryId')
-  //   @UseGuards(new AuthGuard([Role.OWNER]))
-  //   @ApiHeader({ name: ACCESS_TOKEN })
-  //   async deleteCategory(
-  //     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
-  //     @Body('userId') ownerId: string,
-  //   ): Promise<string> {
-  //     const deletedId = await this.categoryService.delete(categoryId, ownerId);
-  //     return deletedId;
-  //   }
 }

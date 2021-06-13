@@ -65,6 +65,15 @@ export class MenuController {
     return menus;
   }
 
+  /** Get the active menu with its categories */
+  @Get('active/:businessId')
+  async getActiveMenu(
+    @Param('businessId', ParseObjectIdPipe) businessId,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.getActive(businessId);
+    return menu;
+  }
+
   /** Get Menu with Menu Id */
   @Get(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))

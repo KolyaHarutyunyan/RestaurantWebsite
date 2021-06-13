@@ -15,10 +15,9 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard, Role } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { ParseObjectIdPipe } from '../util/pipes';
-import { AuthService, AuthDTO } from '../auth';
+import { ParseObjectIdPipe } from '../util';
+import { AuthService, AuthDTO, AuthGuard, Role } from '../auth';
 import { CreateOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business';

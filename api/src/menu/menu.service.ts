@@ -162,6 +162,15 @@ export class MenuService {
     return this.sanitizer.sanitize(menu);
   };
 
+  /** Get the  */
+  getActive = async (businessId: string): Promise<MenuDTO> => {
+    const menu = await this.model.findOne({
+      businessId: businessId,
+      isActive: true,
+    });
+    return this.sanitizer.sanitize(menu);
+  };
+
   /** Delete Menu and remove images that were with it */
   delete = async (menuId: string, ownerId: string): Promise<string> => {
     const menu = await this.model.findById(menuId);

@@ -20,7 +20,7 @@ import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
 import { AuthGuard } from './guards';
-import { ParseObjectIdPipe } from 'src/util/pipes';
+import { ParseObjectIdPipe } from '../util/pipes';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
@@ -41,7 +41,6 @@ export class AuthController {
   @UseGuards(new AuthGuard())
   @Patch(':id/changePassword')
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiParam({ name: 'id' })
   @ApiBody({ type: ChangePassDTO })
   @ApiOkResponse({ type: AuthDTO })
   async changePassword(
@@ -54,7 +53,6 @@ export class AuthController {
 
   /** Forgot Password */
   @Get('forgotPassword/:email')
-  @ApiParam({ name: 'email' })
   async forgotPassword(@Param('email') email: string) {
     const emailedResponse = await this.authService.forgotPassword(email);
     return emailedResponse;
@@ -85,18 +83,6 @@ export class AuthController {
   ): Promise<string> {
     const sessionToken = await this.authService.logout(userId);
     return sessionToken;
-  }
-
-  /** Close the account for the user. The user will no longer have access to the account */
-  @Delete(':id')
-  @UseGuards(new AuthGuard())
-  @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: String, description: 'The Id of the closed account' })
-  async closeAccount(
-    @Param('id', ParseObjectIdPipe) accountId: string,
-  ): Promise<string> {
-    const id = await this.authService.delete(accountId);
-    return id;
   }
 }
 /** End of Controller */
