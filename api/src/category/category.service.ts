@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { BusinessValidator } from 'src/business';
+import { ItemService } from 'src/item/item.service';
 import { CategoryModel } from './category.model';
-import { CategoryDTO, CreateCategoryDTO, EditCategoryDTO } from './dto';
+import { CategoryRO, CreateCategoryDTO, EditCategoryDTO } from './dto';
 import { CategorySanitizer } from './interceptor/sanitizer.interceptor';
 import { ICategory } from './interface';
 
@@ -11,13 +12,14 @@ export class CategoryService {
   constructor(
     private readonly sanitizer: CategorySanitizer,
     private readonly bsnValidator: BusinessValidator,
+    private readonly itemService: ItemService,
   ) {
     this.model = CategoryModel;
   }
   private model: Model<ICategory>;
 
   /** Create a new Category */
-  create = async (dto: CreateCategoryDTO): Promise<CategoryDTO> => {
+  create = async (dto: CreateCategoryDTO): Promise<CategoryRO> => {
     //Verify that the business is owned by the user
     await this.bsnValidator.validateBusiness(dto.userId, dto.businessId);
     let category = new this.model({
@@ -35,7 +37,7 @@ export class CategoryService {
   edit = async (
     categoryId: string,
     editDTO: EditCategoryDTO,
-  ): Promise<CategoryDTO> => {
+  ): Promise<CategoryRO> => {
     let cat = await this.model.findById(categoryId);
     this.checkCategory(cat);
     await this.bsnValidator.validateBusiness(editDTO.userId, cat.businessId);
@@ -51,7 +53,7 @@ export class CategoryService {
     catId: string,
     itemId: string,
     userId: string,
-  ): Promise<CategoryDTO> => {
+  ): Promise<CategoryRO> => {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
@@ -65,7 +67,7 @@ export class CategoryService {
     catId: string,
     itemId: string,
     userId: string,
-  ): Promise<CategoryDTO> => {
+  ): Promise<CategoryRO> => {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
@@ -80,15 +82,32 @@ export class CategoryService {
     return this.sanitizer.sanitize(category);
   };
 
-  /** Delete A category and @return its Id */
-  delete = async (catId: string, ownerId: string): Promise<string> => {
-    const category = await this.model.findOne({ _id: catId });
-    this.checkCategory(category);
-    await this.bsnValidator.validateBusiness(ownerId, category.businessId);
-    const response = await category.delete();
-    return response._id;
+  /** Remove the item from the whole system */
+  deleteItem = async (itemId: string, ownerId: string): Promise<string> => {
+    const item = await this.itemService.delete(itemId, ownerId);
+    await this.model.updateMany(
+      { businessId: item.businessId },
+      { $pull: { items: itemId } },
+    );
+    return item._id;
   };
 
+  /** Delete A category and @return its Id */
+  delete = async (catId: string, ownerId: string): Promise<ICategory> => {
+    let category = await this.model.findOne({ _id: catId });
+    this.checkCategory(category);
+    await this.bsnValidator.validateBusiness(ownerId, category.businessId);
+    category = await category.delete();
+    return category;
+  };
+
+  /** @returns the category with the items populated */
+  getById = async (categoryId: string): Promise<CategoryRO> => {
+    const category = await this.model.findById(categoryId).populate('items');
+    // const category = await this.model.findById(categoryId);
+
+    return this.sanitizer.sanitize(category);
+  };
   /** Private methods */
   /** Check if category exists */
   private checkCategory(category: ICategory) {

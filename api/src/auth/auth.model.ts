@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { IAuth } from './interfaces';
+import { AccountStatus } from './constants';
 
 const AuthSchema = new Schema({
   name: String,
@@ -11,6 +12,7 @@ const AuthSchema = new Schema({
   password: String,
   session: String,
   role: String,
+  status: { type: String, enum: [AccountStatus], required: true },
 });
 
 const SALT_ROUNDS = 8;

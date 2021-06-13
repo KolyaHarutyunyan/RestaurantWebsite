@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiHeader,
@@ -7,12 +15,13 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from '../auth';
-import { ACCESS_TOKEN } from 'src/constants';
-import { ParseObjectIdPipe } from 'src/util/pipes';
+import { AuthGuard, Role } from '../auth';
+import { ACCESS_TOKEN } from '../constants';
+import { ParseObjectIdPipe } from '../util/pipes';
 import { AuthService, AuthDTO } from '../auth';
 import { CreateOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
+import { BusinessService } from '../business';
 
 @Controller('owners')
 @ApiTags('Owner')
@@ -20,6 +29,7 @@ export class OwnerController {
   constructor(
     private readonly ownerService: OwnerService,
     private readonly authService: AuthService,
+    private readonly businessService: BusinessService,
   ) {}
 
   /** Create a new owner */
@@ -50,5 +60,18 @@ export class OwnerController {
   async getOwners(): Promise<OwnerDTO[]> {
     const owners = await this.ownerService.getAll();
     return owners;
+  }
+
+  /** Close the account for the user. The user will no longer have access to the account */
+  @Delete(':id')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: String, description: 'The Id of the closed account' })
+  async closeAccount(
+    @Param('id', ParseObjectIdPipe) accountId: string,
+  ): Promise<string> {
+    const id = await this.authService.delete(accountId);
+    await this.businessService.closeBusiness(accountId);
+    return id;
   }
 }

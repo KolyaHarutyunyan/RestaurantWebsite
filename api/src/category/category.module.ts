@@ -9,6 +9,6 @@ import { CategorySanitizer } from './interceptor/sanitizer.interceptor';
   imports: [ItemModule, BusinessModule],
   controllers: [CategoryController],
   providers: [CategoryService, CategorySanitizer],
-  exports: [CategorySanitizer],
+  exports: [CategorySanitizer, CategoryService],
 })
 export class CategoryModule {}

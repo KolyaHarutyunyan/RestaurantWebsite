@@ -5,12 +5,16 @@ import { IMenu } from './interface';
 import { MenuSanitizer } from './interceptor';
 import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
 import { BusinessValidator } from 'src/business';
+import { ImageService } from 'src/image';
+import { CategoryService } from 'src/category';
 
 @Injectable()
 export class MenuService {
   constructor(
     private readonly sanitizer: MenuSanitizer,
+    private readonly imageService: ImageService,
     private readonly bsnValidator: BusinessValidator,
+    private readonly categoryService: CategoryService,
   ) {
     this.model = MenuModel;
     // this.businessModel = businessModel;
@@ -107,7 +111,7 @@ export class MenuService {
     return this.sanitizer.sanitize(menu);
   };
 
-  /** Remove Item from Category */
+  /** Remove Category from menu */
   removeCategory = async (
     catId: string,
     itemId: string,
@@ -126,6 +130,19 @@ export class MenuService {
     return this.sanitizer.sanitize(menu);
   };
 
+  /** Remove Category from all menus */
+  deleteCategory = async (
+    categoryId: string,
+    ownerId: string,
+  ): Promise<string> => {
+    const category = await this.categoryService.delete(categoryId, ownerId);
+    await this.model.updateMany(
+      { buesinessId: category.businessId },
+      { $pullAll: { categories: category._id } },
+    );
+    return category._id;
+  };
+
   /** Gets the menus for the business */
   getByBusinessId = async (
     businessId: string,
@@ -138,10 +155,22 @@ export class MenuService {
 
   /** Gets a menu with menu Id */
   getById = async (menuId: string): Promise<MenuDTO> => {
-    const menu = await this.model.findById(menuId).populate('image');
+    const menu = await this.model
+      .findById(menuId)
+      .populate('image')
+      .populate('categories');
     return this.sanitizer.sanitize(menu);
   };
 
+  /** Delete Menu and remove images that were with it */
+  delete = async (menuId: string, ownerId: string): Promise<string> => {
+    const menu = await this.model.findById(menuId);
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
+    this.imageService.removeMany([menu.image], ownerId);
+    const deleted = await menu.delete();
+    return deleted._id;
+  };
   /********************** Private Methods **********************/
   /** @throws if the menu is undefined */
   private checkMenu(menu: IMenu) {

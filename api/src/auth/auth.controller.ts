@@ -6,6 +6,7 @@ import {
   Param,
   UseGuards,
   Patch,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -72,6 +73,7 @@ export class AuthController {
 
   /** logout the user */
   @Patch(':id/logout')
+  @UseGuards(new AuthGuard())
   @ApiParam({ name: 'id', description: 'users Id' })
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({
@@ -83,6 +85,18 @@ export class AuthController {
   ): Promise<string> {
     const sessionToken = await this.authService.logout(userId);
     return sessionToken;
+  }
+
+  /** Close the account for the user. The user will no longer have access to the account */
+  @Delete(':id')
+  @UseGuards(new AuthGuard())
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: String, description: 'The Id of the closed account' })
+  async closeAccount(
+    @Param('id', ParseObjectIdPipe) accountId: string,
+  ): Promise<string> {
+    const id = await this.authService.delete(accountId);
+    return id;
   }
 }
 /** End of Controller */
