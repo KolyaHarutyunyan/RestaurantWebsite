@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
+import { CreateMenuDTO, MenuDTO, ReorderDTO, UpdateMenuDTO } from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
@@ -136,6 +136,25 @@ export class MenuController {
       ownerId,
     );
     return category;
+  }
+
+  /** Change the order of the categories in the menu */
+  @Patch(':/menuId/categories/reorder')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOperation({ summary: summaries.REORDER_CATEGORIES })
+  @ApiOkResponse({ type: MenuDTO })
+  async reorderCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Body() reorderDTO: ReorderDTO,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.reorderCategories(
+      menuId,
+      ownerId,
+      reorderDTO,
+    );
+    return menu;
   }
 
   /** remove a category from all menus */

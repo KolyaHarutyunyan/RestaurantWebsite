@@ -1,6 +1,11 @@
 import { model, Schema, Types } from 'mongoose';
 import { IMenu } from './interface';
 
+const MenuCategorySchema = new Schema({
+  _id: { type: Types.ObjectId, ref: 'category' },
+  rank: Number,
+});
+
 const MenuSchema = new Schema({
   owner: { type: Types.ObjectId, ref: 'owner' },
   businessId: { type: Types.ObjectId, ref: 'business' },
@@ -8,7 +13,7 @@ const MenuSchema = new Schema({
   tagline: { type: String },
   image: { type: Types.ObjectId, ref: 'image' },
   description: { type: String },
-  categories: [{ type: Types.ObjectId, ref: 'category' }],
+  categories: [MenuCategorySchema],
   isActive: { type: Boolean, required: true },
 });
 

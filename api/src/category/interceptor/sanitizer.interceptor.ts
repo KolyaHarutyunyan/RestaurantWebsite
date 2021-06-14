@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { IItem, ItemDTO, ItemSanitizer } from 'src/item';
-import { ISanitize } from 'src/util';
+import { IItem, ItemSanitizer } from '../../item';
+import { ISanitize } from '../../util';
 import { CategoryRO } from '../dto';
-import { ICategory } from '../interface';
+import { ICategory, ICategoryItem } from '../interface';
 
 @Injectable()
 export class CategorySanitizer implements ISanitize {
@@ -13,20 +13,18 @@ export class CategorySanitizer implements ISanitize {
       name: category.name,
       type: category.type,
     };
-    sanitized.items = this.processItems(category.items);
+    this.processItems(category.items);
     return sanitized;
   }
 
-  //   /** Private methods */
-  private processItems(items: IItem[] | string[]): string[] | ItemDTO[] {
+  /** Private methods */
+  private processItems(items: ICategoryItem[]) {
     if (items?.length > 0) {
-      const item = items[0] as IItem;
-      if (item.name) {
-        //this means the items are populated
-        return this.itemSanitizer.sanitizeMany(items as IItem[]);
-      } else {
-        //items were not populated
-        return items as string[];
+      const itemTest = items[0]._id as IItem;
+      if (itemTest.name) {
+        for (let i = 0; i < items.length; i++) {
+          items[i].item = this.itemSanitizer.sanitize(items[i]._id as IItem);
+        }
       }
     }
   }

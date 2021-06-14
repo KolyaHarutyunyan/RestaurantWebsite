@@ -18,7 +18,12 @@ import {
 import { ACCESS_TOKEN } from '../constants';
 import { AuthGuard, Role } from '../auth';
 import { CategoryService } from './category.service';
-import { CategoryRO, CreateCategoryDTO, EditCategoryDTO } from './dto';
+import {
+  CategoryRO,
+  CreateCategoryDTO,
+  EditCategoryDTO,
+  ReorderDTO,
+} from './dto';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './category.constants';
 
@@ -100,6 +105,25 @@ export class CategoryController {
     return deletedId;
   }
 
+  /** Change the order of the categories in the menu */
+  @Patch(':/menuId/categories/reorder')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOperation({ summary: summaries.REORDER_ITEMS })
+  @ApiOkResponse({ type: CategoryRO })
+  async reorderCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Body() reorderDTO: ReorderDTO,
+    @Body('userId') ownerId: string,
+  ): Promise<CategoryRO> {
+    const menu = await this.categoryService.reorderItems(
+      menuId,
+      ownerId,
+      reorderDTO,
+    );
+    return menu;
+  }
+
   /** Get the category with its items */
   @Get(':id')
   @ApiOkResponse({ type: CategoryRO })
@@ -109,5 +133,4 @@ export class CategoryController {
     const category = await this.categoryService.getById(id);
     return category;
   }
-
 }

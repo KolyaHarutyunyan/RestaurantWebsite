@@ -5,4 +5,5 @@ export const summaries = {
   DELETE_CATEGORY: `Permanantly delete a category from all menus and the system`,
   ADD_CATEGORY: `Add an existing category to this menu, will add the category with all its menu items`,
   DELETE_MENU: `Permanantly deletes the menu from the system`,
+  REORDER_CATEGORIES: `Change the order of the categories in this menu`,
 };

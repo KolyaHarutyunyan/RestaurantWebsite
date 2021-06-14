@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryType, ICategory } from '../../category';
 import { IImage, ImageSanitizer } from '../../image';
-import { IMenu } from '../interface';
+import { IMenu, IMenuCategory } from '../interface';
 import { ISanitize } from '../../util';
 import { MenuDTO } from '../dto';
 import { CategorySanitizer } from 'src/category/interceptor/sanitizer.interceptor';
+import { MenuCategoryRO } from '../dto/menuCategory.ro';
 
 @Injectable()
 export class MenuSanitizer implements ISanitize {
@@ -24,7 +25,7 @@ export class MenuSanitizer implements ISanitize {
       drinkCategories: [],
     };
     //clean and prepare the categories
-    this.processCategories(menu.categories as ICategory[], sanitizedMenu);
+    this.processCategories(menu.categories as IMenuCategory[], sanitizedMenu);
     //clean and process the images
     if (menu.image) {
       sanitizedMenu.image = this.imageSanitizer.sanitize(menu.image as IImage);
@@ -41,17 +42,26 @@ export class MenuSanitizer implements ISanitize {
     return sanitizedMenus;
   }
 
-  /** clean and attach categories */
-  private processCategories(categories: ICategory[], sanitizedMenu: MenuDTO) {
+  /** clean and attach categories, @assumes the categories are in the correct order */
+  private processCategories(
+    categories: IMenuCategory[],
+    sanitizedMenu: MenuDTO,
+  ) {
+    let category: ICategory;
+    let menuCategoryRO: MenuCategoryRO;
     for (let i = 0; i < categories.length; i++) {
-      if (categories[i].type === CategoryType.DRINK) {
-        sanitizedMenu.drinkCategories.push(
-          this.categorySanitizer.sanitize(categories[i]),
-        );
-      } else if (categories[i].type === CategoryType.FOOD) {
-        sanitizedMenu.foodCategories.push(
-          this.categorySanitizer.sanitize(categories[i]),
-        );
+      category = categories[i]._id as ICategory;
+      menuCategoryRO = {
+        rank: categories[i].rank,
+        id: category._id,
+        name: category.name,
+        description: category.description,
+        type: category.type,
+      };
+      if (category.type === CategoryType.DRINK) {
+        sanitizedMenu.drinkCategories.push(menuCategoryRO);
+      } else if (category.type === CategoryType.FOOD) {
+        sanitizedMenu.foodCategories.push(menuCategoryRO);
       }
     }
   }

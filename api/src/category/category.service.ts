@@ -3,9 +3,14 @@ import { Model } from 'mongoose';
 import { BusinessValidator } from 'src/business';
 import { ItemService } from 'src/item/item.service';
 import { CategoryModel } from './category.model';
-import { CategoryRO, CreateCategoryDTO, EditCategoryDTO } from './dto';
+import {
+  CategoryRO,
+  CreateCategoryDTO,
+  EditCategoryDTO,
+  ReorderDTO,
+} from './dto';
 import { CategorySanitizer } from './interceptor/sanitizer.interceptor';
-import { ICategory } from './interface';
+import { ICategory, ICategoryItem } from './interface';
 
 @Injectable()
 export class CategoryService {
@@ -57,7 +62,11 @@ export class CategoryService {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
-    category.items.push(itemId);
+    const rank = category.items.length + 1;
+    category.items.push({
+      _id: itemId,
+      rank,
+    });
     category = await category.save();
     return this.sanitizer.sanitize(category);
   };
@@ -72,13 +81,30 @@ export class CategoryService {
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
     for (let i = 0; i < category.items.length; i++) {
-      if (category.items[i] == itemId) {
+      if (category.items[i]._id == itemId) {
         category.items.splice(i, 1);
         i--;
         //Check the array length here
       }
     }
+    this.rerank(category.items);
     category = await category.save();
+    return this.sanitizer.sanitize(category);
+  };
+
+  /** reorder the categories according to the orde */
+  reorderItems = async (
+    categorId: string,
+    ownerId: string,
+    reorderDTO: ReorderDTO,
+  ): Promise<CategoryRO> => {
+    let category = await this.model.findOne({ _id: categorId });
+    this.checkCategory(category);
+    await this.bsnValidator.validateBusiness(ownerId, category.businessId);
+    const removedItem = category.items.splice(reorderDTO.from, 1);
+    category.items.splice(reorderDTO.to, 0, removedItem[0]);
+    this.rerank(category.items);
+    category = await (await category.save()).populate('image').execPopulate();
     return this.sanitizer.sanitize(category);
   };
 
@@ -87,7 +113,7 @@ export class CategoryService {
     const item = await this.itemService.delete(itemId, ownerId);
     await this.model.updateMany(
       { businessId: item.businessId },
-      { $pull: { items: itemId } },
+      { $pull: { items: { _id: itemId } } },
     );
     return item._id;
   };
@@ -103,7 +129,9 @@ export class CategoryService {
 
   /** @returns the category with the items populated */
   getById = async (categoryId: string): Promise<CategoryRO> => {
-    const category = await this.model.findById(categoryId).populate('items');
+    const category = await this.model
+      .findById(categoryId)
+      .populate('items._id');
     // const category = await this.model.findById(categoryId);
 
     return this.sanitizer.sanitize(category);
@@ -113,6 +141,13 @@ export class CategoryService {
   private checkCategory(category: ICategory) {
     if (!category) {
       throw new HttpException('Category was not found', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  /** updates the ranks of the menu items */
+  private rerank(items: ICategoryItem[]) {
+    for (let i = 0; i < items.length; i++) {
+      items[i].rank = i;
     }
   }
 }

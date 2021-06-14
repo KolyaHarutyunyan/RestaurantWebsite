@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
-import { IMenu } from './interface';
+import { IMenu, IMenuCategory } from './interface';
 import { MenuSanitizer } from './interceptor';
 import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
 import { BusinessValidator } from 'src/business';
 import { ImageService } from 'src/image';
 import { CategoryService } from 'src/category';
+import { ReorderDTO } from './dto/reorder.dto';
 
 @Injectable()
 export class MenuService {
@@ -17,7 +18,6 @@ export class MenuService {
     private readonly categoryService: CategoryService,
   ) {
     this.model = MenuModel;
-    // this.businessModel = businessModel;
   }
   private model: Model<IMenu>;
 
@@ -74,7 +74,10 @@ export class MenuService {
     }
     menu = await menu.save();
     if (menu.image) {
-      menu = await menu.populate('image').execPopulate();
+      menu = await (await menu.save())
+        .populate('categories._id')
+        .populate('image')
+        .execPopulate();
     }
     return this.sanitizer.sanitize(menu);
   };
@@ -94,6 +97,10 @@ export class MenuService {
       menu.isActive = true;
       menu = await menu.save();
     }
+    menu = await menu
+      .populate('categories._id')
+      .populate('image')
+      .execPopulate();
     return menu._id;
   };
 
@@ -106,27 +113,38 @@ export class MenuService {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
-    menu.categories.push(catId);
-    menu = await (await menu.save()).populate('categories').execPopulate();
+    const rank = menu.categories.length;
+    menu.categories.push({
+      _id: catId,
+      rank,
+    });
+    menu = await (await menu.save())
+      .populate('categories._id')
+      .populate('image')
+      .execPopulate();
     return this.sanitizer.sanitize(menu);
   };
 
   /** Remove Category from menu */
   removeCategory = async (
+    menuId: string,
     catId: string,
-    itemId: string,
     userId: string,
   ): Promise<MenuDTO> => {
-    let menu = await this.model.findOne({ _id: catId });
+    let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
     for (let i = 0; i < menu.categories.length; i++) {
-      if (menu.categories[i] == itemId) {
+      if (menu.categories[i]._id == catId) {
         menu.categories.splice(i, 1);
         i--;
       }
     }
-    menu = await (await menu.save()).populate('categories').execPopulate();
+    this.rerank(menu.categories);
+    menu = await (await menu.save())
+      .populate('categories._id')
+      .populate('image')
+      .execPopulate();
     return this.sanitizer.sanitize(menu);
   };
 
@@ -138,7 +156,7 @@ export class MenuService {
     const category = await this.categoryService.delete(categoryId, ownerId);
     await this.model.updateMany(
       { buesinessId: category.businessId },
-      { $pullAll: { categories: category._id } },
+      { $pullAll: { categories: { _id: category._id } } },
     );
     return category._id;
   };
@@ -149,7 +167,10 @@ export class MenuService {
     ownerId: string,
   ): Promise<MenuDTO[]> => {
     await this.bsnValidator.validateBusiness(ownerId, businessId);
-    const menus = await this.model.find({ businessId }).populate('image');
+    const menus = await this.model
+      .find({ businessId })
+      .populate('image')
+      .populate('categories._id');
     return this.sanitizer.sanitizeMany(menus);
   };
 
@@ -158,16 +179,19 @@ export class MenuService {
     const menu = await this.model
       .findById(menuId)
       .populate('image')
-      .populate('categories');
+      .populate('categories._id');
     return this.sanitizer.sanitize(menu);
   };
 
   /** Get the  */
   getActive = async (businessId: string): Promise<MenuDTO> => {
-    const menu = await this.model.findOne({
-      businessId: businessId,
-      isActive: true,
-    });
+    const menu = await this.model
+      .findOne({
+        businessId: businessId,
+        isActive: true,
+      })
+      .populate('image')
+      .populate('categories._id');
     return this.sanitizer.sanitize(menu);
   };
 
@@ -180,11 +204,38 @@ export class MenuService {
     const deleted = await menu.delete();
     return deleted._id;
   };
+
+  /** reorder the categories according to the orde */
+  reorderCategories = async (
+    menuId: string,
+    ownerId: string,
+    reorderDTO: ReorderDTO,
+  ): Promise<MenuDTO> => {
+    let menu = await this.model.findOne({ _id: menuId });
+    this.checkMenu(menu);
+    await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
+    const removedCategory = menu.categories.splice(reorderDTO.from, 1);
+    menu.categories.splice(reorderDTO.to, 0, removedCategory[0]);
+    this.rerank(menu.categories);
+    menu = await (await menu.save())
+      .populate('image')
+      .populate('categories._id')
+      .execPopulate();
+    return this.sanitizer.sanitize(menu);
+  };
+
   /********************** Private Methods **********************/
   /** @throws if the menu is undefined */
   private checkMenu(menu: IMenu) {
     if (!menu) {
       throw new HttpException('Menu was not found', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  /** updates the ranks of the menu items */
+  private rerank(categories: IMenuCategory[]) {
+    for (let i = 0; i < categories.length; i++) {
+      categories[i].rank = i;
     }
   }
 }
