@@ -54,16 +54,4 @@ export class ItemController {
   }
 
   /** Delete an item  - This functionality is provided by the Category Module*/
-  // @Delete(':itemId')
-  // @UseGuards(new AuthGuard([Role.OWNER]))
-  // @ApiHeader({ name: ACCESS_TOKEN })
-  // @ApiOperation({ summary: summaries.DELETE_ITEM })
-  // @ApiOkResponse({ type: String, description: 'Id of the deleted item' })
-  // async deleteItem(
-  //   @Param('itemId', ParseObjectIdPipe) itemId: string,
-  //   @Body('userId') ownerId: string,
-  // ): Promise<string> {
-  //   const id = await this.itemService.delete(itemId, ownerId);
-  //   return id;
-  // }
 }

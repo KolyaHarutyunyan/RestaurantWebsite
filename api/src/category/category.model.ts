@@ -9,6 +9,7 @@ const categoryItemSchema = new Schema({
 
 const categorySchema = new Schema({
   businessId: { type: Types.ObjectId, ref: 'business', required: true },
+  ownerId: { type: Types.ObjectId },
   name: { type: String, required: true },
   description: { type: String },
   items: [categoryItemSchema],

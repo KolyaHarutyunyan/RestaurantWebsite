@@ -17,7 +17,13 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { CreateMenuDTO, MenuDTO, ReorderDTO, UpdateMenuDTO } from './dto';
+import {
+  CreateMenuDTO,
+  MenuCategoriesDTO,
+  MenuDTO,
+  ReorderDTO,
+  UpdateMenuDTO,
+} from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
@@ -100,17 +106,41 @@ export class MenuController {
     return activeId;
   }
 
+  /** Delete a menu */
+  @Delete(':menuId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiOperation({ summary: summaries.DELETE_MENU })
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: String, description: 'Id of the deleted menu' })
+  async deleteMenu(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<string> {
+    const deletedId = await this.menuService.delete(menuId, ownerId);
+    return deletedId;
+  }
+
+  /** Get the categories of the menu */
+  @Get(':menuId/categories')
+  @ApiOkResponse({ type: MenuCategoriesDTO })
+  async getMenuCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+  ): Promise<MenuCategoriesDTO> {
+    const categories = await this.menuService.getCategories(menuId);
+    return categories;
+  }
+
   /** remove a category from a menu */
   @Patch(':menuId/removeCategory/:categoryId')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiOperation({ summary: summaries.REMOVE_CATEGORY })
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
   async removeCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
     @Body('userId') ownerId: string,
-  ): Promise<MenuDTO> {
+  ): Promise<MenuCategoriesDTO> {
     const menu = await this.menuService.removeCategory(
       menuId,
       categoryId,
@@ -124,12 +154,12 @@ export class MenuController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.ADD_CATEGORY })
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
   async addCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
     @Body('userId') ownerId: string,
-  ): Promise<MenuDTO> {
+  ): Promise<MenuCategoriesDTO> {
     const category = await this.menuService.addCategory(
       menuId,
       categoryId,
@@ -139,16 +169,16 @@ export class MenuController {
   }
 
   /** Change the order of the categories in the menu */
-  @Patch(':/menuId/categories/reorder')
+  @Patch(':menuId/categories/reorder')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.REORDER_CATEGORIES })
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
   async reorderCategories(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Body() reorderDTO: ReorderDTO,
     @Body('userId') ownerId: string,
-  ): Promise<MenuDTO> {
+  ): Promise<MenuCategoriesDTO> {
     const menu = await this.menuService.reorderCategories(
       menuId,
       ownerId,
@@ -158,7 +188,7 @@ export class MenuController {
   }
 
   /** remove a category from all menus */
-  @Delete('/categories/:categoryId')
+  @Delete('categories/:categoryId')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.DELETE_CATEGORY })
@@ -169,19 +199,5 @@ export class MenuController {
   ): Promise<string> {
     const category = await this.menuService.deleteCategory(categoryId, ownerId);
     return category;
-  }
-
-  /** Delete a menu */
-  @Delete(':menuId')
-  @UseGuards(new AuthGuard([Role.OWNER]))
-  @ApiOperation({ summary: summaries.DELETE_MENU })
-  @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: String, description: 'Id of the deleted menu' })
-  async deleteMenu(
-    @Param('menuId', ParseObjectIdPipe) menuId: string,
-    @Body('userId') ownerId: string,
-  ): Promise<string> {
-    const deletedId = await this.menuService.delete(menuId, ownerId);
-    return deletedId;
   }
 }

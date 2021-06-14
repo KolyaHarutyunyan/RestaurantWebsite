@@ -12,7 +12,6 @@ import {
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
-  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { ACCESS_TOKEN } from '../constants';
@@ -21,6 +20,7 @@ import { AuthService, AuthDTO, AuthGuard, Role } from '../auth';
 import { CreateOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business';
+import { summaries } from './owner.constants';
 
 @Controller('owners')
 @ApiTags('Owner')
@@ -35,6 +35,7 @@ export class OwnerController {
   @Post()
   @ApiBody({ type: CreateOwnerDTO })
   @ApiOkResponse({ type: AuthDTO })
+  @ApiOperation({ summary: summaries.CREATE_ACCOUNT })
   async register(@Body() createOwnerDTO: CreateOwnerDTO): Promise<AuthDTO> {
     await this.ownerService.create(createOwnerDTO);
     const auth = await this.authService.signup(createOwnerDTO);
@@ -46,6 +47,7 @@ export class OwnerController {
   @UseGuards(new AuthGuard())
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: OwnerDTO })
+  @ApiOperation({ summary: summaries.GET_PROFILE })
   async getUser(
     @Body('userId', ParseObjectIdPipe) userId: string,
   ): Promise<OwnerDTO> {
@@ -55,7 +57,7 @@ export class OwnerController {
 
   /** Get all owners */
   @Get()
-  @ApiOperation({ summary: 'Get all owners' })
+  @ApiOperation({ summary: summaries.GET_ALL })
   async getOwners(): Promise<OwnerDTO[]> {
     const owners = await this.ownerService.getAll();
     return owners;
@@ -66,6 +68,7 @@ export class OwnerController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: String, description: 'The Id of the closed account' })
+  @ApiOperation({ summary: summaries.CLOSE_ACCOUNT })
   async closeAccount(
     @Param('id', ParseObjectIdPipe) accountId: string,
   ): Promise<string> {

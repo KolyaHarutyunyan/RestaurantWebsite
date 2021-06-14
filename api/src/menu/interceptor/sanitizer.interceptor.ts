@@ -3,9 +3,9 @@ import { CategoryType, ICategory } from '../../category';
 import { IImage, ImageSanitizer } from '../../image';
 import { IMenu, IMenuCategory } from '../interface';
 import { ISanitize } from '../../util';
-import { MenuDTO } from '../dto';
-import { CategorySanitizer } from 'src/category/interceptor/sanitizer.interceptor';
-import { MenuCategoryRO } from '../dto/menuCategory.ro';
+import { MenuCategoriesDTO, MenuDTO } from '../dto';
+import { CategorySanitizer } from '../../category';
+import { MenuCategoryDTO } from '../dto/menuCategory.dto';
 
 @Injectable()
 export class MenuSanitizer implements ISanitize {
@@ -21,12 +21,7 @@ export class MenuSanitizer implements ISanitize {
       tagline: menu.tagline,
       description: menu.description,
       isActive: menu.isActive,
-      foodCategories: [],
-      drinkCategories: [],
     };
-    //clean and prepare the categories
-    this.processCategories(menu.categories as IMenuCategory[], sanitizedMenu);
-    //clean and process the images
     if (menu.image) {
       sanitizedMenu.image = this.imageSanitizer.sanitize(menu.image as IImage);
     }
@@ -42,27 +37,30 @@ export class MenuSanitizer implements ISanitize {
     return sanitizedMenus;
   }
 
-  /** clean and attach categories, @assumes the categories are in the correct order */
-  private processCategories(
-    categories: IMenuCategory[],
-    sanitizedMenu: MenuDTO,
-  ) {
+  /** SanitizeCategories */
+  sanitizeCategories(menu: IMenu): MenuCategoriesDTO {
+    const categories = menu.categories as IMenuCategory[];
     let category: ICategory;
-    let menuCategoryRO: MenuCategoryRO;
+    let menuCategoryRO: MenuCategoryDTO;
+    const drinks: MenuCategoryDTO[] = [];
+    const food: MenuCategoryDTO[] = [];
     for (let i = 0; i < categories.length; i++) {
       category = categories[i]._id as ICategory;
       menuCategoryRO = {
         rank: categories[i].rank,
-        id: category._id,
-        name: category.name,
-        description: category.description,
-        type: category.type,
+        category: this.categorySanitizer.sanitize(category),
       };
       if (category.type === CategoryType.DRINK) {
-        sanitizedMenu.drinkCategories.push(menuCategoryRO);
+        drinks.push(menuCategoryRO);
       } else if (category.type === CategoryType.FOOD) {
-        sanitizedMenu.foodCategories.push(menuCategoryRO);
+        food.push(menuCategoryRO);
       }
     }
+    const response: MenuCategoriesDTO = {
+      id: menu._id,
+      food: food,
+      drink: drinks,
+    };
+    return response;
   }
 }

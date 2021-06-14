@@ -19,13 +19,14 @@ import { ACCESS_TOKEN } from '../constants';
 import { AuthGuard, Role } from '../auth';
 import { CategoryService } from './category.service';
 import {
-  CategoryRO,
+  CategoryDTO,
   CreateCategoryDTO,
   EditCategoryDTO,
   ReorderDTO,
 } from './dto';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './category.constants';
+import { CategoryItemsDTO } from './dto/categoryItems.dto';
 
 @Controller('categories')
 @ApiTags('Categories')
@@ -37,25 +38,38 @@ export class CategoryController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: CreateCategoryDTO })
-  @ApiOkResponse({ type: CategoryRO })
+  @ApiOkResponse({ type: CategoryDTO })
+  @ApiOperation({ summary: summaries.CREATE_CATEGORY })
   async create(
     @Body() createCategoryDTO: CreateCategoryDTO,
-  ): Promise<CategoryRO> {
+  ): Promise<CategoryDTO> {
     const category = await this.categoryService.create(createCategoryDTO);
     return category;
   }
 
-  /** Create a new Category */
+  /** Edit a Category */
   @Patch(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: EditCategoryDTO })
-  @ApiOkResponse({ type: CategoryRO })
+  @ApiOkResponse({ type: CategoryDTO })
+  @ApiOperation({ summary: summaries.EDIT_CATEGORY })
   async edit(
     @Param('id', ParseObjectIdPipe) catId: string,
     @Body() editDTO: EditCategoryDTO,
-  ): Promise<CategoryRO> {
+  ): Promise<CategoryDTO> {
     const category = await this.categoryService.edit(catId, editDTO);
+    return category;
+  }
+
+  /** Get the category without its items */
+  @Get(':id')
+  @ApiOkResponse({ type: CategoryDTO })
+  @ApiOperation({ summary: summaries.GET_CATEGORY })
+  async getById(
+    @Param('id', ParseObjectIdPipe) id: string,
+  ): Promise<CategoryDTO> {
+    const category = await this.categoryService.getById(id);
     return category;
   }
 
@@ -63,12 +77,13 @@ export class CategoryController {
   @Patch(':categoryId/removeItem/:itemId')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: CategoryRO })
+  @ApiOkResponse({ type: CategoryItemsDTO })
+  @ApiOperation({ summary: summaries.REMOVE_ITEM })
   async removeItem(
     @Param('categoryId', ParseObjectIdPipe) catId: string,
     @Param('itemId', ParseObjectIdPipe) itemId: string,
     @Body('userId') ownerId: string,
-  ): Promise<CategoryRO> {
+  ): Promise<CategoryItemsDTO> {
     const category = await this.categoryService.removeItem(
       catId,
       itemId,
@@ -81,12 +96,13 @@ export class CategoryController {
   @Patch(':categoryId/addItem/:itemId')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: CategoryRO })
+  @ApiOkResponse({ type: CategoryItemsDTO })
+  @ApiOperation({ summary: summaries.ADD_ITEM })
   async addItem(
     @Param('categoryId', ParseObjectIdPipe) catId: string,
     @Param('itemId', ParseObjectIdPipe) itemId: string,
     @Body('userId') ownerId: string,
-  ): Promise<CategoryRO> {
+  ): Promise<CategoryItemsDTO> {
     const category = await this.categoryService.addItem(catId, itemId, ownerId);
     return category;
   }
@@ -106,31 +122,32 @@ export class CategoryController {
   }
 
   /** Change the order of the categories in the menu */
-  @Patch(':/menuId/categories/reorder')
+  @Patch(':categoryId/reorder')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.REORDER_ITEMS })
-  @ApiOkResponse({ type: CategoryRO })
+  @ApiOkResponse({ type: CategoryItemsDTO })
   async reorderCategories(
-    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
     @Body() reorderDTO: ReorderDTO,
     @Body('userId') ownerId: string,
-  ): Promise<CategoryRO> {
+  ): Promise<CategoryItemsDTO> {
     const menu = await this.categoryService.reorderItems(
-      menuId,
+      categoryId,
       ownerId,
       reorderDTO,
     );
     return menu;
   }
 
-  /** Get the category with its items */
-  @Get(':id')
-  @ApiOkResponse({ type: CategoryRO })
-  async getById(
-    @Param('id', ParseObjectIdPipe) id: string,
-  ): Promise<CategoryRO> {
-    const category = await this.categoryService.getById(id);
-    return category;
+  /** Get Category items */
+  @Get(':categoryId/items')
+  @ApiOperation({ summary: summaries.GET_ITEMS })
+  @ApiOkResponse({ type: CategoryItemsDTO })
+  async getItems(
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+  ): Promise<CategoryItemsDTO> {
+    const categoryItems = await this.categoryService.getItems(categoryId);
+    return categoryItems;
   }
 }

@@ -12,7 +12,7 @@ const AuthSchema = new Schema({
   password: String,
   session: String,
   role: String,
-  status: { type: String, enum: [AccountStatus], required: true },
+  status: { type: Number, enum: [AccountStatus], required: true },
 });
 
 const SALT_ROUNDS = 8;

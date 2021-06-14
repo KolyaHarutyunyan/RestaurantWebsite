@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CategoryType } from '../category.constants';
-import { CategoryItemRO } from './categoryItem.ro';
+import { CategoryItemDTO } from './categoryItem.dto';
 
-export class CategoryRO {
+export class CategoryDTO {
   @ApiProperty()
   id: string;
   @ApiProperty()
@@ -11,6 +11,7 @@ export class CategoryRO {
   type: CategoryType;
   @ApiProperty()
   description?: string;
-  @ApiProperty({ type: [String] })
-  items?: string[] | CategoryItemRO[];
+  // @ApiProperty({ type: [String] })
+  // @ApiProperty({ type: [CategoryItemRO] })
+  // items?: string[] | CategoryItemRO[];
 }

@@ -4,7 +4,7 @@ import { IImage } from './interface';
 const imageSchema = new Schema({
   uploader: { type: Types.ObjectId, required: true },
   originalUrl: { type: String, required: true, unique: true },
-  thumbUrl: { type: String, required: false, unique: true },
+  thumbUrl: String,
 });
 
 export const ImageModel = model<IImage>('image', imageSchema);

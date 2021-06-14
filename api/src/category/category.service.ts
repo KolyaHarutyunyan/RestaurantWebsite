@@ -4,11 +4,12 @@ import { BusinessValidator } from 'src/business';
 import { ItemService } from 'src/item/item.service';
 import { CategoryModel } from './category.model';
 import {
-  CategoryRO,
+  CategoryDTO,
   CreateCategoryDTO,
   EditCategoryDTO,
   ReorderDTO,
 } from './dto';
+import { CategoryItemsDTO } from './dto/categoryItems.dto';
 import { CategorySanitizer } from './interceptor/sanitizer.interceptor';
 import { ICategory, ICategoryItem } from './interface';
 
@@ -24,7 +25,7 @@ export class CategoryService {
   private model: Model<ICategory>;
 
   /** Create a new Category */
-  create = async (dto: CreateCategoryDTO): Promise<CategoryRO> => {
+  create = async (dto: CreateCategoryDTO): Promise<CategoryDTO> => {
     //Verify that the business is owned by the user
     await this.bsnValidator.validateBusiness(dto.userId, dto.businessId);
     let category = new this.model({
@@ -42,7 +43,7 @@ export class CategoryService {
   edit = async (
     categoryId: string,
     editDTO: EditCategoryDTO,
-  ): Promise<CategoryRO> => {
+  ): Promise<CategoryDTO> => {
     let cat = await this.model.findById(categoryId);
     this.checkCategory(cat);
     await this.bsnValidator.validateBusiness(editDTO.userId, cat.businessId);
@@ -53,12 +54,28 @@ export class CategoryService {
     return this.sanitizer.sanitize(cat);
   };
 
+  /** @returns the category with the items populated */
+  getById = async (categoryId: string): Promise<CategoryDTO> => {
+    const category = await this.model.findById(categoryId);
+    this.checkCategory(category);
+    return this.sanitizer.sanitize(category);
+  };
+
+  /** Delete A category and @return its Id */
+  delete = async (catId: string, ownerId: string): Promise<ICategory> => {
+    let category = await this.model.findOne({ _id: catId });
+    this.checkCategory(category);
+    await this.bsnValidator.validateBusiness(ownerId, category.businessId);
+    category = await category.delete();
+    return category;
+  };
+
   /** Remove Item from Category */
   addItem = async (
     catId: string,
     itemId: string,
     userId: string,
-  ): Promise<CategoryRO> => {
+  ): Promise<CategoryItemsDTO> => {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
@@ -68,7 +85,17 @@ export class CategoryService {
       rank,
     });
     category = await category.save();
-    return this.sanitizer.sanitize(category);
+    category = await category
+      .populate({
+        path: 'items._id',
+        model: 'item',
+        populate: [
+          { path: 'images', model: 'image' },
+          { path: 'mainImage', model: 'image' },
+        ],
+      })
+      .execPopulate();
+    return this.sanitizer.sanitizeItems(category);
   };
 
   /** Remove Item from Category */
@@ -76,7 +103,7 @@ export class CategoryService {
     catId: string,
     itemId: string,
     userId: string,
-  ): Promise<CategoryRO> => {
+  ): Promise<CategoryItemsDTO> => {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
@@ -84,12 +111,21 @@ export class CategoryService {
       if (category.items[i]._id == itemId) {
         category.items.splice(i, 1);
         i--;
-        //Check the array length here
       }
     }
     this.rerank(category.items);
     category = await category.save();
-    return this.sanitizer.sanitize(category);
+    await category
+      .populate({
+        path: 'items._id',
+        model: 'item',
+        populate: [
+          { path: 'images', model: 'image' },
+          { path: 'mainImage', model: 'image' },
+        ],
+      })
+      .execPopulate();
+    return this.sanitizer.sanitizeItems(category);
   };
 
   /** reorder the categories according to the orde */
@@ -97,15 +133,27 @@ export class CategoryService {
     categorId: string,
     ownerId: string,
     reorderDTO: ReorderDTO,
-  ): Promise<CategoryRO> => {
+  ): Promise<CategoryItemsDTO> => {
     let category = await this.model.findOne({ _id: categorId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(ownerId, category.businessId);
+    this.checkBounds(reorderDTO.from, reorderDTO.to, category.items.length);
     const removedItem = category.items.splice(reorderDTO.from, 1);
     category.items.splice(reorderDTO.to, 0, removedItem[0]);
     this.rerank(category.items);
-    category = await (await category.save()).populate('image').execPopulate();
-    return this.sanitizer.sanitize(category);
+    category = await (
+      await category.save()
+    )
+      .populate({
+        path: 'items._id',
+        model: 'item',
+        populate: [
+          { path: 'images', model: 'image' },
+          { path: 'mainImage', model: 'image' },
+        ],
+      })
+      .execPopulate();
+    return this.sanitizer.sanitizeItems(category);
   };
 
   /** Remove the item from the whole system */
@@ -118,24 +166,19 @@ export class CategoryService {
     return item._id;
   };
 
-  /** Delete A category and @return its Id */
-  delete = async (catId: string, ownerId: string): Promise<ICategory> => {
-    let category = await this.model.findOne({ _id: catId });
-    this.checkCategory(category);
-    await this.bsnValidator.validateBusiness(ownerId, category.businessId);
-    category = await category.delete();
-    return category;
+  /** @return the items of this category */
+  getItems = async (categoryId: string): Promise<CategoryItemsDTO> => {
+    const category = await this.model.findById(categoryId).populate({
+      path: 'items._id',
+      model: 'item',
+      populate: [
+        { path: 'images', model: 'image' },
+        { path: 'mainImage', model: 'image' },
+      ],
+    });
+    return this.sanitizer.sanitizeItems(category);
   };
 
-  /** @returns the category with the items populated */
-  getById = async (categoryId: string): Promise<CategoryRO> => {
-    const category = await this.model
-      .findById(categoryId)
-      .populate('items._id');
-    // const category = await this.model.findById(categoryId);
-
-    return this.sanitizer.sanitize(category);
-  };
   /** Private methods */
   /** Check if category exists */
   private checkCategory(category: ICategory) {
@@ -148,6 +191,22 @@ export class CategoryService {
   private rerank(items: ICategoryItem[]) {
     for (let i = 0; i < items.length; i++) {
       items[i].rank = i;
+    }
+  }
+
+  /** Check bounds */
+  private checkBounds(from: number, to: number, length: number) {
+    if (from >= length || from < 0) {
+      throw new HttpException(
+        'From value falls outside of the items list',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    if (to >= length || to < 0) {
+      throw new HttpException(
+        'To value falls outside of the items list',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 }
