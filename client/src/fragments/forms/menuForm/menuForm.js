@@ -11,8 +11,9 @@ import {
   Button,
 } from "@eachbase/components";
 import { useSelector } from "react-redux";
-
+import { useRouter } from "next/router";
 export const MenuForm = () => {
+  const router = useRouter();
   const { register, handleSubmit, setValue } = useForm({});
   const { close, params } = useModal();
   const [restaurantIcons, setRestaurantIcons] = useState({
@@ -21,7 +22,6 @@ export const MenuForm = () => {
   });
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const editMenuSaga = useSagaStore(menusActions.editMenu);
-
   const business = useSelector(({ businesses }) => businesses);
   const editableMenu = useSelector(({ menus }) =>
     params.menuId ? menus.find((menu) => menu.id === params.menuId) : null
@@ -30,10 +30,11 @@ export const MenuForm = () => {
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
       createMenuSaga.destroy.all();
+      router.push("/restaurant");
       close();
     }
     if (editMenuSaga.status.onSuccess) {
-      createMenuSaga.destroy.all();
+      editMenuSaga.destroy.all();
       close();
     }
   }, [createMenuSaga.status, editMenuSaga.status]);

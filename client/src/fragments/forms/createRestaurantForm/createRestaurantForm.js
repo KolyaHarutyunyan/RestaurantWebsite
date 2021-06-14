@@ -27,11 +27,10 @@ export const CreateRestaurantForm = () => {
       : "Last Step to Sign Up";
 
   const onSubmit = (data) => {
-    dispatch({ data, icon: restaurantIcon });
+    dispatch(data, restaurantIcon);
   };
 
   useEffect(() => () => destroy.all(), []);
-
   useEffect(() => {
     if (status.onSuccess) {
       close();
@@ -70,7 +69,7 @@ export const CreateRestaurantForm = () => {
           title="Restaurant Logo"
           limit={1}
           onChange={(files) =>
-            setRestaurantIcon(files.length ? [files[0]] : null)
+            setRestaurantIcon(files.length ? files[0] : null)
           }
         />
         <Button type="submit" onLoad={status.onLoad}>

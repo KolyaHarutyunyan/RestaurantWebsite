@@ -23,10 +23,13 @@ function* getMyBusiness() {
     const { data } = yield call(businessesService.getMyBusiness);
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
-      payload: data || {},
+      payload: data,
     });
   } catch (e) {
-    console.log("getMyBusiness error: ", e);
+    yield put({
+      type: GET_MY_BUSINESS_SUCCESS,
+      payload: {},
+    });
   }
 }
 
@@ -66,15 +69,19 @@ function* deleteBusiness({ payload }) {
 }
 
 function* createBusiness({ payload, type }) {
+  console.log(payload);
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   if (payload.icon) {
-    const { data: iconId } = yield call(imageService.uploadImage, payload.icon);
     try {
+      const { data: iconId } = yield call(
+        imageService.uploadImage,
+        payload.icon
+      );
       const { data } = yield call(() =>
         businessesService.createBusiness({
-          ...payload,
+          ...payload.business,
           status: true,
           logo: iconId,
         })
@@ -95,7 +102,7 @@ function* createBusiness({ payload, type }) {
     try {
       const { data } = yield call(() =>
         businessesService.createBusiness({
-          ...payload,
+          ...payload.business,
           status: true,
         })
       );

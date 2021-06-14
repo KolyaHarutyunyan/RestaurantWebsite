@@ -91,7 +91,12 @@ export const Header = () => {
               className={`menu-toggle ${menuIsOpen ? "open" : ""}`}
             />
           </div>
-          <Button color="default" outlined inactive>
+          <Button
+            color="default"
+            outlined
+            inactive
+            onClick={() => open(MODAL_NAMES.MENU_FORM)}
+          >
             Create Menu
           </Button>
           <Menu

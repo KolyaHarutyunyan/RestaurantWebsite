@@ -36,8 +36,10 @@ export const RestaurantPageSections = () => {
 
   useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
-    if (business) {
+    if (business && Object.keys(business).length) {
       getMenusSaga.dispatch(business.id);
+    } else if (business && !Object.keys(business).length) {
+      open(MODAL_NAMES.CREATE_RESTAURANT);
     }
   }, [business]);
 
@@ -59,7 +61,20 @@ export const RestaurantPageSections = () => {
       <div className="content">
         <div className="business-card">
           <div className="header">
-            <Typography color="text" size="1.5rem" weight="bold">
+            <Typography
+              className="title"
+              color="text"
+              size="1.5rem"
+              weight="bold"
+            >
+              {business.logo ? (
+                <div
+                  style={{
+                    backgroundImage: `url(${business.logo.originalUrl})`,
+                  }}
+                  className="logo"
+                />
+              ) : null}
               {business.name}
             </Typography>
             <Button onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>

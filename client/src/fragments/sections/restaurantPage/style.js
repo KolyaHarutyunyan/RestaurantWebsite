@@ -34,6 +34,18 @@ export const Container = styled.div`
         justify-content: space-between;
         align-items: center;
         .title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          .logo {
+            display: inline-block;
+            background-position: center;
+            background-size: cover;
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+          }
         }
         .action {
         }
