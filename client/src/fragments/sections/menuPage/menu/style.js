@@ -12,6 +12,12 @@ export const Container = styled.div`
       justify-content: space-between;
       align-items: center;
       gap: 30px;
+      .switch-container {
+        .switch-title {
+          width: 85px;
+          text-align: right;
+        }
+      }
       button {
         gap: 5px;
         display: flex !important;

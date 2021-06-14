@@ -2,9 +2,6 @@ import styled from "styled-components";
 
 export const DropDownContainer = styled.div`
   position: absolute;
-  top: ${({ position: { top } }) => top}px;
-  left: ${({ position: { left } }) => left}px;
-  width: ${({ width }) => width}px;
   max-height: 300px;
   padding: 10px;
   z-index: ${({ dropdownOpen }) => (dropdownOpen ? "10000" : "-10000")};
@@ -17,6 +14,9 @@ export const DropDownContainer = styled.div`
   flex-direction: column;
   gap: 5px;
   overflow: auto;
+  .wrapper {
+    flex-direction: column;
+  }
   div {
     padding-left: 5px;
     cursor: pointer;

@@ -10,13 +10,18 @@ import { IoIosTrash } from "react-icons/io";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { useSagaStore, menusActions } from "@eachbase/store";
 export const Menu = () => {
   const router = useRouter();
   const { open } = useModal();
   const { menuId } = router.query;
+  const currentBusinessId = useSelector(({ businesses }) =>
+    businesses ? businesses.id : ""
+  );
   const currentMenu = useSelector(
     ({ menus }) => menus.find((cMenu) => cMenu.id === menuId) || {}
   );
+  const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
 
   return (
     <Container>
@@ -32,8 +37,13 @@ export const Menu = () => {
             Delete Menu
           </Button>
           <div className="switch-container">
-            <Switch status={!!currentMenu.isActive} onClick={() => {}} />
-            <Typography color="action" weight="bold">
+            <Switch
+              status={!!currentMenu.isActive}
+              onClick={() =>
+                switchMenuStatusSaga.dispatch(currentMenu.id, currentBusinessId)
+              }
+            />
+            <Typography className="switch-title" color="action" weight="bold">
               {!!currentMenu.isActive ? "Deactivate" : "Activate"}
             </Typography>
           </div>

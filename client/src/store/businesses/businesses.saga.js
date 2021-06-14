@@ -69,7 +69,6 @@ function* deleteBusiness({ payload }) {
 }
 
 function* createBusiness({ payload, type }) {
-  console.log(payload);
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));

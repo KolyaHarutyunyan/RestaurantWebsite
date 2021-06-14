@@ -9,8 +9,8 @@ export const NoImage = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    width: 8%;
-    height: 8%;
+    width: 20%;
+    height: 20%;
     color: #2b273cb3;
   }
 `;

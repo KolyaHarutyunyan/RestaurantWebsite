@@ -21,7 +21,6 @@ export const Restaurants = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("rendered");
     dispatch(restaurantsActions.getRestaurants());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

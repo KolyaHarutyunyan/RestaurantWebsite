@@ -15,7 +15,6 @@ export const Menu = ({
     top: 0,
     left: 0,
   });
-  const [calculatedWidth, setCalculatedWidth] = useState(null);
 
   const getElementPosition = () =>
     new Promise((res) => {

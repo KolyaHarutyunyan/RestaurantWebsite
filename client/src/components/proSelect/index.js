@@ -7,6 +7,7 @@ import ChevronSVG from "./chevron.svg";
 export const ProSelect = ({
   value = null,
   onChange = () => {},
+  onSearchBarValueChange = () => {},
   options,
   proSelectAttrs = {},
   searchBarAttrs = {},
@@ -20,80 +21,56 @@ export const ProSelect = ({
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
   const [searchBar, setSearchBar] = useState("");
-  const [dropdownWidth, setDropdownWidth] = useState(0);
-  const [dropdownPosition, setDropDownPosition] = useState({
-    top: 0,
-    left: 0,
-  });
 
   const currentOption = options.find((cOption) => cOption.value === value);
   const filteredOptions = options.filter(
     (option) => option.label.indexOf(searchBar) !== -1
   );
 
-  const getElementPosition = () =>
-    new Promise((res) => {
-      const interval = setInterval(() => {
-        if (dropdownRef.current) {
-          const menuPosInfo =
-            dropdownRef.current.firstChild.getBoundingClientRect();
-          const positionalPosInfo =
-            selectBoxRef.current.getBoundingClientRect();
-          clearInterval(interval);
+  const setDropdownPosition = () => {
+    const dropDownRect = dropdownRef.current.getBoundingClientRect();
+    const selectRect = searchInputRef.current.getBoundingClientRect();
+    let dropDownVerticalPosition = selectRect.top + 30;
 
-          let generatedPosition = {
-            top: 0,
-            left: 0,
-          };
+    if (dropDownRect.height + selectRect.top > window.innerHeight) {
+      dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 30;
+    }
 
-          if (menuPosInfo.width + positionalPosInfo.left > window.innerWidth) {
-            generatedPosition.left = window.innerWidth - menuPosInfo.width;
-          } else {
-            generatedPosition.left = positionalPosInfo.left;
-          }
-
-          if (
-            menuPosInfo.height + positionalPosInfo.top + 25 >
-            window.innerHeight
-          ) {
-            generatedPosition.top =
-              window.innerHeight - menuPosInfo.height - 40;
-          } else {
-            generatedPosition.top = positionalPosInfo.top + 25;
-          }
-
-          res(generatedPosition);
-        }
-      }, 50);
-    });
+    dropdownRef.current.style.width = `${
+      selectBoxRef.current.clientWidth - 30
+    }px`;
+    dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
+    dropdownRef.current.style.left = `${selectRect.left}px`;
+  };
 
   useEffect(() => {
     setMounted(true);
-    const outsideClickObserver = () => setDropDownOpen(false);
-    const onWindowResizeObserver = () =>
-      getElementPosition().then((pos) => setDropDownPosition(pos));
-
-    document.addEventListener("click", outsideClickObserver);
-    window.addEventListener("resize", onWindowResizeObserver);
-    return () => {
-      document.removeEventListener("click", outsideClickObserver);
-      window.removeEventListener("resize", onWindowResizeObserver);
-    };
   }, []);
 
   useEffect(() => {
-    if (mounted) {
-      getElementPosition().then((pos) => setDropDownPosition(pos));
-      setDropdownWidth(selectBoxRef.current.clientWidth);
+    if (dropdownOpen) {
+      setDropdownPosition();
     }
+  }, [dropdownOpen]);
+
+  useEffect(() => {
+    if (!mounted) {
+      return;
+    }
+
+    const setPositionObserver = () => setDropdownPosition();
+    const onDocumentClickObserver = () => setDropDownOpen(false);
+
+    window.addEventListener("resize", setPositionObserver);
+    window.addEventListener("scroll", setPositionObserver, true);
+    document.addEventListener("click", onDocumentClickObserver);
+    return () => {
+      window.removeEventListener("resize", setPositionObserver);
+      window.addEventListener("scroll", setPositionObserver, true);
+      document.addEventListener("click", onDocumentClickObserver);
+    };
   }, [mounted]);
 
-  const onNewItemCreate = () => {
-    const optionId = uuid();
-    onChange(optionId, [...options, { label: searchBar, value: optionId }]);
-    setDropDownOpen(false);
-    searchInputRef.current.blur();
-  };
   const onSelect = (option) => {
     onChange(option.value, options);
     setDropDownOpen(false);
@@ -112,21 +89,23 @@ export const ProSelect = ({
         dropdownOpen={dropdownOpen}
         fullWidth={fullWidth}
         {...proSelectAttrs}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="dropdown-actions">
           <input
             value={searchBar}
             id={searchInputId}
             ref={searchInputRef}
-            onFocus={(e) => {
+            onFocus={() => {
+              setDropdownPosition();
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
             placeholder={currentOption ? currentOption.label : "..."}
-            onChange={({ target: { value } }) => setSearchBar(value)}
+            onChange={({ target: { value } }) => {
+              setSearchBar(value);
+              onSearchBarValueChange(value);
+            }}
             {...searchBarAttrs}
           />
           <div
@@ -155,9 +134,8 @@ export const ProSelect = ({
         <DropDownContainer
           ref={dropdownRef}
           dropdownOpen={dropdownOpen}
-          width={dropdownWidth}
           onClick={(e) => e.stopPropagation()}
-          position={dropdownPosition}
+          className="proSelet-dropdown"
         >
           <div className="wrapper">
             {filteredOptions.length ? (
@@ -172,11 +150,9 @@ export const ProSelect = ({
                   {option.label}
                 </div>
               ))
-            ) : searchBar ? (
-              <div onClick={() => onNewItemCreate()}>
-                Create new option as "{searchBar}" +
-              </div>
-            ) : null}
+            ) : (
+              <div>No Options Found</div>
+            )}
           </div>
         </DropDownContainer>,
         document.querySelector("body")

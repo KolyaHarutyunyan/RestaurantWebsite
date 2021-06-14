@@ -29,7 +29,7 @@ export const menusReducer = (state = initialState, action) => {
       return [...state, action.payload];
     case SWITCH_MENU_STATUS_SUCCESS:
       return state.map((menu) => {
-        if (menu.id === payload) {
+        if (menu.id === action.payload) {
           return {
             ...menu,
             isActive: !menu.isActive,
