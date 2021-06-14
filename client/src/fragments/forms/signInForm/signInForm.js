@@ -12,7 +12,7 @@ export const SignInForm = () => {
 
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
-
+  const { register, handleSubmit, reset } = useForm();
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
@@ -20,11 +20,11 @@ export const SignInForm = () => {
   useEffect(() => {
     if (status.onSuccess) {
       destroy.all();
+      reset();
       close();
     }
   }, [status]);
 
-  const { register, handleSubmit } = useForm();
   const onSubmit = (data) => dispatch(data);
 
   return (

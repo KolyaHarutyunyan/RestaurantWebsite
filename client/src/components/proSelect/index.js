@@ -28,19 +28,21 @@ export const ProSelect = ({
   );
 
   const setDropdownPosition = () => {
-    const dropDownRect = dropdownRef.current.getBoundingClientRect();
-    const selectRect = searchInputRef.current.getBoundingClientRect();
-    let dropDownVerticalPosition = selectRect.top + 30;
+    if (dropdownRef.current && selectBoxRef.current) {
+      const dropDownRect = dropdownRef.current.getBoundingClientRect();
+      const selectRect = selectBoxRef.current.getBoundingClientRect();
+      let dropDownVerticalPosition = selectRect.top + 30;
 
-    if (dropDownRect.height + selectRect.top > window.innerHeight) {
-      dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 30;
+      if (dropDownRect.height + selectRect.top > window.innerHeight) {
+        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 30;
+      }
+
+      dropdownRef.current.style.width = `${
+        selectBoxRef.current.clientWidth - 30
+      }px`;
+      dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
+      dropdownRef.current.style.left = `${selectRect.left}px`;
     }
-
-    dropdownRef.current.style.width = `${
-      selectBoxRef.current.clientWidth - 30
-    }px`;
-    dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
-    dropdownRef.current.style.left = `${selectRect.left}px`;
   };
 
   useEffect(() => {

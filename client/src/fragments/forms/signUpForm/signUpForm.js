@@ -11,12 +11,13 @@ export const SignUpForm = () => {
   const { open } = useModal();
   const { status, dispatch, destroy } = useSagaStore(profileActions.signUp);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => () => destroy.all(), []);
   useEffect(() => {
     if (status.onSuccess) {
       open(MODAL_NAMES.CREATE_RESTAURANT);
+      reset();
       destroy.all();
     }
   }, [status]);

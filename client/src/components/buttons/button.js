@@ -17,7 +17,7 @@ export const Button = ({
     link={link}
     outlined={outlined}
     {...rest}
-    disabled={onLoad}
+    disabled={onLoad || rest.disabled}
   >
     {onLoad ? (
       <div className="loader-wrapper">

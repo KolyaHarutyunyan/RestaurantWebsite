@@ -7,8 +7,9 @@ export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
   const [categoriesSelect, setCategoriesSelect] = useState({
     value: null,
-    options: [],
+    options: [{ label: "hello", value: "hello" }],
   });
+  const [searchBarValue, setSearchBarValue] = useState("");
 
   return (
     <Container>
@@ -29,12 +30,22 @@ export const Categories = () => {
                   options,
                 });
               }}
+              onSearchBarValueChange={(value) => setSearchBarValue(value)}
               options={categoriesSelect.options}
               value={categoriesSelect.value}
             />
           </div>
 
-          <Button>Add</Button>
+          <Button
+            disabled={
+              !searchBarValue ||
+              !!categoriesSelect.options.find(
+                (option) => option.label === searchBarValue
+              )
+            }
+          >
+            Add
+          </Button>
         </div>
         <Tabs.TabContent contentOf="food">
           <ul className="categories">

@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useSagaStore, businessesActions } from "@eachbase/store";
 
 export const CreateRestaurantForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [restaurantIcon, setRestaurantIcon] = useState(null);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
@@ -34,7 +34,9 @@ export const CreateRestaurantForm = () => {
   useEffect(() => {
     if (status.onSuccess) {
       close();
-      destroy.success();
+      destroy.all();
+      reset();
+      setRestaurantIcon(null);
       router.push("/restaurant");
     }
   }, [status]);

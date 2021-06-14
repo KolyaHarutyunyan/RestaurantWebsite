@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 const RESTAURANT_ICONS_LIMIT = 6;
 export const EditRestaurantForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const router = useRouter();
   const business = useSelector(({ businesses }) => businesses || {});
@@ -38,6 +38,11 @@ export const EditRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
+      reset();
+      setRestaurantIcon({
+        files: [],
+        mainImageId: "",
+      });
       router.push("/restaurant");
     }
   }, [status]);

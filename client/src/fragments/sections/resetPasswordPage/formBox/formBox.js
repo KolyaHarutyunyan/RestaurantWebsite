@@ -9,7 +9,7 @@ export const FormBox = () => {
   const router = useRouter();
   const resetToken = router.query.resetToken;
   const { open } = useModal();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { dispatch, destroy, status } = useSagaStore(
     profileActions.resetPassword
   );
@@ -29,6 +29,7 @@ export const FormBox = () => {
   useEffect(() => {
     if (status.onSuccess) {
       open(MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER);
+      reset();
       destroy.all();
     }
   }, [status]);

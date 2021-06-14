@@ -16,6 +16,10 @@ export const DropDownContainer = styled.div`
   overflow: auto;
   .wrapper {
     flex-direction: column;
+    & > * {
+      text-align: left;
+      width: 100%;
+    }
   }
   div {
     padding-left: 5px;
@@ -64,9 +68,10 @@ export const Container = styled.label`
       border-radius: 50%;
       padding-top: 4px;
       padding-left: 1px;
+      text-align: center;
       svg {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         transform: rotate(
           ${({ dropdownOpen }) => (dropdownOpen ? "180deg" : "0deg")}
         );

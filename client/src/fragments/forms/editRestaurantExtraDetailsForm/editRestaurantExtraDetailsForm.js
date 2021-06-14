@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 export const EditRestaurantExtraDetailsForm = () => {
   const { close } = useModal();
   const restaurant = useSelector(({ businesses }) => businesses);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [restaurantIcon, setRestaurantIcon] = useState([]);
   const router = useRouter();
   const [address, setAddress] = useState(restaurant ? restaurant.address : "");
@@ -40,6 +40,7 @@ export const EditRestaurantExtraDetailsForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
+      reset();
       router.push("/restaurant");
     }
   }, [status]);

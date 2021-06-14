@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 export const MenuForm = () => {
   const router = useRouter();
-  const { register, handleSubmit, setValue } = useForm({});
+  const { register, handleSubmit, setValue, reset } = useForm({});
   const { close, params } = useModal();
   const [restaurantIcons, setRestaurantIcons] = useState({
     mainIconId: null,
@@ -30,11 +30,21 @@ export const MenuForm = () => {
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
       createMenuSaga.destroy.all();
+      reset();
       router.push("/restaurant");
-      close();
+      setRestaurantIcons({
+        mainIconId: null,
+        files: [],
+      });
     }
     if (editMenuSaga.status.onSuccess) {
       editMenuSaga.destroy.all();
+      reset();
+      close();
+      setRestaurantIcons({
+        mainIconId: null,
+        files: [],
+      });
       close();
     }
   }, [createMenuSaga.status, editMenuSaga.status]);
