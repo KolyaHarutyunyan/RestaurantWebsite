@@ -9,7 +9,11 @@ import {
   SignupDTO,
   SocialLoginDTO,
 } from './dto';
-import { JWT_SECRET_FORGET_PASS, JWT_SECRET_SIGNIN } from './constants';
+import {
+  AccountStatus,
+  JWT_SECRET_FORGET_PASS,
+  JWT_SECRET_SIGNIN,
+} from './constants';
 import { AuthModel } from './auth.model';
 import { IAuth, IToken } from './interfaces';
 import { MongooseUtil } from '../util';
@@ -38,6 +42,7 @@ export class AuthService {
         password: signupDTO.password,
         role: signupDTO.role,
         session: null,
+        status: AccountStatus.ACTIVE,
       });
       auth.session = await this.createSession(auth);
       auth = await auth.save();
@@ -52,6 +57,7 @@ export class AuthService {
   signin = async (signinDTO: SigninDTO): Promise<any> => {
     const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
     this.checkAuth(auth);
+    this.checkStatus(auth.status);
     const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
     this.checkPassword(isPasswordCorrect);
     auth.session = await this.createSession(auth);
@@ -71,11 +77,13 @@ export class AuthService {
         email: dto.email,
         [dto.providerKey]: dto.providerId,
         role: dto.role,
+        status: AccountStatus.ACTIVE,
       });
     } else {
       if (!auth[dto.providerKey]) {
         //Scenario 2: User is registered with a different method
         auth[dto.providerKey] = dto.id;
+        this.checkStatus(auth.status);
       }
     }
     auth.session = await this.createSession(auth);
@@ -111,6 +119,7 @@ export class AuthService {
   forgotPassword = async (email: string) => {
     const auth = await this.model.findOne({ email });
     this.checkAuth(auth);
+    this.checkStatus(auth.status);
     const minutesToExpire = Math.floor(Date.now() / 1000) + 60 * 30; // 30 minutes to expire
     const expString = minutesToExpire.toString();
     const tokenEntity: IToken = {
@@ -133,6 +142,7 @@ export class AuthService {
   resetPassword = async (dto: ResetPassDTO): Promise<AuthDTO> => {
     let auth = await this.model.findOne({ email: dto.email });
     this.checkAuth(auth);
+    this.checkStatus(auth.status);
     this.confirmPassword(dto.newPassword, dto.confirmation);
     auth.password = dto.newPassword;
     auth.session = await this.createSession(auth);
@@ -145,6 +155,23 @@ export class AuthService {
     const auth = await this.model.findById(id);
     this.checkAuth(auth);
     return auth;
+  };
+
+  /** delete auth object */
+  delete = async (id: string): Promise<string> => {
+    const updated = await this.model.findOneAndUpdate(
+      { _id: id },
+      { $set: { status: AccountStatus.CLOSED } },
+      { new: true },
+    );
+    if (updated.status === AccountStatus.CLOSED) {
+      return updated.id;
+    } else {
+      throw new HttpException(
+        'Could not close the account, please contact an admin',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   };
 
   /*********************** Private Methods ***********************/
@@ -191,5 +218,28 @@ export class AuthService {
       );
     }
   };
+
+  /** Check account status, @throws error if the account status is anything but active */
+  private checkStatus(status: AccountStatus) {
+    switch (status) {
+      case AccountStatus.ACTIVE:
+        return;
+      case AccountStatus.CLOSED:
+        throw new HttpException(
+          'This account has been closed by the owner',
+          HttpStatus.UNAUTHORIZED,
+        );
+      case AccountStatus.SUSPENDED:
+        throw new HttpException(
+          'Your account has been suspended',
+          HttpStatus.UNAUTHORIZED,
+        );
+      default:
+        throw new HttpException(
+          'This account seems to be problematic, contact admin',
+          HttpStatus.UNAUTHORIZED,
+        );
+    }
+  }
 }
 //End of Service

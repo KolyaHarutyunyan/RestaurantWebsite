@@ -3,7 +3,7 @@ import { IImage } from './interface';
 
 const imageSchema = new Schema({
   uploader: { type: Types.ObjectId, required: true },
-  originalUrl: { type: String, required: true },
+  originalUrl: { type: String, required: true, unique: true },
   thumbUrl: String,
 });
 

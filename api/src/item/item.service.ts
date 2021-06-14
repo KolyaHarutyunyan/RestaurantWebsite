@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { ImageService } from '../image';
 import { BusinessValidator } from '../business';
 import { CreateItemDTO, EditItemDTO, ItemDTO } from './dto';
 import { ItemSanitizer } from './interceptor';
@@ -11,6 +12,7 @@ export class ItemService {
   constructor(
     private readonly sanitizer: ItemSanitizer,
     private readonly bsnValidator: BusinessValidator,
+    private readonly imageService: ImageService,
   ) {
     this.model = ItemModel;
   }
@@ -57,16 +59,15 @@ export class ItemService {
   };
 
   /** Delets an item with a given id */
-  delete = async (id: string, ownerId: string): Promise<string> => {
+  delete = async (id: string, ownerId: string): Promise<IItem> => {
     let item = await this.model.findById(id);
     this.checkItem(item);
     await this.bsnValidator.validateBusiness(ownerId, item.businessId);
-    item = await this.model.findOneAndDelete({ _id: id });
-    if (item) {
-      return item._id;
-    } else {
-      throw new HttpException('Item was not found', HttpStatus.NOT_FOUND);
-    }
+    const imageIds = item.images as string[];
+    if (item.mainImage) imageIds.push(item.mainImage as string);
+    this.imageService.removeMany(imageIds, ownerId);
+    item = await item.delete();
+    return item;
   };
 
   /** Private Methods */

@@ -10,5 +10,6 @@ import { MenuService } from './menu.service';
   imports: [ImageModule, BusinessModule, CategoryModule],
   controllers: [MenuController],
   providers: [MenuService, MenuSanitizer],
+  exports: [MenuService],
 })
 export class MenuModule {}

@@ -6,6 +6,7 @@ import {
   Param,
   UseGuards,
   Patch,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -19,7 +20,7 @@ import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
 import { AuthGuard } from './guards';
-import { ParseObjectIdPipe } from 'src/util/pipes';
+import { ParseObjectIdPipe } from '../util/pipes';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
@@ -40,7 +41,6 @@ export class AuthController {
   @UseGuards(new AuthGuard())
   @Patch(':id/changePassword')
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiParam({ name: 'id' })
   @ApiBody({ type: ChangePassDTO })
   @ApiOkResponse({ type: AuthDTO })
   async changePassword(
@@ -53,7 +53,6 @@ export class AuthController {
 
   /** Forgot Password */
   @Get('forgotPassword/:email')
-  @ApiParam({ name: 'email' })
   async forgotPassword(@Param('email') email: string) {
     const emailedResponse = await this.authService.forgotPassword(email);
     return emailedResponse;
@@ -72,6 +71,7 @@ export class AuthController {
 
   /** logout the user */
   @Patch(':id/logout')
+  @UseGuards(new AuthGuard())
   @ApiParam({ name: 'id', description: 'users Id' })
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({

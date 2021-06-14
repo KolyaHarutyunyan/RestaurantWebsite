@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Role } from '../constants';
+import { AccountStatus, Role } from '../constants';
 /** Data type is used to descibe the data model of the Auth collection */
 export interface IAuth extends Document {
   email: string;
@@ -10,6 +10,7 @@ export interface IAuth extends Document {
   invitation?: boolean;
   session: string;
   role: Role;
+  status: AccountStatus;
   /**Mathods */
   comparePassword?: any;
 }

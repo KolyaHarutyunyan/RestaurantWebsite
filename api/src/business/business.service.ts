@@ -97,6 +97,15 @@ export class BusinessService {
     return this.sanitizer.sanitizeMany(businesses);
   };
 
+  /** Changes the business' statuses owned by the ownerId to CLOSED. @returns the number of businesses modified */
+  closeBusiness = async (ownerId: string): Promise<number> => {
+    const updated = await this.model.updateMany(
+      { owner: ownerId },
+      { $set: { status: BusinessStatus.CLOSED } },
+    );
+    return updated.nModified;
+  };
+
   /** */
 
   /****************************** Private Methods *****************************/

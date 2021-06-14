@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
-import { ICategory } from '../../category';
 import { IImage } from '../../image';
+import { IMenuCategory } from './menuCategories.interface';
 
 export interface IMenu extends Document {
   owner: string;
@@ -9,6 +9,6 @@ export interface IMenu extends Document {
   tagline?: string;
   image?: string | IImage;
   description?: string;
-  categories: string[] & ICategory[];
+  categories: IMenuCategory[];
   isActive: boolean;
 }

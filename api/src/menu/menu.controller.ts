@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -16,20 +17,26 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import { CreateMenuDTO, MenuDTO, UpdateMenuDTO } from './dto';
+import {
+  CreateMenuDTO,
+  MenuCategoriesDTO,
+  MenuDTO,
+  ReorderDTO,
+  UpdateMenuDTO,
+} from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
 
 @Controller('menus')
 @ApiTags('Menus')
-@ApiHeader({ name: ACCESS_TOKEN })
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   /** Create a menu for the business */
   @Post()
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: CreateMenuDTO })
   @ApiOkResponse({ type: MenuDTO })
   async create(@Body() createMenuDTO: CreateMenuDTO): Promise<MenuDTO> {
@@ -40,6 +47,7 @@ export class MenuController {
   /** Update the menu fields */
   @Patch(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: UpdateMenuDTO })
   @ApiOkResponse({ type: MenuDTO })
   async editMenu(
@@ -53,6 +61,7 @@ export class MenuController {
   /** Get the menus for the business */
   @Get('bybusiness/:id')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: [MenuDTO] })
   async getBusinessMenus(
     @Param('id', ParseObjectIdPipe) businessId: string,
@@ -62,9 +71,19 @@ export class MenuController {
     return menus;
   }
 
+  /** Get the active menu with its categories */
+  @Get('active/:businessId')
+  async getActiveMenu(
+    @Param('businessId', ParseObjectIdPipe) businessId,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.getActive(businessId);
+    return menu;
+  }
+
   /** Get Menu with Menu Id */
   @Get(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: [MenuDTO] })
   async getMenu(
     @Param('id', ParseObjectIdPipe) menuId: string,
@@ -76,6 +95,7 @@ export class MenuController {
   /** Set menu active */
   @Patch(':id/toggle')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: String, description: 'Id of the activated menu' })
   @ApiOperation({ summary: summaries.ACTIVATE })
   async activateMenu(
@@ -86,16 +106,41 @@ export class MenuController {
     return activeId;
   }
 
-  /** remove an item to the category */
+  /** Delete a menu */
+  @Delete(':menuId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiOperation({ summary: summaries.DELETE_MENU })
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOkResponse({ type: String, description: 'Id of the deleted menu' })
+  async deleteMenu(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<string> {
+    const deletedId = await this.menuService.delete(menuId, ownerId);
+    return deletedId;
+  }
+
+  /** Get the categories of the menu */
+  @Get(':menuId/categories')
+  @ApiOkResponse({ type: MenuCategoriesDTO })
+  async getMenuCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+  ): Promise<MenuCategoriesDTO> {
+    const categories = await this.menuService.getCategories(menuId);
+    return categories;
+  }
+
+  /** remove a category from a menu */
   @Patch(':menuId/removeCategory/:categoryId')
   @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiOperation({ summary: summaries.REMOVE_CATEGORY })
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
   async removeCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
     @Body('userId') ownerId: string,
-  ): Promise<MenuDTO> {
+  ): Promise<MenuCategoriesDTO> {
     const menu = await this.menuService.removeCategory(
       menuId,
       categoryId,
@@ -104,21 +149,55 @@ export class MenuController {
     return menu;
   }
 
-  /** Add an item to the category */
+  /** Add a category to the menu */
   @Patch(':menuId/addCategory/:categoryId')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOperation({ summary: summaries.ADD_CATEGORY })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
   async addCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
     @Body('userId') ownerId: string,
-  ): Promise<MenuDTO> {
+  ): Promise<MenuCategoriesDTO> {
     const category = await this.menuService.addCategory(
       menuId,
       categoryId,
       ownerId,
     );
+    return category;
+  }
+
+  /** Change the order of the categories in the menu */
+  @Patch(':menuId/categories/reorder')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOperation({ summary: summaries.REORDER_CATEGORIES })
+  @ApiOkResponse({ type: MenuCategoriesDTO })
+  async reorderCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Body() reorderDTO: ReorderDTO,
+    @Body('userId') ownerId: string,
+  ): Promise<MenuCategoriesDTO> {
+    const menu = await this.menuService.reorderCategories(
+      menuId,
+      ownerId,
+      reorderDTO,
+    );
+    return menu;
+  }
+
+  /** remove a category from all menus */
+  @Delete('categories/:categoryId')
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiOperation({ summary: summaries.DELETE_CATEGORY })
+  @ApiOkResponse({ type: String })
+  async deleteCategory(
+    @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Body('userId') ownerId: string,
+  ): Promise<string> {
+    const category = await this.menuService.deleteCategory(categoryId, ownerId);
     return category;
   }
 }
