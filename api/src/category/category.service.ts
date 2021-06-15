@@ -59,6 +59,12 @@ export class CategoryService {
     return this.sanitizer.sanitize(category);
   };
 
+  /** Gets all categories in the system without their items */
+  getAll = async (businessId: string): Promise<CategoryDTO[]> => {
+    const categories = await this.model.find({ businessId: businessId });
+    return this.sanitizer.sanitizeMany(categories);
+  };
+
   /** Delete A category and @return its Id */
   delete = async (catId: string, ownerId: string): Promise<ICategory> => {
     let category = await this.model.findOne({ _id: catId });
