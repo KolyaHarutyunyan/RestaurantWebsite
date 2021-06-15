@@ -9,6 +9,7 @@ export interface IMenu extends Document {
   tagline?: string;
   image?: string | IImage;
   description?: string;
-  categories: IMenuCategory[];
+  drinkCategories: IMenuCategory[];
+  foodCategories: IMenuCategory[];
   isActive: boolean;
 }

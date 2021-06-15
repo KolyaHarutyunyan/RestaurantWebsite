@@ -10,9 +10,9 @@ export class CreateCategoryDTO {
   @IsOptional()
   @IsString()
   description?: string;
-  @ApiProperty({ enum: CategoryType })
-  @IsEnum(CategoryType)
-  type: CategoryType;
+  // @ApiProperty({ enum: CategoryType })
+  // @IsEnum(CategoryType)
+  // type: CategoryType;
   @ApiProperty()
   businessId: string;
 

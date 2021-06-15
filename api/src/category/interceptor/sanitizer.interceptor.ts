@@ -12,7 +12,6 @@ export class CategorySanitizer implements ISanitize {
     const sanitized: CategoryDTO = {
       id: category._id,
       name: category.name,
-      type: category.type,
     };
     return sanitized;
   }
@@ -32,16 +31,4 @@ export class CategorySanitizer implements ISanitize {
     }
     return response;
   }
-
-  //   /** Private methods */
-  //   private processItems(items: ICategoryItem[]) {
-  //     if (items?.length > 0) {
-  //       const itemTest = items[0]._id as IItem;
-  //       if (itemTest.name) {
-  //         for (let i = 0; i < items.length; i++) {
-  //           items[i].item = this.itemSanitizer.sanitize(items[i]._id as IItem);
-  //         }
-  //       }
-  //     }
-  //   }
 }

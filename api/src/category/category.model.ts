@@ -1,5 +1,4 @@
 import { model, Schema, Types } from 'mongoose';
-import { CategoryType } from './category.constants';
 import { ICategory } from './interface';
 
 const categoryItemSchema = new Schema({
@@ -13,7 +12,6 @@ const categorySchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   items: [categoryItemSchema],
-  type: { type: String, enum: CategoryType },
 });
 
 export const CategoryModel = model<ICategory>('category', categorySchema);

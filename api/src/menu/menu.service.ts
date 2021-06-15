@@ -12,7 +12,8 @@ import {
 import { BusinessValidator } from 'src/business';
 import { ImageService } from 'src/image';
 import { CategoryService } from 'src/category';
-import { ReorderDTO } from './dto/reorder.dto';
+import { CategoryType } from './menu.constants';
+import { ReorderDTO } from './dto';
 
 @Injectable()
 export class MenuService {
@@ -38,7 +39,8 @@ export class MenuService {
       businessId: menuDTO.businessId,
       name: menuDTO.name,
       isActive: false,
-      categories: [],
+      foodCategories: [],
+      drinkCategories: [],
     });
     if (menuDTO.description) {
       menu.description = menuDTO.description;
@@ -146,16 +148,21 @@ export class MenuService {
     menuId: string,
     catId: string,
     userId: string,
+    type: CategoryType,
   ): Promise<MenuCategoriesDTO> => {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
-    const rank = menu.categories.length;
-    menu.categories.push({
+    const categories = this.getCategoryFromMenu(type, menu);
+    const rank = categories.length;
+    categories.push({
       _id: catId,
       rank,
     });
-    menu = await (await menu.save()).populate('categories._id').execPopulate();
+    menu = await (await menu.save())
+      .populate('foodCategories._id')
+      .populate('drinkCategories._id')
+      .execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -164,17 +171,19 @@ export class MenuService {
     menuId: string,
     catId: string,
     userId: string,
+    type: CategoryType,
   ): Promise<MenuCategoriesDTO> => {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
-    for (let i = 0; i < menu.categories.length; i++) {
-      if (menu.categories[i]._id == catId) {
-        menu.categories.splice(i, 1);
+    const categories = this.getCategoryFromMenu(type, menu);
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i]._id == catId) {
+        categories.splice(i, 1);
         i--;
       }
     }
-    this.rerank(menu.categories);
+    this.rerank(categories);
     menu = await (await menu.save()).populate('categories._id').execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
   };
@@ -183,12 +192,22 @@ export class MenuService {
   deleteCategory = async (
     categoryId: string,
     ownerId: string,
+    type: CategoryType,
   ): Promise<string> => {
     const category = await this.categoryService.delete(categoryId, ownerId);
-    await this.model.updateMany(
-      { buesinessId: category.businessId },
-      { $pullAll: { categories: { _id: category._id } } },
-    );
+    if (type === CategoryType.DRINK) {
+      await this.model.updateMany(
+        { buesinessId: category.businessId },
+        { $pullAll: { drinkCategories: { _id: category._id } } },
+      );
+    }
+    if (type === CategoryType.FOOD) {
+      await this.model.updateMany(
+        { buesinessId: category.businessId },
+        { $pullAll: { foodCategories: { _id: category._id } } },
+      );
+    }
+
     return category._id;
   };
 
@@ -196,7 +215,8 @@ export class MenuService {
   getCategories = async (menuId: string): Promise<MenuCategoriesDTO> => {
     const menu = await this.model
       .findOne({ _id: menuId })
-      .populate('categories._id');
+      .populate('foodCategories._id')
+      .populate('drinkCategories._id');
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -205,15 +225,20 @@ export class MenuService {
     menuId: string,
     ownerId: string,
     reorderDTO: ReorderDTO,
+    type: CategoryType,
   ): Promise<MenuCategoriesDTO> => {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
-    this.checkBounds(reorderDTO.from, reorderDTO.to, menu.categories.length);
-    const removedCategory = menu.categories.splice(reorderDTO.from, 1);
-    menu.categories.splice(reorderDTO.to, 0, removedCategory[0]);
-    this.rerank(menu.categories);
-    menu = await (await menu.save()).populate('categories._id').execPopulate();
+    const categories = this.getCategoryFromMenu(type, menu);
+    this.checkBounds(reorderDTO.from, reorderDTO.to, categories.length);
+    const removedCategory = categories.splice(reorderDTO.from, 1);
+    categories.splice(reorderDTO.to, 0, removedCategory[0]);
+    this.rerank(categories);
+    menu = await (await menu.save())
+      .populate('foodCategories._id')
+      .populate('drinkCategories._id')
+      .execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -246,5 +271,18 @@ export class MenuService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  private getCategoryFromMenu(
+    type: CategoryType,
+    menu: IMenu,
+  ): IMenuCategory[] {
+    let categories;
+    if (type === CategoryType.FOOD) {
+      categories = menu.foodCategories;
+    } else if (type === CategoryType.DRINK) {
+      categories = menu.drinkCategories;
+    }
+    return categories;
   }
 }
