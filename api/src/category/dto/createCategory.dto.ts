@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
-import { ItemDTO } from 'src/item/dto';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { CategoryType } from '../category.constants';
 
 export class CreateCategoryDTO {
@@ -11,9 +10,9 @@ export class CreateCategoryDTO {
   @IsOptional()
   @IsString()
   description?: string;
-  @ApiProperty({ enum: CategoryType })
-  @IsString()
-  type: CategoryType;
+  // @ApiProperty({ enum: CategoryType })
+  // @IsEnum(CategoryType)
+  // type: CategoryType;
   @ApiProperty()
   businessId: string;
 

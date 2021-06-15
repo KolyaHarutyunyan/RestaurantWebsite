@@ -20,6 +20,7 @@ export class ImageService {
   async add(file: any, uploader: string) {
     this.checkFile(file);
     const url = await this.saveFile(file);
+    console.log('URL IS ', url);
     const image = await new this.model({
       uploader: uploader,
       originalUrl: url,
@@ -42,6 +43,8 @@ export class ImageService {
   /** Save many images */
   async addMany(files: any[], uploader: string): Promise<string[]> {
     const urls = await this.saveFiles(files);
+    console.log('URLs ARE ', urls);
+
     const promises = [];
     let image: IImage;
     for (let i = 0; i < urls.length; i++) {

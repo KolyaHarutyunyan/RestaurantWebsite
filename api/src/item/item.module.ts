@@ -9,5 +9,6 @@ import { ItemService } from './item.service';
   imports: [BusinessModule, ImageModule],
   controllers: [ItemController],
   providers: [ItemService, ItemSanitizer],
+  exports: [ItemService, ItemSanitizer],
 })
 export class ItemModule {}
