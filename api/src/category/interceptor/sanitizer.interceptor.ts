@@ -16,6 +16,14 @@ export class CategorySanitizer implements ISanitize {
     return sanitized;
   }
 
+  sanitizeMany(categories: ICategory[]): CategoryDTO[] {
+    const sanitized: CategoryDTO[] = [];
+    for (let i = 0; i < categories.length; i++) {
+      sanitized.push(this.sanitize(categories[i]));
+    }
+    return sanitized;
+  }
+
   /** Sanitize the items in the category */
   sanitizeItems(category: ICategory): CategoryItemsDTO {
     const items = category.items;
