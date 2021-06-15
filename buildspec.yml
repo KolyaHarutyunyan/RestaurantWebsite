@@ -64,7 +64,7 @@ artifacts:
         - clientDist/**/*
         - adminDist/**/*
         - scripts/**/*
-        - menuzmini.nginx.config
+        - menuz.nginx.config
         - appspec.yml
         - .npmrc
      
