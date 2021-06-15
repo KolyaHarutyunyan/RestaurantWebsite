@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, menusActions } from "@eachbase/store";
+import { BsImage } from "react-icons/bs";
 export const Menu = () => {
   const router = useRouter();
   const { open } = useModal();
@@ -65,9 +66,22 @@ export const Menu = () => {
             </Button>
           </div>
         </div>
+        <div
+          className={`logo mobile ${!currentMenu.image ? "no-image" : null} `}
+          style={{
+            backgroundImage: `url(${
+              currentMenu.image ? currentMenu.image.originalUrl : null
+            })`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+          {!currentMenu.image ? <BsImage className /> : null}
+        </div>
         <Image
           src={currentMenu.image ? currentMenu.image.originalUrl : null}
-          className="logo"
+          className="logo desktop"
+          responsiveOnMobile
         />
         <div className="info desktop">
           <Typography color="text" className="title" weight="bold">

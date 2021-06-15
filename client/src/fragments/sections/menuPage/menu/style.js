@@ -8,6 +8,9 @@ export const Container = styled.div`
       display: none !important;
     }
   }
+  .mobile {
+    display: none;
+  }
   margin-top: 90px;
   .head {
     display: flex;
@@ -63,6 +66,19 @@ export const Container = styled.div`
       flex: 0 0 300px;
       height: 180px;
       border-radius: 10px;
+      @media only screen and (max-width: 920px) {
+        &.mobile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            transform: scale(3);
+          }
+          &.no-image {
+            background: #0000001a;
+          }
+        }
+      }
     }
     .info {
       flex: 1;

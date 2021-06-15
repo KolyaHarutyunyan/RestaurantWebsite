@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export const Image = (props) => {
   const [imageLoaded, setImageLoaded] = useState(true);
-
   useEffect(() => {
     if (props.src) {
       const img = document.createElement("img");
