@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -17,7 +18,7 @@ import {
 import { ACCESS_TOKEN } from '../constants';
 import { ParseObjectIdPipe } from '../util';
 import { AuthService, AuthDTO, AuthGuard, Role } from '../auth';
-import { CreateOwnerDTO, OwnerDTO } from './dto';
+import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business';
 import { summaries } from './owner.constants';
@@ -61,6 +62,17 @@ export class OwnerController {
   async getOwners(): Promise<OwnerDTO[]> {
     const owners = await this.ownerService.getAll();
     return owners;
+  }
+
+  @Patch()
+  @UseGuards(new AuthGuard([Role.OWNER]))
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiBody({ type: EditOwnerDTO })
+  @ApiOkResponse({ type: OwnerDTO })
+  @ApiOperation({ summary: summaries.EDIT_INFO })
+  async edit(@Body() editDTO: EditOwnerDTO): Promise<OwnerDTO> {
+    const owner = await this.ownerService.edit(editDTO);
+    return owner;
   }
 
   /** Close the account for the user. The user will no longer have access to the account */

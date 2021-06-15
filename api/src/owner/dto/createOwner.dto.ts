@@ -8,7 +8,7 @@ export class CreateOwnerDTO {
     type: String,
     description: 'Lenght must be min 3 characters long',
   })
-  @MinLength(3)
+  @MinLength(2)
   fullName: string;
   // email
   @ApiProperty({ type: String })
