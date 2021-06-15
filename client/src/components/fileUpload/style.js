@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { colors } from "@eachbase/theme";
 export const Container = styled.div`
   cursor: pointer;
   display: flex;
@@ -12,21 +12,52 @@ export const Container = styled.div`
   .uploaded-files {
     flex: 1;
     text-align: center;
-    .file-preview {
+    .file-mock-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: #0000001a;
       margin: 10px;
-      display: inline-block;
+      &.big-one {
+        width: 120px;
+        height: 120px;
+      }
+      svg {
+        width: 42px;
+        height: 42px;
+      }
+    }
+    .file-preview {
+      vertical-align: top;
+      display: inline-flex;
+      cursor: pointer;
+      margin: 10px;
       position: relative;
       width: 80px;
       height: 80px;
+      &.big-one {
+        width: 120px;
+        height: 120px;
+        .remove {
+          left: 77% !important;
+        }
+      }
       background-position: center;
       background-size: cover;
+      background-repeat: no-repeat;
       border-radius: 15px;
+      border: 3px solid white;
+      &.main {
+        box-shadow: 0px 0px 0px 3px ${colors.action};
+      }
       .remove {
-        background-size: white;
         position: absolute;
-        left: 85%;
-        color: #007aff;
-        background-color: white;
+        left: 72%;
+        top: 8%;
+        color: #ffffff;
+        background-color: black;
         border-radius: 50%;
         height: 16px;
         svg {

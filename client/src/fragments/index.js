@@ -6,6 +6,7 @@ export {
   DeleteAccountForm,
   EditRestaurantForm,
   EditRestaurantExtraDetailsForm,
+  MenuForm,
 } from "./forms";
 export {
   CheckEmailHelper,
@@ -21,4 +22,6 @@ export {
   ProfilePageSections,
   MenuPageSections,
   PreviewPageSections,
+  NotFoundPageSections,
+  ResetPasswordPageSections,
 } from "./sections";

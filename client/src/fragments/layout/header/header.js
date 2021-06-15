@@ -16,8 +16,8 @@ export const Header = () => {
   const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
-  const { open } = useModal();
   const signOutSaga = useSagaStore(profileActions.signOut);
+  const { open } = useModal();
 
   const profileNavigationalList = () => {
     const signOut = () => {
@@ -91,7 +91,12 @@ export const Header = () => {
               className={`menu-toggle ${menuIsOpen ? "open" : ""}`}
             />
           </div>
-          <Button color="default" outlined inactive>
+          <Button
+            color="default"
+            outlined
+            inactive
+            onClick={() => open(MODAL_NAMES.MENU_FORM)}
+          >
             Create Menu
           </Button>
           <Menu
@@ -150,7 +155,7 @@ export const Header = () => {
 
   return (
     <Container>
-      <div className="wrapper container">
+      <div className="container">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />
           <Typography weight="bold" color="text" size="1.250rem">

@@ -23,7 +23,13 @@ export const PrimaryInfo = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="head">
             {editMode ? (
-              <Button color="action" link colorVariant type="submit">
+              <Button
+                onLoad={status.onLoad}
+                color="action"
+                link
+                colorVariant
+                type="submit"
+              >
                 Save
               </Button>
             ) : (
@@ -32,6 +38,7 @@ export const PrimaryInfo = () => {
                 onClick={() => setEditMode(true)}
                 link
                 type="button"
+                onLoad={status.onLoad}
               >
                 Edit
               </Button>

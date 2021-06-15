@@ -4,24 +4,30 @@ import {
   Button,
   useModal,
   AddressInput,
-  Switch,
 } from "@eachbase/components";
+import { HoursList } from "./hoursList";
 import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 import { BiChevronDown } from "react-icons/bi";
 import { BiPhoneCall } from "react-icons/bi";
-export const EditRestaurantExtraDetailsForm = () => {
-  const { register, handleSubmit } = useForm();
+import { useRouter } from "next/dist/client/router";
+import { useSelector } from "react-redux";
 
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+export const EditRestaurantExtraDetailsForm = () => {
   const { close } = useModal();
-  const [address, setAddress] = useState("");
+  const restaurant = useSelector(({ businesses }) => businesses);
+  const { register, handleSubmit, reset } = useForm();
+  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const router = useRouter();
+  const [address, setAddress] = useState(restaurant ? restaurant.address : "");
+  const [hoursSnapshot, setHoursSnapshot] = useState(null);
+
   const [toggleHoursOperations, setToggleHourseOperations] = useState(false);
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.createBusiness
   );
 
   const onSubmit = (data) => {
@@ -34,9 +40,21 @@ export const EditRestaurantExtraDetailsForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
+      reset();
       router.push("/restaurant");
     }
   }, [status]);
+
+  useEffect(() => {
+    if (restaurant && !hoursSnapshot) {
+      let modifiedHourses = { ...restaurant.hours };
+      setHoursSnapshot(restaurant.hours);
+    }
+  }, [restaurant]);
+
+  if (!restaurant) {
+    return false;
+  }
 
   return (
     <Container>
@@ -52,11 +70,13 @@ export const EditRestaurantExtraDetailsForm = () => {
         <Input
           placeholder="Add your website URL"
           icon={<Icons.WWWIcon />}
+          defaultValue={restaurant.website}
           {...register("name", { required: true })}
         />
         <Input
           placeholder="Phone Number"
           icon={<BiPhoneCall size={22} />}
+          defaultValue={restaurant.phoneNumber}
           {...register("name", { required: true })}
         />
         <AddressInput
@@ -64,7 +84,6 @@ export const EditRestaurantExtraDetailsForm = () => {
           disabled={false}
           handleChangeValue={(val) => setAddress(val)}
         />
-
         <div
           className={`hours-operations ${
             toggleHoursOperations ? "open" : "close"
@@ -81,97 +100,17 @@ export const EditRestaurantExtraDetailsForm = () => {
               <BiChevronDown size={25} />
             </div>
           </Button>
-          <ul className="details">
-            <li>
-              <Typography className="day" color="text" weight="bold">
-                MON
-              </Typography>
-              <ul className="times">
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-              </ul>
-              <Switch />
-            </li>
-            <li>
-              <Typography className="day" color="text" weight="bold">
-                MON
-              </Typography>
-              <ul className="times">
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-              </ul>
-              <Switch />
-            </li>
-            <li>
-              <Typography className="day" color="text" weight="bold">
-                MON
-              </Typography>
-              <ul className="times">
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-                <li>
-                  <Typography color="text">11:00 am - 02:00 pm</Typography>
-                  <div className="actions">
-                    <button>-</button>
-                    <button>+</button>
-                  </div>
-                </li>
-              </ul>
-              <Switch />
-            </li>
-          </ul>
+          {hoursSnapshot && (
+            <HoursList
+              hourList={hoursSnapshot}
+              onHourListChange={(newHoursSnap) =>
+                setHoursSnapshot(newHoursSnap)
+              }
+              isOpen={toggleHoursOperations}
+            />
+          )}
         </div>
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

@@ -3,18 +3,28 @@ import { Switch } from "../swich";
 import { Container, DropDownMenuContainer } from "./style";
 import { Icons } from "@eachbase/theme";
 import { Menu } from "@eachbase/components";
-export const MenuCard = ({ data }) => {
+export const MenuCard = ({
+  data,
+  onTitleClick = () => {},
+  onRequestToDelete = () => {},
+  onRequestToEdit = () => {},
+  onRequestToDuplicate = () => {},
+  onRequestToSwitch = () => {},
+}) => {
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
-    <Container coverImg={data.menuImg}>
-      <div className="cover" />
+    <Container coverImg={data.image ? data.image.originalUrl : null}>
+      <div className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
       <div className="action-bar">
-        <div className="title" onClick={() => {}}>
+        <div className="title" onClick={() => onTitleClick()}>
           {data.name}
         </div>
         <div className="action">
-          <Switch status={data.isActive || false} onClick={() => {}} />
+          <Switch
+            status={data.isActive || false}
+            onClick={() => onRequestToSwitch()}
+          />
         </div>
       </div>
       <div className="descr-bar" ref={descrBarRef}>
@@ -29,9 +39,11 @@ export const MenuCard = ({ data }) => {
         onRequestToClose={() => setMenuIsOpen(false)}
       >
         <DropDownMenuContainer>
-          <li>Edit</li>
-          <li>Duplicate</li>
-          <li className="danger">Delete</li>
+          <li onClick={() => onRequestToEdit()}>Edit</li>
+          <li onClick={() => onRequestToDuplicate()}>Duplicate</li>
+          <li onClick={() => onRequestToDelete()} className="danger">
+            Delete
+          </li>
         </DropDownMenuContainer>
       </Menu>
     </Container>

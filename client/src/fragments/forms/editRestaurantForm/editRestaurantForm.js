@@ -9,23 +9,27 @@ import {
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
+const RESTAURANT_ICONS_LIMIT = 6;
 export const EditRestaurantForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
-  const restaurant = useSelector(({ restaurants }) =>
-    restaurants ? restaurants[0] : {}
-  );
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const router = useRouter();
+  const business = useSelector(({ businesses }) => businesses || {});
+  const [restaurantIcon, setRestaurantIcon] = useState({
+    files: [],
+    mainImageId: "",
+  });
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.editBusiness
   );
 
   const onSubmit = (data) => {
-    dispatch({ ...data, icon: restaurantIcon[0] || null });
+    dispatch({ ...business, ...data, icon: restaurantIcon[0] || null });
   };
 
   useEffect(() => () => destroy.all(), []);
@@ -34,9 +38,40 @@ export const EditRestaurantForm = () => {
     if (status.onSuccess) {
       close();
       destroy.success();
+      reset();
+      setRestaurantIcon({
+        files: [],
+        mainImageId: "",
+      });
       router.push("/restaurant");
     }
   }, [status]);
+
+  const onFileUploadChange = (files, actionType, mainImageId) => {
+    if (actionType === "UPLOAD") {
+      const filteredFiles = files.filter((cFile) => {
+        const isIn = !!restaurantIcon.files.find(
+          (file) => file.id !== cFile.id
+        );
+
+        return !isIn;
+      });
+      setRestaurantIcon((cRestaurantIcon) => {
+        if (
+          cRestaurantIcon.files.length + filteredFiles.length <=
+          RESTAURANT_ICONS_LIMIT
+        ) {
+          return {
+            files: [...filteredFiles, ...cRestaurantIcon.files],
+            mainImageId,
+          };
+        }
+        return cRestaurantIcon;
+      });
+    } else {
+      setRestaurantIcon({ files, mainImageId });
+    }
+  };
 
   return (
     <Container>
@@ -47,11 +82,11 @@ export const EditRestaurantForm = () => {
           color="text"
           size="1.250rem"
         >
-          {restaurant.name}
+          {business.name}
         </Typography>
         <Input
           placeholder="Restaurant Name"
-          defaultValue={restaurant.name}
+          defaultValue={business.name}
           {...register("name", { required: true })}
         />
         <div>
@@ -60,19 +95,22 @@ export const EditRestaurantForm = () => {
           </Typography>
           <Textarea
             placeholder="Brief Description"
-            defaultValue={restaurant.description}
+            defaultValue={business.description}
             rows={4}
             {...register("description", { required: true })}
           />
         </div>
         <FileUpload
-          files={restaurantIcon}
+          files={restaurantIcon.files}
+          mainImageId={restaurantIcon.mainImageId}
+          limit={RESTAURANT_ICONS_LIMIT}
           title="Restaurant Logo"
-          onChange={(files) =>
-            setRestaurantIcon(files.length ? [files[0]] : [])
+          limit={1}
+          onChange={(files, actionType, mainImageId) =>
+            onFileUploadChange(files, actionType, mainImageId)
           }
         />
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

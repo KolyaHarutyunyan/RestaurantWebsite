@@ -5,6 +5,9 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    p {
+      min-width: 160px;
+    }
   }
   .add-or-choice {
     display: flex;
@@ -20,7 +23,9 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       gap: 5px;
-      button {
+      .circle {
+        padding: 2px;
+        border-radius: 50%;
         background: #007aff1a 0% 0% no-repeat padding-box;
         color: #007aff;
         font-size: 20px;

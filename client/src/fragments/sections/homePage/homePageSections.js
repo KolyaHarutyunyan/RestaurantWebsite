@@ -11,11 +11,13 @@ export const HomePageSections = () => {
   return (
     <Fragment>
       <Hero />
-      <DigitalMenu />
-      <HowItWorks />
-      <MenusAndMenuItems />
+      <div className="container">
+        <DigitalMenu />
+        <HowItWorks />
+        <YourBusiness />
+      </div>
       <QRCode />
-      <YourBusiness />
+      <MenusAndMenuItems />
     </Fragment>
   );
 };

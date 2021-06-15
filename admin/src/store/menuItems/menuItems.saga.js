@@ -3,7 +3,6 @@ import { GET_MENU_ITEMS_SUCCESS, GET_MENU_ITEMS } from "./menuItems.types";
 import { menuItemsService } from "./menuItems.service";
 
 function* getMenuItems() {
-  console.log(1111);
   try {
     const res = yield call(() => menuItemsService.getItems());
     yield put({

@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { httpRequestsOnErrorsActions } from "./http_requests_on_errors";
 import { httpRequestsOnSuccessActions } from "./http_requests_on_success";
+import { httpRequestsOnLoadActions } from "./http_requests_on_load";
 
 export const useSagaStore = (actionCreator) => {
   const dispatch = useDispatch();
 
   const mockArgs = [];
+
   for (let i = 0; i < actionCreator.length; i++) {
     mockArgs.push(null);
   }
@@ -39,9 +41,13 @@ export const useSagaStore = (actionCreator) => {
     error() {
       dispatch(httpRequestsOnErrorsActions.removeError(cActionCreatorType));
     },
+    loading() {
+      dispatch(httpRequestsOnErrorsActions.removeError(cActionCreatorType));
+    },
     all() {
       this.success();
       this.error();
+      this.loading();
     },
   };
 

@@ -1,10 +1,15 @@
 import { Container } from "./style";
-import { Tabs, Select, Button } from "@eachbase/components";
+import { Tabs, Select, Button, ProSelect } from "@eachbase/components";
 import { useState } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
 export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
+  const [categoriesSelect, setCategoriesSelect] = useState({
+    value: null,
+    options: [{ label: "hello", value: "hello" }],
+  });
+  const [searchBarValue, setSearchBarValue] = useState("");
 
   return (
     <Container>
@@ -17,63 +22,83 @@ export const Categories = () => {
           <Tabs.TabTitle tabName="drinks">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
         <div className="select-create-category">
-          <Select>
-            <option>Select / Create Category</option>
-          </Select>
-          <Button>Add</Button>
+          <div className="select-wrapper">
+            <ProSelect
+              onChange={(value, options) => {
+                setCategoriesSelect({
+                  value,
+                  options,
+                });
+              }}
+              onSearchBarValueChange={(value) => setSearchBarValue(value)}
+              options={categoriesSelect.options}
+              value={categoriesSelect.value}
+            />
+          </div>
+
+          <Button
+            disabled={
+              !searchBarValue ||
+              !!categoriesSelect.options.find(
+                (option) => option.label === searchBarValue
+              )
+            }
+          >
+            Add
+          </Button>
         </div>
         <Tabs.TabContent contentOf="food">
           <ul className="categories">
             <li>
               <Typography className="category-name">
                 Category Name
-                <div className="action">
+                <span className="action">
                   <Button link>
-                    <div className="icon">
+                    <span className="icon">
                       <IoIosTrash />
-                    </div>
+                    </span>
                     Delete
                   </Button>
-                </div>
+                </span>
               </Typography>
             </li>
             <li>
               <Typography className="category-name">
                 Category Name
-                <div className="action">
+                <span className="action">
                   <Button link>
-                    <div className="icon">
+                    <span className="icon">
                       <IoIosTrash />
-                    </div>
+                    </span>
                     Delete
                   </Button>
-                </div>
+                </span>
               </Typography>
             </li>
             <li>
               <Typography className="category-name">
                 Category Name
-                <div className="action">
+                <span className="action">
                   <Button link>
-                    <div className="icon">
+                    <span className="icon">
                       <IoIosTrash />
-                    </div>
+                    </span>
                     Delete
                   </Button>
-                </div>
+                </span>
               </Typography>
             </li>
             <li>
               <Typography className="category-name">
                 Category Name
-                <div className="action">
+                <span className="action">
                   <Button link>
-                    <div className="icon">
+                    <span className="icon">
                       <IoIosTrash />
-                    </div>
+                    </span>
                     Delete
                   </Button>
-                </div>
+                </span>
               </Typography>
             </li>
           </ul>

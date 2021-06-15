@@ -2,10 +2,10 @@ import { Fragment } from "react";
 import Head from "next/head";
 import { MenuPage } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";
-export default function Restaurant(props) {
+export default function Menu(props) {
   return (
     <Fragment>
-      <Head>{props.meta || <title>welcome menuz</title>}</Head>
+      <Head>{props.meta || <title>Welcome menuz</title>}</Head>
       <Layout>
         <MenuPage {...props.pageData} />
       </Layout>
@@ -13,6 +13,6 @@ export default function Restaurant(props) {
   );
 }
 
-Restaurant.getInitialProps = async () => {
+Menu.getInitialProps = async () => {
   return { meta: null, pageData: null };
 };

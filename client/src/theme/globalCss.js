@@ -11,6 +11,10 @@ export const GlobalCss = withStyles({
     body: {
       background:
         "transparent linear-gradient(179deg, #FFFFFF 0%, #F3F3F3DF 53%, #E3E3E3B3 100%) 0% 0% no-repeat padding-box;",
+      "-ms-overflow-style": "none",
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
     },
     "#__next": {
       position: "fixed",
@@ -18,10 +22,11 @@ export const GlobalCss = withStyles({
       top: 0,
       width: "100%",
     },
-    "input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button": {
-      "-webkit-appearance": "none",
-      margin: 0,
-    },
+    "input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button":
+      {
+        "-webkit-appearance": "none",
+        margin: 0,
+      },
     "a, li": {
       listStyleType: "none",
     },

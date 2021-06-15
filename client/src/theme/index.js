@@ -7,4 +7,5 @@ export { colors } from "./colors";
 export { MainWrapper } from "./components";
 export { ScrollBar } from "./scrollbar";
 export { GlobalScss } from "./globalScss";
+export { bringToast } from "./toast";
 export * as Icons from "./icons";

@@ -11,12 +11,13 @@ export const SignUpForm = () => {
   const { open } = useModal();
   const { status, dispatch, destroy } = useSagaStore(profileActions.signUp);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => () => destroy.all(), []);
   useEffect(() => {
     if (status.onSuccess) {
       open(MODAL_NAMES.CREATE_RESTAURANT);
+      reset();
       destroy.all();
     }
   }, [status]);
@@ -56,7 +57,7 @@ export const SignUpForm = () => {
             status.onError ? "Password should be at least 8 characters" : ""
           }
         />
-        <Button fullWidth type="submit" disabled={status.onLoad}>
+        <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
         </Button>
       </form>

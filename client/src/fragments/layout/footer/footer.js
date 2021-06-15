@@ -1,4 +1,4 @@
-import { Style } from "./core";
+import { Container } from "./style";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
@@ -19,25 +19,22 @@ export const Footer = () => {
   }, [router.pathname]);
 
   return (
-    <Style.Footer fix={fix}>
-      <Style.Content>
-        <Style.CopyRight className="copyRight">
-          © 2021 Menuz. All Rights Reserved.
-        </Style.CopyRight>
-        <Style.Infos className="infos">
-          <Link href={"/"}>
+    <Container>
+      <div className="container">
+        <div className="copyright">© 2021 Menuz. All Rights Reserved.</div>
+        <div className="links">
+          <Link href="/">
             <a>Terms & Conditions</a>
           </Link>
-          <hr />
           <Link href="/">
             <a>Privacy Policy</a>
           </Link>
-        </Style.Infos>
-        <Style.Logo>
+        </div>
+        <div className="logo-container">
           <Icons.LogoInvert />
           <p>Menuz</p>
-        </Style.Logo>
-      </Style.Content>
-    </Style.Footer>
+        </div>
+      </div>
+    </Container>
   );
 };

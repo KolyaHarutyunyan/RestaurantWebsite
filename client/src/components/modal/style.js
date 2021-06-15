@@ -1,17 +1,14 @@
 import styled from "styled-components";
 export const ModalContainer = styled.div`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  .fade {
-    opacity: ${({ isOpen }) => (isOpen ? "0.5" : "0")};
-    background-color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10000;
-  }
+  z-index: ${({ isOpen }) => (isOpen ? "9999" : "-9999")};
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transition: all 0.3s ease-in-out;
   .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 5px;
     .head {
       display: flex;
       justify-content: flex-end;
@@ -26,6 +23,10 @@ export const ModalContainer = styled.div`
         font-size: 20px;
         background: #2b273c1a 0% 0% no-repeat padding-box;
       }
+    }
+    .content {
+      flex: 3;
+      overflow: auto;
     }
     position: fixed;
     z-index: 10001;
@@ -42,5 +43,15 @@ export const ModalContainer = styled.div`
     border-radius: 32px;
     opacity: 1;
     background-color: white;
+  }
+  .fade {
+    opacity: ${({ isOpen }) => (isOpen ? "0.5" : "0")};
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
   }
 `;

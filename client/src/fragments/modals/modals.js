@@ -1,6 +1,6 @@
 import { Modal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
   SignInForm,
   ForgotPasswordForm,
@@ -11,11 +11,13 @@ import {
   DeleteAccountForm,
   EditRestaurantForm,
   EditRestaurantExtraDetailsForm,
+  MenuForm,
+  ResetPasswordHelper,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
+
 export const Modals = () => {
   const router = useRouter();
-
   return (
     <Fragment>
       <Modal modalName={MODAL_NAMES.SIGN_IN}>
@@ -51,6 +53,12 @@ export const Modals = () => {
       </Modal>
       <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
         <EditRestaurantExtraDetailsForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.MENU_FORM}>
+        <MenuForm />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
+        <ResetPasswordHelper />
       </Modal>
     </Fragment>
   );

@@ -1,7 +1,5 @@
-import { Fragment } from "react";
+import { NotFoundPage } from "@eachbase/pages";
 
-const NotFoundPage = () => {
-  return <Fragment>404</Fragment>;
-};
+const NotFound = () => <NotFoundPage />;
 
-export default NotFoundPage;
+export default NotFound;

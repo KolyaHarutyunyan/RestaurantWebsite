@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { colors } from "@eachbase/theme";
+
 export const Container = styled.div`
   width: 100%;
   height: 80px;
   box-shadow: 0px 2px 6px #0000001a;
-  .wrapper {
+  .container {
     @media only screen and (min-width: 1280px) {
       transform: translateX(-10px);
     }

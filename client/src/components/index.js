@@ -8,3 +8,4 @@ export { Menu } from "./menu";
 export { FileUpload } from "./fileUpload";
 export { MenuCard } from "./menuCard";
 export { Tabs } from "./tabs";
+export { ProSelect } from "./proSelect";

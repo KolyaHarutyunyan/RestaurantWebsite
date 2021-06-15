@@ -6,6 +6,7 @@ import {
   UPDATE_PROFILE_PASSWORD,
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
+  RESET_PASSWORD,
 } from "./profile.types";
 
 export const profileActions = {
@@ -16,4 +17,8 @@ export const profileActions = {
   updatePassword: (payload) => ({ type: UPDATE_PROFILE_PASSWORD, payload }),
   deleteProfile: () => ({ type: DELETE_PROFILE }),
   updateUserInfo: (payload) => ({ type: UPDATE_PROFILE_INFO, payload }),
+  resetPassword: (data, token) => ({
+    type: RESET_PASSWORD,
+    payload: { data, token },
+  }),
 };

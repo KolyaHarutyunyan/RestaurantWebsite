@@ -8,33 +8,45 @@ import {
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
-
+import { useSagaStore, menusActions, businessesActions } from "@eachbase/store";
 import { Container, HourseMenuContainer } from "./style";
+import { useSelector } from "react-redux";
+import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { IoMdDownload } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
-import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export const RestaurantPageSections = () => {
-  const restaurants = useSelector(({ restaurants }) => restaurants);
-  const getRestaurantsSaga = useSagaStore(restaurantsActions.getRestaurants);
+  const { open } = useModal();
+  const router = useRouter();
+  const { businesses: business, menus } = useSelector(
+    ({ businesses, menus }) => ({
+      businesses,
+      menus,
+    })
+  );
+  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
+  const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
+  const createMenuSaga = useSagaStore(menusActions.createMenu);
+  const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
+  // const deleteMenusSaga = useSagaStore(menusActions.deleteMenu);
+
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
-  const { open } = useModal();
 
-  useEffect(() => getRestaurantsSaga.dispatch(), []);
+  useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
-    if (restaurants !== null && !restaurants.length) {
+    if (business && Object.keys(business).length) {
+      getMenusSaga.dispatch(business.id);
+    } else if (business && !Object.keys(business).length) {
       open(MODAL_NAMES.CREATE_RESTAURANT);
     }
-  }, [restaurants]);
+  }, [business]);
 
-  if (restaurants === null || !restaurants.length) {
+  if (business === null || !Object.keys(business).length) {
     return null;
   }
 
-  const restaurant = restaurants[0];
   return (
     <Container className="container">
       <div className="header">
@@ -47,16 +59,29 @@ export const RestaurantPageSections = () => {
         </Button>
       </div>
       <div className="content">
-        <div className="restaurant-card">
+        <div className="business-card">
           <div className="header">
-            <Typography color="text" size="1.5rem" weight="bold">
-              {restaurant.name}
+            <Typography
+              className="title"
+              color="text"
+              size="1.5rem"
+              weight="bold"
+            >
+              {business.logo ? (
+                <span
+                  style={{
+                    backgroundImage: `url(${business.logo.originalUrl})`,
+                  }}
+                  className="logo"
+                />
+              ) : null}
+              {business.name}
             </Typography>
             <Button onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
               Edit
             </Button>
           </div>
-          <div className="descr">{restaurant.description}</div>
+          <div className="descr">{business.description}</div>
         </div>
         <div className="extra-details-card">
           <div className="header">
@@ -74,19 +99,19 @@ export const RestaurantPageSections = () => {
               <div className="icon">
                 <Icons.WWWIcon />
               </div>
-              <div className="value">Not Set</div>
+              <div className="value">{business.website || "Not Set"}</div>
             </li>
             <li>
               <div className="icon">
                 <Icons.CallIcon />
               </div>
-              <div className="value">{restaurant.phone || "Not Set"}</div>
+              <div className="value">{business.phoneNumber || "Not Set"}</div>
             </li>
             <li>
               <div className="icon">
                 <Icons.MapIcon />
               </div>
-              <div className="value">{restaurant.address || "Not Set"}</div>
+              <div className="value">{business.address || "Not Set"}</div>
             </li>
             <li
               ref={hourseMenuToggleRef}
@@ -107,7 +132,106 @@ export const RestaurantPageSections = () => {
               width={280}
               onRequestToClose={() => setHourseMenuStatus(false)}
             >
-              <HourseMenuContainer>Hello World</HourseMenuContainer>
+              <HourseMenuContainer>
+                <div>
+                  <p>MON</p>
+                  <ul>
+                    {business.hours.mon.status !== "CLOSED" ? (
+                      business.hours.mon.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>TUE</p>
+                  <ul>
+                    {business.hours.tue.status !== "CLOSED" ? (
+                      business.hours.tue.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>WED</p>
+                  <ul>
+                    {business.hours.wed.status !== "CLOSED" ? (
+                      business.hours.wed.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>THU</p>
+                  <ul>
+                    {business.hours.thr.status !== "CLOSED" ? (
+                      business.hours.thr.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>FRI</p>
+                  <ul>
+                    {business.hours.fri.status !== "CLOSED" ? (
+                      business.hours.fri.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>SAT</p>
+                  <ul>
+                    {business.hours.sat.status !== "CLOSED" ? (
+                      business.hours.sat.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+                <div>
+                  <p>SUN</p>
+                  <ul>
+                    {business.hours.sun.status !== "CLOSED" ? (
+                      business.hours.sun.hours.map((item, index) => (
+                        <li key={index}>
+                          {item.open} - {item.close}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="danger">CLOSED</li>
+                    )}
+                  </ul>
+                </div>
+              </HourseMenuContainer>
             </Menu>
           </ul>
         </div>
@@ -121,32 +245,33 @@ export const RestaurantPageSections = () => {
                 <Icons.MenuIcon />
               </div>
               <div className="footer">
-                <Button link inactive>
+                <Button
+                  link
+                  inactive
+                  onClick={() => open(MODAL_NAMES.MENU_FORM)}
+                >
                   <GoPlus /> Add Menu
                 </Button>
               </div>
             </div>
-            <MenuCard
-              data={{
-                name: "Menu",
-                description: "Lorem ipsum is a dollar",
-                isActive: false,
-              }}
-            />
-            <MenuCard
-              data={{
-                name: "Menu",
-                description: "Lorem ipsum is a dollar",
-                isActive: false,
-              }}
-            />
-            <MenuCard
-              data={{
-                name: "Menu",
-                description: "Lorem ipsum is a dollar",
-                isActive: false,
-              }}
-            />
+            {menus.map((menu, index) => (
+              <MenuCard
+                key={index}
+                data={menu}
+                onTitleClick={() =>
+                  router.push(`/menu/${business.id}/${menu.id}`)
+                }
+                onRequestToSwitch={() =>
+                  switchMenuStatusSaga.dispatch(menu.id, business.id)
+                }
+                onRequestToDuplicate={() =>
+                  createMenuSaga.dispatch({ businessId: business.id, ...menu })
+                }
+                onRequestToEdit={() =>
+                  open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
+                }
+              />
+            ))}
           </div>
         </div>
       </div>

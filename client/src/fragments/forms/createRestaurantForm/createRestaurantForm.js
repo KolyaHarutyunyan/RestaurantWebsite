@@ -10,14 +10,14 @@ import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSagaStore, restaurantsActions } from "@eachbase/store";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 
 export const CreateRestaurantForm = () => {
-  const { register, handleSubmit } = useForm();
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
+  const { register, handleSubmit, reset } = useForm();
+  const [restaurantIcon, setRestaurantIcon] = useState(null);
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
-    restaurantsActions.createRestaurant
+    businessesActions.createBusiness
   );
   const router = useRouter();
 
@@ -27,15 +27,16 @@ export const CreateRestaurantForm = () => {
       : "Last Step to Sign Up";
 
   const onSubmit = (data) => {
-    dispatch({ ...data, icon: restaurantIcon[0] || null });
+    dispatch(data, restaurantIcon);
   };
 
   useEffect(() => () => destroy.all(), []);
-
   useEffect(() => {
     if (status.onSuccess) {
       close();
-      destroy.success();
+      destroy.all();
+      reset();
+      setRestaurantIcon(null);
       router.push("/restaurant");
     }
   }, [status]);
@@ -66,13 +67,14 @@ export const CreateRestaurantForm = () => {
           />
         </div>
         <FileUpload
-          files={restaurantIcon}
+          files={restaurantIcon ? [restaurantIcon] : []}
           title="Restaurant Logo"
+          limit={1}
           onChange={(files) =>
-            setRestaurantIcon(files.length ? [files[0]] : [])
+            setRestaurantIcon(files.length ? files[0] : null)
           }
         />
-        <Button type="submit" disabled={status.onLoad}>
+        <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>
