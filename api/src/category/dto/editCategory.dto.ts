@@ -11,10 +11,10 @@ export class EditCategoryDTO {
   @IsOptional()
   @IsString()
   description?: string;
-  @ApiProperty({ enum: CategoryType, required: false })
-  @IsOptional()
-  @IsString()
-  type?: CategoryType;
+  // @ApiProperty({ enum: CategoryType, required: false })
+  // @IsOptional()
+  // @IsString()
+  // type?: CategoryType;
   // @ApiProperty({ required: false, description: 'item id to add' })
   // addItem?: string;
   // @ApiProperty({ required: false, description: 'item id to remove' })

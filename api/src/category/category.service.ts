@@ -30,7 +30,6 @@ export class CategoryService {
     await this.bsnValidator.validateBusiness(dto.userId, dto.businessId);
     let category = new this.model({
       name: dto.name,
-      type: dto.type,
       businessId: dto.businessId,
       description: dto.description,
       items: [],
@@ -49,7 +48,6 @@ export class CategoryService {
     await this.bsnValidator.validateBusiness(editDTO.userId, cat.businessId);
     if (editDTO.name) cat.name = editDTO.name;
     if (editDTO.description) cat.description = editDTO.description;
-    if (editDTO.type) cat.type = editDTO.type;
     cat = await cat.save();
     return this.sanitizer.sanitize(cat);
   };

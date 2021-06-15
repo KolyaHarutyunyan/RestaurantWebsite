@@ -39,28 +39,27 @@ export class MenuSanitizer implements ISanitize {
 
   /** SanitizeCategories */
   sanitizeCategories(menu: IMenu): MenuCategoriesDTO {
-    const categories = menu.categories as IMenuCategory[];
-    let category: ICategory;
+    const response: MenuCategoriesDTO = {
+      id: menu._id,
+      food: this.cleanCategory(menu.foodCategories as IMenuCategory[]),
+      drink: this.cleanCategory(menu.drinkCategories as IMenuCategory[]),
+    };
+    return response;
+  }
+
+  /** cleans a list of categories and returns it */
+  private cleanCategory(categories: IMenuCategory[]): MenuCategoryDTO[] {
+    const cleaned: MenuCategoryDTO[] = [];
     let menuCategoryRO: MenuCategoryDTO;
-    const drinks: MenuCategoryDTO[] = [];
-    const food: MenuCategoryDTO[] = [];
+    let category: ICategory;
     for (let i = 0; i < categories.length; i++) {
       category = categories[i]._id as ICategory;
       menuCategoryRO = {
         rank: categories[i].rank,
         category: this.categorySanitizer.sanitize(category),
       };
-      if (category.type === CategoryType.DRINK) {
-        drinks.push(menuCategoryRO);
-      } else if (category.type === CategoryType.FOOD) {
-        food.push(menuCategoryRO);
-      }
+      cleaned.push(menuCategoryRO);
     }
-    const response: MenuCategoriesDTO = {
-      id: menu._id,
-      food: food,
-      drink: drinks,
-    };
-    return response;
+    return cleaned;
   }
 }

@@ -13,7 +13,8 @@ const MenuSchema = new Schema({
   tagline: { type: String },
   image: { type: Types.ObjectId, ref: 'image' },
   description: { type: String },
-  categories: [MenuCategorySchema],
+  foodCategories: [MenuCategorySchema],
+  drinkCategories: [MenuCategorySchema],
   isActive: { type: Boolean, required: true },
 });
 

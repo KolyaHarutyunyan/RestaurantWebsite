@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -13,6 +14,7 @@ import {
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
@@ -27,6 +29,8 @@ import {
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
+import { CategoryType } from 'src/category';
+import { CategoryQueryDTO } from './dto/categoryQuery.dto';
 
 @Controller('menus')
 @ApiTags('Menus')
@@ -136,15 +140,19 @@ export class MenuController {
   @ApiOperation({ summary: summaries.REMOVE_CATEGORY })
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: MenuCategoriesDTO })
+  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
   async removeCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
-    @Body('userId') ownerId: string,
+    @Query() query: CategoryQueryDTO,
+    @Body('userId')
+    ownerId: string,
   ): Promise<MenuCategoriesDTO> {
     const menu = await this.menuService.removeCategory(
       menuId,
       categoryId,
       ownerId,
+      query.type,
     );
     return menu;
   }
@@ -155,15 +163,18 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.ADD_CATEGORY })
   @ApiOkResponse({ type: MenuCategoriesDTO })
+  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
   async addCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<MenuCategoriesDTO> {
     const category = await this.menuService.addCategory(
       menuId,
       categoryId,
       ownerId,
+      query.type,
     );
     return category;
   }
@@ -174,15 +185,18 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.REORDER_CATEGORIES })
   @ApiOkResponse({ type: MenuCategoriesDTO })
+  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
   async reorderCategories(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Body() reorderDTO: ReorderDTO,
+    @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<MenuCategoriesDTO> {
     const menu = await this.menuService.reorderCategories(
       menuId,
       ownerId,
       reorderDTO,
+      query.type,
     );
     return menu;
   }
@@ -193,11 +207,17 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.DELETE_CATEGORY })
   @ApiOkResponse({ type: String })
+  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
   async deleteCategory(
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
+    @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<string> {
-    const category = await this.menuService.deleteCategory(categoryId, ownerId);
+    const category = await this.menuService.deleteCategory(
+      categoryId,
+      ownerId,
+      query.type,
+    );
     return category;
   }
 }
