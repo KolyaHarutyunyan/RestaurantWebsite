@@ -3,7 +3,7 @@ import { BsImage } from "react-icons/bs";
 import { useEffect, useState } from "react";
 
 export const Image = (props) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
 
   useEffect(() => {
     if (props.src) {
@@ -13,8 +13,8 @@ export const Image = (props) => {
         setImageLoaded(true);
         img.remove();
       };
-      img.onload = () => handler;
-      img.onerror = () => handler;
+      img.onload = () => handler();
+      img.onerror = () => handler();
     }
   }, [props.src]);
 

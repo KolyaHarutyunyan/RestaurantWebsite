@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   grid-column: 1/3;
+  @media only screen and (max-width: 920px) {
+    grid-column: 1;
+    .desktop {
+      display: none !important;
+    }
+  }
   margin-top: 90px;
   .head {
     display: flex;
@@ -38,10 +44,21 @@ export const Container = styled.div`
   .card {
     display: flex;
     justify-content: space-between;
+    @media only screen and (max-width: 920px) {
+      flex-direction: column;
+    }
     padding: 40px;
     box-shadow: 0px 0px 6px #0000001a;
     border-radius: 8px;
     gap: 20px;
+    .mobile-head {
+      display: none;
+      @media only screen and (max-width: 920px) {
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+      }
+    }
     .logo {
       flex: 0 0 300px;
       height: 180px;

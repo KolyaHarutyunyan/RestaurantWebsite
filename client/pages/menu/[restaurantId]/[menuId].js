@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import Head from "next/head";
 import { MenuPage } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";

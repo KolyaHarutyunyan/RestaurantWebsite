@@ -12,9 +12,9 @@ export const Items = () => {
       </div>
       <div className="add-or-choice">
         <Button link color="action" className="action-button">
-          <Fab size={25}>
+          <div className="circle">
             <AiOutlinePlus />
-          </Fab>
+          </div>
           Add New Menu Item
         </Button>
         <Typography color="text">OR</Typography>

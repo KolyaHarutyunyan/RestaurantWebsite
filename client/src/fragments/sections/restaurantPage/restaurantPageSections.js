@@ -68,7 +68,7 @@ export const RestaurantPageSections = () => {
               weight="bold"
             >
               {business.logo ? (
-                <div
+                <span
                   style={{
                     backgroundImage: `url(${business.logo.originalUrl})`,
                   }}

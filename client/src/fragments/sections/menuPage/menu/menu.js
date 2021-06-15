@@ -50,11 +50,26 @@ export const Menu = () => {
         </div>
       </div>
       <div className="card">
+        <div className="mobile-head">
+          <Typography color="text" className="title" weight="bold">
+            {currentMenu.name}
+          </Typography>
+          <div className="actions">
+            <Button
+              disabled={!currentMenu.id}
+              onClick={() =>
+                open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
+              }
+            >
+              Edit
+            </Button>
+          </div>
+        </div>
         <Image
           src={currentMenu.image ? currentMenu.image.originalUrl : null}
           className="logo"
         />
-        <div className="info">
+        <div className="info desktop">
           <Typography color="text" className="title" weight="bold">
             {currentMenu.name}
           </Typography>
@@ -62,9 +77,9 @@ export const Menu = () => {
             {currentMenu.description}
           </Typography>
         </div>
-        <div className="actions">
+        <div className="actions desktop">
           <Button
-            disabled={!!currentMenu.id}
+            disabled={!currentMenu.id}
             onClick={() =>
               open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
             }
