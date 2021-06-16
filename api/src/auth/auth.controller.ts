@@ -76,7 +76,7 @@ export class AuthController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({
     type: String,
-    description: 'the token that was invalidated',
+    description: 'invalidated token',
   })
   async logout(
     @Param('id', ParseObjectIdPipe) userId: string,

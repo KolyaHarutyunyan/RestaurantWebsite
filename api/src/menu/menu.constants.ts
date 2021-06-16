@@ -11,4 +11,6 @@ export const summaries = {
   ADD_CATEGORY: `Add an existing category to this menu, will add the category with all its menu items`,
   DELETE_MENU: `Permanantly deletes the menu from the system`,
   REORDER_CATEGORIES: `Change the order of the categories in this menu`,
+  GET_CATEGORIES: `Get the categories of the menu`,
+  GET_ACTIVE: `Gets the active menu of the business`,
 };

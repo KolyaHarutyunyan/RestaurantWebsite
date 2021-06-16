@@ -5,6 +5,4 @@ export class ReorderDTO {
   from: number;
   @ApiProperty({ description: 'New rank of this category' })
   to: number;
-  @ApiProperty({ description: 'The id of this category' })
-  categoryId: string;
 }

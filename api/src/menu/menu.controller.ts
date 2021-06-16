@@ -77,6 +77,8 @@ export class MenuController {
 
   /** Get the active menu with its categories */
   @Get('active/:businessId')
+  @ApiOkResponse({ type: MenuDTO })
+  @ApiOperation({ summary: summaries.GET_ACTIVE })
   async getActiveMenu(
     @Param('businessId', ParseObjectIdPipe) businessId,
   ): Promise<MenuDTO> {
@@ -88,7 +90,7 @@ export class MenuController {
   @Get(':id')
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({ type: [MenuDTO] })
+  @ApiOkResponse({ type: MenuDTO })
   async getMenu(
     @Param('id', ParseObjectIdPipe) menuId: string,
   ): Promise<MenuDTO> {
@@ -126,6 +128,7 @@ export class MenuController {
 
   /** Get the categories of the menu */
   @Get(':menuId/categories')
+  @ApiOperation({ summary: summaries.GET_CATEGORIES })
   @ApiOkResponse({ type: MenuCategoriesDTO })
   async getMenuCategories(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
