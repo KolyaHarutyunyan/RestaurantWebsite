@@ -59,6 +59,12 @@ export class CategoryService {
     return this.sanitizer.sanitize(category);
   };
 
+  /** Gets all categories in the system without their items */
+  getAll = async (businessId: string): Promise<CategoryDTO[]> => {
+    const categories = await this.model.find({ businessId: businessId });
+    return this.sanitizer.sanitizeMany(categories);
+  };
+
   /** Delete A category and @return its Id */
   delete = async (catId: string, ownerId: string): Promise<ICategory> => {
     let category = await this.model.findOne({ _id: catId });
@@ -177,6 +183,10 @@ export class CategoryService {
     return this.sanitizer.sanitizeItems(category);
   };
 
+  /** @returns the raw category - for system use only, do not send to client */
+  find = async (categoryId: string): Promise<ICategory> => {
+    return await this.model.findById(categoryId);
+  };
   /** Private methods */
   /** Check if category exists */
   private checkCategory(category: ICategory) {

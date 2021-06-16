@@ -62,6 +62,17 @@ export class CategoryController {
     return category;
   }
 
+  /** Get all categories for the business */
+  @Get('business/:businessId')
+  @ApiOkResponse({ type: [CategoryDTO] })
+  @ApiOperation({ summary: summaries.GET_BUSINESS_CATEGORY })
+  async getAll(
+    @Param('businessId', ParseObjectIdPipe) businessId: string,
+  ): Promise<CategoryDTO[]> {
+    const categories = await this.categoryService.getAll(businessId);
+    return categories;
+  }
+
   /** Get the category without its items */
   @Get(':id')
   @ApiOkResponse({ type: CategoryDTO })

@@ -70,6 +70,22 @@ export class ItemService {
     return item;
   };
 
+  /** Gets all items in the system without their items */
+  getAll = async (businessId: string): Promise<ItemDTO[]> => {
+    const items = await this.model
+      .find({ businessId: businessId })
+      .populate('images')
+      .populate('mainImage');
+    return this.sanitizer.sanitizeMany(items);
+  };
+
+  /** @returns one item given its item id */
+  get = async (itemId: string): Promise<ItemDTO> => {
+    const item = await this.model.findById(itemId);
+    this.checkItem(item);
+    return this.sanitizer.sanitize(item);
+  };
+
   /** Private Methods */
   private checkItem(item) {
     if (!item) {

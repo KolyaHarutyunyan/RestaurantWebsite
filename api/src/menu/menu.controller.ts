@@ -140,7 +140,7 @@ export class MenuController {
   @ApiOperation({ summary: summaries.REMOVE_CATEGORY })
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: MenuCategoriesDTO })
-  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
+  @ApiQuery({ enum: CategoryType, name: 'type' })
   async removeCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
@@ -163,7 +163,7 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.ADD_CATEGORY })
   @ApiOkResponse({ type: MenuCategoriesDTO })
-  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
+  @ApiQuery({ enum: CategoryType, name: 'type' })
   async addCategory(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
@@ -185,7 +185,7 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.REORDER_CATEGORIES })
   @ApiOkResponse({ type: MenuCategoriesDTO })
-  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
+  @ApiQuery({ enum: CategoryType, name: 'type' })
   async reorderCategories(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
     @Body() reorderDTO: ReorderDTO,
@@ -207,17 +207,11 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOperation({ summary: summaries.DELETE_CATEGORY })
   @ApiOkResponse({ type: String })
-  @ApiQuery({ enum: CategoryType, name: 'CategoryType' })
   async deleteCategory(
     @Param('categoryId', ParseObjectIdPipe) categoryId: string,
-    @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<string> {
-    const category = await this.menuService.deleteCategory(
-      categoryId,
-      ownerId,
-      query.type,
-    );
+    const category = await this.menuService.deleteCategory(categoryId, ownerId);
     return category;
   }
 }

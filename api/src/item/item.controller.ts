@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
@@ -36,6 +37,28 @@ export class ItemController {
   async createItem(@Body() createItemDTO: CreateItemDTO): Promise<ItemDTO> {
     const item = await this.itemService.create(createItemDTO);
     return item;
+  }
+
+  /** Get all categories for the business */
+  @Get('business/:businessId')
+  @ApiOkResponse({ type: [ItemDTO] })
+  @ApiOperation({ summary: summaries.GET_BUSINESS_ITEMS })
+  async getAll(
+    @Param('businessId', ParseObjectIdPipe) businessId: string,
+  ): Promise<ItemDTO[]> {
+    const categories = await this.itemService.getAll(businessId);
+    return categories;
+  }
+
+  /** Get all categories for the business */
+  @Get(':itemId')
+  @ApiOkResponse({ type: ItemDTO })
+  @ApiOperation({ summary: summaries.GET_BUSINESS_ITEMS })
+  async get(
+    @Param('itemId', ParseObjectIdPipe) itemId: string,
+  ): Promise<ItemDTO> {
+    const categories = await this.itemService.get(itemId);
+    return categories;
   }
 
   /** Edit an item */

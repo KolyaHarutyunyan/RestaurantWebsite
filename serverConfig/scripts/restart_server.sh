@@ -5,11 +5,11 @@ sudo service restart nginx
 service nginx status
 
 # updating the .env file
-cd /var/www/menuzMini/api
+cd /var/www/menuz/api
 npm install
 # sudo cp ../config/.env ./constants/
 
 # node restartsudo 
-cd /var/www/menuzMini/api
-sudo pm2 start /var/www/menuzMini/api/main.js -name "menuzMini"
-sudo pm2 restart menuzMini
+cd /var/www/menuz/api
+sudo pm2 start /var/www/menuz/api/main.js -name "menuz"
+sudo pm2 restart menuz

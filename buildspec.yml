@@ -49,7 +49,7 @@ phases:
       - cd serverConfig
       - mv .npmrc ../
       - mv appspec.yml ../
-      - mv menuzmini.nginx.config ../
+      - mv menuz.nginx.config ../
       - mv scripts ../
 
     #   - echo Build completed on `date`
@@ -64,7 +64,7 @@ artifacts:
         - clientDist/**/*
         - adminDist/**/*
         - scripts/**/*
-        - menuzmini.nginx.config
+        - menuz.nginx.config
         - appspec.yml
         - .npmrc
      

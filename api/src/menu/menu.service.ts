@@ -184,7 +184,10 @@ export class MenuService {
       }
     }
     this.rerank(categories);
-    menu = await (await menu.save()).populate('categories._id').execPopulate();
+    menu = await (await menu.save())
+      .populate('foodCategories._id')
+      .populate('drinkCategories._id')
+      .execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -192,22 +195,18 @@ export class MenuService {
   deleteCategory = async (
     categoryId: string,
     ownerId: string,
-    type: CategoryType,
   ): Promise<string> => {
     const category = await this.categoryService.delete(categoryId, ownerId);
-    if (type === CategoryType.DRINK) {
-      await this.model.updateMany(
-        { buesinessId: category.businessId },
-        { $pullAll: { drinkCategories: { _id: category._id } } },
-      );
-    }
-    if (type === CategoryType.FOOD) {
-      await this.model.updateMany(
-        { buesinessId: category.businessId },
-        { $pullAll: { foodCategories: { _id: category._id } } },
-      );
-    }
-
+    await this.model.updateMany(
+      { businessId: category.businessId },
+      {
+        $pull: {
+          drinkCategories: { _id: categoryId },
+          foodCategories: { _id: categoryId },
+        },
+      },
+      { multi: true },
+    );
     return category._id;
   };
 

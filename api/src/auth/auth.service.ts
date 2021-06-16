@@ -174,6 +174,16 @@ export class AuthService {
     }
   };
 
+  /** changes the email  */
+  changeEmail = async (id: string, email: string): Promise<string> => {
+    const auth = await this.model.findOneAndUpdate(
+      { _id: id },
+      { $set: { email: email } },
+      { new: true },
+    );
+    return auth.email;
+  };
+
   /*********************** Private Methods ***********************/
 
   /** @Creates a session token from an auth object */
