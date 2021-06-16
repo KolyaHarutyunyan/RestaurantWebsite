@@ -2,7 +2,12 @@ import { Container } from "./style";
 import { Categories } from "./categories";
 import { Items } from "./Items";
 import { Menu } from "./menu";
-import { useSagaStore, menusActions, businessesActions } from "@eachbase/store";
+import {
+  useSagaStore,
+  menusActions,
+  businessesActions,
+  categoriesActions,
+} from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 export const MenuPageSections = () => {
@@ -13,10 +18,12 @@ export const MenuPageSections = () => {
   const getCurrentRestaurantSaga = useSagaStore(
     businessesActions.getCurentBusiness
   );
+  const getMenuCategoriesSaga = useSagaStore(categoriesActions.getCategories);
 
   useEffect(() => {
     getCurrentRestaurantSaga.dispatch(restaurantId);
     getCurrentMenuSaga.dispatch(menuId);
+    getMenuCategoriesSaga.dispatch(menuId);
   }, []);
 
   return (

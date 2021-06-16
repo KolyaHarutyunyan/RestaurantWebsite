@@ -10,6 +10,5 @@ export const appSaga = function* startForman() {
   yield fork(watchBusinesses);
   yield fork(watchItems);
   yield fork(watchCategories);
-  yield fork(watchCategories);
   yield fork(watchMenus);
 };

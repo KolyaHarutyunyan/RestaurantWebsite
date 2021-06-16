@@ -20,6 +20,11 @@ export const DropDownContainer = styled.div`
       text-align: left;
       width: 100%;
     }
+    & > div {
+      &:hover {
+        background: #e9e9eb;
+      }
+    }
   }
   div {
     padding-left: 5px;
@@ -28,9 +33,6 @@ export const DropDownContainer = styled.div`
     display: flex;
     align-items: center;
     transition: 0.3s background ease-in-out;
-    &:hover {
-      background: #e9e9eb;
-    }
   }
 `;
 

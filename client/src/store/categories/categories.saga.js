@@ -3,45 +3,77 @@ import {
   GET_CATEGORIES,
   GET_CATEGORIES_SUCCESS,
   CREATE_CATEGORY,
-  CREATE_CATEGORY_SUCCESS,
   DELETE_CATEGORY,
   DELETE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_SUCCESS,
 } from "./categories.types";
 import { categoriesService } from "./categories.service";
-
-function* getCategories({ payload }) {
+import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
+import { httpRequestsOnLoadActions } from "../http_requests_on_load";
+import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
+function* getCategories({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const { data } = yield call(categoriesService.get, payload);
     yield put({
       type: GET_CATEGORIES_SUCCESS,
       payload: data,
     });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("getCategories error: ", e);
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
   }
 }
 
-function* createCategory({ payload }) {
+function* createCategory({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const { data } = yield call(categoriesService.create, payload);
+    const { data } = yield call(categoriesService.create, payload.data);
+    const { data: categories } = yield call(
+      categoriesService.addCategoryIntoMenu,
+      payload.menuId,
+      data.id,
+      payload.categoryType
+    );
     yield put({
       type: CREATE_CATEGORY_SUCCESS,
-      payload: data,
+      payload: categories,
     });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("createCategory error: ", e);
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
   }
 }
 
-function* deleteCategory({ payload }) {
+function* deleteCategory({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.delete, payload);
+    yield call(categoriesService.delete, payload.categoryId);
     yield put({
       type: DELETE_CATEGORY_SUCCESS,
-      payload: payload.categoryId,
+      payload: payload,
     });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("deleteCategory error: ", e);
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
   }
 }
 

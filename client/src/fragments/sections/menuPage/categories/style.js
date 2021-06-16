@@ -19,6 +19,12 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 10px;
     margin-bottom: 10px;
+    height: 300px;
+    overflow: auto;
+    padding-right: 15px;
+    @media only screen and (max-width: 768px) {
+      height: 150px;
+    }
     li {
       display: flex;
       align-items: center;
@@ -29,6 +35,11 @@ export const Container = styled.div`
       border: 1px solid;
       border-color: #0000001a;
       border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      &:hover {
+        background-color: #efefef;
+      }
       .category-name {
         display: flex;
         align-items: center;

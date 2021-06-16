@@ -9,12 +9,12 @@ export const categoriesActions = {
     type: GET_CATEGORIES,
     payload: menuId,
   }),
-  createCategory: (data) => ({
+  createCategory: (data, menuId, categoryType) => ({
     type: CREATE_CATEGORY,
-    payload: data,
+    payload: { data, menuId, categoryType },
   }),
-  removeCategory: (menuId, categoryId) => ({
+  removeCategory: (menuId, categoryId, categoryType) => ({
     type: DELETE_CATEGORY,
-    payload: { menuId, categoryId },
+    payload: { menuId, categoryId, categoryType },
   }),
 };
