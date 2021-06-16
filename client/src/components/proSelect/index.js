@@ -31,14 +31,14 @@ export const ProSelect = ({
     if (dropdownRef.current && selectBoxRef.current) {
       const dropDownRect = dropdownRef.current.getBoundingClientRect();
       const selectRect = selectBoxRef.current.getBoundingClientRect();
-      let dropDownVerticalPosition = selectRect.top + 30;
+      let dropDownVerticalPosition = selectRect.top + 50;
 
-      if (dropDownRect.height + selectRect.top > window.innerHeight) {
-        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 30;
+      if (selectRect.top + (dropDownRect.height + 40) > window.innerHeight) {
+        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 50;
       }
 
       dropdownRef.current.style.width = `${
-        selectBoxRef.current.clientWidth - 30
+        selectBoxRef.current.clientWidth - 50
       }px`;
       dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
       dropdownRef.current.style.left = `${selectRect.left}px`;
@@ -103,7 +103,7 @@ export const ProSelect = ({
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
-            placeholder={currentOption ? currentOption.label : "..."}
+            placeholder={currentOption ? currentOption.label : ""}
             onChange={({ target: { value } }) => {
               setSearchBar(value);
               onSearchBarValueChange(value);

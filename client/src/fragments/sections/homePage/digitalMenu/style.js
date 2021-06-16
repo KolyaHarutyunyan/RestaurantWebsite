@@ -39,6 +39,11 @@ export const Container = styled.section`
     position: absolute;
     width: 400px;
     height: 400px;
+    @media only screen and (max-width: 768px) {
+      width: 368px;
+      left: 10px;
+      top: 20%;
+    }
     left: 30%;
     top: 20%;
     opacity: 0.02;

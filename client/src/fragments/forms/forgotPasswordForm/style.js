@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 15px;
   .helper {
     text-align: center;
   }
@@ -13,7 +13,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
   }
   .logo {
     width: 60px;

@@ -1,5 +1,10 @@
-import Axios from "axios";
+import axios from "axios";
 
 export const categoriesService = {
-  getItems: () => Axios.get("/category/getCategories", { auth: true }),
+  get: () => axios.get("/categories", { auth: true }),
+  create: () => axios.post("/categories", { auth: true }),
+  delete: (menuId, categoryId) =>
+    axios.patch(`/menus/${menuId}/removeCategory/${categoryId}`, {
+      auth: true,
+    }),
 };

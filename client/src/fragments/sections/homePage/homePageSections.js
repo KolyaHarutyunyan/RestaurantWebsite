@@ -7,17 +7,17 @@ import { MenusAndMenuItems } from "./menusAndMenuItems";
 import { QRCode } from "./qrCode";
 import { YourBusiness } from "./yourBusiness";
 
+import { Container } from "./style";
+
 export const HomePageSections = () => {
   return (
-    <Fragment>
+    <Container>
       <Hero />
-      <div className="container">
-        <DigitalMenu />
-        <HowItWorks />
-        <YourBusiness />
-      </div>
+      <YourBusiness />
+      <DigitalMenu />
+      <HowItWorks />
       <QRCode />
       <MenusAndMenuItems />
-    </Fragment>
+    </Container>
   );
 };
