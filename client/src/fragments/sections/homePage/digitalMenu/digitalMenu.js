@@ -2,7 +2,7 @@ import { Typography, Image } from "@eachbase/components";
 import { Container } from "./style";
 export const DigitalMenu = () => {
   return (
-    <Container>
+    <Container className="container-mini">
       <Image className="main" />
       <div className="content">
         <Typography weight="bold" className="g-title" color="text" size="3rem">

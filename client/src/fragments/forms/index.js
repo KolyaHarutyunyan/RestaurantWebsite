@@ -6,3 +6,4 @@ export { DeleteAccountForm } from "./deleteAccountForm";
 export { EditRestaurantExtraDetailsForm } from "./editRestaurantExtraDetailsForm";
 export { EditRestaurantForm } from "./editRestaurantForm";
 export { MenuForm } from "./menuForm";
+export { ConfirmCategoryDeleteDialog } from "./confirmCategoryDeleteDialog";

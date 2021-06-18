@@ -20,6 +20,25 @@ export const GlobalScss = createGlobalStyle`
       padding:0 16px;
     `};
   }
+  .container-mini {
+    width: 100%;
+    overflow-x: visible;
+    ${media.forLargeDesktop`
+      margin: 0 auto;
+      max-width: 1500px;
+    `};
+    ${media.forDesktop`
+      margin: 0 auto;
+      max-width: 1140px;
+    `};
+    ${media.forTablet`
+      padding:0 40px;
+    `};
+    ${media.forMobile`
+      padding:0 16px;
+    `};
+  }
+
 
   /* CASTIL */
   .toggle-header-menu {

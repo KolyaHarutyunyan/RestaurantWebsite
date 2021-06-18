@@ -37,9 +37,6 @@ export const SignUpForm = () => {
           placeholder="Full Name"
           {...register("fullName", { required: true })}
           error={status.onError}
-          helper={
-            status.onError ? "Full name should be at least 3 characters" : ""
-          }
         />
         <Input
           type="email"
@@ -53,9 +50,7 @@ export const SignUpForm = () => {
           placeholder="Password"
           {...register("password", { required: true })}
           error={status.onError}
-          helper={
-            status.onError ? "Password should be at least 8 characters" : ""
-          }
+          helper={status.onError ? status.onError.data.message : ""}
         />
         <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue

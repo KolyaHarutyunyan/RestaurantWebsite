@@ -3,7 +3,7 @@ import { Typography, Image } from "@eachbase/components";
 
 export const YourBusiness = () => {
   return (
-    <Container>
+    <Container className="container-mini">
       <Typography size="3rem" className="g-title" color="text" weight="bold">
         How to Enhance your business
       </Typography>

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const DropDownContainer = styled.div`
   position: absolute;
-  max-height: 300px;
-  padding: 10px;
+  max-height: 200px;
+  padding: 10px 0 0 0;
   z-index: ${({ dropdownOpen }) => (dropdownOpen ? "10000" : "-10000")};
   visibility: ${({ dropdownOpen }) => (dropdownOpen ? "visible" : "hidden")};
   opacity: ${({ dropdownOpen }) => (dropdownOpen ? "1" : "0")};
@@ -14,23 +14,26 @@ export const DropDownContainer = styled.div`
   flex-direction: column;
   gap: 5px;
   overflow: auto;
+  border-radius: 5px;
   .wrapper {
     flex-direction: column;
     & > * {
       text-align: left;
       width: 100%;
     }
+    & > div {
+      padding-left: 5px;
+      &:hover {
+        background: #e9e9eb;
+      }
+    }
   }
   div {
-    padding-left: 5px;
     cursor: pointer;
     flex: 0 0 48px;
     display: flex;
     align-items: center;
     transition: 0.3s background ease-in-out;
-    &:hover {
-      background: #e9e9eb;
-    }
   }
 `;
 

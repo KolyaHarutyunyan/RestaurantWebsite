@@ -3,7 +3,7 @@ import { Image, Typography } from "@eachbase/components";
 import { MdDone } from "react-icons/md";
 export const HowItWorks = () => {
   return (
-    <Container>
+    <Container className="container-mini">
       <Typography className="g-title" size="3rem" color="text" weight="bold">
         How It Works
       </Typography>
