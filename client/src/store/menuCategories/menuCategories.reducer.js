@@ -12,7 +12,12 @@ export const menuCategoriesReducer = (state = initialState, action) => {
     case GET_MENU_CATEGORIES_SUCCESS:
       return action.payload;
     case DELETE_MENU_CATEGORY_SUCCESS:
-      return action.payload;
+      return {
+        ...state,
+        [action.payload.categoryType]: state[
+          action.payload.categoryType
+        ].filter((category) => category.id !== action.payload.categoryId),
+      };
     default:
       return state;
   }

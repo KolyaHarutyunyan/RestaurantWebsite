@@ -13,7 +13,7 @@ import {
   EditRestaurantExtraDetailsForm,
   MenuForm,
   ResetPasswordHelper,
-  ConfirmDeleteDialog,
+  ConfirmCategoryDeleteDialog,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
 
@@ -61,8 +61,8 @@ export const Modals = () => {
       <Modal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
         <ResetPasswordHelper />
       </Modal>
-      <Modal modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
-        <ConfirmDeleteDialog />
+      <Modal mini modalName={MODAL_NAMES.CONFIRM_DELETION}>
+        <ConfirmCategoryDeleteDialog />
       </Modal>
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import { Tabs, Button, ProSelect } from "@eachbase/components";
+import { Tabs, Button, ProSelect, useModal } from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
@@ -10,7 +10,7 @@ import {
 } from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-
+import { MODAL_NAMES } from "@eachbase/constants";
 export const Categories = ({ value, onChange }) => {
   const [activeTab, setActiveTab] = useState("food");
   const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
@@ -18,6 +18,7 @@ export const Categories = ({ value, onChange }) => {
     query: { restaurantId, menuId },
   } = useRouter();
 
+  const { open } = useModal();
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
   const categories = useSelector(({ categories }) => categories);
   const categoriesOptions = categories.map((category) => ({
@@ -32,25 +33,25 @@ export const Categories = ({ value, onChange }) => {
   }, [categories]);
 
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
-  const deleteCategoryFromMenuSaga = useSagaStore(menuCategoriesActions.delete);
 
   const [searchBarValue, setSearchBarValue] = useState("");
 
-  // const createCategoryAction = () => {
-  //   if (categoriesSelectValue.value) {
-  //   } else {
-  //     createCategorySaga.dispatch({
-  //       name: searchBarValue,
-  //       description: "",
-  //       businessId: restaurantId,
-  //     });
-  //   }
-  // };
-
-  const onRequestToDelete = (category, categoryType) => {
-    if (window.confirm("Are you sure?")) {
-      deleteCategoryFromMenuSaga.dispatch(menuId, category.id, categoryType);
+  const createCategoryAction = () => {
+    if (categoriesSelectValue.value) {
+    } else {
+      createCategorySaga.dispatch({
+        name: searchBarValue,
+        description: "",
+        businessId: restaurantId,
+      });
     }
+  };
+
+  const onRequestToDelete = (category) => {
+    open(MODAL_NAMES.CONFIRM_DELETION, {
+      ...category,
+      categoryType: activeTab,
+    });
   };
 
   const addButtonDisableCondition = searchBarValue
@@ -81,10 +82,7 @@ export const Categories = ({ value, onChange }) => {
                 setCategoriesSelectValue(value);
               }}
               searchBarValue={searchBarValue}
-              onSearchBarValueChange={(value) => {
-                console.log(value);
-                setSearchBarValue(value);
-              }}
+              onSearchBarValueChange={(value) => setSearchBarValue(value)}
               options={categoriesOptions}
               value={categoriesSelectValue}
             />

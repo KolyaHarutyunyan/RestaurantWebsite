@@ -34,7 +34,7 @@ function* deleteMenuCategory({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const { data } = yield call(
+    yield call(
       menuCategoriesService.delete,
       payload.menuId,
       payload.categoryId,
@@ -42,7 +42,10 @@ function* deleteMenuCategory({ payload, type }) {
     );
     yield put({
       type: DELETE_MENU_CATEGORY_SUCCESS,
-      payload: data,
+      payload: {
+        categoryId: payload.categoryId,
+        categoryType: payload.categoryType,
+      },
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

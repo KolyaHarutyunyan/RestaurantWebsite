@@ -29,6 +29,10 @@ export const Items = ({ category }) => {
     );
   }
 
+  if (!currentCategory) {
+    return null;
+  }
+
   return (
     <Container>
       <div className="head">

@@ -7,6 +7,7 @@ import {
   DELETE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_SUCCESS,
 } from "./categories.types";
+import { DELETE_MENU_CATEGORY_SUCCESS } from "../menuCategories";
 import { categoriesService } from "./categories.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
@@ -61,6 +62,10 @@ function* deleteCategory({ payload, type }) {
     yield put({
       type: DELETE_CATEGORY_SUCCESS,
       payload: payload,
+    });
+    yield put({
+      type: DELETE_MENU_CATEGORY_SUCCESS,
+      payload,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

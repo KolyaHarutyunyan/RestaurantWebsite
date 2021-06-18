@@ -199,3 +199,13 @@ export const SelectContainer = styled.select`
   border-radius: 8px;
   outline: 0;
 `;
+
+export const RadioContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 3px;
+  input {
+    transform: scale(1.5);
+  }
+`;

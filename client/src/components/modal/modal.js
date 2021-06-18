@@ -10,18 +10,18 @@ export const Modal = ({
   fixed = false,
   onBackButtonClick = () => {},
   children,
+  mini = false,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
 
-  console.log();
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (mounted) {
     return createPortal(
-      <ModalContainer isOpen={activeModal === modalName}>
+      <ModalContainer isOpen={activeModal === modalName} mini={mini}>
         <div className="container">
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>

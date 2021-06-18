@@ -11,7 +11,7 @@ export const Container = styled.div`
     p {
       color: #2b273c80 !important;
     }
-    background-color: #e7e7e7;
+    background-color: #fbfbfb;
   }
   .head {
     display: flex;
