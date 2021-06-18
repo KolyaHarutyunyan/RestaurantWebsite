@@ -3,58 +3,72 @@ import { Tabs, Button, ProSelect } from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
-import { categoriesActions, useSagaStore } from "@eachbase/store";
+import {
+  categoriesActions,
+  useSagaStore,
+  menuCategoriesActions,
+} from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-export const Categories = () => {
+
+export const Categories = ({ value, onChange }) => {
   const [activeTab, setActiveTab] = useState("food");
-  const [categoriesSelect, setCategoriesSelect] = useState({
-    value: null,
-    options: [],
-  });
+  const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
   const {
     query: { restaurantId, menuId },
   } = useRouter();
+
+  const menuCategories = useSelector(({ menuCategories }) => menuCategories);
+  const categories = useSelector(({ categories }) => categories);
+  const categoriesOptions = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }));
+
+  useEffect(() => {
+    if (categories.length && !categoriesSelectValue) {
+      setCategoriesSelectValue(categories[0].id);
+    }
+  }, [categories]);
+
+  const createCategorySaga = useSagaStore(categoriesActions.createCategory);
+  const deleteCategoryFromMenuSaga = useSagaStore(menuCategoriesActions.delete);
+
   const [searchBarValue, setSearchBarValue] = useState("");
 
-  const categoriesList = useSelector(({ categories }) =>
-    categories ? categories[activeTab] : []
-  );
-  const createCategorySaga = useSagaStore(categoriesActions.createCategory);
+  // const createCategoryAction = () => {
+  //   if (categoriesSelectValue.value) {
+  //   } else {
+  //     createCategorySaga.dispatch({
+  //       name: searchBarValue,
+  //       description: "",
+  //       businessId: restaurantId,
+  //     });
+  //   }
+  // };
 
-  const createCategoryAction = () =>
-    createCategorySaga.dispatch(
-      {
-        name: searchBarValue,
-        description: "",
-        businessId: restaurantId,
-      },
-      menuId,
-      activeTab
-    );
+  const onRequestToDelete = (category, categoryType) => {
+    if (window.confirm("Are you sure?")) {
+      deleteCategoryFromMenuSaga.dispatch(menuId, category.id, categoryType);
+    }
+  };
 
-  useEffect(() => {
-    if (categoriesList.length) {
-      setCategoriesSelect({
-        value: categoriesList[categoriesList.length - 1].category.id,
-        options: categoriesList.map(({ category }) => ({
-          label: category.name,
-          value: category.id,
-        })),
-      });
-    }
-  }, [categoriesList]);
-  useEffect(() => {
-    if (createCategorySaga.status.onSuccess) {
-      setSearchBarValue("");
-    }
-  }, [createCategorySaga.status]);
+  const addButtonDisableCondition = searchBarValue
+    ? categories.find((category) => {
+        return category.name.indexOf(searchBarValue) !== -1;
+      })
+    : !!menuCategories[activeTab].find(
+        (option) => option.label === searchBarValue
+      ) || searchBarValue;
 
   return (
     <Container>
       <Tabs.Wrapper
         activeTab={activeTab}
-        onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
+        onRequestToChange={(newActiveTab) => {
+          onChange({ categoryId: "", categoryType: newActiveTab });
+          setActiveTab(newActiveTab);
+        }}
       >
         <Tabs.TabHeader>
           <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
@@ -63,24 +77,20 @@ export const Categories = () => {
         <div className="select-create-category">
           <div className="select-wrapper">
             <ProSelect
-              onChange={(value, options) => {
-                setCategoriesSelect({
-                  value,
-                  options,
-                });
+              onChange={(value) => {
+                setCategoriesSelectValue(value);
               }}
-              onSearchBarValueChange={(value) => setSearchBarValue(value)}
-              options={categoriesSelect.options}
-              value={categoriesSelect.value}
+              searchBarValue={searchBarValue}
+              onSearchBarValueChange={(value) => {
+                console.log(value);
+                setSearchBarValue(value);
+              }}
+              options={categoriesOptions}
+              value={categoriesSelectValue}
             />
           </div>
           <Button
-            disabled={
-              !searchBarValue ||
-              !!categoriesSelect.options.find(
-                (option) => option.label === searchBarValue
-              )
-            }
+            disabled={addButtonDisableCondition}
             onClick={() => createCategoryAction()}
           >
             Add
@@ -88,12 +98,19 @@ export const Categories = () => {
         </div>
         <Tabs.TabContent contentOf="food">
           <ul className="categories">
-            {categoriesList.map(({ category }) => (
-              <li key={category.id}>
+            {menuCategories["food"].map(({ category }) => (
+              <li
+                key={category.id}
+                className={value.categoryId === category.id ? "selected" : ""}
+                onClick={() => onChange({ ...value, categoryId: category.id })}
+              >
                 <Typography className="category-name" color="text">
                   {category.name}
                   <span className="action">
-                    <Button link>
+                    <Button
+                      link
+                      onClick={() => onRequestToDelete(category, "food")}
+                    >
                       <span className="icon">
                         <IoIosTrash />
                       </span>
@@ -107,12 +124,19 @@ export const Categories = () => {
         </Tabs.TabContent>
         <Tabs.TabContent contentOf="drink">
           <ul className="categories">
-            {categoriesList.map(({ category }) => (
-              <li key={category.id}>
+            {menuCategories["drink"].map(({ category }) => (
+              <li
+                key={category.id}
+                className={value.categoryId === category.id ? "selected" : ""}
+                onClick={() => onChange({ ...value, categoryId: category.id })}
+              >
                 <Typography className="category-name" color="text">
                   {category.name}
                   <span className="action">
-                    <Button link>
+                    <Button
+                      link
+                      onClick={() => onRequestToDelete(category, "drink")}
+                    >
                       <span className="icon">
                         <IoIosTrash />
                       </span>

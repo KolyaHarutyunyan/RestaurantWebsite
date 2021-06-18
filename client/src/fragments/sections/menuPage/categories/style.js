@@ -19,7 +19,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 10px;
     margin-bottom: 10px;
-    height: 300px;
+    max-height: 300px;
     overflow: auto;
     padding-right: 15px;
     @media only screen and (max-width: 768px) {
@@ -37,7 +37,8 @@ export const Container = styled.div`
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease-in-out;
-      &:hover {
+      &:hover,
+      &.selected {
         background-color: #efefef;
       }
       .category-name {

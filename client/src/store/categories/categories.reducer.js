@@ -4,16 +4,14 @@ import {
   DELETE_CATEGORY_SUCCESS,
 } from "./categories.types";
 
-const initialState = {
-  food: [],
-  drink: [],
-};
+const initialState = [];
+
 export const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CATEGORIES_SUCCESS:
       return action.payload;
     case CREATE_CATEGORY_SUCCESS:
-      return action.payload;
+      return [action.payload, ...state];
     case DELETE_CATEGORY_SUCCESS:
       return {
         ...state,

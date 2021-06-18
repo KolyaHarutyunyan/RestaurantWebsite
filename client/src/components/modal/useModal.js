@@ -11,6 +11,9 @@ export const useModal = () => {
     },
     params,
     activeModal: activeModal || null,
-    close: () => setActiveModal(""),
+    close: () => {
+      setActiveModal("");
+      setParams({});
+    },
   };
 };

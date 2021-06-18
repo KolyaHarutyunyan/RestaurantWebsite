@@ -11,8 +11,10 @@ export const Modal = ({
   onBackButtonClick = () => {},
   children,
 }) => {
-  const { activeModal, setActiveModal } = useContext(ModalContext);
+  const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
+
+  console.log();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -27,11 +29,17 @@ export const Modal = ({
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({
-                      open: (modalName) => setActiveModal(modalName),
-                      close: () => setActiveModal(""),
+                      open: (modalName) => {
+                        setActiveModal(modalName);
+                      },
+                      close: () => {
+                        setActiveModal("");
+                        setParams({});
+                      },
                     });
                   } else {
                     setActiveModal("");
+                    setParams({});
                   }
                 }}
               >
@@ -47,6 +55,7 @@ export const Modal = ({
             if (!fixed) {
               if (window.confirm("Leave current window?")) {
                 setActiveModal("");
+                setParams({});
               }
             }
           }}

@@ -1,6 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  &.no-menu-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    min-height: 255px;
+    border: 1px dashed grey;
+    p {
+      color: #2b273c80 !important;
+    }
+    background-color: #e7e7e7;
+  }
   .head {
     display: flex;
     justify-content: space-between;
