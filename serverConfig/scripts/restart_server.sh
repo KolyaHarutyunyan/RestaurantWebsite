@@ -11,5 +11,5 @@ npm install
 
 # node restartsudo 
 cd /var/www/menuz/api
-sudo pm2 start /var/www/menuz/api/main.js -name "menuz"
+# sudo pm2 start /var/www/menuz/api/main.js --name "menuz"
 sudo pm2 restart menuz

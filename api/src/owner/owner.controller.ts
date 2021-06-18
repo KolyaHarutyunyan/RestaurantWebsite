@@ -58,6 +58,7 @@ export class OwnerController {
 
   /** Get all owners */
   @Get()
+  @ApiOkResponse({ type: [OwnerDTO] })
   @ApiOperation({ summary: summaries.GET_ALL })
   async getOwners(): Promise<OwnerDTO[]> {
     const owners = await this.ownerService.getAll();

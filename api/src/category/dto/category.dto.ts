@@ -7,11 +7,6 @@ export class CategoryDTO {
   id: string;
   @ApiProperty()
   name: string;
-  // @ApiProperty({ enum: CategoryType })
-  // type: CategoryType;
-  @ApiProperty()
-  description?: string;
-  // @ApiProperty({ type: [String] })
-  // @ApiProperty({ type: [CategoryItemRO] })
-  // items?: string[] | CategoryItemRO[];
+  // @ApiProperty()
+  // description?: string;
 }
