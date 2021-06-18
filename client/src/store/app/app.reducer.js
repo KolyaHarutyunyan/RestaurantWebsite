@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 import { profileReducer } from "../profile";
 import { businessesReducer } from "../businesses";
-import { menuItemsReducer } from "../menuItems";
+import { itemsReducer } from "../items";
 import { categoriesReducer } from "../categories";
+import { menuCategoriesReducer } from "../menuCategories";
 import { menusReducer } from "../menus";
 import { httpRequestsOnErrorsReducer } from "../http_requests_on_errors";
 import { httpRequestsOnLoadReducer } from "../http_requests_on_load";
@@ -12,7 +13,8 @@ export const appReducer = combineReducers({
   profile: profileReducer,
   businesses: businessesReducer,
   categories: categoriesReducer,
-  menuItems: menuItemsReducer,
+  menuCategories: menuCategoriesReducer,
+  items: itemsReducer,
   menus: menusReducer,
   httpOnLoad: httpRequestsOnLoadReducer,
   httpOnSuccess: httpRequestsOnSuccessReducer,

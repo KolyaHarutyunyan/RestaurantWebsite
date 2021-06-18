@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  margin-top: calc(130px * 2);
+  @media only screen and (max-width: 1280px) {
+    margin-top: calc(70px * 2);
+  }
+  @media only screen and (max-width: 768px) {
+    margin-top: calc(60px * 2);
+  }
   .g-title {
     text-align: center;
     margin-bottom: 72px;

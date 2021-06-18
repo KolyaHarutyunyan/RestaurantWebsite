@@ -10,16 +10,18 @@ export const Modal = ({
   fixed = false,
   onBackButtonClick = () => {},
   children,
+  mini = false,
 }) => {
-  const { activeModal, setActiveModal } = useContext(ModalContext);
+  const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (mounted) {
     return createPortal(
-      <ModalContainer isOpen={activeModal === modalName}>
+      <ModalContainer isOpen={activeModal === modalName} mini={mini}>
         <div className="container">
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
@@ -27,11 +29,17 @@ export const Modal = ({
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({
-                      open: (modalName) => setActiveModal(modalName),
-                      close: () => setActiveModal(""),
+                      open: (modalName) => {
+                        setActiveModal(modalName);
+                      },
+                      close: () => {
+                        setActiveModal("");
+                        setParams({});
+                      },
                     });
                   } else {
                     setActiveModal("");
+                    setParams({});
                   }
                 }}
               >
@@ -47,6 +55,7 @@ export const Modal = ({
             if (!fixed) {
               if (window.confirm("Leave current window?")) {
                 setActiveModal("");
+                setParams({});
               }
             }
           }}

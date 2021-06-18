@@ -8,6 +8,7 @@ export const ProSelect = ({
   value = null,
   onChange = () => {},
   onSearchBarValueChange = () => {},
+  searchBarValue,
   options,
   proSelectAttrs = {},
   searchBarAttrs = {},
@@ -20,25 +21,24 @@ export const ProSelect = ({
   const searchInputRef = useRef();
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
-  const [searchBar, setSearchBar] = useState("");
 
   const currentOption = options.find((cOption) => cOption.value === value);
   const filteredOptions = options.filter(
-    (option) => option.label.indexOf(searchBar) !== -1
+    (option) => option.label.indexOf(searchBarValue) !== -1
   );
 
   const setDropdownPosition = () => {
     if (dropdownRef.current && selectBoxRef.current) {
       const dropDownRect = dropdownRef.current.getBoundingClientRect();
       const selectRect = selectBoxRef.current.getBoundingClientRect();
-      let dropDownVerticalPosition = selectRect.top + 30;
+      let dropDownVerticalPosition = selectRect.top + 50;
 
-      if (dropDownRect.height + selectRect.top > window.innerHeight) {
-        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 30;
+      if (selectRect.top + (dropDownRect.height + 40) > window.innerHeight) {
+        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 50;
       }
 
       dropdownRef.current.style.width = `${
-        selectBoxRef.current.clientWidth - 30
+        selectBoxRef.current.clientWidth - 20
       }px`;
       dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
       dropdownRef.current.style.left = `${selectRect.left}px`;
@@ -75,6 +75,7 @@ export const ProSelect = ({
 
   const onSelect = (option) => {
     onChange(option.value, options);
+    onSearchBarValueChange("");
     setDropDownOpen(false);
     searchInputRef.current.blur();
   };
@@ -95,7 +96,7 @@ export const ProSelect = ({
       >
         <div className="dropdown-actions">
           <input
-            value={searchBar}
+            value={searchBarValue}
             id={searchInputId}
             ref={searchInputRef}
             onFocus={() => {
@@ -103,11 +104,8 @@ export const ProSelect = ({
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
-            placeholder={currentOption ? currentOption.label : "..."}
-            onChange={({ target: { value } }) => {
-              setSearchBar(value);
-              onSearchBarValueChange(value);
-            }}
+            placeholder={currentOption ? currentOption.label : ""}
+            onChange={({ target: { value } }) => onSearchBarValueChange(value)}
             {...searchBarAttrs}
           />
           <div

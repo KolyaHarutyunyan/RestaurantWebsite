@@ -30,17 +30,17 @@ export const ModalContainer = styled.div`
     }
     position: fixed;
     z-index: 10001;
-    width: 464px;
-    left: calc(50% - (464px / 2));
-    top: 10vh;
-    max-height: 85vh;
-    padding: 30px;
+    width: ${({ mini }) => (mini ? "395" : "465")}px;
+    left: calc(50% - (${({ mini }) => (mini ? "395" : "465")}px / 2));
+    top: 5vh;
+    max-height: 92vh;
+    padding: ${({ mini }) => (mini ? "10px 30px 30px 30px" : "30px")};
     @media only screen and (max-width: 768px) {
       padding: 15px;
       width: 340px;
       left: calc(50% - (340px / 2));
     }
-    border-radius: 32px;
+    border-radius: ${({ mini }) => (mini ? "8px" : "32px")};
     opacity: 1;
     background-color: white;
   }
