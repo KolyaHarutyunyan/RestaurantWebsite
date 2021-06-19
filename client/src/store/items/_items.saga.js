@@ -8,8 +8,8 @@ import {
   GET_ITEMS,
   DELETE_ITEM,
   DELETE_ITEM_SUCCESS,
-} from "./Items.types";
-import { itemsService } from "./Items.service";
+} from "./_items.types";
+import { itemsService } from "./_items.service";
 
 function* getItems({ payload }) {
   try {

@@ -1,7 +1,7 @@
-export { itemActions } from "./Items.actions";
-export { itemsService } from "./Items.service";
-export { itemsReducer } from "./Items.reducer";
-export { watchItems } from "./Items.saga";
+export { itemActions } from "./_items.actions";
+export { itemsService } from "./_items.service";
+export { itemsReducer } from "./_items.reducer";
+export { watchItems } from "./_items.saga";
 export {
   CREATE_ITEM,
   UPDATE_ITEM,
@@ -9,4 +9,4 @@ export {
   CREATE_ITEM_SUCCESS,
   GET_ITEMS,
   GET_ITEMS_SUCCESS,
-} from "./Items.types";
+} from "./_items.types";
