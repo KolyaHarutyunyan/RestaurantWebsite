@@ -3,7 +3,7 @@ import {
   UPDATE_ITEM,
   GET_ITEMS,
   DELETE_ITEM,
-} from "./_items.types";
+} from "./items.types";
 
 export const itemActions = {
   get: (categoryId) => ({
