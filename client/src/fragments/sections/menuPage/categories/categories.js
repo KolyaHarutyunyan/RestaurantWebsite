@@ -12,15 +12,22 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 export const Categories = ({ value, onChange }) => {
-  const [activeTab, setActiveTab] = useState("food");
-  const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
+  const { open } = useModal();
   const {
     query: { restaurantId, menuId },
   } = useRouter();
 
-  const { open } = useModal();
+  const [activeTab, setActiveTab] = useState("food");
+  const [searchBarValue, setSearchBarValue] = useState("");
+  const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
   const categories = useSelector(({ categories }) => categories);
+
+  const createCategorySaga = useSagaStore(categoriesActions.createCategory);
+  const addCategoryIntoMenuSaga = useSagaStore(
+    menuCategoriesActions.addCategory
+  );
+
   const categoriesOptions = categories.map((category) => ({
     value: category.id,
     label: category.name,
@@ -32,18 +39,36 @@ export const Categories = ({ value, onChange }) => {
     }
   }, [categories]);
 
-  const createCategorySaga = useSagaStore(categoriesActions.createCategory);
+  const createAddCategoryAction = () => {
+    const areCategoryInBusiness = categories.find((cCategory) => {
+      if (searchBarValue) {
+        if (searchBarValue === cCategory.name) {
+          return true;
+        }
+        return false;
+      }
+      if (categoriesSelectValue === cCategory.id) {
+        return true;
+      }
+      return false;
+    });
 
-  const [searchBarValue, setSearchBarValue] = useState("");
-
-  const createCategoryAction = () => {
-    if (categoriesSelectValue.value) {
+    if (areCategoryInBusiness) {
+      addCategoryIntoMenuSaga.dispatch(
+        menuId,
+        areCategoryInBusiness.id,
+        activeTab
+      );
     } else {
-      createCategorySaga.dispatch({
-        name: searchBarValue,
-        description: "",
-        businessId: restaurantId,
-      });
+      createCategorySaga.dispatch(
+        {
+          name: searchBarValue,
+          description: "",
+          businessId: restaurantId,
+        },
+        menuId,
+        activeTab
+      );
     }
   };
 
@@ -54,13 +79,23 @@ export const Categories = ({ value, onChange }) => {
     });
   };
 
-  const addButtonDisableCondition = searchBarValue
-    ? categories.find((category) => {
-        return category.name.indexOf(searchBarValue) !== -1;
-      })
-    : !!menuCategories[activeTab].find(
-        (option) => option.label === searchBarValue
-      ) || searchBarValue;
+  const addButtonDisableCondition = () => {
+    const areCategoryInMenu = !!menuCategories[activeTab].find((item) => {
+      if (searchBarValue) {
+        return item.category.name === searchBarValue;
+      } else if (
+        categoriesSelectValue &&
+        categoriesSelectValue === item.category.id
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    if (areCategoryInMenu) {
+      return true;
+    }
+  };
 
   return (
     <Container>
@@ -88,8 +123,12 @@ export const Categories = ({ value, onChange }) => {
             />
           </div>
           <Button
-            disabled={addButtonDisableCondition}
-            onClick={() => createCategoryAction()}
+            onLoad={
+              addCategoryIntoMenuSaga.status.onLoad ||
+              createCategorySaga.status.onLoad
+            }
+            disabled={addButtonDisableCondition()}
+            onClick={() => createAddCategoryAction()}
           >
             Add
           </Button>

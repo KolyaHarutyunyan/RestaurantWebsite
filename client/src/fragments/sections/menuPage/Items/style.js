@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  min-height: 265px;
   &.no-menu-items {
     display: flex;
     align-items: center;

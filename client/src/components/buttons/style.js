@@ -11,10 +11,11 @@ export const ButtonContainer = styled.button`
   min-width: ${({ link }) => (link ? "fit-content" : "160px")};
   height: 44px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
-  border-radius: 24px;
+  border-radius: ${({ square }) => (square ? "8px" : "24px")};
   border: 1px solid;
   font: normal normal 600 14px/19px Arial, Helvetica, sans-serif;
   transition: opacity 0.3s ease-in-out;
+  text-align: center;
   &:disabled {
     opacity: 0.6;
   }
@@ -28,7 +29,7 @@ export const ButtonContainer = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 24px;
+    border-radius: ${({ square }) => (square ? "8px" : "24px")};
     transition: background 0.3s ease-in-out;
     &:hover {
       background: #0000001a;

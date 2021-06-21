@@ -10,13 +10,9 @@ export const categoriesActions = {
     type: GET_CATEGORIES,
     payload: businessId,
   }),
-  createCategory: (data) => ({
+  createCategory: (data, menuId = false, categoryType) => ({
     type: CREATE_CATEGORY,
-    payload: { data },
-  }),
-  addCategoryIntoMenu: (categoryId, menuId) => ({
-    type: ADD_CATEGORY_INTO_MENU,
-    payload: { categoryId, menuId },
+    payload: { data, menuId, categoryType },
   }),
   delete: (menuId, categoryId, categoryType) => ({
     type: DELETE_CATEGORY,

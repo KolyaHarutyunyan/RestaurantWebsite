@@ -25,11 +25,26 @@ export const MenuPageSections = () => {
   const getCurrentRestaurantSaga = useSagaStore(
     businessesActions.getCurentBusiness
   );
+  const deleteCategoryFromMenuSaga = useSagaStore(menuCategoriesActions.delete);
+  const deleteCategorySaga = useSagaStore(categoriesActions.delete);
+
   const [selectedCategory, setSelectedCategory] = useState({
     categoryId: "",
     categoryType: "food",
   });
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
+
+  useEffect(() => {
+    if (
+      deleteCategorySaga.status.onSuccess ||
+      deleteCategoryFromMenuSaga.status.onSuccess
+    ) {
+      setSelectedCategory({
+        ...selectedCategory,
+        categoryId: "",
+      });
+    }
+  }, [deleteCategoryFromMenuSaga.status, deleteCategorySaga.status]);
 
   useEffect(() => {
     getCategoriesSaga.dispatch(restaurantId);

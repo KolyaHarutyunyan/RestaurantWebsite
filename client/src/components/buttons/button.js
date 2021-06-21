@@ -8,6 +8,7 @@ export const Button = ({
   link = false,
   outlined = false,
   hoverable = true,
+  square = false,
   onLoad = false,
   ...rest
 }) => (
@@ -16,6 +17,7 @@ export const Button = ({
     color={color}
     link={link}
     outlined={outlined}
+    square={square}
     {...rest}
     disabled={onLoad || rest.disabled}
   >

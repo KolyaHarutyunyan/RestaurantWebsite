@@ -104,7 +104,7 @@ export const EditRestaurantForm = () => {
           files={restaurantIcon.files}
           mainImageId={restaurantIcon.mainImageId}
           limit={RESTAURANT_ICONS_LIMIT}
-          title="Restaurant Logo"
+          mainImageId={restaurantIcon.mainImageId}
           limit={1}
           onChange={(files, actionType, mainImageId) =>
             onFileUploadChange(files, actionType, mainImageId)

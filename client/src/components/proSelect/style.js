@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const DropDownContainer = styled.div`
+  box-shadow: 0px 0px 3px 0px #d2d2d2;
   position: absolute;
   max-height: 200px;
-  padding: 10px 0 0 0;
+  padding: 0;
   z-index: ${({ dropdownOpen }) => (dropdownOpen ? "10000" : "-10000")};
   visibility: ${({ dropdownOpen }) => (dropdownOpen ? "visible" : "hidden")};
   opacity: ${({ dropdownOpen }) => (dropdownOpen ? "1" : "0")};

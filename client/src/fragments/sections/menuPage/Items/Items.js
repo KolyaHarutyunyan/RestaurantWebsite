@@ -1,8 +1,12 @@
-import { Typography, Button, Fab, Select } from "@eachbase/components";
+import { Typography, Button, Select, useModal } from "@eachbase/components";
+import { useSagaStore, itemActions } from "@eachbase/store";
+import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Container } from "./style";
+import { MODAL_NAMES } from "@eachbase/constants";
 export const Items = ({ category }) => {
+  const { open } = useModal();
   const currentCategory = useSelector(({ menuCategories }) => {
     if (!menuCategories.food.length && !menuCategories.drink.length) {
       return "NO_CATEGORIES";
@@ -14,6 +18,13 @@ export const Items = ({ category }) => {
       );
     }
   });
+  const getCurrentCategoryItemsSaga = useSagaStore(itemActions.get);
+
+  useEffect(() => {
+    if (currentCategory && typeof currentCategory === "object") {
+      getCurrentCategoryItemsSaga.dispatch(category.categoryId);
+    }
+  }, [currentCategory]);
 
   if (currentCategory === "NO_CATEGORIES") {
     return null;
@@ -42,7 +53,12 @@ export const Items = ({ category }) => {
         <Button color="action">Preview</Button>
       </div>
       <div className="add-or-choice">
-        <Button link color="action" className="action-button">
+        <Button
+          onClick={() => open(MODAL_NAMES.MENU_ITEM_FORM)}
+          link
+          color="action"
+          className="action-button"
+        >
           <div className="circle">
             <AiOutlinePlus />
           </div>

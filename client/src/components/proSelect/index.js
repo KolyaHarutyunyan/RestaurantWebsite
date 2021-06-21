@@ -38,7 +38,7 @@ export const ProSelect = ({
       }
 
       dropdownRef.current.style.width = `${
-        selectBoxRef.current.clientWidth - 20
+        selectBoxRef.current.clientWidth - 5
       }px`;
       dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
       dropdownRef.current.style.left = `${selectRect.left}px`;
