@@ -6,11 +6,11 @@ export const itemsService = {
   get: (categoryId) => axios.get(`/categories/${categoryId}/items`),
   delete: (itemId) => axios.delete(`/categories/items/${itemId}`),
   addToCategory: (categoryId, itemId) =>
-    axios.patch(`categories/${categoryId}/addItem/${itemId}`, null, {
+    axios.patch(`/categories/${categoryId}/addItem/${itemId}`, null, {
       auth: true,
     }),
   removeFromCategory: (categoryId, itemId) =>
-    axios.patch(`categories/${categoryId}/addItem/${itemId}`, null, {
+    axios.patch(`/categories/${categoryId}/addItem/${itemId}`, null, {
       auth: true,
     }),
 };

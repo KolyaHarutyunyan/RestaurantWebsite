@@ -14,6 +14,20 @@ export const Container = styled.div`
     }
     background-color: #fbfbfb;
   }
+  .list {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    & > * {
+      flex: 0 0 120px;
+    }
+    gap: 10px;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #e7e7e7;
+    max-height: 300px;
+    overflow: auto;
+  }
   .head {
     display: flex;
     justify-content: space-between;

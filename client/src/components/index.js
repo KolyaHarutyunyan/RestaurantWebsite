@@ -7,5 +7,6 @@ export { Modal, ModalProvider, useModal } from "./modal";
 export { Menu } from "./menu";
 export { FileUpload } from "./fileUpload";
 export { MenuCard } from "./menuCard";
+export { ItemCard } from "./itemCard";
 export { Tabs } from "./tabs";
 export { ProSelect } from "./proSelect";

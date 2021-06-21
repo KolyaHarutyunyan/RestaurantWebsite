@@ -16,7 +16,7 @@ function* getItems({ payload }) {
     const res = yield call(itemsService.get, payload);
     yield put({
       type: GET_ITEMS_SUCCESS,
-      payload: res.data,
+      payload: res.data.items,
     });
   } catch (e) {}
 }
@@ -24,13 +24,27 @@ function* getItems({ payload }) {
 function* createItem({ payload }) {
   let createdItemData = null;
   try {
-    const { data } = yield call(itemsService.create, payload.data);
+    const { data } = yield call(
+      itemsService.create,
+      payload.data,
+      payload.categoryId
+    );
     createdItemData = data;
+    yield put({
+      type: CREATE_ITEM_SUCCESS,
+      payload: data,
+    });
   } catch (e) {
     return;
   }
+
   try {
-    yield call(itemsService.addToCategory, payload.categoryId);
+    const { data } = yield call(
+      itemsService.addToCategory,
+      payload.categoryId,
+      createdItemData.id
+    );
+
     yield put({
       type: CREATE_ITEM_SUCCESS,
       payload: createdItemData,

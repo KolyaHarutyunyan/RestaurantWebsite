@@ -1,4 +1,10 @@
-import { Typography, Button, Select, useModal } from "@eachbase/components";
+import {
+  Typography,
+  Button,
+  Select,
+  useModal,
+  ItemCard,
+} from "@eachbase/components";
 import { useSagaStore, itemActions } from "@eachbase/store";
 import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -18,6 +24,7 @@ export const Items = ({ category }) => {
       );
     }
   });
+  const items = useSelector(({ items }) => items);
   const getCurrentCategoryItemsSaga = useSagaStore(itemActions.get);
 
   useEffect(() => {
@@ -29,7 +36,6 @@ export const Items = ({ category }) => {
   if (currentCategory === "NO_CATEGORIES") {
     return null;
   }
-
   if (currentCategory === "NO_SElECTION") {
     return (
       <Container className="no-menu-items">
@@ -54,7 +60,11 @@ export const Items = ({ category }) => {
       </div>
       <div className="add-or-choice">
         <Button
-          onClick={() => open(MODAL_NAMES.MENU_ITEM_FORM)}
+          onClick={() =>
+            open(MODAL_NAMES.MENU_ITEM_FORM, {
+              categoryId: currentCategory.category.id,
+            })
+          }
           link
           color="action"
           className="action-button"
@@ -68,6 +78,11 @@ export const Items = ({ category }) => {
         <Select>
           <option>Choose from the list</option>
         </Select>
+      </div>
+      <div className="list">
+        {items.map((item) => (
+          <ItemCard key={item.id} item={item} />
+        ))}
       </div>
     </Container>
   );

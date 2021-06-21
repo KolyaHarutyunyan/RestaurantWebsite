@@ -10,11 +10,11 @@ export const itemActions = {
     type: GET_ITEMS,
     payload: categoryId,
   }),
-  create: (categoryId, data) => ({
+  create: (data, categoryId) => ({
     type: CREATE_ITEM,
     payload: {
-      categoryId,
       data,
+      categoryId,
     },
   }),
   update: (data) => ({
