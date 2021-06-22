@@ -8,8 +8,8 @@ import {
   GET_ITEMS,
   DELETE_ITEM,
   DELETE_ITEM_SUCCESS,
-} from "./Items.types";
-import { itemsService } from "./Items.service";
+} from "./items.types";
+import { itemsService } from "./items.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
