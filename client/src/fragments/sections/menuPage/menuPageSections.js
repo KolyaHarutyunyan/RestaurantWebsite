@@ -9,6 +9,7 @@ import {
   businessesActions,
   categoriesActions,
   menuCategoriesActions,
+  itemActions,
 } from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -22,9 +23,13 @@ export const MenuPageSections = () => {
   const getCategoriesSaga = useSagaStore(categoriesActions.get);
   const getMenuCategoriesSaga = useSagaStore(menuCategoriesActions.get);
   const getCurrentMenuSaga = useSagaStore(menusActions.getCurrentMenu);
+  const getBusinessItems = useSagaStore(itemActions.get);
   const getCurrentRestaurantSaga = useSagaStore(
     businessesActions.getCurentBusiness
   );
+  const deleteCategoryFromMenuSaga = useSagaStore(menuCategoriesActions.delete);
+  const deleteCategorySaga = useSagaStore(categoriesActions.delete);
+
   const [selectedCategory, setSelectedCategory] = useState({
     categoryId: "",
     categoryType: "food",
@@ -32,7 +37,20 @@ export const MenuPageSections = () => {
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
 
   useEffect(() => {
+    if (
+      deleteCategorySaga.status.onSuccess ||
+      deleteCategoryFromMenuSaga.status.onSuccess
+    ) {
+      setSelectedCategory({
+        ...selectedCategory,
+        categoryId: "",
+      });
+    }
+  }, [deleteCategoryFromMenuSaga.status, deleteCategorySaga.status]);
+
+  useEffect(() => {
     getCategoriesSaga.dispatch(restaurantId);
+    getBusinessItems.dispatch(restaurantId);
     getMenuCategoriesSaga.dispatch(menuId);
     getCurrentRestaurantSaga.dispatch(restaurantId);
     getCurrentMenuSaga.dispatch(menuId);

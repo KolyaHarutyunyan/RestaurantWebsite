@@ -3,9 +3,9 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Container, DropDownContainer } from "./style";
 import { v4 as uuid } from "uuid";
 import ChevronSVG from "./chevron.svg";
-
-export const ProSelect = ({
-  value = null,
+import { IoMdCheckmark } from "react-icons/io";
+export const MultiSelect = ({
+  selected = [],
   onChange = () => {},
   onSearchBarValueChange = () => {},
   searchBarValue,
@@ -13,7 +13,6 @@ export const ProSelect = ({
   proSelectAttrs = {},
   searchBarAttrs = {},
   fullWidth = false,
-  ...rest
 }) => {
   const searchInputId = uuid();
   const selectBoxRef = useRef();
@@ -22,7 +21,6 @@ export const ProSelect = ({
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
 
-  const currentOption = options.find((cOption) => cOption.value === value);
   const filteredOptions = options.filter(
     (option) => option.label.indexOf(searchBarValue) !== -1
   );
@@ -59,7 +57,6 @@ export const ProSelect = ({
     if (!mounted) {
       return;
     }
-
     const setPositionObserver = () => setDropdownPosition();
     const onDocumentClickObserver = () => setDropDownOpen(false);
 
@@ -74,9 +71,19 @@ export const ProSelect = ({
   }, [mounted]);
 
   const onSelect = (option) => {
-    onChange(option.value, options);
+    const isOptionSelected = !!selected.find(
+      (sOpt) => sOpt.value === option.value
+    );
+    if (isOptionSelected) {
+      onChange(
+        selected.filter((sOpt) => sOpt.value !== option.value),
+        null,
+        option
+      );
+    } else {
+      onChange([...selected, option], option, null);
+    }
     onSearchBarValueChange("");
-    setDropDownOpen(false);
     searchInputRef.current.blur();
   };
 
@@ -99,12 +106,12 @@ export const ProSelect = ({
             value={searchBarValue}
             id={searchInputId}
             ref={searchInputRef}
+            placeholder="Choose from the list"
             onFocus={() => {
               setDropdownPosition();
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
-            placeholder={currentOption ? currentOption.label : ""}
             onChange={({ target: { value } }) => onSearchBarValueChange(value)}
             {...searchBarAttrs}
           />
@@ -118,17 +125,6 @@ export const ProSelect = ({
             <ChevronSVG />
           </div>
         </div>
-        <select
-          value={value ? value : undefined}
-          onChange={({ target: { value } }) => onChange(value, options)}
-          {...rest}
-        >
-          {options.map((option, index) => (
-            <option key={`${option.value}-${index}`} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
       </Container>
       {createPortal(
         <DropDownContainer
@@ -139,17 +135,27 @@ export const ProSelect = ({
         >
           <div className="wrapper">
             {filteredOptions.length ? (
-              filteredOptions.map((option) => (
-                <div
-                  key={option.value}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onSelect(option);
-                  }}
-                >
-                  {option.label}
-                </div>
-              ))
+              filteredOptions.map((option, index) => {
+                const areSelected = !!selected.find(
+                  (sOpt) => sOpt.value === option.value
+                );
+                return (
+                  <div
+                    key={`${option.value}-${index}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelect(option);
+                    }}
+                  >
+                    <div
+                      className={`checkmark ${areSelected ? "selected" : ""}`}
+                    >
+                      {areSelected ? <IoMdCheckmark /> : null}
+                    </div>
+                    <div className="label">{option.label}</div>
+                  </div>
+                );
+              })
             ) : (
               <div>No Options Found</div>
             )}

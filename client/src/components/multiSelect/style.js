@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { colors } from "@eachbase/theme";
 export const DropDownContainer = styled.div`
   box-shadow: 0px 0px 3px 0px #d2d2d2;
   position: absolute;
@@ -24,6 +24,21 @@ export const DropDownContainer = styled.div`
     }
     & > div {
       padding-left: 5px;
+      gap: 16px;
+      .checkmark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 18px;
+        width: 18px;
+        height: 18px;
+        border-radius: 2px;
+        box-shadow: 0px 0px 0px 1px ${colors.action};
+        &.selected {
+          background-color: ${colors.action};
+          color: white;
+        }
+      }
       &:hover {
         background: #e9e9eb;
       }
@@ -57,7 +72,7 @@ export const Container = styled.label`
     align-items: center;
     input {
       flex: 1;
-      font-size: 1.3rem;
+      font-size: 1rem;
       margin: 0px;
       padding: 5px;
       width: 100%;

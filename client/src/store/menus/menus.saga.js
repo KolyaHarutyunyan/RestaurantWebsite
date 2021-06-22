@@ -117,7 +117,6 @@ function* switchMenuStatus({ type, payload }) {
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("err", e);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnErrorsActions.appendError(type));

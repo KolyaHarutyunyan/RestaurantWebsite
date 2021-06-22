@@ -13,12 +13,9 @@ export const categoriesReducer = (state = initialState, action) => {
     case CREATE_CATEGORY_SUCCESS:
       return [action.payload, ...state];
     case DELETE_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        [action.payload.categoryType.toLowerCase()]: state[
-          action.payload.categoryType.toLowerCase()
-        ].filter((category) => category.id !== action.payload.categoryId),
-      };
+      return state.filter(
+        (category) => category.id !== action.payload.categoryId
+      );
     default:
       return state;
   }

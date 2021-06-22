@@ -24,7 +24,7 @@ export const ConfirmCategoryDeleteDialog = () => {
       deleteCategoryFromMenuSaga.destroy.all();
       close();
     }
-  }, []);
+  }, [deleteCategorySaga, deleteCategoryFromMenuSaga]);
 
   if (!Object.keys(params).length) {
     return null;

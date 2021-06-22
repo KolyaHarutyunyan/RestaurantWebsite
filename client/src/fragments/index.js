@@ -8,6 +8,7 @@ export {
   EditRestaurantExtraDetailsForm,
   MenuForm,
   ConfirmCategoryDeleteDialog,
+  MenuItemForm,
 } from "./forms";
 export {
   CheckEmailHelper,

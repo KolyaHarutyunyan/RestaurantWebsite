@@ -5,6 +5,7 @@ import { watchItems } from "../items";
 import { watchCategories } from "../categories";
 import { watchMenuCategories } from "../menuCategories";
 import { watchMenus } from "../menus";
+import { watchCategoryItems } from "../categoryItems";
 
 export const appSaga = function* startForman() {
   yield fork(watchProfile);
@@ -13,4 +14,5 @@ export const appSaga = function* startForman() {
   yield fork(watchCategories);
   yield fork(watchMenuCategories);
   yield fork(watchMenus);
+  yield fork(watchCategoryItems);
 };

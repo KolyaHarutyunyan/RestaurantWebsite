@@ -95,7 +95,6 @@ export const InputContainer = styled.div`
   }
   display: flex;
   flex-direction: column;
-  min-width: 250px;
   width: 100%;
   .main-container {
     padding: 2px;
