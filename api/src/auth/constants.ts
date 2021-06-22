@@ -1,15 +1,15 @@
 /** Contant Primitieves */
-const mode = ['local', 'development', 'production'][0];
+const mode = ['local', 'development', 'production'][2];
 export const BASE_URL = {
   local: 'http://localhost:8005/api',
-  development: 'https://armat.eachbase.com/api',
-  production: 'https://armat.org',
+  development: 'https://menuz.eachbase.com/api',
+  production: 'https://menumango.com',
 }[mode];
 
 export const DOMAIN_NAME = {
   local: 'http://localhost:3000',
-  development: 'https://armat.eachbase.com/socialLogin/',
-  production: 'https://armat.org/socialLogin',
+  development: 'https://menuz.eachbase.com/socialLogin/',
+  production: 'https://menumango.com/socialLogin',
 }[mode];
 
 export const SALT_ROUNDS = 8;
@@ -23,8 +23,8 @@ export const GOOGLE_CLIENT_ID =
 export const GOOGLE_CLIENT_SECRET = '4WTYGSQ8Vt2Q9zRzyXVBlE8C';
 export const GOOGLE_CALLBACK_URL = `${BASE_URL}/auth/google/redirected`;
 
-export const FACEBOOK_APP_ID = '668391627157311';
-export const FACEBOOK_APP_SECRET = 'cbcb7fd7ad2dfb401e67842313b07670';
+export const FACEBOOK_APP_ID = '975507153217521';
+export const FACEBOOK_APP_SECRET = '0d84b2c18fae6a05dd35199e2ba1146e';
 export const FACEBOOK_CALLBACK_URL = `${BASE_URL}/auth/facebook/redirected`;
 
 export const TWITTER_CONSUMER_KEY = '1n2AslBMovtqX5MmlGEhJn3ZV';

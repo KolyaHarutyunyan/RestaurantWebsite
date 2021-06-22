@@ -1,16 +1,16 @@
 version: 0.0
 os: linux
 files:
-  - source: /menuz.nginx.config
+  - source: /menumango.nginx.config
     destination: /etc/nginx/sites-enabled/
   - source: /api
-    destination: /var/www/menuz/api
+    destination: /var/www/menumango/api
   - source: /clientDist
-    destination: /var/www/menuz/webapp
+    destination: /var/www/menumango/webapp
   - source: /adminDist
-    destination: /var/www/menuz/admin
+    destination: /var/www/menumango/admin
   - source: /.npmrc
-    destination: /var/www/menuz/api
+    destination: /var/www/menumango/api
 hooks:
   BeforeInstall:
     # - location: scripts/install_dependencies.sh

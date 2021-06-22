@@ -5,11 +5,11 @@ sudo service restart nginx
 service nginx status
 
 # updating the .env file
-cd /var/www/menuz/api
+cd /var/www/menumango/api
 npm install
 # sudo cp ../config/.env ./constants/
 
 # node restartsudo 
-cd /var/www/menuz/api
-# sudo pm2 start /var/www/menuz/api/main.js --name "menuz"
-sudo pm2 restart menuz
+cd /var/www/menumango/api
+sudo pm2 start /var/www/menumango/api/main.js --name "menumango"
+sudo pm2 restart menumango
