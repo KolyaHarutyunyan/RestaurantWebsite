@@ -2,7 +2,7 @@ import {
   ADD_CATEGORY_ITEM,
   DELETE_CATEGORY_ITEM,
   GET_CATEGORY_ITEMS,
-} from "./Items.types";
+} from "./items.types";
 
 export const categoryItemActions = {
   get: (categoryId) => ({
