@@ -9,6 +9,7 @@ import {
   businessesActions,
   categoriesActions,
   menuCategoriesActions,
+  itemActions,
 } from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -22,6 +23,7 @@ export const MenuPageSections = () => {
   const getCategoriesSaga = useSagaStore(categoriesActions.get);
   const getMenuCategoriesSaga = useSagaStore(menuCategoriesActions.get);
   const getCurrentMenuSaga = useSagaStore(menusActions.getCurrentMenu);
+  const getBusinessItems = useSagaStore(itemActions.get);
   const getCurrentRestaurantSaga = useSagaStore(
     businessesActions.getCurentBusiness
   );
@@ -48,6 +50,7 @@ export const MenuPageSections = () => {
 
   useEffect(() => {
     getCategoriesSaga.dispatch(restaurantId);
+    getBusinessItems.dispatch(restaurantId);
     getMenuCategoriesSaga.dispatch(menuId);
     getCurrentRestaurantSaga.dispatch(restaurantId);
     getCurrentMenuSaga.dispatch(menuId);

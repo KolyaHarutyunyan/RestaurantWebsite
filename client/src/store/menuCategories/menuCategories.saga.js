@@ -76,7 +76,6 @@ function* addMenuCategory({ payload, type }) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log(e);
     yield put(httpRequestsOnErrorsActions.appendError(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

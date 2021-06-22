@@ -146,7 +146,9 @@ export const Categories = ({ value, onChange }) => {
                   <span className="action">
                     <Button
                       link
-                      onClick={() => onRequestToDelete(category, "food")}
+                      onClick={(e) => {
+                        onRequestToDelete(category, "food");
+                      }}
                     >
                       <span className="icon">
                         <IoIosTrash />

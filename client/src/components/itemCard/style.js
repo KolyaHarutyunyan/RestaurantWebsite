@@ -29,6 +29,24 @@ export const Container = styled.div`
     .under {
       display: flex;
       justify-content: space-between;
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        flex: 0 0 145px;
+        gap: 10px;
+        button {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 24px;
+            height: 24px;
+          }
+        }
+      }
     }
   }
 `;

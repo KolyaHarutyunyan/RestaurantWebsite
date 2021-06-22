@@ -5,6 +5,7 @@ import { itemsReducer } from "../items";
 import { categoriesReducer } from "../categories";
 import { menuCategoriesReducer } from "../menuCategories";
 import { menusReducer } from "../menus";
+import { categoryItemsReducer } from "../categoryItems";
 import { httpRequestsOnErrorsReducer } from "../http_requests_on_errors";
 import { httpRequestsOnLoadReducer } from "../http_requests_on_load";
 import { httpRequestsOnSuccessReducer } from "../http_requests_on_success";
@@ -15,6 +16,7 @@ export const appReducer = combineReducers({
   categories: categoriesReducer,
   menuCategories: menuCategoriesReducer,
   items: itemsReducer,
+  categoryItems: categoryItemsReducer,
   menus: menusReducer,
   httpOnLoad: httpRequestsOnLoadReducer,
   httpOnSuccess: httpRequestsOnSuccessReducer,

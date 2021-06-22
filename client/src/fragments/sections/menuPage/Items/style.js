@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    min-height: 255px;
+    min-height: 490px;
     border: 1px dashed grey;
     p {
       color: #2b273c80 !important;
@@ -25,7 +25,7 @@ export const Container = styled.div`
     border-radius: 8px;
     padding: 16px;
     background-color: #e7e7e7;
-    max-height: 300px;
+    height: 313px;
     overflow: auto;
   }
   .head {

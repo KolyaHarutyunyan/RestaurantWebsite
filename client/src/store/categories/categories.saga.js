@@ -54,7 +54,6 @@ function* createCategory({ payload, type }) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("err: createCategory", e);
     yield put(httpRequestsOnErrorsActions.appendError(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -80,7 +79,6 @@ function* deleteCategory({ payload, type }) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
-    console.log("deleteCategory ", e);
     yield put(httpRequestsOnErrorsActions.appendError(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

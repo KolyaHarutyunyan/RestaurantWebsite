@@ -1,5 +1,7 @@
 import { Typography } from "@eachbase/components";
 import { Container } from "./style";
+import { TiPencil } from "react-icons/ti";
+import { IoIosTrash } from "react-icons/io";
 
 export const ItemCard = ({ item, onRequestToDelete, onRequestToEdit }) => {
   return (
@@ -17,7 +19,20 @@ export const ItemCard = ({ item, onRequestToDelete, onRequestToEdit }) => {
         </div>
         <div className="under">
           <Typography color="text">Special offers...</Typography>
-          <div className="actions"></div>
+          <div className="actions">
+            <button className="edit">
+              <div className="icon">
+                <TiPencil />
+              </div>
+              <p>Edit</p>
+            </button>
+            <button className="delete">
+              <div className="icon">
+                <IoIosTrash />
+              </div>
+              <p>Delete</p>
+            </button>
+          </div>
         </div>
       </div>
     </Container>
