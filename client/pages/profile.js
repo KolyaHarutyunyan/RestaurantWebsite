@@ -1,20 +1,12 @@
-import Head from "next/head"
-import {  ProfilePage } from "@eachbase/pages"
+import { ProfilePage } from "@eachbase/pages";
+import { Layout } from "@eachbase/fragments";
 
-export default function Profile (props) {
-
+const Profile = () => {
   return (
-    <>
-      <Head>
-        {props.meta || <title>welcome menuz</title>}
-      </Head>
-      <ProfilePage {...props.pageData}/>
+    <Layout>
+      <ProfilePage />
+    </Layout>
+  );
+};
 
-    </>
-  )
-}
-
-Profile.getInitialProps = async () => {
-  let res = {meta: `<title>inchvor ban</title>`, pageData: null}
-  return {...res}
-}
+export default Profile;

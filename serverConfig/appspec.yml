@@ -1,16 +1,16 @@
 version: 0.0
 os: linux
 files:
-  - source: /menuzmini.nginx.config
+  - source: /menuz.nginx.config
     destination: /etc/nginx/sites-enabled/
   - source: /api
-    destination: /var/www/menuzMini/api
-  # - source: /clientDist
-  #   destination: /var/www/menuzmini/webapp
-  # - source: /adminDist
-  #   destination: /var/www/menuzmini/admin
+    destination: /var/www/menuz/api
+  - source: /clientDist
+    destination: /var/www/menuz/webapp
+  - source: /adminDist
+    destination: /var/www/menuz/admin
   - source: /.npmrc
-    destination: /var/www/menuzMini/api
+    destination: /var/www/menuz/api
 hooks:
   BeforeInstall:
     # - location: scripts/install_dependencies.sh

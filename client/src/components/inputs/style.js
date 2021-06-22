@@ -1,143 +1,210 @@
-import styled from "styled-components"
-import { theme } from "@eachbase/theme"
+import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 
-export const InputBlock = styled.div`
+export const inputsStyle = makeStyles(() => ({
+  Icon: {
+    flex: "0 0 22px",
+    display: "flex",
+    alignItems: "center",
+    color: "#2B273C",
+    justifyContent: "center",
+  },
+  Input: {
+    flex: "1",
+    border: "none",
+    outline: 0,
+    height: "100%",
+  },
+  disabledInput: {
+    cursor: "no-drop",
+  },
+  "&::placeholder": {
+    fontSize: "16px",
+    lineHeight: "22px",
+    color: "#545F7EB3",
+  },
+  SearchAddress: {
+    display: "flex",
+    gap: "10px",
+    fontSize: "16px",
+    lineHeight: "22px",
+    outline: "none",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "30px",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    border: "1px solid #2b273c80",
+    borderRadius: "8px",
+    padding: "5px",
+    cursor: "pointer",
+    color: "#545F7E",
+  },
+  SearchAddressDisable: {
+    fontSize: "16px",
+    lineHeight: "22px",
+    gap: "14px",
+    outline: "none",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "30px",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    border: "1px solid #2b273c80",
+    borderRadius: "8px",
+    padding: "5px",
+    cursor: "no-drop",
+    color: "#545F7E",
+    "&::placeholder": {
+      fontSize: "16px",
+      lineHeight: "22px",
+      color: "#545F7EB3",
+    },
+  },
+  searchAddressDescription: {
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    boxShadow: "0px 0px 12px #0052E01A",
+    borderRadius: "6px",
+    position: "absolute",
+    zIndex: "9999",
+    width: "350px",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    top: "300px",
+  },
+
+  searchAddressDescriptionText: {
+    paddingTop: "5px",
+    marginLeft: "5px",
+    fontSize: "16px",
+    lineHeight: "30px",
+    color: "#545F7E",
+    "& :hover": {
+      background: "#387DFF1A 0% 0% no-repeat padding-box",
+      borderRadius: "6px",
+    },
+  },
+}));
+
+export const InputContainer = styled.div`
+  & * {
+    box-sizing: border-box;
+  }
   display: flex;
-  margin-top: ${props => props.mt || 16}px;
-  align-items: center;
-  padding: 9px 16px;
-  width: ${props => props.w !== undefined ? props.w : '100%'};
-  height: ${props => props.h || '42'}px;
-  border-radius: ${props => props.brd !== undefined ? props.brd : 25}px;
-  border: 1px solid #2B273C80;
-  ${props => props.brdType !== undefined ? `border-style : ${props.brdType}` : ""};
-  overflow: hidden;
-  @media (min-width: 768px) {
-    height: ${props => props.h || '48'}px;
-    padding: 12px 16px;
-
-  }
-  background-color: #fff;
-  transition: all .5s;
-
-  &:hover {
-    border: 1px solid #2B273C;
-  }
-
-  &.focused {
-    border: 2px solid #2B273C;
-  }
-
-  &.disabled {
-    border: 1px solid #2B273C80;
-  }
-
-  &.error {
-    border: 2px solid #FF453A;
-  }
-
-  .content {
-    height: 100%;
-    width: 100%;
+  flex-direction: column;
+  width: 100%;
+  .main-container {
+    padding: 2px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
+    gap: 5px;
+    height: 100%;
+    border: 1px solid;
+    border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+    height: 48px;
+    border-radius: 8px;
+    .icon-container {
+      padding-left: 16px;
+      display: ${({ icon }) => (icon !== null ? "flex" : "none")};
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex: 0 0 30px;
+    }
+    .input-container {
+      display: flex;
+      .controller-eye {
+        flex: 0 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      flex: 1;
+      height: 100%;
 
-    &.important:after {
-      content: '*';
-      position: absolute;
-      width: 20px;
-      color: #FF453A;
-      height: 20px;
-      display: block;
-      z-index: 10000;
-      top: 0;
-      left: 200px
+      input {
+        padding: 0 5px 0 5px;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border: none;
+        outline: 0;
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          box-shadow: 0 0 0 30px white inset !important;
+        }
+      }
     }
   }
-`
+  .helper-container {
+    padding-top: 2px;
+    padding-left: 5px;
+    font-size: 0.8rem;
+    text-align: left;
+    color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+  }
+`;
 
-export const InputBlockIcon = styled.div`
-  width: ${props => props.size !== undefined ? props.size : '24'}px;
-  height: ${props => props.size !== undefined ? props.size : '24'}px;
-  border-radius: ${props => props.brd || 0}px;
-  margin-left: 8px;
+export const TextareaContainer = styled.div`
+  & * {
+    box-sizing: border-box;
+  }
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-`
-
-export const Input = styled.input`
-  display: block;
-  height: 100%;
-  margin-left: 8px;
-  width: calc(100% - ${props => props.w !== undefined ? props.w : '34'}px);
-  line-height: 100%;
-  font-size: ${props => props.fs || 14}px;
-  @media (min-width: 768px) {
-
-    font-size: ${props => props.fsb || props.fs || 16}px;
-
-  }
-
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    background-color: #FFFFFF !important;
-    -webkit-box-shadow: 0 0 0 50px white inset;
-  }
-
-  &:-webkit-autofill {
-    -webkit-text-fill-color: unset !important;
-  }
-
-  position: relative;
-  outline: none;
-  border: 0;
-
-
-  &:after {
-    content: '*';
-    position: absolute;
-    color: ${theme.palette.primary.main};
-  }
-  ${props=>props.readonly && "&:read-only{}"}
-`
-
-export const InputTitle = styled.p`
-  display: block;
-  margin-bottom: -8px;
-  font: normal normal 600 14px/21px Open Sans;
-  margin-top: ${props => props.mtt || 16}px;
-
-`
-export const InputDescription = styled.p`
-  display: block;
-  margin: 8px 0 8px 16px;
-  font: normal normal normal 12px/17px Open Sans;
-`
-export const TextArea = styled.textarea`
-  font: normal normal normal 14px/19px Open Sans;
-  resize: none;
-  display: block;
+  flex-direction: column;
+  min-width: 250px;
   width: 100%;
-  height: 100%;
-  border: 0;
-  outline: 0;
-`
-export const ErrorMessage = styled.p`
-  width: fit-content;
-  background-color: #fff;
-  text-align: left;
-  margin: 6px 0 0 48px;
-  line-height: 17px;
-  color: #FF453A;
-  padding: 0 10px;
-  display: block;
-  font-size: 12px !important;
+  .main-container {
+    padding: 2px;
+    display: flex;
+    gap: 5px;
+    border: 1px solid;
+    border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+    border-radius: 8px;
+    .icon-container {
+      display: ${({ icon }) => (icon !== null ? "flex" : "none")};
+      justify-content: center;
+      align-items: center;
+      flex: 0 0 30px;
+    }
+    .input-container {
+      flex: 1;
+      textarea {
+        padding: 5px 5px 0 5px;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        border: none;
+        outline: 0;
+      }
+    }
+  }
+  .helper-container {
+    padding-top: 2px;
+    padding-left: 5px;
+    font-size: 0.8rem;
+    color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+  }
+`;
 
-`
+export const SelectContainer = styled.select`
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #2b273c80;
+  border-radius: 8px;
+  outline: 0;
+`;
+
+export const RadioContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 3px;
+  input {
+    transform: scale(1.5);
+  }
+`;

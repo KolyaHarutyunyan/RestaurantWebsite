@@ -1,10 +1,18 @@
-import { fork } from 'redux-saga/effects'
-import { watchAuth } from '../auth'
-import { watchProfile } from '../profile'
-import { watchRestaurant } from "../restaurant";
+import { fork } from "redux-saga/effects";
+import { watchProfile } from "../profile";
+import { watchBusinesses } from "../businesses";
+import { watchItems } from "../items";
+import { watchCategories } from "../categories";
+import { watchMenuCategories } from "../menuCategories";
+import { watchMenus } from "../menus";
+import { watchCategoryItems } from "../categoryItems";
 
 export const appSaga = function* startForman() {
-    yield fork(watchAuth);
-    yield fork(watchProfile);
-    yield fork(watchRestaurant);
+  yield fork(watchProfile);
+  yield fork(watchBusinesses);
+  yield fork(watchItems);
+  yield fork(watchCategories);
+  yield fork(watchMenuCategories);
+  yield fork(watchMenus);
+  yield fork(watchCategoryItems);
 };

@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app';
 import { ValidationPipe } from '@nestjs/common';
-import { setupSwagger } from './util/swagger';
+import { SwaggerUtil } from './util';
 import * as session from 'express-session';
-import { PORT } from './app/constants';
+import { PORT } from './constants';
+// import { AllExceptionsFilter } from './all-exception.filters';
 
 async function bootstrap() {
+  const swaggerUtil = new SwaggerUtil();
   const app = await NestFactory.create(AppModule, {
     cors: {
       origin: true,
@@ -23,6 +25,7 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
+  // app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -30,7 +33,7 @@ async function bootstrap() {
   );
 
   //swagger documentation setup
-  setupSwagger(app);
+  swaggerUtil.setup(app);
 
   await app
     .listen(PORT)

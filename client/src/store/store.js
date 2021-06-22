@@ -1,17 +1,21 @@
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleWare from 'redux-saga';
-import { appReducer, appSaga } from './app';
-import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
+import { appReducer, appSaga } from "./app";
+import { createWrapper } from "next-redux-wrapper";
 
-const configureStore = () => {
-    const sagaMiddleWare = createSagaMiddleWare();
-    const middleware = [sagaMiddleWare];
-    const store = createStore(appReducer, composeWithDevTools(applyMiddleware(...middleware)));
-    sagaMiddleWare.run(appSaga);
+export const reduxWrapper = () => {
+  const makeStore = () => {
+    const sagaMiddleware = createSagaMiddleware();
+    const middleware = [sagaMiddleware];
+    const store = createStore(
+      appReducer,
+      composeWithDevTools(applyMiddleware(...middleware))
+    );
+    store.sagaTask = sagaMiddleware.run(appSaga);
+
     return store;
+  };
+
+  return createWrapper(makeStore, { debug: true });
 };
-
-export const Store =({children})=><Provider store={configureStore()}>{children} </Provider>
-
-

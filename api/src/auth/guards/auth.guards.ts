@@ -5,14 +5,12 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { IRequest } from '../../util';
 import { ACCESS_TOKEN } from '../../constants';
-import { IUser } from '../../user/interfaces';
-import { UserService } from '../../user/user.service';
 import { AuthService } from '../auth.service';
-import { JWT_SECRET_SIGNIN, Role } from '../constants';
-import { IToken } from '../interfaces';
+import { AccountStatus, JWT_SECRET_SIGNIN, Role } from '../constants';
+import { IAuth, IToken } from '../interfaces';
 
 /** Authorization and Authentication guard. Checks if the user has enough privilages to access a resource and whether the user is Authenticated */
 @Injectable()
@@ -20,25 +18,47 @@ export class AuthGuard implements CanActivate {
   constructor(roles?: Role[]) {
     this.allowedRoles = roles;
     this.authService = new AuthService();
-    this.userService = new UserService();
   }
   private allowedRoles: Role[];
-  private userService: UserService;
   private authService: AuthService;
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request: Request = context.switchToHttp().getRequest();
+    const request: IRequest = context.switchToHttp().getRequest();
     const token: string = request.get(ACCESS_TOKEN);
-    // Check token
-    await this.isValidToken(token);
     // Verify token
-    const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
+    const decoded: IToken = await this.decodeToken(token);
     //check roles
     this.checkRoles(decoded.role);
-    request.body.user = await this.checkUser(decoded.id);
+    const auth = await this.authService.findById(decoded.id);
+    this.checkStatus(auth.status);
+    this.checkSession(auth.session, token);
+    request.body.userId = auth.id;
+    request.userId = auth.id;
     return true;
   }
 
+  /** Check account status */
+  private checkStatus(status: AccountStatus) {
+    switch (status) {
+      case AccountStatus.ACTIVE:
+        return;
+      case AccountStatus.CLOSED:
+        throw new HttpException(
+          'This account has been closed by the owner',
+          HttpStatus.UNAUTHORIZED,
+        );
+      case AccountStatus.SUSPENDED:
+        throw new HttpException(
+          'Your account has been suspended',
+          HttpStatus.UNAUTHORIZED,
+        );
+      default:
+        throw new HttpException(
+          'This account seems to be problematic, contact admin',
+          HttpStatus.UNAUTHORIZED,
+        );
+    }
+  }
   /** Check Roles */
   private checkRoles(role: Role): boolean {
     if (!this.allowedRoles) {
@@ -56,31 +76,32 @@ export class AuthGuard implements CanActivate {
   }
 
   /** Checks for the tokens validity */
-  private async isValidToken(token: string) {
+  private async decodeToken(token: string): Promise<IToken> {
     if (!token) {
       throw new HttpException(
         'An access token must be set to access this resource',
         HttpStatus.UNAUTHORIZED,
       );
     }
-    // const blackListedToken = await this.authService.findTokenInBlacklist(token);
-    // if (blackListedToken) {
-    //   throw new HttpException(
-    //     'Session expired, please sign in again',
-    //     HttpStatus.UNAUTHORIZED,
-    //   );
-    // }
-  }
-
-  /** Check for user identity */
-  private async checkUser(authId: string): Promise<IUser> {
-    const user = await this.userService.findByAuthId(authId);
-    if (!user) {
+    try {
+      // Verify token
+      const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
+      return decoded;
+    } catch (err) {
       throw new HttpException(
-        "Failed to establish user's identity",
+        'Your session is expired, please login again',
         HttpStatus.UNAUTHORIZED,
       );
     }
-    return user;
+  }
+
+  /** Checks if the session is correct */
+  private checkSession(session: string, token: string) {
+    if (session != token) {
+      throw new HttpException(
+        'The session is invalid',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }

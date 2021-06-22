@@ -1,7 +1,7 @@
 /** Contant Primitieves */
 const mode = ['local', 'development', 'production'][0];
 export const BASE_URL = {
-  local: 'http://localhost:8081/api',
+  local: 'http://localhost:8005/api',
   development: 'https://armat.eachbase.com/api',
   production: 'https://armat.org',
 }[mode];
@@ -39,13 +39,20 @@ export const APPLE_PRIVATE_KEY_LOCATION = 'qsqSqs';
 export const APPLE_CALLBACK_URL = `${BASE_URL}/auth/apple/redirected`;
 export const COMPANY_EMAIL = 'eachbase@gmail.com';
 
+export const ACCESS_TOKEN = 'access-token';
+export const RESET_TOKEN = 'reset-token';
 /** Enums */
+
 export enum Role {
-  ADMIN = 230,
-  RESTAURANT_OWNER = 231,
+  ADMIN = 'ADMIN',
+  OWNER = 'OWNER',
 }
 
-export enum ClientRole {
-  ADMIN = 'ADMIN',
-  RESTAURANT_OWNER = 'RESTAURANT_OWNER',
+export enum AccountStatus {
+  // Active user account
+  ACTIVE = 22111,
+  // User closed the account
+  CLOSED = 22222,
+  // User account was suspended by the admin
+  SUSPENDED = 22333,
 }

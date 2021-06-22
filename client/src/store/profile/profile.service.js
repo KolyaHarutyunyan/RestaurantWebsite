@@ -1,7 +1,17 @@
-import Axios from "axios";
-import { API_BASE } from "../constants";
+import axios from "axios";
 
 export const profileService = {
-  remove: body => Axios.post(`${API_BASE}/auth/signup`, body.user)
-
+  signIn: (credentials) => axios.post("/auth/signin", credentials),
+  signUp: (data) => axios.post("/owners", data),
+  userInfo: () => axios.get("/owners/profile", { auth: true }),
+  deleteProfile: () => axios.delete("/user", { auth: true }),
+  forgotPassword: (email) => axios.get(`/auth/forgotPassword/${email}`),
+  changePassword: (data) =>
+    axios.post(`/auth/changePassword`, data, { auth: true }),
+  updateProfileInfo: (data) => axios.put("/user", data, { auth: true }),
+  resetPassword: (data, token) =>
+    axios.post("/auth/resetPassword", data, {
+      headers: { "reset-token": token },
+      auth: false,
+    }),
 };

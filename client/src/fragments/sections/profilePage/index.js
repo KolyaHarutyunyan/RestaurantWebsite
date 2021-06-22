@@ -1,0 +1,1 @@
+export { ProfilePageSections } from "./profilePageSections";

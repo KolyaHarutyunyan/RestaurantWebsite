@@ -1,2 +1,2 @@
-export { Pages } from "./pages"
-export {SVGNames} from "./SVGNames"
+export { API_BASE } from "./server";
+export { MODAL_NAMES } from "./modalNames";

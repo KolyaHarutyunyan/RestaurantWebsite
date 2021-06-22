@@ -1,16 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./store";
-import { BrowserRouter } from "react-router-dom";
+import { Store } from "./store";
+import { Router } from "react-router-dom";
+import { initAxiosInterceptors } from "./utils";
+import { history } from "./utils/history";
+import "reset-css";
+
+initAxiosInterceptors();
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+    <Store>
+      <Router history={history}>
         <App />
-      </Provider>
-    </BrowserRouter>
+      </Router>
+    </Store>
   </React.StrictMode>,
   document.getElementById("root")
 );
+export { history };

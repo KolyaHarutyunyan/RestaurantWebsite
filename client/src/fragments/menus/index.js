@@ -1,2 +1,0 @@
-
-export {Menus} from './menus'
