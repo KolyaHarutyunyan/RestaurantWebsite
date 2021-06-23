@@ -73,7 +73,7 @@ export const Categories = ({ value, onChange }) => {
   };
 
   const onRequestToDelete = (category) => {
-    open(MODAL_NAMES.CONFIRM_DELETION, {
+    open(MODAL_NAMES.CONFIRM_CATEGORY_DELETION, {
       ...category,
       categoryType: activeTab,
     });

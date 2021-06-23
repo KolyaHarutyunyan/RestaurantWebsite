@@ -7,14 +7,14 @@ import {
   Button,
   useModal,
 } from "@eachbase/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSagaStore, itemActions } from "@eachbase/store";
 import { useSelector } from "react-redux";
 
 export const MenuItemForm = () => {
-  const { params } = useModal();
-  const { register, handleSubmit } = useForm();
+  const { params, close } = useModal();
+  const { register, handleSubmit, setValue } = useForm();
   const [itemIcon, setItemIcon] = useState({
     files: [],
     mainImageId: "",
@@ -23,19 +23,49 @@ export const MenuItemForm = () => {
     businesses ? businesses.id : null
   );
   const createItemSaga = useSagaStore(itemActions.create);
+  const editItemSaga = useSagaStore(itemActions.update);
 
+  useEffect(() => {
+    if (createItemSaga.status.onSuccess) {
+      createItemSaga.destroy.all();
+      close();
+    }
+    if (editItemSaga.status.onSuccess) {
+      editItemSaga.destroy.all();
+      close();
+    }
+  }, [createItemSaga, editItemSaga]);
+
+  const formStatus = params.categoryItem && params.category ? "edit" : "create";
   const onSubmit = (data) => {
-    createItemSaga.dispatch(
-      { ...data, businessId },
-      params.categoryId,
-      itemIcon
-    );
+    if (formStatus === "create") {
+      createItemSaga.dispatch(
+        { ...data, businessId },
+        params.categoryId,
+        itemIcon
+      );
+    } else {
+      editItemSaga.dispatch(
+        { ...params.categoryItem.item, ...data, businessId },
+        params.categoryId,
+        itemIcon
+      );
+    }
   };
+
+  useEffect(() => {
+    if (params.categoryItem) {
+      setValue("name", params.categoryItem.item["name"]);
+      setValue("price", params.categoryItem.item["price"]);
+      setValue("description", params.categoryItem.item["description"]);
+      setValue("option", params.categoryItem.item["option"]);
+    }
+  }, [params]);
 
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">
-        Add Menu Item
+        {formStatus === "edit" ? "Edit Menu Item" : "Add Menu Item"}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="box">
@@ -65,8 +95,12 @@ export const MenuItemForm = () => {
           limit={6}
           mainImageId={itemIcon.mainImageId}
         />
-        <Button onLoad={createItemSaga.status.onLoad} type="submit" square>
-          Add
+        <Button
+          onLoad={createItemSaga.status.onLoad || editItemSaga.status.onLoad}
+          type="submit"
+          square
+        >
+          {formStatus === "edit" ? "Edit" : "Add"}
         </Button>
       </form>
     </Container>

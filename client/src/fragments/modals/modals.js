@@ -1,6 +1,6 @@
+import { Fragment } from "react";
 import { Modal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { Fragment } from "react";
 import {
   SignInForm,
   ForgotPasswordForm,
@@ -14,6 +14,7 @@ import {
   MenuForm,
   ResetPasswordHelper,
   ConfirmCategoryDeleteDialog,
+  ConfirmItemDeleteDialog,
   MenuItemForm,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
@@ -65,8 +66,11 @@ export const Modals = () => {
       <Modal modalName={MODAL_NAMES.MENU_ITEM_FORM}>
         <MenuItemForm />
       </Modal>
-      <Modal mini modalName={MODAL_NAMES.CONFIRM_DELETION}>
+      <Modal mini modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
         <ConfirmCategoryDeleteDialog />
+      </Modal>
+      <Modal modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
+        <ConfirmItemDeleteDialog />
       </Modal>
     </Fragment>
   );

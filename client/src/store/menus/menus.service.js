@@ -4,6 +4,7 @@ export const menusService = {
   getMenusByBusiness: (id) =>
     axios.get(`/menus/bybusiness/${id}`, { auth: true }),
   editMenu: (menu) => axios.patch(`/menus/${menu.id}`, menu, { auth: true }),
+  deleteMenu: (menuId) => axios.delete(`/menus/${menuId}`, { auth: true }),
   createMenu: (menu) => axios.post(`/menus`, menu, { auth: true }),
   getCurrentMenu: (menuId) => axios.get(`/menus/${menuId}`, { auth: true }),
   switchMenuStatus: ({ menuId, businessId }) =>

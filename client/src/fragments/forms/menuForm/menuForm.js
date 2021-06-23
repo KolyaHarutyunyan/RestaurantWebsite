@@ -12,6 +12,7 @@ import {
 } from "@eachbase/components";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 export const MenuForm = () => {
   const router = useRouter();
   const { register, handleSubmit, setValue, reset } = useForm({});
@@ -31,6 +32,7 @@ export const MenuForm = () => {
     if (createMenuSaga.status.onSuccess) {
       createMenuSaga.destroy.all();
       reset();
+      close();
       router.push("/restaurant");
       setRestaurantIcons({
         mainIconId: null,

@@ -25,14 +25,14 @@ export const RestaurantPageSections = () => {
       menus,
     })
   );
+  const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
+  const hourseMenuToggleRef = useRef();
+
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
-  // const deleteMenusSaga = useSagaStore(menusActions.deleteMenu);
-
-  const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
-  const hourseMenuToggleRef = useRef();
+  const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
 
   useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
@@ -270,6 +270,11 @@ export const RestaurantPageSections = () => {
                 onRequestToEdit={() =>
                   open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
                 }
+                onRequestToDelete={() => {
+                  if (window.confirm("Are you sure?")) {
+                    deleteMenuSaga.dispatch(menu.id);
+                  }
+                }}
               />
             ))}
           </div>

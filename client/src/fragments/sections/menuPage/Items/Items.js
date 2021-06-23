@@ -5,11 +5,7 @@ import {
   ItemCard,
   MultiSelect,
 } from "@eachbase/components";
-import {
-  useSagaStore,
-  categoriesActions,
-  categoryItemActions,
-} from "@eachbase/store";
+import { useSagaStore, categoryItemActions } from "@eachbase/store";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -56,7 +52,13 @@ export const Items = ({ category }) => {
   }, [currentCategory]);
 
   if (currentCategory === "NO_CATEGORIES") {
-    return null;
+    return (
+      <Container className="no-menu-items">
+        <Typography weight="bold" size="1.5rem">
+          ADD OR CREATE CATEGORY
+        </Typography>
+      </Container>
+    );
   }
   if (currentCategory === "NO_SElECTION") {
     return (
@@ -69,7 +71,7 @@ export const Items = ({ category }) => {
   }
 
   if (!currentCategory) {
-    return null;
+    return <Container />;
   }
 
   const onCategoryItemsChange = (_options, newItem, removedItem) => {
@@ -124,7 +126,19 @@ export const Items = ({ category }) => {
       </div>
       <div className="list">
         {categoryItems.map((categoryItem, index) => (
-          <ItemCard key={`${categoryItem.id}-${index}`} item={categoryItem} />
+          <ItemCard
+            key={`${categoryItem.id}-${index}`}
+            item={categoryItem}
+            onRequestToDelete={() =>
+              open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
+                categoryItem,
+                category,
+              })
+            }
+            onRequestToEdit={() =>
+              open(MODAL_NAMES.MENU_ITEM_FORM, { categoryItem, category })
+            }
+          />
         ))}
       </div>
     </Container>
