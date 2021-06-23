@@ -83,11 +83,11 @@ export class CategoryService {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
-    const rank = category.items.length + 1;
-    category.items.push({
+    category.items.unshift({
       _id: itemId,
-      rank,
+      rank: 0,
     });
+    // console.log(category.items);
     category = await category.save();
     category = await category
       .populate({
@@ -99,6 +99,10 @@ export class CategoryService {
         ],
       })
       .execPopulate();
+    if (this.cleanNulls(category.items)) {
+      await category.save();
+    }
+    this.rerank(category.items);
     return this.sanitizer.sanitizeItems(category);
   };
 
@@ -216,5 +220,18 @@ export class CategoryService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  /** Clean nulls */
+  private cleanNulls(items: ICategoryItem[]): boolean {
+    let hasRemoved = false;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i]._id === null) {
+        hasRemoved = true;
+        items.splice(i, 1);
+        i--;
+      }
+    }
+    return hasRemoved;
   }
 }

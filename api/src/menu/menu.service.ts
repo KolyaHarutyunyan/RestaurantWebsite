@@ -154,15 +154,18 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
     const categories = this.getCategoryFromMenu(type, menu);
-    const rank = categories.length;
-    categories.push({
+    categories.unshift({
       _id: catId,
-      rank,
+      rank: 0,
     });
     menu = await (await menu.save())
       .populate('foodCategories._id')
       .populate('drinkCategories._id')
       .execPopulate();
+    if (this.cleanNulls(categories)) {
+      await menu.save();
+    }
+    this.rerank(categories);
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -283,5 +286,18 @@ export class MenuService {
       categories = menu.drinkCategories;
     }
     return categories;
+  }
+
+  /** Cleans the null/ wrong entires in the array */
+  private cleanNulls(categories: IMenuCategory[]): boolean {
+    let hasRemoved = false;
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i]._id === null) {
+        hasRemoved = true;
+        categories.splice(i, 1);
+        i--;
+      }
+    }
+    return hasRemoved;
   }
 }
