@@ -23,8 +23,25 @@ const MyApp = ({ Component, pageProps }) => (
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@700&display=swap"
         rel="stylesheet"
       ></link>
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-31HYXR4Z5Q"
+      ></script>
+      <script
+        type="text/javascript"
+        src="/static/google_data_layer.js"
+      ></script>
+      <script type="text/javascript" src="/static/google_tag_code.js"></script>
       <title>Welcome Menuz</title>
     </Head>
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-M4ZFMXN"
+        height="0"
+        width="0"
+        styles="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
     <ThemeProvider>
       <ModalProvider>
         <Component {...pageProps} />

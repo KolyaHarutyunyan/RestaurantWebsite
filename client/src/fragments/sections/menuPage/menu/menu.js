@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, menusActions } from "@eachbase/store";
 import { BsImage } from "react-icons/bs";
+import { useEffect } from "react";
 export const Menu = () => {
   const router = useRouter();
   const { open } = useModal();
@@ -23,6 +24,14 @@ export const Menu = () => {
     ({ menus }) => menus.find((cMenu) => cMenu.id === menuId) || {}
   );
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
+  const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
+
+  useEffect(() => {
+    if (deleteMenuSaga.status.onSuccess) {
+      deleteMenuSaga.destroy.all();
+      router.push("/restaurant");
+    }
+  }, [deleteMenuSaga]);
 
   return (
     <Container>
@@ -31,7 +40,7 @@ export const Menu = () => {
           Menu
         </Typography>
         <div className="actions">
-          <Button link>
+          <Button link onClick={() => deleteMenuSaga.dispatch(currentMenu.id)}>
             <div className="icon">
               <IoIosTrash />
             </div>

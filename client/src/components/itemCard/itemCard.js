@@ -1,32 +1,50 @@
 import { Typography } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { TiPencil } from "react-icons/ti";
 import { IoIosTrash } from "react-icons/io";
 
-export const ItemCard = ({ item, onRequestToDelete, onRequestToEdit }) => {
+export const ItemCard = ({
+  item,
+  onRequestToDelete = () => {},
+  onRequestToEdit = () => {},
+}) => {
+  const image = item.item.mainImage ? item.item.mainImage.originalUrl : null;
+  const imageStyle = {
+    backgroundImage: `url(${image})`,
+  };
   return (
     <Container>
-      <div className="image" />
+      <div className="image" style={imageStyle}>
+        {image ? null : <Icons.FoodIcon />}
+      </div>
       <div className="content">
         <div className="upper">
           <div className="info">
-            <Typography color="text">Title</Typography>
-            <Typography color="text">descr</Typography>
+            <Typography color="text" weight="bold">
+              {item.item.name}
+            </Typography>
+            <Typography className="poor" color="text">
+              {item.item.description}
+            </Typography>
           </div>
           <Typography color="text" className="price">
-            0000
+            <b>$</b>
+            {item.item.price}
           </Typography>
         </div>
         <div className="under">
-          <Typography color="text">Special offers...</Typography>
+          <Typography color="text" className="poor">
+            {item.item.option}
+          </Typography>
           <div className="actions">
-            <button className="edit">
+            <button className="edit" onClick={() => onRequestToEdit()}>
               <div className="icon">
                 <TiPencil />
               </div>
               <p>Edit</p>
             </button>
-            <button className="delete">
+            <button className="delete" onClick={() => onRequestToDelete()}>
               <div className="icon">
                 <IoIosTrash />
               </div>

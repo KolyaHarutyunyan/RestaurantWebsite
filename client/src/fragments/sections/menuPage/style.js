@@ -5,10 +5,13 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 160px;
-    @media only screen and (max-width: 1280px) {
+    @media (max-width: 1280px) {
       grid-template-columns: 1fr;
-      gap: 60x;
+      gap: 60px;
     }
+  }
+  .grid:nth-child(2) {
+    margin-top: 50px;
   }
   .no-items {
     display: flex;

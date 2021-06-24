@@ -60,6 +60,8 @@ export const MenuPageSections = () => {
     <Container className="container">
       <div className="grid">
         <Menu />
+      </div>
+      <div className="grid">
         <Categories
           value={selectedCategory}
           onChange={(categoryId, categoryType) =>

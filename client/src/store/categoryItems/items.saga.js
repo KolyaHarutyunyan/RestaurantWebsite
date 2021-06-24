@@ -8,16 +8,27 @@ import {
   GET_CATEGORY_ITEMS_SUCCESS,
 } from "./items.types";
 import { categoryItemsService } from "./items.service";
+import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
+import { httpRequestsOnLoadActions } from "../http_requests_on_load";
+import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
 
-function* getItems({ payload }) {
+function* getItems({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const res = yield call(categoryItemsService.get, payload);
     yield put({
       type: GET_CATEGORY_ITEMS_SUCCESS,
       payload: res.data.items,
     });
-  } catch (e) {}
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  } catch (e) {
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
 }
+
 function* addItem({ payload }) {
   try {
     const { data } = yield call(categoryItemsService.add, payload);
@@ -27,14 +38,25 @@ function* addItem({ payload }) {
     });
   } catch (e) {}
 }
-function* deleteItem({ payload }) {
+
+function* deleteItem({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const { data } = yield call(categoryItemsService.remove, payload);
     yield put({
       type: DELETE_CATEGORY_ITEM_SUCCESS,
       payload: data,
     });
-  } catch (e) {}
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
 }
 
 export function* watchCategoryItems() {

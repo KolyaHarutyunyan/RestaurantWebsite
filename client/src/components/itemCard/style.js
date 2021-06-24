@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { colors } from "@eachbase/theme";
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -13,6 +13,14 @@ export const Container = styled.div`
     flex: 0 0 100px;
     border-radius: 8px;
     background-color: #e7e7e7;
+    background-size: cover;
+    background-position: center;
+    svg {
+      transform: scale(0.5);
+    }
+  }
+  .poor {
+    opacity: 0.6;
   }
   .content {
     flex: 1;
@@ -35,15 +43,28 @@ export const Container = styled.div`
         flex: 0 0 145px;
         gap: 10px;
         button {
-          flex: 1;
+          flex: 0 0 62px;
           display: flex;
           align-items: center;
+          outline: 0;
           .icon {
             display: flex;
             align-items: center;
             justify-content: center;
             flex: 0 0 24px;
             height: 24px;
+          }
+          &.edit {
+            color: ${colors.action};
+            .icon {
+              background-color: ${colors.action}1A;
+            }
+          }
+          &.delete {
+            color: ${colors.primary};
+            .icon {
+              background-color: ${colors.primary}1A;
+            }
           }
         }
       }

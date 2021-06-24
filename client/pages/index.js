@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import Head from "next/head";
 import { HomePage } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";
+import { resetServerContext } from "react-beautiful-dnd";
 export default function Home(props) {
   return (
     <Fragment>
@@ -12,8 +13,3 @@ export default function Home(props) {
     </Fragment>
   );
 }
-
-Home.getInitialProps = async () => {
-  let res = { meta: null, pageData: null };
-  return { ...res };
-};

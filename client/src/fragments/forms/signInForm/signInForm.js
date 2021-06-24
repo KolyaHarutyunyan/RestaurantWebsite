@@ -12,7 +12,7 @@ export const SignInForm = () => {
 
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
@@ -26,7 +26,6 @@ export const SignInForm = () => {
   }, [status]);
 
   const onSubmit = (data) => dispatch(data);
-
   return (
     <Container>
       <Typography color="text" weight="bold" size={"1.250rem"}>
