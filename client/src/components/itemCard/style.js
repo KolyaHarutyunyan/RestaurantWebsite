@@ -13,6 +13,11 @@ export const Container = styled.div`
     flex: 0 0 100px;
     border-radius: 8px;
     background-color: #e7e7e7;
+    background-size: cover;
+    background-position: center;
+    svg {
+      transform: scale(0.5);
+    }
   }
   .poor {
     opacity: 0.6;

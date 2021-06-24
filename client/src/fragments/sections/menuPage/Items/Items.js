@@ -52,13 +52,7 @@ export const Items = ({ category }) => {
   }, [currentCategory]);
 
   if (currentCategory === "NO_CATEGORIES") {
-    return (
-      <Container className="no-menu-items">
-        <Typography weight="bold" size="1.5rem">
-          ADD OR CREATE CATEGORY
-        </Typography>
-      </Container>
-    );
+    return null;
   }
   if (currentCategory === "NO_SElECTION") {
     return (
@@ -129,14 +123,14 @@ export const Items = ({ category }) => {
           <ItemCard
             key={`${categoryItem.id}-${index}`}
             item={categoryItem}
+            onRequestToEdit={() =>
+              open(MODAL_NAMES.MENU_ITEM_FORM, { categoryItem, category })
+            }
             onRequestToDelete={() =>
               open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
                 categoryItem,
                 category,
               })
-            }
-            onRequestToEdit={() =>
-              open(MODAL_NAMES.MENU_ITEM_FORM, { categoryItem, category })
             }
           />
         ))}

@@ -10,7 +10,7 @@ export const Container = styled.div`
       gap: 60px;
     }
   }
-  .grid:last-child {
+  .grid:nth-child(2) {
     margin-top: 50px;
   }
   .no-items {

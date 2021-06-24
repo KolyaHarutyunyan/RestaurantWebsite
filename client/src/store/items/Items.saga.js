@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, all, takeLatest } from "redux-saga/effects";
 import {
   CREATE_ITEM,
   UPDATE_ITEM,
@@ -9,6 +9,7 @@ import {
   DELETE_ITEM,
 } from "./Items.types";
 import { itemsService } from "./Items.service";
+import { imageService } from "../imageService";
 import { categoryItemActions } from "../categoryItems";
 
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
@@ -35,12 +36,38 @@ function* createItem({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
+
+  let mainImageId = null;
+  let imageIds = [];
+
+  if (payload.images.mainImageId) {
+    const mainImage = payload.images.files.filter(
+      (file) => file.id === payload.images.mainImageId
+    );
+    const images = payload.images.files.filter(
+      (file) => file.id !== payload.images.mainImageId
+    );
+
+    const callStack = [call(imageService.uploadImage, mainImage[0])];
+    if (images.length) {
+      callStack.push(call(imageService.uploadImages, images));
+    }
+    const [mainId, imgIds = []] = yield all(callStack);
+    mainImageId = mainId.data;
+    imageIds = imgIds.data;
+  }
+
   try {
     const { data } = yield call(
       itemsService.create,
-      payload.data,
+      {
+        ...payload.data,
+        mainImage: mainImageId,
+        images: imageIds,
+      },
       payload.categoryId
     );
+    ``;
     yield put({
       type: CREATE_ITEM_SUCCESS,
       payload: data,

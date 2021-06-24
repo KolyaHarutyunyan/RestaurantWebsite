@@ -11,6 +11,8 @@ import {
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 export const Categories = ({ value, onChange }) => {
   const { open } = useModal();
   const {
@@ -134,60 +136,116 @@ export const Categories = ({ value, onChange }) => {
           </Button>
         </div>
         <Tabs.TabContent contentOf="food">
-          <ul className="categories">
-            {menuCategories["food"].map(({ category }) => (
-              <li
-                key={category.id}
-                className={value.categoryId === category.id ? "selected" : ""}
-                onClick={() => onChange({ ...value, categoryId: category.id })}
-              >
-                <Typography className="category-name" color="text">
-                  {category.name}
-                  <span className="action">
-                    <Button
-                      link
-                      onClick={(e) => {
-                        onRequestToDelete(category, "food");
-                      }}
+          <DragDropContext onDragEnd={() => {}}>
+            <Droppable droppableId="food-category-list">
+              {(provided, _snapshot) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="categories"
+                >
+                  {menuCategories["food"].map(({ category }, index) => (
+                    <Draggable
+                      key={category.id}
+                      draggableId={category.id}
+                      index={index}
                     >
-                      <span className="icon">
-                        <IoIosTrash />
-                      </span>
-                      Delete
-                    </Button>
-                  </span>
-                </Typography>
-              </li>
-            ))}
-          </ul>
+                      {(provided, _snapshot) => (
+                        <li
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          key={category.id}
+                          className={
+                            value.categoryId === category.id ? "selected" : ""
+                          }
+                          onClick={() =>
+                            onChange({ ...value, categoryId: category.id })
+                          }
+                        >
+                          <Typography className="category-name" color="text">
+                            {category.name}
+                            <span className="action">
+                              <Button
+                                link
+                                onClick={() =>
+                                  onRequestToDelete(category, "food")
+                                }
+                              >
+                                <span className="icon">
+                                  <IoIosTrash />
+                                </span>
+                                Delete
+                              </Button>
+                            </span>
+                          </Typography>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Tabs.TabContent>
         <Tabs.TabContent contentOf="drink">
-          <ul className="categories">
-            {menuCategories["drink"].map(({ category }) => (
-              <li
-                key={category.id}
-                className={value.categoryId === category.id ? "selected" : ""}
-                onClick={() => onChange({ ...value, categoryId: category.id })}
-              >
-                <Typography className="category-name" color="text">
-                  {category.name}
-                  <span className="action">
-                    <Button
-                      link
-                      onClick={() => onRequestToDelete(category, "drink")}
+          <DragDropContext>
+            <Droppable droppableId="drink-category-list">
+              {(provided, snapshot) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="categories"
+                >
+                  {menuCategories["drink"].map(({ category }, index) => (
+                    <Draggable
+                      key={category.id}
+                      draggableId={category.id}
+                      index={index}
                     >
-                      <span className="icon">
-                        <IoIosTrash />
-                      </span>
-                      Delete
-                    </Button>
-                  </span>
-                </Typography>
-              </li>
-            ))}
-          </ul>
+                      {(provided, _snapshot) => (
+                        <li
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          key={category.id}
+                          className={
+                            value.categoryId === category.id ? "selected" : ""
+                          }
+                          onClick={() =>
+                            onChange({ ...value, categoryId: category.id })
+                          }
+                        >
+                          <Typography className="category-name" color="text">
+                            {category.name}
+                            <span className="action">
+                              <Button
+                                link
+                                onClick={() =>
+                                  onRequestToDelete(category, "drink")
+                                }
+                              >
+                                <span className="icon">
+                                  <IoIosTrash />
+                                </span>
+                                Delete
+                              </Button>
+                            </span>
+                          </Typography>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Tabs.TabContent>
       </Tabs.Wrapper>
     </Container>
   );
 };
+
+/*
+
+*/

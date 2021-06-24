@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 
 export const MenuItemForm = () => {
   const { params, close } = useModal();
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, reset } = useForm();
   const [itemIcon, setItemIcon] = useState({
     files: [],
     mainImageId: "",
@@ -28,10 +28,16 @@ export const MenuItemForm = () => {
   useEffect(() => {
     if (createItemSaga.status.onSuccess) {
       createItemSaga.destroy.all();
+      setItemIcon({
+        files: [],
+        mainImageId: "",
+      });
+      reset();
       close();
     }
     if (editItemSaga.status.onSuccess) {
       editItemSaga.destroy.all();
+      reset();
       close();
     }
   }, [createItemSaga, editItemSaga]);

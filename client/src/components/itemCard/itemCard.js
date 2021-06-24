@@ -1,4 +1,5 @@
 import { Typography } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { TiPencil } from "react-icons/ti";
 import { IoIosTrash } from "react-icons/io";
@@ -8,9 +9,15 @@ export const ItemCard = ({
   onRequestToDelete = () => {},
   onRequestToEdit = () => {},
 }) => {
+  const image = item.item.mainImage ? item.item.mainImage.originalUrl : null;
+  const imageStyle = {
+    backgroundImage: `url(${image})`,
+  };
   return (
     <Container>
-      <div className="image" />
+      <div className="image" style={imageStyle}>
+        {image ? null : <Icons.FoodIcon />}
+      </div>
       <div className="content">
         <div className="upper">
           <div className="info">
@@ -22,7 +29,8 @@ export const ItemCard = ({
             </Typography>
           </div>
           <Typography color="text" className="price">
-            ${item.item.price}
+            <b>$</b>
+            {item.item.price}
           </Typography>
         </div>
         <div className="under">
