@@ -30,34 +30,6 @@ export const HoursContainer = styled.div`
     & > .switch {
       flex: 0 0 35px;
     }
-    ul {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      align-items: center;
-      li {
-        display: flex;
-        gap: 10px;
-        .actions {
-          display: flex;
-          gap: 5px;
-          button {
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: green;
-
-            &:last-child {
-              color: ${colors.primary};
-            }
-          }
-        }
-      }
-    }
   }
 `;
 

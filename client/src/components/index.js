@@ -12,3 +12,4 @@ export { Tabs } from "./tabs";
 export { ProSelect } from "./proSelect";
 export { MultiSelect } from "./multiSelect";
 export { VTabs } from "./vTabs";
+export { HourPicker } from "./hourPicker";
