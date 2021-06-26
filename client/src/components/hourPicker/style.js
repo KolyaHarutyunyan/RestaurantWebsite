@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const DropDownContainer = styled.div`
-  box-shadow: 0px 0px 3px 0px #d2d2d2;
+  width: 260px;
+  box-shadow: 0px 0px 2px 0px #d2d2d2;
   position: absolute;
   max-height: 200px;
   padding: 0;
@@ -14,7 +15,6 @@ export const DropDownContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  overflow: auto;
   border-radius: 5px;
   div {
     cursor: pointer;
@@ -26,11 +26,24 @@ export const DropDownContainer = styled.div`
   .wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     padding: 0 10px;
+    max-height: 200px;
+    .square {
+      justify-content: center;
+    }
     & > * {
+      flex: 0 0 80px;
+      margin-top: 10px;
+      overflow: auto;
+      max-height: 185px;
+      justify-content: center;
       align-items: flex-start;
       & > * {
-        padding: 15px;
+        &:hover {
+          opacity: 0.8;
+        }
+        padding: 15px 30px;
         background-color: #007aff;
         color: white;
         margin-bottom: 10px;
@@ -44,19 +57,21 @@ export const DropDownContainer = styled.div`
 
 export const Container = styled.div`
   position: relative;
+  width: 95px;
   display: flex;
   align-items: center;
   border: 1px solid
     ${({ dropdownOpen }) => (dropdownOpen ? "black" : "#2b273c80")};
-  height: 48px;
+  height: 38px;
   border-radius: 8px;
-  padding: 12px;
+  padding: 2px;
   &,
   & * {
     box-sizing: border-box;
   }
   .value {
     flex: 1;
+    font-size: 14px;
   }
   .dropdown-actions {
     display: flex;

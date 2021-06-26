@@ -1,22 +1,44 @@
 import styled from "styled-components";
 import { colors } from "@eachbase/theme";
-
 export const HoursContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow: auto;
   transition: 0.3s opacity ease-in-out, 0.1s max-height ease-in-out;
+  .hour-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 5px;
+    .hour {
+      display: flex;
+      gap: 5px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .action {
+      cursor: pointer;
+      color: ${colors.primary};
+    }
+    .status {
+      label {
+        margin-left: 2px;
+      }
+    }
+  }
+
   ${({ isOpen }) =>
     isOpen
       ? `
-      max-height: 360px;
-      opacity: 1;
-    `
+        max-height: 360px;
+        opacity: 1;
+        `
       : `
-      max-height: 0px;
-      opacity: 0;
-    `}
+        max-height: 0px;
+        opacity: 0;
+      `}
   & > li {
     display: flex;
     border-radius: 8px;

@@ -14,7 +14,6 @@ export const Container = styled.div`
     align-items: center;
     gap: 30px;
     flex-direction: column;
-
     .title {
       text-align: center;
     }

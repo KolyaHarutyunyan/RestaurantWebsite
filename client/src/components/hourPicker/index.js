@@ -23,10 +23,6 @@ export const HourPicker = ({
       if (selectRect.top + (dropDownRect.height + 40) > window.innerHeight) {
         dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 50;
       }
-
-      dropdownRef.current.style.width = `${
-        selectBoxRef.current.clientWidth - 5
-      }px`;
       dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
       dropdownRef.current.style.left = `${selectRect.left}px`;
     }
@@ -69,14 +65,14 @@ export const HourPicker = ({
         ref={selectBoxRef}
         dropdownOpen={dropdownOpen}
         fullWidth={fullWidth}
-        {...hourPickerAttrs}
         onClick={(e) => {
-          e.stopPropagation();
+          // e.stopPropagation();
           setDropDownOpen(!dropdownOpen);
         }}
+        {...hourPickerAttrs}
       >
         <div className="value">
-          {value.hour}:{value.min} {value.mode}
+          {value.hour}:{value.min} {value.part}
         </div>
         <div className="dropdown-actions">
           <div
@@ -99,26 +95,106 @@ export const HourPicker = ({
         >
           <div className="wrapper">
             <div className="hour">
-              <div>08</div>
-              <div>09</div>
-              <div>10</div>
-              <div>11</div>
-              <div>12</div>
-              <div>01</div>
-              <div>02</div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "08" })}
+              >
+                08
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "09" })}
+              >
+                09
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "10" })}
+              >
+                10
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "11" })}
+              >
+                11
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "12" })}
+              >
+                12
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "01" })}
+              >
+                01
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, hour: "02" })}
+              >
+                02
+              </div>
             </div>
             <div className="min">
-              <div>08</div>
-              <div>09</div>
-              <div>10</div>
-              <div>11</div>
-              <div>12</div>
-              <div>01</div>
-              <div>02</div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "08" })}
+              >
+                08
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "09" })}
+              >
+                09
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "10" })}
+              >
+                10
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "11" })}
+              >
+                11
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "12" })}
+              >
+                12
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "01" })}
+              >
+                01
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, min: "02" })}
+              >
+                02
+              </div>
             </div>
             <div className="mode">
-              <div>AM</div>
-              <div>PM</div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, part: "AM" })}
+              >
+                AM
+              </div>
+              <div
+                className="square"
+                onClick={() => onChange({ ...value, part: "PM" })}
+              >
+                PM
+              </div>
             </div>
           </div>
         </DropDownContainer>,
