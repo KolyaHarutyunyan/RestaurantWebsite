@@ -10,19 +10,36 @@ export const HoursContainer = styled.div`
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 5px;
+    gap: 15px;
+    .title {
+      text-align: left;
+      flex: 0 0 40px;
+    }
+    .hour-list {
+      flex: 1;
+      .add-button {
+        cursor: pointer;
+        color: ${colors.action};
+      }
+    }
     .hour {
       display: flex;
       gap: 5px;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 5px;
-    }
-    .action {
-      cursor: pointer;
-      color: ${colors.primary};
+      .action-container {
+        .action {
+          font-size: 0.9rem;
+          cursor: pointer;
+          color: ${colors.primary};
+        }
+      }
     }
     .status {
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
       label {
         margin-left: 2px;
       }

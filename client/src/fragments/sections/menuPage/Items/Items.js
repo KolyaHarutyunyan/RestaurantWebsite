@@ -12,9 +12,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Container } from "./style";
 import { MODAL_NAMES } from "@eachbase/constants";
-
+import { useRouter } from "next/router";
 export const Items = ({ category }) => {
   const { open } = useModal();
+  const router = useRouter();
   const currentCategory = useSelector(({ menuCategories }) => {
     if (!menuCategories.food.length && !menuCategories.drink.length) {
       return "NO_CATEGORIES";
@@ -103,7 +104,12 @@ export const Items = ({ category }) => {
         <Typography color="text" weight="bold" size="1.250rem">
           {currentCategory.category.name}
         </Typography>
-        <Button color="action">Preview</Button>
+        <Button
+          color="action"
+          onClick={() => router.push(`/preview/${router.query.restaurantId}`)}
+        >
+          Preview
+        </Button>
       </div>
       <div className="add-or-choice">
         <Button

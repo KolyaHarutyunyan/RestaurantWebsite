@@ -6,8 +6,8 @@ import {
   ADD_CATEGORY_ITEM_SUCCESS,
   DELETE_CATEGORY_ITEM_SUCCESS,
   GET_CATEGORY_ITEMS_SUCCESS,
-} from "./Items.types";
-import { categoryItemsService } from "./Items.service";
+} from "./items.types";
+import { categoryItemsService } from "./items.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";

@@ -1,8 +1,11 @@
 import { Container } from "./style";
-import { Tabs } from "@eachbase/components";
+import { VTabs, Tabs } from "@eachbase/components";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
+  const menuCategories = useSelector(({ menuCategories }) => menuCategories);
+
   return (
     <Container>
       <Tabs.Wrapper

@@ -11,7 +11,6 @@ export class EditItemDTO {
   option?: string;
   @ApiProperty({ required: false })
   @IsOptional()
-  @Length(4, 4)
   @Type(() => Number)
   price?: number;
   @ApiProperty()

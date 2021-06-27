@@ -2,15 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { Categories } from "./categories";
 import { Cover } from "./cover";
 import { MobileMockUp } from "./mobileMockUp";
-
 import { Container } from "./style";
+
+import { businessesActions, useSagaStore } from "@eachbase/store";
 
 export const PreviewPageSections = () => {
   const [mounted, setMounted] = useState(false);
   const phoneWrapperRef = useRef();
 
+  const getRestaurantSaga = useSagaStore(businessesActions.getBusinesses);
+
   useEffect(() => {
     setMounted(true);
+
+    getRestaurantSaga.dispatch();
   }, []);
 
   useEffect(() => {

@@ -7,8 +7,8 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS,
   DELETE_ITEM,
-} from "./Items.types";
-import { itemsService } from "./Items.service";
+} from "./items.types";
+import { itemsService } from "./items.service";
 import { imageService } from "../imageService";
 import { categoryItemActions } from "../categoryItems";
 

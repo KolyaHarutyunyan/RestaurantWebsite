@@ -1,7 +1,7 @@
-export { categoryItemActions } from "./Items.actions";
-export { categoryItemsService } from "./Items.service";
-export { categoryItemsReducer } from "./Items.reducer";
-export { watchCategoryItems } from "./Items.saga";
+export { categoryItemActions } from "./items.actions";
+export { categoryItemsService } from "./items.service";
+export { categoryItemsReducer } from "./items.reducer";
+export { watchCategoryItems } from "./items.saga";
 export {
   ADD_CATEGORY_ITEM,
   ADD_CATEGORY_ITEM_SUCCESS,
@@ -9,4 +9,4 @@ export {
   DELETE_CATEGORY_ITEM_SUCCESS,
   GET_CATEGORY_ITEMS,
   GET_CATEGORY_ITEMS_SUCCESS,
-} from "./Items.types";
+} from "./items.types";
