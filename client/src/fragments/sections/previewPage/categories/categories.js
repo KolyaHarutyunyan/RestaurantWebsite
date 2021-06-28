@@ -1,11 +1,12 @@
 import { Container } from "./style";
-import { VTabs, Tabs } from "@eachbase/components";
+import { Tabs } from "@eachbase/components";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
 
+  console.log(menuCategories);
   return (
     <Container>
       <Tabs.Wrapper
@@ -16,8 +17,18 @@ export const Categories = () => {
           <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
           <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
-        <Tabs.TabContent contentOf="food"></Tabs.TabContent>
-        <Tabs.TabContent contentOf="drink"></Tabs.TabContent>
+        <Tabs.TabContent contentOf="food">
+          <div className="slidable">
+            <ul className="header"></ul>
+            <div className="content"></div>
+          </div>
+        </Tabs.TabContent>
+        <Tabs.TabContent contentOf="drink">
+          <div className="slidable">
+            <ul className="header"></ul>
+            <div className="content"></div>
+          </div>
+        </Tabs.TabContent>
       </Tabs.Wrapper>
     </Container>
   );

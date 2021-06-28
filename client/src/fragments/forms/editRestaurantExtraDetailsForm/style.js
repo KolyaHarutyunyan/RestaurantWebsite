@@ -40,6 +40,8 @@ export const HoursContainer = styled.div`
       font-size: 0.7rem;
       display: inline-flex;
       align-items: center;
+      position: relative;
+      top: 2px;
       label {
         margin-left: 2px;
       }

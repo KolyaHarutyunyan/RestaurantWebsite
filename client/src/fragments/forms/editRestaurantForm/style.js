@@ -9,4 +9,7 @@ export const Container = styled.div`
       text-align: center;
     }
   }
+  .uploaded {
+    text-align: center;
+  }
 `;

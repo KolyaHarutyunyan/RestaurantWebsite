@@ -24,7 +24,6 @@ export const Categories = ({ value, onChange }) => {
   const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
   const categories = useSelector(({ categories }) => categories);
-
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const addCategoryIntoMenuSaga = useSagaStore(
     menuCategoriesActions.addCategory

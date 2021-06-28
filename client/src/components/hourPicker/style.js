@@ -70,6 +70,7 @@ export const Container = styled.div`
     box-sizing: border-box;
   }
   .value {
+    cursor: pointer;
     flex: 1;
     font-size: 14px;
   }

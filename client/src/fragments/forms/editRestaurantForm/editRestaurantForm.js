@@ -5,28 +5,36 @@ import {
   Button,
   FileUpload,
   useModal,
+  BoxImagePreview,
 } from "@eachbase/components";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, businessesActions } from "@eachbase/store";
+import { useSagaStore, businessesActions, imageService } from "@eachbase/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-const RESTAURANT_ICONS_LIMIT = 6;
 export const EditRestaurantForm = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const router = useRouter();
   const business = useSelector(({ businesses }) => businesses || {});
+  const [restaurantIconsLimit, setRestaurantIconsLimit] = useState(1);
   const [restaurantIcon, setRestaurantIcon] = useState({
     files: [],
     mainImageId: "",
   });
+
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
+
+  useEffect(() => {
+    if (business.logo) {
+      setRestaurantIconsLimit(0);
+    }
+  }, [business]);
 
   const onSubmit = (data) => {
     dispatch({ ...business, ...data, icon: restaurantIcon[0] || null });
@@ -59,7 +67,7 @@ export const EditRestaurantForm = () => {
       setRestaurantIcon((cRestaurantIcon) => {
         if (
           cRestaurantIcon.files.length + filteredFiles.length <=
-          RESTAURANT_ICONS_LIMIT
+          restaurantIconsLimit
         ) {
           return {
             files: [...filteredFiles, ...cRestaurantIcon.files],
@@ -82,7 +90,7 @@ export const EditRestaurantForm = () => {
           color="text"
           size="1.250rem"
         >
-          {business.name}
+          Edit {business.name}
         </Typography>
         <Input
           placeholder="Restaurant Name"
@@ -103,13 +111,30 @@ export const EditRestaurantForm = () => {
         <FileUpload
           files={restaurantIcon.files}
           mainImageId={restaurantIcon.mainImageId}
-          limit={RESTAURANT_ICONS_LIMIT}
+          limit={restaurantIconsLimit}
           mainImageId={restaurantIcon.mainImageId}
-          limit={1}
           onChange={(files, actionType, mainImageId) =>
             onFileUploadChange(files, actionType, mainImageId)
           }
         />
+        {business.logo ? (
+          <div className="uploaded">
+            <Typography color="action" weight="bold">
+              Uploaded images
+            </Typography>
+            <BoxImagePreview
+              main
+              url={business.logo.originalUrl}
+              onRequestToRemove={() => {
+                if (
+                  window.confirm("Are you sure? this action cannot be reverted")
+                ) {
+                  imageService.removeImage([business.logo.id]);
+                }
+              }}
+            />
+          </div>
+        ) : null}
         <Button type="submit" onLoad={status.onLoad}>
           Save
         </Button>

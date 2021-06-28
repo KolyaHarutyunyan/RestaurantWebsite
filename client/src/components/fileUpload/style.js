@@ -4,11 +4,19 @@ export const Container = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: ${({ limit }) => (limit === 0 ? "80px" : "200px")};
+  background-color: ${({ limit }) => (limit === 0 ? "#FF453A1A" : "white")};
   border: 1px dashed
     ${({ isDragActive }) => (isDragActive ? "#007aff" : "#2b273c80")};
   border-radius: 8px;
   padding: 16px;
+  .limit-reached-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80px;
+  }
   .uploaded-files {
     flex: 1;
     text-align: center;

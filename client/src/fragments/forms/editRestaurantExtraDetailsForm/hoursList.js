@@ -10,8 +10,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -19,8 +19,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -28,8 +28,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -37,8 +37,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -46,8 +46,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -55,8 +55,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },
@@ -64,8 +64,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
       status: "OPEN",
       hours: [
         {
-          open: { hour: "08", min: "06", part: "am" },
-          close: { hour: "08", min: "06", part: "pm" },
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
         },
       ],
     },

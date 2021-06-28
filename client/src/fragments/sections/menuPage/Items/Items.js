@@ -41,7 +41,6 @@ export const Items = ({ category }) => {
   const selectedOptions = categoryItemOptions.filter(
     (i) => !!itemOptions.find((cItem) => cItem.value === i.value)
   );
-
   const [itemsSelectSearchValue, setItemsSelectSearchValue] = useState("");
   const getCurrentCategoryItemsSaga = useSagaStore(categoryItemActions.get);
   const addItemInCategorySaga = useSagaStore(categoryItemActions.add);
@@ -138,49 +137,51 @@ export const Items = ({ category }) => {
           options={itemOptions}
         />
       </div>
-      <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
-        <Droppable droppableId="category-items-list">
-          {(provided) => (
-            <ul
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="list"
-            >
-              {categoryItems.map((categoryItem, index) => (
-                <Draggable
-                  key={categoryItem.item.id}
-                  draggableId={categoryItem.item.id}
-                  index={categoryItem.rank}
-                >
-                  {(provided) => (
-                    <ItemCard
-                      key={`${categoryItem.item.id}-${index}`}
-                      item={categoryItem}
-                      onRequestToEdit={() =>
-                        open(MODAL_NAMES.MENU_ITEM_FORM, {
-                          categoryItem,
-                          category,
-                        })
-                      }
-                      onRequestToDelete={() =>
-                        open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
-                          categoryItem,
-                          category,
-                        })
-                      }
-                      key={`${categoryItem.item.id}-${index}`}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    />
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
+      {categoryItems.length ? (
+        <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
+          <Droppable droppableId="category-items-list">
+            {(provided) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="list"
+              >
+                {categoryItems.map((categoryItem, index) => (
+                  <Draggable
+                    key={categoryItem.item.id}
+                    draggableId={categoryItem.item.id}
+                    index={categoryItem.rank}
+                  >
+                    {(provided) => (
+                      <ItemCard
+                        key={`${categoryItem.item.id}-${index}`}
+                        item={categoryItem}
+                        onRequestToEdit={() =>
+                          open(MODAL_NAMES.MENU_ITEM_FORM, {
+                            categoryItem,
+                            category,
+                          })
+                        }
+                        onRequestToDelete={() =>
+                          open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
+                            categoryItem,
+                            category,
+                          })
+                        }
+                        key={`${categoryItem.item.id}-${index}`}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      ) : null}
     </Container>
   );
 };

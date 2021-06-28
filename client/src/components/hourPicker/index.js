@@ -2,8 +2,10 @@ import { createPortal } from "react-dom";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Container, DropDownContainer } from "./style";
 import ChevronSVG from "./chevron.svg";
+import { useOutsideAlerter } from "@eachbase/utils";
 
 const mins = [
+  "00",
   "01",
   "02",
   "03",
@@ -75,6 +77,7 @@ export const HourPicker = ({
   const dropdownRef = useRef();
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
+  useOutsideAlerter([selectBoxRef, dropdownRef], () => setDropDownOpen(false));
 
   const setDropdownPosition = () => {
     if (dropdownRef.current && selectBoxRef.current) {
@@ -106,15 +109,11 @@ export const HourPicker = ({
     }
 
     const setPositionObserver = () => setDropdownPosition();
-    const onDocumentClickObserver = () => setDropDownOpen(false);
-
     window.addEventListener("resize", setPositionObserver);
     window.addEventListener("scroll", setPositionObserver, true);
-    document.addEventListener("click", onDocumentClickObserver);
     return () => {
       window.removeEventListener("resize", setPositionObserver);
       window.addEventListener("scroll", setPositionObserver, true);
-      document.addEventListener("click", onDocumentClickObserver);
     };
   }, [mounted]);
 
@@ -137,99 +136,91 @@ export const HourPicker = ({
           {value.hour}:{value.min} {value.part}
         </div>
         <div className="dropdown-actions">
-          <div
-            className="dropdown-toggle"
-            onClick={(e) => {
-              e.stopPropagation();
-              setDropDownOpen(!dropdownOpen);
-            }}
-          >
+          <div className="dropdown-toggle">
             <ChevronSVG />
           </div>
         </div>
       </Container>
       {createPortal(
         <Fragment>
-          {dropdownOpen ? (
-            <DropDownContainer
-              ref={dropdownRef}
-              dropdownOpen={dropdownOpen}
-              onClick={(e) => e.stopPropagation()}
-              className="proSelet-dropdown"
-            >
-              <div className="wrapper">
-                <div className="hour">
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "08" })}
-                  >
-                    08
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "09" })}
-                  >
-                    09
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "10" })}
-                  >
-                    10
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "11" })}
-                  >
-                    11
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "12" })}
-                  >
-                    12
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "01" })}
-                  >
-                    01
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, hour: "02" })}
-                  >
-                    02
-                  </div>
+          <DropDownContainer
+            ref={dropdownRef}
+            dropdownOpen={dropdownOpen}
+            onClick={(e) => e.stopPropagation()}
+            className="proSelet-dropdown"
+          >
+            <div className="wrapper">
+              <div className="hour">
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "08" })}
+                >
+                  08
                 </div>
-                <div className="min">
-                  {mins.map((min, index) => (
-                    <div
-                      key={index}
-                      className="square"
-                      onClick={() => onChange({ ...value, min })}
-                    >
-                      {min}
-                    </div>
-                  ))}
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "09" })}
+                >
+                  09
                 </div>
-                <div className="mode">
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, part: "AM" })}
-                  >
-                    AM
-                  </div>
-                  <div
-                    className="square"
-                    onClick={() => onChange({ ...value, part: "PM" })}
-                  >
-                    PM
-                  </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "10" })}
+                >
+                  10
+                </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "11" })}
+                >
+                  11
+                </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "12" })}
+                >
+                  12
+                </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "01" })}
+                >
+                  01
+                </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, hour: "02" })}
+                >
+                  02
                 </div>
               </div>
-            </DropDownContainer>
-          ) : null}
+              <div className="min">
+                {mins.map((min, index) => (
+                  <div
+                    key={index}
+                    className="square"
+                    onClick={() => onChange({ ...value, min })}
+                  >
+                    {min}
+                  </div>
+                ))}
+              </div>
+              <div className="mode">
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, part: "AM" })}
+                >
+                  AM
+                </div>
+                <div
+                  className="square"
+                  onClick={() => onChange({ ...value, part: "PM" })}
+                >
+                  PM
+                </div>
+              </div>
+            </div>
+          </DropDownContainer>
         </Fragment>,
         document.querySelector("body")
       )}

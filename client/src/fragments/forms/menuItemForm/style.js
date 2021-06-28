@@ -5,7 +5,9 @@ export const Container = styled.div`
     text-align: center;
     margin: 10px 0;
   }
-
+  .uploaded {
+    text-align: center;
+  }
   form {
     display: flex;
     flex-direction: column;
