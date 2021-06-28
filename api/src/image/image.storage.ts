@@ -5,7 +5,7 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   AWS_ACCESS_KEY_ID,
   AWS_ACCESS_SECRET_KEY,
@@ -44,6 +44,9 @@ export class ImageStorage {
 
   /** removes files from the s3 bucket. If the  */
   deleteImages = (fileUrls: string[]): Promise<unknown> => {
+    if (!fileUrls || fileUrls.length < 1) {
+      throw new HttpException('files do not exist', HttpStatus.NOT_FOUND);
+    }
     const objects = [];
     for (let i = 0; i < fileUrls.length; i++) {
       //extract the pathname from the url

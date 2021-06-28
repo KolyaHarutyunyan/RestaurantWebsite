@@ -20,7 +20,6 @@ export class ImageService {
   async add(file: any, uploader: string) {
     this.checkFile(file);
     const url = await this.saveFile(file);
-    console.log('URL IS ', url);
     const image = await new this.model({
       uploader: uploader,
       originalUrl: url,
@@ -43,8 +42,6 @@ export class ImageService {
   /** Save many images */
   async addMany(files: any[], uploader: string): Promise<string[]> {
     const urls = await this.saveFiles(files);
-    console.log('URLs ARE ', urls);
-
     const promises = [];
     let image: IImage;
     for (let i = 0; i < urls.length; i++) {
@@ -65,19 +62,21 @@ export class ImageService {
   // async AddManyWithThumb() {}
 
   async removeMany(fileIds: any[], uploader: string): Promise<number> {
+    console.log(fileIds, 'hahaha');
     const images = await this.model.find({
       _id: { $in: fileIds },
     });
+    console.log(images, 'jejeje');
     const deleteUrls: string[] = [];
     for (let i = 0; i < images.length; i++) {
       this.checkOwnership(images[i], uploader);
       deleteUrls.push(images[i].originalUrl);
     }
-    await this.storage.deleteImages(deleteUrls);
-    const response = await this.model.deleteMany({
-      uploader: uploader,
-      _id: { $in: fileIds },
-    });
+    console.log('deleted', deleteUrls);
+    const response = await Promise.all([
+      this.storage.deleteImages(deleteUrls),
+      this.model.deleteMany({ uploader: uploader, _id: { $in: fileIds } }),
+    ])[1];
     return response.n;
   }
 
