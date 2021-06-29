@@ -40,7 +40,14 @@ export const Menu = () => {
           Menu
         </Typography>
         <div className="actions">
-          <Button link onClick={() => deleteMenuSaga.dispatch(currentMenu.id)}>
+          <Button
+            link
+            onClick={() => {
+              if (window.confirm("Are you sure?")) {
+                deleteMenuSaga.dispatch(currentMenu.id);
+              }
+            }}
+          >
             <div className="icon">
               <IoIosTrash />
             </div>

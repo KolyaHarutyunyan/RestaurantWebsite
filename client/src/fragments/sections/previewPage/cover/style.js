@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 80px;
+
   background-color: #2b273c;
+  background-image: url(${({ img }) => img});
+  background-position: center;
+  background-size: cover;
   display: flex;
   align-items: center;
   .content {

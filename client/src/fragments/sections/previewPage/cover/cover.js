@@ -4,8 +4,7 @@ import {
   useSagaStore,
   businessesActions,
   menusActions,
-  menuCategoriesActions,
-  categoryItemActions,
+  previewDataActions,
 } from "@eachbase/store";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -14,9 +13,11 @@ export const Cover = () => {
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   const router = useRouter();
+  const getMenuCategoriesAndItemsSaga = useSagaStore(
+    previewDataActions.getMenuData
+  );
   const getBusinessSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
-  const getMenuCategories = useSagaStore(menuCategoriesActions.get);
   const selectRef = useRef();
 
   const menus = useSelector(({ menus }) => menus);
@@ -34,12 +35,17 @@ export const Cover = () => {
 
   useEffect(() => {
     if (selectedMenu) {
-      getMenuCategories.dispatch(selectedMenu);
+      getMenuCategoriesAndItemsSaga.dispatch(selectedMenu);
     }
   }, [selectedMenu]);
 
+  const menuCover = selectedMenu
+    ? menus.find((m) => m.id === selectedMenu).image.originalUrl
+    : null;
+
+  console.log(menuCover);
   return (
-    <Container>
+    <Container img={menuCover}>
       <div className="content" onClick={() => selectRef.current.click()}>
         <select
           onChange={({ target: { value } }) => setSelectedMenu(value)}

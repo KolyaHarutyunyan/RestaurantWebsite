@@ -13,3 +13,4 @@ export { ProSelect } from "./proSelect";
 export { MultiSelect } from "./multiSelect";
 export { HourPicker } from "./hourPicker";
 export { BoxImagePreview } from "./boxImagePreview";
+export { LazyLoad } from "./lazyLoad";

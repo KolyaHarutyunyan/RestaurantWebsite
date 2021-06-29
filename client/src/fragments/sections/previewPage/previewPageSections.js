@@ -4,17 +4,24 @@ import { Cover } from "./cover";
 import { MobileMockUp } from "./mobileMockUp";
 import { Container } from "./style";
 
-import { businessesActions, useSagaStore } from "@eachbase/store";
+import {
+  businessesActions,
+  useSagaStore,
+  previewDataActions,
+} from "@eachbase/store";
+import { LazyLoad } from "@eachbase/components";
 
 export const PreviewPageSections = () => {
   const [mounted, setMounted] = useState(false);
   const phoneWrapperRef = useRef();
 
+  const getMenuCategoriesAndItemsSaga = useSagaStore(
+    previewDataActions.getMenuData
+  );
   const getRestaurantSaga = useSagaStore(businessesActions.getBusinesses);
 
   useEffect(() => {
     setMounted(true);
-
     getRestaurantSaga.dispatch();
   }, []);
 
@@ -38,13 +45,20 @@ export const PreviewPageSections = () => {
     return null;
   }
   return (
-    <Container>
-      <div ref={phoneWrapperRef} className="wrapper phone-wrapper">
-        <MobileMockUp>
-          <Cover />
-          <Categories />
-        </MobileMockUp>
-      </div>
-    </Container>
+    <LazyLoad
+      loaded={
+        !getRestaurantSaga.status.onLoad &&
+        !getMenuCategoriesAndItemsSaga.status.onLoad
+      }
+    >
+      <Container>
+        <div ref={phoneWrapperRef} className="wrapper phone-wrapper">
+          <MobileMockUp>
+            <Cover />
+            <Categories />
+          </MobileMockUp>
+        </div>
+      </Container>
+    </LazyLoad>
   );
 };

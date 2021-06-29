@@ -116,25 +116,30 @@ export const MenuForm = () => {
           title="Menu Logo"
           limit={imagesLimit}
           mainImageId={restaurantIcons.mainIconId}
-          onChange={(files, actionType, mainIconId) =>
+          onChange={(files, _actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })
           }
         />
-        <div className="uploaded">
-          {editableMenu && editableMenu.image ? (
+
+        {editableMenu && editableMenu.image ? (
+          <div className="uploaded">
+            <Typography color="action" weight="bold">
+              Uploaded Images
+            </Typography>
             <BoxImagePreview
               url={editableMenu.image.originalUrl}
               onRequestToRemove={() => {
                 if (
                   window.confirm("Are you sure?, you cant revert this action")
                 ) {
-                  imageService.removeImage(editableMenu.image.id);
+                  imageService.removeImage([editableMenu.image.id]);
                   setImagesLimit(1);
                 }
               }}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
+
         <Button
           type="submit"
           onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}
