@@ -62,21 +62,20 @@ export class ImageService {
   // async AddManyWithThumb() {}
 
   async removeMany(fileIds: any[], uploader: string): Promise<number> {
-    console.log(fileIds, 'hahaha');
     const images = await this.model.find({
       _id: { $in: fileIds },
     });
-    console.log(images, 'jejeje');
     const deleteUrls: string[] = [];
     for (let i = 0; i < images.length; i++) {
       this.checkOwnership(images[i], uploader);
       deleteUrls.push(images[i].originalUrl);
     }
-    console.log('deleted', deleteUrls);
-    const response = await Promise.all([
-      this.storage.deleteImages(deleteUrls),
-      this.model.deleteMany({ uploader: uploader, _id: { $in: fileIds } }),
-    ])[1];
+    const response = (
+      await Promise.all([
+        this.storage.deleteImages(deleteUrls),
+        this.model.deleteMany({ uploader: uploader, _id: { $in: fileIds } }),
+      ])
+    )[1];
     return response.n;
   }
 

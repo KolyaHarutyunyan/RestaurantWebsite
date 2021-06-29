@@ -13,6 +13,7 @@ import {
   IMAGE_BUCKET,
 } from './constants';
 import * as url from 'url';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class ImageStorage {
@@ -29,7 +30,7 @@ export class ImageStorage {
 
   //adding new files to the S3
   storeImage = async (file, folder?: string): Promise<string> => {
-    const key = Date.now() + file.originalname;
+    const key = uuid() + file.originalname;
     const params: PutObjectCommandInput = {
       Bucket: IMAGE_BUCKET,
       Key: folder ? folder + '/' + key : key,
