@@ -18,7 +18,7 @@ phases:
       # building API server
       # - echo attempting to build the API Server
       - cd api
-      - npm install
+      - npm install --legacy-peer-deps
       - npm run build
       - mv node_modules ./dist
       - mv package.json ./dist
