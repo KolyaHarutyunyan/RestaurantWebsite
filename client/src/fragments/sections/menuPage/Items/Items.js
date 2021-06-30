@@ -6,14 +6,16 @@ import {
   MultiSelect,
 } from "@eachbase/components";
 import { useSagaStore, categoryItemActions } from "@eachbase/store";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Container } from "./style";
 import { MODAL_NAMES } from "@eachbase/constants";
-
+import { useRouter } from "next/router";
 export const Items = ({ category }) => {
   const { open } = useModal();
+  const router = useRouter();
   const currentCategory = useSelector(({ menuCategories }) => {
     if (!menuCategories.food.length && !menuCategories.drink.length) {
       return "NO_CATEGORIES";
@@ -39,11 +41,11 @@ export const Items = ({ category }) => {
   const selectedOptions = categoryItemOptions.filter(
     (i) => !!itemOptions.find((cItem) => cItem.value === i.value)
   );
-
   const [itemsSelectSearchValue, setItemsSelectSearchValue] = useState("");
   const getCurrentCategoryItemsSaga = useSagaStore(categoryItemActions.get);
   const addItemInCategorySaga = useSagaStore(categoryItemActions.add);
   const removeItemFromCategorySaga = useSagaStore(categoryItemActions.delete);
+  const itemsReorderSaga = useSagaStore(categoryItemActions.reorder);
 
   useEffect(() => {
     if (currentCategory && typeof currentCategory === "object") {
@@ -83,13 +85,30 @@ export const Items = ({ category }) => {
     }
   };
 
+  const onDragEnd = (e) => {
+    const itemId = e.draggableId;
+    const from = e.source.index;
+    const to = e.destination ? e.destination.index : null;
+    if (to && from !== to) {
+      itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {
+        from,
+        to,
+      });
+    }
+  };
+
   return (
     <Container>
       <div className="head">
         <Typography color="text" weight="bold" size="1.250rem">
           {currentCategory.category.name}
         </Typography>
-        <Button color="action">Preview</Button>
+        <Button
+          color="action"
+          onClick={() => router.push(`/preview/${router.query.restaurantId}`)}
+        >
+          Preview
+        </Button>
       </div>
       <div className="add-or-choice">
         <Button
@@ -118,23 +137,51 @@ export const Items = ({ category }) => {
           options={itemOptions}
         />
       </div>
-      <div className="list">
-        {categoryItems.map((categoryItem, index) => (
-          <ItemCard
-            key={`${categoryItem.id}-${index}`}
-            item={categoryItem}
-            onRequestToEdit={() =>
-              open(MODAL_NAMES.MENU_ITEM_FORM, { categoryItem, category })
-            }
-            onRequestToDelete={() =>
-              open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
-                categoryItem,
-                category,
-              })
-            }
-          />
-        ))}
-      </div>
+      {categoryItems.length ? (
+        <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
+          <Droppable droppableId="category-items-list">
+            {(provided) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="list"
+              >
+                {categoryItems.map((categoryItem, index) => (
+                  <Draggable
+                    key={categoryItem.item.id}
+                    draggableId={categoryItem.item.id}
+                    index={categoryItem.rank}
+                  >
+                    {(provided) => (
+                      <ItemCard
+                        key={`${categoryItem.item.id}-${index}`}
+                        item={categoryItem}
+                        onRequestToEdit={() =>
+                          open(MODAL_NAMES.MENU_ITEM_FORM, {
+                            categoryItem,
+                            category,
+                          })
+                        }
+                        onRequestToDelete={() =>
+                          open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
+                            categoryItem,
+                            category,
+                          })
+                        }
+                        key={`${categoryItem.item.id}-${index}`}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      ) : null}
     </Container>
   );
 };

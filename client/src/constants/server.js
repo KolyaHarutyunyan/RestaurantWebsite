@@ -1,4 +1,4 @@
-const mode = ["local", "development", "prodution"][1];
+const mode = ["local", "development", "prodution"][0];
 
 const apiBase = {
   local: "http://localhost:8005/api",

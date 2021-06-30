@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { Icons } from "@eachbase/theme";
-import { Typography } from "@eachbase/components";
+import { Typography, LazyLoad } from "@eachbase/components";
 
 export const MenuPageSections = () => {
   const router = useRouter();
@@ -57,27 +57,37 @@ export const MenuPageSections = () => {
   }, []);
 
   return (
-    <Container className="container">
-      <div className="grid">
-        <Menu />
-      </div>
-      <div className="grid">
-        <Categories
-          value={selectedCategory}
-          onChange={(categoryId, categoryType) =>
-            setSelectedCategory(categoryId, categoryType)
-          }
-        />
-        <Items category={selectedCategory} />
-      </div>
-      {!menuCategories.food.length && !menuCategories.drink.length ? (
-        <div className="no-items">
-          <Icons.MenuIcon />
-          <Typography color="text" size="2rem" weight="bold">
-            No Categories & Menu Items Yet
-          </Typography>
+    <LazyLoad
+      loaded={
+        !getCategoriesSaga.status.onLoad &&
+        !getBusinessItems.status.onLoad &&
+        !getMenuCategoriesSaga.status.onLoad &&
+        !getCurrentRestaurantSaga.status.onLoad &&
+        !getCurrentMenuSaga.status.onLoad
+      }
+    >
+      <Container className="container">
+        <div className="grid">
+          <Menu />
         </div>
-      ) : null}
-    </Container>
+        <div className="grid">
+          <Categories
+            value={selectedCategory}
+            onChange={(categoryId, categoryType) =>
+              setSelectedCategory(categoryId, categoryType)
+            }
+          />
+          <Items category={selectedCategory} />
+        </div>
+        {!menuCategories.food.length && !menuCategories.drink.length ? (
+          <div className="no-items">
+            <Icons.MenuIcon />
+            <Typography color="text" size="2rem" weight="bold">
+              No Categories & Menu Items Yet
+            </Typography>
+          </div>
+        ) : null}
+      </Container>
+    </LazyLoad>
   );
 };

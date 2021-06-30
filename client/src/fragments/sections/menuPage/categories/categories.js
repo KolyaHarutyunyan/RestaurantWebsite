@@ -24,11 +24,11 @@ export const Categories = ({ value, onChange }) => {
   const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
   const categories = useSelector(({ categories }) => categories);
-
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const addCategoryIntoMenuSaga = useSagaStore(
     menuCategoriesActions.addCategory
   );
+  const categoryReorderSaga = useSagaStore(menuCategoriesActions.reorder);
 
   const categoriesOptions = categories.map((category) => ({
     value: category.id,
@@ -99,6 +99,25 @@ export const Categories = ({ value, onChange }) => {
     }
   };
 
+  const onDragEnd = (e, categoryType) => {
+    const itemId = e.draggableId;
+    const from = e.source.index;
+    const to = e.destination ? e.destination.index : null;
+    if (to && from !== to) {
+      categoryReorderSaga.dispatch(categoryType, itemId, { from, to });
+    }
+  };
+
+  const foodCategories = menuCategories["food"].reduce((data, current) => {
+    data[current.rank] = current;
+    return data;
+  }, []);
+
+  const drinkCategories = menuCategories["drink"].reduce((data, current) => {
+    data[current.rank] = current;
+    return data;
+  }, []);
+
   return (
     <Container>
       <Tabs.Wrapper
@@ -136,21 +155,21 @@ export const Categories = ({ value, onChange }) => {
           </Button>
         </div>
         <Tabs.TabContent contentOf="food">
-          <DragDropContext onDragEnd={() => {}}>
+          <DragDropContext onDragEnd={(e) => onDragEnd(e, "food")}>
             <Droppable droppableId="food-category-list">
-              {(provided, _snapshot) => (
+              {(provided) => (
                 <ul
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                   className="categories"
                 >
-                  {menuCategories["food"].map(({ category }, index) => (
+                  {foodCategories.map(({ rank, category }) => (
                     <Draggable
                       key={category.id}
                       draggableId={category.id}
-                      index={index}
+                      index={rank}
                     >
-                      {(provided, _snapshot) => (
+                      {(provided) => (
                         <li
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -183,25 +202,26 @@ export const Categories = ({ value, onChange }) => {
                       )}
                     </Draggable>
                   ))}
+                  {provided.placeholder}
                 </ul>
               )}
             </Droppable>
           </DragDropContext>
         </Tabs.TabContent>
         <Tabs.TabContent contentOf="drink">
-          <DragDropContext>
+          <DragDropContext onDragEnd={(e) => onDragEnd(e, "drink")}>
             <Droppable droppableId="drink-category-list">
-              {(provided, snapshot) => (
+              {(provided) => (
                 <ul
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                   className="categories"
                 >
-                  {menuCategories["drink"].map(({ category }, index) => (
+                  {drinkCategories.map(({ rank, category }) => (
                     <Draggable
                       key={category.id}
                       draggableId={category.id}
-                      index={index}
+                      index={rank}
                     >
                       {(provided, _snapshot) => (
                         <li
@@ -236,6 +256,7 @@ export const Categories = ({ value, onChange }) => {
                       )}
                     </Draggable>
                   ))}
+                  {provided.placeholder}
                 </ul>
               )}
             </Droppable>
@@ -245,7 +266,3 @@ export const Categories = ({ value, onChange }) => {
     </Container>
   );
 };
-
-/*
-
-*/

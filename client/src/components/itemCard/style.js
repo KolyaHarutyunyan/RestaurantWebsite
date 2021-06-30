@@ -3,7 +3,7 @@ import { colors } from "@eachbase/theme";
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  height: 130px;
   width: 100%;
   border-radius: 8px;
   padding: 16px;

@@ -18,18 +18,19 @@ import {
   GET_CURRENT_BUSINESS_SUCCESS,
 } from "./businesses.types";
 
-function* getMyBusiness() {
+function* getMyBusiness({ type }) {
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(businessesService.getMyBusiness);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
       payload: data,
     });
   } catch (e) {
-    yield put({
-      type: GET_MY_BUSINESS_SUCCESS,
-      payload: {},
-    });
+    yield put(httpRequestsOnErrorsActions.appendError(type));
   }
 }
 

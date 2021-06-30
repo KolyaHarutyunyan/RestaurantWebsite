@@ -26,8 +26,6 @@ export const Container = styled.div`
     border-radius: 8px;
     padding: 16px;
     background-color: #e7e7e7;
-    height: 313px;
-    overflow: auto;
   }
   .head {
     display: flex;
@@ -45,6 +43,7 @@ export const Container = styled.div`
     gap: 10px;
     & > * {
       flex: 1;
+
       text-align: center;
     }
     .action-button {
