@@ -21,5 +21,5 @@ export const imageService = {
     });
   },
   removeImage: (imageIds) =>
-    axios.post("/images/remove", imageIds, { auth: true }),
+    axios.post("/images/remove", { imageIds }, { auth: true }),
 };

@@ -1,5 +1,6 @@
-import { useCallback } from "react";
+import { useCallback, Fragment } from "react";
 import { Icons } from "@eachbase/theme";
+import { Typography } from "@eachbase/components";
 import { Container } from "./style";
 import { useDropzone } from "react-dropzone";
 import { v4 as uuid } from "uuid";
@@ -64,49 +65,59 @@ export const FileUpload = ({
   };
 
   return (
-    <Container {...getRootProps()} isDragActive={isDragActive}>
-      <div className="uploaded-files">
-        {files
-          .filter((_f, index) => (limit ? index <= limit : true))
-          .map((file) => (
-            <div
-              key={file.id}
-              className={`file-preview ${
-                mainImageId === file.id ? "main" : ""
-              } ${limit === 1 ? "big-one" : ""}`}
-              style={{ backgroundImage: `url(${file.preview})` }}
-              onClick={(e) => {
-                e.stopPropagation();
-                onImagePreviewClick(file.id);
-              }}
-            >
-              <div
-                className="remove"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onImageRemoveClick(file);
-                }}
-              >
-                <TiDelete />
-              </div>
-            </div>
-          ))}
-        {renderMockPreview()}
-      </div>
-      <div className="content-container">
-        <div className="title">
-          Drag & Drop or <span className="active">Upload</span> {title}
+    <Container {...getRootProps()} isDragActive={isDragActive} limit={limit}>
+      {limit === 0 ? (
+        <div className="limit-reached-container">
+          <Typography color="text" weight="bold">
+            Upload Limit Reached
+          </Typography>
         </div>
-        <div className="acceptable-file-size-noth">
-          Max size {Math.round(maxSize / 1024)}mb
-        </div>
-        {mainImageId !== false ? (
-          <div className="acceptable-file-size-noth">
-            Selected image will be used as the main
+      ) : (
+        <Fragment>
+          <div className="uploaded-files">
+            {files
+              .filter((_f, index) => (limit ? index <= limit : true))
+              .map((file) => (
+                <div
+                  key={file.id}
+                  className={`file-preview ${
+                    mainImageId === file.id ? "main" : ""
+                  } ${limit === 1 ? "big-one" : ""}`}
+                  style={{ backgroundImage: `url(${file.preview})` }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onImagePreviewClick(file.id);
+                  }}
+                >
+                  <div
+                    className="remove"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onImageRemoveClick(file);
+                    }}
+                  >
+                    <TiDelete />
+                  </div>
+                </div>
+              ))}
+            {renderMockPreview()}
           </div>
-        ) : null}
-      </div>
-      <input {...getInputProps()} />
+          <div className="content-container">
+            <div className="title">
+              Drag & Drop or <span className="active">Upload</span> {title}
+            </div>
+            <div className="acceptable-file-size-noth">
+              Max size {Math.round(maxSize / 1024)}mb
+            </div>
+            {mainImageId !== false ? (
+              <div className="acceptable-file-size-noth">
+                Selected image will be used as the main
+              </div>
+            ) : null}
+          </div>
+          <input {...getInputProps()} />
+        </Fragment>
+      )}
     </Container>
   );
 };

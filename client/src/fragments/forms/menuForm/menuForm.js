@@ -1,7 +1,7 @@
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, menusActions } from "@eachbase/store";
+import { useSagaStore, menusActions, imageService } from "@eachbase/store";
 import {
   useModal,
   Typography,
@@ -9,20 +9,23 @@ import {
   FileUpload,
   Textarea,
   Button,
+  BoxImagePreview,
 } from "@eachbase/components";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 export const MenuForm = () => {
-  const router = useRouter();
   const { register, handleSubmit, setValue, reset } = useForm({});
   const { close, params } = useModal();
+  const router = useRouter();
   const [restaurantIcons, setRestaurantIcons] = useState({
     mainIconId: null,
     files: [],
   });
+  const [imagesLimit, setImagesLimit] = useState(1);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const editMenuSaga = useSagaStore(menusActions.editMenu);
+
   const business = useSelector(({ businesses }) => businesses);
   const editableMenu = useSelector(({ menus }) =>
     params.menuId ? menus.find((menu) => menu.id === params.menuId) : null
@@ -55,6 +58,9 @@ export const MenuForm = () => {
     if (editableMenu) {
       setValue("name", editableMenu.name);
       setValue("description", editableMenu.description);
+      if (editableMenu.image) {
+        setImagesLimit(0);
+      }
     }
   }, [editableMenu]);
 
@@ -80,7 +86,6 @@ export const MenuForm = () => {
           restaurantIcons,
         });
   };
-
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,12 +114,32 @@ export const MenuForm = () => {
         <FileUpload
           files={restaurantIcons.files}
           title="Menu Logo"
-          limit={1}
+          limit={imagesLimit}
           mainImageId={restaurantIcons.mainIconId}
-          onChange={(files, actionType, mainIconId) =>
+          onChange={(files, _actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })
           }
         />
+
+        {editableMenu && editableMenu.image ? (
+          <div className="uploaded">
+            <Typography color="action" weight="bold">
+              Uploaded Images
+            </Typography>
+            <BoxImagePreview
+              url={editableMenu.image.originalUrl}
+              onRequestToRemove={() => {
+                if (
+                  window.confirm("Are you sure?, you cant revert this action")
+                ) {
+                  imageService.removeImage([editableMenu.image.id]);
+                  setImagesLimit(1);
+                }
+              }}
+            />
+          </div>
+        ) : null}
+
         <Button
           type="submit"
           onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}

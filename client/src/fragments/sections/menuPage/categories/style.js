@@ -15,16 +15,14 @@ export const Container = styled.div`
     }
   }
   .categories {
-    display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-bottom: 10px;
-    max-height: 300px;
-    overflow: auto;
     @media only screen and (max-width: 768px) {
       height: 150px;
     }
     li {
+      margin-bottom: 10px;
+      background: white;
       display: flex;
       align-items: center;
       justify-content: space-between;

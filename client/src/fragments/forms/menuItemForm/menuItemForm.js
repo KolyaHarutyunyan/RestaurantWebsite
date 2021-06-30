@@ -6,6 +6,7 @@ import {
   FileUpload,
   Button,
   useModal,
+  BoxImagePreview,
 } from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 export const MenuItemForm = () => {
   const { params, close } = useModal();
   const { register, handleSubmit, setValue, reset } = useForm();
+  const [imagesLimit, setImagesLimit] = useState(6);
   const [itemIcon, setItemIcon] = useState({
     files: [],
     mainImageId: "",
@@ -24,6 +26,8 @@ export const MenuItemForm = () => {
   );
   const createItemSaga = useSagaStore(itemActions.create);
   const editItemSaga = useSagaStore(itemActions.update);
+
+  const formStatus = params.categoryItem && params.category ? "edit" : "create";
 
   useEffect(() => {
     if (createItemSaga.status.onSuccess) {
@@ -42,7 +46,32 @@ export const MenuItemForm = () => {
     }
   }, [createItemSaga, editItemSaga]);
 
-  const formStatus = params.categoryItem && params.category ? "edit" : "create";
+  useEffect(() => {
+    if (formStatus === "create") {
+      setImagesLimit(6);
+    } else {
+      let uploadedImagesCount = 0;
+
+      if (params.categoryItem.item.mainImage) {
+        uploadedImagesCount += 1;
+      }
+      if (params.categoryItem.item.images) {
+        uploadedImagesCount += params.categoryItem.item.images.length;
+      }
+
+      setImagesLimit(uploadedImagesCount);
+    }
+  }, [formStatus]);
+
+  useEffect(() => {
+    if (params.categoryItem) {
+      setValue("name", params.categoryItem.item["name"]);
+      setValue("price", params.categoryItem.item["price"]);
+      setValue("description", params.categoryItem.item["description"]);
+      setValue("option", params.categoryItem.item["option"]);
+    }
+  }, [params]);
+
   const onSubmit = (data) => {
     if (formStatus === "create") {
       createItemSaga.dispatch(
@@ -58,15 +87,6 @@ export const MenuItemForm = () => {
       );
     }
   };
-
-  useEffect(() => {
-    if (params.categoryItem) {
-      setValue("name", params.categoryItem.item["name"]);
-      setValue("price", params.categoryItem.item["price"]);
-      setValue("description", params.categoryItem.item["description"]);
-      setValue("option", params.categoryItem.item["option"]);
-    }
-  }, [params]);
 
   return (
     <Container>
@@ -98,9 +118,21 @@ export const MenuItemForm = () => {
           onChange={(files, _actionType, mainImageId) =>
             setItemIcon({ files, mainImageId })
           }
-          limit={6}
+          limit={imagesLimit}
           mainImageId={itemIcon.mainImageId}
         />
+        {params.categoryItem && params.categoryItem.item.mainImage ? (
+          <div className="uploaded">
+            <BoxImagePreview
+              url={params.categoryItem.item.mainImage.originalUrl}
+            />
+            {params.categoryItem.item.images
+              ? params.categoryItem.item.images.map((image) => (
+                  <BoxImagePreview key={image.id} url={image.originalUrl} />
+                ))
+              : null}
+          </div>
+        ) : null}
         <Button
           onLoad={createItemSaga.status.onLoad || editItemSaga.status.onLoad}
           type="submit"

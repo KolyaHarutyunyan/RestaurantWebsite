@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  .uploaded {
+    text-align: center;
+  }
   form {
     display: flex;
     flex-direction: column;

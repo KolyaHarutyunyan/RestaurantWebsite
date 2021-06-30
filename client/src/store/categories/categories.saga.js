@@ -24,6 +24,7 @@ function* createCategory({ payload, type }) {
       type: CREATE_CATEGORY_SUCCESS,
       payload: data,
     });
+
     if (payload.menuId) {
       yield put(
         menuCategoriesActions.addCategory(
