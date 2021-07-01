@@ -88,6 +88,7 @@ export class CategoryService {
       rank: 0,
     });
     // console.log(category.items);
+    this.rerank(category.items);
     category = await category.save();
     category = await category
       .populate({
@@ -100,9 +101,9 @@ export class CategoryService {
       })
       .execPopulate();
     if (this.cleanNulls(category.items)) {
+      this.rerank(category.items);
       await category.save();
     }
-    this.rerank(category.items);
     return this.sanitizer.sanitizeItems(category);
   };
 
@@ -184,6 +185,7 @@ export class CategoryService {
         { path: 'mainImage', model: 'image' },
       ],
     });
+    // this.rerank(category.items);
     return this.sanitizer.sanitizeItems(category);
   };
 

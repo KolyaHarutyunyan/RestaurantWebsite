@@ -158,6 +158,8 @@ export class MenuService {
       _id: catId,
       rank: 0,
     });
+    this.rerank(menu.foodCategories);
+    this.rerank(menu.drinkCategories);
     menu = await (await menu.save())
       .populate('foodCategories._id')
       .populate('drinkCategories._id')
@@ -165,7 +167,6 @@ export class MenuService {
     if (this.cleanNulls(categories)) {
       await menu.save();
     }
-    this.rerank(categories);
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -186,7 +187,8 @@ export class MenuService {
         i--;
       }
     }
-    this.rerank(categories);
+    this.rerank(menu.foodCategories);
+    this.rerank(menu.drinkCategories);
     menu = await (await menu.save())
       .populate('foodCategories._id')
       .populate('drinkCategories._id')
@@ -219,6 +221,8 @@ export class MenuService {
       .findOne({ _id: menuId })
       .populate('foodCategories._id')
       .populate('drinkCategories._id');
+    // this.rerank(menu.foodCategories);
+    // this.rerank(menu.drinkCategories);
     return this.sanitizer.sanitizeCategories(menu);
   };
 
