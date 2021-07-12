@@ -28,12 +28,13 @@ export const SignInForm = () => {
   const onSubmit = (data) => dispatch(data);
   return (
     <Container>
-      <Typography color="text" weight="bold" size={"1.250rem"}>
-        Welcome to Menuz
+      <Typography className='welcome-text' color="text">
+        Welcome to Menu Mango
       </Typography>
       <Icons.LogoIcon className="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
@@ -41,6 +42,7 @@ export const SignInForm = () => {
           error={status.onError}
         />
         <Input
+          containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
@@ -53,6 +55,7 @@ export const SignInForm = () => {
         </Button>
       </form>
       <Button
+          className='forgot-style'
         link
         color="default"
         fullWidth
@@ -60,8 +63,9 @@ export const SignInForm = () => {
       >
         Forgot Password?
       </Button>
+
       <div className="divider-or" />
-      <Typography color="text">
+      <Typography color="text" className='social-text'>
         Sign in with your social media account
       </Typography>
       <div className="social">
@@ -76,7 +80,7 @@ export const SignInForm = () => {
         </Fab>
       </div>
       <Button
-        link
+        className='sign-up-button'
         color="action"
         fullWidth
         onClick={() => open(MODAL_NAMES.SIGN_UP)}

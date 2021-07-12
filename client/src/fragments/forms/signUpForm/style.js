@@ -13,8 +13,8 @@ export const Container = styled.div`
     gap: 5px;
   }
   .logo {
-    width: 60px;
-    height: 60px;
+    //width: 60px;
+    //height: 60px;
     margin: 16px 0 32px 0;
   }
   .social {

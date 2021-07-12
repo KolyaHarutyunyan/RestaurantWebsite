@@ -18,8 +18,8 @@ export const Container = styled.div`
       align-items: center;
       flex: 0 0 200px;
       svg {
-        width: 60px;
-        height: 60px;
+        //width: 60px;
+        //height: 60px;
       }
       p {
         margin-left: 16px;

@@ -24,7 +24,6 @@ export const inputsStyle = makeStyles(() => ({
     color: "#545F7EB3",
   },
   SearchAddress: {
-    display: "flex",
     gap: "10px",
     fontSize: "16px",
     lineHeight: "22px",
@@ -103,8 +102,8 @@ export const InputContainer = styled.div`
     height: 100%;
     border: 1px solid;
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
-    height: 48px;
-    border-radius: 8px;
+    height: 42px;
+    border-radius: 24px;
     .icon-container {
       padding-left: 16px;
       display: ${({ icon }) => (icon !== null ? "flex" : "none")};
@@ -128,7 +127,7 @@ export const InputContainer = styled.div`
         padding: 0 5px 0 5px;
         margin: 0;
         height: 100%;
-        width: 100%;
+        width: 95%;
         border: none;
         outline: 0;
         &:-webkit-autofill,

@@ -8,7 +8,7 @@ export const LazyLoad = ({ loaded = false, children }) => {
       {children}
       <div className={`loader ${loaded ? "hide" : "show"}`}>
         <Icons.LogoInvert />
-        <Typography>Menuz</Typography>
+        {/*<Typography>Menuz</Typography>*/}
       </div>
     </Container>
   );

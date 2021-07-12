@@ -158,9 +158,9 @@ export const Header = () => {
       <div className="container">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />
-          <Typography weight="bold" color="text" size="1.250rem">
-            Menuz
-          </Typography>
+          {/*<Typography weight="bold" color="text" size="1.250rem">*/}
+          {/*  Menuz*/}
+          {/*</Typography>*/}
         </div>
         {renderProfileDropdown()}
         {!isMobileViewport ? renderSignInButtons() : null}

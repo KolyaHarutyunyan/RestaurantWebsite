@@ -53,8 +53,9 @@ export const GlobalScss = createGlobalStyle`
     position: relative;
     width: 100%;
     height: 1px;
-    margin: 10px 0;
+    margin: 14px 0 0 0;
     background-color: ${colors.text};
+    font-size: 14px;
     &::before {
       position: absolute;
       content: "OR";

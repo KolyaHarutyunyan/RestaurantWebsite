@@ -1,5 +1,5 @@
 export { Button, Fab } from "./buttons";
-export { Switch } from "./swich/Switch";
+export { Switch } from "./swich";
 export { Typography } from "./typography";
 export { Image } from "./image";
 export { Input, Textarea, Select, AddressInput, Radio } from "./inputs";
