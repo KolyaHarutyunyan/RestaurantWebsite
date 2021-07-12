@@ -9,9 +9,14 @@ export const Container = styled.section`
     justify-content: space-between;
     align-items: center;
     padding: 60px 0 0 0;
+    
     @media only screen and (max-width: 1280px) {
       flex-direction: column;
+    } 
+    @media only screen and (max-width: 768px) {
+           padding: 60px 16px 0 16px;
     }
+    
     .content {
       max-width: 520px;
       margin-right: 80px;
@@ -19,7 +24,19 @@ export const Container = styled.section`
         margin-right: 0 !important;
       }
       flex: 1;
-      .title-a {
+      
+      .title {
+        @media (max-width: 320px) {
+           font-size: 24pt;
+        }
+        @media (max-width: 768px) {
+          font-size: 24pt;
+        }
+          @media (max-width: 1280px) {
+            font-size: 24pt;
+        }
+        
+        
         margin-bottom: 5px;
         @media (max-width: 1600px) and (min-width: 768px) {
           margin-top: 72px;

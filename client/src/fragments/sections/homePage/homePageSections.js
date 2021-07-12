@@ -12,20 +12,25 @@ import { useEffect } from "react";
 export const HomePageSections = () => {
   const [loaded, setLoaded] = useState(false);
 
+
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
     }, 2000);
   }, []);
 
+
   return (
     <LazyLoad loaded={loaded}>
       <Container>
-        <Hero />
+        <Hero/>
         <YourBusiness />
-        <DigitalMenu />
-        <HowItWorks />
+
         <QRCode />
+        <HowItWorks />
+        <DigitalMenu />
+
+
         <MenusAndMenuItems />
       </Container>
     </LazyLoad>

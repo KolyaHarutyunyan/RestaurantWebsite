@@ -32,7 +32,7 @@ export const Footer = () => {
         </div>
         <div className="logo-container">
           <Icons.LogoInvert />
-          <p>Menuz</p>
+          {/*<p>Menuz</p>*/}
         </div>
       </div>
     </Container>
