@@ -7,9 +7,7 @@ export const Hero = () => {
   const { open } = useModal();
   // const [token, setToken] = useState( localStorage.getItem("token"));
 
-  // useEffect(() => {
-  //   setToken( localStorage.getItem("token") )
-  // }, [ ]);
+
 
   return (
     <Container>
@@ -21,7 +19,7 @@ export const Hero = () => {
           <Typography weight="bold" className="title">
             QR Menus
           </Typography>
-          <Typography color="text" size="1.250rem" className="description">
+          <Typography color="text" className="description">
             No more paper or PDF QR menus that are static and hard to change and manage.
             Let your customers scroll through your menu, click and interact with the menu items.
           </Typography>
@@ -30,7 +28,8 @@ export const Hero = () => {
           >Create FREE Menu</Button>
         </div>
         <div className="image-wrapper">
-          <Image />
+          {/*<Image src="./assets/homePage/qr_code_scanning.svg" />*/}
+          <Image src={'./assets/images/heroHomepage.png'}/>
         </div>
       </div>
     </Container>

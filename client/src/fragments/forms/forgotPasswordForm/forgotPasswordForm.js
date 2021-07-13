@@ -37,12 +37,11 @@ export const ForgotPasswordForm = () => {
   return (
     <Container>
       <Icons.LogoIcon className="logo" />
-      <Typography color="text" weight="bold" size={"1.250rem"}>
+        <Typography className='welcome-text' color="text">
         Forgot your password?
-      </Typography>
-      <Typography color="text" className="helper">
-        Enter your email address and we'll send you a verification code to reset
-        your password.
+        </Typography>
+        <Typography color="text" className='social-text'>
+            Enter your email address and we'll send you a recovery email to reset your password.
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -53,7 +52,7 @@ export const ForgotPasswordForm = () => {
           helper={errorMessage}
           {...register("email")}
         />
-        <Button fullWidth type="submit" disabled={onLoad}>
+        <Button className='get-code-button' fullWidth type="submit" disabled={onLoad}>
           Get Code
         </Button>
       </form>

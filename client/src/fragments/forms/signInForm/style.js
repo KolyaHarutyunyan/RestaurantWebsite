@@ -13,17 +13,16 @@ export const Container = styled.div`
     gap: 5px;
   }
   .logo {
-    //width: 60px;
-    //height: 60px;
-    margin: 16px 0 32px 0;
+    margin: 24px 0 32px 0;
   }
+  
   .social-text{
-    font-size: 14px;
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
     margin: 24px 0;
-    
-    
-    
-    
+    @media (min-width: 768px) {
+      font-size: 14px;
+    }
   }
   .social {
     display: flex;
@@ -36,6 +35,7 @@ export const Container = styled.div`
   }
   .welcome-text{
     font-weight: bold;
+    font-family: Poppins,sans-serif;
     @media (min-width: 320px) {
       font-size: 18px;
     }
@@ -47,22 +47,24 @@ export const Container = styled.div`
     }
   }
   .forgot-style{
-    @media (min-width: 320px) {
+    font-weight: normal;
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0;
+    @media (max-width: 768px) {
       font-size: 14px;
-      font-weight: normal;
     }
-    @media (min-width: 768px) {
-      font-size: 24px;
-    }
-    @media (min-width: 1280px) {
-      font-size: 24px;
-    }
+ 
   }
   .sign-up-button{
+    font-family: Open Sans, sans-serif;
     margin-top: 13px;
-    font-size: 14px;
+    font-size: 16px;
     background: none;
     color: #007AFF;
     font-weight: normal;
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 `;

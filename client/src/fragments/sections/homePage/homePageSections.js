@@ -25,9 +25,9 @@ export const HomePageSections = () => {
       <Container>
         <Hero/>
         <YourBusiness />
-
         <QRCode />
         <HowItWorks />
+
         <DigitalMenu />
 
 

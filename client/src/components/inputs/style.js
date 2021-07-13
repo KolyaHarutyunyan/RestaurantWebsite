@@ -99,11 +99,14 @@ export const InputContainer = styled.div`
     padding: 2px;
     display: flex;
     gap: 5px;
-    height: 100%;
     border: 1px solid;
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
-    height: 42px;
+    height: 48px;
     border-radius: 24px;
+    @media (max-width: 768px) {
+      height: 42px;
+    }
+    
     .icon-container {
       padding-left: 16px;
       display: ${({ icon }) => (icon !== null ? "flex" : "none")};
@@ -130,6 +133,11 @@ export const InputContainer = styled.div`
         width: 95%;
         border: none;
         outline: 0;
+        font-size: 16px;
+        font-family: Open Sans, sans-serif;
+        @media (max-width: 768px) {
+          font-size: 14px;
+        }
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
@@ -172,6 +180,7 @@ export const TextareaContainer = styled.div`
     .input-container {
       flex: 1;
       textarea {
+        font-family: Open Sans, sans-serif;
         padding: 5px 5px 0 5px;
         margin: 0;
         width: 100%;

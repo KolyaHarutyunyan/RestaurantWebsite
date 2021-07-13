@@ -23,6 +23,8 @@ const MyApp = ({ Component, pageProps }) => (
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@700&display=swap"
         rel="stylesheet"
       ></link>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"/>
       <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-31HYXR4Z5Q"

@@ -26,12 +26,13 @@ export const SignUpForm = () => {
 
   return (
     <Container>
-      <Typography color="text" weight="bold" size="1.250rem">
-        Welcome to Menuz
+        <Typography className='welcome-text' color="text">
+          Welcome to Menu Mango
       </Typography>
       <Icons.LogoIcon className="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+            containerClassName='input-padding'
           type="text"
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
@@ -39,12 +40,14 @@ export const SignUpForm = () => {
           error={status.onError}
         />
         <Input
+            containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email", { required: true })}
         />
         <Input
+            containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
@@ -57,6 +60,7 @@ export const SignUpForm = () => {
         </Button>
       </form>
       <Button
+          className='forgot-style'
         link
         fullWidth
         color="default"
@@ -65,8 +69,8 @@ export const SignUpForm = () => {
         Forgot Password?
       </Button>
       <div className="divider-or" />
-      <Typography color="text">
-        Sign in with your social media account
+        <Typography color="text" className='social-text'>
+            Sign up with your social media account
       </Typography>
       <div className="social">
         <Fab>
@@ -80,13 +84,22 @@ export const SignUpForm = () => {
         </Fab>
       </div>
       <Button
+        className='sign-up-button'
         link
         color="action"
         fullWidth
         onClick={() => open(MODAL_NAMES.SIGN_IN)}
       >
-        Already have an account? Sign In
+          Already have an account? Sign In
       </Button>
+
+        <div className='term-of-use' >
+            <Typography color="text" className='social-text'>
+                By signing up, you agree to
+                <a className='sign-up-link' href={'/a'}>Terms of Use</a> and
+                <a className='sign-up-link'  href={'/a'}>Privacy Policy</a>
+            </Typography>
+        </div>
     </Container>
   );
 };

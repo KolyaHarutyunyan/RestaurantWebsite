@@ -57,13 +57,19 @@ export const GlobalScss = createGlobalStyle`
     background-color: ${colors.text};
     font-size: 14px;
     &::before {
+      font-weight: bold;
       position: absolute;
       content: "OR";
-      left: calc(50% - (60px /2));
+      left: calc(50% - (70px /2));
       top: -10px;
       background: white;
-      width: 60px;
+      width: 70px;
       text-align: center;
+      font-size: 16px;
+      line-height: 19px;
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
     }
   }
 `;

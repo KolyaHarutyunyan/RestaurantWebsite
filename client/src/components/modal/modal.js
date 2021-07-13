@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 import { ModalContainer } from "./style";
 import { AiOutlineClose, AiOutlineArrowLeft } from "react-icons/ai";
+import { HiArrowLeft } from "react-icons/hi";
+import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
 
@@ -11,6 +13,7 @@ export const Modal = ({
   onBackButtonClick = () => {},
   children,
   mini = false,
+                          max,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
@@ -22,7 +25,7 @@ export const Modal = ({
   if (mounted) {
     return createPortal(
       <ModalContainer isOpen={activeModal === modalName} mini={mini}>
-        <div className="container">
+        <div style={{maxWidth:max}} className="container">
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
@@ -43,7 +46,7 @@ export const Modal = ({
                   }
                 }}
               >
-                {backButton ? <AiOutlineArrowLeft /> : <AiOutlineClose />}
+                {backButton ? <HiArrowLeft style={{fontSize:24}}/> : <MdClose style={{fontSize:24}} />}
               </button>
             </div>
           ) : null}
