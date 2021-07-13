@@ -4,10 +4,30 @@ export const Container = styled.div`
   text-align: center;
   .g-title {
     text-align: center;
-    margin-bottom: 72px;
+    font-family: Poppins,sans-serif;
+    line-height: 72px;
+    font-size: 48px;
+    @media (max-width: 768px) {
+      line-height: 36px;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
   }
   .descr {
     text-align: center;
+    font-family: Open Sans, sans-serif;
+    line-height: 24px ;
+    font-size: 16px;
+    @media (min-width: 320px) {
+      font-size: 14px;
+      line-height:21px ;
+      margin-top: 17px;
+    }
+    @media (min-width: 768px) {
+      line-height: 24px ;
+      font-size: 16px;
+      margin-top: 64px;
+    }
   }
   .cards {
     text-align: initial;
@@ -48,5 +68,10 @@ export const Container = styled.div`
   button {
     margin-top: 72px;
     margin-bottom: 160px;
+    width: 240px;
+
+    @media (max-width: 768px) {
+      width: 201px;
+    }
   }
 `;

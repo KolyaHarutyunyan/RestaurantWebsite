@@ -13,9 +13,15 @@ export const ButtonContainer = styled.button`
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   border-radius: ${({ square }) => (square ? "8px" : "24px")};
   border: 1px solid;
-  font: normal normal 600 14px/19px Arial, Helvetica, sans-serif;
+  font-family: Open Sans, sans-serif;
+  font-weight: 600;
+  line-height: 19px;
+  font-size: 16px;
   transition: opacity 0.3s ease-in-out;
   text-align: center;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
   &:disabled {
     opacity: 0.6;
   }
@@ -24,6 +30,7 @@ export const ButtonContainer = styled.button`
     top: 3px;
   }
   .b-fade {
+    font-family: Open Sans, sans-serif;
     position: absolute;
     top: 0;
     left: 0;

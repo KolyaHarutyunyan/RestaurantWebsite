@@ -83,6 +83,7 @@ export const SignInForm = () => {
         className='sign-up-button'
         color="action"
         fullWidth
+        link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
         Doesn't have an account? Sign Up

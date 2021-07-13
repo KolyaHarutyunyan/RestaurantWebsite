@@ -5,15 +5,12 @@ export const MenusAndMenuItems = () => {
     <Container>
       <div className="container">
         <Typography className="g-title" color="text" size="3rem">
-          Categorize Menus & Menu Items
+          Recent Restaurants Using Our Menus
         </Typography>
         <Typography color="text" className="descr">
-          Lorem Ipsum is simply dummy text` of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s.
+          The list of companies using our new dynamic and interactive menus is growing.
+          Our clients are not just customers, but people who we are building a long term
+          relationship with. We are constantly listening and improving.
         </Typography>
       </div>
       <ul className="cards">
@@ -78,7 +75,7 @@ export const MenusAndMenuItems = () => {
           </Typography>
         </li>
       </ul>
-      <Button>Add Menu FREE</Button>
+      <Button>Add Free Menu</Button>
     </Container>
   );
 };

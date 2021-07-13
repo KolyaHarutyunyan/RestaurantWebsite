@@ -5,7 +5,21 @@ export const Container = styled.div`
   justify-content: space-between;
   height: 76px;
   width: 100%;
-  margin-bottom: 172px;
+  
+  
+  @media (min-width: 320px) {
+    margin-bottom: 67px;
+  }
+  @media (min-width: 768px) {
+    margin-bottom: 128px;
+  }
+  @media (min-width: 1280px) {
+    margin-bottom: 128px;
+  }
+  @media (min-width: 1920px) {
+    margin-bottom: 160px;
+  }
+  
   .line:first-child {
     width: 15%;
     background-color: ${colors.primary};
@@ -13,18 +27,47 @@ export const Container = styled.div`
     border-bottom-right-radius: 20px;
   }
   .image {
-    margin: 0 10px;
+    @media (min-width: 320px) {
+      margin: 0 24px;
+    }
+    @media (min-width: 768px) {
+      margin: 0 48px;
+    }
+    @media (min-width: 1280px) {
+      margin: 0 48px;
+    }
+    @media (min-width: 1920px) {
+      margin: 0 56px;
+    }
+   
   }
   .line:last-child {
     display: flex;
     align-items: center;
-    padding-left: 60px;
-    @media (max-width: 1280px) {
-      padding-left: 10px;
-    }
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     width: 75%;
     background-color: ${colors.primary};
+
+    @media (min-width: 320px) {
+      padding-left: 17px;
+    }
+    @media (min-width: 768px) {
+      padding-left: 48px;
+    }
+    @media (min-width: 1280px) {
+      padding-left: 64px;
+    }
+    @media (min-width: 1920px) {
+      padding-left: 80px;
+    }
+  }
+  
+  .qr-text{
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
   }
 `;

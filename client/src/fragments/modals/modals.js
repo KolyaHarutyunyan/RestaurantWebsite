@@ -27,6 +27,7 @@ export const Modals = () => {
         <SignInForm />
       </Modal>
       <Modal
+          max={463}
         backButton
         onBackButtonClick={({ open }) => open(MODAL_NAMES.SIGN_IN)}
         modalName={MODAL_NAMES.FORGOT_PASSWORD}

@@ -18,7 +18,7 @@ export const ModalContainer = styled.div`
       button {
         outline: 0;
         line-height: 10px;
-        padding: 3px;
+        padding: 5px;
         border-radius: 50%;
         font-size: 20px;
         background: #2b273c1a 0% 0% no-repeat padding-box;
@@ -30,15 +30,27 @@ export const ModalContainer = styled.div`
     }
     position: fixed;
     z-index: 10001;
-    width: ${({ mini }) => (mini ? "395" : "465")}px;
-    left: calc(50% - (${({ mini }) => (mini ? "395" : "465")}px / 2));
-    top: 5vh;
+    width: ${({ mini }) => (mini ? "395" : "548")}px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     max-height: 92vh;
     padding: ${({ mini }) => (mini ? "10px 30px 30px 30px" : "30px")};
+    
     @media only screen and (max-width: 768px) {
-      padding: 15px;
       width: 340px;
-      left: calc(50% - (340px / 2));
+    }
+    @media (min-width: 320px) {
+      padding: 16px 16px 32px 16px;
+    }
+    @media (min-width: 768px) {
+      padding: 32px 32px 42px 32px;
+    }
+    @media (min-width: 1280px) {
+      padding: 32px 32px 42px 32px;
+    } 
+    @media (min-width: 1920px) {
+      padding: 48px;
     }
     border-radius: ${({ mini }) => (mini ? "8px" : "32px")};
     opacity: 1;

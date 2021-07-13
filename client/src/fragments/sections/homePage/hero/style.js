@@ -8,7 +8,7 @@ export const Container = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 60px 0 0 0;
+    //padding: 60px 0 0 0;
     
     @media only screen and (max-width: 1280px) {
       flex-direction: column;
@@ -26,16 +26,13 @@ export const Container = styled.section`
       flex: 1;
       
       .title {
-        @media (max-width: 320px) {
-           font-size: 24pt;
-        }
-        @media (max-width: 768px) {
-          font-size: 24pt;
-        }
-          @media (max-width: 1280px) {
-            font-size: 24pt;
-        }
+        font-family: Poppins, sans-serif;
+        font-weight: bold;
+        font-size: 48px;
         
+        @media (max-width: 768px) {
+           font-size: 24px;
+        }
         
         margin-bottom: 5px;
         @media (max-width: 1600px) and (min-width: 768px) {
@@ -43,16 +40,28 @@ export const Container = styled.section`
         }
       }
       .description {
-        margin-top: 32px;
-        @media (max-width: 1600px) and (min-width: 768px) {
-          margin-top: 24px;
+        font-family: Open Sans, sans-serif;
+        font-size: 20px;
+        line-height: 30px;
+        margin: 32px 0 64px 0;
+        @media (max-width: 768px) {
+          font-size: 16px;
+          line-height: 24px;
+          margin-top: 16 0 32px 0px;
+        }
+        @media (max-width: 1919px) {
+          margin: 24px 0 48px 0;
         }
       }
       button {
-        margin-top: 77px;
-        @media (max-width: 1600px) and (min-width: 768px) {
-          margin-top: 48px;
+        width: 232px;
+        @media (max-width: 768px) {
+          width: 217px;
         }
+        //margin-top: 77px;
+        //@media (max-width: 1600px) and (min-width: 768px) {
+        //  margin-top: 48px;
+        //}
       }
     }
     .image-wrapper {
