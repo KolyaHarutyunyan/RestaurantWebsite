@@ -1,0 +1,1 @@
+export { RestaurantPageSections } from "./restaurantPageSections";
