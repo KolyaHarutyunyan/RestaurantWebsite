@@ -11,7 +11,7 @@ export const Container = styled.section`
   @media (min-width: 768px) {
     padding: 0 40px;
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 1279px) {
     padding: 0 21px 0 42px;
   }
   @media (min-width: 1920px) {
@@ -34,7 +34,7 @@ export const Container = styled.section`
     
     //padding: 60px 0 0 0;
     
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1279px) {
         flex-direction: column;
     } 
     @media only screen and (max-width: 768px) {
@@ -55,7 +55,7 @@ export const Container = styled.section`
       @media (min-width: 768px) {
         margin-top: 64px;
       }
-      @media (min-width: 1280px) {
+      @media (min-width: 1279px) {
         margin-top: 72px;
         margin-right: 51px;
       }
@@ -121,7 +121,7 @@ export const Container = styled.section`
       @media (min-width: 768px) {
         justify-content: center;
       }
-      @media (min-width: 1280px) {
+      @media (min-width: 1279px) {
         justify-content: flex-end;
         flex: 1;
       }
@@ -160,7 +160,7 @@ export const Container = styled.section`
           max-width: 688px;
           margin-top: 64px;
         }
-        @media (min-width: 1280px) {
+        @media (min-width: 1279px) {
           height: 376px;
           max-width: 620px;
           margin-top: 32px;

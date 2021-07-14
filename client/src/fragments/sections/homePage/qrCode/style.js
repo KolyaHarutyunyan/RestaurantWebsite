@@ -13,7 +13,7 @@ export const Container = styled.div`
   @media (min-width: 768px) {
     margin-bottom: 128px;
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 1279px) {
     margin-bottom: 128px;
   }
   @media (min-width: 1920px) {
@@ -33,7 +33,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       margin: 0 48px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       margin: 0 48px;
     }
     @media (min-width: 1920px) {
@@ -55,7 +55,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       padding-left: 48px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       padding-left: 64px;
     }
     @media (min-width: 1920px) {

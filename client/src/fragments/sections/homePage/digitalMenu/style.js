@@ -8,7 +8,7 @@ export const Container = styled.section`
   gap: 80px;
   //height: 720px;
   margin-bottom: 160px;
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1279px) {
     flex-direction: column-reverse;
     //margin-top: 400px;
   }
@@ -23,7 +23,7 @@ export const Container = styled.section`
       height: auto;
       max-height: 642px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       max-width: 484px;
       height: 642px;
       max-height: 642px;

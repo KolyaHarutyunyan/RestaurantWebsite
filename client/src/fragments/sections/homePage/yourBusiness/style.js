@@ -9,7 +9,7 @@ export const Container = styled.div`
   @media (min-width: 768px) {
     margin-top: 128px;
   }
-  @media (min-width: 1280px) {
+  @media (min-width: 1279px) {
     margin-top: 64px;
   }
   @media (min-width: 1920px) {
@@ -55,7 +55,7 @@ export const Container = styled.div`
   @media (min-width: 768px) {
     margin-bottom: 80px;
   }
- @media (min-width: 1280px) {
+ @media (min-width: 1279px) {
     margin-bottom: 128px;
   } 
   @media (min-width: 1920px) {
@@ -64,7 +64,7 @@ export const Container = styled.div`
   
   ul {
     display: flex;
-    @media (max-width: 1280px) {
+    @media (max-width: 1279px) {
       flex-direction: column;
       max-width: 688px;
       text-align: center;
@@ -84,7 +84,7 @@ export const Container = styled.div`
       .image {
         width: 100%;
         height: 200px;
-        @media (max-width: 1280px) {
+        @media (max-width: 1279px) {
           max-width: 356px;
           height: 172px;
         }

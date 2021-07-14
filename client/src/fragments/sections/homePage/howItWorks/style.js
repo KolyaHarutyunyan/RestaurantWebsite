@@ -30,7 +30,7 @@ export const Container = styled.div`
     }
   }
   .title-image{
-    @media (max-width: 1280px) {
+    @media (max-width: 1279px) {
       width: 100%;
       height: auto;
       min-height: auto;
@@ -43,7 +43,7 @@ export const Container = styled.div`
     justify-content: space-between;
     margin-bottom: 80px;
     
-    @media (max-width: 1280px) {
+    @media (max-width: 1279px) {
       flex-direction: column;
     }
     align-items: center;
@@ -57,7 +57,7 @@ export const Container = styled.div`
         gap: 64px;
         margin-bottom: 128px;
       }
-      @media (min-width: 1280px) {
+      @media (min-width: 1279px) {
         gap: 100px;
         margin-bottom: 128px;
       }
@@ -67,7 +67,7 @@ export const Container = styled.div`
       }
       ul {
         li {
-          @media (max-width: 1280px) {
+          @media (max-width: 1279px) {
             margin: 32px 35px;
           }
           position: relative;
@@ -116,7 +116,7 @@ export const Container = styled.div`
       }
     }
     &:nth-of-type(2) {
-      @media (max-width: 1280px) {
+      @media (max-width: 1279px) {
         flex-direction: column-reverse;
       }
       
@@ -128,7 +128,7 @@ export const Container = styled.div`
         gap: 64px;
         margin-bottom: 128px;
       }
-      @media (min-width: 1280px) {
+      @media (min-width: 1279px) {
         gap: 100px;
         margin-bottom: 128px;
       }
@@ -138,7 +138,7 @@ export const Container = styled.div`
       }
       ul {
         max-width: 465px;
-        @media (max-width: 1280px) {
+        @media (max-width: 1279px) {
           max-width: 100%;
         }
         li {
