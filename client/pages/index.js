@@ -13,6 +13,6 @@ export default function Home(props) {
     </Fragment>
   );
 }
-export const getServerSideProps = async ({ query }) => {
-  return { props: { data: [] } };
-};
+// export const getServerSideProps = async ({ query }) => {
+//   return { props: { data: [] } };
+// };
