@@ -2,11 +2,11 @@
 # restart the nginx server
 sudo service restart nginx
 # log the status 
-service nginx status
+# service nginx status
 
 # updating the .env file
-cd /var/www/menuz/api
-npm install
+# cd /var/www/menuz/api
+# npm install
 # sudo cp ../config/.env ./constants/
 
 # node restartsudo 
