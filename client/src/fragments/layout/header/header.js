@@ -154,18 +154,17 @@ export const Header = () => {
   };
 
   return (
-    <Container>
-      <div className="container">
+    <Container >
+        <div className='header-not-scrolled'>
+      <div className="container-header">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />
-          {/*<Typography weight="bold" color="text" size="1.250rem">*/}
-          {/*  Menuz*/}
-          {/*</Typography>*/}
         </div>
         {renderProfileDropdown()}
         {!isMobileViewport ? renderSignInButtons() : null}
         {renderMobileSideBar()}
       </div>
+        </div>
     </Container>
   );
 };

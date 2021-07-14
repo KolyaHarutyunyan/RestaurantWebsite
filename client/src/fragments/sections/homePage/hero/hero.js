@@ -5,13 +5,12 @@ import {useEffect, useState} from "react";
 export const Hero = () => {
 
   const { open } = useModal();
-  // const [token, setToken] = useState( localStorage.getItem("token"));
 
 
 
   return (
-    <Container>
-      <div className="hero container">
+    <Container >
+      <div className="hero">
         <div className="content">
           <Typography color="text"  weight="bold" className="title">
             Build Free Interactive

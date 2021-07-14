@@ -38,6 +38,24 @@ export const GlobalScss = createGlobalStyle`
       padding:0 16px;
     `};
   }
+  .container-hero {
+    width: 100%;
+    overflow-x: visible;
+    ${media.forLargeDesktop`
+      margin: 0 auto;
+      max-width: 100%;
+    `};
+    ${media.forDesktop`
+      margin: 0 auto;
+      max-width: 100%;
+    `};
+    ${media.forTablet`
+      padding:0 40px;
+    `};
+    ${media.forMobile`
+      padding:0 16px;
+    `};
+  }
 
 
   /* CASTIL */

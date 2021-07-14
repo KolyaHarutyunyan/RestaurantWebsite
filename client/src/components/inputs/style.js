@@ -102,7 +102,7 @@ export const InputContainer = styled.div`
     border: 1px solid;
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
     height: 48px;
-    border-radius: 24px;
+    border-radius: 8px;
     @media (max-width: 768px) {
       height: 42px;
     }
@@ -127,7 +127,7 @@ export const InputContainer = styled.div`
       height: 100%;
 
       input {
-        padding: 0 5px 0 5px;
+        padding: 0 8px 0 8px;
         margin: 0;
         height: 100%;
         width: 95%;
@@ -183,6 +183,7 @@ export const TextareaContainer = styled.div`
         font-family: Open Sans, sans-serif;
         padding: 5px 5px 0 5px;
         margin: 0;
+        font-size: 16px;
         width: 100%;
         height: 100%;
         resize: none;

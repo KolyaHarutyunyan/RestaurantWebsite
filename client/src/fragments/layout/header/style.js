@@ -4,14 +4,42 @@ import { colors } from "@eachbase/theme";
 export const Container = styled.div`
   width: 100%;
   height: 80px;
-  box-shadow: 0px 2px 6px #0000001a;
-  .container {
+  
+  .header-scrolled{
+    box-shadow: 0px 2px 6px #0000001a;
+    background: white!important;
+    width: 100%;
+    height: 80px;
+  }
+  .header-not-scrolled{
+    background: #80808033!important;
+    width: 100%;
+    height: 80px;
+  }
+  
+ 
+  .container-header {
     @media only screen and (min-width: 1280px) {
       transform: translateX(-10px);
     }
     display: flex;
     justify-content: space-between;
     height: 100%;
+
+    @media (min-width: 320px) {
+      padding: 0 16px;
+    }
+    @media (min-width: 768px) {
+      padding: 0 40px;
+    }
+    @media (min-width: 1280px) {
+      padding: 0 42px;
+    } 
+    @media (min-width: 1920px) {
+       padding: 0 100px;
+    }
+    
+    
     .logo-container {
       cursor: pointer;
       display: flex;

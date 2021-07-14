@@ -26,6 +26,8 @@ export const RestaurantPageSections = () => {
       menus,
     })
   );
+  // console.log(menus,'businesses')
+  // console.log(business.qrUrl,'businessesbusinesses')
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
 

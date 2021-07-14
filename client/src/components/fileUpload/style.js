@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   min-height: ${({ limit }) => (limit === 0 ? "80px" : "200px")};
   background-color: ${({ limit }) => (limit === 0 ? "#FF453A1A" : "white")};
-  border: 1px dashed
+  border: 1px dashed;
     ${({ isDragActive }) => (isDragActive ? "#007aff" : "#2b273c80")};
   border-radius: 8px;
   padding: 16px;
@@ -82,6 +82,12 @@ export const Container = styled.div`
     color: #2b273c;
     font-weight: 600;
     .title {
+      font-weight: normal;
+      font-family: Open Sans, sans-serif;
+      font-size: 18px;
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

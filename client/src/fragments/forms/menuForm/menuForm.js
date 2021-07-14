@@ -98,18 +98,27 @@ export const MenuForm = () => {
           {editableMenu ? "Edit Menu" : "Create New Menu"}
         </Typography>
         <Input
+
+            padding={'8px'}
+            containerClassName='input-padding'
           placeholder="Menu Name"
           {...register("name", { required: true })}
         />
         <div>
-          <Typography weight="bold" color="text">
+          <Typography className='input-padding' weight="bold" color="text">
             Optional
           </Typography>
           <Textarea
+              padding={'8px'}
+              containerClassName='input-padding'
             placeholder="Brief Description"
             rows={4}
             {...register("description", { required: true })}
           />
+          <Typography className='max-characters'  color="text">
+            Max 500 characters
+          </Typography>
+
         </div>
         <FileUpload
           files={restaurantIcons.files}
@@ -141,6 +150,8 @@ export const MenuForm = () => {
         ) : null}
 
         <Button
+            square
+            className='save-button'
           type="submit"
           onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}
           disabled={createMenuSaga.status.onLoad}

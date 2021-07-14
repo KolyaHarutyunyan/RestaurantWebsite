@@ -1,13 +1,24 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+
+
+  @media (min-width: 320px) {
+    margin-top: 112px;
+  }
+  @media (min-width: 768px) {
+    margin-top: 128px;
+  }
+  @media (min-width: 1280px) {
+    margin-top: 64px;
+  }
+  @media (min-width: 1920px) {
+    margin-top: 130px;
+  }
+  
+  
   margin-top: calc(130px * 2);
-  @media only screen and (max-width: 1280px) {
-    margin-top: calc(70px * 2);
-  }
-  @media only screen and (max-width: 768px) {
-    margin-top: calc(60px * 2);
-  }
+ 
   .g-title {
     font-family: Poppins,sans-serif;
     line-height: 72px;
