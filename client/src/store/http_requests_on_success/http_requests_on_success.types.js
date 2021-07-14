@@ -1,2 +1,0 @@
-export const APPEND_SUCCESS = "APPEND_SUCCESS";
-export const REMOVE_SUCCESS = "REMOVE_SUCCESS";

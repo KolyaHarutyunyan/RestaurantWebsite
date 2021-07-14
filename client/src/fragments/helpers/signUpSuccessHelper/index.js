@@ -1,1 +1,0 @@
-export { SignUpSuccessHelper } from "./signUpSuccessHelper";

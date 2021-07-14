@@ -1,1 +1,0 @@
-export { DeleteAccountForm } from "./deleteAccountForm";

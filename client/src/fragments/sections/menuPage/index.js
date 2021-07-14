@@ -1,1 +1,0 @@
-export { MenuPageSections } from "./menuPageSections";

@@ -1,1 +1,0 @@
-export { RestaurantPageSections } from "./restaurantPageSections";

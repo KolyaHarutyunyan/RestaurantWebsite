@@ -1,1 +1,0 @@
-export { YourBusiness } from "./yourBusiness";

@@ -1,2 +1,0 @@
-export const APPEND_LOADING = "APPEND_LOADING";
-export const REMOVE_LOADING = "REMOVE_LOADING";
