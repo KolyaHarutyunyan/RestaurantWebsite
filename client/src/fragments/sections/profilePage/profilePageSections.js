@@ -4,17 +4,18 @@ import { PrimaryInfo } from "./primaryInfo";
 import { Privacy } from "./privacy";
 import { DeleteAccount } from "./deleteAccount";
 import { useSelector } from "react-redux";
+import {Container} from "./style";
 export const ProfilePageSections = () => {
   const profile = useSelector(({ profile }) => profile);
 
   if (profile) {
     return (
-      <Fragment>
+      <Container>
         <Title />
         <PrimaryInfo />
         <Privacy />
         <DeleteAccount />
-      </Fragment>
+      </Container>
     );
   }
   return null;
