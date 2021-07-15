@@ -20,6 +20,7 @@ export const Button = ({
     square={square}
     {...rest}
     disabled={onLoad || rest.disabled}
+
   >
     {onLoad ? (
       <div className="loader-wrapper">

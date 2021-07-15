@@ -9,6 +9,8 @@ export const Textarea = forwardRef(
       helper = "",
       error = false,
       containerClassName = "",
+        border,
+        padding,
       ...rest
     },
     ref
@@ -20,7 +22,7 @@ export const Textarea = forwardRef(
         required={required}
         className={containerClassName}
       >
-        <div className="main-container">
+        <div style={{borderRadius:border, padding:padding}}  className="main-container">
           <div className="icon-container">{icon}</div>
           <div className="input-container">
             <textarea ref={ref} {...rest} />

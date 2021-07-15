@@ -11,6 +11,8 @@ export const Input = forwardRef(
       error = false,
       containerClassName = "",
       type = "text",
+        border,
+        padding,
       ...rest
     },
     ref
@@ -46,7 +48,7 @@ export const Input = forwardRef(
         required={required}
         className={containerClassName}
       >
-        <div className="main-container">
+        <div style={{borderRadius:border, padding:padding}} className="main-container">
           <div className="icon-container">{icon}</div>
           <div className="input-container">
             <input

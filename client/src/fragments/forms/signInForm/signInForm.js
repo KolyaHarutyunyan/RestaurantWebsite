@@ -34,6 +34,7 @@ export const SignInForm = () => {
       <Icons.LogoIcon className="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          border={'24px'}
           containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
@@ -42,6 +43,7 @@ export const SignInForm = () => {
           error={status.onError}
         />
         <Input
+          border={'24px'}
           containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"

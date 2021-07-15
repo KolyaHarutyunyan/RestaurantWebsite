@@ -45,6 +45,7 @@ export const ForgotPasswordForm = () => {
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+            border={'24px'}
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"

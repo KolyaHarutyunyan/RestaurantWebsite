@@ -32,6 +32,7 @@ export const SignUpForm = () => {
       <Icons.LogoIcon className="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+            border={'24px'}
             containerClassName='input-padding'
           type="text"
           icon={<BsPerson size={22} />}
@@ -40,6 +41,7 @@ export const SignUpForm = () => {
           error={status.onError}
         />
         <Input
+            border={'24px'}
             containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
@@ -47,6 +49,7 @@ export const SignUpForm = () => {
           {...register("email", { required: true })}
         />
         <Input
+            border={'24px'}
             containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"
