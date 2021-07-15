@@ -1,6 +1,17 @@
 import { Container } from "./style";
 import { Image, Typography, Button } from "@eachbase/components";
+import {MODAL_NAMES} from "@eachbase/constants";
 export const MenusAndMenuItems = () => {
+
+  const token = typeof window !== 'undefined' && localStorage.getItem('token')
+  const handleCreate = ()=>{
+    if(token) {
+      // open(MODAL_NAMES.MENU_FORM)
+    }else{
+      // open(MODAL_NAMES.SIGN_IN)
+    }
+  }
+
   return (
     <Container>
       <div className="container">
@@ -75,7 +86,7 @@ export const MenusAndMenuItems = () => {
           </Typography>
         </li>
       </ul>
-      <Button>Add Free Menu</Button>
+      <Button onClick={ handleCreate }>Add Free Menu</Button>
     </Container>
   );
 };

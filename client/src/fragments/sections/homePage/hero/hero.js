@@ -1,11 +1,17 @@
 import { Container } from "./style";
 import {Typography, Button, Image, useModal} from "@eachbase/components";
 import {MODAL_NAMES} from "@eachbase/constants";
-import {useEffect, useState} from "react";
 export const Hero = () => {
 
   const { open } = useModal();
-
+  const token = typeof window !== 'undefined' && localStorage.getItem('token')
+  const handleCreate = ()=>{
+    if(token) {
+      open(MODAL_NAMES.MENU_FORM)
+    }else{
+      open(MODAL_NAMES.SIGN_IN)
+    }
+  }
 
 
   return (
@@ -23,11 +29,10 @@ export const Hero = () => {
             Let your customers scroll through your menu, click and interact with the menu items.
           </Typography>
           <Button
-              // onClick={() => token ? open(MODAL_NAMES.MENU_FORM) : open(MODAL_NAMES.SIGN_IN) }
+              onClick={ handleCreate }
           >Create FREE Menu</Button>
         </div>
         <div className="image-wrapper">
-          {/*<Image src="./assets/homePage/qr_code_scanning.svg" />*/}
           <Image src={'./assets/images/heroHomepage.png'}/>
         </div>
       </div>
