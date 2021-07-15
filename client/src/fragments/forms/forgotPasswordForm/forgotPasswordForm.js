@@ -5,7 +5,7 @@ import { profileService } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 export const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ export const ForgotPasswordForm = () => {
       setErrorMessage("Write in this field you'r email address");
     }
   };
+
 
   return (
     <Container>

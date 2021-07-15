@@ -14,11 +14,11 @@ export const Container = styled.div`
     position: fixed;
     z-index: 1000;
     background-color: white;
-    box-shadow: -1px 14px 15px 0px #efefef5c;
-    border-radius: 0 0 10px 10px;
+    box-shadow:  0px 0px 6px #0000001A;
+    border-radius: 6px;
+    top: 88px;
     ${({ position: { top, left } }) =>
       `
-      top: ${top}px;
       left: ${left}px;
     `}
     width: ${({ width }) => width}px;

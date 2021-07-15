@@ -10,9 +10,11 @@ export const Button = ({
   hoverable = true,
   square = false,
   onLoad = false,
+                         height,
   ...rest
 }) => (
   <ButtonContainer
+      style={{height:height}}
     fullWidth={fullWidth}
     color={color}
     link={link}

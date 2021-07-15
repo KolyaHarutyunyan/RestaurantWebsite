@@ -11,22 +11,36 @@ export const Container = styled.div`
   @media only screen and (max-width: 768px) {
     height: 100px;
   }
-  .container {
+  .container-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
     height: 100%;
-    @media only screen and (max-width: 1280px) {
-      align-items: center;
-      padding-bottom: 15px;
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    @media (min-width: 320px) {
+      padding: 0 16px 18px 16px ;
+      font-size: 14px;
     }
+    @media (min-width: 768px) {
+      padding: 0 40px;
+    }
+    @media (min-width: 1280px) {
+      padding: 0 42px;
+    }
+    @media (min-width: 1920px) {
+      padding: 0 100px;
+    }
+
     @media only screen and (max-width: 768px) {
       height: 100px;
       flex-direction: column-reverse;
     }
     .copyright {
+    
       min-width: 280px;
+      font-family: Open Sans, sans-serif;
     }
     .copyright,
     .logo-container {

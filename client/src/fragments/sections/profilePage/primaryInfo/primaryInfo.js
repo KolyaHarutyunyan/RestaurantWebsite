@@ -24,6 +24,7 @@ export const PrimaryInfo = () => {
           <div className="head">
             {editMode ? (
               <Button
+                  height={'auto'}
                 onLoad={status.onLoad}
                 color="action"
                 link
@@ -34,6 +35,7 @@ export const PrimaryInfo = () => {
               </Button>
             ) : (
               <Button
+                  height={'auto'}
                 color="action"
                 onClick={() => setEditMode(true)}
                 link
@@ -45,7 +47,7 @@ export const PrimaryInfo = () => {
             )}
           </div>
           <div className="input-box">
-            <Typography color="text">Full Name</Typography>
+            <Typography className='input-title' color="text">Full Name</Typography>
             <Input
               error={!!errors.fullName.length}
               helper={errors.helper}
@@ -56,7 +58,7 @@ export const PrimaryInfo = () => {
             />
           </div>
           <div className="input-box">
-            <Typography color="text">Email</Typography>
+            <Typography  className='input-title' color="text">Email</Typography>
             <Input
               error={!!errors.email.length}
               helper={errors.helper}

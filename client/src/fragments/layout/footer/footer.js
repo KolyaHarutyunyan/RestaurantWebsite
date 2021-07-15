@@ -20,7 +20,7 @@ export const Footer = () => {
 
   return (
     <Container>
-      <div className="container">
+      <div className="container-footer">
         <div className="copyright">© 2021 Menuz. All Rights Reserved.</div>
         <div className="links">
           <Link href="/">
@@ -31,7 +31,7 @@ export const Footer = () => {
           </Link>
         </div>
         <div className="logo-container">
-          <Icons.LogoInvert />
+          <Icons.FooterIcon/>
           {/*<p>Menuz</p>*/}
         </div>
       </div>

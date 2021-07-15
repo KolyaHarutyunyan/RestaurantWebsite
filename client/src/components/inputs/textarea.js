@@ -10,6 +10,7 @@ export const Textarea = forwardRef(
       error = false,
       containerClassName = "",
         border,
+        max,
         padding,
       ...rest
     },
@@ -25,7 +26,7 @@ export const Textarea = forwardRef(
         <div style={{borderRadius:border, padding:padding}}  className="main-container">
           <div className="icon-container">{icon}</div>
           <div className="input-container">
-            <textarea ref={ref} {...rest} />
+            <textarea maxLength={max} ref={ref} {...rest} />
           </div>
         </div>
         <div className="helper-container">{helper}</div>

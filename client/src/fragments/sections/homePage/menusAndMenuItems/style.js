@@ -7,7 +7,7 @@ export const Container = styled.div`
     font-family: Poppins,sans-serif;
     line-height: 72px;
     font-size: 48px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       line-height: 36px;
       font-size: 28px;
       margin-bottom: 30px;
@@ -70,7 +70,7 @@ export const Container = styled.div`
     margin-bottom: 160px;
     width: 240px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 767) {
       width: 201px;
     }
   }

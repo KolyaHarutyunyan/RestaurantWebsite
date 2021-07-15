@@ -6,7 +6,7 @@ export const DeleteAccount = () => {
 
   return (
     <Container>
-      <Button link onClick={() => open(MODAL_NAMES.DELETE_ACCOUNT)}>
+      <Button height={'auto'} className={'delete-button-style'} link onClick={() => open(MODAL_NAMES.DELETE_ACCOUNT)}>
         Delete my Account
       </Button>
     </Container>

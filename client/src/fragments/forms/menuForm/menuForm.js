@@ -93,12 +93,10 @@ export const MenuForm = () => {
           className="title"
           weight="bold"
           color="text"
-          size="1.250rem"
         >
           {editableMenu ? "Edit Menu" : "Create New Menu"}
         </Typography>
         <Input
-
             padding={'8px'}
             containerClassName='input-padding'
           placeholder="Menu Name"
@@ -109,6 +107,7 @@ export const MenuForm = () => {
             Optional
           </Typography>
           <Textarea
+              max={500}
               padding={'8px'}
               containerClassName='input-padding'
             placeholder="Brief Description"

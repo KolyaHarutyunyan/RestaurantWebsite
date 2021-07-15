@@ -70,4 +70,14 @@ export const Container = styled.div`
       font-size: 18px;
     }
   }
+  .qr-image{
+   img {
+     width: 100px;
+     height: 100px;
+     @media (max-width: 767px) {
+       width: 70px;
+       height: 70px;
+     }
+   }
+  }
 `;
