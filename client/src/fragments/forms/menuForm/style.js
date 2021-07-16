@@ -28,7 +28,7 @@ export const Container = styled.div`
       text-align: center;
       font-size: 24px;
       font-family: Poppins,sans-serif;
-      margin-bottom: 28px;
+      margin-bottom: 17px;
     }
     .hours-operations {
       margin-top: 10px;

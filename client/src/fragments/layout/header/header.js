@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
 import { BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { HiMenuAlt4 } from "react-icons/hi";
 import { useSagaStore, profileActions } from "@eachbase/store";
 import { useRef, useState } from "react";
 import useMedia from "use-media";
@@ -26,10 +27,21 @@ export const Header = () => {
       router.push("/", undefined, { shallow: true });
     };
 
+
     if (profile) {
       return (
         <NavigationContainer>
-          <li>
+
+            <Button
+                className='create-button'
+                color="default"
+                outlined
+                inactive
+                onClick={() => open(MODAL_NAMES.MENU_FORM)}
+            >
+                Create Menu
+            </Button>
+          <li className='account-icon'>
             <div className="icon-container">
               <Icons.PersonIcon />
             </div>
@@ -42,8 +54,6 @@ export const Header = () => {
               <Icons.MenuIcon />
             </div>
             <Typography
-              color="text"
-              weight="bold"
               onClick={() => router.push("/restaurant")}
             >
               Restaurant Profile
@@ -54,8 +64,6 @@ export const Header = () => {
               <BsPersonFill />
             </div>
             <Typography
-              color="text"
-              weight="bold"
               onClick={() => router.push("/profile")}
             >
               Account Settings
@@ -65,7 +73,9 @@ export const Header = () => {
             <div className="icon-container">
               <Icons.LogoutIcon />
             </div>
-            <Typography color="text" weight="bold" onClick={() => signOut()}>
+            <Typography
+                onClick={() => signOut()}
+            >
               Sign out
             </Typography>
           </li>
@@ -140,7 +150,7 @@ export const Header = () => {
             className="controller"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            {menuIsOpen ? <IoMdClose /> : <IoMdMenu />}
+            {menuIsOpen ? <IoMdClose /> : <HiMenuAlt4 />   }
           </div>
           <div className={`menu ${menuIsOpen ? "open" : ""}`}>
             {renderSignInButtons()}

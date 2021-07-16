@@ -36,6 +36,7 @@ import SignUpSuccessGirl from "./svgs/sign_up_success_girl.svg";
 import ErrorFab from "./svgs/error_fab.svg";
 import SuccessFab from "./svgs/success_fab.svg";
 import GirlWithBalloons from "./svgs/girl_with_balloons.svg";
+import FooterIcon from "./svgs/footerLogo.svg";
 
 export {
   AddIcon,
@@ -76,4 +77,5 @@ export {
   ErrorFab,
   SuccessFab,
   GirlWithBalloons,
+  FooterIcon,
 };

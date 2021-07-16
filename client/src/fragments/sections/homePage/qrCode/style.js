@@ -8,16 +8,16 @@ export const Container = styled.div`
   
   
   @media (min-width: 320px) {
-    margin-bottom: 67px;
+    margin: 67px 0;
   }
   @media (min-width: 768px) {
-    margin-bottom: 128px;
+    margin: 128px 0;
   }
   @media (min-width: 1279px) {
-    margin-bottom: 128px;
+    margin: 128px 0;
   }
   @media (min-width: 1920px) {
-    margin-bottom: 160px;
+    margin: 160px 0;
   }
   
   .line:first-child {
@@ -69,5 +69,15 @@ export const Container = styled.div`
     @media (max-width: 768px) {
       font-size: 18px;
     }
+  }
+  .qr-image{
+   img {
+     width: 100px;
+     height: 100px;
+     @media (max-width: 767px) {
+       width: 70px;
+       height: 70px;
+     }
+   }
   }
 `;

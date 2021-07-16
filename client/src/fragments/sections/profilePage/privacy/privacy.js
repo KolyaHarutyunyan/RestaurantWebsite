@@ -38,7 +38,7 @@ export const Privacy = () => {
   const renderNoth = () => {
     return (
       <div className="noth">
-        <Typography color="text" weight="bold" size="1.250rem">
+        <Typography className="change-text" color="text" weight="bold" >
           Change Password
         </Typography>
         <p className="descr">
@@ -51,6 +51,13 @@ export const Privacy = () => {
   const renderForm = () => {
     return (
       <Fragment>
+          <Typography className="change-text" color="text" weight="bold" >
+              Change Password
+          </Typography>
+          <p className="descr">
+              Use strong password to keep your account secure.
+          </p>
+
         <div className="input-descr">
           Use at least 8 characters, 1 upper case and 1 digit
         </div>
@@ -101,6 +108,7 @@ export const Privacy = () => {
         <div className="head">
           {editMode ? (
             <Button
+                height={'auto'}
               color="action"
               link
               colorVariant
@@ -111,6 +119,7 @@ export const Privacy = () => {
             </Button>
           ) : (
             <Button
+                height={'auto'}
               color="action"
               onClick={() => setEditMode(true)}
               link

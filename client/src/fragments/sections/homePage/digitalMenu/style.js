@@ -1,17 +1,47 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 80px;
-  //height: 720px;
-  margin-bottom: 160px;
-  @media only screen and (max-width: 1279px) {
-    flex-direction: column-reverse;
-    //margin-top: 400px;
+  //position: relative;
+  //display: flex;
+  //justify-content: space-between;
+  //align-items: center;
+  //gap: 80px;
+  //margin-bottom: 160px;
+  
+  .desktop{
+      display: none;
   }
+
+  @media (min-width: 1280px) {
+    .desktop{
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 80px;
+      margin-bottom: 160px;
+    }
+  }
+  
+  .mobile{
+    display: none;
+  }
+  @media (max-width: 1279px) {
+    .mobile{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 128px;
+      @media (max-width: 767px) {
+        margin-bottom: 80px;
+      }
+    }
+    
+    
+  }
+  
   .image.main {
     flex: 0 0 540px;
     @media (min-width: 320px) {
@@ -56,21 +86,23 @@ export const Container = styled.section`
       height: 120px;
     }
   }
-    .content{
+    .content-text{
       text-align: center;
       font-family: Open Sans, sans-serif;
       line-height: 24px ;
       font-size: 16px;
+      margin-bottom: 0;
       @media (min-width: 320px) {
         font-size: 14px;
         line-height:21px ;
-        margin-top: 17px;
+        margin-bottom: 17px;
       }
-      @media (min-width: 768px) {
+      @media (min-width: 767px) {
         line-height: 24px ;
         font-size: 16px;
         margin-top: 64px;
-      }
+        margin-bottom: 50px;
+        }
       }
       
   }
@@ -79,14 +111,28 @@ export const Container = styled.section`
     
   .qr {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    @media only screen and (max-width: 768px) {
-      width: 368px;
-      left: 10px;
-      top: 20%;
+    @media (max-width: 1279px) {
+      width: 200px;
+      height: 200px;
+      margin-top: 160px;
+      margin-left: -130px;
+      @media (min-width: 767px) {
+        width: 200px;
+        height: 200px;
+        margin-top: 50px;
+        margin-left: 550px;
+      }
     }
-    left: 30%;
+    @media (min-width: 1279px) {
+      left: 30%;
+      width: 300px;
+      height: 300px;
+    }
+    @media (min-width: 1920px) {
+      left: 30%;
+      width: 400px;
+      height: 400px;
+    }
     top: 20%;
     opacity: 0.02;
   }
