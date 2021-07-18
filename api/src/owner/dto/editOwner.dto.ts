@@ -6,6 +6,7 @@ export class EditOwnerDTO {
   @IsOptional()
   @Length(2, 20)
   fullName?: string;
+  @ApiProperty()
   @IsOptional()
   @IsEmail()
   email?: string;
