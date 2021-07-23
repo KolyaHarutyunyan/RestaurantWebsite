@@ -52,11 +52,26 @@ export class CategoryService {
     return this.sanitizer.sanitize(cat);
   };
 
-  /** @returns the category with the items populated */
+  /** @returns the category  */
   getById = async (categoryId: string): Promise<CategoryDTO> => {
     const category = await this.model.findById(categoryId);
     this.checkCategory(category);
     return this.sanitizer.sanitize(category);
+  };
+
+  /** Get categories with items populated */
+  getWithItems = async (categoryIds: string[]): Promise<CategoryItemsDTO[]> => {
+    const categories = await this.model
+      .find({ _id: { $in: categoryIds } })
+      .populate({
+        path: 'items._id',
+        model: 'item',
+        populate: [
+          { path: 'images', model: 'image' },
+          { path: 'mainImage', model: 'image' },
+        ],
+      });
+    return this.sanitizer.sanitizeManyWithItems(categories);
   };
 
   /** Gets all categories in the system without their items */

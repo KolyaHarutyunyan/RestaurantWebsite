@@ -9,11 +9,12 @@ import {
   MenuDTO,
   UpdateMenuDTO,
 } from './dto';
-import { BusinessValidator } from 'src/business';
-import { ImageService } from 'src/image';
-import { CategoryService } from 'src/category';
+import { BusinessValidator } from '../business';
+import { IImage, ImageService } from '../image';
+import { CategoryService } from '../category';
 import { CategoryType } from './menu.constants';
 import { ReorderDTO } from './dto';
+import { FullMenuDTO } from './dto/fullMenu.dto';
 
 @Injectable()
 export class MenuService {
@@ -121,16 +122,21 @@ export class MenuService {
     return this.sanitizer.sanitize(menu);
   };
 
-  /** Get the  */
-  getActive = async (businessId: string): Promise<MenuDTO> => {
+  /** Get the active menu for a business with categories and items  */
+  getActive = async (businessId: string): Promise<FullMenuDTO> => {
     const menu = await this.model
       .findOne({
         businessId: businessId,
         isActive: true,
       })
       .populate('image');
-    // .populate('categories._id');
-    return this.sanitizer.sanitize(menu);
+    return await this.fillMenu(menu);
+  };
+
+  /** Gets the fully populated menu with all of its categories and items */
+  getFullMenu = async (menuId: string): Promise<FullMenuDTO> => {
+    const menu = await this.model.findById(menuId).populate('image');
+    return await this.fillMenu(menu);
   };
 
   /** Delete Menu and remove images that were with it */
@@ -256,6 +262,27 @@ export class MenuService {
     }
   }
 
+  /** Fills the menu with its categories and their items  */
+  private fillMenu = async (menu: IMenu): Promise<FullMenuDTO> => {
+    this.checkMenu(menu);
+    const foodCategoryIds = this.extractCategoryIds(menu.foodCategories);
+    const drinkCategoryIds = this.extractCategoryIds(menu.drinkCategories);
+    const [foodCategories, drinkCategories] = await Promise.all([
+      this.categoryService.getWithItems(foodCategoryIds),
+      this.categoryService.getWithItems(drinkCategoryIds),
+    ]);
+    const fullMenu: FullMenuDTO = {
+      id: menu._id,
+      name: menu.name,
+      tagline: menu.tagline,
+      description: menu.description,
+      image: this.getMenuImage(menu.image as IImage),
+      foodCategories: foodCategories,
+      drinkCategories: drinkCategories,
+    };
+    return fullMenu;
+  };
+
   /** updates the ranks of the menu items */
   private rerank(categories: IMenuCategory[]) {
     for (let i = 0; i < categories.length; i++) {
@@ -303,5 +330,24 @@ export class MenuService {
       }
     }
     return hasRemoved;
+  }
+
+  /** Extracts the category ids form MenuCategory */
+  private extractCategoryIds(menuCategories: IMenuCategory[]): string[] {
+    if (!menuCategories || menuCategories.length < 1) return [];
+    const ids: string[] = [];
+    for (let i = 0; i < menuCategories.length; i++) {
+      ids.push(menuCategories[i]._id as string);
+    }
+    return ids;
+  }
+
+  /** Gets the menu image url if it exists */
+  private getMenuImage(menuImage?: IImage): string {
+    if (!menuImage) return undefined;
+    if (menuImage.originalUrl) {
+      return menuImage.originalUrl;
+    }
+    return undefined;
   }
 }
