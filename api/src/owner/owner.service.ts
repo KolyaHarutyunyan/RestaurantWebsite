@@ -67,7 +67,7 @@ export class OwnerService {
 
   /** Used to update the fullname and email of the owner */
   async edit(editDTO: EditOwnerDTO): Promise<OwnerDTO> {
-    ListBucketAnalyticsConfigurationsRequest owner = await this.model.findById(editDTO.userId);
+    let owner = await this.model.findById(editDTO.userId);
     this.checkOwner(owner);
     if (editDTO.email) {
       const otherOwner = await this.model.findOne({ email: editDTO.email });
