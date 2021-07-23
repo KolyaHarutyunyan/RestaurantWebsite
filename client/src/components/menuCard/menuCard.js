@@ -15,8 +15,10 @@ export const MenuCard = ({
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
     <Container coverImg={data.image ? data.image.originalUrl : null}>
-      <div className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
-      <div className="action-bar">
+      <div onClick={() => onTitleClick()} className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
+      <div>
+
+        <div className="action-bar">
         <div className="title" onClick={() => onTitleClick()}>
           {data.name}
         </div>
@@ -33,14 +35,17 @@ export const MenuCard = ({
           <Icons.ThreeDots />
         </div>
       </div>
+      </div>
       <Menu
+          left={'170px'}
+          width={'119'}
         positionalElementRef={descrBarRef}
         open={menuIsOpen}
         onRequestToClose={() => setMenuIsOpen(false)}
       >
         <DropDownMenuContainer>
           <li onClick={() => onRequestToEdit()}>Edit</li>
-          <li onClick={() => onRequestToDuplicate()}>Duplicate</li>
+          {/*<li onClick={() => onRequestToDuplicate()}>Duplicate</li>*/}
           <li onClick={() => onRequestToDelete()} className="danger">
             Delete
           </li>

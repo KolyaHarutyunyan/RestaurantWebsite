@@ -19,21 +19,28 @@ import { useSelector } from "react-redux";
 export const EditRestaurantExtraDetailsForm = () => {
   const { close } = useModal();
   const restaurant = useSelector(({ businesses }) => businesses);
+
   const { register, handleSubmit, reset } = useForm();
   const [restaurantIcon, setRestaurantIcon] = useState([]);
   const router = useRouter();
-  const [address, setAddress] = useState(restaurant ? restaurant.address : "");
+  const [address, setAddress] = useState(restaurant ? restaurant.address ?  restaurant.address.formattedAddress : '' : "");
   const [hoursSnapshot, setHoursSnapshot] = useState(null);
 
   const [toggleHoursOperations, setToggleHourseOperations] = useState(false);
   const { dispatch, status, destroy } = useSagaStore(
-    businessesActions.createBusiness
+    businessesActions.editBusiness
   );
 
-  const onSubmit = (data) => {
-    dispatch({ ...data, icon: restaurantIcon[0] || null });
-  };
+  const onSubmit = (info) => {
+    const data ={
+      website: info.website,
+      phoneNumber: info.phoneNumber,
+      address:address,
+      id:restaurant.id,
+    }
 
+    dispatch(data );
+  };
   useEffect(() => () => destroy.all(), []);
 
   useEffect(() => {
@@ -63,7 +70,6 @@ export const EditRestaurantExtraDetailsForm = () => {
           className="title"
           weight="bold"
           color="text"
-          size="1.250rem"
         >
           Edit Extra Details
         </Typography>
@@ -71,17 +77,18 @@ export const EditRestaurantExtraDetailsForm = () => {
           placeholder="Add your website URL"
           icon={<Icons.WWWIcon />}
           defaultValue={restaurant.website}
-          {...register("name", { required: true })}
+          {...register("website", { required: true })}
         />
         <Input
           placeholder="Phone Number"
           icon={<BiPhoneCall size={22} />}
           defaultValue={restaurant.phoneNumber}
-          {...register("name", { required: true })}
+          {...register("phoneNumber", { required: true })}
         />
         <AddressInput
-          Value={address}
-          disabled={false}
+          Value={restaurant ? restaurant.address && restaurant.address.formattedAddress  : address}
+          disabled={true}
+          handleSelectValue={()=> console.log('aaa')}
           handleChangeValue={(val) => setAddress(val)}
         />
         <div
@@ -110,7 +117,9 @@ export const EditRestaurantExtraDetailsForm = () => {
             />
           )}
         </div>
-        <Button type="submit" onLoad={status.onLoad}>
+        <Button
+            square
+            type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

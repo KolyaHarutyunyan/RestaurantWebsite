@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {Icons} from "@eachbase/theme";
 
 export const Categories = ({ value, onChange }) => {
   const { open } = useModal();
@@ -118,6 +119,9 @@ export const Categories = ({ value, onChange }) => {
     return data;
   }, []);
 
+
+
+
   return (
     <Container>
       <Tabs.Wrapper
@@ -129,11 +133,12 @@ export const Categories = ({ value, onChange }) => {
       >
         <Tabs.TabHeader>
           <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
-          <Tabs.TabTitle tabName="drink">Drink</Tabs.TabTitle>
+          <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
         <div className="select-create-category">
           <div className="select-wrapper">
             <ProSelect
+
               onChange={(value) => {
                 setCategoriesSelectValue(value);
               }}
@@ -141,9 +146,12 @@ export const Categories = ({ value, onChange }) => {
               onSearchBarValueChange={(value) => setSearchBarValue(value)}
               options={categoriesOptions}
               value={categoriesSelectValue}
+              onSubmit={createAddCategoryAction}
             />
           </div>
           <Button
+              height={'48px'}
+              square
             onLoad={
               addCategoryIntoMenuSaga.status.onLoad ||
               createCategorySaga.status.onLoad
@@ -197,7 +205,10 @@ export const Categories = ({ value, onChange }) => {
                                 Delete
                               </Button>
                             </span>
+
                           </Typography>
+                          <Icons.Forward/>
+
                         </li>
                       )}
                     </Draggable>
@@ -252,6 +263,7 @@ export const Categories = ({ value, onChange }) => {
                               </Button>
                             </span>
                           </Typography>
+                          <Icons.Forward/>
                         </li>
                       )}
                     </Draggable>

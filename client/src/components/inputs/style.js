@@ -24,6 +24,7 @@ export const inputsStyle = makeStyles(() => ({
     color: "#545F7EB3",
   },
   SearchAddress: {
+    fontFamily: 'Open Sans, sans-serif',
     gap: "10px",
     fontSize: "16px",
     lineHeight: "22px",
@@ -32,15 +33,21 @@ export const inputsStyle = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "30px",
+    height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
     border: "1px solid #2b273c80",
     borderRadius: "8px",
-    padding: "5px",
+    padding: "0 18px",
     cursor: "pointer",
     color: "#545F7E",
+    '& input':{
+      fontFamily: 'Open Sans, sans-serif',
+      fontSize: "16px",
+      color:'#2B273C'
+    }
   },
   SearchAddressDisable: {
+    fontFamily: 'Open Sans, sans-serif',
     fontSize: "16px",
     lineHeight: "22px",
     gap: "14px",
@@ -49,18 +56,19 @@ export const inputsStyle = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "30px",
+    height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
     border: "1px solid #2b273c80",
     borderRadius: "8px",
-    padding: "5px",
+    padding: "0 18px",
     cursor: "no-drop",
     color: "#545F7E",
-    "&::placeholder": {
+    '& input':{
+      fontFamily: 'Open Sans, sans-serif',
       fontSize: "16px",
-      lineHeight: "22px",
-      color: "#545F7EB3",
+      color:'#2B273C'
     },
+
   },
   searchAddressDescription: {
     background: "#FFFFFF 0% 0% no-repeat padding-box",

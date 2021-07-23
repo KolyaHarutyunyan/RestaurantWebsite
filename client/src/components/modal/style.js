@@ -41,18 +41,18 @@ export const ModalContainer = styled.div`
       width: 340px;
     }
     @media (min-width: 320px) {
-      padding: 16px 16px 32px 16px;
+      padding: 8px 16px 32px 16px;
     }
     @media (min-width: 768px) {
-      padding: 32px 32px 42px 32px;
+      padding: 8px 32px 42px 32px;
     }
     @media (min-width: 1280px) {
-      padding: 32px 32px 42px 32px;
+      padding: 8px 32px 42px 32px;
     } 
     @media (min-width: 1920px) {
-      padding: 48px;
+      padding: 8px 48px 48px 48px;
     }
-    border-radius: ${({ mini }) => (mini ? "8px" : "32px")};
+    border-radius: ${({ mini, border }) => (mini || border ? "8px" : "32px")};
     opacity: 1;
     background-color: white;
   }
@@ -65,5 +65,20 @@ export const ModalContainer = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: 10000;
+  }
+  .close-button{
+    @media (min-width: 320px) {
+      margin-right: -8px;
+    }
+    @media (min-width: 768px) {
+      margin-right: -8px;
+    }
+    @media (min-width: 1280px) {
+      margin-right: -23px;
+    }
+    @media (min-width: 1920px) {
+      margin-right: -39px;
+    }
+   
   }
 `;

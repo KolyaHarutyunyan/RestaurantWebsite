@@ -10,7 +10,7 @@ import {
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, businessesActions, imageService } from "@eachbase/store";
+import {useSagaStore, businessesActions, imageService, menusActions} from "@eachbase/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -19,6 +19,8 @@ export const EditRestaurantForm = () => {
 
   const router = useRouter();
   const business = useSelector(({ businesses }) => businesses || {});
+  const editBusiness = useSagaStore(businessesActions.editBusiness);
+
   const [restaurantIconsLimit, setRestaurantIconsLimit] = useState(1);
   const [restaurantIcon, setRestaurantIcon] = useState({
     files: [],
@@ -35,10 +37,20 @@ export const EditRestaurantForm = () => {
       setRestaurantIconsLimit(0);
     }
   }, [business]);
-
-  const onSubmit = (data) => {
-    dispatch({ ...business, ...data, icon: restaurantIcon[0] || null });
+  const onSubmit = (info) => {
+    restaurantIcon.mainImageId ?
+        editBusiness.dispatch({
+          ...info,
+          id: business.id,
+          logo: restaurantIcon,
+        })
+        :
+    editBusiness.dispatch({
+      ...info,
+      id: business.id,
+    })
   };
+
 
   useEffect(() => () => destroy.all(), []);
 
@@ -93,26 +105,34 @@ export const EditRestaurantForm = () => {
           Edit {business.name}
         </Typography>
         <Input
-          placeholder="Restaurant Name"
-          defaultValue={business.name}
-          {...register("name", { required: true })}
+            containerClassName='input-padding'
+            padding={'8px'}
+            placeholder="Restaurant Name"
+            defaultValue={business.name ? business.name :'' }
+            {...register("name", { required:!business.name })}
         />
         <div>
-          <Typography weight="bold" color="text">
+          <Typography  className='input-padding' weight="bold" color="text">
             Optional
           </Typography>
           <Textarea
-            placeholder="Brief Description"
-            defaultValue={business.description}
-            rows={4}
-            {...register("description", { required: true })}
+              max={500}
+              containerClassName='input-padding'
+              padding={'10px'}
+              placeholder="Brief Description"
+              defaultValue={business.description ? business.description : ''}
+              rows={4}
+              {...register("description", { required: !business.description })}
           />
+          <Typography className='max-characters'  color="text">
+            Max 500 characters
+          </Typography>
         </div>
         <FileUpload
           files={restaurantIcon.files}
           mainImageId={restaurantIcon.mainImageId}
           limit={restaurantIconsLimit}
-          mainImageId={restaurantIcon.mainImageId}
+          // mainImageId={restaurantIcon.mainImageId}
           onChange={(files, actionType, mainImageId) =>
             onFileUploadChange(files, actionType, mainImageId)
           }
@@ -135,7 +155,12 @@ export const EditRestaurantForm = () => {
             />
           </div>
         ) : null}
-        <Button type="submit" onLoad={status.onLoad}>
+        <Button
+            className='save-button'
+            square
+            type="submit"
+            onLoad={status.onLoad}
+        >
           Save
         </Button>
       </form>

@@ -78,8 +78,18 @@ export const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 24px;
+    @media (max-width: 767px) {
+      gap: 16px;
+    }
     .title {
+      font-family: Poppins,sans-serif;
+      @media (max-width: 767px) {
+        font-size: 18px;
+        margin: 0 0 16px;
+      }
+      font-size: 24px;
+      margin: 0 0 20px;
       text-align: center;
     }
     .hours-operations {

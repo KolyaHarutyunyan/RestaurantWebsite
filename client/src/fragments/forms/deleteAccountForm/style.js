@@ -15,7 +15,7 @@ export const Container = styled.div`
     margin-bottom: 24px;
     font-size: 16px;
     font-family: Open Sans, sans-serif;
-    @media (max-width: 767) {
+    @media (max-width: 767px) {
       font-size: 14px;
       margin-bottom: 16px;
     }

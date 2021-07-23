@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Container, DropDownContainer } from "./style";
 import { v4 as uuid } from "uuid";
 import ChevronSVG from "./chevron.svg";
+import {off} from "react-use/lib/misc/util";
 
 export const ProSelect = ({
   value = null,
@@ -13,6 +14,7 @@ export const ProSelect = ({
   proSelectAttrs = {},
   searchBarAttrs = {},
   fullWidth = false,
+                            // onSubmit,
   ...rest
 }) => {
   const searchInputId = uuid();
@@ -21,7 +23,7 @@ export const ProSelect = ({
   const searchInputRef = useRef();
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropDownOpen] = useState(false);
-
+  const [current, setCurrent] = useState('')
   const currentOption = options.find((cOption) => cOption.value === value);
   const filteredOptions = options.filter(
     (option) => option.label.indexOf(searchBarValue) !== -1
@@ -74,6 +76,7 @@ export const ProSelect = ({
   }, [mounted]);
 
   const onSelect = (option) => {
+    setCurrent(option)
     onChange(option.value, options);
     onSearchBarValueChange("");
     setDropDownOpen(false);
@@ -82,6 +85,9 @@ export const ProSelect = ({
 
   if (!mounted) {
     return null;
+  }
+  const onSubmit= (e)=>{
+    e.preventDefault();
   }
 
   return (
@@ -95,7 +101,9 @@ export const ProSelect = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="dropdown-actions">
+         <form style={{width:'100%'}} onSubmit={onSubmit}>
           <input
+            autoComplete="new-password"
             value={searchBarValue}
             id={searchInputId}
             ref={searchInputRef}
@@ -104,10 +112,11 @@ export const ProSelect = ({
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
-            placeholder={currentOption ? currentOption.label : ""}
+            placeholder={current.label ? current.label : "Select/Create Category"}
             onChange={({ target: { value } }) => onSearchBarValueChange(value)}
             {...searchBarAttrs}
           />
+         </form>
           <div
             className="dropdown-toggle"
             onClick={(e) => {

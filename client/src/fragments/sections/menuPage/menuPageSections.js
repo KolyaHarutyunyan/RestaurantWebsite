@@ -36,15 +36,11 @@ export const MenuPageSections = () => {
   });
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
 
+
   useEffect(() => {
-    if (
-      deleteCategorySaga.status.onSuccess ||
-      deleteCategoryFromMenuSaga.status.onSuccess
-    ) {
-      setSelectedCategory({
-        ...selectedCategory,
-        categoryId: "",
-      });
+
+    if (deleteCategorySaga.status.onSuccess || deleteCategoryFromMenuSaga.status.onSuccess) {
+      setSelectedCategory({...selectedCategory, categoryId: "",});
     }
   }, [deleteCategoryFromMenuSaga.status, deleteCategorySaga.status]);
 
@@ -56,27 +52,24 @@ export const MenuPageSections = () => {
     getCurrentMenuSaga.dispatch(menuId);
   }, []);
 
+
+  const categories = useSelector(({ categories }) => categories);
+
   return (
-    <LazyLoad
-      loaded={
-        !getCategoriesSaga.status.onLoad &&
-        !getBusinessItems.status.onLoad &&
-        !getMenuCategoriesSaga.status.onLoad &&
-        !getCurrentRestaurantSaga.status.onLoad &&
-        !getCurrentMenuSaga.status.onLoad
-      }
-    >
+      <div style={{ backgroundImage: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)',}}>
       <Container className="container">
         <div className="grid">
           <Menu />
         </div>
         <div className="grid">
+
           <Categories
             value={selectedCategory}
             onChange={(categoryId, categoryType) =>
               setSelectedCategory(categoryId, categoryType)
             }
           />
+
           <Items category={selectedCategory} />
         </div>
         {!menuCategories.food.length && !menuCategories.drink.length ? (
@@ -88,6 +81,6 @@ export const MenuPageSections = () => {
           </div>
         ) : null}
       </Container>
-    </LazyLoad>
+      </div>
   );
 };

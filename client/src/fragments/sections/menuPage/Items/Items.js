@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { Container } from "./style";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useRouter } from "next/router";
+
 export const Items = ({ category }) => {
   const { open } = useModal();
   const router = useRouter();
@@ -27,6 +28,7 @@ export const Items = ({ category }) => {
       );
     }
   });
+
   const items = useSelector(({ items }) => items);
   const categoryItems = useSelector(({ categoryItems }) => categoryItems);
 
@@ -97,14 +99,18 @@ export const Items = ({ category }) => {
     }
   };
 
+  console.log(category,'category')
+
   return (
     <Container>
       <div className="head">
-        <Typography color="text" weight="bold" size="1.250rem">
+        <Typography className='categ-name' color="text" weight="bold">
           {currentCategory.category.name}
         </Typography>
         <Button
+            square
           color="action"
+            // router.push(`/menu/${business.id}/${menu.id}`)
           onClick={() => router.push(`/preview/${router.query.restaurantId}`)}
         >
           Preview
@@ -126,7 +132,7 @@ export const Items = ({ category }) => {
           </div>
           Add New Menu Item
         </Button>
-        <Typography color="text">OR</Typography>
+        <Typography weight="bold" color="text" classname='or'>OR</Typography>
         <MultiSelect
           searchBarValue={itemsSelectSearchValue}
           selected={selectedOptions}
@@ -181,7 +187,10 @@ export const Items = ({ category }) => {
             )}
           </Droppable>
         </DragDropContext>
-      ) : null}
+      ) :
+          <div className='no-menu-screen'><Typography>No Menu Items Yet</Typography></div>
+
+      }
     </Container>
   );
 };

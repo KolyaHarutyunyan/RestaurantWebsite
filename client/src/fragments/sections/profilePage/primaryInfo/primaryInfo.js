@@ -15,7 +15,24 @@ export const PrimaryInfo = () => {
     fullName: "",
     email: "",
   });
-  const onSubmit = (data) => dispatch(data);
+
+  const onSubmit = (info) => {
+    // if(editMode === true ) {
+      if (profile.email === info.email) {
+        const data = {
+          fullName: info.fullName,
+        }
+        dispatch(data);
+      } else {
+        const data = {
+          fullName: info.fullName,
+          email: info.email
+        }
+        dispatch(data);
+      }
+    setEditMode(false)
+    // }
+  }
 
   if (profile) {
     return (
@@ -24,6 +41,7 @@ export const PrimaryInfo = () => {
           <div className="head">
             {editMode ? (
               <Button
+                  className='classes-edit-button'
                   height={'auto'}
                 onLoad={status.onLoad}
                 color="action"
@@ -34,16 +52,15 @@ export const PrimaryInfo = () => {
                 Save
               </Button>
             ) : (
-              <Button
-                  height={'auto'}
+              <button
+                  className='classes-edit-button'
                 color="action"
                 onClick={() => setEditMode(true)}
-                link
                 type="button"
                 onLoad={status.onLoad}
               >
                 Edit
-              </Button>
+              </button>
             )}
           </div>
           <div className="input-box">

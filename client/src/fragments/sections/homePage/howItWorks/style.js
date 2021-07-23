@@ -5,7 +5,7 @@ export const Container = styled.div`
     font-family: Poppins,sans-serif;
     line-height: 72px;
     font-size: 48px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       line-height: 36px;
       font-size: 28px;
       margin-bottom: 30px;
@@ -16,7 +16,7 @@ export const Container = styled.div`
   .title{
     font-family: Poppins,sans-serif;
     font-size: 16px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       font-size: 14px;
     }
   } 
@@ -24,7 +24,7 @@ export const Container = styled.div`
     font-family: Open Sans, sans-serif;
     line-height: 24px ;
     font-size: 16px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       font-size: 14px;
       line-height:21px ;
     }

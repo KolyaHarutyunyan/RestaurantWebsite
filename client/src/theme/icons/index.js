@@ -37,6 +37,8 @@ import ErrorFab from "./svgs/error_fab.svg";
 import SuccessFab from "./svgs/success_fab.svg";
 import GirlWithBalloons from "./svgs/girl_with_balloons.svg";
 import FooterIcon from "./svgs/footerLogo.svg";
+import Arrow from './svgs/arrow.svg';
+import Forward from './svgs/forward.svg';
 
 export {
   AddIcon,
@@ -78,4 +80,6 @@ export {
   SuccessFab,
   GirlWithBalloons,
   FooterIcon,
+  Arrow,
+  Forward
 };

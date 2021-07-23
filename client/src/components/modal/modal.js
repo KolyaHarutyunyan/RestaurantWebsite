@@ -14,6 +14,7 @@ export const Modal = ({
   children,
   mini = false,
                           max,
+    border,confirm,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
@@ -24,11 +25,12 @@ export const Modal = ({
 
   if (mounted) {
     return createPortal(
-      <ModalContainer isOpen={activeModal === modalName} mini={mini}>
-        <div style={{maxWidth:max}} className="container">
+      <ModalContainer isOpen={activeModal === modalName} mini={mini} border={border}>
+        <div style={{maxWidth:max, }} className="container">
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
+                  className='close-button'
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({
@@ -56,10 +58,10 @@ export const Modal = ({
           className="fade"
           onClick={() => {
             if (!fixed) {
-              if (window.confirm("Leave current window?")) {
+              // if (window.confirm("Leave current window?")) {
                 setActiveModal("");
                 setParams({});
-              }
+              // }
             }
           }}
         />

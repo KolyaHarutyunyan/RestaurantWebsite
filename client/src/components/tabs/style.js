@@ -24,6 +24,12 @@ export const TabTitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Open Sans, sans-serif;
+  font-size: 20px;
+  @media (max-width: 767px) {
+    font-size: 16px;
+  }
+  font-weight: 600;
   flex: 1;
   background-color: ${({ activeTab }) => (activeTab ? "#FF453A" : "white")};
   color: ${({ activeTab }) => (activeTab ? "white" : "#2B273C")};

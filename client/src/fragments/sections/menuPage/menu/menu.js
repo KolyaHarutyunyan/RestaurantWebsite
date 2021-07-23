@@ -13,6 +13,8 @@ import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, menusActions } from "@eachbase/store";
 import { BsImage } from "react-icons/bs";
 import { useEffect } from "react";
+import { Icons } from "@eachbase/theme";
+
 export const Menu = () => {
   const router = useRouter();
   const { open } = useModal();
@@ -35,13 +37,23 @@ export const Menu = () => {
 
   return (
     <Container>
+
+
+
+          <div className='breadcrumb'>
+            <a href="/restaurant">Restaurant</a>
+            <Icons.Arrow />
+            <Typography className='bred-menu' color='text'>Menu</Typography>
+          </div>
+
       <div className="head">
-        <Typography weight="bold" color="text" size="3rem">
+        <Typography className='title-head' weight="bold" color="text" >
           Menu
         </Typography>
         <div className="actions">
           <Button
             link
+            className='delete-button'
             onClick={() => {
               if (window.confirm("Are you sure?")) {
                 deleteMenuSaga.dispatch(currentMenu.id);
@@ -51,7 +63,7 @@ export const Menu = () => {
             <div className="icon">
               <IoIosTrash />
             </div>
-            Delete Menu
+           <span className='delete-text'> Delete Menu</span>
           </Button>
           <div className="switch-container">
             <Switch
@@ -73,6 +85,8 @@ export const Menu = () => {
           </Typography>
           <div className="actions">
             <Button
+                height={'42px'}
+                maxWidth={'110px'}
               disabled={!currentMenu.id}
               onClick={() =>
                 open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
@@ -82,6 +96,7 @@ export const Menu = () => {
             </Button>
           </div>
         </div>
+
         <div
           className={`logo mobile ${!currentMenu.image ? "no-image" : null} `}
           style={{
@@ -99,6 +114,9 @@ export const Menu = () => {
           className="logo desktop"
           responsiveOnMobile
         />
+        <Typography color="text" className="descr-mobile">
+          {currentMenu.description}
+        </Typography>
         <div className="info desktop">
           <Typography color="text" className="title" weight="bold">
             {currentMenu.name}
@@ -109,6 +127,8 @@ export const Menu = () => {
         </div>
         <div className="actions desktop">
           <Button
+              maxWidth={'110px'}
+              height={'42px'}
             disabled={!currentMenu.id}
             onClick={() =>
               open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })

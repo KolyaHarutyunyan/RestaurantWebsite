@@ -96,22 +96,31 @@ export const MenuItemForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="box">
           <Input
-            placeholder="Menu Item Name"
+
+              padding={'8px'}
+              containerClassName='input-padding'
+            placeholder="*Menu Item Name"
             {...register("name", { required: true })}
           />
           <Input
+              padding={'8px'}
+              containerClassName='input-padding'
             type="number"
-            placeholder="Price"
+            placeholder="*Price"
             {...register("price", { required: true })}
           />
         </div>
         <Textarea
-          placeholder="Add Ingridients..."
+            padding={'8px'}
+            containerClassName='input-padding'
+          placeholder="*Add Ingridients..."
           {...register("description", { required: true })}
         />
         <Input
+            padding={'8px'}
+            containerClassName='input-padding'
           placeholder="Special Offers e.g. add chili sauce $2"
-          {...register("option", { required: true })}
+          {...register("option", { required: false })}
         />
         <FileUpload
           files={itemIcon.files}
@@ -137,6 +146,7 @@ export const MenuItemForm = () => {
           onLoad={createItemSaga.status.onLoad || editItemSaga.status.onLoad}
           type="submit"
           square
+          className='save-button'
         >
           {formStatus === "edit" ? "Edit" : "Add"}
         </Button>

@@ -10,7 +10,6 @@ export const Container = styled.div`
   color: var(--text);
   .action-bar {
     display: flex;
-    height: 30px;
     margin-top: 16px;
     .title {
       cursor: pointer;
