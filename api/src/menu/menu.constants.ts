@@ -13,4 +13,5 @@ export const summaries = {
   REORDER_CATEGORIES: `Change the order of the categories in this menu`,
   GET_CATEGORIES: `Get the categories of the menu`,
   GET_ACTIVE: `Gets the active menu of the business`,
+  GET_FULL: `Gets a menu with an id with all items and categories populated`,
 };

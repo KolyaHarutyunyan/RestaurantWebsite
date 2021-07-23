@@ -27,8 +27,7 @@ export class CategorySanitizer implements ISanitize {
   /** Sanitize the items in the category */
   sanitizeItems(category: ICategory): CategoryItemsDTO {
     const items = category.items;
-    // console.log(category);
-
+    // console.log(category)
     const response: CategoryItemsDTO = { id: category._id, items: [] };
     if (items?.length < 1) {
       return response;
@@ -40,5 +39,13 @@ export class CategorySanitizer implements ISanitize {
       });
     }
     return response;
+  }
+  sanitizeManyWithItems(categories: ICategory[]): CategoryItemsDTO[] {
+    const sanitized: CategoryItemsDTO[] = [];
+    if (!categories || categories.length < 1) return [];
+    for (let i = 0; i < categories.length; i++) {
+      sanitized.push(this.sanitizeItems(categories[i]));
+    }
+    return sanitized;
   }
 }

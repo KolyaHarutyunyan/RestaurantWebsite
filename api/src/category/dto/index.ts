@@ -3,3 +3,4 @@ export { CreateCategoryDTO } from './createCategory.dto';
 export { EditCategoryDTO } from './editCategory.dto';
 export { CategoryItemDTO } from './categoryItem.dto';
 export { ReorderDTO } from './reorder.dto';
+export { CategoryItemsDTO } from './categoryItems.dto';
