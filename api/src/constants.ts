@@ -12,6 +12,6 @@ export const BASE_URL = {
 
 export const DOMAIN_NAME = {
   local: 'http://localhost:8005',
-  development: 'https://menuz.eachbase.com/socialLogin/',
+  development: 'https://menuz.eachbase.com/',
   production: 'https://menuz.com/socialLogin',
 }[mode];
