@@ -13,6 +13,7 @@ export const FileUpload = ({
   mainImageId = false,
   limit = false,
   onChange = () => {},
+    fileUrl
 }) => {
   const onDrop = useCallback((acceptedFiles) => {
     const files = acceptedFiles
@@ -54,6 +55,7 @@ export const FileUpload = ({
         mockPreview.push(
           <div
             key={i}
+            style={{borderRadius:'8px'}}
             className={`file-mock-preview ${limit === 1 ? "big-one" : ""}`}
           >
             <Icons.MenuIcon />
@@ -75,14 +77,11 @@ export const FileUpload = ({
       ) : (
         <Fragment>
           <div className="uploaded-files">
-            {files
-              .filter((_f, index) => (limit ? index <= limit : true))
+            {files.filter((_f, index) => (limit ? index <= limit : true))
               .map((file) => (
                 <div
                   key={file.id}
-                  className={`file-preview ${
-                    mainImageId === file.id ? "main" : ""
-                  } ${limit === 1 ? "big-one" : ""}`}
+                  className={`file-preview ${mainImageId === file.id ? "main" : ""} ${limit === 1 ? "big-one" : ""}`}
                   style={{ backgroundImage: `url(${file.preview})` }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -104,7 +103,7 @@ export const FileUpload = ({
           </div>
           <div className="content-container">
             <div className="title">
-              Drag & Drop or <span className="active">Upload</span> {title}
+              *Drag & Drop or <span className="active">Upload</span> {title}
             </div>
             <div className="acceptable-file-size-noth">
               Max size {Math.round(maxSize / 1024)}mb

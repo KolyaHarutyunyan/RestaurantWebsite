@@ -3,6 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   grid-template-columns: 1fr;
   min-height: 265px;
+  .categ-name{
+    font-family: Open Sans, sans-serif;
+    font-size: 28px;
+    @media (max-width: 767px) {
+      font-size: 22px;
+    }
+  }
   &.no-menu-items {
     display: flex;
     align-items: center;
@@ -38,7 +45,7 @@ export const Container = styled.div`
   .add-or-choice {
     display: flex;
     justify-content: space-between;
-    margin: 40px 0;
+    margin: 32px 0 24px 0;
     align-items: center;
     gap: 10px;
     & > * {
@@ -46,10 +53,20 @@ export const Container = styled.div`
 
       text-align: center;
     }
+    .or{
+      font-family: Open Sans, sans-serif;
+      font-size: 18px;
+    }
     .action-button {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 16px;
+      font-size: 16px;
+      font-family: Open Sans, sans-serif;
+      font-weight: 600;
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
       .circle {
         padding: 2px;
         border-radius: 50%;
@@ -60,6 +77,19 @@ export const Container = styled.div`
         align-items: center;
         justify-content: center;
       }
+    }
+  }
+  .no-menu-screen{
+    background: #E7E7E7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    border-radius: 8px;
+    p{
+      color: #2B273C80;
+      font-size: 28px;
+      font-family: Poppins, sans-serif;
     }
   }
 `;

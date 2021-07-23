@@ -16,7 +16,7 @@ export const menusReducer = (state = initialState, action) => {
       return action.payload;
     case EDIT_MENU_SUCCESS:
       return state.map((menu) =>
-        menu._id === action.payload._id ? action.payload : menu
+        menu.id === action.payload.id ? action.payload : menu
       );
     case CREATE_MENU_SUCCESS:
       return [action.payload, ...state];

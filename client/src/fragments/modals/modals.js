@@ -52,22 +52,22 @@ export const Modals = () => {
       <Modal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
         <DeleteAccountForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT}>
+      <Modal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT}>
         <EditRestaurantForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
+      <Modal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
         <EditRestaurantExtraDetailsForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.MENU_FORM}>
-        <MenuForm />
+      <Modal border={true} modalName={MODAL_NAMES.MENU_FORM}>
+        <MenuForm  />
       </Modal>
       <Modal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
         <ResetPasswordHelper />
       </Modal>
-      <Modal modalName={MODAL_NAMES.MENU_ITEM_FORM}>
+      <Modal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
         <MenuItemForm />
       </Modal>
-      <Modal mini modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
+      <Modal border={true} max={464} modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
         <ConfirmCategoryDeleteDialog />
       </Modal>
       <Modal modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>

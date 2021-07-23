@@ -8,6 +8,7 @@ export const Menu = ({
   open = false,
   onRequestToClose = () => {},
   children,
+                       left,
 }) => {
   const menuRef = useRef();
   const [mounted, setMounted] = useState(false);
@@ -102,7 +103,7 @@ export const Menu = ({
       position={position}
       ref={menuRef}
     >
-      <div className="wrapper">{children}</div>
+      <div style={{marginLeft:left}} className="wrapper">{children}</div>
       <div className="blur" onClick={() => onRequestToClose()} />
     </Container>,
     document.getElementsByTagName("body")[0]

@@ -13,7 +13,7 @@ import { useSagaStore, menusActions, businessesActions } from "@eachbase/store";
 import { Container, HourseMenuContainer } from "./style";
 import { useSelector } from "react-redux";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-import { IoMdDownload } from "react-icons/io";
+
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/router";
 
@@ -26,8 +26,7 @@ export const RestaurantPageSections = () => {
       menus,
     })
   );
-  // console.log(menus,'businesses')
-  // console.log(business.qrUrl,'businessesbusinesses')
+
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
 
@@ -49,30 +48,44 @@ export const RestaurantPageSections = () => {
   if (business === null || !Object.keys(business).length) {
     return null;
   }
+  console.log(business.qrUrl,'businesses')
+
+
+    const download = () => {
+      let element = document.createElement("a");
+      let file = new Blob(
+          [
+            business.qrUrl
+          ],
+          { type: "image/*" }
+      );
+
+      console.log(file,'file')
+      element.href = URL.createObjectURL(file);
+      element.download = "image.jpg";
+      element.click();
+  }
 
   return (
-    <LazyLoad
-      loaded={!getBusinessesSaga.status.onLoad && !getMenusSaga.status.onLoad}
-    >
+      <div style={{ background: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)'}}>
       <Container className="container">
+        <div className='title-download-content'>
         <div className="header">
-          <Typography size="1.5rem" weight="bold">
+          <Typography className='restaurantTitle' color="text" weight="bold">
             Restaurant
           </Typography>
-          <Button color="action" link className="qr-button">
-            <IoMdDownload />
+          <Button
+              onClick={download}
+              color="action" link className="qr-button">
+            <Icons.DownloadIcon />
             Download QR Code
           </Button>
+        </div>
         </div>
         <div className="content">
           <div className="business-card">
             <div className="header">
-              <Typography
-                className="title"
-                color="text"
-                size="1.5rem"
-                weight="bold"
-              >
+              <Typography className="title" color="text" weight="bold">
                 {business.logo ? (
                   <span
                     style={{
@@ -80,22 +93,27 @@ export const RestaurantPageSections = () => {
                     }}
                     className="logo"
                   />
-                ) : null}
-                {business.name}
+                ) :
+               <div className='classes-no-image'>
+                <Icons.BuildingIcon/>
+               </div>
+                }
+             <span className='restaurant-name'> {business.name}</span>
               </Typography>
-              <Button onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
+              <div>
+              <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
                 Edit
               </Button>
+              </div>
             </div>
             <div className="descr">{business.description}</div>
           </div>
           <div className="extra-details-card">
             <div className="header">
-              <Typography color="text" size="1.5rem" weight="bold">
+              <Typography className='extra-details' color="text" size="1.5rem" weight="bold">
                 Extra Details
               </Typography>
-              <Button
-                onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
+              <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
               >
                 Edit
               </Button>
@@ -105,19 +123,19 @@ export const RestaurantPageSections = () => {
                 <div className="icon">
                   <Icons.WWWIcon />
                 </div>
-                <div className="value">{business.website || "Not Set"}</div>
+                <Typography color="text" className={business.website  ?  "value" : "value-not-set"}>{business.website || "Not Set"}</Typography>
               </li>
               <li>
                 <div className="icon">
                   <Icons.CallIcon />
                 </div>
-                <div className="value">{business.phoneNumber || "Not Set"}</div>
+                <Typography color="text" className={business.phoneNumber  ?  "value" : "value-not-set"}>{business.phoneNumber || "Not Set"}</Typography>
               </li>
               <li>
                 <div className="icon">
                   <Icons.MapIcon />
                 </div>
-                <div className="value">{business.address || "Not Set"}</div>
+                <Typography  color="text" className={business.address  ?  "value" : "value-not-set"}>{business.address && business.address.formattedAddress || "Not Set"}</Typography>
               </li>
               <li
                 ref={hourseMenuToggleRef}
@@ -142,7 +160,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>MON</p>
                     <ul>
-                      {business.hours.mon.status !== "CLOSED" ? (
+                      {business.hours && business.hours.mon.status !== "CLOSED" ? (
                         business.hours.mon.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -156,7 +174,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>TUE</p>
                     <ul>
-                      {business.hours.tue.status !== "CLOSED" ? (
+                      {business.hours && business.hours.tue.status !== "CLOSED" ? (
                         business.hours.tue.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -170,7 +188,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>WED</p>
                     <ul>
-                      {business.hours.wed.status !== "CLOSED" ? (
+                      {business.hours && business.hours.wed.status !== "CLOSED" ? (
                         business.hours.wed.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -184,7 +202,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>THU</p>
                     <ul>
-                      {business.hours.thr.status !== "CLOSED" ? (
+                      {business.hours && business.hours.thr.status !== "CLOSED" ? (
                         business.hours.thr.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -198,7 +216,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>FRI</p>
                     <ul>
-                      {business.hours.fri.status !== "CLOSED" ? (
+                      {business.hours && business.hours.fri.status !== "CLOSED" ? (
                         business.hours.fri.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -212,7 +230,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>SAT</p>
                     <ul>
-                      {business.hours.sat.status !== "CLOSED" ? (
+                      {business.hours && business.hours.sat.status !== "CLOSED" ? (
                         business.hours.sat.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -226,7 +244,7 @@ export const RestaurantPageSections = () => {
                   <div>
                     <p>SUN</p>
                     <ul>
-                      {business.hours.sun.status !== "CLOSED" ? (
+                      {business.hours && business.hours.sun.status !== "CLOSED" ? (
                         business.hours.sun.hours.map((item, index) => (
                           <li key={index}>
                             {item.open} - {item.close}
@@ -242,7 +260,7 @@ export const RestaurantPageSections = () => {
             </ul>
           </div>
           <div className="menu-list">
-            <Typography color="text" size="1.5rem" weight="bold">
+            <Typography className="menus-title" color="text" weight="bold">
               Menus
             </Typography>
             <div className="list">
@@ -279,17 +297,15 @@ export const RestaurantPageSections = () => {
                   onRequestToEdit={() =>
                     open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
                   }
-                  onRequestToDelete={() => {
-                    if (window.confirm("Are you sure?")) {
-                      deleteMenuSaga.dispatch(menu.id);
-                    }
-                  }}
+                  onRequestToDelete={() => {deleteMenuSaga.dispatch(menu.id);}}
                 />
               ))}
             </div>
           </div>
         </div>
       </Container>
-    </LazyLoad>
+
+      </div>
+    // </LazyLoad>
   );
 };

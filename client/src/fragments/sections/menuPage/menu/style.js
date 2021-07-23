@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  
   grid-column: 1/3;
   @media only screen and (max-width: 920px) {
     grid-column: 1;
@@ -11,10 +12,49 @@ export const Container = styled.div`
   .mobile {
     display: none;
   }
-  margin-top: 90px;
+  .title-head{
+    font-family: Poppins,sans-serif;
+    font-size: 48px;
+    @media (max-width: 767px) {
+      font-size: 24px;
+    }
+  }
+  .descr{
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    margin-top: 16px;
+    
+  } .descr-mobile{
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    margin-top: 16px;
+    display: none;
+        @media (max-width: 920px) {
+          display: block;
+        }
+  }
+  .title{
+    font-family: Poppins,sans-serif;
+    font-size: 28px;
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .delete-text{
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    display: block;
+    @media (max-width: 767px) {
+     display: none;
+    }
+    
+  } 
   .head {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 767px) {
+      margin-bottom: 24px;
+    }
     margin-bottom: 40px;
     .actions {
       display: flex;
@@ -28,12 +68,19 @@ export const Container = styled.div`
         }
       }
       button {
-        gap: 5px;
+        gap: 16px;
         display: flex !important;
         align-items: center;
+  
         .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           font-size: 1.5rem;
+          width: 32px;
+          height: 32px;
           background-color: #ffe3e1;
+          border-radius: 4px;
         }
       }
     }
@@ -47,10 +94,26 @@ export const Container = styled.div`
   .card {
     display: flex;
     justify-content: space-between;
+    background: white;
     @media only screen and (max-width: 920px) {
       flex-direction: column;
     }
     padding: 40px;
+
+    @media (min-width: 320px) {
+      padding: 24px 16px;
+    }
+    @media (min-width: 767px) {
+      padding: 32px;
+    }
+    @media (min-width: 1279px) {
+      padding: 32px;
+    }
+    @media (min-width: 1919px) {
+      padding: 40px;
+    }
+    
+    
     box-shadow: 0px 0px 6px #0000001a;
     border-radius: 8px;
     gap: 20px;
@@ -66,6 +129,7 @@ export const Container = styled.div`
       flex: 0 0 300px;
       height: 180px;
       border-radius: 10px;
+      object-fit: cover;
       @media only screen and (max-width: 920px) {
         &.mobile {
           display: flex;
@@ -86,6 +150,35 @@ export const Container = styled.div`
       flex-direction: column;
       justify-content: center;
       padding: 40px 0;
+    }
+  }
+  .breadcrumb{
+    display: flex;
+    align-items: center;
+    margin:40px 0;
+
+    @media (max-width: 767px) {
+      margin:24px 0;
+    }
+    a{
+      font-family: Open Sans, sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      color: #2B273C80;
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
+    }
+    svg{
+      margin: -4px 4px 0 4px;
+    }
+    .bred-menu{
+      font-family: Open Sans, sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
     }
   }
 `;

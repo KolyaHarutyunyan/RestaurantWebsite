@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Container, NavigationContainer } from "./style";
 import { Typography, Button, Menu, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
@@ -7,9 +7,10 @@ import { Icons } from "@eachbase/theme";
 import { BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { HiMenuAlt4 } from "react-icons/hi";
-import { useSagaStore, profileActions } from "@eachbase/store";
-import { useRef, useState } from "react";
+import {useSagaStore, profileActions, businessesActions,} from "@eachbase/store";
+import {useEffect, useRef, useState} from "react";
 import useMedia from "use-media";
+import axios from "axios";
 
 export const Header = () => {
   const router = useRouter();
@@ -17,16 +18,29 @@ export const Header = () => {
   const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
+  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const { open } = useModal();
-
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
       signOutSaga.dispatch();
       router.push("/", undefined, { shallow: true });
-    };
+    }
 
+
+   const handleRestaurant = async () =>{
+       await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+            router.push("/restaurant")
+         ).catch(()=> open(MODAL_NAMES.CREATE_RESTAURANT)
+       )
+   }
+
+      const createMenu = async () =>{
+          await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+              open(MODAL_NAMES.MENU_FORM)
+          )
+      }
 
     if (profile) {
       return (
@@ -37,7 +51,7 @@ export const Header = () => {
                 color="default"
                 outlined
                 inactive
-                onClick={() => open(MODAL_NAMES.MENU_FORM)}
+                onClick={() => createMenu()}
             >
                 Create Menu
             </Button>
@@ -49,33 +63,27 @@ export const Header = () => {
               {profile.fullName}
             </Typography>
           </li>
-          <li>
+          <li  onClick={ () => handleRestaurant()  }>
             <div className="icon-container">
               <Icons.MenuIcon />
             </div>
-            <Typography
-              onClick={() => router.push("/restaurant")}
-            >
+            <Typography>
               Restaurant Profile
             </Typography>
           </li>
-          <li>
+          <li onClick={() => router.push("/profile")}>
             <div className="icon-container">
               <BsPersonFill />
             </div>
-            <Typography
-              onClick={() => router.push("/profile")}
-            >
+            <Typography>
               Account Settings
             </Typography>
           </li>
-          <li>
+          <li   onClick={() => signOut()}>
             <div className="icon-container">
               <Icons.LogoutIcon />
             </div>
-            <Typography
-                onClick={() => signOut()}
-            >
+            <Typography>
               Sign out
             </Typography>
           </li>
@@ -87,6 +95,10 @@ export const Header = () => {
   };
 
   const renderProfileDropdown = () => {
+
+      useEffect(() => getBusinessesSaga.dispatch(), []);
+
+
     if (!isMobileViewport && profile) {
       return (
         <div className="profile-container">

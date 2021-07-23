@@ -51,7 +51,7 @@ export const Container = styled.div`
     font-family: Open Sans, sans-serif;
     font-size: 16px;
     letter-spacing: 0;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       font-size: 14px;
     }
  
@@ -63,7 +63,7 @@ export const Container = styled.div`
     background: none;
     color: #007AFF;
     font-weight: normal;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       font-size: 14px;
     }
   }

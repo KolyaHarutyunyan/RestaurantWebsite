@@ -31,6 +31,7 @@ export const MenuForm = () => {
     params.menuId ? menus.find((menu) => menu.id === params.menuId) : null
   );
 
+  const [image, setImage] =useState(editableMenu && editableMenu.image  && editableMenu.image.originalUrl ? editableMenu.image.originalUrl : '')
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
       createMenuSaga.destroy.all();
@@ -86,6 +87,7 @@ export const MenuForm = () => {
           restaurantIcons,
         });
   };
+
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,8 +101,9 @@ export const MenuForm = () => {
         <Input
             padding={'8px'}
             containerClassName='input-padding'
-          placeholder="Menu Name"
-          {...register("name", { required: true })}
+            defaultValue={editableMenu ? editableMenu.name : ''}
+            placeholder="*Menu Name"
+            {...register("name", { required: true })}
         />
         <div>
           <Typography className='input-padding' weight="bold" color="text">
@@ -108,11 +111,12 @@ export const MenuForm = () => {
           </Typography>
           <Textarea
               max={500}
-              padding={'8px'}
+              padding={'10px'}
+              defaultValue={editableMenu ? editableMenu.description :''}
               containerClassName='input-padding'
-            placeholder="Brief Description"
-            rows={4}
-            {...register("description", { required: true })}
+              placeholder="*Brief Description"
+              rows={4}
+              {...register("description", { required: true })}
           />
           <Typography className='max-characters'  color="text">
             Max 500 characters
@@ -123,6 +127,7 @@ export const MenuForm = () => {
           files={restaurantIcons.files}
           title="Menu Logo"
           limit={imagesLimit}
+           fileUrl={image}
           mainImageId={restaurantIcons.mainIconId}
           onChange={(files, _actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })

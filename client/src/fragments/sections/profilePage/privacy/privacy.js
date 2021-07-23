@@ -4,26 +4,34 @@ import { useForm } from "react-hook-form";
 import { Typography, Button, Input } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { profileActions, useSagaStore } from "@eachbase/store";
+import {useSelector} from "react-redux";
 
 export const Privacy = () => {
   const { register, handleSubmit } = useForm();
   const { status, dispatch, destroy } = useSagaStore(
     profileActions.updatePassword
   );
-
+    const profile = useSelector(({ profile }) => profile);
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState({
     password: "",
     newPassword: "",
     confirmation: "",
+
   });
 
   useEffect(() => {
     return () => () => destroy.all();
   }, []);
 
-  const onSubmit = (data) => {
-    const { newPassword, confirmation } = data;
+  const onSubmit = (info) => {
+      const data ={
+          password: info.password,
+          newPassword: info.newPassword,
+          confirmation: info.confirmation,
+          id:profile.id,
+      }
+    const { newPassword, confirmation } = info;
     if (newPassword !== confirmation) {
       setErrors({
         ...errors,
@@ -108,6 +116,7 @@ export const Privacy = () => {
         <div className="head">
           {editMode ? (
             <Button
+                className='classes-edit-button'
                 height={'auto'}
               color="action"
               link
@@ -118,16 +127,15 @@ export const Privacy = () => {
               Save
             </Button>
           ) : (
-            <Button
-                height={'auto'}
+            <button
+                className='classes-edit-button'
               color="action"
               onClick={() => setEditMode(true)}
-              link
               type="button"
               onLoad={status.onLoad}
             >
               Edit
-            </Button>
+            </button>
           )}
         </div>
         {editMode ? renderForm() : renderNoth()}

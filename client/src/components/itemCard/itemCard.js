@@ -14,6 +14,7 @@ export const ItemCard = forwardRef(
     const imageStyle = {
       backgroundImage: `url(${image})`,
     };
+
     return (
       <Container {...rest} ref={ref}>
         <div className="image" style={imageStyle}>
@@ -22,21 +23,21 @@ export const ItemCard = forwardRef(
         <div className="content">
           <div className="upper">
             <div className="info">
-              <Typography color="text" weight="bold">
+              <Typography className='item-title' color="text" weight="bold">
                 {item.item.name}
               </Typography>
               <Typography className="poor" color="text">
                 {item.item.description}
               </Typography>
             </div>
-            <Typography color="text" className="price">
+            <Typography color="text" className="price"  weight="bold">
               <b>$</b>
               {item.item.price}
             </Typography>
           </div>
           <div className="under">
-            <Typography color="text" className="poor">
-              {item.item.option}
+            <Typography color="text" className="poor-option">
+              {item.item.option && item.item.option.length > 40 ? `${item.item.option.slice(0,40)}...` : item.item.option}
             </Typography>
             <div className="actions">
               <button className="edit" onClick={() => onRequestToEdit()}>

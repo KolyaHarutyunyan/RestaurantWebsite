@@ -9,12 +9,13 @@ export const Button = ({
   outlined = false,
   hoverable = true,
   square = false,
+  maxWidth,minWidth,
   onLoad = false,
                          height,
   ...rest
 }) => (
   <ButtonContainer
-      style={{height:height}}
+      style={{height:height, minWidth:minWidth, maxWidth:maxWidth}}
     fullWidth={fullWidth}
     color={color}
     link={link}

@@ -46,4 +46,10 @@ export const Container = styled.div`
       font-size: 14px;
     }
   }
+  .classes-edit-button{
+    font-size: 18px;
+    color: #007AFF;
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+  }
 `;

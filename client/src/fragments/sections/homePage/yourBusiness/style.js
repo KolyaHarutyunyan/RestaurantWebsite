@@ -23,7 +23,7 @@ export const Container = styled.div`
     font-family: Poppins,sans-serif;
     line-height: 72px;
     font-size: 48px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       line-height: 36px;
       font-size: 24px;
       margin-bottom: 32px;

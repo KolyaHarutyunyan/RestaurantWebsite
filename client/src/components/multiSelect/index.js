@@ -90,7 +90,9 @@ export const MultiSelect = ({
   if (!mounted) {
     return null;
   }
-
+  const onSubmit= (e)=>{
+    e.preventDefault();
+  }
   return (
     <Fragment>
       <Container
@@ -101,8 +103,13 @@ export const MultiSelect = ({
         {...proSelectAttrs}
         onClick={(e) => e.stopPropagation()}
       >
+
         <div className="dropdown-actions">
-          <input
+          <form style={{width:'100%'}}
+                onSubmit={onSubmit}
+          >
+            <input
+                autoComplete="new-password"
             value={searchBarValue}
             id={searchInputId}
             ref={searchInputRef}
@@ -115,6 +122,7 @@ export const MultiSelect = ({
             onChange={({ target: { value } }) => onSearchBarValueChange(value)}
             {...searchBarAttrs}
           />
+          </form>
           <div
             className="dropdown-toggle"
             onClick={(e) => {
