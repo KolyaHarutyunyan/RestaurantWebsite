@@ -78,7 +78,7 @@ export class MenuController {
 
   /** Get the active menu with its categories */
   @Get('active/:businessId')
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: FullMenuDTO })
   @ApiOperation({ summary: summaries.GET_ACTIVE })
   async getActiveMenu(
     @Param('businessId', ParseObjectIdPipe) businessId,
@@ -89,7 +89,7 @@ export class MenuController {
 
   /** Get the full menu with a given id */
   @Get(':menuId/full')
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: FullMenuDTO })
   @ApiOperation({ summary: summaries.GET_FULL })
   async getFullMenu(
     @Param('menuId', ParseObjectIdPipe) menuId,
