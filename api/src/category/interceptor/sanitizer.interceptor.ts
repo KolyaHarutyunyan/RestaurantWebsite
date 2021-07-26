@@ -28,7 +28,11 @@ export class CategorySanitizer implements ISanitize {
   sanitizeItems(category: ICategory): CategoryItemsDTO {
     const items = category.items;
     // console.log(category)
-    const response: CategoryItemsDTO = { id: category._id, items: [] };
+    const response: CategoryItemsDTO = {
+      id: category._id,
+      name: category.name,
+      items: [],
+    };
     if (items?.length < 1) {
       return response;
     }
