@@ -5,3 +5,4 @@ export { MenuPage } from "./menu";
 export { PreviewPage } from "./preview";
 export { NotFoundPage } from "./notFound";
 export { ResetPassswordPage } from "./resetPassword";
+export { UserMenuPage } from './userMenuPage'

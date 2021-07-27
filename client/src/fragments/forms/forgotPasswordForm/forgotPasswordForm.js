@@ -37,7 +37,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <Container>
-      <Icons.LogoIcon className="logo" />
+      {/*<Icons.LogoIcon className="logo" />*/}
         <Typography className='welcome-text' color="text">
         Forgot your password?
         </Typography>

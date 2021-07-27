@@ -2,7 +2,7 @@ import { colors } from "@eachbase/theme";
 import styled from "styled-components";
 
 export const Container = styled.div`
- 
+  margin-top: 80px;
   
   .header {
     display: flex;

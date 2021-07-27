@@ -3,7 +3,7 @@ import { media } from "./media";
 
 export const MainWrapper = styled.div`
   width: 100%;
-  height: calc(100% - 80px);
+  height: 100%;
   ${media.forMobile`
     height: calc(100% - 60px)
   `};

@@ -29,7 +29,7 @@ export const SignUpForm = () => {
         <Typography className='welcome-text' color="text">
           Welcome to Menu Mango
       </Typography>
-      <Icons.LogoIcon className="logo" />
+      {/*<Icons.LogoIcon className="logo" />*/}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
             border={'24px'}
