@@ -27,16 +27,19 @@ export const EditRestaurantExtraDetailsForm = () => {
   const [hoursSnapshot, setHoursSnapshot] = useState(null);
 
   const [toggleHoursOperations, setToggleHourseOperations] = useState(false);
+
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
 
   const onSubmit = (info) => {
+    console.log(hoursSnapshot,'hoursSnapshothoursSnapshothoursSnapshothoursSnapshot')
     const data ={
       website: info.website,
       phoneNumber: info.phoneNumber,
       address:address,
       id:restaurant.id,
+      hours:hoursSnapshot ,
     }
 
     dispatch(data );
@@ -96,8 +99,7 @@ export const EditRestaurantExtraDetailsForm = () => {
             toggleHoursOperations ? "open" : "close"
           }`}
         >
-          <Button
-            link
+          < button
             color="text"
             className="toggle-button"
             onClick={() => setToggleHourseOperations(!toggleHoursOperations)}
@@ -106,7 +108,7 @@ export const EditRestaurantExtraDetailsForm = () => {
             <div className="icon">
               <BiChevronDown size={25} />
             </div>
-          </Button>
+          </button>
           {hoursSnapshot && (
             <HoursList
               hourList={hoursSnapshot}

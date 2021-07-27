@@ -9,13 +9,13 @@ export const Container = styled.section`
     padding: 0;
   }
   @media (min-width: 768px) {
-    padding: 0 40px;
+    padding: 0 0 0 40px;
   }
   @media (min-width: 1279px) {
-    padding: 0 21px 0 42px;
+    padding: 0 0 0 42px;
   }
   @media (min-width: 1920px) {
-     padding: 0 21px 0 100px;
+     padding: 0 0 0 100px;
   }
   
   
@@ -42,26 +42,28 @@ export const Container = styled.section`
     }
     
     .content {
-      max-width: 520px;
       
       @media only screen and (max-width: 768px) {
         margin-right: 0 !important;
       }
-
       
       @media (min-width: 320px) {
-        //margin-top: 48px;
+        margin-top: 63px;
+        max-width: 100%;
       }
       @media (min-width: 768px) {
-        margin-top: 64px;
+        margin-top: 130px;
+        max-width: 100%;
       }
       @media (min-width: 1279px) {
-        margin-top: 72px;
+        margin-top: 145px;
         margin-right: 51px;
+        max-width: 40%;
       }
       @media (min-width: 1920px) {
-          margin-top: 160px;
+          margin-top: 215px;
           margin-right: 80px;
+        max-width: 40%;
       }
       
       flex: 1;
@@ -89,7 +91,7 @@ export const Container = styled.section`
         @media (max-width: 768px) {
           font-size: 16px;
           line-height: 24px;
-          margin-top: 16 0 32px 0px;
+          margin-top: 16px 0 32px 0px;
         }
         @media (max-width: 1919px) {
           margin: 24px 0 48px 0;
@@ -107,7 +109,13 @@ export const Container = styled.section`
       }
     }
     .image-wrapper {
-    
+      //padding: 70px 24px 20px 0;
+      //padding-right: 24px;
+      //padding-bottom: 20px;
+      
+      
+     
+      
       
       flex: 3;
       display: flex;
@@ -117,16 +125,23 @@ export const Container = styled.section`
       
       @media (min-width: 320px) {
         justify-content: center;
+        background: none;
       }
       @media (min-width: 768px) {
         justify-content: center;
+        background: none;
       }
       @media (min-width: 1279px) {
+        padding: 70px 42px 60px 30px;
         justify-content: flex-end;
         flex: 1;
+        background:  linear-gradient(to top, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee, #eaeaea, #e6e6e6, #e2e2e2, #dddddd, #d8d8d8, #d4d4d4, #cfcfcf);
       }
       @media (min-width: 1920px) {
+        padding: 90px 21px 80px 40px;
         justify-content: flex-end;
+        background:linear-gradient(to top, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee, #eaeaea, #e6e6e6, #e2e2e2, #dddddd, #d8d8d8, #d4d4d4, #cfcfcf);
+
       }
       
       
@@ -161,10 +176,15 @@ export const Container = styled.section`
           margin-top: 64px;
         }
         @media (min-width: 1279px) {
-          height: 376px;
-          max-width: 620px;
+          height: auto;
+          max-width: 1143px;
           margin-top: 32px;
         }
+        //@media (min-width: 1500px) {
+        //  height: auto;
+        //  max-width: 1143px;
+        //  margin-top: 32px;
+        //}
         @media (min-width: 1920px) {
           height: 694px;
           max-width: 1143px;

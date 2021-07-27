@@ -13,6 +13,17 @@ export const Container = styled.div`
     text-align: center;
     margin-bottom: 72px;
   }
+  .ul{
+    @media (max-width: 1279px) {
+      margin: 0;
+    }
+    @media (min-width: 1280px) {
+      margin: 37px 0 0 0;
+    }
+    @media (min-width: 1919px) {
+      margin: 0;
+    }
+  }
   .title{
     font-family: Poppins,sans-serif;
     font-size: 16px;
@@ -35,8 +46,14 @@ export const Container = styled.div`
       height: auto;
       min-height: auto;
     }
+    @media (min-width: 1280px) {
+      max-width: 648px;
+      min-height: 368px;
+    } 
+    @media (min-width: 1919px) {
       max-width: 800px;
       min-height: 446px;
+    }
   }
   section {
     display: flex;
@@ -58,7 +75,7 @@ export const Container = styled.div`
         margin-bottom: 128px;
       }
       @media (min-width: 1279px) {
-        gap: 100px;
+        gap: 64px;
         margin-bottom: 128px;
       }
        @media (min-width: 1920px) {
@@ -111,6 +128,9 @@ export const Container = styled.div`
           p:first-of-type {
             margin-bottom: 8px;
           }
+          @media (max-width: 1919px) {
+            margin-bottom: 24px;
+          }
           margin-bottom: 32px;
         }
       }
@@ -129,7 +149,7 @@ export const Container = styled.div`
         margin-bottom: 128px;
       }
       @media (min-width: 1279px) {
-        gap: 100px;
+        gap: 64px;
         margin-bottom: 128px;
       }
       @media (min-width: 1920px) {
@@ -141,6 +161,7 @@ export const Container = styled.div`
         @media (max-width: 1279px) {
           max-width: 100%;
         }
+      
         li {
           display: flex;
           gap: 40px;

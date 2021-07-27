@@ -13,6 +13,58 @@ export const Container = styled.div`
       margin-bottom: 30px;
     }
   }
+  .carousel-desktop{
+    @media (min-width: 320px) {
+       display: none;
+    }
+    @media (min-width: 767px) {
+      display: none;
+    } 
+    @media (min-width: 1279px) {
+      display: block;
+    }   
+    @media (min-width: 1919px) {
+      display: block;
+    }
+  } 
+ 
+  .carousel-mobile{
+    .cards {
+      @media (min-width: 320px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+      }
+      @media (min-width: 767px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+      @media (min-width: 320px) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    @media (min-width: 767px) {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    } 
+    @media (min-width: 1279px) {
+      display: none;
+    }   
+    @media (min-width: 1919px) {
+      display: none;
+    }
+  }
+  .add-menu-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
   .descr {
     text-align: center;
     font-family: Open Sans, sans-serif;
@@ -29,7 +81,7 @@ export const Container = styled.div`
       margin-top: 64px;
     }
   }
-  .cards {
+ 
     text-align: initial;
   }
   .cards {
@@ -39,6 +91,7 @@ export const Container = styled.div`
     margin-top: 72px;
     overflow: auto;
     li {
+     
       &:nth-child(2n) {
         transform: scale(0.7);
       }
@@ -52,10 +105,12 @@ export const Container = styled.div`
       height: 300px;
 
       .image {
+        object-fit: cover;
         flex: 1;
         border-radius: 8px 8px 0 0;
       }
       p {
+        font-family: Poppins,sans-serif;
         border-radius: 0 0 8px 8px;
         display: flex;
         align-items: center;
@@ -70,8 +125,9 @@ export const Container = styled.div`
     margin-bottom: 160px;
     width: 240px;
 
-    @media (max-width: 767) {
+    @media (max-width: 767px) {
       width: 201px;
+      margin-top: 0;
     }
   }
 `;

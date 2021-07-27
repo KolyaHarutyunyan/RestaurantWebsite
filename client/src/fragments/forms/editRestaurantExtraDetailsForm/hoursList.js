@@ -71,6 +71,8 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
     },
   });
 
+  onHourListChange(hour)
+
   if (!restaurant) {
     return null;
   }
@@ -169,7 +171,7 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
                 ...hour,
                 mon: {
                   ...hour.mon,
-                  status: hour.mon.status === "OPEN" ? "CLOSED" : "OPEN",
+                  status: hour.mon.status === "OPEN" ? "OPEN" : "CLOSED"
                 },
               })
             }
@@ -271,7 +273,7 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
                 ...hour,
                 tue: {
                   ...hour.tue,
-                  status: hour.tue.status === "OPEN" ? "CLOSED" : "OPEN",
+                  status: hour.tue.status === "OPEN" ? "OPEN" : "CLOSED"
                 },
               })
             }
@@ -373,7 +375,7 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
                 ...hour,
                 wed: {
                   ...hour.wed,
-                  status: hour.wed.status === "OPEN" ? "CLOSED" : "OPEN",
+                  status: hour.wed.status === "OPEN" ? "OPEN" : "CLOSED"
                 },
               })
             }
@@ -475,7 +477,7 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
                 ...hour,
                 thr: {
                   ...hour.thr,
-                  status: hour.thr.status === "OPEN" ? "CLOSED" : "OPEN",
+                  status: hour.thr.status === "OPEN" ? "OPEN" : "CLOSED"
                 },
               })
             }
@@ -577,7 +579,7 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
                 ...hour,
                 fri: {
                   ...hour.fri,
-                  status: hour.fri.status === "OPEN" ? "CLOSED" : "OPEN",
+                  status: hour.fri.status === "OPEN" ? "OPEN" : "CLOSED"
                 },
               })
             }

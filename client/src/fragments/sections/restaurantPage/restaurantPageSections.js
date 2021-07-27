@@ -5,7 +5,6 @@ import {
   Menu,
   useModal,
   MenuCard,
-  LazyLoad,
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
@@ -29,7 +28,6 @@ export const RestaurantPageSections = () => {
 
   const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
   const hourseMenuToggleRef = useRef();
-
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
@@ -48,7 +46,6 @@ export const RestaurantPageSections = () => {
   if (business === null || !Object.keys(business).length) {
     return null;
   }
-  console.log(business.qrUrl,'businesses')
 
 
     const download = () => {
@@ -60,12 +57,11 @@ export const RestaurantPageSections = () => {
           { type: "image/*" }
       );
 
-      console.log(file,'file')
       element.href = URL.createObjectURL(file);
       element.download = "image.jpg";
       element.click();
   }
-
+// console.log(business,'business')
   return (
       <div style={{ background: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)'}}>
       <Container className="container">

@@ -28,12 +28,15 @@ export const Container = styled.div`
     font-family: Poppins,sans-serif;
     @media (min-width: 320px) {
       font-size: 18px;
+      margin-bottom: 10px;
     }
     @media (min-width: 768px) {
       font-size: 24px;
+      margin-bottom: 20px;
     }
     @media (min-width: 1280px) {
       font-size: 24px;
+      margin-bottom: 30px;
     }
   }
   .input-padding{
