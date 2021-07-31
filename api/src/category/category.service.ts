@@ -208,7 +208,7 @@ export class CategoryService {
   find = async (categoryId: string): Promise<ICategory> => {
     return await this.model.findById(categoryId);
   };
-  
+
   /** Private methods */
   /** Check if category exists */
   private checkCategory(category: ICategory) {
