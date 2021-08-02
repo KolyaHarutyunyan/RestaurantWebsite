@@ -3,7 +3,10 @@ import { colors } from "@eachbase/theme";
 
 export const Container = styled.div`
   height: 64px;
-  @media only screen and (max-width: 1280px) {
+  //position: absolute;
+  //bottom: 0;
+  //width: 100%;
+  @media only screen and (max-width: 1279px) {
     text-align: center;
   }
   overflow: hidden;
@@ -26,7 +29,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       padding: 0 40px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       padding: 0 42px;
     }
     @media (min-width: 1920px) {

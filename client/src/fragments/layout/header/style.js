@@ -23,7 +23,7 @@ export const Container = styled.div`
   
  
   .container-header {
-    @media only screen and (min-width: 1280px) {
+    @media only screen and (min-width: 1279px) {
       transform: translateX(-10px);
     }
     display: flex;
@@ -36,7 +36,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       padding: 0 40px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       padding: 0 42px;
     } 
     @media (min-width: 1920px) {

@@ -11,7 +11,8 @@ export const GlobalScss = createGlobalStyle`
     `};
     ${media.forDesktop`
       margin: 0 auto;
-      max-width: 1240px;
+      // max-width: 1240px;
+         padding:0 40px;
     `};
     ${media.forTablet`
       padding:0 40px;

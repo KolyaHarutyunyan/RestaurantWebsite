@@ -17,7 +17,7 @@ export const Container = styled.div`
     @media (max-width: 1279px) {
       margin: 0;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       margin: 37px 0 0 0;
     }
     @media (min-width: 1919px) {
@@ -46,7 +46,7 @@ export const Container = styled.div`
       height: auto;
       min-height: auto;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       max-width: 648px;
       min-height: 368px;
     } 

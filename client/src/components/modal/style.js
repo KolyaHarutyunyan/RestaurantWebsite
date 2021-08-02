@@ -46,7 +46,7 @@ export const ModalContainer = styled.div`
     @media (min-width: 768px) {
       padding: 8px 32px 42px 32px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       padding: 8px 32px 42px 32px;
     } 
     @media (min-width: 1920px) {
@@ -70,10 +70,10 @@ export const ModalContainer = styled.div`
     @media (min-width: 320px) {
       margin-right: -8px;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 767px) {
       margin-right: -8px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       margin-right: -23px;
     }
     @media (min-width: 1920px) {

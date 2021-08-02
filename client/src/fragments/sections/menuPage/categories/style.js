@@ -19,7 +19,8 @@ export const Container = styled.div`
     flex-direction: column;
     margin-bottom: 10px;
     @media only screen and (max-width: 768px) {
-      height: 150px;
+      height: auto;
+      //height: 150px;
     }
     li {
       margin-bottom: 10px;

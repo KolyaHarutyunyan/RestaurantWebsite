@@ -65,6 +65,9 @@ export const Container = styled.div`
         .switch-title {
           width: 85px;
           text-align: right;
+          @media (max-width: 767px) {
+            display: none;
+          }
         }
       }
       button {
