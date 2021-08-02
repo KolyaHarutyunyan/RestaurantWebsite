@@ -81,6 +81,7 @@ export const Container = styled.div`
     }
     li {
       flex: 1;
+      list-style-type: none!important;
       .image {
         width: 100%;
         height: 200px;

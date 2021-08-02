@@ -82,10 +82,41 @@ export const Container = styled.div`
         padding: 24px 16px 24px 16px;
       }
       .restaurant-name{
-        font-size: 32px;
-        @media (max-width: 767px) {
+        @media (min-width: 320px) {
           font-size: 16px;
+          display: none;
         }
+        @media (min-width: 767px) {
+          font-size: 32px;
+          display: none;
+        }
+        @media (min-width: 1279px) {
+          font-size: 32px;
+          display: none;
+        }
+        @media (min-width: 1920px) {
+          font-size: 32px;
+          display: block;
+        }
+      }
+      .restaurant-name-mini{
+        @media (min-width: 320px) {
+          font-size: 16px;
+          display: block;
+        }
+        @media (min-width: 767px) {
+          font-size: 32px;
+          display: block;
+        }
+        @media (min-width: 1279px) {
+          font-size: 32px;
+          display: block;
+        }
+        @media (min-width: 1920px) {
+          font-size: 32px;
+          display: none;
+        }
+      }
       }
       .header {
         display: flex;
@@ -184,7 +215,7 @@ export const Container = styled.div`
         @media only screen and (max-width: 1600px) {
           grid-template-columns: 1fr 1fr 1fr 1fr;
         }
-        @media only screen and (max-width: 1280px) {
+        @media only screen and (max-width: 1279px) {
           grid-template-columns: 1fr 1fr;
         }
         @media only screen and (max-width: 768px) {
@@ -197,7 +228,7 @@ export const Container = styled.div`
         @media (min-width: 768px) {
           gap: 40px;
         }
-         @media (min-width: 1280px) {
+         @media (min-width: 1279px) {
           gap: 47px;
         }
         @media (min-width: 1920px) {

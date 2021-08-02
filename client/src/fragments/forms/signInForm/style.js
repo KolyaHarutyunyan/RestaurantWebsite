@@ -44,7 +44,7 @@ export const Container = styled.div`
       font-size: 24px;
       margin-bottom: 20px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       font-size: 24px;
       margin-bottom: 30px;
     }

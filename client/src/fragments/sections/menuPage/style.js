@@ -6,7 +6,7 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 78px;
-    @media (max-width: 1280px) {
+    @media (max-width: 1279px) {
       grid-template-columns: 1fr;
       gap: 60px;
     }
@@ -18,7 +18,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       margin-top: 128px;
     }
-    @media (min-width: 1280px) {
+    @media (min-width: 1279px) {
       margin-top: 128px;
     }
     @media (min-width: 1920px) {

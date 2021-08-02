@@ -15,7 +15,7 @@ import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/router";
-
+import { saveAs } from 'file-saver'
 export const RestaurantPageSections = () => {
   const { open } = useModal();
   const router = useRouter();
@@ -49,17 +49,20 @@ export const RestaurantPageSections = () => {
 
 
     const download = () => {
-      let element = document.createElement("a");
-      let file = new Blob(
-          [
-            business.qrUrl
-          ],
-          { type: "image/*" }
-      );
 
-      element.href = URL.createObjectURL(file);
-      element.download = "image.jpg";
-      element.click();
+        saveAs( business.qrUrl, 'image.jpg') // Put your image url here.
+      // }
+      // let element = document.createElement("a");
+      // let file = new Blob(
+      //     [
+      //       business.qrUrl
+      //     ],
+      //     { type: "image/*" }
+      // );
+      //
+      // element.href = URL.createObjectURL(file);
+      // element.download = "image/png";
+      // element.click();
   }
 
   return (
@@ -94,7 +97,8 @@ export const RestaurantPageSections = () => {
                 <Icons.BuildingIcon/>
                </div>
                 }
-             <span className='restaurant-name'> {business.name}</span>
+             <span className='restaurant-name'> {business.name.length > 15 ? `${business.name.slice(0,15)}...` : business.name}</span>
+             <span className='restaurant-name-mini'> {business.name.length > 10 ? `${business.name.slice(0,10)}...` : business.name}</span>
               </Typography>
               <div>
               <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
@@ -102,7 +106,7 @@ export const RestaurantPageSections = () => {
               </Button>
               </div>
             </div>
-            <div className="descr">{business.description}</div>
+            <div className="descr">{business.description.length > 100 ? `${business.description.slice(0,100)}...` : business.description }</div>
           </div>
           <div className="extra-details-card">
             <div className="header">

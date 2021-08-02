@@ -111,7 +111,7 @@ export const InputContainer = styled.div`
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
     height: 48px;
     border-radius: 8px;
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       height: 42px;
     }
     

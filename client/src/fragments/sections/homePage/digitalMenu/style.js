@@ -12,7 +12,7 @@ export const Container = styled.section`
       display: none;
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1279px) {
     .desktop{
       position: relative;
       display: flex;
