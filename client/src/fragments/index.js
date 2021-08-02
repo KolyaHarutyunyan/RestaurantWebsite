@@ -27,4 +27,6 @@ export {
   PreviewPageSections,
   NotFoundPageSections,
   ResetPasswordPageSections,
+  PrivacyPolicySection,
+  TermsConditionsSection,
 } from "./sections";

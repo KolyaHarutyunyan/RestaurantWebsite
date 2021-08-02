@@ -18,6 +18,8 @@ export const Container = styled.div`
     background-color: #e7e7e7;
     background-size: cover;
     background-position: center;
+    width: 100px;
+    height: 96px;
     svg {
       transform: scale(0.5);
     }

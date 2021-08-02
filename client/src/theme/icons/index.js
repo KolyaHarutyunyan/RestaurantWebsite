@@ -39,6 +39,7 @@ import GirlWithBalloons from "./svgs/girl_with_balloons.svg";
 import FooterIcon from "./svgs/footerLogo.svg";
 import Arrow from './svgs/arrow.svg';
 import Forward from './svgs/forward.svg';
+import FirstStep from './svgs/firstStep.svg';
 
 export {
   AddIcon,
@@ -81,5 +82,6 @@ export {
   GirlWithBalloons,
   FooterIcon,
   Arrow,
-  Forward
+  Forward,
+  FirstStep
 };

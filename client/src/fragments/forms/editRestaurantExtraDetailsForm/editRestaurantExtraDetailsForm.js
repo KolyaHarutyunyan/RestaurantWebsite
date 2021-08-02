@@ -33,13 +33,27 @@ export const EditRestaurantExtraDetailsForm = () => {
   );
 
   const onSubmit = (info) => {
-    console.log(hoursSnapshot,'hoursSnapshothoursSnapshothoursSnapshothoursSnapshot')
     const data ={
       website: info.website,
       phoneNumber: info.phoneNumber,
       address:address,
       id:restaurant.id,
-      hours:hoursSnapshot ,
+      // hours:hoursSnapshot ,
+
+      // Some example
+
+      // hours: [
+      //   {
+      //     "mon": {
+      //       "status": "OPEN",
+      //       "hours": [
+      //         {
+      //           "open": "11, min: 06, part: AM",
+      //           "close": "18, min: 19, part: AM"
+      //         }
+      //       ]
+      //     },
+      //   }]
     }
 
     dispatch(data );
@@ -94,31 +108,34 @@ export const EditRestaurantExtraDetailsForm = () => {
           handleSelectValue={()=> console.log('aaa')}
           handleChangeValue={(val) => setAddress(val)}
         />
-        <div
-          className={`hours-operations ${
-            toggleHoursOperations ? "open" : "close"
-          }`}
-        >
-          < button
-            color="text"
-            className="toggle-button"
-            onClick={() => setToggleHourseOperations(!toggleHoursOperations)}
-          >
-            Hours of Operation&nbsp;
-            <div className="icon">
-              <BiChevronDown size={25} />
-            </div>
-          </button>
-          {hoursSnapshot && (
-            <HoursList
-              hourList={hoursSnapshot}
-              onHourListChange={(newHoursSnap) =>
-                setHoursSnapshot(newHoursSnap)
-              }
-              isOpen={toggleHoursOperations}
-            />
-          )}
-        </div>
+        {/*button for hours*/}
+
+
+        {/*<div*/}
+        {/*  className={`hours-operations ${*/}
+        {/*    toggleHoursOperations ? "open" : "close"*/}
+        {/*  }`}*/}
+        {/*>*/}
+        {/*  < button*/}
+        {/*    color="text"*/}
+        {/*    className="toggle-button"*/}
+        {/*    onClick={() => setToggleHourseOperations(!toggleHoursOperations)}*/}
+        {/*  >*/}
+        {/*    Hours of Operation&nbsp;*/}
+        {/*    <div className="icon">*/}
+        {/*      <BiChevronDown size={25} />*/}
+        {/*    </div>*/}
+        {/*  </button>*/}
+        {/*  {hoursSnapshot && (*/}
+        {/*    <HoursList*/}
+        {/*      hourList={hoursSnapshot}*/}
+        {/*      onHourListChange={(newHoursSnap) =>*/}
+        {/*        setHoursSnapshot(newHoursSnap)*/}
+        {/*      }*/}
+        {/*      isOpen={toggleHoursOperations}*/}
+        {/*    />*/}
+        {/*  )}*/}
+        {/*</div>*/}
         <Button
             square
             type="submit" onLoad={status.onLoad}>

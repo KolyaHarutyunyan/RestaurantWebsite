@@ -11,7 +11,6 @@ export const HowItWorks = () => {
         <Image className='title-image' src='assets/images/howIts.png'/>
         <ul className='ul'>
           <li>
-
             <span className="num line">1</span>
             <Typography color="text" weight="bold" className="title">
               Create an Account

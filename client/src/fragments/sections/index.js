@@ -5,3 +5,6 @@ export { MenuPageSections } from "./menuPage";
 export { PreviewPageSections } from "./previewPage";
 export { NotFoundPageSections } from "./notFoundPage";
 export { ResetPasswordPageSections } from "./resetPasswordPage";
+export { ActiveMenuSection } from './activeMenu'
+export { PrivacyPolicySection } from './privacyPolicy'
+export { TermsConditionsSection } from './termsConditions'

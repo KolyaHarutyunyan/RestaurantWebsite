@@ -153,13 +153,24 @@ export const Container = styled.div`
     }
   }
   .breadcrumb{
+    @media (min-width: 320px) {
+      margin: 120px 0 24px 0;
+    }
+    @media (min-width: 768px) {
+      margin: 120px 0 40px 0;
+    }
+    @media (min-width: 1279px) {
+      margin: 120px 0 40px 0;
+    }
+    @media (min-width: 1919px) {
+      margin: 120px 0 40px 0;
+    }
+    
     display: flex;
     align-items: center;
     margin:40px 0;
 
-    @media (max-width: 767px) {
-      margin:24px 0;
-    }
+    
     a{
       font-family: Open Sans, sans-serif;
       font-weight: bold;

@@ -11,13 +11,11 @@ import { useEffect } from "react";
 
 export const HomePageSections = () => {
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
     }, 2000);
   }, []);
-
 
   return (
     <LazyLoad loaded={loaded}>

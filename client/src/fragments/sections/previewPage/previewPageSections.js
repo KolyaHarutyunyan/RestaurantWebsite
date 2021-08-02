@@ -7,13 +7,17 @@ import { Container } from "./style";
 import {
   businessesActions,
   useSagaStore,
-  previewDataActions,
+  previewDataActions, menusActions,
 } from "@eachbase/store";
 import { LazyLoad } from "@eachbase/components";
+import {useRouter} from "next/router";
+import {useDispatch} from "react-redux";
 
 export const PreviewPageSections = () => {
   const [mounted, setMounted] = useState(false);
   const phoneWrapperRef = useRef();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const getMenuCategoriesAndItemsSaga = useSagaStore(
     previewDataActions.getMenuData
@@ -24,6 +28,14 @@ export const PreviewPageSections = () => {
     setMounted(true);
     getRestaurantSaga.dispatch();
   }, []);
+
+
+  useEffect(() => {
+
+    if(router.query.restaurantId) {
+      dispatch(menusActions.getBusinessMenu(router.query.restaurantId));
+    }
+  }, [router.query.restaurantId,]);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -54,7 +66,6 @@ export const PreviewPageSections = () => {
       <Container>
         <div ref={phoneWrapperRef} className="wrapper phone-wrapper">
           <MobileMockUp>
-            <Cover />
             <Categories />
           </MobileMockUp>
         </div>

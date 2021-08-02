@@ -24,13 +24,21 @@ export const Container = styled.div`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 80px;
-      height: 80px;
+      @media (max-width: 767px) {
+        width: 82px;
+        height: 82px;
+      }
+      width: 100px;
+      height: 100px;
       background: #0000001a;
       margin: 10px;
       &.big-one {
-        width: 120px;
-        height: 120px;
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+        width: 100px;
+        height: 100px;
       }
       svg {
         width: 42px;
@@ -41,13 +49,13 @@ export const Container = styled.div`
       vertical-align: top;
       display: inline-flex;
       cursor: pointer;
-      margin: 10px;
+      margin: 10px 0 16px 0;
       position: relative;
-      width: 80px;
-      height: 80px;
+      width: 82px;
+      height: 82px;
       &.big-one {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         .remove {
           left: 77% !important;
         }
@@ -58,7 +66,12 @@ export const Container = styled.div`
       border-radius: 15px;
       border: 3px solid white;
       &.main {
-        box-shadow: 0px 0px 0px 3px ${colors.action};
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+          width: 100px;
+          height: 100px;
       }
       .remove {
         position: absolute;

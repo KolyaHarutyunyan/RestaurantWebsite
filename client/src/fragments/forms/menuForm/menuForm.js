@@ -31,6 +31,7 @@ export const MenuForm = () => {
     params.menuId ? menus.find((menu) => menu.id === params.menuId) : null
   );
 
+
   const [image, setImage] =useState(editableMenu && editableMenu.image  && editableMenu.image.originalUrl ? editableMenu.image.originalUrl : '')
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
@@ -116,43 +117,26 @@ export const MenuForm = () => {
               containerClassName='input-padding'
               placeholder="*Brief Description"
               rows={4}
-              {...register("description", { required: true })}
+              {...register("description", { required: false })}
           />
           <Typography className='max-characters'  color="text">
             Max 500 characters
           </Typography>
-
         </div>
         <FileUpload
+            menu={true}
+          menuId={editableMenu && editableMenu.id}
+          url={editableMenu && editableMenu.image  && editableMenu.image.originalUrl}
+          id={editableMenu && editableMenu.image && editableMenu.image.id}
           files={restaurantIcons.files}
           title="Menu Logo"
           limit={imagesLimit}
-           fileUrl={image}
+          fileUrl={image}
           mainImageId={restaurantIcons.mainIconId}
           onChange={(files, _actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })
           }
         />
-
-        {editableMenu && editableMenu.image ? (
-          <div className="uploaded">
-            <Typography color="action" weight="bold">
-              Uploaded Images
-            </Typography>
-            <BoxImagePreview
-              url={editableMenu.image.originalUrl}
-              onRequestToRemove={() => {
-                if (
-                  window.confirm("Are you sure?, you cant revert this action")
-                ) {
-                  imageService.removeImage([editableMenu.image.id]);
-                  setImagesLimit(1);
-                }
-              }}
-            />
-          </div>
-        ) : null}
-
         <Button
             square
             className='save-button'

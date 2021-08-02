@@ -11,8 +11,12 @@ import {useSagaStore, profileActions, businessesActions,} from "@eachbase/store"
 import {useEffect, useRef, useState} from "react";
 import useMedia from "use-media";
 import axios from "axios";
+import {useScrollPosition} from "react-use-scroll-position";
 
 export const Header = () => {
+
+    const path = typeof window !== 'undefined' && window.location.pathname
+  const scrollPos = useScrollPosition();
   const router = useRouter();
   const profileContainerRef = useRef(null);
   const profile = useSelector(({ profile }) => profile);
@@ -21,14 +25,13 @@ export const Header = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const { open } = useModal();
+  const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
       signOutSaga.dispatch();
       router.push("/", undefined, { shallow: true });
     }
-
-
    const handleRestaurant = async () =>{
        await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
             router.push("/restaurant")
@@ -41,6 +44,8 @@ export const Header = () => {
               open(MODAL_NAMES.MENU_FORM)
           )
       }
+
+
 
     if (profile) {
       return (
@@ -162,7 +167,7 @@ export const Header = () => {
             className="controller"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            {menuIsOpen ? <IoMdClose /> : <HiMenuAlt4 />   }
+            { menuIsOpen ? <IoMdClose /> : <HiMenuAlt4 /> }
           </div>
           <div className={`menu ${menuIsOpen ? "open" : ""}`}>
             {renderSignInButtons()}
@@ -177,7 +182,7 @@ export const Header = () => {
 
   return (
     <Container >
-        <div className='header-not-scrolled'>
+        <div className={path === '/' ? scrollPos.y > 10 ? 'header-scrolled'  :  'header-not-scrolled'  :'header-scrolled' } >
       <div className="container-header">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />

@@ -7,8 +7,8 @@ export const categoryItemsService = {
     axios.patch(`/categories/${categoryId}/addItem/${itemId}`, null, {
       auth: true,
     }),
-  reorder: (categoryId, move) =>
-    axios.patch(`/categories/${categoryId}/reorder`, move, { auth: true }),
+  reorder: (data) =>
+    axios.patch(`/categories/${data.categoryId}/reorder`, data.move, { auth: true }),
   remove: ({ categoryId, itemId }) =>
     axios.patch(`/categories/${categoryId}/removeItem/${itemId}`, null, {
       auth: true,

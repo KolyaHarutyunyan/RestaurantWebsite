@@ -4,17 +4,21 @@ import {colors} from "@eachbase/theme";
 export const Container = styled.div`
   width: 100%;
   height: 80px;
-  position: absolute;
+  position: fixed;
+  z-index: 999;
   .header-scrolled{
     box-shadow: 0px 2px 6px #0000001a;
     background: white!important;
     width: 100%;
     height: 80px;
+    transition-duration: 1s;
+    
   }
   .header-not-scrolled{
     background: transparent!important;
     width: 100%;
     height: 80px;
+    transition-duration: 1s;
   }
   
  

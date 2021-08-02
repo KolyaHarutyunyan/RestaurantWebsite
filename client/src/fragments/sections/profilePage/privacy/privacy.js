@@ -33,14 +33,11 @@ export const Privacy = () => {
       }
     const { newPassword, confirmation } = info;
     if (newPassword !== confirmation) {
-      setErrors({
-        ...errors,
-        confirmation: "Doesn't match which new password",
-      });
-      return;
+      setErrors({...errors, confirmation: "Doesn't match which new password",});return;
     }
     setErrors({ ...errors, confirmation: "" });
     dispatch(data);
+      setEditMode(false)
   };
 
   const renderNoth = () => {

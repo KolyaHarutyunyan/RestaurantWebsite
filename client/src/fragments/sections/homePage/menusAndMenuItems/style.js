@@ -13,6 +13,21 @@ export const Container = styled.div`
       margin-bottom: 30px;
     }
   }
+  
+  .carousel-desktop-mini {
+    @media (min-width: 320px) {
+      display: none;
+    }
+    @media (min-width: 767px) {
+      display: none;
+    }
+    @media (min-width: 1279px) {
+      display: block;
+    }
+    @media (min-width: 1919px) {
+      display: none;
+    }
+  }
   .carousel-desktop{
     @media (min-width: 320px) {
        display: none;
@@ -21,10 +36,24 @@ export const Container = styled.div`
       display: none;
     } 
     @media (min-width: 1279px) {
-      display: block;
+      display: none;
     }   
     @media (min-width: 1919px) {
       display: block;
+    }
+  } 
+  .carousel-tablet{
+    @media (min-width: 320px) {
+       display: none;
+    }
+    @media (min-width: 767px) {
+      display: block;
+    } 
+    @media (min-width: 1279px) {
+      display: none;
+    }   
+    @media (min-width: 1919px) {
+      display: none;
     }
   } 
  
@@ -51,7 +80,10 @@ export const Container = styled.div`
       width: 100%;
       display: flex;
       justify-content: center;
-    } 
+    }
+    @media (min-width: 767px) {
+      display: none;
+    }
     @media (min-width: 1279px) {
       display: none;
     }   
@@ -85,10 +117,15 @@ export const Container = styled.div`
     text-align: initial;
   }
   .cards {
-    display: grid;
+    //@media (max-width: 767px) {
+    //  display: flex;
+    //  flex-direction: column;
+    //}
+    //display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 50px 100px;
-    margin-top: 72px;
+    margin-top: 80px;
+    padding-bottom: 20px;
     overflow: auto;
     li {
      
@@ -117,6 +154,49 @@ export const Container = styled.div`
         justify-content: center;
         flex: 0 0 40px;
         box-shadow: 0px 4px 4px #eaeaea;
+        background: white;
+      }
+    }
+  } 
+.cardsDesc {
+    //@media (max-width: 767px) {
+    //  display: flex;
+    //  flex-direction: column;
+    //}
+    //display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 50px 100px;
+    padding-bottom: 20px;
+    margin-top: 60px;
+    overflow: auto;
+    li {
+     
+      &:nth-child(1) {
+        transform: scale(0.7);
+      }
+      
+      &:nth-child(2) {
+        //transform: translateY(-60px);
+      }
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      height: 300px;
+
+      .image {
+        object-fit: cover;
+        flex: 1;
+        border-radius: 8px 8px 0 0;
+      }
+      p {
+        font-family: Poppins,sans-serif;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 40px;
+        box-shadow: 0px 4px 4px #eaeaea;
+        background: white;
       }
     }
   }

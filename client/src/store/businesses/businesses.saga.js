@@ -38,7 +38,6 @@ function* editBusiness({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-console.log(payload.logo,'pppp')
   if (payload.logo) {
     try {
       let mainImageId = "";
@@ -67,7 +66,6 @@ console.log(payload.logo,'pppp')
       yield put(httpRequestsOnErrorsActions.appendError(type));
     }
   } else {
-    console.log('eeeee')
     try {
       const res = yield call(() => businessesService.editBusiness(payload));
       yield put({
@@ -105,7 +103,6 @@ function* createBusiness({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-  console.log(payload.icon,'payload.iconpayload.icon')
   if (payload.icon) {
     try {
       const { data: iconId } = yield call(

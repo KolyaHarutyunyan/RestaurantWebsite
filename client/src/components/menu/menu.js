@@ -65,7 +65,7 @@ export const Menu = ({
           if (menuRef.current) {
             const isMenu = menuRef.current.isSameNode(nodeElement);
             const isPositionalElement =
-              positionalElementRef.current.isSameNode(nodeElement);
+                positionalElementRef.current &&  positionalElementRef.current.isSameNode(nodeElement);
             if (isMenu || isPositionalElement) {
               toggleMenu = false;
               break;
