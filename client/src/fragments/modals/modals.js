@@ -38,6 +38,7 @@ export const Modals = () => {
         <SignUpForm />
       </Modal>
       <Modal
+        border={true}
         modalName={MODAL_NAMES.CREATE_RESTAURANT}
         fixed={router.pathname === "/restaurant"}
       >

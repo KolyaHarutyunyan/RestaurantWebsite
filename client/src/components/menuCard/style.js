@@ -85,6 +85,7 @@ export const DropDownMenuContainer = styled.ul`
     color: #2b273c;
     font-size: 16px;
     font-family: Open Sans, sans-serif;
+    list-style-type: none;
     &:hover {
       background: #e9e9eb;
     }

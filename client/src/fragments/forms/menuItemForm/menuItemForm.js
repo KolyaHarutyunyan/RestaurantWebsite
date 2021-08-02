@@ -43,6 +43,13 @@ export const MenuItemForm = () => {
       editItemSaga.destroy.all();
       reset();
       close();
+      createItemSaga.destroy.all();
+      setItemIcon({
+        files: [],
+        mainImageId: "",
+      });
+      reset();
+      close();
     }
   }, [createItemSaga, editItemSaga]);
 
@@ -77,16 +84,26 @@ export const MenuItemForm = () => {
       createItemSaga.dispatch(
         { ...data, businessId },
         params.categoryId,
-        itemIcon
+          itemIcon
       );
     } else {
+      let categoryId = params.category.categoryId
+      if(itemIcon.files.length){
       editItemSaga.dispatch(
-        { ...params.categoryItem.item, ...data, businessId },
-        params.categoryId,
-        itemIcon
+        { ...params.categoryItem.item, ...data, businessId,itemIcon,categoryId  }
       );
+    }else{
+        editItemSaga.dispatch(
+            { ...params.categoryItem.item, ...data, businessId,categoryId  }
+        )
+      }
     }
   };
+  const categoryItems = useSelector(({ categoryItems }) => categoryItems);
+  const id = params.categoryItem && params.categoryItem.item ?  params.categoryItem.item.id  :''
+  const selected = categoryItems.filter((a) =>
+      a.item.id === id
+  )
 
   return (
     <Container>
@@ -122,26 +139,21 @@ export const MenuItemForm = () => {
           placeholder="Special Offers e.g. add chili sauce $2"
           {...register("option", { required: false })}
         />
+
+
         <FileUpload
-          files={itemIcon.files}
-          onChange={(files, _actionType, mainImageId) =>
-            setItemIcon({ files, mainImageId })
-          }
-          limit={imagesLimit}
-          mainImageId={itemIcon.mainImageId}
+            itemId={params && params.categoryItem && params.category.categoryId}
+            requestType={'item'}
+            url={selected.length ?  selected[0].item  && selected[0].item.mainImage &&  selected[0].item.mainImage.originalUrl : '' }
+            id={params.categoryItem && params.categoryItem.item.mainImage ?  params.categoryItem.item.mainImage.id  :''}
+            fileUrl={params && params.categoryItem && params.categoryItem.item.mainImage && params.categoryItem.item.mainImage.originalUrl}
+            files={itemIcon.files}
+            onChange={(files, _actionType, mainImageId) =>
+              setItemIcon({ files, mainImageId })
+            }
+            limit={imagesLimit}
+            mainImageId={itemIcon.mainImageId}
         />
-        {params.categoryItem && params.categoryItem.item.mainImage ? (
-          <div className="uploaded">
-            <BoxImagePreview
-              url={params.categoryItem.item.mainImage.originalUrl}
-            />
-            {params.categoryItem.item.images
-              ? params.categoryItem.item.images.map((image) => (
-                  <BoxImagePreview key={image.id} url={image.originalUrl} />
-                ))
-              : null}
-          </div>
-        ) : null}
         <Button
           onLoad={createItemSaga.status.onLoad || editItemSaga.status.onLoad}
           type="submit"

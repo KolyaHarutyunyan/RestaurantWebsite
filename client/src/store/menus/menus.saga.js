@@ -11,7 +11,7 @@ import {
   GET_CURRENT_MENU,
   GET_CURRENT_MENU_SUCCESS,
   DELETE_MENU,
-  DELETE_MENU_SUCCESS,
+  DELETE_MENU_SUCCESS, GET_ACTIVE_MENUS, GET_ACTIVE_MENUS_SUCCESS, GET_BUSINESS_MENU, GET_BUSINESS_MENU_SUCCESS,
 } from "./menus.types";
 import { menusService } from "./menus.service";
 import { imageService } from "../imageService";
@@ -26,6 +26,40 @@ function* getMenus({ payload, type }) {
     const res = yield call(menusService.getMenusByBusiness, payload);
     yield put({
       type: GET_MENUS_SUCCESS,
+      payload: res.data,
+    });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
+}
+
+function* getActiveMenus({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const res = yield call(menusService.getActiveMenus, payload);
+    yield put({
+      type: GET_ACTIVE_MENUS_SUCCESS,
+      payload: res.data,
+    });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
+}
+
+function* getBusinessMenu({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const res = yield call(menusService.getBusinessMenu, payload);
+    yield put({
+      type: GET_BUSINESS_MENU_SUCCESS,
       payload: res.data,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -184,4 +218,6 @@ export function* watchMenus() {
   yield takeLatest(SWITCH_MENU_STATUS, switchMenuStatus);
   yield takeLatest(GET_CURRENT_MENU, getCurrentMenu);
   yield takeLatest(DELETE_MENU, deleteMenu);
+  yield takeLatest(GET_ACTIVE_MENUS, getActiveMenus);
+  yield takeLatest(GET_BUSINESS_MENU, getBusinessMenu);
 }

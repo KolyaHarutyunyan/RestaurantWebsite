@@ -23,8 +23,9 @@ export const Menu = () => {
     businesses ? businesses.id : ""
   );
   const currentMenu = useSelector(
-    ({ menus }) => menus.find((cMenu) => cMenu.id === menuId) || {}
+    ({ menus }) =>menus.length && menus.find((cMenu) => cMenu.id === menuId) || {}
   );
+
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
 
@@ -37,9 +38,6 @@ export const Menu = () => {
 
   return (
     <Container>
-
-
-
           <div className='breadcrumb'>
             <a href="/restaurant">Restaurant</a>
             <Icons.Arrow />
@@ -129,8 +127,8 @@ export const Menu = () => {
           <Button
               maxWidth={'110px'}
               height={'42px'}
-            disabled={!currentMenu.id}
-            onClick={() =>
+              disabled={!currentMenu.id}
+              onClick={() =>
               open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
             }
           >

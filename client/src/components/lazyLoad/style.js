@@ -9,7 +9,7 @@ export const Container = styled.div`
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-color: red;
+    background-color: white;
     align-items: center;
     justify-content: center;
     color: white !important;
@@ -27,7 +27,11 @@ export const Container = styled.div`
       color: white;
     }
     svg {
-      transform: scale(5);
+      @media (max-width: 768px) {
+        transform: scale(2);
+      }
+      transform: scale(4);
+      
     }
   }
 `;

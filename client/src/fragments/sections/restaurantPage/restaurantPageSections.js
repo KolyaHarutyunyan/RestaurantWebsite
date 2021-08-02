@@ -61,7 +61,7 @@ export const RestaurantPageSections = () => {
       element.download = "image.jpg";
       element.click();
   }
-// console.log(business,'business')
+
   return (
       <div style={{ background: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)'}}>
       <Container className="container">
@@ -133,126 +133,128 @@ export const RestaurantPageSections = () => {
                 </div>
                 <Typography  color="text" className={business.address  ?  "value" : "value-not-set"}>{business.address && business.address.formattedAddress || "Not Set"}</Typography>
               </li>
-              <li
-                ref={hourseMenuToggleRef}
-                onClick={() => setHourseMenuStatus(!hourseMenuStatus)}
-                className="hourse-menu-toggle"
-              >
-                <div className="icon">
-                  <Icons.HoursIcon />
-                </div>
-                <div className="value">
-                  Hours&nbsp;
-                  {hourseMenuStatus ? <BsChevronUp /> : <BsChevronDown />}
-                </div>
-              </li>
-              <Menu
-                positionalElementRef={hourseMenuToggleRef}
-                open={hourseMenuStatus}
-                width={280}
-                onRequestToClose={() => setHourseMenuStatus(false)}
-              >
-                <HourseMenuContainer>
-                  <div>
-                    <p>MON</p>
-                    <ul>
-                      {business.hours && business.hours.mon.status !== "CLOSED" ? (
-                        business.hours.mon.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>TUE</p>
-                    <ul>
-                      {business.hours && business.hours.tue.status !== "CLOSED" ? (
-                        business.hours.tue.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>WED</p>
-                    <ul>
-                      {business.hours && business.hours.wed.status !== "CLOSED" ? (
-                        business.hours.wed.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>THU</p>
-                    <ul>
-                      {business.hours && business.hours.thr.status !== "CLOSED" ? (
-                        business.hours.thr.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>FRI</p>
-                    <ul>
-                      {business.hours && business.hours.fri.status !== "CLOSED" ? (
-                        business.hours.fri.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>SAT</p>
-                    <ul>
-                      {business.hours && business.hours.sat.status !== "CLOSED" ? (
-                        business.hours.sat.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <p>SUN</p>
-                    <ul>
-                      {business.hours && business.hours.sun.status !== "CLOSED" ? (
-                        business.hours.sun.hours.map((item, index) => (
-                          <li key={index}>
-                            {item.open} - {item.close}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="danger">CLOSED</li>
-                      )}
-                    </ul>
-                  </div>
-                </HourseMenuContainer>
-              </Menu>
+              {/*Hour page button and menu*/}
+
+              {/*<li*/}
+              {/*  ref={hourseMenuToggleRef}*/}
+              {/*  onClick={() => setHourseMenuStatus(!hourseMenuStatus)}*/}
+              {/*  className="hourse-menu-toggle"*/}
+              {/*>*/}
+              {/*  <div className="icon">*/}
+              {/*    <Icons.HoursIcon />*/}
+              {/*  </div>*/}
+              {/*  <div className="value">*/}
+              {/*    Hours&nbsp;*/}
+              {/*    {hourseMenuStatus ? <BsChevronUp /> : <BsChevronDown />}*/}
+              {/*  </div>*/}
+              {/*</li>*/}
+              {/*<Menu*/}
+              {/*  positionalElementRef={hourseMenuToggleRef}*/}
+              {/*  open={hourseMenuStatus}*/}
+              {/*  width={280}*/}
+              {/*  onRequestToClose={() => setHourseMenuStatus(false)}*/}
+              {/*>*/}
+              {/*  <HourseMenuContainer>*/}
+              {/*    <div>*/}
+              {/*      <p>MON</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.mon.status !== "CLOSED" ? (*/}
+              {/*          business.hours.mon.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>TUE</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.tue.status !== "CLOSED" ? (*/}
+              {/*          business.hours.tue.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>WED</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.wed.status !== "CLOSED" ? (*/}
+              {/*          business.hours.wed.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>THU</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.thr.status !== "CLOSED" ? (*/}
+              {/*          business.hours.thr.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>FRI</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.fri.status !== "CLOSED" ? (*/}
+              {/*          business.hours.fri.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>SAT</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.sat.status !== "CLOSED" ? (*/}
+              {/*          business.hours.sat.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <p>SUN</p>*/}
+              {/*      <ul>*/}
+              {/*        {business.hours && business.hours.sun.status !== "CLOSED" ? (*/}
+              {/*          business.hours.sun.hours.map((item, index) => (*/}
+              {/*            <li key={index}>*/}
+              {/*              {item.open} - {item.close}*/}
+              {/*            </li>*/}
+              {/*          ))*/}
+              {/*        ) : (*/}
+              {/*          <li className="danger">CLOSED</li>*/}
+              {/*        )}*/}
+              {/*      </ul>*/}
+              {/*    </div>*/}
+              {/*  </HourseMenuContainer>*/}
+              {/*</Menu>*/}
             </ul>
           </div>
           <div className="menu-list">

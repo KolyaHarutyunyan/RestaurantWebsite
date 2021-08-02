@@ -105,6 +105,30 @@ export const Container = styled.div`
               top: 50px;
               width: 2px;
               background-color: ${colors.text};
+              @media (min-width: 320px) {
+                height: 60px;
+                top: 53px;
+              }
+              @media (min-width: 500px) {
+                height: 47px;
+                top: 50px;
+              }
+              @media (min-width: 1000px) {
+                height: 38px;
+                top: 50px;
+              }
+              @media (min-width: 1279px) {
+                height: 60px;
+                top: 52px;
+              } 
+              @media (min-width: 1520px) {
+                height: 42px;
+                top: 52px;
+              }  
+              @media (min-width: 1920px) {
+                height: 50px;
+                top: 52px;
+              }
               height: 48px;
             }
             width: 45px;

@@ -1,0 +1,1 @@
+export { PrivacyPolicySection } from './privacyPolicy'

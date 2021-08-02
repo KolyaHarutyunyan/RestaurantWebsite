@@ -70,6 +70,7 @@ export const Container = styled.div`
         justify-content: flex-end;
       }
       a {
+        cursor: pointer;
         padding-right: 10px;
         color: white;
       }

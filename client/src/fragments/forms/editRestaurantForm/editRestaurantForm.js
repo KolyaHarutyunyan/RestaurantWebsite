@@ -20,7 +20,8 @@ export const EditRestaurantForm = () => {
   const router = useRouter();
   const business = useSelector(({ businesses }) => businesses || {});
   const editBusiness = useSagaStore(businessesActions.editBusiness);
-
+  const getBusinessSaga = useSagaStore(businessesActions.getBusinesses);
+  const [noImage, setNoImage] = useState(false);
   const [restaurantIconsLimit, setRestaurantIconsLimit] = useState(1);
   const [restaurantIcon, setRestaurantIcon] = useState({
     files: [],
@@ -128,33 +129,39 @@ export const EditRestaurantForm = () => {
             Max 500 characters
           </Typography>
         </div>
+        {/*{!business.logo &&*/}
         <FileUpload
+          url={business.logo && business.logo.originalUrl}
+          id={business.logo && business.logo.id}
           files={restaurantIcon.files}
           mainImageId={restaurantIcon.mainImageId}
-          limit={restaurantIconsLimit}
-          // mainImageId={restaurantIcon.mainImageId}
           onChange={(files, actionType, mainImageId) =>
-            onFileUploadChange(files, actionType, mainImageId)
-          }
+          onFileUploadChange(files, actionType, mainImageId)}
         />
-        {business.logo ? (
-          <div className="uploaded">
-            <Typography color="action" weight="bold">
-              Uploaded images
-            </Typography>
-            <BoxImagePreview
-              main
-              url={business.logo.originalUrl}
-              onRequestToRemove={() => {
-                if (
-                  window.confirm("Are you sure? this action cannot be reverted")
-                ) {
-                  imageService.removeImage([business.logo.id]);
-                }
-              }}
-            />
-          </div>
-        ) : null}
+         {/*}*/}
+
+        {/*{business.logo ? (*/}
+        {/*  <div className="uploaded">*/}
+        {/*    <BoxImagePreview*/}
+        {/*      main*/}
+        {/*      url={business.logo.originalUrl}*/}
+        {/*      onRequestToRemove={() => {*/}
+        {/*          imageService.removeImage([business.logo.id]).then(()=>*/}
+        {/*              getBusinessSaga.dispatch(),*/}
+        {/*          );*/}
+
+        {/*      }}*/}
+        {/*    />*/}
+        {/*    <div className="content-container">*/}
+        {/*      <div className="title-drag">*/}
+        {/*        Drag & Drop or <span className="active">Upload</span> {business.name} Logo*/}
+        {/*      </div>*/}
+        {/*      <div className="acceptable-file-size-noth">*/}
+        {/*        Max size 2MB*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*) : null}*/}
         <Button
             className='save-button'
             square

@@ -22,42 +22,42 @@ export const Cover = () => {
 
   const menus = useSelector(({ menus }) => menus);
 
-  useEffect(() => {
-    getBusinessSaga.dispatch(router.query.restaurantId);
-    getMenusSaga.dispatch(router.query.restaurantId);
-  }, []);
+  // useEffect(() => {
+  //   getBusinessSaga.dispatch(router.query.restaurantId);
+  //   getMenusSaga.dispatch(router.query.restaurantId);
+  // }, []);
+  //
+  // useEffect(() => {
+  //   if (menus.length) {
+  //     setSelectedMenu(menus[0].id);
+  //   }
+  // }, [menus]);
+  //
+  // useEffect(() => {
+  //   if (selectedMenu) {
+  //     getMenuCategoriesAndItemsSaga.dispatch(selectedMenu);
+  //   }
+  // }, [selectedMenu]);
+  //
+  // const menuCover = selectedMenu
+  //   ? menus.find((m) => m.id === selectedMenu).image.originalUrl
+  //   : null;
 
-  useEffect(() => {
-    if (menus.length) {
-      setSelectedMenu(menus[0].id);
-    }
-  }, [menus]);
-
-  useEffect(() => {
-    if (selectedMenu) {
-      getMenuCategoriesAndItemsSaga.dispatch(selectedMenu);
-    }
-  }, [selectedMenu]);
-
-  const menuCover = selectedMenu
-    ? menus.find((m) => m.id === selectedMenu).image.originalUrl
-    : null;
-
-  console.log(menuCover);
+  console.log(menus);
   return (
-    <Container img={menuCover}>
-      <div className="content" onClick={() => selectRef.current.click()}>
+    <Container img={menus.image}>
+      {/*<div className="content" onClick={() => selectRef.current.click()}>*/}
         <select
-          onChange={({ target: { value } }) => setSelectedMenu(value)}
-          ref={selectRef}
+          // onChange={({ target: { value } }) => setSelectedMenu(value)}
+          // ref={selectRef}
         >
-          {menus.map((menu) => (
+          {menus.length && menus.map((menu) => (
             <option value={menu.id} key={menu.id}>
               {menu.name}
             </option>
           ))}
         </select>
-      </div>
+      {/*</div>*/}
     </Container>
   );
 };

@@ -49,7 +49,7 @@ export const Container = styled.section`
       
       @media (min-width: 320px) {
         margin-top: 63px;
-        max-width: 100%;
+        max-width: 100%;  
       }
       @media (min-width: 768px) {
         margin-top: 130px;
@@ -63,8 +63,9 @@ export const Container = styled.section`
       @media (min-width: 1920px) {
           margin-top: 215px;
           margin-right: 80px;
-        max-width: 40%;
+          max-width: 31%;
       }
+      
       
       flex: 1;
       

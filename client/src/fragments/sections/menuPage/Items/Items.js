@@ -31,7 +31,6 @@ export const Items = ({ category }) => {
 
   const items = useSelector(({ items }) => items);
   const categoryItems = useSelector(({ categoryItems }) => categoryItems);
-
   const itemOptions = items.map((item) => ({
     label: item.name,
     value: item.id,
@@ -88,18 +87,19 @@ export const Items = ({ category }) => {
   };
 
   const onDragEnd = (e) => {
+
     const itemId = e.draggableId;
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
-    if (to && from !== to) {
+
+    // if (to && from !== to) {
+
       itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {
         from,
         to,
       });
-    }
+    // }
   };
-
-  console.log(category,'category')
 
   return (
     <Container>
@@ -108,10 +108,9 @@ export const Items = ({ category }) => {
           {currentCategory.category.name}
         </Typography>
         <Button
-            square
+          square
           color="action"
-            // router.push(`/menu/${business.id}/${menu.id}`)
-          onClick={() => router.push(`/preview/${router.query.restaurantId}`)}
+          onClick={() => router.push(`/preview/${router.query.menuId}`)}
         >
           Preview
         </Button>
