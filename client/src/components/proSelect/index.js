@@ -30,21 +30,22 @@ export const ProSelect = ({
   );
 
   const setDropdownPosition = () => {
-    if (dropdownRef.current && selectBoxRef.current) {
-      const dropDownRect = dropdownRef.current.getBoundingClientRect();
-      const selectRect = selectBoxRef.current.getBoundingClientRect();
-      let dropDownVerticalPosition = selectRect.top + 50;
-
-      if (selectRect.top + (dropDownRect.height + 40) > window.innerHeight) {
-        dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 50;
-      }
-
-      dropdownRef.current.style.width = `${
-        selectBoxRef.current.clientWidth - 5
-      }px`;
-      dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
-      dropdownRef.current.style.left = `${selectRect.left}px`;
-    }
+    // if (dropdownRef.current && selectBoxRef.current) {
+    //   const dropDownRect = dropdownRef.current.getBoundingClientRect();
+    //   const selectRect = selectBoxRef.current.getBoundingClientRect();
+    //   let dropDownVerticalPosition = selectRect.top + 200;
+    //
+    //   if (selectRect.top + (dropDownRect.height + 40) > window.innerHeight) {
+    //     dropDownVerticalPosition = selectRect.top - dropDownRect.heigth - 50;
+    //   }
+    //   console.log(dropDownVerticalPosition,'dropDownVerticalPosition')
+    //
+    //   dropdownRef.current.style.width = `${
+    //     selectBoxRef.current.clientWidth - 5
+    //   }px`;
+    //   dropdownRef.current.style.top = `${dropDownVerticalPosition}px`;
+    //   dropdownRef.current.style.left = `${selectRect.left}px`;
+    // }
   };
 
   useEffect(() => {

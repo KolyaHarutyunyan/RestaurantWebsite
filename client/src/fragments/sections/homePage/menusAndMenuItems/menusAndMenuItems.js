@@ -29,6 +29,8 @@ export const MenusAndMenuItems = () => {
 
             <div className={'carousel-desktop'}>
                 <Carousel
+                    pauseOnHover={false}
+                    autoplayInterval={2000}
                     slidesToShow={5}
                     slidesToScroll={1}
                     style={{height: '700px', marginTop: '70px', outline: 'none'}}
@@ -227,6 +229,8 @@ export const MenusAndMenuItems = () => {
 
             <div className={'carousel-desktop-mini'}>
                 <Carousel
+                    pauseOnHover={false}
+                    autoplayInterval={2000}
                     slidesToShow={3.8}
                     slidesToScroll={1}
                     style={{height: '700px', marginTop: '70px', outline: 'none'}}
@@ -377,6 +381,8 @@ export const MenusAndMenuItems = () => {
 
             <div className={'carousel-mobile'}>
                 <Carousel
+                    pauseOnHover={false}
+                    autoplayInterval={2000}
                     slidesToShow={1.1}
                     slidesToScroll={1}
                     style={{height: '750px', marginTop: '32px', outline: 'none'}}
@@ -501,6 +507,8 @@ export const MenusAndMenuItems = () => {
 
             <div className={'carousel-tablet'}>
                 <Carousel
+                    pauseOnHover={false}
+                    autoplayInterval={2000}
                     className={'carousel-style'}
                     slidesToShow={2.2}
                     slidesToScroll={1}

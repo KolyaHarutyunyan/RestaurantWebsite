@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {Icons} from "@eachbase/theme";
-
+import CreatableSelect from 'react-select/creatable';
 export const Categories = ({ value, onChange }) => {
   const { open } = useModal();
   const {
@@ -36,16 +36,17 @@ export const Categories = ({ value, onChange }) => {
     label: category.name,
   }));
 
-  useEffect(() => {
-    if (categories.length && !categoriesSelectValue) {
-      setCategoriesSelectValue(categories[0].id);
-    }
-  }, [categories]);
+
+  // useEffect(() => {
+  //   if (categories.length && !categoriesSelectValue) {
+  //     setCategoriesSelectValue(categories[0].id);
+  //   }
+  // }, [categories]);
 
   const createAddCategoryAction = () => {
     const areCategoryInBusiness = categories.find((cCategory) => {
-      if (searchBarValue) {
-        if (searchBarValue === cCategory.name) {
+      if (categoriesSelectValue) {
+        if (categoriesSelectValue === cCategory.name) {
           return true;
         }
         return false;
@@ -65,7 +66,7 @@ export const Categories = ({ value, onChange }) => {
     } else {
       createCategorySaga.dispatch(
         {
-          name: searchBarValue,
+          name: categoriesSelectValue.label,
           description: "",
           businessId: restaurantId,
         },
@@ -84,11 +85,11 @@ export const Categories = ({ value, onChange }) => {
 
   const addButtonDisableCondition = () => {
     const areCategoryInMenu = !!menuCategories[activeTab].find((item) => {
-      if (searchBarValue) {
-        return item.category.name === searchBarValue;
+      if (categoriesSelectValue) {
+        return item.category.name === categoriesSelectValue;
       } else if (
-        categoriesSelectValue &&
-        categoriesSelectValue === item.category.id
+          categoriesSelectValue &&
+          categoriesSelectValue === item.category.id
       ) {
         return true;
       } else {
@@ -120,7 +121,8 @@ export const Categories = ({ value, onChange }) => {
   }, []);
 
 
-
+  const category =categoriesSelectValue === null ? true :
+      categoriesOptions.filter((item) =>(item.label === categoriesSelectValue.label))
 
   return (
     <Container>
@@ -137,27 +139,30 @@ export const Categories = ({ value, onChange }) => {
         </Tabs.TabHeader>
         <div className="select-create-category">
           <div className="select-wrapper">
-            <ProSelect
-
-              onChange={(value) => {
-                setCategoriesSelectValue(value);
-              }}
-              searchBarValue={searchBarValue}
-              onSearchBarValueChange={(value) => setSearchBarValue(value)}
-              options={categoriesOptions}
-              value={categoriesSelectValue}
-              onSubmit={createAddCategoryAction}
+            <CreatableSelect
+                isClearable
+                onChange={(value) => {setCategoriesSelectValue(value);}}
+                placeholder={'Select/Create Category'}
+                options={categoriesOptions}
             />
+
+            {/*<ProSelect*/}
+            {/*  onChange={(value) => {*/}
+            {/*    setCategoriesSelectValue(value);*/}
+            {/*  }}*/}
+            {/*  searchBarValue={searchBarValue}*/}
+            {/*  onSearchBarValueChange={(value) => setSearchBarValue(value)}*/}
+            {/*  options={categoriesOptions}*/}
+            {/*  value={categoriesSelectValue}*/}
+            {/*  onSubmit={createAddCategoryAction}*/}
+            {/*/>*/}
           </div>
           <Button
               height={'48px'}
               square
-            onLoad={
-              addCategoryIntoMenuSaga.status.onLoad ||
-              createCategorySaga.status.onLoad
-            }
-            disabled={addButtonDisableCondition()}
-            onClick={() => createAddCategoryAction()}
+              onLoad={addCategoryIntoMenuSaga.status.onLoad || createCategorySaga.status.onLoad}
+              disabled={categoriesSelectValue ? category === true ? true : !!category.length : true}
+              onClick={() => createAddCategoryAction()}
           >
             Add
           </Button>

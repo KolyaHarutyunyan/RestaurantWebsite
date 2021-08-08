@@ -111,7 +111,7 @@ export const RestaurantPageSections = () => {
           <div className="extra-details-card">
             <div className="header">
               <Typography className='extra-details' color="text" size="1.5rem" weight="bold">
-                Extra Details
+                Contact Details
               </Typography>
               <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
               >
