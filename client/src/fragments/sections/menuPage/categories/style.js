@@ -9,6 +9,20 @@ export const Container = styled.div`
     margin: 35px 0 25px 0;
     .select-wrapper {
       flex: 1;
+
+      .css-yk16xz-control{
+        min-height: 48px;
+        color: #2B273C80;
+        border-color: #2B273C80;
+      }
+      .css-1okebmr-indicatorSeparator{
+        display: none;
+      }
+      .css-1pahdxg-control{
+        min-height: 48px;
+        color: #2B273C80;
+        border-color: #2B273C80;
+      }
     }
     button {
       flex: 0 0 140px;

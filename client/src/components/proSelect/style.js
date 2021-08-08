@@ -16,6 +16,27 @@ export const DropDownContainer = styled.div`
   gap: 5px;
   overflow: auto;
   border-radius: 5px;
+  @media (min-width: 320px) {
+    bottom: -302px;
+    margin-left: 16px;
+    width: 310px;
+  }
+  @media (min-width: 768px) {
+    bottom: -332px;
+    margin-left: 40px;
+    width: 310px;
+  }
+  @media (min-width: 1279px) {
+    bottom: -190px;
+    margin-left: 40px;
+    width: 369px;
+  }
+  @media (min-width: 1919px) {
+    bottom: -150px;
+    margin-left: 160px;
+    width: 369px;
+  }
+  
   .wrapper {
     flex-direction: column;
     font-size: 16px;

@@ -88,7 +88,7 @@ export const EditRestaurantExtraDetailsForm = () => {
           weight="bold"
           color="text"
         >
-          Edit Extra Details
+          Edit Contact Details
         </Typography>
         <Input
           placeholder="Add your website URL"
