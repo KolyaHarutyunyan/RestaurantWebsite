@@ -13,6 +13,7 @@ export const Modal = ({
   onBackButtonClick = () => {},
   children,
   mini = false,
+    closeBorder,
                           max,
     border,confirm,
 }) => {
@@ -30,7 +31,11 @@ export const Modal = ({
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
-                  className='close-button'
+                  className={
+                      closeBorder === 'close' ? 'close-button-border' :
+                        closeBorder === 'back' ? 'back-button-border'
+
+                      : 'close-button' }
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({

@@ -28,6 +28,9 @@ export const Container = styled.div`
     opacity: 0.6;
     font-family: Open Sans, sans-serif;
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     @media (max-width: 767px) {
       font-size: 16px;
     }

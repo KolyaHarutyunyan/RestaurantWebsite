@@ -40,6 +40,9 @@ import FooterIcon from "./svgs/footerLogo.svg";
 import Arrow from './svgs/arrow.svg';
 import Forward from './svgs/forward.svg';
 import FirstStep from './svgs/firstStep.svg';
+import SuccessBIg from './svgs/successBIg.svg';
+import DeleteButton from './svgs/deleteButton.svg';
+import DeleteButtonSmall from './svgs/deleteButtonSmall.svg';
 
 export {
   AddIcon,
@@ -83,5 +86,8 @@ export {
   FooterIcon,
   Arrow,
   Forward,
-  FirstStep
+  FirstStep,
+  SuccessBIg,
+  DeleteButton,
+  DeleteButtonSmall,
 };

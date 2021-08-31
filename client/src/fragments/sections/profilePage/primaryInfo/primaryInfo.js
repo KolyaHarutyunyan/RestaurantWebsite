@@ -71,7 +71,7 @@ export const PrimaryInfo = () => {
               icon={<BsPerson size={22} />}
               disabled={!editMode}
               defaultValue={profile.fullName}
-              {...register("fullName", { required: true })}
+              {...register("fullName", { required: true, minLength:7, maxLength:20 })}
             />
           </div>
           <div className="input-box">

@@ -23,7 +23,7 @@ export const FileUpload = ({
   files = [],
   mainImageId = false,
   limit = false,menu,
-  onChange = () => {},url,id,requestType, category,menuId,itemId,
+  onChange = () => {},url,id,requestType, category,menuId,itemId,building
 }) => {
     const getBusinessSaga = useSagaStore(businessesActions.getBusinesses);
     const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
@@ -101,20 +101,14 @@ const dispatch =useDispatch()
                   className={`file-preview ${mainImageId === file.id ? "main" : ""} `}
                   style={{ backgroundImage: `url(${file.preview})` }}
                   onClick={(e) => {
-
                     e.stopPropagation();
-
-
                     onImagePreviewClick(file.id);
                   }}
                 >
                   <div
                     className="remove"
                     onClick={(e) => {
-
                       e.stopPropagation();
-
-
                       onImageRemoveClick(file);
                     }}
                   >
@@ -136,10 +130,6 @@ const dispatch =useDispatch()
                               dispatch(businessesActions.getBusinesses()))
                               // menu === true && getCurrentMenuSaga.dispatch(menuId)
                               // dispatch(businessesActions.getBusinesses()))
-
-
-
-
                       // getBusinessSaga.dispatch());
                       // getBusinessesSaga.dispatch()
                   }}
@@ -149,16 +139,19 @@ const dispatch =useDispatch()
             {!files.length && !url &&
             <div
                 style={{borderRadius: '8px'}}
-                className={`file-mock-preview  big-one`}
+                className={building === true ? `file-mock` : `file-mock-preview  big-one`}
             >
-              <Icons.MenuIcon/>
+                {building === true ?
+                    <Icons.BuildingIcon/>:
+                    <Icons.MenuIcon/>
+                }
             </div>
             }
             {/*{renderMockPreview()}*/}
           </div>
           <div className="content-container">
             <div className="title">
-              *Drag & Drop or <span className="active">Upload</span> {title}
+              Drag & Drop or <span className="active">Upload</span> {title}
             </div>
             <div style={error === true ? {color:colors.primary} : {} } className="acceptable-file-size-noth">
                 {error === true  ? 'Max size must be 2mb' :  'Max size 2mb' }

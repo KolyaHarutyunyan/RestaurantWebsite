@@ -44,6 +44,7 @@ export const Container = styled.div`
     font-family: Open Sans, sans-serif;
     font-size: 16px;
     display: block;
+    font-weight: normal;
     @media (max-width: 767px) {
      display: none;
     }
@@ -82,7 +83,7 @@ export const Container = styled.div`
           font-size: 1.5rem;
           width: 32px;
           height: 32px;
-          background-color: #ffe3e1;
+          //background-color: #ffe3e1;
           border-radius: 4px;
         }
       }
@@ -119,7 +120,10 @@ export const Container = styled.div`
     
     box-shadow: 0px 0px 6px #0000001a;
     border-radius: 8px;
-    gap: 20px;
+    gap: 32px;
+    @media (min-width: 1919px) {
+      gap: 40px;
+    }
     .mobile-head {
       display: none;
       @media only screen and (max-width: 920px) {
@@ -131,7 +135,7 @@ export const Container = styled.div`
     .logo {
       flex: 0 0 300px;
       height: 180px;
-      border-radius: 10px;
+      border-radius: 16px;
       object-fit: cover;
       @media only screen and (max-width: 920px) {
         &.mobile {

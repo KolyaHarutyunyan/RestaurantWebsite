@@ -49,27 +49,27 @@ export const ConfirmCategoryDeleteDialog = () => {
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">
-        Delete a category {params.name}
+        Delete a Menu {params.name}
       </Typography>
       <div className="options">
+        <Radio
+            onChange={() => setSelectedOption("menu")}
+            name="menu"
+            checked={selectedOption === "menu"}
+            label={<div>Delete from <span className='category-name'>{params.name}</span> menu</div>}
+        />
         <Radio
           onChange={() => setSelectedOption("restaurant")}
           name="restaurant"
           checked={selectedOption === "restaurant"}
           label="Delete from restaurant"
         />
-        <Radio
-          onChange={() => setSelectedOption("menu")}
-          name="menu"
-          checked={selectedOption === "menu"}
-          label={<div>Delete from <span className='category-name'>{params.name}</span> menu</div>}
-        />
       </div>
       <div className="actions">
         <Button
             minWidth={ typeof window !== 'undefined' && window.innerWidth > 1279 ? '170px' : '140px'}
             classname='button-class'
-          onLoad={
+            onLoad={
             deleteCategorySaga.status.onLoad ||
             deleteCategoryFromMenuSaga.status.onLoad
           }

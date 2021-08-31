@@ -55,7 +55,7 @@ export const ForgotPasswordForm = () => {
           {...register("email")}
         />
         <Button className='get-code-button' fullWidth type="submit" disabled={onLoad}>
-          Get Code
+            Get Recovery Email
         </Button>
       </form>
     </Container>

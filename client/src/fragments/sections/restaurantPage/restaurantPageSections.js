@@ -4,7 +4,7 @@ import {
   Typography,
   Menu,
   useModal,
-  MenuCard,
+  MenuCard, SmallButton,
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
@@ -16,7 +16,11 @@ import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/router";
 import { saveAs } from 'file-saver'
+import {restaurantStile} from "./uiStyle";
+
+
 export const RestaurantPageSections = () => {
+  const classes =restaurantStile()
   const { open } = useModal();
   const router = useRouter();
   const { businesses: business, menus } = useSelector(
@@ -69,7 +73,7 @@ export const RestaurantPageSections = () => {
       <div style={{ background: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)'}}>
       <Container className="container">
         <div className='title-download-content'>
-        <div className="header">
+        <div className="header-title">
           <Typography className='restaurantTitle' color="text" weight="bold">
             Restaurant
           </Typography>
@@ -97,45 +101,45 @@ export const RestaurantPageSections = () => {
                 <Icons.BuildingIcon/>
                </div>
                 }
-             <span className='restaurant-name'> {business.name.length > 15 ? `${business.name.slice(0,15)}...` : business.name}</span>
-             <span className='restaurant-name-mini'> {business.name.length > 10 ? `${business.name.slice(0,10)}...` : business.name}</span>
+             <span className='restaurant-name'> { business.name}</span>
               </Typography>
               <div>
-              <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}>
-                Edit
-              </Button>
+                <SmallButton
+                  handleClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}
+                  text={'Edit'}
+                />
               </div>
             </div>
-            <div className="descr">{business.description.length > 100 ? `${business.description.slice(0,100)}...` : business.description }</div>
+            <div className="descr">{ business.description }</div>
           </div>
           <div className="extra-details-card">
-            <div className="header">
+            <div className="contact-header">
               <Typography className='extra-details' color="text" size="1.5rem" weight="bold">
                 Contact Details
               </Typography>
-              <Button fullWidth={true} maxWidth={'110px'} onClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
-              >
-                Edit
-              </Button>
+              <SmallButton
+                  handleClick={() => open(MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS)}
+                  text={'Edit'}
+              />
             </div>
             <ul className="list">
               <li>
                 <div className="icon">
                   <Icons.WWWIcon />
                 </div>
-                <Typography color="text" className={business.website  ?  "value" : "value-not-set"}>{business.website || "Not Set"}</Typography>
+                <p className={business.website  ?  classes.value : classes.valueNotSet}>{business.website || "Not Set"}</p>
               </li>
               <li>
                 <div className="icon">
                   <Icons.CallIcon />
                 </div>
-                <Typography color="text" className={business.phoneNumber  ?  "value" : "value-not-set"}>{business.phoneNumber || "Not Set"}</Typography>
+                <p className={business.phoneNumber  ?  classes.value : classes.valueNotSet}>{business.phoneNumber || "Not Set"}</p>
               </li>
               <li>
                 <div className="icon">
                   <Icons.MapIcon />
                 </div>
-                <Typography  color="text" className={business.address  ?  "value" : "value-not-set"}>{business.address && business.address.formattedAddress || "Not Set"}</Typography>
+                <p className={business.address  ? classes.value : classes.valueNotSet} >{business.address && business.address.formattedAddress || "Not Set"}</p>
               </li>
               {/*Hour page button and menu*/}
 

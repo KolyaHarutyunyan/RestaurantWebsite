@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Switch } from "../swich";
 import { Container, DropDownMenuContainer } from "./style";
 import { Icons } from "@eachbase/theme";
-import { Menu } from "@eachbase/components";
+import {HtmlTooltip, Menu, ToolTipScreen} from "@eachbase/components";
 export const MenuCard = ({
   data,
   onTitleClick = () => {},
@@ -14,10 +14,17 @@ export const MenuCard = ({
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
+      <HtmlTooltip title={data.description.length > 20 ?
+          <ToolTipScreen
+            name={data.name}
+            desc={data.description}
+          />
+          : ''} placement="top-end">
     <Container coverImg={data.image ? data.image.originalUrl : null}>
-      <div onClick={() => onTitleClick()} className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
-      <div>
 
+
+        <div onClick={() => onTitleClick()} className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
+      <div>
         <div className="action-bar">
         <div className="title" onClick={() => onTitleClick()}>
           {data.name}
@@ -36,6 +43,7 @@ export const MenuCard = ({
         </div>
       </div>
       </div>
+        {/*</HtmlTooltip>*/}
       <Menu
           left={'170px'}
           width={'119'}
@@ -51,6 +59,8 @@ export const MenuCard = ({
           </li>
         </DropDownMenuContainer>
       </Menu>
+
     </Container>
+      </HtmlTooltip>
   );
 };

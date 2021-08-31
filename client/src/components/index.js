@@ -1,4 +1,4 @@
-export { Button, Fab } from "./buttons";
+export { Button, Fab, SmallButton } from "./buttons";
 export { Switch } from "./swich";
 export { Typography } from "./typography";
 export { Image } from "./image";
@@ -14,3 +14,4 @@ export { MultiSelect } from "./multiSelect";
 export { HourPicker } from "./hourPicker";
 export { BoxImagePreview } from "./boxImagePreview";
 export { LazyLoad } from "./lazyLoad";
+export { HtmlTooltip, ToolTipScreen } from './toolTip'

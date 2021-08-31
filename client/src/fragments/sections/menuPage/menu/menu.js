@@ -4,7 +4,7 @@ import {
   Button,
   Switch,
   Image,
-  useModal,
+  useModal, SmallButton,
 } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
 import { useRouter } from "next/router";
@@ -59,7 +59,7 @@ export const Menu = () => {
             }}
           >
             <div className="icon">
-              <IoIosTrash />
+              <Icons.DeleteButton />
             </div>
            <span className='delete-text'> Delete Menu</span>
           </Button>
@@ -70,7 +70,7 @@ export const Menu = () => {
                 switchMenuStatusSaga.dispatch(currentMenu.id, currentBusinessId)
               }
             />
-            <Typography className="switch-title" color="action" weight="bold">
+            <Typography className="switch-title" color="action" weight="normal">
               {!!currentMenu.isActive ? "Deactivate" : "Activate"}
             </Typography>
           </div>
@@ -82,16 +82,22 @@ export const Menu = () => {
             {currentMenu.name}
           </Typography>
           <div className="actions">
-            <Button
-                height={'42px'}
-                maxWidth={'110px'}
-              disabled={!currentMenu.id}
-              onClick={() =>
-                open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
-              }
-            >
-              Edit
-            </Button>
+
+            <SmallButton
+                handleClick={() => open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })}
+                text={"Edit"}
+                disabled={!currentMenu.id}
+            />
+            {/*<Button*/}
+            {/*    height={'42px'}*/}
+            {/*    maxWidth={'110px'}*/}
+            {/*  disabled={!currentMenu.id}*/}
+            {/*  onClick={() =>*/}
+            {/*    */}
+            {/*  }*/}
+            {/*>*/}
+            {/*  Edit*/}
+            {/*</Button>*/}
           </div>
         </div>
 
@@ -124,16 +130,21 @@ export const Menu = () => {
           </Typography>
         </div>
         <div className="actions desktop">
-          <Button
-              maxWidth={'110px'}
-              height={'42px'}
+          <SmallButton
+              handleClick={() => open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })}
+              text={"Edit"}
               disabled={!currentMenu.id}
-              onClick={() =>
-              open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })
-            }
-          >
-            Edit
-          </Button>
+          />
+          {/*<Button*/}
+          {/*    maxWidth={'110px'}*/}
+          {/*    height={'42px'}*/}
+          {/*    disabled={!currentMenu.id}*/}
+          {/*    onClick={() =>*/}
+          {/*    open(MODAL_NAMES.MENU_FORM, { menuId: currentMenu.id })*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  Edit*/}
+          {/*</Button>*/}
         </div>
       </div>
     </Container>

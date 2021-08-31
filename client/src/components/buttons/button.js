@@ -15,7 +15,7 @@ export const Button = ({
   ...rest
 }) => (
   <ButtonContainer
-      style={{height:height, minWidth:minWidth, maxWidth:maxWidth}}
+    style={{height:height, minWidth:minWidth, maxWidth:maxWidth}}
     fullWidth={fullWidth}
     color={color}
     link={link}

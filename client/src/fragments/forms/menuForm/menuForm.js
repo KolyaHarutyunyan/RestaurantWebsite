@@ -129,7 +129,7 @@ export const MenuForm = () => {
           url={editableMenu && editableMenu.image  && editableMenu.image.originalUrl}
           id={editableMenu && editableMenu.image && editableMenu.image.id}
           files={restaurantIcons.files}
-          title="Menu Logo"
+          title="Menu Image"
           limit={imagesLimit}
           fileUrl={image}
           mainImageId={restaurantIcons.mainIconId}
@@ -144,7 +144,7 @@ export const MenuForm = () => {
           onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}
           disabled={createMenuSaga.status.onLoad}
         >
-          Save
+          {editableMenu ? 'Save' : 'Add' }
         </Button>
       </form>
     </Container>

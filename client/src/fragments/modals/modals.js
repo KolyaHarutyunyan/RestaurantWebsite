@@ -23,18 +23,23 @@ export const Modals = () => {
   const router = useRouter();
   return (
     <Fragment>
-      <Modal modalName={MODAL_NAMES.SIGN_IN}>
+      <Modal
+          closeBorder={'close'}
+          modalName={MODAL_NAMES.SIGN_IN}>
         <SignInForm />
       </Modal>
       <Modal
-          max={463}
+          closeBorder={'back'}
+        max={463}
         backButton
         onBackButtonClick={({ open }) => open(MODAL_NAMES.SIGN_IN)}
         modalName={MODAL_NAMES.FORGOT_PASSWORD}
       >
         <ForgotPasswordForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.SIGN_UP}>
+      <Modal
+          closeBorder={'close'}
+          modalName={MODAL_NAMES.SIGN_UP}>
         <SignUpForm />
       </Modal>
       <Modal
@@ -44,7 +49,10 @@ export const Modals = () => {
       >
         <CreateRestaurantForm />
       </Modal>
-      <Modal modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
+      <Modal
+          closeBorder={'close'}
+          max={400}
+          modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
         <CheckEmailHelper />
       </Modal>
       <Modal modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>

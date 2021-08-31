@@ -44,6 +44,31 @@ export const Container = styled.div`
         width: 42px;
         height: 42px;
       }
+    }   
+    .file-mock {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: 767px) {
+        width: 82px;
+        height: 82px;
+      }
+      width: 100px;
+      height: 100px;
+      background: #0000001a;
+      margin: 10px;
+      &.big-one {
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+        width: 100px;
+        height: 100px;
+      }
+      svg {
+        width: 62px;
+        height: 62px;
+      }
     }
     .file-preview {
       vertical-align: top;
@@ -111,8 +136,9 @@ export const Container = styled.div`
       }
     }
     .acceptable-file-size-noth {
+      font-family: Open Sans, sans-serif;
       text-align: center;
-      font-size: 10px;
+      font-size: 12px;
       color: #2b273c80;
     }
   }
