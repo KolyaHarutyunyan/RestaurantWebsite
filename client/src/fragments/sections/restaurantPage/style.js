@@ -4,37 +4,29 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-top: 80px;
   
-  .header {
+  .header-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    @media (max-width: 767px) {
-      margin-bottom: 16px;
+    @media (min-width: 320px) {
+      margin: 129px 0 24px 0;
     }
-   
-   
+    @media (min-width: 768px) {
+      margin: 144px 0 40px 0;
+    }
+    @media (min-width: 1279px) {
+      margin: 144px 0 40px 0;
+    }
+    @media (min-width: 1919px) {
+      margin: 160px 0 40px 0;
+    }
     .restaurantTitle{
-      @media (min-width: 320px) {
-        margin: 48px 0 24px 0;
-      }
-      @media (min-width: 768px) {
-        margin: 48px 0 40px 0;
-      }
-      @media (min-width: 1279px) {
-        margin: 64px 0 40px 0;
-      }
-      @media (min-width: 1919px) {
-        margin: 80px 0 40px 0;
-      }
       font-size: 48px;
       font-family: Poppins,sans-serif;
-    
       @media (max-width: 767px) {
         font-size: 24px;
       }
     }
-    
     .qr-button {
       display: flex;
       align-items: center;
@@ -46,12 +38,23 @@ export const Container = styled.div`
       svg {
         transform: scale(1.4);
         margin-right: 8px;
+        margin-bottom: 4px;
         @media (max-width: 767px) {
           margin-right: 12px;
         }
       }
     }
+  
   }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    @media (max-width: 767px) {
+      margin-bottom: 16px;
+      }
+    }
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -82,21 +85,26 @@ export const Container = styled.div`
         padding: 24px 16px 24px 16px;
       }
       .restaurant-name{
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+    
+        
         @media (min-width: 320px) {
           font-size: 16px;
-          display: none;
+          width:150px;
         }
         @media (min-width: 767px) {
           font-size: 32px;
-          display: none;
+          width:200px;
         }
         @media (min-width: 1279px) {
           font-size: 32px;
-          display: none;
+          width:250px;
         }
         @media (min-width: 1920px) {
           font-size: 32px;
-          display: block;
+          width:400px;
         }
       }
       .restaurant-name-mini{
@@ -140,7 +148,24 @@ export const Container = styled.div`
             border-radius: 15px;
           }
         }
-        .action {
+      }     
+    
+    .contact-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 18px;
+        margin-bottom: 32px;
+        .title {
+          font-family: Poppins,sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 24px;
+          @media (max-width: 767px) {
+            gap: 20px;
+            margin-bottom: 42px ;
+          }
         }
       }
       .classes-no-image{
@@ -168,6 +193,9 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             margin-right: 8px;
+            @media (min-width: 767px) {
+              margin-right: 16px;
+            }
           }
           &.hourse-menu-toggle {
             cursor: pointer;
@@ -330,7 +358,7 @@ export const HourseMenuContainer = styled.div`
       .value-not-set {
         display: flex;
         flex-direction: column;
-        color: #2B273C80!important;
+        color: ${colors.notSet}!important;
         font-size: 16px;
         @media (max-width: 767px) {
           font-size: 14px;

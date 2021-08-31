@@ -1,4 +1,4 @@
-import { Typography } from "@eachbase/components";
+import {HtmlTooltip, ToolTipScreen, Typography} from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { TiPencil } from "react-icons/ti";
@@ -26,9 +26,19 @@ export const ItemCard = forwardRef(
               <Typography className='item-title' color="text" weight="bold">
                 {item.item.name}
               </Typography>
+
+              <HtmlTooltip title={item.item.description.length > 50 ?
+                  <ToolTipScreen
+                      name={item.item.name}
+                      desc={item.item.description}
+                      sub={item.item.option}
+                  />
+                  : ''} placement="top-end">
               <Typography className="poor" color="text">
-                {item.item.description}
+                {item.item.description.length > 50 ? `${item.item.description.slice(0,50)}...` : item.item.description}
               </Typography>
+              </HtmlTooltip>
+
             </div>
             <Typography color="text" className="price"  weight="bold">
               <b>$</b>

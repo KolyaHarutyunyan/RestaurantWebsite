@@ -73,11 +73,11 @@ export const Container = styled.div`
       align-items: center;
       .profile {
         cursor: pointer;
-        flex: 0 0 170px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         p {
+          margin: 0 8px;
           max-width: 120px;
           padding-left: 2px;
           white-space: nowrap;

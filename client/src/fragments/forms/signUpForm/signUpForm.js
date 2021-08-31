@@ -37,8 +37,9 @@ export const SignUpForm = () => {
           type="text"
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
-          {...register("fullName", { required: true })}
+          {...register("fullName", { required: true, minLength:7, maxLength:20  })}
           error={status.onError}
+            // helper={'Min length must be 7 characters'}
         />
         <Input
             border={'24px'}
@@ -62,16 +63,16 @@ export const SignUpForm = () => {
           Continue
         </Button>
       </form>
-      <Button
-          className='forgot-style'
-        link
-        fullWidth
-        color="default"
-        onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}
-      >
-        Forgot Password?
-      </Button>
-      <div className="divider-or" />
+      {/*<Button*/}
+      {/*    className='forgot-style'*/}
+      {/*  link*/}
+      {/*  fullWidth*/}
+      {/*  color="default"*/}
+      {/*  onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}*/}
+      {/*>*/}
+      {/*  Forgot Password?*/}
+      {/*</Button>*/}
+      <div  style={{marginTop:'40px'}} className="divider-or" />
         <Typography color="text" className='social-text'>
             Sign up with your social media account
       </Typography>

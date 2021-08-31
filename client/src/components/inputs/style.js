@@ -76,16 +76,20 @@ export const inputsStyle = makeStyles(() => ({
     borderRadius: "6px",
     position: "absolute",
     zIndex: "9999",
-    width: "350px",
+    width: "452px",
     display: "flex",
     flexDirection: "column",
-    textAlign: "center",
-    top: "300px",
+    top: "326px",
+    overflow:'auto',
+    '@media (max-width: 767px)': {
+      top: "280px",
+      width: "308px",
+}
+
   },
 
   searchAddressDescriptionText: {
     paddingTop: "5px",
-    marginLeft: "5px",
     fontSize: "16px",
     lineHeight: "30px",
     color: "#545F7E",
@@ -157,7 +161,7 @@ export const InputContainer = styled.div`
   }
   .helper-container {
     padding-top: 2px;
-    padding-left: 5px;
+    padding-left: 57px;
     font-size: 0.8rem;
     text-align: left;
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
@@ -202,7 +206,7 @@ export const TextareaContainer = styled.div`
   }
   .helper-container {
     padding-top: 2px;
-    padding-left: 5px;
+    padding-left: 57px;
     font-size: 0.8rem;
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
   }

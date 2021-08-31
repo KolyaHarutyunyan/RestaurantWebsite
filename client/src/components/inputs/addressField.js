@@ -60,8 +60,8 @@ export const AddressInput = ({
                 ? "suggestion-item--active"
                 : "suggestion-item";
               const style = suggestion.active
-                ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                : { backgroundColor: "#ffffff", cursor: "pointer" };
+                ? { backgroundColor: "#fafafa", cursor: "pointer", margin:'10px 20px 0 20px' , }
+                : { backgroundColor: "#ffffff", cursor: "pointer",margin:'10px 20px 0 20px' , };
               return (
                 <div
                   key={index}

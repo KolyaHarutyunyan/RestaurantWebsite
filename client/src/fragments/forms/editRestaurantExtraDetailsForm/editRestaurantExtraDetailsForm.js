@@ -11,8 +11,6 @@ import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSagaStore, businessesActions } from "@eachbase/store";
-import { BiChevronDown } from "react-icons/bi";
-import { BiPhoneCall } from "react-icons/bi";
 import { useRouter } from "next/dist/client/router";
 import { useSelector } from "react-redux";
 
@@ -98,7 +96,7 @@ export const EditRestaurantExtraDetailsForm = () => {
         />
         <Input
           placeholder="Phone Number"
-          icon={<BiPhoneCall size={22} />}
+          icon={<Icons.CallIcon size={22} />}
           defaultValue={restaurant.phoneNumber}
           {...register("phoneNumber", { required: true })}
         />

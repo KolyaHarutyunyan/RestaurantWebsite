@@ -21,4 +21,5 @@ export const colors = {
   text: "#2B273C",
   shadow: "#0000001A",
   green: "#54C762",
+  notSet: "#2B273C80",
 };

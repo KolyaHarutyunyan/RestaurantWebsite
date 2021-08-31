@@ -15,8 +15,9 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+    border-radius: 8px;
     min-height: 490px;
-    border: 1px dashed grey;
+    //border: 1px dashed grey;
     p {
       color: #2b273c80 !important;
     }

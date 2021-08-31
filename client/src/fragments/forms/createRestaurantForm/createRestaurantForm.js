@@ -73,6 +73,7 @@ export const CreateRestaurantForm = () => {
           </Typography>
         </div>
         <FileUpload
+          building={true}
           files={restaurantIcon ? [restaurantIcon] : []}
           title="Restaurant Logo"
           limit={1}

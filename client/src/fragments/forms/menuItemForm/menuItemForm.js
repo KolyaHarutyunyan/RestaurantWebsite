@@ -130,7 +130,7 @@ export const MenuItemForm = () => {
         <Textarea
             padding={'8px'}
             containerClassName='input-padding'
-          placeholder="*Add Ingridients..."
+          placeholder="*Add Ingredients..."
           {...register("description", { required: true })}
         />
         <Input

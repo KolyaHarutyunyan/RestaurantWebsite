@@ -121,7 +121,7 @@ export const Categories = ({ value, onChange }) => {
   }, []);
 
 
-  const category =categoriesSelectValue === null ? true :
+  const category = categoriesSelectValue === null ? true :
       categoriesOptions.filter((item) =>(item.label === categoriesSelectValue.label))
 
   return (
@@ -205,7 +205,7 @@ export const Categories = ({ value, onChange }) => {
                                 }
                               >
                                 <span className="icon">
-                                  <IoIosTrash />
+                                      <Icons.DeleteButtonSmall />
                                 </span>
                                 Delete
                               </Button>
@@ -262,7 +262,7 @@ export const Categories = ({ value, onChange }) => {
                                 }
                               >
                                 <span className="icon">
-                                  <IoIosTrash />
+                                   <Icons.DeleteButtonSmall />
                                 </span>
                                 Delete
                               </Button>

@@ -79,6 +79,37 @@ export const ModalContainer = styled.div`
     @media (min-width: 1920px) {
       margin-right: -39px;
     }
-   
+  }
+  
+  .close-button-border{
+    margin-top: 8px;
+    @media (min-width: 320px) {
+      margin-right: 0;
+    }
+    @media (min-width: 767px) {
+      margin-right: -15px;
+    }
+    @media (min-width: 1279px) {
+      margin-right: -15px;
+    }
+    @media (min-width: 1920px) {
+      margin-right: -30px;
+    }
+  } 
+  
+  .back-button-border{
+    margin-top: 8px;
+    @media (min-width: 320px) {
+      margin-right: 0;
+    }
+    @media (min-width: 767px) {
+      margin-left: -15px;
+    }
+    @media (min-width: 1279px) {
+      margin-left: -15px;
+    }
+    @media (min-width: 1920px) {
+      margin-left: -30px;
+    }
   }
 `;
