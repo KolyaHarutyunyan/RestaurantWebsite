@@ -24,10 +24,7 @@ export const HomePageSections = () => {
         <YourBusiness />
         <QRCode />
         <HowItWorks />
-
         <DigitalMenu />
-
-
         <MenusAndMenuItems />
       </Container>
     </LazyLoad>

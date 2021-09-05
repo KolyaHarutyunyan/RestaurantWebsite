@@ -151,7 +151,7 @@ const dispatch =useDispatch()
           </div>
           <div className="content-container">
             <div className="title">
-              Drag & Drop or <span className="active">Upload</span> {title}
+              *Drag & Drop or <span className="active">Upload</span> {title}
             </div>
             <div style={error === true ? {color:colors.primary} : {} } className="acceptable-file-size-noth">
                 {error === true  ? 'Max size must be 2mb' :  'Max size 2mb' }

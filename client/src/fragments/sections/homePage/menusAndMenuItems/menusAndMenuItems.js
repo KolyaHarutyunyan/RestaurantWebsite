@@ -38,7 +38,7 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={true}
+                    autoplay={false}
 
                 >
 
@@ -238,7 +238,7 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={true}
+                    autoplay={false}
 
                 >
 
@@ -390,7 +390,7 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={true}
+                    autoplay={false}
                 >
 
 
@@ -517,7 +517,7 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={true}
+                    autoplay={false}
                 >
 
 

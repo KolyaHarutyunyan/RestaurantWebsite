@@ -181,7 +181,7 @@ export const Container = styled.div`
         margin-bottom: 160px;
       }
       ul {
-        max-width: 465px;
+        max-width: 100%;
         @media (max-width: 1279px) {
           max-width: 100%;
         }
@@ -206,7 +206,7 @@ export const Container = styled.div`
             font-size: 25px;
             flex: 0 0 45px;
             height: 45px;
-            background-color: #54c762;
+            //background-color: #54c762;
             color: white;
             border-radius: 50%;
           }

@@ -9,6 +9,7 @@ import BuildingIcon from "./svgs/building.svg";
 import DoneIcon from "./svgs/done.svg";
 import GoogleIcon from "./svgs/google.svg";
 import PersonIcon from "./svgs/person.svg";
+import Settings from "./svgs/settings.svg";
 import CallIcon from "./svgs/call.svg";
 import DownloadIcon from "./svgs/download.svg";
 import HoursIcon from "./svgs/hours.svg";
@@ -43,6 +44,8 @@ import FirstStep from './svgs/firstStep.svg';
 import SuccessBIg from './svgs/successBIg.svg';
 import DeleteButton from './svgs/deleteButton.svg';
 import DeleteButtonSmall from './svgs/deleteButtonSmall.svg';
+import RedUser from './svgs/redUser.svg';
+import HowDone from './svgs/howDone.svg';
 
 export {
   AddIcon,
@@ -90,4 +93,7 @@ export {
   SuccessBIg,
   DeleteButton,
   DeleteButtonSmall,
+  Settings,
+  RedUser,
+  HowDone
 };

@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
-    <defs>
-        <style>.a{fill:#fff;opacity:0;}.b{fill:#ff453a;}</style>
-        <style>.t{fill:#fff;opacity:0;}.b{fill:#ff453a;}</style>
-    </defs>
-    <g transform="translate(-329 -18)">
-        <rect class="a" width="42" height="42" transform="translate(329 18)"/>
-        <g class="close" transform="translate(-1 5)">
-            <rect class="b" width="40" height="4" rx="2" transform="translate(331 25)"/>
-            <rect class="b" width="40" height="4" rx="2" transform="translate(331 39)"/>
-        </g>
-        <g class="open" transform="translate(-1 12)">
-            <rect class="b" width="40" height="4" rx="2" transform="translate(335.444 39.728) rotate(-45)"/>
-            <rect class="b" width="40" height="4" rx="2" transform="translate(338.272 11.444) rotate(45)"/>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><defs><style>.a{fill:#fff;opacity:0;}.b{fill:#ff453a;}</style></defs><g transform="translate(-329 -20)"><rect class="a" width="30" height="30" transform="translate(329 20)"/><g transform="translate(-1 8.5)"><rect class="b" width="28" height="3" rx="1.5" transform="translate(334.04 35.339) rotate(-45)"/><rect class="b" width="28" height="3" rx="1.5" transform="translate(336.161 15.54) rotate(45)"/></g></g></svg>

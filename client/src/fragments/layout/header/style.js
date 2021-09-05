@@ -13,12 +13,26 @@ export const Container = styled.div`
     height: 80px;
     transition-duration: 1s;
     
+  } 
+  
+  .header-scrolled-open{
+    
+    box-shadow: 0px 2px 6px #0000001a;
+    background: white!important;
+    width: 100%;
+    height: 80px;
+    transition-duration: 1s;
+    @media (min-width: 1279px) {
+      box-shadow:none;
+      background: transparent!important;
+    }
   }
   .header-not-scrolled{
     background: transparent!important;
     width: 100%;
     height: 80px;
     transition-duration: 1s;
+
   }
   
  
@@ -119,7 +133,7 @@ export const Container = styled.div`
         right: -340px;
         opacity: 0;
         transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
+        box-shadow: 0px 2px 6px #0000001a;
 
         &.open {
           opacity: 1;
@@ -140,8 +154,10 @@ export const Container = styled.div`
 export const NavigationContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  justify-content: space-between; 
+  padding: 9px 0 10px 0;
   width: 100%;
+  height: 156px;
   
   .account-icon {
     display: none;
@@ -152,10 +168,12 @@ export const NavigationContainer = styled.ul`
     width: 160px;
     margin-bottom:40px ;
     margin-left: 47px;
+    padding: 10px;
   }
   @media (max-width: 768px) {
     .account-icon {
       display: flex;
+      background-color: #FF453A1A;
       p {
         margin-top: -5px;
         font-family: Open Sans, sans-serif;
@@ -181,15 +199,27 @@ export const NavigationContainer = styled.ul`
   li {
     @media (max-width: 767px) {
         height: 41px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
   }
-    height: 48px;
+    height: 41px;
     margin-bottom: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
 
     .icon-container {
+      @media (max-width: 767px) {
+        margin: 0 6px 0 40px;
+      }
+      
+      margin: 0 8px 0 16px;
+      svg {
+        fill: ${colors.text};
+        transform: scale(0.7);
+        font-size: 40px;
+      }
+    }  
+    .icon-container-user {
       @media (max-width: 767px) {
         margin: 0 6px 0 40px;
       }

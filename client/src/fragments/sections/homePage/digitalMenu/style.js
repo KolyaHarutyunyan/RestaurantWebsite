@@ -44,6 +44,8 @@ export const Container = styled.section`
   
   .image.main {
     flex: 0 0 540px;
+    position: relative;
+    z-index: 2;
     @media (min-width: 320px) {
       width: 311px;
       max-height: 412px;
@@ -134,6 +136,6 @@ export const Container = styled.section`
       height: 400px;
     }
     top: 20%;
-    opacity: 0.02;
+    //opacity: 0.05;
   }
 `;
