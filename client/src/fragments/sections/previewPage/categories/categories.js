@@ -59,7 +59,7 @@ export const Categories = () => {
                                   <p>{item.item.name}</p>
                                   <p>{`$${item.item.price}`}</p>
                                 </div>
-                                  <HtmlTooltip title={item.item.description.length > 20 ?
+                                  <HtmlTooltip title={item.item.description.length > 40 ?
                                       <ToolTipScreen
                                           name={item.item.name}
                                           desc={item.item.description}
@@ -67,7 +67,7 @@ export const Categories = () => {
                                       />
                                       : ''} placement="top-end">
                                       <p className='desc'  color="text">
-                                          {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                          {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                       </p>
                                   </HtmlTooltip>
                                 <p className='optional'>{item.item.option}</p>
@@ -111,7 +111,7 @@ export const Categories = () => {
                                   <p>{item.item.name}</p>
                                   <p>{`$${item.item.price}`}</p>
                                 </div>
-                                  <HtmlTooltip title={item.item.description.length > 20 ?
+                                  <HtmlTooltip title={item.item.description.length > 40 ?
                                       <ToolTipScreen
                                           name={item.item.name}
                                           desc={item.item.description}
@@ -119,7 +119,7 @@ export const Categories = () => {
                                       />
                                       : ''} placement="top-end">
                                       <p className='desc'  color="text">
-                                          {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                          {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                       </p>
                                   </HtmlTooltip>
                                 <p className='optional'>{item.item.option}</p>

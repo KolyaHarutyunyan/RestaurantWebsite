@@ -128,6 +128,9 @@ export const Container = styled.div`
   .card-info {
     width: 100%;
     margin-left: 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   .title {
@@ -142,14 +145,12 @@ export const Container = styled.div`
   }
 
   .desc {
-    margin-top: 16px;
     font-family: Open Sans, sans-serif;
     color: #313131;
     font-size: 14px;
   }
 
   .optional {
-    margin-top: 8px;
     font-family: Open Sans, sans-serif;
     color: #54C762;
     font-size: 14px;

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {LazyLoad, Tabs} from "@eachbase/components";
+import {HtmlTooltip, LazyLoad, Tabs, ToolTipScreen} from "@eachbase/components";
 import {Container} from "./style";
 import {Icons} from "@eachbase/theme";
 import {useScrollPosition} from 'react-use-scroll-position';
@@ -93,7 +93,18 @@ export const ActiveMenuSection = ({}) => {
                                                         <p>{item.item.name}</p>
                                                         <p>{`$${item.item.price}`}</p>
                                                     </div>
-                                                    <p className='desc'>{item.item.description}</p>
+                                                    <HtmlTooltip title={item.item.description.length > 40 ?
+                                                        <ToolTipScreen
+                                                            name={item.item.name}
+                                                            desc={item.item.description}
+                                                            sub={item.item.option}
+                                                        />
+                                                        : ''} placement="top-end">
+                                                        <p className='desc'  color="text">
+                                                            {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
+                                                        </p>
+                                                    </HtmlTooltip>
+                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
@@ -159,7 +170,18 @@ export const ActiveMenuSection = ({}) => {
                                                         <p>{item.item.name}</p>
                                                         <p>{`$${item.item.price}`}</p>
                                                     </div>
-                                                    <p className='desc'>{item.item.description}</p>
+                                                    <HtmlTooltip title={item.item.description.length > 20 ?
+                                                        <ToolTipScreen
+                                                            name={item.item.name}
+                                                            desc={item.item.description}
+                                                            sub={item.item.option}
+                                                        />
+                                                        : ''} placement="top-end">
+                                                        <p className='desc'  color="text">
+                                                            {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                                        </p>
+                                                    </HtmlTooltip>
+                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>

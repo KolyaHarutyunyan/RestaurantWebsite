@@ -92,9 +92,9 @@ export const Container = styled.div`
     position:fixed;
     width:100%; 
     background:white;
-    margin-top:-10px;
+    margin-top:-12px;
     max-width:768px;
-    box-shadow: 0px 0px 12px #0052E01A;
+    //box-shadow: 0px 0px 12px #0052E01A;
     
     hr{
       height:2px;
@@ -145,6 +145,9 @@ export const Container = styled.div`
   .card-info{
     width: 100%;
     margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .title{
     width: 100%;
@@ -161,7 +164,6 @@ export const Container = styled.div`
  
   .desc{
     font-size: 16px;
-    margin-top: 16px;
     font-family: Open Sans, sans-serif;
     color: #313131;
     @media (max-width: 767px) {
@@ -170,7 +172,6 @@ export const Container = styled.div`
   }
   .optional{
     font-size: 14px;
-    margin-top: 8px;
     font-family: Open Sans, sans-serif;
     color: #54C762;
     @media (max-width: 767px) {
