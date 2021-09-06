@@ -18,7 +18,7 @@ export const HomePageSections = () => {
   }, []);
 
   return (
-    <LazyLoad loaded={loaded}>
+    // <LazyLoad loaded={loaded}>
       <Container>
         <Hero/>
         <YourBusiness />
@@ -27,6 +27,6 @@ export const HomePageSections = () => {
         <DigitalMenu />
         <MenusAndMenuItems />
       </Container>
-    </LazyLoad>
+    // </LazyLoad>
   );
 };
