@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import {LazyLoad, Tabs} from "@eachbase/components";
+import {HtmlTooltip, LazyLoad, Tabs, ToolTipScreen, Typography} from "@eachbase/components";
 import {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import {Icons} from "@eachbase/theme";
@@ -59,7 +59,17 @@ export const Categories = () => {
                                   <p>{item.item.name}</p>
                                   <p>{`$${item.item.price}`}</p>
                                 </div>
-                                <p className='desc'>{item.item.description}</p>
+                                  <HtmlTooltip title={item.item.description.length > 20 ?
+                                      <ToolTipScreen
+                                          name={item.item.name}
+                                          desc={item.item.description}
+                                          sub={item.item.option}
+                                      />
+                                      : ''} placement="top-end">
+                                      <p className='desc'  color="text">
+                                          {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                      </p>
+                                  </HtmlTooltip>
                                 <p className='optional'>{item.item.option}</p>
 
                               </div>
@@ -101,7 +111,17 @@ export const Categories = () => {
                                   <p>{item.item.name}</p>
                                   <p>{`$${item.item.price}`}</p>
                                 </div>
-                                <p className='desc'>{item.item.description}</p>
+                                  <HtmlTooltip title={item.item.description.length > 20 ?
+                                      <ToolTipScreen
+                                          name={item.item.name}
+                                          desc={item.item.description}
+                                          sub={item.item.option}
+                                      />
+                                      : ''} placement="top-end">
+                                      <p className='desc'  color="text">
+                                          {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                      </p>
+                                  </HtmlTooltip>
                                 <p className='optional'>{item.item.option}</p>
 
                               </div>

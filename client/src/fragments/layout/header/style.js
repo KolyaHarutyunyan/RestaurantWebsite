@@ -238,10 +238,11 @@ export const NavigationContainer = styled.ul`
       color: ${colors.text};
     }
     &:hover {
-      height: 48px;
+      height: 41px;
       background-color: #FF453A;
       display: flex;
       align-items: center;
+      
       @media (max-width: 767px) {
           height: 41px;
           background-color: #FF453A1A;
