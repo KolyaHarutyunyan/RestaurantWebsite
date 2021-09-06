@@ -122,10 +122,11 @@ export const Container = styled.div`
     //  flex-direction: column;
     //}
     //display: grid;
+    padding:0 5px 20px 5px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 50px 100px;
     margin-top: 80px;
-    padding-bottom: 20px;
+    //padding-bottom: 20px;
     overflow: auto;
     li {
      
@@ -144,29 +145,26 @@ export const Container = styled.div`
       .image {
         object-fit: cover;
         flex: 1;
+        height: 100px;
         border-radius: 8px 8px 0 0;
       }
       p {
-        font-family: Poppins,sans-serif;
+        font-family: Open Sans, sans-serif;
         border-radius: 0 0 8px 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex: 0 0 40px;
+        flex: 0 0 64px;
+        font-weight: 600;
         box-shadow: 0px 4px 4px #eaeaea;
         background: white;
       }
     }
   } 
 .cardsDesc {
-    //@media (max-width: 767px) {
-    //  display: flex;
-    //  flex-direction: column;
-    //}
-    //display: grid;
+    padding:0 5px 20px 5px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 50px 100px;
-    padding-bottom: 20px;
     margin-top: 60px;
     overflow: auto;
     li {
@@ -186,15 +184,17 @@ export const Container = styled.div`
       .image {
         object-fit: cover;
         flex: 1;
+        height: 100px;
         border-radius: 8px 8px 0 0;
       }
       p {
-        font-family: Poppins,sans-serif;
+        font-family: Open Sans, sans-serif;
+        font-weight: 600;
         border-radius: 0 0 8px 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex: 0 0 40px;
+        flex: 0 0 60px;
         box-shadow: 0px 4px 4px #eaeaea;
         background: white;
       }

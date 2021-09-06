@@ -4,7 +4,7 @@ import { Typography, Button, Menu, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
-import { BsPersonFill, BsChevronUp } from "react-icons/bs";
+import { BsPerson,BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { HiMenuAlt4 } from "react-icons/hi";
 import {useSagaStore, profileActions, businessesActions,} from "@eachbase/store";
@@ -62,7 +62,7 @@ export const Header = () => {
             </Button>
           <li className='account-icon'>
             <div className="icon-container">
-              <Icons.PersonIcon />
+              <Icons.RedUser />
             </div>
             <Typography color="text" weight="bold">
               {profile.fullName}
@@ -78,7 +78,7 @@ export const Header = () => {
           </li>
           <li onClick={() => router.push("/profile")}>
             <div className="icon-container">
-              <BsPersonFill />
+              <BsPerson />
             </div>
             <Typography>
               Account Settings
@@ -127,6 +127,7 @@ export const Header = () => {
             Create Menu
           </Button>
           <Menu
+
             width={300}
             open={menuIsOpen}
             onRequestToClose={() => setMenuIsOpen(false)}
@@ -167,12 +168,14 @@ export const Header = () => {
             className="controller"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            { menuIsOpen ? <IoMdClose /> : <HiMenuAlt4 /> }
+            { menuIsOpen ? <Icons.CloseBurgerIcon /> : <HiMenuAlt4 /> }
           </div>
+            <div >
           <div className={`menu ${menuIsOpen ? "open" : ""}`}>
             {renderSignInButtons()}
             {profileNavigationalList()}
           </div>
+            </div>
         </div>
       );
     }
@@ -182,7 +185,9 @@ export const Header = () => {
 
   return (
     <Container >
-        <div className={path === '/' ? scrollPos.y > 10 ? 'header-scrolled'  :  'header-not-scrolled'  :'header-scrolled' } >
+        <div className={path === '/' ?  scrollPos.y > 10 ? 'header-scrolled'  :
+            menuIsOpen === true ? 'header-scrolled-open' :
+                'header-not-scrolled'   :'header-scrolled'} >
       <div className="container-header">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />

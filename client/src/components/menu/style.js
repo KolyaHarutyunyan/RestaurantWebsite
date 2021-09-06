@@ -18,7 +18,7 @@ export const Container = styled.div`
     border-radius: 6px;
     ${({ position: { top, left } }) =>
       `
-      top: ${top}px;
+      top: ${35 + top}px;
       left: ${left}px;
     `}
     width: ${({ width }) => width}px;

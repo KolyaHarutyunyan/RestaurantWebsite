@@ -1,6 +1,7 @@
 import { Container } from "./style";
 import { Image, Typography } from "@eachbase/components";
 import { MdDone } from "react-icons/md";
+import { Icons } from "@eachbase/theme";
 export const HowItWorks = () => {
   return (
     <Container className="container-mini">
@@ -45,7 +46,7 @@ export const HowItWorks = () => {
         <ul>
           <li>
             <div className="checkmark">
-              <MdDone />
+              <Icons.HowDone />
             </div>
             <div className="content">
               <Typography  className="title" color="text" weight="bold">
@@ -59,7 +60,7 @@ export const HowItWorks = () => {
           </li>
           <li>
             <div className="checkmark">
-              <MdDone />
+              <Icons.HowDone />
             </div>
             <div className="content">
               <Typography  className="title" color="text" weight="bold">
