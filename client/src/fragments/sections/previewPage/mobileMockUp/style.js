@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 0 auto;
+  //margin: 0 auto;
   width: 418px;
+  //right: 15px;
   height: 842px;
   position: relative;
   background-image: url(/assets/images/phone_mock.png);
@@ -10,6 +11,7 @@ export const Container = styled.div`
   background-size: auto;
   background-color: white;
   border-radius: 49px;
+  
   .wrapper {
     width: 91%;
     z-index: 1;

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {LazyLoad, Tabs} from "@eachbase/components";
+import {HtmlTooltip, LazyLoad, Tabs, ToolTipScreen} from "@eachbase/components";
 import {Container} from "./style";
 import {Icons} from "@eachbase/theme";
 import {useScrollPosition} from 'react-use-scroll-position';
@@ -25,25 +25,26 @@ export const ActiveMenuSection = ({}) => {
 
         <LazyLoad loaded={loaded}>
             <Container>
-                {scrollPos.y === 0 &&
-                <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
-                    <p className='name'>{menus.name}</p>
-                </div>
-                }
+                {/*{scrollPos.y === 0 &&*/}
+
+                {/*}*/}
                 <Tabs.Wrapper
                     activeTab={activeTab}
                     onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
                 >
-                    {scrollPos.y === 0 &&
-                    <Tabs.TabHeader square>
-                        <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
-                        <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
-                    </Tabs.TabHeader>
-                    }
+                    {/*{scrollPos.y === 0 &&*/}
+                    {/*<Tabs.TabHeader square>*/}
+                    {/*    <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>*/}
+                    {/*    <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>*/}
+                    {/*</Tabs.TabHeader>*/}
+                    {/*}*/}
                     <Tabs.TabContent contentOf="food">
                         <div className="slidable">
-                            {scrollPos.y > 0 &&
+                            {/*{scrollPos.y > 0 &&*/}
                             <div className='scrolled-tab'>
+                                <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
+                                    <p className='name'>{menus.name}</p>
+                                </div>
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -60,8 +61,8 @@ export const ActiveMenuSection = ({}) => {
                                 }</div>
                                 <hr/>
                             </div>
-                            }
-                            {scrollPos.y === 0 &&
+                            {/*}*/}
+                            {/*{scrollPos.y === 0 &&*/}
                             <div className='menu-category'>{
                                 menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
                                     <a key={key}
@@ -73,7 +74,7 @@ export const ActiveMenuSection = ({}) => {
                                 ))
                             }
                             </div>
-                            }
+                            // }
                             <div className='category-border'/>
                             {/*<div className={scrollPos.y > 0 ? 'scrolled-items': ''}>*/}
                             {menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
@@ -93,7 +94,18 @@ export const ActiveMenuSection = ({}) => {
                                                         <p>{item.item.name}</p>
                                                         <p>{`$${item.item.price}`}</p>
                                                     </div>
-                                                    <p className='desc'>{item.item.description}</p>
+                                                    <HtmlTooltip title={item.item.description.length > 40 ?
+                                                        <ToolTipScreen
+                                                            name={item.item.name}
+                                                            desc={item.item.description}
+                                                            sub={item.item.option}
+                                                        />
+                                                        : ''} placement="top-end">
+                                                        <p className='desc'  color="text">
+                                                            {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
+                                                        </p>
+                                                    </HtmlTooltip>
+                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
@@ -159,7 +171,18 @@ export const ActiveMenuSection = ({}) => {
                                                         <p>{item.item.name}</p>
                                                         <p>{`$${item.item.price}`}</p>
                                                     </div>
-                                                    <p className='desc'>{item.item.description}</p>
+                                                    <HtmlTooltip title={item.item.description.length > 20 ?
+                                                        <ToolTipScreen
+                                                            name={item.item.name}
+                                                            desc={item.item.description}
+                                                            sub={item.item.option}
+                                                        />
+                                                        : ''} placement="top-end">
+                                                        <p className='desc'  color="text">
+                                                            {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
+                                                        </p>
+                                                    </HtmlTooltip>
+                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>

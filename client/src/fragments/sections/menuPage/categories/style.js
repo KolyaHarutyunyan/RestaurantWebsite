@@ -28,13 +28,23 @@ export const Container = styled.div`
       flex: 0 0 140px;
     }
   }
-  
+  .delete-button{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    span{
+      margin-right: 8px;
+    }
+  }
+  .delete-arrow{
+    display: flex;
+    align-items: center;
+  }
   .categories {
     flex-direction: column;
     margin-bottom: 10px;
     @media only screen and (max-width: 768px) {
       height: auto;
-      //height: 150px;
     }
     li {
       margin-bottom: 10px;
@@ -85,5 +95,6 @@ export const Container = styled.div`
         }
       }
     }
+    
   }
 `;

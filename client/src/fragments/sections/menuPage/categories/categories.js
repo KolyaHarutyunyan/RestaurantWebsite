@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import { Tabs, Button, ProSelect, useModal } from "@eachbase/components";
+import {Tabs, Button, ProSelect, useModal, ToolTipScreen, HtmlTooltip, SlicedText} from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
@@ -196,13 +196,17 @@ export const Categories = ({ value, onChange }) => {
                           }
                         >
                           <Typography className="category-name" color="text">
-                            {category.name}
-                            <span className="action">
+                            <SlicedText type={'name'} size={10} data={category && category.name}/>
+                          </Typography>
+
+                          <div className={'delete-arrow'} >
+                               <span className="action">
                               <Button
-                                link
-                                onClick={() =>
-                                  onRequestToDelete(category, "food")
-                                }
+                                  className={'delete-button'}
+                                  link
+                                  onClick={() =>
+                                      onRequestToDelete(category, "food")
+                                  }
                               >
                                 <span className="icon">
                                       <Icons.DeleteButtonSmall />
@@ -210,9 +214,8 @@ export const Categories = ({ value, onChange }) => {
                                 Delete
                               </Button>
                             </span>
-
-                          </Typography>
-                          <Icons.Forward/>
+                            <Icons.Forward/>
+                          </div>
 
                         </li>
                       )}
@@ -253,22 +256,26 @@ export const Categories = ({ value, onChange }) => {
                           }
                         >
                           <Typography className="category-name" color="text">
-                            {category.name}
-                            <span className="action">
+                            <SlicedText type={'name'} size={10} data={category && category.name}/>
+                          </Typography>
+
+                          <div className={'delete-arrow'} >
+                               <span className="action">
                               <Button
-                                link
-                                onClick={() =>
-                                  onRequestToDelete(category, "drink")
-                                }
+                                  className={'delete-button'}
+                                  link
+                                  onClick={() =>
+                                      onRequestToDelete(category, "drink")
+                                  }
                               >
                                 <span className="icon">
-                                   <Icons.DeleteButtonSmall />
+                                      <Icons.DeleteButtonSmall />
                                 </span>
                                 Delete
                               </Button>
                             </span>
-                          </Typography>
-                          <Icons.Forward/>
+                            <Icons.Forward/>
+                          </div>
                         </li>
                       )}
                     </Draggable>
