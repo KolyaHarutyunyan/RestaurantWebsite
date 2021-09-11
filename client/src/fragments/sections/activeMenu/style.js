@@ -37,6 +37,7 @@ export const Container = styled.div`
     margin: 83px 0 83px 40px;
   }
   .category-border{
+    margin-top: 120px;
     border-bottom: 2px solid #2B273C1A;
   }
   .menu-category{
@@ -92,7 +93,7 @@ export const Container = styled.div`
     position:fixed;
     width:100%; 
     background:white;
-    margin-top:-12px;
+    margin-top:-25px;
     max-width:768px;
     //box-shadow: 0px 0px 12px #0052E01A;
     

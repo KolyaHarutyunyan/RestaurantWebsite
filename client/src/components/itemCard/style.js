@@ -13,13 +13,16 @@ export const Container = styled.div`
   background: white;
   gap: 16px;
   .image {
-    flex: 0 0 100px;
     border-radius: 8px;
     background-color: #e7e7e7;
     background-size: cover;
     background-position: center;
-    width: 100px;
-    height: 96px;
+    width: 89px;
+    height: 89px;
+    @media (min-width: 767px) {
+      width: 118px;
+      height: 118px;
+    }
     svg {
       transform: scale(0.5);
     }
@@ -49,6 +52,9 @@ export const Container = styled.div`
   }
   .content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .upper {
       display: flex;
       justify-content: space-between;
@@ -74,10 +80,11 @@ export const Container = styled.div`
       .actions {
         display: flex;
         justify-content: flex-end;
-        flex: 0 0 145px;
+        //flex: 0 0 145px;
         gap: 24px;
+        
         @media (max-width: 767px) {
-          gap: 12px;
+          gap: 2px;
         }
         button {
           display: flex;
@@ -100,7 +107,12 @@ export const Container = styled.div`
             height: 24px;
             border-radius: 4px;
             flex: 0 0 24px;
-            margin-right: 8px;
+            margin-right: 0;
+            margin-left: 16px;
+            @media (min-width: 767px) {
+              margin-right: 8px;
+              margin-left: 0;
+            }
           }
           &.edit {
             color: ${colors.action};

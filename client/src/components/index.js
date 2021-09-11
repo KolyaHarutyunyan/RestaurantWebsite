@@ -14,4 +14,4 @@ export { MultiSelect } from "./multiSelect";
 export { HourPicker } from "./hourPicker";
 export { BoxImagePreview } from "./boxImagePreview";
 export { LazyLoad } from "./lazyLoad";
-export { HtmlTooltip, ToolTipScreen } from './toolTip'
+export { HtmlTooltip, ToolTipScreen, SlicedText } from './toolTip'

@@ -1,4 +1,4 @@
-import {HtmlTooltip, ToolTipScreen, Typography} from "@eachbase/components";
+import {HtmlTooltip, SlicedText, ToolTipScreen, Typography} from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
 import { TiPencil } from "react-icons/ti";
@@ -35,7 +35,7 @@ export const ItemCard = forwardRef(
                   />
                   : ''} placement="top-end">
               <Typography className="poor" color="text">
-                {item.item.description.length > 50 ? `${item.item.description.slice(0,50)}...` : item.item.description}
+                <SlicedText type={'desc'} size={30} data={item && item.item.description}/>
               </Typography>
               </HtmlTooltip>
 
@@ -47,7 +47,8 @@ export const ItemCard = forwardRef(
           </div>
           <div className="under">
             <Typography color="text" className="poor-option">
-              {item.item.option && item.item.option.length > 40 ? `${item.item.option.slice(0,40)}...` : item.item.option}
+              <SlicedText type={'option'} size={10} data={item && item.item.option && item.item.option}/>
+              {/*{item.item.option && item.item.option.length > 40 ? `${item.item.option.slice(0,40)}...` : item.item.option}*/}
             </Typography>
             <div className="actions">
               <button className="edit" onClick={() => onRequestToEdit()}>

@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import {HtmlTooltip, LazyLoad, Tabs, ToolTipScreen, Typography} from "@eachbase/components";
+import {HtmlTooltip, LazyLoad, SlicedText, Tabs, ToolTipScreen, Typography} from "@eachbase/components";
 import {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import {Icons} from "@eachbase/theme";
@@ -56,8 +56,8 @@ export const Categories = () => {
                               }
                               <div className='card-info'>
                                 <div className='title'>
-                                  <p>{item.item.name}</p>
-                                  <p>{`$${item.item.price}`}</p>
+                                    <SlicedText type={'nameDesc'} size={10} data={item && item.item.name}/>
+                                  <p className={'price'}>{`$${item.item.price}`}</p>
                                 </div>
                                   <HtmlTooltip title={item.item.description.length > 40 ?
                                       <ToolTipScreen
@@ -66,11 +66,13 @@ export const Categories = () => {
                                           sub={item.item.option}
                                       />
                                       : ''} placement="top-end">
-                                      <p className='desc'  color="text">
+                                      <p style={{width:'250px'}} className='desc'  color="text">
                                           {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                       </p>
                                   </HtmlTooltip>
-                                <p className='optional'>{item.item.option}</p>
+                                  <div className='optional'>
+                                  <SlicedText type={'option'} size={10} data={item && item.item.option}/>
+                                  </div>
 
                               </div>
                             </div>
@@ -97,20 +99,21 @@ export const Categories = () => {
                 {menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                     <div id={`${item.name}`} className='category' key={key}>
                       <p className='category-title'>{item.name}</p>
-
                       <div> {
                         item.items.length && item.items.map((item, key) => (
                             <div key={key} className='category-card'>
                               {item.item.mainImage ?
                                   <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                   :
-                                  <div className='no-image'><Icons.FoodIcon/></div>
+                                  <div className='no-image'><Icons.DrinkIcon/></div>
                               }
                               <div className='card-info'>
                                 <div className='title'>
-                                  <p>{item.item.name}</p>
-                                  <p>{`$${item.item.price}`}</p>
+                                    <SlicedText type={'nameDesc'} size={10} data={item && item.item.name}/>
+                                    <p className={'price'}>{`$${item.item.price}`}</p>
                                 </div>
+
+
                                   <HtmlTooltip title={item.item.description.length > 40 ?
                                       <ToolTipScreen
                                           name={item.item.name}
@@ -118,12 +121,13 @@ export const Categories = () => {
                                           sub={item.item.option}
                                       />
                                       : ''} placement="top-end">
-                                      <p className='desc'  color="text">
+                                      <p style={{width:'250px'}} className='desc'  color="text">
                                           {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                       </p>
                                   </HtmlTooltip>
-                                <p className='optional'>{item.item.option}</p>
-
+                                  <div className='optional'>
+                                     <SlicedText type={'option'} size={10} data={item && item.item.option}/>
+                                  </div>
                               </div>
                             </div>
                         ))}

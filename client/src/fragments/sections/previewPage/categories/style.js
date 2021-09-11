@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   max-width: 768px;
   margin: 0 auto;
-  overflow: auto;
+  overflow-x:hidden ;
+  overflow-y:scroll  ;
   height: 743px;
   background: white;
   padding-bottom: 20px;
@@ -123,8 +124,14 @@ export const Container = styled.div`
     align-items: center;
     border-radius: 8px;
     background-color: #0000001A;
+    svg{
+      width: 89px;
+    }
   }
 
+  .price{
+    margin-right: 20px;
+  }
   .card-info {
     width: 100%;
     margin-left: 16px;
