@@ -27,6 +27,7 @@
     "@material-ui/styles": "^4.11.3",
     "@next/bundle-analyzer": "^10.0.7",
     "@svgr/webpack": "^5.5.0",
+    "@zeit/next-css": "^1.0.1",
     "axios": "^0.21.1",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "file-saver": "^2.0.5",
