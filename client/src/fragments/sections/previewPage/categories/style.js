@@ -82,7 +82,7 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     background: white;
-    margin-top: -10px;
+    top: 0;
     max-width: 768px;
     box-shadow: 0 0 12px #0052E01A;
 

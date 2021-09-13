@@ -19,25 +19,17 @@ export const ActiveMenuSection = ({}) => {
         }, 2000);
     }, []);
 
+    const path =typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
-
+    // console.log(window.location,'asdasdasdasdasdasdsad')
     return (
 
         <LazyLoad loaded={loaded}>
             <Container>
-                {/*{scrollPos.y === 0 &&*/}
-
-                {/*}*/}
                 <Tabs.Wrapper
                     activeTab={activeTab}
                     onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
                 >
-                    {/*{scrollPos.y === 0 &&*/}
-                    {/*<Tabs.TabHeader square>*/}
-                    {/*    <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>*/}
-                    {/*    <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>*/}
-                    {/*</Tabs.TabHeader>*/}
-                    {/*}*/}
                     <Tabs.TabContent contentOf="food">
                         <div className="slidable">
                             {/*{scrollPos.y > 0 &&*/}
@@ -61,8 +53,6 @@ export const ActiveMenuSection = ({}) => {
                                 }</div>
                                 <hr/>
                             </div>
-                            {/*}*/}
-                            {/*{scrollPos.y === 0 &&*/}
                             <div className='menu-category'>{
                                 menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
                                     <a key={key}
@@ -74,11 +64,16 @@ export const ActiveMenuSection = ({}) => {
                                 ))
                             }
                             </div>
-                            // }
+
                             <div className='category-border'/>
-                            {/*<div className={scrollPos.y > 0 ? 'scrolled-items': ''}>*/}
+
                             {menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
-                                <div id={`${item.name}`} className='category' key={key}>
+
+                                <div>
+                                    <div id={`${item.name}`}
+                                         // style={{background:'red',height:'190px'}}
+                                    />
+                                <div   style={{}} className='category' key={key}>
                                     <p className='category-title'>{item.name}</p>
 
                                     <div> {
@@ -105,23 +100,27 @@ export const ActiveMenuSection = ({}) => {
                                                             {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                                         </p>
                                                     </HtmlTooltip>
-                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
+                                </div>
                                 </div>))}
-                            {/*</div>*/}
-                        </div>
-                    </Tabs.TabContent>
 
+                        </div>
+
+                    </Tabs.TabContent>
 
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
-                            {scrollPos.y > 0 &&
                             <div className='scrolled-tab'>
+
+
+                                <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
+                                    <p className='name'>{menus.name}</p>
+                                </div>
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -138,8 +137,6 @@ export const ActiveMenuSection = ({}) => {
                                 }</div>
                                 <hr/>
                             </div>
-                            }
-                            {scrollPos.y === 0 &&
                             <div className='menu-category'>{
                                 menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                                     <a key={key}
@@ -153,7 +150,6 @@ export const ActiveMenuSection = ({}) => {
                             }
 
                             <div className='category-border'/>
-                            {/*<div className={scrollPos.y > 0 ? 'scrolled-items': ''}>*/}
                             {menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                                 <div id={`${item.name}`} className='category' key={key}>
                                     <p className='category-title'>{item.name}</p>
@@ -164,7 +160,7 @@ export const ActiveMenuSection = ({}) => {
                                                 {item.item.mainImage ?
                                                     <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                     :
-                                                    <div className='no-image'><Icons.FoodIcon/></div>
+                                                    <div className='no-image'><Icons.DrinkIcon/></div>
                                                 }
                                                 <div className='card-info'>
                                                     <div className='title'>
@@ -182,7 +178,6 @@ export const ActiveMenuSection = ({}) => {
                                                             {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
                                                         </p>
                                                     </HtmlTooltip>
-                                                    {/*<p className='desc'>{item.item.description}</p>*/}
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
@@ -190,7 +185,6 @@ export const ActiveMenuSection = ({}) => {
                                         ))}
                                     </div>
                                 </div>))}
-                            {/*</div>*/}
                         </div>
                     </Tabs.TabContent>
                 </Tabs.Wrapper>
