@@ -13,8 +13,12 @@ export const Container = styled.div`
     margin: 0 auto;
     width: 100%;
     position: relative;
-    background-position: top;
-    background-size: auto;
+    object-fit: cover;
+    /* background-position: top; */
+    background-size: 100%;
+    
+    //background-position: top;
+    //background-size: auto;
     background-color: white;
   }
   .category-active{

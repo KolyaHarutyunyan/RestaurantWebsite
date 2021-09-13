@@ -15,6 +15,14 @@ import { MODAL_NAMES } from "@eachbase/constants";
 import { useRouter } from "next/router";
 
 export const Items = ({ category }) => {
+
+  const { httpOnLoad,} = useSelector((state) => ({
+    httpOnLoad: state.httpOnLoad,
+  }));
+
+  //Todo Some loading
+
+
   const { open } = useModal();
   const router = useRouter();
   const currentCategory = useSelector(({ menuCategories }) => {
@@ -85,7 +93,6 @@ export const Items = ({ category }) => {
       );
     }
   };
-
   const onDragEnd = (e) => {
 
     const itemId = e.draggableId;
@@ -101,19 +108,18 @@ export const Items = ({ category }) => {
     // }
   };
 
+
   return (
     <Container>
+     <div className='choose'>
       <div className="head">
         <Typography className='categ-name' color="text" weight="bold">
           {currentCategory.category.name}
         </Typography>
-        <Button
-          square
-          color="action"
-          onClick={() => router.push(`/preview/${router.query.menuId}`)}
-        >
-          Preview
-        </Button>
+        <button
+            className='preview'
+            onClick={() => router.push(`/preview/${router.query.menuId}`)}
+        >Preview</button>
       </div>
       <div className="add-or-choice">
         <Button
@@ -131,7 +137,7 @@ export const Items = ({ category }) => {
           </div>
           Add New Menu Item
         </Button>
-        <Typography weight="bold" color="text" classname='or'>OR</Typography>
+        <Typography weight="bold" color="text" className='or'>OR</Typography>
         <MultiSelect
           searchBarValue={itemsSelectSearchValue}
           selected={selectedOptions}
@@ -142,6 +148,7 @@ export const Items = ({ category }) => {
           options={itemOptions}
         />
       </div>
+     </div>
       {categoryItems.length ? (
         <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
           <Droppable droppableId="category-items-list">
@@ -159,6 +166,7 @@ export const Items = ({ category }) => {
                   >
                     {(provided) => (
                       <ItemCard
+                          category={category}
                         key={`${categoryItem.item.id}-${index}`}
                         item={categoryItem}
                         onRequestToEdit={() =>

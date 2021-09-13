@@ -17,30 +17,38 @@ export const Categories = () => {
   return (
 
         <Container>
-          <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
-            <p className='name'>{menus.name}</p>
-          </div>
           <Tabs.Wrapper
               activeTab={activeTab}
               onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
           >
+
+              <div style={{position:'fixed',width:'90%', marginTop:'-68px'}}>
+              <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
+                  <p className='name'>{menus.name}</p>
+              </div>
+
             <Tabs.TabHeader square>
               <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
               <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
             </Tabs.TabHeader>
+
+                  <div className='menu-category'>{
+                      menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
+                          <a key={key}
+                             onClick={() => setActive(item.name)}
+                             className={active === item.name ? 'active-category' : 'passive-category'}
+                             href={`#${item.name}`}>
+                              {item.name}
+                          </a>
+                      ))
+                  }
+                  </div>
+              </div>
+              <div className='category-border'/>
+
             <Tabs.TabContent contentOf="food">
               <div className="slidable">
-                <div className='menu-category'>{
-                  menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
-                      <a key={key}
-                         onClick={() => setActive(item.name)}
-                         className={active === item.name ? 'active-category' : 'passive-category'}
-                         href={`#${item.name}`}>
-                        {item.name}
-                      </a>
-                  ))
-                }
-                </div>
+
                 <div className='category-border'/>
                 {menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
                     <div id={`${item.name}`} className='category' key={key}>
@@ -85,6 +93,7 @@ export const Categories = () => {
 
             <Tabs.TabContent contentOf="drink">
               <div className="slidable">
+
                 <div className='menu-category'>{
                   menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                       <a key={key}

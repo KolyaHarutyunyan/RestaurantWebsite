@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { useSagaStore, itemActions } from "@eachbase/store";
 import { useSelector } from "react-redux";
 
-export const MenuItemForm = () => {
+export const MenuItemForm = (  ) => {
   const { params, close } = useModal();
   const { register, handleSubmit, setValue, reset } = useForm();
   const [imagesLimit, setImagesLimit] = useState(6);
@@ -105,6 +105,7 @@ export const MenuItemForm = () => {
       a.item.id === id
   )
 
+  const type =  sessionStorage.getItem('activeTab')
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">
@@ -113,7 +114,6 @@ export const MenuItemForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="box">
           <Input
-
               padding={'8px'}
               containerClassName='input-padding'
             placeholder="*Menu Item Name"
@@ -142,6 +142,7 @@ export const MenuItemForm = () => {
 
 
         <FileUpload
+            type={type}
             itemId={params && params.categoryItem && params.category.categoryId}
             requestType={'item'}
             url={selected.length ?  selected[0].item  && selected[0].item.mainImage &&  selected[0].item.mainImage.originalUrl : '' }

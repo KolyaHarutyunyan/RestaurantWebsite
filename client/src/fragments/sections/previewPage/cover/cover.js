@@ -43,7 +43,6 @@ export const Cover = () => {
   //   ? menus.find((m) => m.id === selectedMenu).image.originalUrl
   //   : null;
 
-  console.log(menus);
   return (
     <Container img={menus.image}>
       {/*<div className="content" onClick={() => selectRef.current.click()}>*/}

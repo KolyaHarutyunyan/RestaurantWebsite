@@ -32,9 +32,47 @@ export const Container = styled.div`
     }
     gap: 10px;
     border-radius: 8px;
-    padding: 16px;
-    background-color: #e7e7e7;
+    height: 680px;
+    overflow: auto;
+    @media (min-width: 768px) {
+      background-color: #e7e7e7;
+      padding: 16px;
+    }
   }
+  .preview{
+    background: #007AFF;
+    font-size: 14px;
+    color: white;
+    border-radius: 8px;
+    height: 36px;
+    width: 102px;
+    font-weight: 600;
+    @media (min-width: 768px) {
+      height: 42px;
+      width: 172px;
+    }
+    @media (min-width: 1280px) {
+      height: 48px;
+      width: 174px;
+    }
+  }
+  .choose{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 6px #0000001a;
+    padding: 16px 16px 1px 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    @media (min-width: 768px) {
+      padding: 24px 24px 1px 24px;
+    }
+    @media (min-width: 1239px) {
+      background: transparent;
+      box-shadow:none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+  
   .head {
     display: flex;
     justify-content: space-between;
@@ -45,18 +83,29 @@ export const Container = styled.div`
   }
   .add-or-choice {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
     margin: 32px 0 24px 0;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    @media (min-width: 1239px) {
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
     & > * {
       flex: 1;
 
       text-align: center;
     }
     .or{
-      font-family: Open Sans, sans-serif;
-      font-size: 18px;
+     display: none;
+      @media (min-width: 1239px) {
+        display: flex;
+        font-family: Open Sans, sans-serif;
+        font-size: 18px;
+      }
+      
     }
     .action-button {
       display: flex;
@@ -65,8 +114,9 @@ export const Container = styled.div`
       font-size: 16px;
       font-family: Open Sans, sans-serif;
       font-weight: 600;
-      @media (max-width: 768px) {
+      @media (max-width: 1239px) {
         font-size: 14px;
+        margin-bottom: 10px;
       }
       .circle {
         padding: 2px;

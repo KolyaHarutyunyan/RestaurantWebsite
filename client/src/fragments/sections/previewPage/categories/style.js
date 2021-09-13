@@ -16,6 +16,7 @@ export const Container = styled.div`
     background-position: top;
     background-size: auto;
     background-color: white;
+    border-radius: 44px 44px 0 0;
   }
 
   .category-active {
@@ -38,14 +39,14 @@ export const Container = styled.div`
     border-bottom: 2px solid #2B273C1A;
   }
 
-  .menu-category {
-
-    margin: 24px 0 -2px 0;
-    background: white;
-    width: 100%;
-    overflow: auto;
-    display: flex;
-  }
+  //.menu-category {
+  //
+  //  //margin: 24px 0 -2px 0;
+  //  background: white;
+  //  width: 100%;
+  //  overflow: auto;
+  //  display: flex;
+  //}
 
   .passive-category {
 
@@ -92,7 +93,15 @@ export const Container = styled.div`
       border-color: #2B273C1A
     }
   }
-
+  .menu-category{
+    background: white;
+    width: 100%;
+    padding-top: 25px;
+    overflow: auto;
+    margin: 0 0 -2px 0;
+    display: flex;
+    height: 60px;
+  }
   .category-card {
     display: flex;
     background: white;

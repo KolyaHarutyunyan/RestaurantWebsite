@@ -6,10 +6,10 @@ import { IoIosTrash } from "react-icons/io";
 import {
   categoriesActions,
   useSagaStore,
-  menuCategoriesActions,
+  menuCategoriesActions, itemActions,
 } from "@eachbase/store";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {Icons} from "@eachbase/theme";
@@ -123,6 +123,7 @@ export const Categories = ({ value, onChange }) => {
 
   const category = categoriesSelectValue === null ? true :
       categoriesOptions.filter((item) =>(item.label === categoriesSelectValue.label))
+  const dispatch = useDispatch()
 
   return (
     <Container>
@@ -131,6 +132,7 @@ export const Categories = ({ value, onChange }) => {
         onRequestToChange={(newActiveTab) => {
           onChange({ categoryId: "", categoryType: newActiveTab });
           setActiveTab(newActiveTab);
+          sessionStorage.setItem('activeTab',newActiveTab)
         }}
       >
         <Tabs.TabHeader>

@@ -7,7 +7,7 @@ import { forwardRef } from "react";
 
 export const ItemCard = forwardRef(
   (
-    { item, onRequestToDelete = () => {}, onRequestToEdit = () => {}, ...rest },
+    {category, item, onRequestToDelete = () => {}, onRequestToEdit = () => {}, ...rest },
     ref
   ) => {
     const image = item.item.mainImage ? item.item.mainImage.originalUrl : null;
@@ -18,7 +18,12 @@ export const ItemCard = forwardRef(
     return (
       <Container {...rest} ref={ref}>
         <div className="image" style={imageStyle}>
-          {image ? null : <Icons.FoodIcon />}
+          {image ? null :
+              category && category.categoryType === 'drink' ?
+                  <Icons.DrinkIcon />
+                    :
+                  <Icons.FoodIcon />
+          }
         </div>
         <div className="content">
           <div className="upper">
