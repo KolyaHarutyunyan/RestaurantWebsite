@@ -56,6 +56,7 @@ export const Items = ({ category }) => {
   const removeItemFromCategorySaga = useSagaStore(categoryItemActions.delete);
   const itemsReorderSaga = useSagaStore(categoryItemActions.reorder);
 
+
   useEffect(() => {
     if (currentCategory && typeof currentCategory === "object") {
       getCurrentCategoryItemsSaga.dispatch(category.categoryId);
@@ -80,10 +81,19 @@ export const Items = ({ category }) => {
   }
 
   const onCategoryItemsChange = (_options, newItem, removedItem) => {
-    if (newItem) {
+    console.log(currentCategory,'currentCategory')
+    console.log(newItem,'newItemnewItemnewItem')
+    console.log(_options, newItem, removedItem,'_options, newItem, removedItem')
+    // if(permission.length) {
+    //
+    //   const body ={
+    //     roleId:role.id,
+    //     permissionId:permission[permission.length - 1].id
+    //   }
+    if (newItem.length) {
       addItemInCategorySaga.dispatch(
         currentCategory.category.id,
-        newItem.value
+        newItem[newItem.length - 1 ].value
       );
     }
     if (removedItem) {
@@ -139,6 +149,7 @@ export const Items = ({ category }) => {
         </Button>
         <Typography weight="bold" color="text" className='or'>OR</Typography>
         <MultiSelect
+            categoryItems={categoryItems}
           searchBarValue={itemsSelectSearchValue}
           selected={selectedOptions}
           onSearchBarValueChange={(value) => setItemsSelectSearchValue(value)}

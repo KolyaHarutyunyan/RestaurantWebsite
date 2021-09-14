@@ -21,7 +21,8 @@ export const ActiveMenuSection = ({}) => {
 
     const path =typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
-    // console.log(window.location,'asdasdasdasdasdasdsad')
+    console.log(scrollPos.y,'scrollPos')
+    console.log(path.hash,'asdasdasdasdasdasdsad')
     return (
 
         <LazyLoad loaded={loaded}>
@@ -32,9 +33,8 @@ export const ActiveMenuSection = ({}) => {
                 >
                     <Tabs.TabContent contentOf="food">
                         <div className="slidable">
-                            {/*{scrollPos.y > 0 &&*/}
                             <div className='scrolled-tab'>
-                                <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
+                                <div className='image' style={scrollPos.y > 0 ? {display:'none'} : {backgroundImage: `url(${menus.image})`}}>
                                     <p className='name'>{menus.name}</p>
                                 </div>
                                 <Tabs.TabHeader square>
@@ -51,29 +51,14 @@ export const ActiveMenuSection = ({}) => {
                                         </a>
                                     ))
                                 }</div>
-                                <hr/>
-                            </div>
-                            <div className='menu-category'>{
-                                menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
-                                    <a key={key}
-                                       onClick={() => setActive(item.name)}
-                                       className={active === item.name ? 'active-category' : 'passive-category'}
-                                       href={`#${item.name}`}>
-                                        {item.name}
-                                    </a>
-                                ))
-                            }
                             </div>
 
                             <div className='category-border'/>
 
                             {menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
-
                                 <div>
-                                    <div id={`${item.name}`}
-                                         // style={{background:'red',height:'190px'}}
-                                    />
-                                <div   style={{}} className='category' key={key}>
+                                    <div id={`${item.name}`} style={{height:'100px'}}/>
+                                <div   className='category' key={key}>
                                     <p className='category-title'>{item.name}</p>
 
                                     <div> {
@@ -108,17 +93,15 @@ export const ActiveMenuSection = ({}) => {
                                     </div>
                                 </div>
                                 </div>))}
-
                         </div>
-
                     </Tabs.TabContent>
+
+
 
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
                             <div className='scrolled-tab'>
-
-
-                                <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
+                                <div className='image' style={scrollPos.y > 0 ? {display:'none'} : {backgroundImage: `url(${menus.image})`}}>
                                     <p className='name'>{menus.name}</p>
                                 </div>
                                 <Tabs.TabHeader square>
@@ -135,26 +118,16 @@ export const ActiveMenuSection = ({}) => {
                                         </a>
                                     ))
                                 }</div>
-                                <hr/>
                             </div>
-                            <div className='menu-category'>{
-                                menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
-                                    <a key={key}
-                                       onClick={() => setActive(item.name)}
-                                       className={active === item.name ? 'active-category' : 'passive-category'}
-                                       href={`#${item.name}`}>
-                                        {item.name}
-                                    </a>
-                                ))
-                            }</div>
-                            }
 
                             <div className='category-border'/>
                             {menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
-                                <div id={`${item.name}`} className='category' key={key}>
-                                    <p className='category-title'>{item.name}</p>
+                                <div>
+                                    <div id={`${item.name}`} style={{height:'100px'}}/>
+                                    <div   className='category' key={key}>
+                                        <p className='category-title'>{item.name}</p>
 
-                                    <div> {
+                                        <div> {
                                         item.items.length && item.items.map((item, key) => (
                                             <div key={key} className='category-card'>
                                                 {item.item.mainImage ?
@@ -183,6 +156,7 @@ export const ActiveMenuSection = ({}) => {
                                                 </div>
                                             </div>
                                         ))}
+                                        </div>
                                     </div>
                                 </div>))}
                         </div>

@@ -41,11 +41,11 @@ export const Container = styled.div`
     margin: 83px 0 83px 40px;
   }
   .category-border{
-    margin-top: 143px;
-    border-bottom: 2px solid #2B273C1A;
+    //margin-top: 143px;
+    //border-bottom: 2px solid #2B273C1A;
   }
   .menu-category{
-  
+    border-bottom: 2px solid #2B273C1A;
     @media (max-width: 767px) {
       margin: 24px 0 -2px 0;
     }
@@ -82,6 +82,7 @@ export const Container = styled.div`
   }
   .category{
     margin-top: 16px;
+    margin-bottom: -100px;
   }
   .category-title{
     @media (max-width: 767px) {
