@@ -69,6 +69,7 @@ export const Container = styled.div`
 
   .category {
     margin-top: 16px;
+    margin-bottom: -155px;
   }
 
   .category-title {

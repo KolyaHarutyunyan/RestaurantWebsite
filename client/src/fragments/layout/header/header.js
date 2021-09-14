@@ -185,7 +185,8 @@ export const Header = () => {
 
   return (
     <Container >
-        <div className={path === '/' ?  scrollPos.y > 10 ? 'header-scrolled'  :
+        <div className={path === '/' ?
+            scrollPos.y > 10 ? 'header-scrolled'  :
             menuIsOpen === true ? 'header-scrolled-open' :
                 'header-not-scrolled'   :'header-scrolled'} >
       <div className="container-header">

@@ -64,15 +64,17 @@ export const Categories = ({ value, onChange }) => {
         activeTab
       );
     } else {
-      createCategorySaga.dispatch(
-        {
-          name: categoriesSelectValue.label,
-          description: "",
-          businessId: restaurantId,
-        },
-        menuId,
-        activeTab
-      );
+      if(categoriesSelectValue) {
+        createCategorySaga.dispatch(
+            {
+              name: categoriesSelectValue.label,
+              description: "",
+              businessId: restaurantId,
+            },
+            menuId,
+            activeTab
+        );
+      }
     }
   };
 
@@ -163,7 +165,7 @@ export const Categories = ({ value, onChange }) => {
               height={'48px'}
               square
               onLoad={addCategoryIntoMenuSaga.status.onLoad || createCategorySaga.status.onLoad}
-              disabled={categoriesSelectValue ? category === true ? true : !!category.length : true}
+              // disabled={categoriesSelectValue ? category === true ? true : !!category.length : true}
               onClick={() => createAddCategoryAction()}
           >
             Add

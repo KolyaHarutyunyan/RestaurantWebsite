@@ -21,8 +21,7 @@ export const ActiveMenuSection = ({}) => {
 
     const path =typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
-    console.log(scrollPos.y,'scrollPos')
-    console.log(path.hash,'asdasdasdasdasdasdsad')
+
     return (
 
         <LazyLoad loaded={loaded}>
@@ -42,14 +41,14 @@ export const ActiveMenuSection = ({}) => {
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
                                 </Tabs.TabHeader>
                                 <div className='menu-category'>{
-                                    menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
+                                    menus.foodCategories ? menus.foodCategories.length ? menus.foodCategories.map((item, key) => (item.items.length > 0 &&
                                         <a key={key}
                                            onClick={() => setActive(item.name)}
                                            className={active === item.name ? 'active-category' : 'passive-category'}
                                            href={`#${item.name}`}>
                                             {item.name}
                                         </a>
-                                    ))
+                                    )): '' : ''
                                 }</div>
                             </div>
 
@@ -109,14 +108,14 @@ export const ActiveMenuSection = ({}) => {
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
                                 </Tabs.TabHeader>
                                 <div className='menu-category'>{
-                                    menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
+                                    menus.drinkCategories ? menus.drinkCategories.length ? menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                                         <a key={key}
                                            onClick={() => setActive(item.name)}
                                            className={active === item.name ? 'active-category' : 'passive-category'}
                                            href={`#${item.name}`}>
                                             {item.name}
                                         </a>
-                                    ))
+                                    )): '' : ''
                                 }</div>
                             </div>
 
