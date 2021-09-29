@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { connect, set } from 'mongoose';
+import { connect, set, connection } from 'mongoose';
 import { MONGO_CONN_STR } from './constants';
 
 @Injectable()
@@ -26,5 +26,9 @@ export class DatabaseConnection {
       }
       console.log('database connected');
     });
+  };
+
+  dropDatabase = async () => {
+    await connection.dropDatabase();
   };
 }

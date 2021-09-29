@@ -11,4 +11,8 @@ export class AppService {
   getHello(): string {
     return 'Welcome to the API of the Armat. Please visit https://menuzmini.eachbase.com/api-doc to see documentation about the possible endpoints';
   }
+
+  async dropDatabase() {
+    await this.databaseConnection.dropDatabase();
+  }
 }
