@@ -21,7 +21,7 @@ export const toolTipStyles = makeStyles(() => ({
         overflow:'hidden',
         whiteSpace:'nowrap',
         textOverflow:'ellipsis',
-        width:'110px',
+        width:'125px',
         textTransform:'uppercase',
         "@media (min-width: 420px)": {
             width:'200px',

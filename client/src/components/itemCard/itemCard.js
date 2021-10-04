@@ -29,7 +29,7 @@ export const ItemCard = forwardRef(
           <div className="upper">
             <div className="info">
               <Typography className='item-title' color="text" weight="bold">
-                {item.item.name}
+                <SlicedText type={'name'} size={15} data={item && item.item.name}/>
               </Typography>
 
               <HtmlTooltip title={item.item.description.length > 50 ?

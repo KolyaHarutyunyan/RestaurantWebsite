@@ -12,6 +12,11 @@ export const Container = styled.div`
     align-items: center;
     gap: 5px;
   }
+  .apple{
+    svg{
+      width: 22px;
+    }
+  }
   .logo {
     //width: 60px;
     //height: 60px;

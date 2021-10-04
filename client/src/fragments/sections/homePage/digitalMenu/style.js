@@ -71,6 +71,13 @@ export const Container = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (min-width: 1279px) {
+      right: 100px;
+    }
+    @media (min-width: 1919px) {
+      position: absolute;
+      right: 200px;
+    }
     .g-title {
       text-align: center;
       font-family: Poppins,sans-serif;
@@ -117,7 +124,7 @@ export const Container = styled.section`
       width: 200px;
       height: 200px;
       margin-top: 160px;
-      margin-left: -130px;
+      margin-left: -140px;
       @media (min-width: 767px) {
         width: 200px;
         height: 200px;

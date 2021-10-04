@@ -80,6 +80,9 @@ export const SignInForm = () => {
         <Fab>
           <Icons.TwitterIcon />
         </Fab>
+        <Fab className="apple">
+          <Icons.AppleIcon />
+        </Fab>
       </div>
       <Button
         className='sign-up-button'

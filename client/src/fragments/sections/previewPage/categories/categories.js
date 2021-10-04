@@ -71,11 +71,13 @@ export const Categories = () => {
                                     <div> {
                                         item.items.length && item.items.map((item, key) => (
                                             <div key={key} className='category-card'>
+                                                <div>
                                                 {item.item.mainImage ?
                                                     <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                     :
                                                     <div className='no-image'><Icons.FoodIcon/></div>
                                                 }
+                                                </div>
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <SlicedText type={'nameDesc'} size={10}
@@ -128,11 +130,13 @@ export const Categories = () => {
                                 <div> {
                                     item.items.length && item.items.map((item, key) => (
                                         <div key={key} className='category-card'>
+                                            <div>
                                             {item.item.mainImage ?
                                                 <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                 :
                                                 <div className='no-image'><Icons.DrinkIcon/></div>
                                             }
+                                            </div>
                                             <div className='card-info'>
                                                 <div className='title'>
                                                     <SlicedText type={'nameDesc'} size={10}

@@ -15,6 +15,11 @@ export const Container = styled.div`
   .logo {
     margin: 24px 0 32px 0;
   }
+  .apple{
+    svg{
+      width: 22px;
+    }
+  }
   
   .social-text{
     font-family: Open Sans, sans-serif;

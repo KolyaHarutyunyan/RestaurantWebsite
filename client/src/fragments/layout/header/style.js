@@ -175,7 +175,7 @@ export const NavigationContainer = styled.ul`
       display: flex;
       background-color: #FF453A1A;
       p {
-        margin-top: -5px;
+        //margin-top: -5px;
         font-family: Open Sans, sans-serif;
         font-size: 16px;
         color: #2B273C;
@@ -232,7 +232,7 @@ export const NavigationContainer = styled.ul`
       }
     }
     p {
-      margin-top: -5px;
+      //margin-top: -5px;
       font-family: Open Sans, sans-serif;
       font-size: 16px;
       color: ${colors.text};
@@ -250,11 +250,13 @@ export const NavigationContainer = styled.ul`
       }
     .icon-container {
       flex: 0 0 40px;
+      margin-top: 5px;
+      outline: none;
     }
   }
   li:hover {
     p {
-      margin-top: -5px;
+      margin-top: -2px;
       font-family: Open Sans, sans-serif;
       font-size: 16px;
       color: white;

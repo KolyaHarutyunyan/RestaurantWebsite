@@ -39,6 +39,13 @@ export const Container = styled.div`
       padding: 16px;
     }
   }
+  .loader-section{
+    height: 680px;
+    background-color: #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .preview{
     background: #007AFF;
     font-size: 14px;
