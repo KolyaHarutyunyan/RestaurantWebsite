@@ -4,7 +4,7 @@ import {
   Typography,
   Menu,
   useModal,
-  MenuCard, SmallButton,
+  MenuCard, SmallButton, Loader,
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
@@ -37,6 +37,11 @@ export const RestaurantPageSections = () => {
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
+  const {httpOnLoad,} = useSelector((state) => ({
+    httpOnLoad: state.httpOnLoad,
+  }));
+
+  const loading = httpOnLoad.length && httpOnLoad[0] === 'GET_MENUS'
 
   useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
@@ -284,7 +289,13 @@ export const RestaurantPageSections = () => {
                   </Button>
                 </div>
               </div>
-              {menus.map((menu, index) => (
+              {loading ?
+
+                  <div className={'loader-section'}>
+                  <Loader/>
+                  </div>
+                  :
+                  menus.map((menu, index) => (
                 <MenuCard
                   key={index}
                   data={menu}

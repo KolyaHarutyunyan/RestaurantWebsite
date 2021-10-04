@@ -55,7 +55,7 @@ export const Modals = () => {
           modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
         <CheckEmailHelper />
       </Modal>
-      <Modal modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
+      <Modal closeBorder={'close'} modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
         <SignUpSuccessHelper />
       </Modal>
       <Modal modalName={MODAL_NAMES.DELETE_ACCOUNT}>

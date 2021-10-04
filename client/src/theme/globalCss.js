@@ -4,6 +4,7 @@ export const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
   "@global": {
     "*": {
+        '-webkit-tap-highlight-color': 'rgba(0,0,0,0)',
       boxSizing: "border-box",
       margin: 0,
       padding: 0,

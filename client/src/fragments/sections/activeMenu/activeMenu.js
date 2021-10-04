@@ -54,20 +54,23 @@ export const ActiveMenuSection = ({}) => {
 
                             <div className='category-border'/>
 
+                            <div className={scrollPos.y === 0 ? 'menu-body' : ''} >
                             {menus.foodCategories && menus.foodCategories.length && menus.foodCategories.map((item, key) => (item.items.length > 0 &&
                                 <div>
                                     <div id={`${item.name}`} style={{height:'100px'}}/>
                                 <div   className='category' key={key}>
                                     <p className='category-title'>{item.name}</p>
 
-                                    <div> {
+                                    <div > {
                                         item.items.length && item.items.map((item, key) => (
                                             <div key={key} className='category-card'>
+                                                <div>
                                                 {item.item.mainImage ?
                                                     <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                     :
                                                     <div className='no-image'><Icons.FoodIcon/></div>
                                                 }
+                                                </div>
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
@@ -92,6 +95,7 @@ export const ActiveMenuSection = ({}) => {
                                     </div>
                                 </div>
                                 </div>))}
+                            </div>
                         </div>
                     </Tabs.TabContent>
 
@@ -120,6 +124,7 @@ export const ActiveMenuSection = ({}) => {
                             </div>
 
                             <div className='category-border'/>
+                            <div className={scrollPos.y === 0 ? 'menu-body' : ''} >
                             {menus.drinkCategories && menus.drinkCategories.length && menus.drinkCategories.map((item, key) => (item.items.length > 0 &&
                                 <div>
                                     <div id={`${item.name}`} style={{height:'100px'}}/>
@@ -129,11 +134,13 @@ export const ActiveMenuSection = ({}) => {
                                         <div> {
                                         item.items.length && item.items.map((item, key) => (
                                             <div key={key} className='category-card'>
+                                                <div>
                                                 {item.item.mainImage ?
                                                     <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                     :
                                                     <div className='no-image'><Icons.DrinkIcon/></div>
                                                 }
+                                                </div>
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
@@ -158,6 +165,7 @@ export const ActiveMenuSection = ({}) => {
                                         </div>
                                     </div>
                                 </div>))}
+                            </div>
                         </div>
                     </Tabs.TabContent>
                 </Tabs.Wrapper>

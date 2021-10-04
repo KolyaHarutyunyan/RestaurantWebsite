@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   margin-top: 80px;
-  
+  .loader-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .header-title {
     display: flex;
     justify-content: space-between;

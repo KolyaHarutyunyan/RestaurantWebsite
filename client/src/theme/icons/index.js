@@ -46,6 +46,7 @@ import DeleteButton from './svgs/deleteButton.svg';
 import DeleteButtonSmall from './svgs/deleteButtonSmall.svg';
 import RedUser from './svgs/redUser.svg';
 import HowDone from './svgs/howDone.svg';
+import AppleIcon from './svgs/appleFill.svg';
 
 export {
   AddIcon,
@@ -95,5 +96,6 @@ export {
   DeleteButtonSmall,
   Settings,
   RedUser,
-  HowDone
+  HowDone,
+  AppleIcon  ,
 };

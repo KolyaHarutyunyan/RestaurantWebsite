@@ -121,7 +121,7 @@ export const MultiSelect = ({
       {/*>*/}
 
         <div className="dropdown-actions">
-
+          <form autoComplete="off">
           <Autocomplete
               multiple
               id="checkboxes-tags-demo"
@@ -160,6 +160,7 @@ export const MultiSelect = ({
                   />
               )}
           />
+          </form>
 
           {/*<form style={{width:'100%'}}*/}
           {/*      onSubmit={onSubmit}*/}

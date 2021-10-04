@@ -57,7 +57,7 @@ export const SignUpForm = () => {
           placeholder="Password"
           {...register("password", { required: true })}
           error={status.onError}
-          helper={status.onError ? status.onError.data.message : ""}
+          helper={status.onError ? status.onError.data.message && status.onError.data.message : ""}
         />
         <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
@@ -86,6 +86,9 @@ export const SignUpForm = () => {
         <Fab>
           <Icons.TwitterIcon />
         </Fab>
+          <Fab className="apple">
+              <Icons.AppleIcon />
+          </Fab>
       </div>
       <Button
         className='sign-up-button'

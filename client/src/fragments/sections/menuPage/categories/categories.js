@@ -143,12 +143,14 @@ export const Categories = ({ value, onChange }) => {
         </Tabs.TabHeader>
         <div className="select-create-category">
           <div className="select-wrapper">
+
+           <form autoComplete="off">
             <CreatableSelect
                 isClearable
                 onChange={(value) => {setCategoriesSelectValue(value);}}
                 placeholder={'Select/Create Category'}
                 options={categoriesOptions}
-            />
+            /></form>
 
             {/*<ProSelect*/}
             {/*  onChange={(value) => {*/}

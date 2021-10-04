@@ -44,6 +44,13 @@ export const Container = styled.div`
     //margin-top: 143px;
     //border-bottom: 2px solid #2B273C1A;
   }
+  .menu-body{
+    @media (min-width: 767px) {
+      margin-top: 120px;
+      background: white;
+    }
+   
+  }
   .menu-category{
     border-bottom: 2px solid #2B273C1A;
     @media (max-width: 767px) {
@@ -137,13 +144,13 @@ export const Container = styled.div`
   }
   .no-image{
     @media (max-width: 767px) {
-      width: 121px;
+      width: 89px;
       height: 89px;
     }
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 118px;
     height: 118px;
     border-radius: 8px;
     background-color: #0000001A;
