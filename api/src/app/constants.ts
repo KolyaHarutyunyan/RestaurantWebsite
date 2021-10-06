@@ -1,2 +1,2 @@
 export const MONGO_CONN_STR =
-  'mongodb+srv://test-menuz-user:menuzeachbase@maincluster.gh27e.mongodb.net/rankTest?retryWrites=true&w=majority';
+  'mongodb+srv://jackblack:pixQD#WHd4DP(QWH@main.uvs5v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
