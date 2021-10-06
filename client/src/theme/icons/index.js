@@ -47,6 +47,8 @@ import DeleteButtonSmall from './svgs/deleteButtonSmall.svg';
 import RedUser from './svgs/redUser.svg';
 import HowDone from './svgs/howDone.svg';
 import AppleIcon from './svgs/appleFill.svg';
+import Success from './svgs/success.svg';
+import Error from './svgs/error.svg';
 
 export {
   AddIcon,
@@ -97,5 +99,8 @@ export {
   Settings,
   RedUser,
   HowDone,
-  AppleIcon  ,
+  AppleIcon,
+  Success,
+  Error,
+
 };

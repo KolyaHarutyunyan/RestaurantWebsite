@@ -1,16 +1,8 @@
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, menusActions, imageService } from "@eachbase/store";
-import {
-  useModal,
-  Typography,
-  Input,
-  FileUpload,
-  Textarea,
-  Button,
-  BoxImagePreview,
-} from "@eachbase/components";
+import { useSagaStore, menusActions } from "@eachbase/store";
+import {useModal, Typography, Input, FileUpload, Textarea, Button,} from "@eachbase/components";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 

@@ -28,6 +28,7 @@ function* getMenus({ payload, type }) {
       type: GET_MENUS_SUCCESS,
       payload: res.data,
     });
+    yield put(httpRequestsOnLoadActions.removeLoading('REMOVE_IMAGE'));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (e) {

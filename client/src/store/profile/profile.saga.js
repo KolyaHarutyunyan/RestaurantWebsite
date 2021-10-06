@@ -86,9 +86,10 @@ function* updateProfilePassword({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(profileService.changePassword, payload);
+    const res = yield call(profileService.changePassword, payload);
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
+    localStorage.setItem("token", res.data.accessToken);
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

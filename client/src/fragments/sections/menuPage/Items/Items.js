@@ -15,16 +15,17 @@ import {MODAL_NAMES} from "@eachbase/constants";
 import {useRouter} from "next/router";
 import {CircularProgress} from "@material-ui/core";
 
-export const Items = ({category}) => {
+export const Items = ({category, categType}) => {
 
     const {httpOnLoad,} = useSelector((state) => ({
         httpOnLoad: state.httpOnLoad,
     }));
 
-
-    //Todo Some loading
-    const loading = httpOnLoad.length && httpOnLoad[0] === 'GET_CATEGORY_ITEMS'
-
+    const loading =
+        httpOnLoad.length && httpOnLoad[0] === 'GET_CATEGORY_ITEMS' ? true :
+        httpOnLoad.length && httpOnLoad[0] === 'CREATE_ITEM' ? true :
+        httpOnLoad.length && httpOnLoad[0] === 'ADD_CATEGORY_ITEM' ? true :
+        httpOnLoad.length && httpOnLoad[0] === 'CREATE_CATEGORY_ITEM'
 
     const {open} = useModal();
     const router = useRouter();
@@ -151,6 +152,7 @@ export const Items = ({category}) => {
                     </Button>
                     <Typography weight="bold" color="text" className='or'>OR</Typography>
                     <MultiSelect
+                        categType={categType}
                         categoryItems={categoryItems}
                         searchBarValue={itemsSelectSearchValue}
                         selected={selectedOptions}

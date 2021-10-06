@@ -10,7 +10,7 @@ export const initAxiosInterceptors = () => {
     if (config.auth) {
       const token = localStorage.getItem("token");
       if (!token) {
-        if(path !== '/privacyPolicy' && path !==  '/termsAndConditions') {
+        if(path !== '/privacyPolicy' && path !==  '/termsAndConditions' && path.length > 150) {
           router.push("/");
           throw new Error("token not found");
         }
@@ -28,7 +28,7 @@ export const initAxiosInterceptors = () => {
     (error) => {
       if (error.response.status === 401) {
         localStorage.removeItem("token");
-        if(path !== '/privacyPolicy' &&  path !==  '/termsAndConditions') {
+        if(path !== '/privacyPolicy' &&  path !==  '/termsAndConditions' && path.length > 150) {
           router.push("/");
         }
       }
