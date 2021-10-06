@@ -17,13 +17,17 @@ export const DropDownContainer = styled.div`
   overflow: auto;
   border-radius: 5px;
   .wrapper {
+    padding: 3px 0;
     flex-direction: column;
+    font-size: 16px;
+    color: #2B273C;
+    font-family: Open Sans, sans-serif;
     & > * {
       text-align: left;
       width: 100%;
     }
     & > div {
-      padding-left: 5px;
+      padding: 10px 18px;
       gap: 16px;
       .checkmark {
         display: flex;
@@ -46,7 +50,6 @@ export const DropDownContainer = styled.div`
   }
   div {
     cursor: pointer;
-    flex: 0 0 48px;
     display: flex;
     align-items: center;
     transition: 0.3s background ease-in-out;
@@ -61,6 +64,8 @@ export const Container = styled.label`
   height: 48px;
   border-radius: 8px;
   padding: 10px;
+  background: white;
+  
   &,
   & * {
     box-sizing: border-box;
@@ -80,6 +85,11 @@ export const Container = styled.label`
       background-color: transparent;
       outline: 0;
       border-color: transparent;
+    }
+    input::placeholder{
+      font-size: 16px;
+      color: #2B273C;
+      font-family: Open Sans, sans-serif;
     }
     .dropdown-toggle {
       cursor: pointer;

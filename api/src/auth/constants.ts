@@ -15,12 +15,12 @@ export const DOMAIN_NAME = {
 export const SALT_ROUNDS = 8;
 
 export const JWT_SECRET_SIGNIN =
-  '*ADwnda9wjdn*Aj9wdj-a;w/Adwif93jwdbAluw8h84!32';
+  '*iadgwuihdap98hwd8hwAWdn*Aj9wdj-a;w/Adwif93jwdbAluw8h84!32';
 export const JWT_SECRET_FORGET_PASS = 'abdp9awhd8awh9ej9idj((AJdWdnianwidA';
 export const MONGO_DUPLICATE_KEY = 11000;
 export const GOOGLE_CLIENT_ID =
-  '484728626492-0q1dkm300qvn81raptblpfhp8n5kc0ti.apps.googleusercontent.com';
-export const GOOGLE_CLIENT_SECRET = '4WTYGSQ8Vt2Q9zRzyXVBlE8C';
+  '1043897618844-745gb27kdtu99jar0bpum0cf163qi950.apps.googleusercontent.com';
+export const GOOGLE_CLIENT_SECRET = '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';
 export const GOOGLE_CALLBACK_URL = `${BASE_URL}/auth/google/redirected`;
 
 export const FACEBOOK_APP_ID = '975507153217521';

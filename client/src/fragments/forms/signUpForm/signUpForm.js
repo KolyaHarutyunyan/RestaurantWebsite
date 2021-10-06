@@ -26,47 +26,55 @@ export const SignUpForm = () => {
 
   return (
     <Container>
-      <Typography color="text" weight="bold" size="1.250rem">
-        Welcome to Menuz
+        <Typography className='welcome-text' color="text">
+          Welcome to Menu Mango
       </Typography>
-      <Icons.LogoIcon className="logo" />
+      {/*<Icons.LogoIcon className="logo" />*/}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+            border={'24px'}
+            containerClassName='input-padding'
           type="text"
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
-          {...register("fullName", { required: true })}
+          {...register("fullName", { required: true, minLength:7, maxLength:20  })}
           error={status.onError}
+            // helper={'Min length must be 7 characters'}
         />
         <Input
+            border={'24px'}
+            containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email", { required: true })}
         />
         <Input
+            border={'24px'}
+            containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
           {...register("password", { required: true })}
           error={status.onError}
-          helper={status.onError ? status.onError.data.message : ""}
+          helper={status.onError ? status.onError.data.message && status.onError.data.message : ""}
         />
         <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
         </Button>
       </form>
-      <Button
-        link
-        fullWidth
-        color="default"
-        onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}
-      >
-        Forgot Password?
-      </Button>
-      <div className="divider-or" />
-      <Typography color="text">
-        Sign in with your social media account
+      {/*<Button*/}
+      {/*    className='forgot-style'*/}
+      {/*  link*/}
+      {/*  fullWidth*/}
+      {/*  color="default"*/}
+      {/*  onClick={() => open(MODAL_NAMES.FORGOT_PASSWORD)}*/}
+      {/*>*/}
+      {/*  Forgot Password?*/}
+      {/*</Button>*/}
+      <div  style={{marginTop:'40px'}} className="divider-or" />
+        <Typography color="text" className='social-text'>
+            Sign up with your social media account
       </Typography>
       <div className="social">
         <Fab>
@@ -78,15 +86,27 @@ export const SignUpForm = () => {
         <Fab>
           <Icons.TwitterIcon />
         </Fab>
+          <Fab className="apple">
+              <Icons.AppleIcon />
+          </Fab>
       </div>
       <Button
+        className='sign-up-button'
         link
         color="action"
         fullWidth
         onClick={() => open(MODAL_NAMES.SIGN_IN)}
       >
-        Already have an account? Sign In
+          Already have an account? Sign In
       </Button>
+
+        <div className='term-of-use' >
+            <Typography color="text" className='social-text'>
+                By signing up, you agree to
+                <a className='sign-up-link' href={'/a'}>Terms of Use</a> and
+                <a className='sign-up-link'  href={'/a'}>Privacy Policy</a>
+            </Typography>
+        </div>
     </Container>
   );
 };

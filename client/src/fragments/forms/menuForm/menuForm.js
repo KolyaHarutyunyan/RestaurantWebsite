@@ -1,7 +1,7 @@
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, menusActions } from "@eachbase/store";
+import { useSagaStore, menusActions, imageService } from "@eachbase/store";
 import {
   useModal,
   Typography,
@@ -9,28 +9,35 @@ import {
   FileUpload,
   Textarea,
   Button,
+  BoxImagePreview,
 } from "@eachbase/components";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 export const MenuForm = () => {
-  const router = useRouter();
   const { register, handleSubmit, setValue, reset } = useForm({});
   const { close, params } = useModal();
+  const router = useRouter();
   const [restaurantIcons, setRestaurantIcons] = useState({
     mainIconId: null,
     files: [],
   });
+  const [imagesLimit, setImagesLimit] = useState(1);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
   const editMenuSaga = useSagaStore(menusActions.editMenu);
+
   const business = useSelector(({ businesses }) => businesses);
   const editableMenu = useSelector(({ menus }) =>
     params.menuId ? menus.find((menu) => menu.id === params.menuId) : null
   );
 
+
+  const [image, setImage] =useState(editableMenu && editableMenu.image  && editableMenu.image.originalUrl ? editableMenu.image.originalUrl : '')
   useEffect(() => {
     if (createMenuSaga.status.onSuccess) {
       createMenuSaga.destroy.all();
       reset();
+      close();
       router.push("/restaurant");
       setRestaurantIcons({
         mainIconId: null,
@@ -53,6 +60,9 @@ export const MenuForm = () => {
     if (editableMenu) {
       setValue("name", editableMenu.name);
       setValue("description", editableMenu.description);
+      if (editableMenu.image) {
+        setImagesLimit(0);
+      }
     }
   }, [editableMenu]);
 
@@ -86,39 +96,55 @@ export const MenuForm = () => {
           className="title"
           weight="bold"
           color="text"
-          size="1.250rem"
         >
           {editableMenu ? "Edit Menu" : "Create New Menu"}
         </Typography>
         <Input
-          placeholder="Menu Name"
-          {...register("name", { required: true })}
+            padding={'8px'}
+            containerClassName='input-padding'
+            defaultValue={editableMenu ? editableMenu.name : ''}
+            placeholder="*Menu Name"
+            {...register("name", { required: true })}
         />
         <div>
-          <Typography weight="bold" color="text">
+          <Typography className='input-padding' weight="bold" color="text">
             Optional
           </Typography>
           <Textarea
-            placeholder="Brief Description"
-            rows={4}
-            {...register("description", { required: true })}
+              max={500}
+              padding={'10px'}
+              defaultValue={editableMenu ? editableMenu.description :''}
+              containerClassName='input-padding'
+              placeholder="*Brief Description"
+              rows={4}
+              {...register("description", { required: false })}
           />
+          <Typography className='max-characters'  color="text">
+            Max 500 characters
+          </Typography>
         </div>
         <FileUpload
+            menu={true}
+          menuId={editableMenu && editableMenu.id}
+          url={editableMenu && editableMenu.image  && editableMenu.image.originalUrl}
+          id={editableMenu && editableMenu.image && editableMenu.image.id}
           files={restaurantIcons.files}
-          title="Menu Logo"
-          limit={1}
+          title="Menu Image"
+          limit={imagesLimit}
+          fileUrl={image}
           mainImageId={restaurantIcons.mainIconId}
-          onChange={(files, actionType, mainIconId) =>
+          onChange={(files, _actionType, mainIconId) =>
             setRestaurantIcons({ files, mainIconId })
           }
         />
         <Button
+            square
+            className='save-button'
           type="submit"
           onLoad={createMenuSaga.status.onLoad || editMenuSaga.status.onLoad}
           disabled={createMenuSaga.status.onLoad}
         >
-          Save
+          {editableMenu ? 'Save' : 'Add' }
         </Button>
       </form>
     </Container>

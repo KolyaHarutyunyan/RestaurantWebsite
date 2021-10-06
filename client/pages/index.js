@@ -1,8 +1,11 @@
-import { Fragment } from "react";
+import {Fragment, useEffect} from "react";
 import Head from "next/head";
 import { HomePage } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";
+
 export default function Home(props) {
+
+
   return (
     <Fragment>
       <Head>{props.meta || <title>Welcome menuz</title>}</Head>
@@ -12,8 +15,6 @@ export default function Home(props) {
     </Fragment>
   );
 }
-
-Home.getInitialProps = async () => {
-  let res = { meta: null, pageData: null };
-  return { ...res };
-};
+// export const getServerSideProps = async ({ query }) => {
+//   return { props: { data: [] } };
+// };

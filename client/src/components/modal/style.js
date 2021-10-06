@@ -9,6 +9,7 @@ export const ModalContainer = styled.div`
     flex-direction: column;
     gap: 10px;
     padding: 0 5px;
+    
     .head {
       display: flex;
       justify-content: flex-end;
@@ -18,7 +19,7 @@ export const ModalContainer = styled.div`
       button {
         outline: 0;
         line-height: 10px;
-        padding: 3px;
+        padding: 5px;
         border-radius: 50%;
         font-size: 20px;
         background: #2b273c1a 0% 0% no-repeat padding-box;
@@ -30,17 +31,29 @@ export const ModalContainer = styled.div`
     }
     position: fixed;
     z-index: 10001;
-    width: ${({ mini }) => (mini ? "395" : "465")}px;
-    left: calc(50% - (${({ mini }) => (mini ? "395" : "465")}px / 2));
-    top: 5vh;
+    width: ${({ mini }) => (mini ? "395" : "548")}px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     max-height: 92vh;
     padding: ${({ mini }) => (mini ? "10px 30px 30px 30px" : "30px")};
+    
     @media only screen and (max-width: 768px) {
-      padding: 15px;
       width: 340px;
-      left: calc(50% - (340px / 2));
     }
-    border-radius: ${({ mini }) => (mini ? "8px" : "32px")};
+    @media (min-width: 320px) {
+      padding: 8px 16px 32px 16px;
+    }
+    @media (min-width: 768px) {
+      padding: 8px 32px 42px 32px;
+    }
+    @media (min-width: 1279px) {
+      padding: 8px 32px 42px 32px;
+    } 
+    @media (min-width: 1920px) {
+      padding: 8px 48px 48px 48px;
+    }
+    border-radius: ${({ mini, border }) => (mini || border ? "8px" : "32px")};
     opacity: 1;
     background-color: white;
   }
@@ -53,5 +66,51 @@ export const ModalContainer = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: 10000;
+  }
+  .close-button{
+    @media (min-width: 320px) {
+      margin-right: -8px;
+    }
+    @media (min-width: 767px) {
+      margin-right: -8px;
+    }
+    @media (min-width: 1279px) {
+      margin-right: -23px;
+    }
+    @media (min-width: 1920px) {
+      margin-right: -39px;
+    }
+  }
+  
+  .close-button-border{
+    margin-top: 8px;
+    @media (min-width: 320px) {
+      margin-right: 0;
+    }
+    @media (min-width: 767px) {
+      margin-right: -15px;
+    }
+    @media (min-width: 1279px) {
+      margin-right: -15px;
+    }
+    @media (min-width: 1920px) {
+      margin-right: -30px;
+    }
+  } 
+  
+  .back-button-border{
+    margin-top: 8px;
+    @media (min-width: 320px) {
+      margin-right: 0;
+    }
+    @media (min-width: 767px) {
+      margin-left: -15px;
+    }
+    @media (min-width: 1279px) {
+      margin-left: -15px;
+    }
+    @media (min-width: 1920px) {
+      margin-left: -30px;
+    }
   }
 `;

@@ -5,7 +5,7 @@ import { profileService } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 export const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
@@ -34,18 +34,19 @@ export const ForgotPasswordForm = () => {
     }
   };
 
+
   return (
     <Container>
-      <Icons.LogoIcon className="logo" />
-      <Typography color="text" weight="bold" size={"1.250rem"}>
+      {/*<Icons.LogoIcon className="logo" />*/}
+        <Typography className='welcome-text' color="text">
         Forgot your password?
-      </Typography>
-      <Typography color="text" className="helper">
-        Enter your email address and we'll send you a verification code to reset
-        your password.
+        </Typography>
+        <Typography color="text" className='social-text'>
+            Enter your email address and we'll send you a recovery email to reset your password.
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+            border={'24px'}
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
@@ -53,8 +54,8 @@ export const ForgotPasswordForm = () => {
           helper={errorMessage}
           {...register("email")}
         />
-        <Button fullWidth type="submit" disabled={onLoad}>
-          Get Code
+        <Button className='get-code-button' fullWidth type="submit" disabled={onLoad}>
+            Get Recovery Email
         </Button>
       </form>
     </Container>

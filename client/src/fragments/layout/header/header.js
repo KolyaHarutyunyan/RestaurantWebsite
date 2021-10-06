@@ -1,71 +1,94 @@
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Container, NavigationContainer } from "./style";
 import { Typography, Button, Menu, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
-import { BsPersonFill, BsChevronUp } from "react-icons/bs";
+import { BsPerson,BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
-import { useSagaStore, profileActions } from "@eachbase/store";
-import { useRef, useState } from "react";
+import { HiMenuAlt4 } from "react-icons/hi";
+import {useSagaStore, profileActions, businessesActions,} from "@eachbase/store";
+import {useEffect, useRef, useState} from "react";
 import useMedia from "use-media";
+import axios from "axios";
+import {useScrollPosition} from "react-use-scroll-position";
 
 export const Header = () => {
+
+    const path = typeof window !== 'undefined' && window.location.pathname
+  const scrollPos = useScrollPosition();
   const router = useRouter();
   const profileContainerRef = useRef(null);
   const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
+  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const { open } = useModal();
-
+  const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
       signOutSaga.dispatch();
       router.push("/", undefined, { shallow: true });
-    };
+    }
+   const handleRestaurant = async () =>{
+       await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+            router.push("/restaurant")
+         ).catch(()=> open(MODAL_NAMES.CREATE_RESTAURANT)
+       )
+   }
+
+      const createMenu = async () =>{
+          await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+              open(MODAL_NAMES.MENU_FORM)
+          )
+      }
+
+
 
     if (profile) {
       return (
         <NavigationContainer>
-          <li>
+
+            <Button
+                className='create-button'
+                color="default"
+                outlined
+                inactive
+                onClick={() => createMenu()}
+            >
+                Create Menu
+            </Button>
+          <li className='account-icon'>
             <div className="icon-container">
-              <Icons.PersonIcon />
+              <Icons.RedUser />
             </div>
             <Typography color="text" weight="bold">
               {profile.fullName}
             </Typography>
           </li>
-          <li>
+          <li  onClick={ () => handleRestaurant()  }>
             <div className="icon-container">
               <Icons.MenuIcon />
             </div>
-            <Typography
-              color="text"
-              weight="bold"
-              onClick={() => router.push("/restaurant")}
-            >
+            <Typography>
               Restaurant Profile
             </Typography>
           </li>
-          <li>
+          <li onClick={() => router.push("/profile")}>
             <div className="icon-container">
-              <BsPersonFill />
+              <BsPerson />
             </div>
-            <Typography
-              color="text"
-              weight="bold"
-              onClick={() => router.push("/profile")}
-            >
+            <Typography>
               Account Settings
             </Typography>
           </li>
-          <li>
+          <li   onClick={() => signOut()}>
             <div className="icon-container">
               <Icons.LogoutIcon />
             </div>
-            <Typography color="text" weight="bold" onClick={() => signOut()}>
+            <Typography>
               Sign out
             </Typography>
           </li>
@@ -77,6 +100,10 @@ export const Header = () => {
   };
 
   const renderProfileDropdown = () => {
+
+      useEffect(() => getBusinessesSaga.dispatch(), []);
+
+
     if (!isMobileViewport && profile) {
       return (
         <div className="profile-container">
@@ -100,6 +127,7 @@ export const Header = () => {
             Create Menu
           </Button>
           <Menu
+
             width={300}
             open={menuIsOpen}
             onRequestToClose={() => setMenuIsOpen(false)}
@@ -140,12 +168,14 @@ export const Header = () => {
             className="controller"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            {menuIsOpen ? <IoMdClose /> : <IoMdMenu />}
+            { menuIsOpen ? <Icons.CloseBurgerIcon /> : <HiMenuAlt4 /> }
           </div>
+            <div >
           <div className={`menu ${menuIsOpen ? "open" : ""}`}>
             {renderSignInButtons()}
             {profileNavigationalList()}
           </div>
+            </div>
         </div>
       );
     }
@@ -154,18 +184,20 @@ export const Header = () => {
   };
 
   return (
-    <Container>
-      <div className="container">
+    <Container >
+        <div className={path === '/' ?
+            scrollPos.y > 10 ? 'header-scrolled'  :
+            menuIsOpen === true ? 'header-scrolled-open' :
+                'header-not-scrolled'   :'header-scrolled'} >
+      <div className="container-header">
         <div className="logo-container" onClick={() => router.push("/")}>
           <Icons.LogoIcon />
-          <Typography weight="bold" color="text" size="1.250rem">
-            Menuz
-          </Typography>
         </div>
         {renderProfileDropdown()}
         {!isMobileViewport ? renderSignInButtons() : null}
         {renderMobileSideBar()}
       </div>
+        </div>
     </Container>
   );
 };

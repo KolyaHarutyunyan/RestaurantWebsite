@@ -24,7 +24,7 @@ export const inputsStyle = makeStyles(() => ({
     color: "#545F7EB3",
   },
   SearchAddress: {
-    display: "flex",
+    fontFamily: 'Open Sans, sans-serif',
     gap: "10px",
     fontSize: "16px",
     lineHeight: "22px",
@@ -33,15 +33,21 @@ export const inputsStyle = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "30px",
+    height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
     border: "1px solid #2b273c80",
     borderRadius: "8px",
-    padding: "5px",
+    padding: "0 18px",
     cursor: "pointer",
     color: "#545F7E",
+    '& input':{
+      fontFamily: 'Open Sans, sans-serif',
+      fontSize: "16px",
+      color:'#2B273C'
+    }
   },
   SearchAddressDisable: {
+    fontFamily: 'Open Sans, sans-serif',
     fontSize: "16px",
     lineHeight: "22px",
     gap: "14px",
@@ -50,18 +56,19 @@ export const inputsStyle = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "30px",
+    height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
     border: "1px solid #2b273c80",
     borderRadius: "8px",
-    padding: "5px",
+    padding: "0 18px",
     cursor: "no-drop",
     color: "#545F7E",
-    "&::placeholder": {
+    '& input':{
+      fontFamily: 'Open Sans, sans-serif',
       fontSize: "16px",
-      lineHeight: "22px",
-      color: "#545F7EB3",
+      color:'#2B273C'
     },
+
   },
   searchAddressDescription: {
     background: "#FFFFFF 0% 0% no-repeat padding-box",
@@ -69,16 +76,20 @@ export const inputsStyle = makeStyles(() => ({
     borderRadius: "6px",
     position: "absolute",
     zIndex: "9999",
-    width: "350px",
+    width: "452px",
     display: "flex",
     flexDirection: "column",
-    textAlign: "center",
-    top: "300px",
+    top: "326px",
+    overflow:'auto',
+    '@media (max-width: 767px)': {
+      top: "280px",
+      width: "308px",
+}
+
   },
 
   searchAddressDescriptionText: {
     paddingTop: "5px",
-    marginLeft: "5px",
     fontSize: "16px",
     lineHeight: "30px",
     color: "#545F7E",
@@ -100,11 +111,14 @@ export const InputContainer = styled.div`
     padding: 2px;
     display: flex;
     gap: 5px;
-    height: 100%;
     border: 1px solid;
     border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
     height: 48px;
     border-radius: 8px;
+    @media (max-width: 767px) {
+      height: 42px;
+    }
+    
     .icon-container {
       padding-left: 16px;
       display: ${({ icon }) => (icon !== null ? "flex" : "none")};
@@ -125,12 +139,17 @@ export const InputContainer = styled.div`
       height: 100%;
 
       input {
-        padding: 0 5px 0 5px;
+        padding: 0 8px 0 8px;
         margin: 0;
         height: 100%;
-        width: 100%;
+        width: 95%;
         border: none;
         outline: 0;
+        font-size: 16px;
+        font-family: Open Sans, sans-serif;
+        @media (max-width: 768px) {
+          font-size: 14px;
+        }
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
@@ -142,7 +161,7 @@ export const InputContainer = styled.div`
   }
   .helper-container {
     padding-top: 2px;
-    padding-left: 5px;
+    padding-left: 57px;
     font-size: 0.8rem;
     text-align: left;
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
@@ -173,8 +192,10 @@ export const TextareaContainer = styled.div`
     .input-container {
       flex: 1;
       textarea {
+        font-family: Open Sans, sans-serif;
         padding: 5px 5px 0 5px;
         margin: 0;
+        font-size: 16px;
         width: 100%;
         height: 100%;
         resize: none;
@@ -185,7 +206,7 @@ export const TextareaContainer = styled.div`
   }
   .helper-container {
     padding-top: 2px;
-    padding-left: 5px;
+    padding-left: 57px;
     font-size: 0.8rem;
     color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
   }

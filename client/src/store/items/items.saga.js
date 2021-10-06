@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, all, takeLatest } from "redux-saga/effects";
 import {
   CREATE_ITEM,
   UPDATE_ITEM,
@@ -7,12 +7,16 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS,
   DELETE_ITEM,
-  DELETE_ITEM_SUCCESS,
 } from "./items.types";
 import { itemsService } from "./items.service";
+import { imageService } from "../imageService";
+import { categoryItemActions } from "../categoryItems";
+
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
+import {menusService} from "../menus/menus.service";
+import {EDIT_MENU_SUCCESS} from "../menus/menus.types";
 
 function* getItems({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -30,58 +34,133 @@ function* getItems({ payload, type }) {
   }
 }
 
-function* createItem({ payload }) {
-  let createdItemData = null;
-  try {
-    const { data } = yield call(
-      itemsService.create,
-      payload.data,
-      payload.categoryId
+function* createItem({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+
+  let mainImageId = null;
+  let imageIds = [];
+
+  if (payload.images.mainImageId) {
+    const mainImage = payload.images.files.filter(
+      (file) => file.id === payload.images.mainImageId
     );
-    createdItemData = data;
-    yield put({
-      type: CREATE_ITEM_SUCCESS,
-      payload: data,
-    });
-  } catch (e) {
-    return;
+    const images = payload.images.files.filter(
+      (file) => file.id !== payload.images.mainImageId
+    );
+
+    const callStack = [call(imageService.uploadImage, mainImage[0])];
+    if (images.length) {
+      callStack.push(call(imageService.uploadImages, images));
+    }
+    const [mainId, imgIds = []] = yield all(callStack);
+    mainImageId = mainId.data;
+    imageIds = imgIds.data;
   }
 
   try {
     const { data } = yield call(
-      itemsService.addToCategory,
-      payload.categoryId,
-      createdItemData.id
+      itemsService.create,
+      {
+        ...payload.data,
+        mainImage: mainImageId,
+        images: imageIds,
+      },
+      payload.categoryId
     );
-
+    ``;
     yield put({
       type: CREATE_ITEM_SUCCESS,
-      payload: createdItemData,
+      payload: data,
     });
-  } catch (e) {}
+    yield put(categoryItemActions.add(payload.categoryId, data.id));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    return;
+  }
 }
 
-function* updateItem({ payload }) {
-  try {
-    const res = yield call(itemsService.edit, payload);
-    yield put({
-      type: UPDATE_ITEM_SUCCESS,
-      payload: res.data,
-    });
-  } catch (e) {}
+function* updateItem({ payload, type, }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  if (payload.itemIcon && payload.itemIcon.mainImageId) {
+    let mainImageId = "";
+    try {
+
+      const {data} = yield call(imageService.uploadImage, payload.itemIcon.files.find((cFile) => cFile.id === payload.itemIcon.mainImageId));
+      mainImageId = data;
+
+    } catch (err) {
+      return;
+    }
+    try {
+      const {data} = yield call(itemsService.edit, {...payload, mainImage: mainImageId,});
+      yield put({
+        type: UPDATE_ITEM_SUCCESS,
+        payload: data,
+      });
+
+      yield put(categoryItemActions.get(payload.categoryId));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (e) {
+      yield put(categoryItemActions.get(payload.categoryId));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    }
+  } else {
+    try {
+
+      const date ={
+        businessId: payload.businessId,
+        description: payload.description,
+        id: payload.id,
+        name: payload.name,
+        option: payload.option,
+        price: payload.price,
+      }
+      const {data} = yield call(itemsService.edit, date);
+      yield put({
+        type: UPDATE_ITEM_SUCCESS,
+        payload: data,
+      });
+      yield put(categoryItemActions.get(payload.categoryId));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (e) {
+      yield put(categoryItemActions.get(payload.categoryId));
+      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    }
+  }
 }
 
-function* deleteItem({ payload }) {
+function* deleteItem({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     yield call(itemsService.delete, payload.itemId);
-  } catch (e) {}
-  try {
-    yield call(itemsService.removeFromCategory, payload.categoryId);
-    yield put({
-      type: DELETE_ITEM_SUCCESS,
-      payload: payload.itemId,
-    });
-  } catch (e) {}
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    yield put(categoryItemActions.get(payload.categoryId));
+  } catch (e) {
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
 }
 
 export function* watchItems() {

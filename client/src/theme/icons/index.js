@@ -9,6 +9,7 @@ import BuildingIcon from "./svgs/building.svg";
 import DoneIcon from "./svgs/done.svg";
 import GoogleIcon from "./svgs/google.svg";
 import PersonIcon from "./svgs/person.svg";
+import Settings from "./svgs/settings.svg";
 import CallIcon from "./svgs/call.svg";
 import DownloadIcon from "./svgs/download.svg";
 import HoursIcon from "./svgs/hours.svg";
@@ -36,6 +37,16 @@ import SignUpSuccessGirl from "./svgs/sign_up_success_girl.svg";
 import ErrorFab from "./svgs/error_fab.svg";
 import SuccessFab from "./svgs/success_fab.svg";
 import GirlWithBalloons from "./svgs/girl_with_balloons.svg";
+import FooterIcon from "./svgs/footerLogo.svg";
+import Arrow from './svgs/arrow.svg';
+import Forward from './svgs/forward.svg';
+import FirstStep from './svgs/firstStep.svg';
+import SuccessBIg from './svgs/successBIg.svg';
+import DeleteButton from './svgs/deleteButton.svg';
+import DeleteButtonSmall from './svgs/deleteButtonSmall.svg';
+import RedUser from './svgs/redUser.svg';
+import HowDone from './svgs/howDone.svg';
+import AppleIcon from './svgs/appleFill.svg';
 
 export {
   AddIcon,
@@ -76,4 +87,15 @@ export {
   ErrorFab,
   SuccessFab,
   GirlWithBalloons,
+  FooterIcon,
+  Arrow,
+  Forward,
+  FirstStep,
+  SuccessBIg,
+  DeleteButton,
+  DeleteButtonSmall,
+  Settings,
+  RedUser,
+  HowDone,
+  AppleIcon  ,
 };

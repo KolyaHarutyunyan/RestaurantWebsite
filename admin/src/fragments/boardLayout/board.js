@@ -8,7 +8,7 @@ import { Content } from "./core/content";
 import { Container } from "./style";
 
 export const BoardLayout = ({ children }) => {
-  const isTablet = useMedia(`(max-width: 1280px)`);
+  const isTablet = useMedia(`(max-width: 1279px)`);
   const [sideBarIsOpen, setSideBarIsOpen] = useState(!isTablet);
 
   useEffect(() => {

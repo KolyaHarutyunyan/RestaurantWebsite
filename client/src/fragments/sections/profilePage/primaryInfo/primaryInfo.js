@@ -15,7 +15,24 @@ export const PrimaryInfo = () => {
     fullName: "",
     email: "",
   });
-  const onSubmit = (data) => dispatch(data);
+
+  const onSubmit = (info) => {
+    // if(editMode === true ) {
+      if (profile.email === info.email) {
+        const data = {
+          fullName: info.fullName,
+        }
+        dispatch(data);
+      } else {
+        const data = {
+          fullName: info.fullName,
+          email: info.email
+        }
+        dispatch(data);
+      }
+    setEditMode(false)
+    // }
+  }
 
   if (profile) {
     return (
@@ -24,6 +41,8 @@ export const PrimaryInfo = () => {
           <div className="head">
             {editMode ? (
               <Button
+                  className='classes-edit-button'
+                  height={'auto'}
                 onLoad={status.onLoad}
                 color="action"
                 link
@@ -33,30 +52,30 @@ export const PrimaryInfo = () => {
                 Save
               </Button>
             ) : (
-              <Button
+              <button
+                  className='classes-edit-button'
                 color="action"
                 onClick={() => setEditMode(true)}
-                link
                 type="button"
                 onLoad={status.onLoad}
               >
                 Edit
-              </Button>
+              </button>
             )}
           </div>
           <div className="input-box">
-            <Typography color="text">Full Name</Typography>
+            <Typography className='input-title' color="text">Full Name</Typography>
             <Input
               error={!!errors.fullName.length}
               helper={errors.helper}
               icon={<BsPerson size={22} />}
               disabled={!editMode}
               defaultValue={profile.fullName}
-              {...register("fullName", { required: true })}
+              {...register("fullName", { required: true, minLength:7, maxLength:20 })}
             />
           </div>
           <div className="input-box">
-            <Typography color="text">Email</Typography>
+            <Typography  className='input-title' color="text">Email</Typography>
             <Input
               error={!!errors.email.length}
               helper={errors.helper}

@@ -2,7 +2,7 @@
 # restart the nginx server
 sudo service restart nginx
 # log the status 
-service nginx status
+# service nginx status
 
 # updating the .env file
 cd /var/www/menumango/api

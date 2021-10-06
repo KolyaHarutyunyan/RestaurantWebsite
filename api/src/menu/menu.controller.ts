@@ -31,6 +31,7 @@ import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
 import { CategoryType } from 'src/category';
 import { CategoryQueryDTO } from './dto/categoryQuery.dto';
+import { FullMenuDTO } from './dto/fullMenu.dto';
 
 @Controller('menus')
 @ApiTags('Menus')
@@ -77,12 +78,23 @@ export class MenuController {
 
   /** Get the active menu with its categories */
   @Get('active/:businessId')
-  @ApiOkResponse({ type: MenuDTO })
+  @ApiOkResponse({ type: FullMenuDTO })
   @ApiOperation({ summary: summaries.GET_ACTIVE })
   async getActiveMenu(
     @Param('businessId', ParseObjectIdPipe) businessId,
-  ): Promise<MenuDTO> {
+  ): Promise<FullMenuDTO> {
     const menu = await this.menuService.getActive(businessId);
+    return menu;
+  }
+
+  /** Get the full menu with a given id */
+  @Get(':menuId/full')
+  @ApiOkResponse({ type: FullMenuDTO })
+  @ApiOperation({ summary: summaries.GET_FULL })
+  async getFullMenu(
+    @Param('menuId', ParseObjectIdPipe) menuId,
+  ): Promise<FullMenuDTO> {
+    const menu = await this.menuService.getFullMenu(menuId);
     return menu;
   }
 

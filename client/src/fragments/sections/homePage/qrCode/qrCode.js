@@ -4,9 +4,11 @@ export const QRCode = () => {
   return (
     <Container>
       <div className="line" />
+        <div className='qr-image'>
       <Image src={"./assets/images/QR_Code.png"} />
+        </div>
       <div className="line">
-        <Typography color="invert" weight="bold">
+        <Typography  className='qr-text' color="invert" weight="bold">
           Scan the QR Code for DEMO Version
         </Typography>
       </div>

@@ -9,10 +9,13 @@ export const Button = ({
   outlined = false,
   hoverable = true,
   square = false,
+  maxWidth,minWidth,
   onLoad = false,
+                         height,
   ...rest
 }) => (
   <ButtonContainer
+    style={{height:height, minWidth:minWidth, maxWidth:maxWidth}}
     fullWidth={fullWidth}
     color={color}
     link={link}
@@ -20,6 +23,7 @@ export const Button = ({
     square={square}
     {...rest}
     disabled={onLoad || rest.disabled}
+
   >
     {onLoad ? (
       <div className="loader-wrapper">

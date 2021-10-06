@@ -52,11 +52,26 @@ export class CategoryService {
     return this.sanitizer.sanitize(cat);
   };
 
-  /** @returns the category with the items populated */
+  /** @returns the category  */
   getById = async (categoryId: string): Promise<CategoryDTO> => {
     const category = await this.model.findById(categoryId);
     this.checkCategory(category);
     return this.sanitizer.sanitize(category);
+  };
+
+  /** Get categories with items populated */
+  getWithItems = async (categoryIds: string[]): Promise<CategoryItemsDTO[]> => {
+    const categories = await this.model
+      .find({ _id: { $in: categoryIds } })
+      .populate({
+        path: 'items._id',
+        model: 'item',
+        populate: [
+          { path: 'images', model: 'image' },
+          { path: 'mainImage', model: 'image' },
+        ],
+      });
+    return this.sanitizer.sanitizeManyWithItems(categories);
   };
 
   /** Gets all categories in the system without their items */
@@ -83,11 +98,12 @@ export class CategoryService {
     let category = await this.model.findOne({ _id: catId });
     this.checkCategory(category);
     await this.bsnValidator.validateBusiness(userId, category.businessId);
-    const rank = category.items.length + 1;
-    category.items.push({
+    category.items.unshift({
       _id: itemId,
-      rank,
+      rank: 0,
     });
+    // console.log(category.items);
+    this.rerank(category.items);
     category = await category.save();
     category = await category
       .populate({
@@ -99,6 +115,10 @@ export class CategoryService {
         ],
       })
       .execPopulate();
+    if (this.cleanNulls(category.items)) {
+      this.rerank(category.items);
+      await category.save();
+    }
     return this.sanitizer.sanitizeItems(category);
   };
 
@@ -180,6 +200,7 @@ export class CategoryService {
         { path: 'mainImage', model: 'image' },
       ],
     });
+    // this.rerank(category.items);
     return this.sanitizer.sanitizeItems(category);
   };
 
@@ -187,6 +208,7 @@ export class CategoryService {
   find = async (categoryId: string): Promise<ICategory> => {
     return await this.model.findById(categoryId);
   };
+
   /** Private methods */
   /** Check if category exists */
   private checkCategory(category: ICategory) {
@@ -216,5 +238,18 @@ export class CategoryService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  /** Clean nulls */
+  private cleanNulls(items: ICategoryItem[]): boolean {
+    let hasRemoved = false;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i]._id === null) {
+        hasRemoved = true;
+        items.splice(i, 1);
+        i--;
+      }
+    }
+    return hasRemoved;
   }
 }

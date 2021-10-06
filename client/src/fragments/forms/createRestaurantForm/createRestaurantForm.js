@@ -48,25 +48,32 @@ export const CreateRestaurantForm = () => {
           className="title"
           weight="bold"
           color="text"
-          size="1.250rem"
         >
           {title}
         </Typography>
         <Input
+            padding={'8px'}
           placeholder="Add your Restaurant Name"
           {...register("name", { required: true })}
         />
         <div>
-          <Typography weight="bold" color="text">
+          <Typography className='input-padding' weight="bold" color="text">
             Optional
           </Typography>
           <Textarea
+              containerClassName='input-padding'
+              max={500}
+              padding={'10px'}
             placeholder="Add Brief Description"
             rows={4}
             {...register("description", { required: true })}
           />
+          <Typography className='max-characters'  color="text">
+            Max 500 characters
+          </Typography>
         </div>
         <FileUpload
+          building={true}
           files={restaurantIcon ? [restaurantIcon] : []}
           title="Restaurant Logo"
           limit={1}
@@ -74,7 +81,7 @@ export const CreateRestaurantForm = () => {
             setRestaurantIcon(files.length ? files[0] : null)
           }
         />
-        <Button type="submit" onLoad={status.onLoad}>
+        <Button className='save-button' square type="submit" onLoad={status.onLoad}>
           Save
         </Button>
       </form>

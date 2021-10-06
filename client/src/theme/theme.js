@@ -1,20 +1,20 @@
 import {
-  createMuiTheme,
+  createTheme,
   ThemeProvider as ThemeProviderMaterialUI,
   CssBaseline,
 } from "@material-ui/core";
 import { GlobalCss } from "./globalCss";
 import { GlobalScss } from "./globalScss";
 
-export const defaultTheme = createMuiTheme();
-export const theme = createMuiTheme({
+export const defaultTheme = createTheme();
+export const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 768,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
+      sm: 767,
+      md: 959,
+      lg: 1279,
+      xl: 1919,
     },
   },
   palette: {

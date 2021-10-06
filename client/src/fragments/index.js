@@ -9,6 +9,7 @@ export {
   MenuForm,
   ConfirmCategoryDeleteDialog,
   MenuItemForm,
+  ConfirmItemDeleteDialog,
 } from "./forms";
 export {
   CheckEmailHelper,
@@ -26,4 +27,6 @@ export {
   PreviewPageSections,
   NotFoundPageSections,
   ResetPasswordPageSections,
+  PrivacyPolicySection,
+  TermsConditionsSection,
 } from "./sections";

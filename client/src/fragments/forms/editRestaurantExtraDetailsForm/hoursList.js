@@ -1,9 +1,77 @@
 import { HoursContainer } from "./style";
 import { useSelector } from "react-redux";
-import { Typography, Switch } from "@eachbase/components";
+import { HourPicker, Typography } from "@eachbase/components";
+import { useState } from "react";
 
 export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
   const restaurant = useSelector(({ businesses }) => businesses);
+  const [hour, setHour] = useState({
+    mon: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    tue: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    wed: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    thr: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    fri: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    sat: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+    sun: {
+      status: "OPEN",
+      hours: [
+        {
+          open: { hour: "08", min: "06", part: "AM" },
+          close: { hour: "08", min: "06", part: "PM" },
+        },
+      ],
+    },
+  });
+
+  onHourListChange(hour)
 
   if (!restaurant) {
     return null;
@@ -11,139 +79,516 @@ export const HoursList = ({ hourList, onHourListChange, isOpen }) => {
 
   return (
     <HoursContainer isOpen={isOpen}>
-      <li>
-        <Typography className="day" color="text" weight="bold">
+      <div className="hour-container">
+        <Typography color="text" weight="bold" className="title">
           MON
         </Typography>
-        <ul className="times">
-          {hourList.mon.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button onClick={() => {}}>-</button>
-                <button onClick={() => {}}>+</button>
+        <div className="hour-list">
+          {hour.mon.hours.map((cHour, index) => (
+            <div className="hour" key={index}>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.open}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      mon: {
+                        ...hour.mon,
+                        hours: hour.mon.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, open: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
+              <div className="seperator"> - </div>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.close}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      mon: {
+                        ...hour.mon,
+                        hours: hour.mon.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, close: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
+              </div>
+              <div className="action-container">
+                <div
+                  className="action"
+                  style={{
+                    visibility:
+                      hour.mon.hours.length > 1 ? "visible" : "hidden",
+                  }}
+                  onClick={() =>
+                    setHour({
+                      ...hour,
+                      mon: {
+                        ...hour.mon,
+                        hours: hour.mon.hours.filter(
+                          (_h, cIndex) => cIndex !== index
+                        ),
+                      },
+                    })
+                  }
+                >
+                  Remove
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        <Switch status={hourList.mon.status !== "CLOSED"} onClick={() => {}} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
+          <div
+            className="add-button"
+            onClick={() => {
+              setHour({
+                ...hour,
+                mon: {
+                  ...hour.mon,
+                  hours: [
+                    ...hour.mon.hours,
+                    {
+                      open: { hour: "08", min: "06", part: "am" },
+                      close: { hour: "08", min: "06", part: "pm" },
+                    },
+                  ],
+                },
+              });
+            }}
+          >
+            Add more hours
+          </div>
+        </div>
+        <div className="status">
+          <input
+            onChange={() =>
+              setHour({
+                ...hour,
+                mon: {
+                  ...hour.mon,
+                  status: hour.mon.status === "OPEN" ? "OPEN" : "CLOSED"
+                },
+              })
+            }
+            checked={hour.mon.status === "CLOSED"}
+            type="checkbox"
+          />
+          <label>Closed</label>
+        </div>
+      </div>
+      <div className="hour-container">
+        <Typography color="text" weight="bold" className="title">
           TUE
         </Typography>
-        <ul className="times">
-          {hourList.tue.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+        <div className="hour-list">
+          {hour.tue.hours.map((cHour, index) => (
+            <div className="hour" key={index}>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.open}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      tue: {
+                        ...hour.tue,
+                        hours: hour.tue.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, open: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
+              <div className="seperator"> - </div>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.close}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      tue: {
+                        ...hour.tue,
+                        hours: hour.tue.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, close: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
+              </div>
+              <div className="action-container">
+                <div
+                  className="action"
+                  style={{
+                    visibility:
+                      hour.tue.hours.length > 1 ? "visible" : "hidden",
+                  }}
+                  onClick={() =>
+                    setHour({
+                      ...hour,
+                      tue: {
+                        ...hour.tue,
+                        hours: hour.tue.hours.filter(
+                          (_h, cIndex) => cIndex !== index
+                        ),
+                      },
+                    })
+                  }
+                >
+                  Remove
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        <Switch status={hourList.tue.status !== "CLOSED"} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
+          <div
+            className="add-button"
+            onClick={() => {
+              setHour({
+                ...hour,
+                tue: {
+                  ...hour.tue,
+                  hours: [
+                    ...hour.tue.hours,
+                    {
+                      open: { hour: "08", min: "06", part: "am" },
+                      close: { hour: "08", min: "06", part: "pm" },
+                    },
+                  ],
+                },
+              });
+            }}
+          >
+            Add more hours
+          </div>
+        </div>
+        <div className="status">
+          <input
+            onChange={() =>
+              setHour({
+                ...hour,
+                tue: {
+                  ...hour.tue,
+                  status: hour.tue.status === "OPEN" ? "OPEN" : "CLOSED"
+                },
+              })
+            }
+            checked={hour.tue.status === "CLOSED"}
+            type="checkbox"
+          />
+          <label>Closed</label>
+        </div>
+      </div>
+      <div className="hour-container">
+        <Typography color="text" weight="bold" className="title">
           WED
         </Typography>
-        <ul className="times">
-          {hourList.wed.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+        <div className="hour-list">
+          {hour.wed.hours.map((cHour, index) => (
+            <div className="hour" key={index}>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.open}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      wed: {
+                        ...hour.wed,
+                        hours: hour.wed.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, open: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
+              <div className="seperator"> - </div>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.close}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      wed: {
+                        ...hour.wed,
+                        hours: hour.wed.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, close: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
+              </div>
+              <div className="action-container">
+                <div
+                  className="action"
+                  style={{
+                    visibility:
+                      hour.wed.hours.length > 1 ? "visible" : "hidden",
+                  }}
+                  onClick={() =>
+                    setHour({
+                      ...hour,
+                      wed: {
+                        ...hour.wed,
+                        hours: hour.wed.hours.filter(
+                          (_h, cIndex) => cIndex !== index
+                        ),
+                      },
+                    })
+                  }
+                >
+                  Remove
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        <Switch status={hourList.wed.status !== "CLOSED"} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
+          <div
+            className="add-button"
+            onClick={() => {
+              setHour({
+                ...hour,
+                wed: {
+                  ...hour.wed,
+                  hours: [
+                    ...hour.wed.hours,
+                    {
+                      open: { hour: "08", min: "06", part: "am" },
+                      close: { hour: "08", min: "06", part: "pm" },
+                    },
+                  ],
+                },
+              });
+            }}
+          >
+            Add more hours
+          </div>
+        </div>
+        <div className="status">
+          <input
+            onChange={() =>
+              setHour({
+                ...hour,
+                wed: {
+                  ...hour.wed,
+                  status: hour.wed.status === "OPEN" ? "OPEN" : "CLOSED"
+                },
+              })
+            }
+            checked={hour.wed.status === "CLOSED"}
+            type="checkbox"
+          />
+          <label>Closed</label>
+        </div>
+      </div>
+      <div className="hour-container">
+        <Typography color="text" weight="bold" className="title">
           THR
         </Typography>
-        <ul className="times">
-          {hourList.thr.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+        <div className="hour-list">
+          {hour.thr.hours.map((cHour, index) => (
+            <div className="hour" key={index}>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.open}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      thr: {
+                        ...hour.thr,
+                        hours: hour.thr.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, open: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
+              <div className="seperator"> - </div>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.close}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      thr: {
+                        ...hour.thr,
+                        hours: hour.thr.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, close: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
+              </div>
+              <div className="action-container">
+                <div
+                  className="action"
+                  style={{
+                    visibility:
+                      hour.thr.hours.length > 1 ? "visible" : "hidden",
+                  }}
+                  onClick={() =>
+                    setHour({
+                      ...hour,
+                      thr: {
+                        ...hour.thr,
+                        hours: hour.thr.hours.filter(
+                          (_h, cIndex) => cIndex !== index
+                        ),
+                      },
+                    })
+                  }
+                >
+                  Remove
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
-        <Switch status={hourList.thr.status !== "CLOSED"} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
+          <div
+            className="add-button"
+            onClick={() => {
+              setHour({
+                ...hour,
+                thr: {
+                  ...hour.thr,
+                  hours: [
+                    ...hour.thr.hours,
+                    {
+                      open: { hour: "08", min: "06", part: "am" },
+                      close: { hour: "08", min: "06", part: "pm" },
+                    },
+                  ],
+                },
+              });
+            }}
+          >
+            Add more hours
+          </div>
+        </div>
+        <div className="status">
+          <input
+            onChange={() =>
+              setHour({
+                ...hour,
+                thr: {
+                  ...hour.thr,
+                  status: hour.thr.status === "OPEN" ? "OPEN" : "CLOSED"
+                },
+              })
+            }
+            checked={hour.thr.status === "CLOSED"}
+            type="checkbox"
+          />
+          <label>Closed</label>
+        </div>
+      </div>
+      <div className="hour-container">
+        <Typography color="text" weight="bold" className="title">
           FRI
         </Typography>
-        <ul className="times">
-          {hourList.fri.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+        <div className="hour-list">
+          {hour.fri.hours.map((cHour, index) => (
+            <div className="hour" key={index}>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.open}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      fri: {
+                        ...hour.fri,
+                        hours: hour.fri.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, open: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
-          ))}
-        </ul>
-        <Switch status={hourList.fri.status !== "CLOSED"} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
-          SAT
-        </Typography>
-        <ul className="times">
-          {hourList.sat.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+              <div className="seperator"> - </div>
+              <div className="hour-container">
+                <HourPicker
+                  value={cHour.close}
+                  onChange={(value) =>
+                    setHour({
+                      ...hour,
+                      fri: {
+                        ...hour.fri,
+                        hours: hour.fri.hours.map((h, cIndex) =>
+                          cIndex === index ? { ...h, close: value } : h
+                        ),
+                      },
+                    })
+                  }
+                />
               </div>
-            </li>
-          ))}
-        </ul>
-        <Switch status={hourList.sat.status !== "CLOSED"} />
-      </li>
-      <li>
-        <Typography className="day" color="text" weight="bold">
-          SUN
-        </Typography>
-        <ul className="times">
-          {hourList.sun.hours.map((hour, index) => (
-            <li key={index}>
-              <Typography color="text">
-                {hour.open} - {hour.close}
-              </Typography>
-              <div className="actions">
-                <button>-</button>
-                <button>+</button>
+              <div className="action-container">
+                <div
+                  className="action"
+                  style={{
+                    visibility:
+                      hour.fri.hours.length > 1 ? "visible" : "hidden",
+                  }}
+                  onClick={() =>
+                    setHour({
+                      ...hour,
+                      fri: {
+                        ...hour.fri,
+                        hours: hour.fri.hours.filter(
+                          (_h, cIndex) => cIndex !== index
+                        ),
+                      },
+                    })
+                  }
+                >
+                  Remove
+                </div>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
-        <Switch status={hourList.sun.status !== "CLOSED"} />
-      </li>
+          <div
+            className="add-button"
+            onClick={() => {
+              setHour({
+                ...hour,
+                fri: {
+                  ...hour.fri,
+                  hours: [
+                    ...hour.fri.hours,
+                    {
+                      open: { hour: "08", min: "06", part: "am" },
+                      close: { hour: "08", min: "06", part: "pm" },
+                    },
+                  ],
+                },
+              });
+            }}
+          >
+            Add more hours
+          </div>
+        </div>
+        <div className="status">
+          <input
+            onChange={() =>
+              setHour({
+                ...hour,
+                fri: {
+                  ...hour.fri,
+                  status: hour.fri.status === "OPEN" ? "OPEN" : "CLOSED"
+                },
+              })
+            }
+            checked={hour.fri.status === "CLOSED"}
+            type="checkbox"
+          />
+          <label>Closed</label>
+        </div>
+      </div>
     </HoursContainer>
   );
 };

@@ -1,16 +1,19 @@
 import { Container } from "./style";
-import { Tabs, Button, ProSelect, useModal } from "@eachbase/components";
+import {Tabs, Button, ProSelect, useModal, ToolTipScreen, HtmlTooltip, SlicedText} from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
 import {
   categoriesActions,
   useSagaStore,
-  menuCategoriesActions,
+  menuCategoriesActions, itemActions,
 } from "@eachbase/store";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { MODAL_NAMES } from "@eachbase/constants";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {Icons} from "@eachbase/theme";
+import CreatableSelect from 'react-select/creatable';
 export const Categories = ({ value, onChange }) => {
   const { open } = useModal();
   const {
@@ -22,27 +25,28 @@ export const Categories = ({ value, onChange }) => {
   const [categoriesSelectValue, setCategoriesSelectValue] = useState(null);
   const menuCategories = useSelector(({ menuCategories }) => menuCategories);
   const categories = useSelector(({ categories }) => categories);
-
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const addCategoryIntoMenuSaga = useSagaStore(
     menuCategoriesActions.addCategory
   );
+  const categoryReorderSaga = useSagaStore(menuCategoriesActions.reorder);
 
   const categoriesOptions = categories.map((category) => ({
     value: category.id,
     label: category.name,
   }));
 
-  useEffect(() => {
-    if (categories.length && !categoriesSelectValue) {
-      setCategoriesSelectValue(categories[0].id);
-    }
-  }, [categories]);
+
+  // useEffect(() => {
+  //   if (categories.length && !categoriesSelectValue) {
+  //     setCategoriesSelectValue(categories[0].id);
+  //   }
+  // }, [categories]);
 
   const createAddCategoryAction = () => {
     const areCategoryInBusiness = categories.find((cCategory) => {
-      if (searchBarValue) {
-        if (searchBarValue === cCategory.name) {
+      if (categoriesSelectValue) {
+        if (categoriesSelectValue === cCategory.name) {
           return true;
         }
         return false;
@@ -60,20 +64,22 @@ export const Categories = ({ value, onChange }) => {
         activeTab
       );
     } else {
-      createCategorySaga.dispatch(
-        {
-          name: searchBarValue,
-          description: "",
-          businessId: restaurantId,
-        },
-        menuId,
-        activeTab
-      );
+      if(categoriesSelectValue) {
+        createCategorySaga.dispatch(
+            {
+              name: categoriesSelectValue.label,
+              description: "",
+              businessId: restaurantId,
+            },
+            menuId,
+            activeTab
+        );
+      }
     }
   };
 
   const onRequestToDelete = (category) => {
-    open(MODAL_NAMES.CONFIRM_DELETION, {
+    open(MODAL_NAMES.CONFIRM_CATEGORY_DELETION, {
       ...category,
       categoryType: activeTab,
     });
@@ -81,11 +87,11 @@ export const Categories = ({ value, onChange }) => {
 
   const addButtonDisableCondition = () => {
     const areCategoryInMenu = !!menuCategories[activeTab].find((item) => {
-      if (searchBarValue) {
-        return item.category.name === searchBarValue;
+      if (categoriesSelectValue) {
+        return item.category.name === categoriesSelectValue;
       } else if (
-        categoriesSelectValue &&
-        categoriesSelectValue === item.category.id
+          categoriesSelectValue &&
+          categoriesSelectValue === item.category.id
       ) {
         return true;
       } else {
@@ -97,6 +103,30 @@ export const Categories = ({ value, onChange }) => {
     }
   };
 
+  const onDragEnd = (e, categoryType) => {
+    const itemId = e.draggableId;
+    const from = e.source.index;
+    const to = e.destination ? e.destination.index : null;
+    if (to && from !== to) {
+      categoryReorderSaga.dispatch(categoryType, itemId, { from, to });
+    }
+  };
+
+  const foodCategories = menuCategories["food"].reduce((data, current) => {
+    data[current.rank] = current;
+    return data;
+  }, []);
+
+  const drinkCategories = menuCategories["drink"].reduce((data, current) => {
+    data[current.rank] = current;
+    return data;
+  }, []);
+
+
+  const category = categoriesSelectValue === null ? true :
+      categoriesOptions.filter((item) =>(item.label === categoriesSelectValue.label))
+  const dispatch = useDispatch()
+
   return (
     <Container>
       <Tabs.Wrapper
@@ -104,88 +134,163 @@ export const Categories = ({ value, onChange }) => {
         onRequestToChange={(newActiveTab) => {
           onChange({ categoryId: "", categoryType: newActiveTab });
           setActiveTab(newActiveTab);
+          sessionStorage.setItem('activeTab',newActiveTab)
         }}
       >
         <Tabs.TabHeader>
           <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
-          <Tabs.TabTitle tabName="drink">Drink</Tabs.TabTitle>
+          <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
         <div className="select-create-category">
           <div className="select-wrapper">
-            <ProSelect
-              onChange={(value) => {
-                setCategoriesSelectValue(value);
-              }}
-              searchBarValue={searchBarValue}
-              onSearchBarValueChange={(value) => setSearchBarValue(value)}
-              options={categoriesOptions}
-              value={categoriesSelectValue}
-            />
+
+           <form autoComplete="off">
+            <CreatableSelect
+                isClearable
+                onChange={(value) => {setCategoriesSelectValue(value);}}
+                placeholder={'Select/Create Category'}
+                options={categoriesOptions}
+            /></form>
+
+            {/*<ProSelect*/}
+            {/*  onChange={(value) => {*/}
+            {/*    setCategoriesSelectValue(value);*/}
+            {/*  }}*/}
+            {/*  searchBarValue={searchBarValue}*/}
+            {/*  onSearchBarValueChange={(value) => setSearchBarValue(value)}*/}
+            {/*  options={categoriesOptions}*/}
+            {/*  value={categoriesSelectValue}*/}
+            {/*  onSubmit={createAddCategoryAction}*/}
+            {/*/>*/}
           </div>
           <Button
-            onLoad={
-              addCategoryIntoMenuSaga.status.onLoad ||
-              createCategorySaga.status.onLoad
-            }
-            disabled={addButtonDisableCondition()}
-            onClick={() => createAddCategoryAction()}
+              height={'48px'}
+              square
+              onLoad={addCategoryIntoMenuSaga.status.onLoad || createCategorySaga.status.onLoad}
+              // disabled={categoriesSelectValue ? category === true ? true : !!category.length : true}
+              onClick={() => createAddCategoryAction()}
           >
             Add
           </Button>
         </div>
         <Tabs.TabContent contentOf="food">
-          <ul className="categories">
-            {menuCategories["food"].map(({ category }) => (
-              <li
-                key={category.id}
-                className={value.categoryId === category.id ? "selected" : ""}
-                onClick={() => onChange({ ...value, categoryId: category.id })}
-              >
-                <Typography className="category-name" color="text">
-                  {category.name}
-                  <span className="action">
-                    <Button
-                      link
-                      onClick={(e) => {
-                        onRequestToDelete(category, "food");
-                      }}
+          <DragDropContext onDragEnd={(e) => onDragEnd(e, "food")}>
+            <Droppable droppableId="food-category-list">
+              {(provided) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="categories"
+                >
+                  {foodCategories.map(({ rank, category }) => (
+                    <Draggable
+                      key={category.id}
+                      draggableId={category.id}
+                      index={rank}
                     >
-                      <span className="icon">
-                        <IoIosTrash />
-                      </span>
-                      Delete
-                    </Button>
-                  </span>
-                </Typography>
-              </li>
-            ))}
-          </ul>
+                      {(provided) => (
+                        <li
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          key={category.id}
+                          className={
+                            value.categoryId === category.id ? "selected" : ""
+                          }
+                          onClick={() =>
+                            onChange({ ...value, categoryId: category.id })
+                          }
+                        >
+                          <Typography className="category-name" color="text">
+                            <SlicedText type={'name'} size={10} data={category && category.name}/>
+                          </Typography>
+
+                          <div className={'delete-arrow'} >
+                               <span className="action">
+                              <Button
+                                  className={'delete-button'}
+                                  link
+                                  onClick={() =>
+                                      onRequestToDelete(category, "food")
+                                  }
+                              >
+                                <span className="icon">
+                                      <Icons.DeleteButtonSmall />
+                                </span>
+                                Delete
+                              </Button>
+                            </span>
+                            <Icons.Forward/>
+                          </div>
+
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Tabs.TabContent>
         <Tabs.TabContent contentOf="drink">
-          <ul className="categories">
-            {menuCategories["drink"].map(({ category }) => (
-              <li
-                key={category.id}
-                className={value.categoryId === category.id ? "selected" : ""}
-                onClick={() => onChange({ ...value, categoryId: category.id })}
-              >
-                <Typography className="category-name" color="text">
-                  {category.name}
-                  <span className="action">
-                    <Button
-                      link
-                      onClick={() => onRequestToDelete(category, "drink")}
+          <DragDropContext onDragEnd={(e) => onDragEnd(e, "drink")}>
+            <Droppable droppableId="drink-category-list">
+              {(provided) => (
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="categories"
+                >
+                  {drinkCategories.map(({ rank, category }) => (
+                    <Draggable
+                      key={category.id}
+                      draggableId={category.id}
+                      index={rank}
                     >
-                      <span className="icon">
-                        <IoIosTrash />
-                      </span>
-                      Delete
-                    </Button>
-                  </span>
-                </Typography>
-              </li>
-            ))}
-          </ul>
+                      {(provided, _snapshot) => (
+                        <li
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          key={category.id}
+                          className={
+                            value.categoryId === category.id ? "selected" : ""
+                          }
+                          onClick={() =>
+                            onChange({ ...value, categoryId: category.id })
+                          }
+                        >
+                          <Typography className="category-name" color="text">
+                            <SlicedText type={'name'} size={10} data={category && category.name}/>
+                          </Typography>
+
+                          <div className={'delete-arrow'} >
+                               <span className="action">
+                              <Button
+                                  className={'delete-button'}
+                                  link
+                                  onClick={() =>
+                                      onRequestToDelete(category, "drink")
+                                  }
+                              >
+                                <span className="icon">
+                                      <Icons.DeleteButtonSmall />
+                                </span>
+                                Delete
+                              </Button>
+                            </span>
+                            <Icons.Forward/>
+                          </div>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Tabs.TabContent>
       </Tabs.Wrapper>
     </Container>

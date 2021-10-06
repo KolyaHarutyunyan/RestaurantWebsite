@@ -1,3 +1,4 @@
+import { ListBucketAnalyticsConfigurationsRequest } from '@aws-sdk/client-s3';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { AuthService, Role, SocialLoginDTO } from '../auth';
@@ -66,7 +67,7 @@ export class OwnerService {
 
   /** Used to update the fullname and email of the owner */
   async edit(editDTO: EditOwnerDTO): Promise<OwnerDTO> {
-    const owner = await this.model.findById(editDTO.userId);
+    let owner = await this.model.findById(editDTO.userId);
     this.checkOwner(owner);
     if (editDTO.email) {
       const otherOwner = await this.model.findOne({ email: editDTO.email });
@@ -81,6 +82,7 @@ export class OwnerService {
     if (editDTO.fullName) {
       owner.fullName = editDTO.fullName;
     }
+    owner = await owner.save();
     return this.sanitizer.sanitize(owner);
   }
 

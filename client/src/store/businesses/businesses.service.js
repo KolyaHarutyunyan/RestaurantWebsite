@@ -5,12 +5,7 @@ export const businessesService = {
   getBusinessById: (id) => axios.get(`/businesses/${id}`, { auth: true }),
   getBusinessesByOwnerId: (ownerId) =>
     axios.get(`/businesses/owner/${ownerId}`, { auth: true }),
-  editBusiness: (business) =>
-    axios.patch(
-      `/businesses/${business.id}`,
-      { data: business },
-      { auth: true }
-    ),
+  editBusiness: (business) => axios.patch(`/businesses/${business.id}`, business , { auth: true }),
   deleteBusiness: (restaurantId) => axios.put(`/business/${restaurantId}`),
   createBusiness: (restaurantData) =>
     axios.post(`/businesses`, restaurantData, { auth: true }),

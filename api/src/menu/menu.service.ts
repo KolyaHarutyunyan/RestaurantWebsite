@@ -9,11 +9,12 @@ import {
   MenuDTO,
   UpdateMenuDTO,
 } from './dto';
-import { BusinessValidator } from 'src/business';
-import { ImageService } from 'src/image';
-import { CategoryService } from 'src/category';
+import { BusinessValidator } from '../business';
+import { IImage, ImageService } from '../image';
+import { CategoryService } from '../category';
 import { CategoryType } from './menu.constants';
 import { ReorderDTO } from './dto';
+import { FullMenuDTO } from './dto/fullMenu.dto';
 
 @Injectable()
 export class MenuService {
@@ -121,16 +122,21 @@ export class MenuService {
     return this.sanitizer.sanitize(menu);
   };
 
-  /** Get the  */
-  getActive = async (businessId: string): Promise<MenuDTO> => {
+  /** Get the active menu for a business with categories and items  */
+  getActive = async (businessId: string): Promise<FullMenuDTO> => {
     const menu = await this.model
       .findOne({
         businessId: businessId,
         isActive: true,
       })
       .populate('image');
-    // .populate('categories._id');
-    return this.sanitizer.sanitize(menu);
+    return await this.fillMenu(menu);
+  };
+
+  /** Gets the fully populated menu with all of its categories and items */
+  getFullMenu = async (menuId: string): Promise<FullMenuDTO> => {
+    const menu = await this.model.findById(menuId).populate('image');
+    return await this.fillMenu(menu);
   };
 
   /** Delete Menu and remove images that were with it */
@@ -154,15 +160,19 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnValidator.validateBusiness(userId, menu.businessId);
     const categories = this.getCategoryFromMenu(type, menu);
-    const rank = categories.length;
-    categories.push({
+    categories.unshift({
       _id: catId,
-      rank,
+      rank: 0,
     });
+    this.rerank(menu.foodCategories);
+    this.rerank(menu.drinkCategories);
     menu = await (await menu.save())
       .populate('foodCategories._id')
       .populate('drinkCategories._id')
       .execPopulate();
+    if (this.cleanNulls(categories)) {
+      await menu.save();
+    }
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -183,7 +193,8 @@ export class MenuService {
         i--;
       }
     }
-    this.rerank(categories);
+    this.rerank(menu.foodCategories);
+    this.rerank(menu.drinkCategories);
     menu = await (await menu.save())
       .populate('foodCategories._id')
       .populate('drinkCategories._id')
@@ -216,6 +227,8 @@ export class MenuService {
       .findOne({ _id: menuId })
       .populate('foodCategories._id')
       .populate('drinkCategories._id');
+    // this.rerank(menu.foodCategories);
+    // this.rerank(menu.drinkCategories);
     return this.sanitizer.sanitizeCategories(menu);
   };
 
@@ -248,6 +261,27 @@ export class MenuService {
       throw new HttpException('Menu was not found', HttpStatus.NOT_FOUND);
     }
   }
+
+  /** Fills the menu with its categories and their items  */
+  private fillMenu = async (menu: IMenu): Promise<FullMenuDTO> => {
+    this.checkMenu(menu);
+    const foodCategoryIds = this.extractCategoryIds(menu.foodCategories);
+    const drinkCategoryIds = this.extractCategoryIds(menu.drinkCategories);
+    const [foodCategories, drinkCategories] = await Promise.all([
+      this.categoryService.getWithItems(foodCategoryIds),
+      this.categoryService.getWithItems(drinkCategoryIds),
+    ]);
+    const fullMenu: FullMenuDTO = {
+      id: menu._id,
+      name: menu.name,
+      tagline: menu.tagline,
+      description: menu.description,
+      image: this.getMenuImage(menu.image as IImage),
+      foodCategories: foodCategories,
+      drinkCategories: drinkCategories,
+    };
+    return fullMenu;
+  };
 
   /** updates the ranks of the menu items */
   private rerank(categories: IMenuCategory[]) {
@@ -283,5 +317,37 @@ export class MenuService {
       categories = menu.drinkCategories;
     }
     return categories;
+  }
+
+  /** Cleans the null/ wrong entires in the array */
+  private cleanNulls(categories: IMenuCategory[]): boolean {
+    let hasRemoved = false;
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i]._id === null) {
+        hasRemoved = true;
+        categories.splice(i, 1);
+        i--;
+      }
+    }
+    return hasRemoved;
+  }
+
+  /** Extracts the category ids form MenuCategory */
+  private extractCategoryIds(menuCategories: IMenuCategory[]): string[] {
+    if (!menuCategories || menuCategories.length < 1) return [];
+    const ids: string[] = [];
+    for (let i = 0; i < menuCategories.length; i++) {
+      ids.push(menuCategories[i]._id as string);
+    }
+    return ids;
+  }
+
+  /** Gets the menu image url if it exists */
+  private getMenuImage(menuImage?: IImage): string {
+    if (!menuImage) return undefined;
+    if (menuImage.originalUrl) {
+      return menuImage.originalUrl;
+    }
+    return undefined;
   }
 }

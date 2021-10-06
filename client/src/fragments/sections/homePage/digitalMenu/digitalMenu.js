@@ -2,23 +2,48 @@ import { Typography, Image } from "@eachbase/components";
 import { Container } from "./style";
 export const DigitalMenu = () => {
   return (
-    <Container className="container-mini">
-      <Image className="main" />
+      <Container className="container-mini">
+
+          <div className='mobile'>
+              <div className="content">
+                  <Typography weight="bold" className="g-title" color="text" size="3rem">
+                      How Your Menu Will Look
+                  </Typography>
+              </div>
+              <Image src={'/assets/images/mobileViewHomepage.png'} className="main" />
+              <div className="content">
+                  <Typography className='content-text' color="text">
+                      Once the menu is scanned via QR code on the table your menu will appear.
+                      The menu will be fully interactive and clickable containing titles,
+                      ingredients and images of the menu items. Once the menu item is clicked,
+                      the customer is directed to the Menu Item Detail page where they can see more
+                      details about the item such as ingredients. MenuMango is simple and intuitive to use.
+                  </Typography>
+                  <Image src="./assets/homePage/qr_code_scanning.svg" />
+              </div>
+              <Image className="qr" src={"/assets/images/QR_Code.png"} />
+          </div>
+
+
+
+          <div className='desktop'>
+      <Image src={'/assets/images/mobileViewHomepage.png'} className="main" />
       <div className="content">
         <Typography weight="bold" className="g-title" color="text" size="3rem">
-          How will your Digital Menu Look Like?
+            How Your Menu Will Look
         </Typography>
-        <Typography color="text">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s.
+
+        <Typography className='content-text' color="text">
+            Once the menu is scanned via QR code on the table your menu will appear.
+            The menu will be fully interactive and clickable containing titles,
+            ingredients and images of the menu items. Once the menu item is clicked,
+            the customer is directed to the Menu Item Detail page where they can see more
+            details about the item such as ingredients. MenuMango is simple and intuitive to use.
         </Typography>
         <Image src="./assets/homePage/qr_code_scanning.svg" />
       </div>
       <Image className="qr" src={"/assets/images/QR_Code.png"} />
+          </div>
     </Container>
   );
 };

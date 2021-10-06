@@ -4,11 +4,19 @@ export const Container = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
-  border: 1px dashed
+  min-height: ${({ limit }) => (limit === 0 ? "80px" : "200px")};
+  background-color: ${({ limit }) => (limit === 0 ? "#FF453A1A" : "white")};
+  border: 1px dashed;
     ${({ isDragActive }) => (isDragActive ? "#007aff" : "#2b273c80")};
   border-radius: 8px;
   padding: 16px;
+  .limit-reached-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80px;
+  }
   .uploaded-files {
     flex: 1;
     text-align: center;
@@ -16,30 +24,63 @@ export const Container = styled.div`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 80px;
-      height: 80px;
+      @media (max-width: 767px) {
+        width: 82px;
+        height: 82px;
+      }
+      width: 100px;
+      height: 100px;
       background: #0000001a;
       margin: 10px;
       &.big-one {
-        width: 120px;
-        height: 120px;
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+        width: 100px;
+        height: 100px;
       }
       svg {
         width: 42px;
         height: 42px;
+      }
+    }   
+    .file-mock {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: 767px) {
+        width: 82px;
+        height: 82px;
+      }
+      width: 100px;
+      height: 100px;
+      background: #0000001a;
+      margin: 10px;
+      &.big-one {
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+        width: 100px;
+        height: 100px;
+      }
+      svg {
+        width: 62px;
+        height: 62px;
       }
     }
     .file-preview {
       vertical-align: top;
       display: inline-flex;
       cursor: pointer;
-      margin: 10px;
+      margin: 10px 0 16px 0;
       position: relative;
-      width: 80px;
-      height: 80px;
+      width: 82px;
+      height: 82px;
       &.big-one {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         .remove {
           left: 77% !important;
         }
@@ -50,7 +91,12 @@ export const Container = styled.div`
       border-radius: 15px;
       border: 3px solid white;
       &.main {
-        box-shadow: 0px 0px 0px 3px ${colors.action};
+        @media (max-width: 767px) {
+          width: 82px;
+          height: 82px;
+        }
+          width: 100px;
+          height: 100px;
       }
       .remove {
         position: absolute;
@@ -74,6 +120,12 @@ export const Container = styled.div`
     color: #2b273c;
     font-weight: 600;
     .title {
+      font-weight: normal;
+      font-family: Open Sans, sans-serif;
+      font-size: 18px;
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -84,8 +136,9 @@ export const Container = styled.div`
       }
     }
     .acceptable-file-size-noth {
+      font-family: Open Sans, sans-serif;
       text-align: center;
-      font-size: 10px;
+      font-size: 12px;
       color: #2b273c80;
     }
   }

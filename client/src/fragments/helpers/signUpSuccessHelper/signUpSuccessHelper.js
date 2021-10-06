@@ -7,11 +7,11 @@ export const SignUpSuccessHelper = () => {
   return (
     <Container>
       <Icons.SignUpSuccessGirl />
-      <Typography color="text" weight="bold" size="1.250rem">
+      <Typography className='title' color="text" weight="bold" >
         Congrats you're all Set
       </Typography>
-      <Typography color="text">
-        Now you can create your first menu. Good Luck!
+      <Typography className='sub' color="text">
+        Now you can create your first menu. <br/>Good Luck!
       </Typography>
       <Button onClick={() => close()}>Done</Button>
     </Container>

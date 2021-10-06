@@ -7,8 +7,12 @@ export const profileService = {
   deleteProfile: () => axios.delete("/user", { auth: true }),
   forgotPassword: (email) => axios.get(`/auth/forgotPassword/${email}`),
   changePassword: (data) =>
-    axios.post(`/auth/changePassword`, data, { auth: true }),
-  updateProfileInfo: (data) => axios.put("/user", data, { auth: true }),
+    axios.patch(`/auth/${data.id}/changePassword`, {
+      password: data.password,
+      newPassword: data.newPassword,
+      confirmation: data.confirmation,
+    }, { auth: true }),
+  updateProfileInfo: (data) => axios.patch("/owners", data, { auth: true }),
   resetPassword: (data, token) =>
     axios.post("/auth/resetPassword", data, {
       headers: { "reset-token": token },

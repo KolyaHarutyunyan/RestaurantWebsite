@@ -1,17 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  background: white;
   min-width: 220px;
   overflow: hidden;
+  @media (min-width: 320px) {
+    width: 343px;
+    margin: 0 auto;
+  } 
+  @media (min-width: 768px) {
+    width: 264px;
+    margin: 0 auto;
+  }
   border-radius: 8px;
   box-shadow: 0px 0px 10px 1px #dedede;
   padding: 0px 0px 16px 0px;
   color: var(--text);
   .action-bar {
     display: flex;
-    height: 30px;
-    margin-top: 8px;
-    padding: 0 14px 0px 8px;
+    margin-top: 16px;
+    padding: 0 16px 0px 8px;
+    
     .title {
       cursor: pointer;
       font-weight: bold;
@@ -34,8 +43,8 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px 0px 15px;
-    gap: 5p;
+    padding: 0 22px 0px 15px;
+    gap: 5px;
     .descr {
       font-size: 0.9rem;
       overflow: hidden;
@@ -55,10 +64,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    cursor: pointer;
     svg {
+   
       transform: scale(0.4);
     }
-    height: 78%;
+    height: 76%;
   }
 `;
 
@@ -67,10 +78,14 @@ export const DropDownMenuContainer = styled.ul`
   flex-direction: column;
   margin: 10px 0px;
   background: white;
+  
   li {
+    padding: 6px 24px;
     cursor: pointer;
     color: #2b273c;
-    padding: 5px 2px;
+    font-size: 16px;
+    font-family: Open Sans, sans-serif;
+    list-style-type: none;
     &:hover {
       background: #e9e9eb;
     }

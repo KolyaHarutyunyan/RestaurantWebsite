@@ -5,32 +5,53 @@ import {
   Button,
   FileUpload,
   useModal,
+  BoxImagePreview,
 } from "@eachbase/components";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useSagaStore, businessesActions } from "@eachbase/store";
+import {useSagaStore, businessesActions, imageService, menusActions} from "@eachbase/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-const RESTAURANT_ICONS_LIMIT = 6;
 export const EditRestaurantForm = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const router = useRouter();
   const business = useSelector(({ businesses }) => businesses || {});
+  const editBusiness = useSagaStore(businessesActions.editBusiness);
+  const getBusinessSaga = useSagaStore(businessesActions.getBusinesses);
+  const [noImage, setNoImage] = useState(false);
+  const [restaurantIconsLimit, setRestaurantIconsLimit] = useState(1);
   const [restaurantIcon, setRestaurantIcon] = useState({
     files: [],
     mainImageId: "",
   });
+
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
 
-  const onSubmit = (data) => {
-    dispatch({ ...business, ...data, icon: restaurantIcon[0] || null });
+  useEffect(() => {
+    if (business.logo) {
+      setRestaurantIconsLimit(0);
+    }
+  }, [business]);
+  const onSubmit = (info) => {
+    restaurantIcon.mainImageId ?
+        editBusiness.dispatch({
+          ...info,
+          id: business.id,
+          logo: restaurantIcon,
+        })
+        :
+    editBusiness.dispatch({
+      ...info,
+      id: business.id,
+    })
   };
+
 
   useEffect(() => () => destroy.all(), []);
 
@@ -59,7 +80,7 @@ export const EditRestaurantForm = () => {
       setRestaurantIcon((cRestaurantIcon) => {
         if (
           cRestaurantIcon.files.length + filteredFiles.length <=
-          RESTAURANT_ICONS_LIMIT
+          restaurantIconsLimit
         ) {
           return {
             files: [...filteredFiles, ...cRestaurantIcon.files],
@@ -82,35 +103,71 @@ export const EditRestaurantForm = () => {
           color="text"
           size="1.250rem"
         >
-          {business.name}
+          Edit {business.name}
         </Typography>
         <Input
-          placeholder="Restaurant Name"
-          defaultValue={business.name}
-          {...register("name", { required: true })}
+            containerClassName='input-padding'
+            padding={'8px'}
+            placeholder="Restaurant Name"
+            defaultValue={business.name ? business.name :'' }
+            {...register("name", { required:!business.name })}
         />
         <div>
-          <Typography weight="bold" color="text">
+          <Typography  className='input-padding' weight="bold" color="text">
             Optional
           </Typography>
           <Textarea
-            placeholder="Brief Description"
-            defaultValue={business.description}
-            rows={4}
-            {...register("description", { required: true })}
+              max={500}
+              containerClassName='input-padding'
+              padding={'10px'}
+              placeholder="Brief Description"
+              defaultValue={business.description ? business.description : ''}
+              rows={4}
+              {...register("description", { required: !business.description })}
           />
+          <Typography className='max-characters'  color="text">
+            Max 500 characters
+          </Typography>
         </div>
+        {/*{!business.logo &&*/}
         <FileUpload
+          url={business.logo && business.logo.originalUrl}
+          id={business.logo && business.logo.id}
           files={restaurantIcon.files}
           mainImageId={restaurantIcon.mainImageId}
-          limit={RESTAURANT_ICONS_LIMIT}
-          mainImageId={restaurantIcon.mainImageId}
-          limit={1}
           onChange={(files, actionType, mainImageId) =>
-            onFileUploadChange(files, actionType, mainImageId)
-          }
+          onFileUploadChange(files, actionType, mainImageId)}
         />
-        <Button type="submit" onLoad={status.onLoad}>
+         {/*}*/}
+
+        {/*{business.logo ? (*/}
+        {/*  <div className="uploaded">*/}
+        {/*    <BoxImagePreview*/}
+        {/*      main*/}
+        {/*      url={business.logo.originalUrl}*/}
+        {/*      onRequestToRemove={() => {*/}
+        {/*          imageService.removeImage([business.logo.id]).then(()=>*/}
+        {/*              getBusinessSaga.dispatch(),*/}
+        {/*          );*/}
+
+        {/*      }}*/}
+        {/*    />*/}
+        {/*    <div className="content-container">*/}
+        {/*      <div className="title-drag">*/}
+        {/*        Drag & Drop or <span className="active">Upload</span> {business.name} Logo*/}
+        {/*      </div>*/}
+        {/*      <div className="acceptable-file-size-noth">*/}
+        {/*        Max size 2MB*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*) : null}*/}
+        <Button
+            className='save-button'
+            square
+            type="submit"
+            onLoad={status.onLoad}
+        >
           Save
         </Button>
       </form>

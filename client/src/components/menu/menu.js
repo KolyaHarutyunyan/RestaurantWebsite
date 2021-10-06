@@ -8,6 +8,7 @@ export const Menu = ({
   open = false,
   onRequestToClose = () => {},
   children,
+                       left,
 }) => {
   const menuRef = useRef();
   const [mounted, setMounted] = useState(false);
@@ -64,7 +65,7 @@ export const Menu = ({
           if (menuRef.current) {
             const isMenu = menuRef.current.isSameNode(nodeElement);
             const isPositionalElement =
-              positionalElementRef.current.isSameNode(nodeElement);
+                positionalElementRef.current &&  positionalElementRef.current.isSameNode(nodeElement);
             if (isMenu || isPositionalElement) {
               toggleMenu = false;
               break;
@@ -102,7 +103,7 @@ export const Menu = ({
       position={position}
       ref={menuRef}
     >
-      <div className="wrapper">{children}</div>
+      <div style={{marginLeft:left}} className="wrapper">{children}</div>
       <div className="blur" onClick={() => onRequestToClose()} />
     </Container>,
     document.getElementsByTagName("body")[0]

@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 import { ModalContainer } from "./style";
 import { AiOutlineClose, AiOutlineArrowLeft } from "react-icons/ai";
+import { HiArrowLeft } from "react-icons/hi";
+import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
 
@@ -11,6 +13,9 @@ export const Modal = ({
   onBackButtonClick = () => {},
   children,
   mini = false,
+    closeBorder,
+                          max,
+    border,confirm,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
@@ -21,11 +26,16 @@ export const Modal = ({
 
   if (mounted) {
     return createPortal(
-      <ModalContainer isOpen={activeModal === modalName} mini={mini}>
-        <div className="container">
+      <ModalContainer isOpen={activeModal === modalName} mini={mini} border={border}>
+        <div style={{maxWidth:max, }} className="container">
           {!fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
+                  className={
+                      closeBorder === 'close' ? 'close-button-border' :
+                        closeBorder === 'back' ? 'back-button-border'
+
+                      : 'close-button' }
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({
@@ -43,7 +53,7 @@ export const Modal = ({
                   }
                 }}
               >
-                {backButton ? <AiOutlineArrowLeft /> : <AiOutlineClose />}
+                {backButton ? <HiArrowLeft style={{fontSize:24}}/> : <MdClose style={{fontSize:24}} />}
               </button>
             </div>
           ) : null}
@@ -53,10 +63,10 @@ export const Modal = ({
           className="fade"
           onClick={() => {
             if (!fixed) {
-              if (window.confirm("Leave current window?")) {
+              // if (window.confirm("Leave current window?")) {
                 setActiveModal("");
                 setParams({});
-              }
+              // }
             }
           }}
         />

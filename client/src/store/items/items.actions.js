@@ -10,11 +10,12 @@ export const itemActions = {
     type: GET_ITEMS,
     payload: categoryId,
   }),
-  create: (data, categoryId) => ({
+  create: (data, categoryId, images) => ({
     type: CREATE_ITEM,
     payload: {
       data,
       categoryId,
+      images,
     },
   }),
   update: (data) => ({

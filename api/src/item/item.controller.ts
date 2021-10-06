@@ -39,7 +39,7 @@ export class ItemController {
     return item;
   }
 
-  /** Get all categories for the business */
+  /** Get all items for the business */
   @Get('business/:businessId')
   @ApiOkResponse({ type: [ItemDTO] })
   @ApiOperation({ summary: summaries.GET_BUSINESS_ITEMS })

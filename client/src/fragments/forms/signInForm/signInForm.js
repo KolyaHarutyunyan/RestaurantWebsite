@@ -12,7 +12,7 @@ export const SignInForm = () => {
 
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
@@ -26,15 +26,16 @@ export const SignInForm = () => {
   }, [status]);
 
   const onSubmit = (data) => dispatch(data);
-
   return (
     <Container>
-      <Typography color="text" weight="bold" size={"1.250rem"}>
-        Welcome to Menuz
+      <Typography className='welcome-text' color="text">
+        Welcome to Menu Mango
       </Typography>
-      <Icons.LogoIcon className="logo" />
+      {/*<Icons.LogoIcon className="logo" />*/}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          border={'24px'}
+          containerClassName='input-padding'
           type="email"
           icon={<Icons.EmailIcon />}
           placeholder="Email"
@@ -42,6 +43,8 @@ export const SignInForm = () => {
           error={status.onError}
         />
         <Input
+          border={'24px'}
+          containerClassName='input-padding'
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
@@ -54,6 +57,7 @@ export const SignInForm = () => {
         </Button>
       </form>
       <Button
+          className='forgot-style'
         link
         color="default"
         fullWidth
@@ -61,8 +65,9 @@ export const SignInForm = () => {
       >
         Forgot Password?
       </Button>
+
       <div className="divider-or" />
-      <Typography color="text">
+      <Typography color="text" className='social-text'>
         Sign in with your social media account
       </Typography>
       <div className="social">
@@ -75,11 +80,15 @@ export const SignInForm = () => {
         <Fab>
           <Icons.TwitterIcon />
         </Fab>
+        <Fab className="apple">
+          <Icons.AppleIcon />
+        </Fab>
       </div>
       <Button
-        link
+        className='sign-up-button'
         color="action"
         fullWidth
+        link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
         Doesn't have an account? Sign Up

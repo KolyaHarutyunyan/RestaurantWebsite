@@ -10,6 +10,8 @@ export const menuCategoriesService = {
         auth: true,
       }
     ),
+  reorder: (categoryId, move) =>
+    axios.patch(`/categories/${categoryId}/reorder`, move, { auth: true }),
   delete: (menuId, categoryId, categoryType) =>
     axios.patch(
       `/menus/${menuId}/removeCategory/${categoryId}?type=${categoryType.toUpperCase()}`,

@@ -16,19 +16,44 @@ export const DropDownContainer = styled.div`
   gap: 5px;
   overflow: auto;
   border-radius: 5px;
+  @media (min-width: 320px) {
+    bottom: -302px;
+    margin-left: 16px;
+    width: 310px;
+  }
+  @media (min-width: 768px) {
+    bottom: -332px;
+    margin-left: 40px;
+    width: 310px;
+  }
+  @media (min-width: 1279px) {
+    bottom: -190px;
+    margin-left: 40px;
+    width: 369px;
+  }
+  @media (min-width: 1919px) {
+    bottom: -150px;
+    margin-left: 160px;
+    width: 369px;
+  }
+  
   .wrapper {
     flex-direction: column;
+    font-size: 16px;
+    color: #2B273C;
+    font-family: Open Sans, sans-serif;
     & > * {
       text-align: left;
       width: 100%;
     }
     & > div {
-      padding-left: 5px;
+      padding: 0 18px;
       &:hover {
         background: #e9e9eb;
       }
     }
   }
+ 
   div {
     cursor: pointer;
     flex: 0 0 48px;
@@ -42,10 +67,11 @@ export const Container = styled.label`
   position: relative;
   display: block;
   border: 1px solid
-    ${({ dropdownOpen }) => (dropdownOpen ? "black" : "#2b273c80")};
+    ${({ dropdownOpen }) => (dropdownOpen ? "black" : "#2B273C80")};
   height: 48px;
   border-radius: 8px;
   padding: 10px;
+  background: white;
   &,
   & * {
     box-sizing: border-box;
@@ -57,7 +83,7 @@ export const Container = styled.label`
     align-items: center;
     input {
       flex: 1;
-      font-size: 1.3rem;
+      font-size: 20px;
       margin: 0px;
       padding: 5px;
       width: 100%;
@@ -65,6 +91,11 @@ export const Container = styled.label`
       background-color: transparent;
       outline: 0;
       border-color: transparent;
+    }
+    input::placeholder{
+      font-size: 16px;
+      color: #2B273C;
+      font-family: Open Sans, sans-serif;
     }
     .dropdown-toggle {
       cursor: pointer;

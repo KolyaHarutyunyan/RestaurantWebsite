@@ -11,7 +11,8 @@ export const GlobalScss = createGlobalStyle`
     `};
     ${media.forDesktop`
       margin: 0 auto;
-      max-width: 1240px;
+      // max-width: 1240px;
+         padding:0 40px;
     `};
     ${media.forTablet`
       padding:0 40px;
@@ -38,6 +39,24 @@ export const GlobalScss = createGlobalStyle`
       padding:0 16px;
     `};
   }
+  .container-hero {
+    width: 100%;
+    overflow-x: visible;
+    ${media.forLargeDesktop`
+      margin: 0 auto;
+      max-width: 100%;
+    `};
+    ${media.forDesktop`
+      margin: 0 auto;
+      max-width: 100%;
+    `};
+    ${media.forTablet`
+      padding:0 40px;
+    `};
+    ${media.forMobile`
+      padding:0 16px;
+    `};
+  }
 
 
   /* CASTIL */
@@ -53,16 +72,23 @@ export const GlobalScss = createGlobalStyle`
     position: relative;
     width: 100%;
     height: 1px;
-    margin: 10px 0;
+    margin: 14px 0 0 0;
     background-color: ${colors.text};
+    font-size: 14px;
     &::before {
+      font-weight: bold;
       position: absolute;
       content: "OR";
-      left: calc(50% - (60px /2));
+      left: calc(50% - (70px /2));
       top: -10px;
       background: white;
-      width: 60px;
+      width: 70px;
       text-align: center;
+      font-size: 16px;
+      line-height: 19px;
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
     }
   }
 `;

@@ -48,26 +48,28 @@ export const ConfirmCategoryDeleteDialog = () => {
 
   return (
     <Container>
-      <Typography className="title" size="1.250rem" color="text" weight="bold">
-        Delete a category {params.name}
+      <Typography className="title" color="text" weight="bold">
+        Delete a Menu {params.name}
       </Typography>
       <div className="options">
+        <Radio
+            onChange={() => setSelectedOption("menu")}
+            name="menu"
+            checked={selectedOption === "menu"}
+            label={<div>Delete from <span className='category-name'>{params.name}</span> menu</div>}
+        />
         <Radio
           onChange={() => setSelectedOption("restaurant")}
           name="restaurant"
           checked={selectedOption === "restaurant"}
           label="Delete from restaurant"
         />
-        <Radio
-          onChange={() => setSelectedOption("menu")}
-          name="menu"
-          checked={selectedOption === "menu"}
-          label={`Delete from ${params.name} menu`}
-        />
       </div>
       <div className="actions">
         <Button
-          onLoad={
+            minWidth={ typeof window !== 'undefined' && window.innerWidth > 1279 ? '170px' : '140px'}
+            classname='button-class'
+            onLoad={
             deleteCategorySaga.status.onLoad ||
             deleteCategoryFromMenuSaga.status.onLoad
           }
@@ -75,7 +77,9 @@ export const ConfirmCategoryDeleteDialog = () => {
         >
           Delete
         </Button>
-        <Button onClick={() => close()}>Cancel</Button>
+        <Button
+            minWidth={ typeof window !== 'undefined' && window.innerWidth > 1279 ? '170px' : '140px'}
+                   classname='button-class' onClick={() => close()}>Cancel</Button>
       </div>
     </Container>
   );

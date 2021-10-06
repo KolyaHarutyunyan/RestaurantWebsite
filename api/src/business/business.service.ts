@@ -106,10 +106,7 @@ export class BusinessService {
     return updated.nModified;
   };
 
-  /** */
-
-  /****************************** Private Methods *****************************/
-
+  /** Private Methods */
   /** @throws not found exception if the business was not found */
   private checkBusiness(business: IBusiness) {
     if (!business) {

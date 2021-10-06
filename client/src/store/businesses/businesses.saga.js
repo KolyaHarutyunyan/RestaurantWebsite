@@ -18,18 +18,19 @@ import {
   GET_CURRENT_BUSINESS_SUCCESS,
 } from "./businesses.types";
 
-function* getMyBusiness() {
+function* getMyBusiness({ type }) {
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(businessesService.getMyBusiness);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
       payload: data,
     });
   } catch (e) {
-    yield put({
-      type: GET_MY_BUSINESS_SUCCESS,
-      payload: {},
-    });
+    yield put(httpRequestsOnErrorsActions.appendError(type));
   }
 }
 
@@ -37,25 +38,55 @@ function* editBusiness({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-  try {
-    yield call(() => businessesService.editBusiness(payload));
-    yield put({
-      type: EDIT_BUSINESS_SUCCESS,
-      payload: payload,
-    });
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnErrorsActions.removeError(type));
-    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-  } catch (e) {
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-    yield put(httpRequestsOnErrorsActions.appendError(type));
+  if (payload.logo) {
+    try {
+      let mainImageId = "";
+      try {
+        const { data } = yield call(imageService.uploadImage, payload.logo.files.find((cFile) => cFile.id === payload.logo.mainImageId));
+        mainImageId = data;
+      } catch (err) {
+        return;
+      }
+      // const { data: iconId } = yield call(
+      //     imageService.uploadImage,
+      //     payload.logo
+      // );
+      const { data } = yield call(() =>  businessesService.editBusiness({...payload,  logo: mainImageId,})
+      );
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+      yield put({
+        type: EDIT_BUSINESS_SUCCESS,
+        payload: data,
+      });
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (e) {
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+      yield put(httpRequestsOnErrorsActions.appendError(type));
+    }
+  } else {
+    try {
+      const res = yield call(() => businessesService.editBusiness(payload));
+      yield put({
+        type: EDIT_BUSINESS_SUCCESS,
+        payload: res.data,
+      });
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnErrorsActions.removeError(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (e) {
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+      yield put(httpRequestsOnErrorsActions.appendError(type));
+    }
   }
 }
 
 function* deleteBusiness({ payload }) {
   try {
     yield call(() => businessesService.deleteBusiness(payload));
+
     yield put({
       type: DELETE_BUSINESS_SUCCESS,
       payload: payload,
@@ -78,12 +109,7 @@ function* createBusiness({ payload, type }) {
         imageService.uploadImage,
         payload.icon
       );
-      const { data } = yield call(() =>
-        businessesService.createBusiness({
-          ...payload.business,
-          status: true,
-          logo: iconId,
-        })
+      const { data } = yield call(() => businessesService.createBusiness({...payload.business, status: true, logo: iconId,})
       );
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -99,12 +125,7 @@ function* createBusiness({ payload, type }) {
     }
   } else {
     try {
-      const { data } = yield call(() =>
-        businessesService.createBusiness({
-          ...payload.business,
-          status: true,
-        })
-      );
+      const { data } = yield call(() => businessesService.createBusiness({...payload.business, status: true,}));
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnErrorsActions.removeError(type));
       yield put({
