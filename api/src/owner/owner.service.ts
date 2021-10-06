@@ -1,7 +1,6 @@
-import { ListBucketAnalyticsConfigurationsRequest } from '@aws-sdk/client-s3';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { AuthService, Role, SocialLoginDTO } from '../auth';
+import { AuthDTO, AuthService, Role, SocialLoginDTO } from '../auth';
 import { MongooseUtil } from '../util';
 import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
 import { OwnerSanitizer } from './interceptor';
@@ -15,24 +14,25 @@ export class OwnerService {
     private readonly authService: AuthService,
   ) {
     this.model = OwnerModel;
-    // this.authModel = AuthModel;
     this.mongooseUtil = new MongooseUtil();
   }
   private model: Model<IOwner>;
-  // private authModel: Model<IAuth>;
   private mongooseUtil: MongooseUtil;
 
   /** Service API */
   /** Used for creating a new user in the system with email and password. @throws if the email is a duplica*/
-  async create(dto: CreateOwnerDTO): Promise<OwnerDTO> {
+  async create(dto: CreateOwnerDTO): Promise<AuthDTO> {
     try {
-      const owner = await new this.model({
+      const owner = new this.model({
         email: dto.email,
         fullName: dto.fullName,
-      }).save();
-      dto.id = owner.id;
-      dto.role = Role.OWNER;
-      return this.sanitizer.sanitize(owner);
+        avatar: dto.avatarURL,
+      });
+      const auth = await Promise.all([
+        owner.save(),
+        this.authService.create(owner._id, dto.email, dto.password, Role.OWNER),
+      ])[1];
+      return auth;
     } catch (err) {
       this.mongooseUtil.checkDuplicateKey(err, 'User already exists');
       throw err;
@@ -43,13 +43,13 @@ export class OwnerService {
   async createWithSocial(dto: SocialLoginDTO): Promise<OwnerDTO> {
     let owner = await this.model.findOne({ email: dto.email });
     if (!owner) {
-      owner = await new this.model({
+      owner = new this.model({
         fullname: dto.fullName,
         email: dto.email,
-      }).save();
+        avatar: dto.avatarURL,
+      });
+      owner = await owner.save();
     }
-    dto.id = owner._id;
-    dto.role = Role.OWNER;
     return this.sanitizer.sanitize(owner);
   }
 
@@ -66,22 +66,20 @@ export class OwnerService {
   }
 
   /** Used to update the fullname and email of the owner */
-  async edit(editDTO: EditOwnerDTO): Promise<OwnerDTO> {
-    let owner = await this.model.findById(editDTO.userId);
+  async edit(dto: EditOwnerDTO): Promise<OwnerDTO> {
+    let owner = await this.model.findById(dto.userId);
     this.checkOwner(owner);
-    if (editDTO.email) {
-      const otherOwner = await this.model.findOne({ email: editDTO.email });
-      this.checkDuplicateEmail(otherOwner, editDTO.userId);
-      owner.email = editDTO.email;
-      const authEmail = await this.authService.changeEmail(
-        editDTO.userId,
-        editDTO.email,
-      );
+    if (dto.email) {
+      const otherOwner = await this.model.findOne({ email: dto.email });
+      this.checkDuplicateEmail(otherOwner, dto.userId);
+      owner.email = dto.email;
+      const authEmail = await this.authService.changeEmail(dto.userId, dto.email);
       this.checkAuthEmail(authEmail, owner.email);
     }
-    if (editDTO.fullName) {
-      owner.fullName = editDTO.fullName;
+    if (dto.fullName) {
+      owner.fullName = dto.fullName;
     }
+    if (dto.avatarURL) owner.avatar = dto.avatarURL;
     owner = await owner.save();
     return this.sanitizer.sanitize(owner);
   }
@@ -100,20 +98,14 @@ export class OwnerService {
    */
   private checkDuplicateEmail(owner: IOwner, id: string) {
     if (owner && owner._id !== id) {
-      throw new HttpException(
-        'This email is already used in the system',
-        HttpStatus.CONFLICT,
-      );
+      throw new HttpException('This email is already used in the system', HttpStatus.CONFLICT);
     }
   }
 
   /** checks if the auth email has been successfully update */
   private checkAuthEmail(authEmail: string, email: string) {
     if (authEmail !== email) {
-      throw new HttpException(
-        'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('Something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

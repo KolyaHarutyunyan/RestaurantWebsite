@@ -7,4 +7,5 @@ export {
   GoogleAuthGuard,
   FacebookAuthGuard,
   TwitterAuthGuard,
+  AppleStrategy
 } from './strategies';

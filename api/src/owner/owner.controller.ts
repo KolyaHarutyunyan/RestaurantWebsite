@@ -38,8 +38,7 @@ export class OwnerController {
   @ApiOkResponse({ type: AuthDTO })
   @ApiOperation({ summary: summaries.CREATE_ACCOUNT })
   async register(@Body() createOwnerDTO: CreateOwnerDTO): Promise<AuthDTO> {
-    await this.ownerService.create(createOwnerDTO);
-    const auth = await this.authService.signup(createOwnerDTO);
+    const auth = await this.ownerService.create(createOwnerDTO);
     return auth;
   }
 

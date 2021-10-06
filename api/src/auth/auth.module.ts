@@ -1,18 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-// import { SocialController } from './social.controller';
 import { MailerModule } from '../mailer';
 import {
   TwitterStrategy,
   FacebookStrategy,
   GoogleStrategy,
+  AppleStrategy,
 } from './strategies';
+import { AuthSanitizer } from './interceptor';
 
 @Module({
-  exports: [AuthService],
+  exports: [AuthService, AppleStrategy],
   imports: [MailerModule],
-  providers: [AuthService, FacebookStrategy, TwitterStrategy, GoogleStrategy],
+  providers: [
+    AuthService,
+    FacebookStrategy,
+    TwitterStrategy,
+    GoogleStrategy,
+    AuthSanitizer,
+    AppleStrategy,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}

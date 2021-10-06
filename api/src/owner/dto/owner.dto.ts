@@ -7,6 +7,6 @@ export class OwnerDTO {
   fullName: string;
   @ApiProperty()
   email: string;
-  // @ApiProperty()
-  // role: string;
+  @ApiProperty({ required: false })
+  avatar?: string;
 }

@@ -4,6 +4,7 @@ import { IOwner } from './interfaces';
 const ownerSchema = new Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
+  avatar: { type: String },
 });
 
 export const OwnerModel = model<IOwner>('owner', ownerSchema);

@@ -12,7 +12,7 @@ const options = {
   teamId: 'CNAUZUZ88T',
   keyId: 'US535A4CL8',
   redirectUri: 'https://armat.eachbase.com/api/auth/apple/redirected',
-  privateKeyPath: './AuthKey.p8',
+  privateKeyPath: './AuthKey_X435C3KUNZ.p8',
 };
 
 let authResponse = {

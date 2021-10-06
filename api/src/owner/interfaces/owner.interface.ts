@@ -4,6 +4,6 @@ export interface IOwner extends Document {
   fullName: string;
   email: string;
   phoneNumber?: string;
-  avatarUrl?: string;
+  avatar?: string;
   role: string;
 }

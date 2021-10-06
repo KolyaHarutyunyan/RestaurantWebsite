@@ -25,7 +25,6 @@ import { ParseObjectIdPipe } from '../util/pipes';
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
 export class AuthController {
-  /** Dependency Injection */
   constructor(private readonly authService: AuthService) {}
 
   /** Sign in a user */
