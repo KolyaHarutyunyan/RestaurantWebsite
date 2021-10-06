@@ -21,6 +21,7 @@ function* getItems({ payload, type }) {
       type: GET_CATEGORY_ITEMS_SUCCESS,
       payload: res.data.items,
     });
+    yield put(httpRequestsOnLoadActions.removeLoading('REMOVE_IMAGE'));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (e) {
@@ -29,14 +30,18 @@ function* getItems({ payload, type }) {
   }
 }
 
-function* addItem({ payload }) {
+function* addItem({ payload,type }) {
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const { data } = yield call(categoryItemsService.add, payload);
     yield put({
       type: ADD_CATEGORY_ITEM_SUCCESS,
       payload: data,
     });
-  } catch (e) {}
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
 }
 
 function* deleteItem({ payload, type }) {

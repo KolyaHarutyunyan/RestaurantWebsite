@@ -106,6 +106,8 @@ export const MenuItemForm = (  ) => {
   )
 
   const type =  sessionStorage.getItem('activeTab')
+
+
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">

@@ -79,7 +79,7 @@ export const Modals = () => {
       <Modal border={true} max={464} modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
         <ConfirmCategoryDeleteDialog />
       </Modal>
-      <Modal modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
+      <Modal border={true}   modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
         <ConfirmItemDeleteDialog />
       </Modal>
     </Fragment>

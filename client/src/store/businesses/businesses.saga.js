@@ -19,16 +19,19 @@ import {
 } from "./businesses.types";
 
 function* getMyBusiness({ type }) {
+
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(businessesService.getMyBusiness);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
+
     yield put({
       type: GET_MY_BUSINESS_SUCCESS,
       payload: data,
     });
+    yield put(httpRequestsOnLoadActions.removeLoading('REMOVE_IMAGE'));
   } catch (e) {
     yield put(httpRequestsOnErrorsActions.appendError(type));
   }

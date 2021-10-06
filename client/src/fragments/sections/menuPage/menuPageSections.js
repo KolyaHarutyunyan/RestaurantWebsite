@@ -70,7 +70,7 @@ export const MenuPageSections = () => {
             }
           />
 
-          <Items category={selectedCategory} />
+          <Items categType={selectedCategory.categoryType} category={selectedCategory} />
         </div>
         {!menuCategories.food.length && !menuCategories.drink.length ? (
           <div className="no-items">

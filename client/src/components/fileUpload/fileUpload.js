@@ -16,8 +16,11 @@ import {
 
 
 import {colors} from "@eachbase/theme";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {put} from "redux-saga/effects";
+import {httpRequestsOnLoadActions} from "../../store/http_requests_on_load";
+import {CircularProgress} from "@material-ui/core";
 
 export const FileUpload = ({
                                title = "File",
@@ -82,10 +85,15 @@ export const FileUpload = ({
     //   }
     //   return mockPreview;
     // };
+    const {httpOnLoad,} = useSelector((state) => ({
+        httpOnLoad: state.httpOnLoad,
+    }));
+
     const dispatch = useDispatch()
     const router = useRouter();
     const editItemSaga = useSagaStore(itemActions.update);
 
+    const loading = httpOnLoad.length && httpOnLoad[0] === 'REMOVE_IMAGE'
 
     const getCurrentMenuSaga = useSagaStore(menusActions.getCurrentMenu);
     const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
@@ -118,11 +126,24 @@ export const FileUpload = ({
                             </div>
                         ))}
 
-                    {url &&
+                    {loading ?
+                        <CircularProgress
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                left: 0,
+                                marginTop:'25px',
+                                right: 0,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                            }}
+                        />
+                        : url &&
                     <BoxImagePreview
                         main
                         url={url}
                         onRequestToRemove={() => {
+                            dispatch(httpRequestsOnLoadActions.appendLoading('REMOVE_IMAGE'));
                             imageService.removeImage([id]).then(() => requestType === 'item' ?
                                 getCurrentCategoryItemsSaga.dispatch(itemId)
 
@@ -137,7 +158,7 @@ export const FileUpload = ({
                     />
                     }
 
-                    {!files.length && !url &&
+                    { !files.length && !url &&
                     <div
                         style={{borderRadius: '8px'}}
                         className={building === true ? `file-mock` : `file-mock-preview  big-one`}
