@@ -1,14 +1,14 @@
-import { Schema, model } from "mongoose";
-import * as bcrypt from "bcryptjs";
-import { IAuth } from "./interfaces";
-import { AccountStatus } from "./constants";
+import { Schema, model } from 'mongoose';
+import * as bcrypt from 'bcryptjs';
+import { IAuth } from './interfaces';
+import { AccountStatus } from './constants';
 
 const AuthSchema = new Schema({
-  name: String,
   email: { type: String, required: true, unique: true },
   googleId: String,
   facebookId: String,
   twitterId: String,
+  appleId: String,
   password: String,
   session: String,
   role: String,
@@ -16,12 +16,12 @@ const AuthSchema = new Schema({
 });
 
 const SALT_ROUNDS = 8;
-AuthSchema.pre("save", hashPassword);
+AuthSchema.pre('save', hashPassword);
 
 /** Private methods */
 async function hashPassword(next) {
   //Check if the password is changed or is new
-  if (!this.isModified("password")) {
+  if (!this.isModified('password')) {
     return next();
   }
   try {
@@ -46,4 +46,4 @@ async function comparePassword(password: string): Promise<boolean> {
 }
 
 // export type AuthDocument = AuthEntity & Document;
-export const AuthModel = model<IAuth>("auth", AuthSchema);
+export const AuthModel = model<IAuth>('auth', AuthSchema);

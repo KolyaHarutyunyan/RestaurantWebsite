@@ -1,3 +1,3 @@
-export { CreateOwnerDTO } from './createOwner.dto';
+export { CreateOwnerDTO } from './create.dto';
 export { OwnerDTO } from './owner.dto';
-export { EditOwnerDTO } from './editOwner.dto';
+export { EditOwnerDTO } from './edit.dto';

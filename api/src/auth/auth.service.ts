@@ -1,32 +1,26 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import * as jwt from 'jsonwebtoken';
-import {
-  AuthDTO,
-  ChangePassDTO,
-  ResetPassDTO,
-  SigninDTO,
-  SignupDTO,
-  SocialLoginDTO,
-} from './dto';
-import {
-  AccountStatus,
-  JWT_SECRET_FORGET_PASS,
-  JWT_SECRET_SIGNIN,
-} from './constants';
+import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO, SocialDTO, SocialLoginDTO } from './dto';
+import { AccountStatus, JWT_SECRET_FORGET_PASS, JWT_SECRET_SIGNIN } from './constants';
 import { AuthModel } from './auth.model';
 import { IAuth, IToken } from './interfaces';
 import { MongooseUtil } from '../util';
 import { MailerService } from 'src/mailer';
+import { AppleSignedinResponse } from 'src/apple-signin/types';
+import { AuthSanitizer } from './interceptor';
+import { Role } from '.';
 
 @Injectable()
 export class AuthService {
   constructor() {
+    this.sanitizer = new AuthSanitizer();
     this.mongooseUtil = new MongooseUtil();
     this.mailerService = new MailerService();
     this.model = AuthModel;
   }
   //The Model
+  private sanitizer: AuthSanitizer;
   private model: Model<IAuth>;
   private mailerService: MailerService;
   mongooseUtil: MongooseUtil;
@@ -34,19 +28,19 @@ export class AuthService {
   /************************** Service API *************************/
 
   /** Signup a new user with the username and password */
-  signup = async (signupDTO: SignupDTO): Promise<AuthDTO> => {
+  create = async (id: string, email: string, password: string, role: Role): Promise<AuthDTO> => {
     try {
-      let auth: IAuth = await new this.model({
-        _id: signupDTO.id,
-        email: signupDTO.email,
-        password: signupDTO.password,
-        role: signupDTO.role,
+      let auth: IAuth = new this.model({
+        _id: id,
+        email: email,
+        password: password,
+        role: role,
         session: null,
         status: AccountStatus.ACTIVE,
       });
       auth.session = await this.createSession(auth);
       auth = await auth.save();
-      return new AuthDTO(auth);
+      return this.sanitizer.sanitize(auth);
     } catch (err) {
       this.mongooseUtil.checkDuplicateKey(err, 'User with this email exists');
       throw err;
@@ -62,11 +56,11 @@ export class AuthService {
     this.checkPassword(isPasswordCorrect);
     auth.session = await this.createSession(auth);
     await auth.save();
-    return await new AuthDTO(auth);
+    return this.sanitizer.sanitize(auth);
   };
 
   /** Login or Signup a user with social logins */
-  socialLogin = async (dto: SocialLoginDTO): Promise<AuthDTO> => {
+  socialLogin = async (dto: SocialLoginDTO, role: Role): Promise<SocialDTO> => {
     let auth: IAuth = await this.model.findOne({
       email: dto.email,
     });
@@ -76,7 +70,7 @@ export class AuthService {
         _id: dto.id,
         email: dto.email,
         [dto.providerKey]: dto.providerId,
-        role: dto.role,
+        role: role,
         status: AccountStatus.ACTIVE,
       });
     } else {
@@ -88,31 +82,75 @@ export class AuthService {
     }
     auth.session = await this.createSession(auth);
     auth = await auth.save();
-    return new AuthDTO(auth);
+    const response = {
+      authDTO: this.sanitizer.sanitize(auth),
+      createUserDTO: dto,
+    };
+    return response;
+  };
+
+  /** Apple Login */
+  appleLogin = async (appleDTO: AppleSignedinResponse, role: Role): Promise<SocialDTO> => {
+    const response: SocialDTO = {};
+    /** User already has an account */
+    let auth = await this.model.findOne({ appleId: appleDTO.openId });
+    if (auth) {
+      /** User is already found with that opneId */
+      auth.session = await this.createSession(auth);
+      response.authDTO = this.sanitizer.sanitize(auth);
+      return response;
+    } else if (appleDTO.email) {
+      /** Reaching this point means the user was not found with the given openId */
+      //email exists, check the email
+      auth = await this.model.findOne({ email: appleDTO.email });
+      if (!auth) {
+        /** Create a new account - no record exists for this user */
+        auth = new this.model({
+          email: appleDTO.email,
+          appleId: appleDTO.openId,
+          role: role,
+        });
+        response.createUserDTO = {
+          id: auth._id,
+          email: auth.email,
+          fullName: appleDTO.name
+            ? `${appleDTO.name.firstName} ${appleDTO.name.lastName}`
+            : 'Menumango User',
+        };
+      } else {
+        /** An auth was found with the email */
+        auth.appleId = appleDTO.openId;
+      }
+      /** Return the authDTO*/
+      auth = await auth.save();
+      response.authDTO = this.sanitizer.sanitize(auth);
+      return response;
+    } else {
+      // No account and apple did not send us email
+      throw new HttpException(
+        `Our records show that Apple Signin was used for an account that does not exist anymore. 
+        Please login to you Apple account, disconnect Armat from this appleId and try again`,
+        HttpStatus.EXPECTATION_FAILED,
+      );
+    }
   };
 
   /** Logs out the session by finding the used and deleting its session token
    * @Returns the invalidated session token
    */
   logout = async (userId: string): Promise<string> => {
-    const auth = await this.model.findOneAndUpdate(
-      { _id: userId },
-      { $set: { session: null } },
-    );
+    const auth = await this.model.findOneAndUpdate({ _id: userId }, { $set: { session: null } });
     return auth.session;
   };
 
   /** Changing the user password **/
-  changePassword = async (
-    userId: string,
-    dto: ChangePassDTO,
-  ): Promise<AuthDTO> => {
+  changePassword = async (userId: string, dto: ChangePassDTO): Promise<AuthDTO> => {
     let auth = await this.model.findOne({ _id: userId });
     this.confirmPassword(dto.newPassword, dto.confirmation);
     auth.password = dto.newPassword;
     auth.session = await this.createSession(auth);
     auth = await auth.save();
-    return new AuthDTO(auth);
+    return this.sanitizer.sanitize(auth);
   };
 
   /** Forgot password. sends a link with a token to the users email to reset password*/
@@ -147,7 +185,7 @@ export class AuthService {
     auth.password = dto.newPassword;
     auth.session = await this.createSession(auth);
     auth = await auth.save();
-    return new AuthDTO(auth);
+    return this.sanitizer.sanitize(auth);
   };
 
   /** find the user with the id */
@@ -202,20 +240,14 @@ export class AuthService {
   /** @throws error if the auth is undefined */
   private checkAuth = (auth) => {
     if (!auth) {
-      throw new HttpException(
-        'Such user does not exist in our records',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('Such user does not exist in our records', HttpStatus.NOT_FOUND);
     }
   };
 
   /** @throws error is the password is incorrect */
   private checkPassword = (isCorrect) => {
     if (!isCorrect) {
-      throw new HttpException(
-        'user password does not match',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new HttpException('user password does not match', HttpStatus.FORBIDDEN);
     }
   };
 
@@ -240,10 +272,7 @@ export class AuthService {
           HttpStatus.UNAUTHORIZED,
         );
       case AccountStatus.SUSPENDED:
-        throw new HttpException(
-          'Your account has been suspended',
-          HttpStatus.UNAUTHORIZED,
-        );
+        throw new HttpException('Your account has been suspended', HttpStatus.UNAUTHORIZED);
       default:
         throw new HttpException(
           'This account seems to be problematic, contact admin',

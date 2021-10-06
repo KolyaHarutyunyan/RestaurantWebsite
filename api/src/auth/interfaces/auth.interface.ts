@@ -7,6 +7,7 @@ export interface IAuth extends Document {
   googleId?: string;
   twitterId?: string;
   facebookId?: string;
+  appleId: string;
   invitation?: boolean;
   session: string;
   role: Role;
