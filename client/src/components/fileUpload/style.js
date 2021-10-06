@@ -74,7 +74,7 @@ export const Container = styled.div`
       vertical-align: top;
       display: inline-flex;
       cursor: pointer;
-      margin: 10px 0 16px 0;
+      margin: 10px;
       position: relative;
       width: 82px;
       height: 82px;
