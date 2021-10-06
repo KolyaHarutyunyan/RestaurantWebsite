@@ -32,11 +32,12 @@ export const TWITTER_CONSUMER_SECRET =
   'xJxenSoJgYAeD0TBYYhzY5D7kWsR4O7CNzGlxiMi1J3qgIbf67';
 export const TWITTER_CALLBACK_URL = `${BASE_URL}/auth/twitter/redirected`;
 
-export const APPLE_CLIENT_ID = 'adsSQS';
-export const APPLE_TEAM_ID = 'sqdD';
-export const APPLE_KEY_ID = 'qqSqsqS';
-export const APPLE_PRIVATE_KEY_LOCATION = 'qsqSqs';
+export const APPLE_CLIENT_ID = 'com.menumango.service';
+export const APPLE_TEAM_ID = 'CNAUZUZ88T';
+export const APPLE_KEY_ID = 'X435C3KUNZ';
+export const APPLE_PRIVATE_KEY_LOCATION = './AuthKey_X435C3KUNZ.p8';
 export const APPLE_CALLBACK_URL = `${BASE_URL}/auth/apple/redirected`;
+
 export const COMPANY_EMAIL = 'eachbase@gmail.com';
 
 export const ACCESS_TOKEN = 'access-token';

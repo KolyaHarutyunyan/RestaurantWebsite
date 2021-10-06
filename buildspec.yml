@@ -22,6 +22,7 @@ phases:
       - npm run build
       - mv node_modules ./dist
       - mv package.json ./dist
+      - mv AuthKey_X435C3KUNZ.p8 ./dist
       - mv dist ../
       - cd ..
       - rm -R -f api
