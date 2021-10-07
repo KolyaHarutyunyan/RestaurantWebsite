@@ -78,7 +78,15 @@ export const Container = styled.div`
       }
       display: flex;
       align-items: center;
-      gap: 32px;
+  
+    }
+    .sign-in{
+      @media (max-width: 768px) {
+        margin-bottom: 20px;
+      }
+      @media (min-width: 768px) {
+        margin-right: 32px;
+      }
     }
     .profile-container {
       flex: 0 0 400px;

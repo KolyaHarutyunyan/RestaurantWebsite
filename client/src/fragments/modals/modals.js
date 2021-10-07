@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import { Modal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
 import {
   SignInForm,
@@ -18,17 +17,18 @@ import {
   MenuItemForm,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
+import {CustomModal} from "../../components";
 
 export const Modals = () => {
   const router = useRouter();
   return (
-    <Fragment>
-      <Modal
+      <Fragment>
+      <CustomModal
           closeBorder={'close'}
           modalName={MODAL_NAMES.SIGN_IN}>
         <SignInForm />
-      </Modal>
-      <Modal
+      </CustomModal>
+      <CustomModal
           closeBorder={'back'}
         max={463}
         backButton
@@ -36,52 +36,52 @@ export const Modals = () => {
         modalName={MODAL_NAMES.FORGOT_PASSWORD}
       >
         <ForgotPasswordForm />
-      </Modal>
-      <Modal
+      </CustomModal>
+      <CustomModal
           closeBorder={'close'}
           modalName={MODAL_NAMES.SIGN_UP}>
         <SignUpForm />
-      </Modal>
-      <Modal
+      </CustomModal>
+      <CustomModal
         border={true}
         modalName={MODAL_NAMES.CREATE_RESTAURANT}
         fixed={router.pathname === "/restaurant"}
       >
         <CreateRestaurantForm />
-      </Modal>
-      <Modal
+      </CustomModal>
+      <CustomModal
           closeBorder={'close'}
           max={400}
           modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
         <CheckEmailHelper />
-      </Modal>
-      <Modal closeBorder={'close'} modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
+      </CustomModal>
+      <CustomModal closeBorder={'close'} modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
         <SignUpSuccessHelper />
-      </Modal>
-      <Modal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
+      </CustomModal>
+      <CustomModal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
         <DeleteAccountForm />
-      </Modal>
-      <Modal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT}>
+      </CustomModal>
+      <CustomModal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT}>
         <EditRestaurantForm />
-      </Modal>
-      <Modal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
+      </CustomModal>
+      <CustomModal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
         <EditRestaurantExtraDetailsForm />
-      </Modal>
-      <Modal border={true} modalName={MODAL_NAMES.MENU_FORM}>
+      </CustomModal>
+      <CustomModal border={true} modalName={MODAL_NAMES.MENU_FORM}>
         <MenuForm  />
-      </Modal>
-      <Modal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
+      </CustomModal>
+      <CustomModal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
         <ResetPasswordHelper />
-      </Modal>
-      <Modal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
+      </CustomModal>
+      <CustomModal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
         <MenuItemForm />
-      </Modal>
-      <Modal border={true} max={464} modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
+      </CustomModal>
+      <CustomModal border={true} max={464} modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
         <ConfirmCategoryDeleteDialog />
-      </Modal>
-      <Modal border={true}   modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
+      </CustomModal>
+      <CustomModal border={true}   modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
         <ConfirmItemDeleteDialog />
-      </Modal>
-    </Fragment>
+      </CustomModal>
+      </Fragment>
   );
 };

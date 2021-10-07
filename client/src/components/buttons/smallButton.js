@@ -9,7 +9,7 @@ export const SmallButton = ({text, handleClick, width, disabled}) => {
             disabled={disabled}
             className={classes.editButton}
             onClick={handleClick}
-            style={{ width: width ? width : '', borderRadius: '24px', background: colors.primary}}
+            style={{ width: width ? width : '', borderRadius: '24px', background: colors.primary, color:'white'}}
         >
             {text}
         </Button>

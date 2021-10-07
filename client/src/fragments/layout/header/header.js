@@ -145,7 +145,7 @@ export const Header = () => {
     if (!profile) {
       return (
         <div className="sign-in-buttons">
-          <Button onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
+          <Button className={'sign-in'} onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
           <Button
             onClick={() => open(MODAL_NAMES.SIGN_IN)}
             color="default"

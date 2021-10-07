@@ -4,7 +4,7 @@ import { Icons } from "@eachbase/theme";
 import { profileActions, useSagaStore } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { useEffect } from "react";
 
 export const SignInForm = () => {
@@ -26,7 +26,12 @@ export const SignInForm = () => {
   }, [status]);
 
   const onSubmit = (data) => dispatch(data);
-  return (
+    const dispatcher = useDispatch()
+    const handleSignUp = ( type ) =>{
+        dispatcher(profileActions.socialSignUp(type))
+    }
+
+    return (
     <Container>
       <Typography className='welcome-text' color="text">
         Welcome to Menu Mango
@@ -71,16 +76,16 @@ export const SignInForm = () => {
         Sign in with your social media account
       </Typography>
       <div className="social">
-        <Fab>
+        <Fab onClick ={() =>handleSignUp('google')} className="icons">
           <Icons.GoogleIcon />
         </Fab>
-        <Fab>
+        <Fab onClick ={() =>handleSignUp('facebook')} className="icons">
           <Icons.FaceBookIcon />
         </Fab>
-        <Fab>
-          <Icons.TwitterIcon />
-        </Fab>
-        <Fab className="apple">
+        {/*<Fab  className="icons">*/}
+        {/*  <Icons.TwitterIcon />*/}
+        {/*</Fab>*/}
+        <Fab onClick ={() =>handleSignUp('apple')} className="apple">
           <Icons.AppleIcon />
         </Fab>
       </div>

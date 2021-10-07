@@ -20,7 +20,6 @@ export const ModalProvider = ({ children }) => {
     const toastSuccess = ToastSuccess(success)
     const toastFail = ToastFail(error)
 
-    console.log(httpOnLoad,'httpOnLoadhttpOnLoadhttpOnLoad')
     useEffect(() => {
         if (toastSuccess) {
             dispatch(httpRequestsOnSuccessActions.removeSuccess( success ))

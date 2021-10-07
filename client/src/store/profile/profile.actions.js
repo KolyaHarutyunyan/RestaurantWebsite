@@ -6,12 +6,13 @@ import {
   UPDATE_PROFILE_PASSWORD,
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
-  RESET_PASSWORD,
+  RESET_PASSWORD, SOCIAL_SIGN_UP,
 } from "./profile.types";
 
 export const profileActions = {
   signIn: (payload) => ({ type: PROFILE_SIGN_IN, payload }),
   signUp: (payload) => ({ type: PROFILE_SIGN_UP, payload }),
+  socialSignUp: (payload) => ({ type: SOCIAL_SIGN_UP, payload }),
   signOut: () => ({ type: PROFILE_SIGN_OUT }),
   getUserInfo: () => ({ type: GET_PROFILE_INFO }),
   updatePassword: (payload) => ({ type: UPDATE_PROFILE_PASSWORD, payload }),

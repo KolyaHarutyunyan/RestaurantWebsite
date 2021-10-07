@@ -139,10 +139,6 @@ export const Container = styled.div`
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 24px;
-          @media (max-width: 767px) {
-            gap: 20px;
-          }
           .logo {
             display: inline-block;
             background-position: center;
@@ -150,6 +146,10 @@ export const Container = styled.div`
             width: 80px;
             height: 80px;
             border-radius: 15px;
+            margin-right: 24px;
+            @media (max-width: 767px) {
+              margin-right: 20px;
+            }
           }
         }
       }     
