@@ -12,8 +12,8 @@ export const Container = styled.div`
   border-radius: 8px;
   padding: 16px;
   background: white;
-  gap: 16px;
   .image {
+    margin-right: 16px;
     border-radius: 8px;
     background-color: #e7e7e7;
     background-size: cover;
@@ -63,12 +63,12 @@ export const Container = styled.div`
         height: 100%;
         display: flex;
         flex-direction: column;
-        gap: 16px;
       }
     }
     .item-title{
       font-size: 18px;
       font-family: Open Sans, sans-serif;
+      margin-bottom: 16px;
       
       @media (max-width: 767px) {
         font-size: 16px;
@@ -82,15 +82,12 @@ export const Container = styled.div`
         display: flex;
         justify-content: flex-end;
         //flex: 0 0 145px;
-        gap: 24px;
-        
-        @media (max-width: 767px) {
-          gap: 2px;
-        }
+       
         button {
           display: flex;
           align-items: center;
           outline: 0;
+          
           p{
             display: block;
             @media (max-width: 767px) {
@@ -98,6 +95,11 @@ export const Container = styled.div`
             }
             font-family: Open Sans, sans-serif;
             font-size: 14px;
+            margin-right: 24px;
+
+            @media (max-width: 767px) {
+              margin-right: 2px;
+            }
           }
           .icon {
             display: flex;

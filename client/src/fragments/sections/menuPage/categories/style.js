@@ -5,10 +5,11 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+ 
     margin: 35px 0 25px 0;
     .select-wrapper {
       flex: 1;
+      margin-right: 32px;
 
       .css-yk16xz-control{
         min-height: 48px;

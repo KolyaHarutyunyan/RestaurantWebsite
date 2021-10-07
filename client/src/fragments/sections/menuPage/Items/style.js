@@ -117,7 +117,6 @@ export const Container = styled.div`
     .action-button {
       display: flex;
       align-items: center;
-      gap: 16px;
       font-size: 16px;
       font-family: Open Sans, sans-serif;
       font-weight: 600;
@@ -126,6 +125,7 @@ export const Container = styled.div`
         margin-bottom: 10px;
       }
       .circle {
+        margin-right: 16px;
         padding: 2px;
         border-radius: 50%;
         background: #007aff1a 0% 0% no-repeat padding-box;

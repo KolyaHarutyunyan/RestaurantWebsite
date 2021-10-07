@@ -32,8 +32,10 @@ export const Container = styled.div`
   .social {
     display: flex;
     justify-content: center;
-    gap: 20px;
     width: 100%;
+    .icons{
+      margin-right: 20px;
+    }
   }
   .input-padding{
     margin-bottom: 9px;

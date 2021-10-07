@@ -6,11 +6,12 @@ import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { BsPerson } from "react-icons/bs";
 import { useEffect } from "react";
+import {useDispatch} from "react-redux";
 
 export const SignUpForm = () => {
   const { open } = useModal();
   const { status, dispatch, destroy } = useSagaStore(profileActions.signUp);
-
+  const dispatcher = useDispatch()
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => () => destroy.all(), []);
@@ -23,6 +24,10 @@ export const SignUpForm = () => {
   }, [status]);
 
   const onSubmit = (data) => dispatch(data);
+
+  const handleSignUp = ( type ) =>{
+      dispatcher(profileActions.socialSignUp(type))
+  }
 
   return (
     <Container>
@@ -57,7 +62,7 @@ export const SignUpForm = () => {
           placeholder="Password"
           {...register("password", { required: true })}
           error={status.onError}
-          helper={status.onError ? status.onError.data.message && status.onError.data.message : ""}
+          // helper={status && status.onError ? status.onError.data.message && status.onError.data.message : ""}
         />
         <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
@@ -77,16 +82,16 @@ export const SignUpForm = () => {
             Sign up with your social media account
       </Typography>
       <div className="social">
-        <Fab>
+        <Fab onClick ={() =>handleSignUp('google')} className="icons">
           <Icons.GoogleIcon />
         </Fab>
-        <Fab>
+        <Fab onClick ={() =>handleSignUp('facebook')} className="icons">
           <Icons.FaceBookIcon />
         </Fab>
-        <Fab>
-          <Icons.TwitterIcon />
-        </Fab>
-          <Fab className="apple">
+        {/*<Fab className="icons">*/}
+        {/*  <Icons.TwitterIcon />*/}
+        {/*</Fab>*/}
+          <Fab onClick ={() =>handleSignUp('apple')} className="apple">
               <Icons.AppleIcon />
           </Fab>
       </div>

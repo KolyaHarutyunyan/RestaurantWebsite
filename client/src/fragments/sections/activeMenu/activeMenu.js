@@ -16,10 +16,10 @@ export const ActiveMenuSection = ({}) => {
     useEffect(() => {
         setTimeout(() => {
             setLoaded(true);
-        }, 2000);
+        }, 500);
     }, []);
 
-    const path =typeof window !== 'undefined' && window.location
+    const path = typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
 
     return (
