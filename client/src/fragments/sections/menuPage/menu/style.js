@@ -117,7 +117,7 @@ export const Container = styled.div`
     }
     
     
-    box-shadow: 0px 0px 6px #0000001a;
+    box-shadow: 0px 0px 6px #0000002a;
     border-radius: 8px;
  
     .mobile-head {
@@ -156,7 +156,7 @@ export const Container = styled.div`
             transform: scale(3);
           }
           &.no-image {
-            background: #0000001a;
+            background: #0000002a;
           }
         }
       }

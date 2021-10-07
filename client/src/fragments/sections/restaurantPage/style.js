@@ -279,14 +279,14 @@ export const Container = styled.div`
           }
         }
         .add-card {
-          box-shadow: 0px 0px 6px #0000001a;
+          box-shadow: 0px 0px 6px #0000002a;
           border-radius: 16px;
           .image {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 190px;
-            background-color: #0000001a;
+            background-color: #0000002a;
             border-radius: 16px 16px 0 0;
             svg {
               width: 100%;

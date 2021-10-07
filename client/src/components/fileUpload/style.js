@@ -30,7 +30,7 @@ export const Container = styled.div`
       }
       width: 100px;
       height: 100px;
-      background: #0000001a;
+      background: #0000002a;
       margin: 10px;
       &.big-one {
         @media (max-width: 767px) {
@@ -55,7 +55,7 @@ export const Container = styled.div`
       }
       width: 100px;
       height: 100px;
-      background: #0000001a;
+      background: #0000002a;
       margin: 10px;
       &.big-one {
         @media (max-width: 767px) {

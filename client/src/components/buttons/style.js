@@ -39,7 +39,7 @@ export const ButtonContainer = styled.button`
     border-radius: ${({ square }) => (square ? "8px" : "24px")};
     transition: background 0.3s ease-in-out;
     &:hover {
-      background: #0000001a;
+      background: #0000002a;
     }
   }
   ${({ color, link, outlined }) => {

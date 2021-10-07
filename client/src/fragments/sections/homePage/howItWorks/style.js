@@ -144,7 +144,7 @@ export const Container = styled.div`
             font-size: 18px;
             font-weight: bold;
             font-family: Poppins,sans-serif;
-            box-shadow: 2px 2px 6px 4px #0000001a;
+            box-shadow: 2px 2px 6px 4px #0000002a;
           }
           padding-left: 20px;
           p:first-of-type {

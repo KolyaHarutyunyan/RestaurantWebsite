@@ -122,7 +122,7 @@ export const Container = styled.div`
     margin-top: 16px;
     height: 150px;
     width: 100%;
-    box-shadow: 0 0 6px #0000001a;
+    box-shadow: 0 0 6px #0000002a;
     @media (max-width: 767px) {
       height: 109px;
       padding: 10px;

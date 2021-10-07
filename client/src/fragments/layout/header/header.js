@@ -25,7 +25,9 @@ export const Header = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const { open } = useModal();
-  const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
+    const token = typeof window !== 'undefined' && localStorage.getItem('token')
+
+    const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
@@ -101,7 +103,10 @@ export const Header = () => {
 
   const renderProfileDropdown = () => {
 
-      useEffect(() => getBusinessesSaga.dispatch(), []);
+      useEffect(() => {
+      if(token){
+          getBusinessesSaga.dispatch()}
+      }, []);
 
 
     if (!isMobileViewport && profile) {

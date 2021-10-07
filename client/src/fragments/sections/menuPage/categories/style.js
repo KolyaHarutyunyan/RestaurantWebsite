@@ -54,7 +54,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: space-between;
       padding: 0px 32px;
-      box-shadow: 0px 0px 6px #0000001a;
+      box-shadow: 0px 0px 6px #0000002a;
       flex: 0 0 56px;
       height: 56px;
       @media (max-width: 767px) {

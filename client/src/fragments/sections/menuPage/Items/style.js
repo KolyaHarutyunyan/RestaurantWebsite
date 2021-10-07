@@ -65,7 +65,7 @@ export const Container = styled.div`
   }
   .choose{
     background: #FFFFFF;
-    box-shadow: 0px 2px 6px #0000001a;
+    box-shadow: 0px 2px 6px #0000002a;
     padding: 16px 16px 1px 16px;
     margin-bottom: 16px;
     border-radius: 8px;

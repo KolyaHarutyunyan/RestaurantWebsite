@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
+  const token = typeof window !== 'undefined' && localStorage.getItem('token')
 
   useEffect(() => {
-    if (privatePage) {
+    if (privatePage && token) {
       dispatch(profileActions.getUserInfo());
     }
   }, []);

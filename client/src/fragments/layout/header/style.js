@@ -7,7 +7,7 @@ export const Container = styled.div`
   position: fixed;
   z-index: 999;
   .header-scrolled{
-    box-shadow: 0px 2px 6px #0000001a;
+    box-shadow: 0px 2px 6px #0000002a;
     background: white!important;
     width: 100%;
     height: 80px;
@@ -17,7 +17,7 @@ export const Container = styled.div`
   
   .header-scrolled-open{
     
-    box-shadow: 0px 2px 6px #0000001a;
+    box-shadow: 0px 2px 6px #0000002a;
     background: white!important;
     width: 100%;
     height: 80px;
@@ -141,7 +141,7 @@ export const Container = styled.div`
         right: -340px;
         opacity: 0;
         transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        box-shadow: 0px 2px 6px #0000001a;
+        box-shadow: 0px 2px 6px #0000002a;
 
         &.open {
           opacity: 1;
