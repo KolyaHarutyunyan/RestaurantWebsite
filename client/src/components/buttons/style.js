@@ -5,6 +5,15 @@ const colors = {
   default: "#2B273C1A",
   action: "#007AFF",
 };
+export const EditSave =styled.div`
+  margin-bottom: -2px;
+  .classes-close-button {
+    color: rgba(28, 26, 38, 0.6);
+    margin-right: 16px;
+    font-size: 18px;
+  }
+
+`
 
 export const ButtonContainer = styled.button`
   position: relative;

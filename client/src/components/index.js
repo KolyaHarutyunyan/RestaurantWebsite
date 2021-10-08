@@ -1,4 +1,4 @@
-export { Button, Fab, SmallButton } from "./buttons";
+export { Button, Fab, SmallButton, EditSaveButtons } from "./buttons";
 export { Switch } from "./swich";
 export { Typography } from "./typography";
 export { Image } from "./image";

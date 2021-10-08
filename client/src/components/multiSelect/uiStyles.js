@@ -19,6 +19,9 @@ export const inputsStyle = makeStyles(() => ({
         '& .MuiFormLabel-root.Mui-focused':{
             color:'#2B273C80',
         },
+        '& .MuiChip-deleteIcon':{
+            display:'none'
+        }
     },
 
 }))

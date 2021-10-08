@@ -107,7 +107,13 @@ export const Header = () => {
       if(token){
           getBusinessesSaga.dispatch()}
       }, []);
-
+      const createMenu = async () =>{
+          await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+              open(MODAL_NAMES.MENU_FORM)
+          ).catch(
+              () => open(MODAL_NAMES.CREATE_RESTAURANT)
+          )
+      }
 
     if (!isMobileViewport && profile) {
       return (
@@ -127,7 +133,8 @@ export const Header = () => {
             color="default"
             outlined
             inactive
-            onClick={() => open(MODAL_NAMES.MENU_FORM)}
+            onClick={() => createMenu()}
+            // onClick={() => open(MODAL_NAMES.MENU_FORM)}
           >
             Create Menu
           </Button>

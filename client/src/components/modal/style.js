@@ -3,7 +3,6 @@ export const ModalContainer = styled.div`
   z-index: ${({ isOpen }) => (isOpen ? "9999" : "-9999")};
   visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  transition: all 0.3s ease-in-out;
   .container {
     display: flex;
     flex-direction: column;

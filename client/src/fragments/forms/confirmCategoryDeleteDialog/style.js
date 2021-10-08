@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  text-align: center;
   .title {
     @media (max-width: 767px) {
       font-size: 18px;

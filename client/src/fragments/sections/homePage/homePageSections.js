@@ -29,4 +29,4 @@ export const HomePageSections = () => {
       </Container>
     </LazyLoad>
   );
-};
+}

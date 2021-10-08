@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 export const ConfirmCategoryDeleteDialog = () => {
   const { params, close } = useModal();
-  const [selectedOption, setSelectedOption] = useState("menu");
+  const [selectedOption, setSelectedOption] = useState("restaurant");
   const deleteCategorySaga = useSagaStore(categoriesActions.delete);
   const deleteCategoryFromMenuSaga = useSagaStore(menuCategoriesActions.delete);
   const router = useRouter();
@@ -49,21 +49,24 @@ export const ConfirmCategoryDeleteDialog = () => {
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">
-        Delete a Menu {params.name}
+        Are You Sure?
+
       </Typography>
+
+      <p style={{fontSize:'16px'}}>Yoy wont Delete a Menu {params.name} </p>
       <div className="options">
-        <Radio
-            onChange={() => setSelectedOption("menu")}
-            name="menu"
-            checked={selectedOption === "menu"}
-            label={<div>Delete from <span className='category-name'>{params.name}</span> menu</div>}
-        />
-        <Radio
-          onChange={() => setSelectedOption("restaurant")}
-          name="restaurant"
-          checked={selectedOption === "restaurant"}
-          label="Delete from restaurant"
-        />
+        {/*<Radio*/}
+        {/*    onChange={() => setSelectedOption("menu")}*/}
+        {/*    name="menu"*/}
+        {/*    checked={selectedOption === "menu"}*/}
+        {/*    label={<div>Delete from <span className='category-name'>{params.name}</span> menu</div>}*/}
+        {/*/>*/}
+        {/*<Radio*/}
+        {/*  onChange={() => setSelectedOption("restaurant")}*/}
+        {/*  name="restaurant"*/}
+        {/*  checked={selectedOption === "restaurant"}*/}
+        {/*  label="Delete from restaurant"*/}
+        {/*/>*/}
       </div>
       <div className="actions">
         <Button
