@@ -13,7 +13,7 @@ export const ItemContainer = styled.li`
   font-weight: bold;
   border-radius: 10px;
   transition: background-color 0.3s ease-in-out;
-  background-color: #0000001a;
+  background-color: #0000002a;
   &:hover {
     background-color: #2b273c4d;
   }

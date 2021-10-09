@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   .title {
-
       @media (max-width: 768px) {
         font-size: 18px;
       }
@@ -18,12 +17,11 @@ export const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     .box {
       display: flex;
-      gap: 12px;
       & > *:first-child {
         flex: 1;
+        margin-right: 12px;
       }
       & > *:last-child {
         flex: 0 0 100px;
@@ -31,7 +29,7 @@ export const Container = styled.div`
     }
   }
   .input-padding{
-    margin-bottom: 8px;
+    margin-bottom: 20px;
   }
   .save-button{
     margin-top: 20px;

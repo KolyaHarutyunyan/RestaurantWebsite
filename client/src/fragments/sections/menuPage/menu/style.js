@@ -61,7 +61,6 @@ export const Container = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 30px;
       .switch-container {
         .switch-title {
           width: 85px;
@@ -72,9 +71,9 @@ export const Container = styled.div`
         }
       }
       button {
-        gap: 16px;
         display: flex !important;
         align-items: center;
+        margin-right: 30px;
   
         .icon {
           display: flex;
@@ -83,7 +82,7 @@ export const Container = styled.div`
           font-size: 1.5rem;
           width: 32px;
           height: 32px;
-          //background-color: #ffe3e1;
+          margin-right: 16px;
           border-radius: 4px;
         }
       }
@@ -118,13 +117,16 @@ export const Container = styled.div`
     }
     
     
-    box-shadow: 0px 0px 6px #0000001a;
+    box-shadow: 0px 0px 6px #0000002a;
     border-radius: 8px;
-    gap: 32px;
-    @media (min-width: 1919px) {
-      gap: 40px;
-    }
+ 
     .mobile-head {
+      @media (max-width: 920px) {
+        margin-bottom: 20px;
+      }
+     
+      
+      
       display: none;
       @media only screen and (max-width: 920px) {
         justify-content: space-between;
@@ -137,6 +139,14 @@ export const Container = styled.div`
       height: 180px;
       border-radius: 16px;
       object-fit: cover;
+      
+      @media (min-width: 1919px) {
+        margin-right: 40px;
+      }
+      @media (min-width: 920px) {
+      margin-right: 32px;
+      }
+      
       @media only screen and (max-width: 920px) {
         &.mobile {
           display: flex;
@@ -146,7 +156,7 @@ export const Container = styled.div`
             transform: scale(3);
           }
           &.no-image {
-            background: #0000001a;
+            background: #0000002a;
           }
         }
       }

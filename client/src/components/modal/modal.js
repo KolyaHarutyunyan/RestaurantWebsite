@@ -1,20 +1,18 @@
 import { createPortal } from "react-dom";
 import { ModalContainer } from "./style";
-import { AiOutlineClose, AiOutlineArrowLeft } from "react-icons/ai";
 import { HiArrowLeft } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
 
-export const Modal = ({
+export const CustomModal = ({
   modalName,
   backButton,
   fixed = false,
   onBackButtonClick = () => {},
   children,
   mini = false,
-    closeBorder,
-                          max,
+    closeBorder, max,
     border,confirm,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
@@ -59,6 +57,7 @@ export const Modal = ({
           ) : null}
           <div className="content">{children}</div>
         </div>
+
         <div
           className="fade"
           onClick={() => {

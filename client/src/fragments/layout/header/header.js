@@ -25,7 +25,9 @@ export const Header = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const { open } = useModal();
-  const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
+    const token = typeof window !== 'undefined' && localStorage.getItem('token')
+
+    const pageOffset = typeof window !== 'undefined' &&  window.pageYOffset
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
@@ -101,8 +103,17 @@ export const Header = () => {
 
   const renderProfileDropdown = () => {
 
-      useEffect(() => getBusinessesSaga.dispatch(), []);
-
+      useEffect(() => {
+      if(token){
+          getBusinessesSaga.dispatch()}
+      }, []);
+      const createMenu = async () =>{
+          await axios(`/businesses/mybusiness`, { auth:true }).then(res =>
+              open(MODAL_NAMES.MENU_FORM)
+          ).catch(
+              () => open(MODAL_NAMES.CREATE_RESTAURANT)
+          )
+      }
 
     if (!isMobileViewport && profile) {
       return (
@@ -122,7 +133,8 @@ export const Header = () => {
             color="default"
             outlined
             inactive
-            onClick={() => open(MODAL_NAMES.MENU_FORM)}
+            onClick={() => createMenu()}
+            // onClick={() => open(MODAL_NAMES.MENU_FORM)}
           >
             Create Menu
           </Button>
@@ -145,7 +157,7 @@ export const Header = () => {
     if (!profile) {
       return (
         <div className="sign-in-buttons">
-          <Button onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
+          <Button className={'sign-in'} onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
           <Button
             onClick={() => open(MODAL_NAMES.SIGN_IN)}
             color="default"

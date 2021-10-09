@@ -1,7 +1,7 @@
 import { useState, Fragment, useEffect } from "react";
 import { Container } from "./style";
 import { useForm } from "react-hook-form";
-import { Typography, Button, Input } from "@eachbase/components";
+import {Typography, Button, Input, EditSaveButtons} from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { profileActions, useSagaStore } from "@eachbase/store";
 import {useSelector} from "react-redux";
@@ -20,6 +20,18 @@ export const Privacy = () => {
 
   });
 
+    const {httpOnLoad,httpOnSuccess} = useSelector((state) => ({
+        httpOnLoad: state.httpOnLoad,
+        httpOnSuccess: state.httpOnSuccess,
+    }));
+
+    const onLoad = !!httpOnLoad.find((type) => type === 'UPDATE_PROFILE_PASSWORD');
+    const onSuccess =httpOnSuccess.length && httpOnSuccess[0].type === 'UPDATE_PROFILE_PASSWORD'
+
+    useEffect(() => {
+        setEditMode(false)
+    }, [onSuccess]);
+
   useEffect(() => {
     return () => () => destroy.all();
   }, []);
@@ -37,7 +49,7 @@ export const Privacy = () => {
     }
     setErrors({ ...errors, confirmation: "" });
     dispatch(data);
-      setEditMode(false)
+      // setEditMode(false)
   };
 
   const renderNoth = () => {
@@ -112,17 +124,11 @@ export const Privacy = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="head">
           {editMode ? (
-            <Button
-                className='classes-edit-button'
-                height={'auto'}
-              color="action"
-              link
-              colorVariant
-              type="submit"
-              onLoad={status.onLoad}
-            >
-              Save
-            </Button>
+                  <EditSaveButtons
+                      loader={onLoad}
+                      handleSave={onSubmit}
+                      handleClose={() => setEditMode(false)}
+                  />
           ) : (
             <button
                 className='classes-edit-button'

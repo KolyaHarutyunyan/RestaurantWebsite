@@ -65,7 +65,7 @@ export const Container = styled.div`
   }
   .choose{
     background: #FFFFFF;
-    box-shadow: 0px 2px 6px #0000001a;
+    box-shadow: 0px 2px 6px #0000002a;
     padding: 16px 16px 1px 16px;
     margin-bottom: 16px;
     border-radius: 8px;
@@ -117,7 +117,6 @@ export const Container = styled.div`
     .action-button {
       display: flex;
       align-items: center;
-      gap: 16px;
       font-size: 16px;
       font-family: Open Sans, sans-serif;
       font-weight: 600;
@@ -126,6 +125,7 @@ export const Container = styled.div`
         margin-bottom: 10px;
       }
       .circle {
+        margin-right: 16px;
         padding: 2px;
         border-radius: 50%;
         background: #007aff1a 0% 0% no-repeat padding-box;

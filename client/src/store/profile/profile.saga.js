@@ -14,7 +14,7 @@ import {
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
   UPDATE_PROFILE_INFO_SUCCESS,
-  RESET_PASSWORD,
+  RESET_PASSWORD, SOCIAL_SIGN_UP,
 } from "./profile.types";
 import { profileService } from "./profile.service";
 
@@ -78,6 +78,27 @@ function* signUp({ type, payload }) {
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
+}
+
+function* socialSignUp({ type, payload }) {
+
+  yield put(httpRequestsOnLoadActions.removeLoading(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  try {
+    if(payload === 'google') {
+      const data = yield call(profileService.signUpSocialGoogle, payload);
+    }
+    else if(payload === 'facebook'){
+      const data = yield call(profileService.signUpSocialFace);
+    }
+    else{
+      const data = yield call(profileService.signUpSocialApple);
+    }
+
+  } catch (err) {
+
   }
 }
 
@@ -165,6 +186,7 @@ export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_IN, signIn);
   yield takeLatest(GET_PROFILE_INFO, getProfileInfo);
   yield takeLatest(PROFILE_SIGN_UP, signUp);
+  yield takeLatest(SOCIAL_SIGN_UP, socialSignUp);
   yield takeLatest(UPDATE_PROFILE_PASSWORD, updateProfilePassword);
   yield takeLatest(DELETE_PROFILE, deleteProfile);
   yield takeLatest(UPDATE_PROFILE_INFO, updateProfile);

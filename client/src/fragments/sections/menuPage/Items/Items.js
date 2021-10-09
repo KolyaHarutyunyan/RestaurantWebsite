@@ -25,6 +25,7 @@ export const Items = ({category, categType}) => {
         httpOnLoad.length && httpOnLoad[0] === 'GET_CATEGORY_ITEMS' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'CREATE_ITEM' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'ADD_CATEGORY_ITEM' ? true :
+        httpOnLoad.length && httpOnLoad[0] === 'REORDER_CATEGORY_ITEM' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'CREATE_CATEGORY_ITEM'
 
     const {open} = useModal();
@@ -86,12 +87,6 @@ export const Items = ({category, categType}) => {
 
     const onCategoryItemsChange = (_options, newItem, removedItem) => {
 
-        // if(permission.length) {
-        //
-        //   const body ={
-        //     roleId:role.id,
-        //     permissionId:permission[permission.length - 1].id
-        //   }
         if (newItem.length) {
             addItemInCategorySaga.dispatch(
                 currentCategory.category.id,
@@ -105,19 +100,18 @@ export const Items = ({category, categType}) => {
             );
         }
     };
-    const onDragEnd = (e) => {
 
+    const onDragEnd = (e) => {
         const itemId = e.draggableId;
         const from = e.source.index;
         const to = e.destination ? e.destination.index : null;
 
-        // if (to && from !== to) {
-
+        if (to && from !== to) {
         itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {
             from,
             to,
         });
-        // }
+        }
     };
 
 
@@ -202,7 +196,7 @@ export const Items = ({category, categType}) => {
                                                                 category,
                                                             })
                                                         }
-                                                        key={`${categoryItem.item.id}-${index}`}
+                                                        // key={`${categoryItem.item.id}-${index}`}
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}

@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import {Tabs, Button, ProSelect, useModal, ToolTipScreen, HtmlTooltip, SlicedText} from "@eachbase/components";
+import {Tabs, Button, ProSelect, useModal, ToolTipScreen, HtmlTooltip, SlicedText, Input} from "@eachbase/components";
 import { useEffect, useState } from "react";
 import { Typography } from "@eachbase/components";
 import { IoIosTrash } from "react-icons/io";
@@ -14,6 +14,7 @@ import { MODAL_NAMES } from "@eachbase/constants";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {Icons} from "@eachbase/theme";
 import CreatableSelect from 'react-select/creatable';
+import {TextField} from "@material-ui/core";
 export const Categories = ({ value, onChange }) => {
   const { open } = useModal();
   const {
@@ -36,6 +37,19 @@ export const Categories = ({ value, onChange }) => {
     label: category.name,
   }));
 
+  const { httpOnSuccess, httpOnLoad} = useSelector((state) => ({
+    httpOnLoad: state.httpOnLoad,
+    httpOnSuccess: state.httpOnSuccess,
+  }));
+
+
+  const success = httpOnSuccess.length && httpOnSuccess[0].type === 'ADD_MENU_CATEGORY'
+
+  useEffect(() => {
+    if (success) {
+      setCategoriesSelectValue('')
+    }
+  }, [success]);
 
   // useEffect(() => {
   //   if (categories.length && !categoriesSelectValue) {
@@ -67,7 +81,7 @@ export const Categories = ({ value, onChange }) => {
       if(categoriesSelectValue) {
         createCategorySaga.dispatch(
             {
-              name: categoriesSelectValue.label,
+              name: categoriesSelectValue,
               description: "",
               businessId: restaurantId,
             },
@@ -145,12 +159,23 @@ export const Categories = ({ value, onChange }) => {
           <div className="select-wrapper">
 
            <form autoComplete="off">
-            <CreatableSelect
-                isClearable
-                onChange={(value) => {setCategoriesSelectValue(value);}}
-                placeholder={'Select/Create Category'}
-                options={categoriesOptions}
-            /></form>
+
+             <Input
+                 className='select-input'
+                 variant='outlined'
+                 value={categoriesSelectValue}
+                 placeholder={'Select/Create Category'}
+                 onChange={(ev) => {setCategoriesSelectValue(ev.target.value);}}
+             />
+
+            {/*<CreatableSelect*/}
+            {/*    isClearable*/}
+            {/*    onChange={(value) => {setCategoriesSelectValue(value);}}*/}
+            {/*    placeholder={'Select/Create Category'}*/}
+            {/*    options={categoriesOptions}*/}
+            {/*/>*/}
+
+           </form>
 
             {/*<ProSelect*/}
             {/*  onChange={(value) => {*/}

@@ -12,7 +12,6 @@ export const Categories = () => {
     const {menus} = useSelector(({menus}) => ({menus}));
     const [activeTab, setActiveTab] = useState("food");
 
-    console.log(activeTab,'menus.drinkCategories ')
     const scrollPos = useScrollPosition();
     return (
 

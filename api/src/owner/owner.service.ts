@@ -28,11 +28,11 @@ export class OwnerService {
         fullName: dto.fullName,
         avatar: dto.avatarURL,
       });
-      const auth = await Promise.all([
+      const response = await Promise.all([
         owner.save(),
         this.authService.create(owner._id, dto.email, dto.password, Role.OWNER),
-      ])[1];
-      return auth;
+      ]);
+      return response[1];
     } catch (err) {
       this.mongooseUtil.checkDuplicateKey(err, 'User already exists');
       throw err;

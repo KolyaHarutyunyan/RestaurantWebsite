@@ -8,6 +8,7 @@ import { reduxWrapper } from "@eachbase/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import {Modal} from "@material-ui/core";
 initAxiosInterceptors();
 const MyApp = ({ Component, pageProps }) => (
   <Fragment>

@@ -8,14 +8,10 @@ import { PORT } from './constants';
 
 async function bootstrap() {
   const swaggerUtil = new SwaggerUtil();
-  const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: true,
-      preflightContinue: false,
-    },
-  });
+  const app = await NestFactory.create(AppModule);
 
   //Middleware
+  app.enableCors();
   app.use(
     session({
       secret: 'my-secret',
@@ -25,7 +21,6 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
-  // app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -35,8 +30,6 @@ async function bootstrap() {
   //swagger documentation setup
   swaggerUtil.setup(app);
 
-  await app
-    .listen(PORT)
-    .then(() => console.log(`server running on port ${PORT}`));
+  await app.listen(PORT).then(() => console.log(`server running on port ${PORT}`));
 }
 bootstrap();

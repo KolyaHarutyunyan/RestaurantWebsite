@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Img = styled.img``;
 export const NoImage = styled.div`
-  background-color: #0000001a;
+  background-color: #0000002a;
   height: 100%;
   width: 100%;
   display: flex;

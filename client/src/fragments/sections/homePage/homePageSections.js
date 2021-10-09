@@ -14,7 +14,7 @@ export const HomePageSections = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
-    }, 2000);
+    }, 500);
   }, []);
 
   return (
@@ -29,4 +29,4 @@ export const HomePageSections = () => {
       </Container>
     </LazyLoad>
   );
-};
+}

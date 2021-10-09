@@ -15,13 +15,13 @@ export const Container = styled.div`
   }
   .ul{
     @media (max-width: 1279px) {
-      margin: 0;
+      margin: 0 0 0 64px;
     }
     @media (min-width: 1279px) {
-      margin: 37px 0 0 0;
+      margin: 37px 0 0 64px;
     }
     @media (min-width: 1919px) {
-      margin: 0;
+      margin: 0 0 0 100px ;
     }
   }
   .title{
@@ -71,15 +71,13 @@ export const Container = styled.div`
         margin-bottom: 80px;
       }
       @media (min-width: 768px) {
-        gap: 64px;
+       
         margin-bottom: 128px;
       }
       @media (min-width: 1279px) {
-        gap: 64px;
         margin-bottom: 128px;
       }
        @media (min-width: 1920px) {
-        gap: 116px;
          margin-bottom: 160px;
       }
       ul {
@@ -146,7 +144,7 @@ export const Container = styled.div`
             font-size: 18px;
             font-weight: bold;
             font-family: Poppins,sans-serif;
-            box-shadow: 2px 2px 6px 4px #0000001a;
+            box-shadow: 2px 2px 6px 4px #0000002a;
           }
           padding-left: 20px;
           p:first-of-type {
@@ -169,18 +167,16 @@ export const Container = styled.div`
         margin-bottom: 80px;
       }
       @media (min-width: 768px) {
-        gap: 64px;
         margin-bottom: 128px;
       }
       @media (min-width: 1279px) {
-        gap: 64px;
         margin-bottom: 128px;
       }
       @media (min-width: 1920px) {
-        gap: 116px;
         margin-bottom: 160px;
       }
       ul {
+        
         max-width: 100%;
         @media (max-width: 1279px) {
           max-width: 100%;
@@ -188,16 +184,15 @@ export const Container = styled.div`
       
         li {
           display: flex;
-          gap: 40px;
-          @media (max-width: 768px) {
-            gap: 24px;
-          }
-          margin-bottom: 24px;
+          
+          margin-bottom: 24px; 
           .checkmark {
             margin-top: -5px;
+            margin-right: 40px;
             @media (max-width: 768px) {
               height: 36px;
               flex: 0 0 36px;
+              margin-right: 24px;
             }
             
             display: flex;

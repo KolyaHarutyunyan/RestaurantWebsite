@@ -5,47 +5,61 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+
     margin: 35px 0 25px 0;
+
+    .MuiChip-deleteIcon {
+      display: none;
+    }
+
     .select-wrapper {
       flex: 1;
+      margin-right: 32px;
 
-      .css-yk16xz-control{
+      .css-yk16xz-control {
         min-height: 48px;
         color: #2B273C80;
         border-color: #2B273C80;
       }
-      .css-1okebmr-indicatorSeparator{
+
+      .css-1okebmr-indicatorSeparator {
         display: none;
       }
-      .css-1pahdxg-control{
+
+      .css-1pahdxg-control {
         min-height: 48px;
         color: #2B273C80;
         border-color: #2B273C80;
       }
     }
+
     button {
       flex: 0 0 140px;
     }
   }
-  .delete-button{
+
+  .delete-button {
     display: flex;
     align-items: center;
     margin-right: 20px;
-    span{
+
+    span {
       margin-right: 8px;
     }
   }
-  .delete-arrow{
+
+  .delete-arrow {
     display: flex;
     align-items: center;
   }
+
   .categories {
     flex-direction: column;
     margin-bottom: 10px;
     @media only screen and (max-width: 768px) {
       height: auto;
     }
+
     li {
       margin-bottom: 10px;
       background: white;
@@ -53,7 +67,7 @@ export const Container = styled.div`
       align-items: center;
       justify-content: space-between;
       padding: 0px 32px;
-      box-shadow: 0px 0px 6px #0000001a;
+      box-shadow: 0px 0px 6px #0000002a;
       flex: 0 0 56px;
       height: 56px;
       @media (max-width: 767px) {
@@ -62,10 +76,12 @@ export const Container = styled.div`
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease-in-out;
+
       &:hover,
       &.selected {
         background-color: #efefef;
       }
+
       .category-name {
         display: flex;
         align-items: center;
@@ -77,11 +93,12 @@ export const Container = styled.div`
         }
         font-weight: 600;
         gap: 16px;
+
         button {
           display: flex;
           gap: 8px;
           align-items: center;
-        
+
           .icon {
             display: flex;
             align-items: center;
@@ -95,6 +112,24 @@ export const Container = styled.div`
         }
       }
     }
-    
+
+  }
+
+  .select-input {
+    background: white;
+    width: 100%;!important;
+
+  //  .MuiOutlinedInput-notchedOutline {
+  // border-color: blue;
+  //  } ,
+  //.MuiOutlinedInput-root {
+  //  height: 48px
+  //},
+  //.MuiInputLabel-outlined {
+  //  margin-top: -3px
+  //},
+  //.MuiInputLabel-outlined . MuiInputLabel-shrink {
+  //  //transform: translate(14px, -2px) scale(0.75)
+  //},
   }
 `;

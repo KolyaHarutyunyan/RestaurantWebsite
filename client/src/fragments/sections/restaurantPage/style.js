@@ -139,10 +139,6 @@ export const Container = styled.div`
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 24px;
-          @media (max-width: 767px) {
-            gap: 20px;
-          }
           .logo {
             display: inline-block;
             background-position: center;
@@ -150,6 +146,10 @@ export const Container = styled.div`
             width: 80px;
             height: 80px;
             border-radius: 15px;
+            margin-right: 24px;
+            @media (max-width: 767px) {
+              margin-right: 20px;
+            }
           }
         }
       }     
@@ -279,14 +279,14 @@ export const Container = styled.div`
           }
         }
         .add-card {
-          box-shadow: 0px 0px 6px #0000001a;
+          box-shadow: 0px 0px 6px #0000002a;
           border-radius: 16px;
           .image {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 190px;
-            background-color: #0000001a;
+            background-color: #0000002a;
             border-radius: 16px 16px 0 0;
             svg {
               width: 100%;
