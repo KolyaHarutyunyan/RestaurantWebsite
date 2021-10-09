@@ -1,20 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBody,
-  ApiHeader,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ACCESS_TOKEN } from '../constants';
 import { ParseObjectIdPipe } from '../util';
 import { AuthService, AuthDTO, AuthGuard, Role } from '../auth';
@@ -48,9 +33,7 @@ export class OwnerController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: OwnerDTO })
   @ApiOperation({ summary: summaries.GET_PROFILE })
-  async getUser(
-    @Body('userId', ParseObjectIdPipe) userId: string,
-  ): Promise<OwnerDTO> {
+  async getUser(@Body('userId', ParseObjectIdPipe) userId: string): Promise<OwnerDTO> {
     const owner = await this.ownerService.getOwner(userId);
     return owner;
   }
@@ -81,9 +64,7 @@ export class OwnerController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: String, description: 'The Id of the closed account' })
   @ApiOperation({ summary: summaries.CLOSE_ACCOUNT })
-  async closeAccount(
-    @Param('id', ParseObjectIdPipe) accountId: string,
-  ): Promise<string> {
+  async closeAccount(@Param('id', ParseObjectIdPipe) accountId: string): Promise<string> {
     const id = await this.authService.delete(accountId);
     await this.businessService.closeBusiness(accountId);
     return id;

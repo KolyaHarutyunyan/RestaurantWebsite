@@ -7,7 +7,7 @@ const mode = ['local', 'development', 'production'][1];
 export const BASE_URL = {
   local: 'http://localhost:8005/api',
   development: 'https://menuz.eachbase.com/api',
-  production: 'https://menumango.com',
+  production: 'https://menumango.com/api',
 }[mode];
 
 export const DOMAIN_NAME = {
