@@ -82,7 +82,7 @@ export const SignInForm = () => {
             <Icons.GoogleIcon />
           </Fab>
         </Link>
-        <Link href={`${API_BASE}/owners/socials/google`}>
+        <Link href={`${API_BASE}/owners/socials/facebook`}>
           <Fab className="icons">
             <Icons.FaceBookIcon />
           </Fab>
@@ -90,7 +90,7 @@ export const SignInForm = () => {
         {/*<Fab  className="icons">*/}
         {/*  <Icons.TwitterIcon />*/}
         {/*</Fab>*/}
-        <Link href={`${API_BASE}/owners/socials/google`}>
+        <Link href={`${API_BASE}/owners/socials/apple`}>
           <Fab className="apple">
             <Icons.AppleIcon />
           </Fab>
