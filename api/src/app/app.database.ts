@@ -22,7 +22,7 @@ export class DatabaseConnection {
     set('useCreateIndex', true);
     connect(MONGO_CONN_STR, options, (err) => {
       if (err) {
-        console.log('error connecting to the db::: ', err);
+        console.log('error connecting to the db::: ', err.message);
       }
       console.log('database connected');
     });
