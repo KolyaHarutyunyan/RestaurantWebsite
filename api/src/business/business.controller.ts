@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
@@ -27,8 +19,9 @@ export class BusinessController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiBody({ type: CreateBusinessDTO })
   @ApiOkResponse({ type: BusinessDTO })
-  async createbusiness(@Body() businessInfo: CreateBusinessDTO): Promise<any> {
-    const business = await this.businessService.create(businessInfo);
+  async createbusiness(@Body() dto: CreateBusinessDTO): Promise<BusinessDTO> {
+    console.log(dto);
+    const business = await this.businessService.create(dto);
     return business;
   }
 

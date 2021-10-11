@@ -33,6 +33,7 @@ export class AuthGuard implements CanActivate {
     this.checkStatus(auth.status);
     this.checkSession(auth.session, token);
     request.body.userId = auth.id;
+    request.body.auth = auth;
     request.userId = auth.id;
     return true;
   }
@@ -48,10 +49,7 @@ export class AuthGuard implements CanActivate {
           HttpStatus.UNAUTHORIZED,
         );
       case AccountStatus.SUSPENDED:
-        throw new HttpException(
-          'Your account has been suspended',
-          HttpStatus.UNAUTHORIZED,
-        );
+        throw new HttpException('Your account has been suspended', HttpStatus.UNAUTHORIZED);
       default:
         throw new HttpException(
           'This account seems to be problematic, contact admin',
@@ -98,10 +96,7 @@ export class AuthGuard implements CanActivate {
   /** Checks if the session is correct */
   private checkSession(session: string, token: string) {
     if (session != token) {
-      throw new HttpException(
-        'The session is invalid',
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new HttpException('The session is invalid', HttpStatus.UNAUTHORIZED);
     }
   }
 }

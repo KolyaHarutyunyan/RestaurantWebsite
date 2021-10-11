@@ -1,20 +1,5 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Get,
-  Param,
-  UseGuards,
-  Patch,
-  Delete,
-} from '@nestjs/common';
-import {
-  ApiBody,
-  ApiHeader,
-  ApiOkResponse,
-  ApiParam,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Post, Get, Param, UseGuards, Patch, Delete } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
@@ -69,17 +54,14 @@ export class AuthController {
   }
 
   /** logout the user */
-  @Patch(':id/logout')
+  @Post('logout')
   @UseGuards(new AuthGuard())
-  @ApiParam({ name: 'id', description: 'users Id' })
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({
     type: String,
     description: 'invalidated token',
   })
-  async logout(
-    @Param('id', ParseObjectIdPipe) userId: string,
-  ): Promise<string> {
+  async logout(@Body('userId') userId: string): Promise<string> {
     const sessionToken = await this.authService.logout(userId);
     return sessionToken;
   }

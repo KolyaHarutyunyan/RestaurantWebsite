@@ -1,16 +1,22 @@
-export const BASE_URL = 'http://localhost:8100/api/';
+export const BASE_URL = 'http://localhost:8005/api/';
 
 export const data = {
   owners: [
     {
-      name: 'jack',
+      fullName: 'jack',
       email: 'jb@gmail.com',
       password: 'password',
     },
     {
-      name: 'nick',
+      fullName: 'nick',
       email: 'njas@gmail.com',
       password: 'password',
+    },
+  ],
+  businesses: [
+    {
+      name: 'El Sauz',
+      description: 'Mexican Authentic Menu',
     },
   ],
 };

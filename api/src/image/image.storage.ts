@@ -6,12 +6,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import {
-  AWS_ACCESS_KEY_ID,
-  AWS_ACCESS_SECRET_KEY,
-  AWS_REGION,
-  IMAGE_BUCKET,
-} from './constants';
+import { AWS_ACCESS_KEY_ID, AWS_ACCESS_SECRET_KEY, AWS_REGION, IMAGE_BUCKET } from './constants';
 import * as url from 'url';
 import { v4 as uuid } from 'uuid';
 

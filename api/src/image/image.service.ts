@@ -80,7 +80,7 @@ export class ImageService {
   }
 
   /** Generates a qr code file based on a url, stores in in S3 and @returns the urls of the stored file */
-  generateQRCode = async (encodingURL: string) => {
+  generateQRCode =  async (encodingURL: string) => {
     await qrcode.toFile(path.join(__dirname, '/qrCode.png'), encodingURL);
     const fileBuffer = fs.readFileSync(path.join(__dirname, '/qrCode.png'));
     const file = {

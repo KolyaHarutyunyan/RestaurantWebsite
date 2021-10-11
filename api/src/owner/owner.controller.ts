@@ -7,6 +7,7 @@ import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business';
 import { summaries } from './owner.constants';
+import { VerifyCall } from 'src/util/decorators/public.decorator';
 
 @Controller('owners')
 @ApiTags('Owner')
@@ -19,11 +20,12 @@ export class OwnerController {
 
   /** Create a new owner */
   @Post()
+  @VerifyCall()
   @ApiBody({ type: CreateOwnerDTO })
   @ApiOkResponse({ type: AuthDTO })
   @ApiOperation({ summary: summaries.CREATE_ACCOUNT })
-  async register(@Body() createOwnerDTO: CreateOwnerDTO): Promise<AuthDTO> {
-    const auth = await this.ownerService.create(createOwnerDTO);
+  async register(@Body() dto: CreateOwnerDTO): Promise<AuthDTO> {
+    const auth = await this.ownerService.create(dto);
     return auth;
   }
 
