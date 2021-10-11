@@ -1,20 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBody,
-  ApiHeader,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ACCESS_TOKEN } from 'src/constants';
 import { ParseObjectIdPipe } from '../util/pipes';
 import { AuthGuard, Role } from '../auth';
@@ -43,9 +28,7 @@ export class ItemController {
   @Get('business/:businessId')
   @ApiOkResponse({ type: [ItemDTO] })
   @ApiOperation({ summary: summaries.GET_BUSINESS_ITEMS })
-  async getAll(
-    @Param('businessId', ParseObjectIdPipe) businessId: string,
-  ): Promise<ItemDTO[]> {
+  async getAll(@Param('businessId', ParseObjectIdPipe) businessId: string): Promise<ItemDTO[]> {
     const categories = await this.itemService.getAll(businessId);
     return categories;
   }
@@ -54,9 +37,7 @@ export class ItemController {
   @Get(':itemId')
   @ApiOkResponse({ type: ItemDTO })
   @ApiOperation({ summary: summaries.GET_BUSINESS_ITEMS })
-  async get(
-    @Param('itemId', ParseObjectIdPipe) itemId: string,
-  ): Promise<ItemDTO> {
+  async get(@Param('itemId', ParseObjectIdPipe) itemId: string): Promise<ItemDTO> {
     const categories = await this.itemService.get(itemId);
     return categories;
   }

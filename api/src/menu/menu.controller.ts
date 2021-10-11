@@ -19,13 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { Role, AuthGuard } from '../auth';
 import { ACCESS_TOKEN } from '../constants';
-import {
-  CreateMenuDTO,
-  MenuCategoriesDTO,
-  MenuDTO,
-  ReorderDTO,
-  UpdateMenuDTO,
-} from './dto';
+import { CreateMenuDTO, MenuCategoriesDTO, MenuDTO, ReorderDTO, UpdateMenuDTO } from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
@@ -80,9 +74,7 @@ export class MenuController {
   @Get('active/:businessId')
   @ApiOkResponse({ type: FullMenuDTO })
   @ApiOperation({ summary: summaries.GET_ACTIVE })
-  async getActiveMenu(
-    @Param('businessId', ParseObjectIdPipe) businessId,
-  ): Promise<FullMenuDTO> {
+  async getActiveMenu(@Param('businessId', ParseObjectIdPipe) businessId): Promise<FullMenuDTO> {
     const menu = await this.menuService.getActive(businessId);
     return menu;
   }
@@ -91,9 +83,7 @@ export class MenuController {
   @Get(':menuId/full')
   @ApiOkResponse({ type: FullMenuDTO })
   @ApiOperation({ summary: summaries.GET_FULL })
-  async getFullMenu(
-    @Param('menuId', ParseObjectIdPipe) menuId,
-  ): Promise<FullMenuDTO> {
+  async getFullMenu(@Param('menuId', ParseObjectIdPipe) menuId): Promise<FullMenuDTO> {
     const menu = await this.menuService.getFullMenu(menuId);
     return menu;
   }
@@ -103,9 +93,7 @@ export class MenuController {
   @UseGuards(new AuthGuard([Role.OWNER]))
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: MenuDTO })
-  async getMenu(
-    @Param('id', ParseObjectIdPipe) menuId: string,
-  ): Promise<MenuDTO> {
+  async getMenu(@Param('id', ParseObjectIdPipe) menuId: string): Promise<MenuDTO> {
     const menu = await this.menuService.getById(menuId);
     return menu;
   }
@@ -163,12 +151,7 @@ export class MenuController {
     @Body('userId')
     ownerId: string,
   ): Promise<MenuCategoriesDTO> {
-    const menu = await this.menuService.removeCategory(
-      menuId,
-      categoryId,
-      ownerId,
-      query.type,
-    );
+    const menu = await this.menuService.removeCategory(menuId, categoryId, ownerId, query.type);
     return menu;
   }
 
@@ -185,12 +168,7 @@ export class MenuController {
     @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<MenuCategoriesDTO> {
-    const category = await this.menuService.addCategory(
-      menuId,
-      categoryId,
-      ownerId,
-      query.type,
-    );
+    const category = await this.menuService.addCategory(menuId, categoryId, ownerId, query.type);
     return category;
   }
 
@@ -207,12 +185,7 @@ export class MenuController {
     @Query() query: CategoryQueryDTO,
     @Body('userId') ownerId: string,
   ): Promise<MenuCategoriesDTO> {
-    const menu = await this.menuService.reorderCategories(
-      menuId,
-      ownerId,
-      reorderDTO,
-      query.type,
-    );
+    const menu = await this.menuService.reorderCategories(menuId, ownerId, reorderDTO, query.type);
     return menu;
   }
 

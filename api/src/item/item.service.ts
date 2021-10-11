@@ -20,10 +20,7 @@ export class ItemService {
 
   /** Public API */
   create = async (itemDTO: CreateItemDTO): Promise<ItemDTO> => {
-    await this.bsnValidator.validateBusiness(
-      itemDTO.userId,
-      itemDTO.businessId,
-    );
+    await this.bsnValidator.validateBusiness(itemDTO.userId, itemDTO.businessId);
     let item = await new this.model({
       name: itemDTO.name,
       description: itemDTO.description,
@@ -33,10 +30,7 @@ export class ItemService {
       images: itemDTO.images,
       businessId: itemDTO.businessId,
     });
-    item = await (await item.save())
-      .populate('mainImage')
-      .populate('images')
-      .execPopulate();
+    item = await (await item.save()).populate('mainImage').populate('images').execPopulate();
     return this.sanitizer.sanitize(item);
   };
 
@@ -51,10 +45,7 @@ export class ItemService {
     if (itemDTO.description) item.price = itemDTO.price;
     if (itemDTO.mainImage) item.mainImage = itemDTO.mainImage;
     if (itemDTO.images) item.images = itemDTO.images;
-    item = await (await item.save())
-      .populate('mainImage')
-      .populate('images')
-      .execPopulate();
+    item = await (await item.save()).populate('mainImage').populate('images').execPopulate();
     return this.sanitizer.sanitize(item);
   };
 

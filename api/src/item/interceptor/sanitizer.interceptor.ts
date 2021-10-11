@@ -21,14 +21,10 @@ export class ItemSanitizer implements ISanitize {
       sanitizedItem.option = item.option;
     }
     if (item.mainImage) {
-      sanitizedItem.mainImage = this.imgSanitizer.sanitize(
-        item.mainImage as IImage,
-      );
+      sanitizedItem.mainImage = this.imgSanitizer.sanitize(item.mainImage as IImage);
     }
     if (item.images && item.images.length > 0) {
-      sanitizedItem.images = this.imgSanitizer.sanitizeMany(
-        item.images as IImage[],
-      );
+      sanitizedItem.images = this.imgSanitizer.sanitizeMany(item.images as IImage[]);
     }
     return sanitizedItem;
   }
