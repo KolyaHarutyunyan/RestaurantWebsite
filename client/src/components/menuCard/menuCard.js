@@ -14,10 +14,10 @@ export const MenuCard = ({
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
-      <HtmlTooltip title={data.description.length > 20 ?
+      <HtmlTooltip title={data.description && data.description.length > 20 ?
           <ToolTipScreen
             name={data.name}
-            desc={data.description}
+            desc={data.description && data.description}
           />
           : ''} placement="top-end">
     <Container coverImg={data.image ? data.image.originalUrl : null}>

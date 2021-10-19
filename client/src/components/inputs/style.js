@@ -142,7 +142,7 @@ export const InputContainer = styled.div`
         padding: 0 8px 0 8px;
         margin: 0;
         height: 100%;
-        width: 100%;
+        width: 90%;
         border: none;
         outline: 0;
         font-size: 16px;

@@ -76,8 +76,8 @@ export const PrimaryInfo = () => {
           <div className="input-box">
             <Typography className='input-title' color="text">Full Name</Typography>
             <Input
-              // error={!!errors.fullName.length}
-              helper={errors.helper}
+              helperColo={true}
+              helper={errors === 'fullName' && 'Name min length must be 7 characters' }
               icon={<BsPerson size={22} />}
               disabled={!editMode}
               defaultValue={profile.fullName}

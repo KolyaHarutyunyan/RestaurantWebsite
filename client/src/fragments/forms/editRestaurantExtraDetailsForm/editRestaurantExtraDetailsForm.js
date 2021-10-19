@@ -103,7 +103,7 @@ export const EditRestaurantExtraDetailsForm = () => {
         <AddressInput
           Value={restaurant ? restaurant.address && restaurant.address.formattedAddress  : address}
           disabled={true}
-          handleSelectValue={()=> console.log('aaa')}
+          handleSelectValue={()=> console.log('')}
           handleChangeValue={(val) => setAddress(val)}
         />
         {/*button for hours*/}

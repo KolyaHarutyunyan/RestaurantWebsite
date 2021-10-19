@@ -63,9 +63,20 @@ function* signUp({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(profileService.signUp, payload);
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     localStorage.setItem("token", data.accessToken);
+    try {
+      const { data } = yield call(profileService.userInfo, payload);
+      yield put({
+        type: PROFILE_SIGN_IN_SUCCESS,
+        payload: data,
+      });
+      yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    } catch (err) {}
+
+    // yield put(httpRequestsOnLoadActions.removeLoading(type));
+    // yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    // localStorage.setItem("token", data.accessToken);
     try {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({

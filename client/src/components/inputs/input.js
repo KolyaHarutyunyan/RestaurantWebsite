@@ -11,6 +11,7 @@ export const Input = forwardRef(
       error = false,
       containerClassName = "",
       type = "text",
+        helperColo,
         border,
         padding,
       ...rest
@@ -18,7 +19,6 @@ export const Input = forwardRef(
     ref
   ) => {
     const [currentType, setCurrentType] = useState(type);
-
     const renderControllerEye = useCallback(() => {
       if (type === "password") {
         return (
@@ -59,7 +59,7 @@ export const Input = forwardRef(
             {renderControllerEye()}
           </div>
         </div>
-        <div className="helper-container">{helper}</div>
+        <div style={helperColo && {color:'#FF453A'}} className="helper-container">{helper}</div>
       </InputContainer>
     );
   }

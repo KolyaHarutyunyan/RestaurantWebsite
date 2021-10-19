@@ -92,22 +92,24 @@ export const Container = styled.div`
         overflow:hidden;
         white-space:nowrap;
         text-overflow:ellipsis;
-    
-        
         @media (min-width: 320px) {
           font-size: 16px;
           width:150px;
+          margin-left: 8px;
         }
         @media (min-width: 767px) {
           font-size: 32px;
           width:200px;
+          margin-left: 8px;
         }
         @media (min-width: 1279px) {
           font-size: 32px;
           width:250px;
+          margin-left: 16px;
         }
         @media (min-width: 1920px) {
           font-size: 32px;
+          margin-left: 24px;
           width:400px;
         }
       }

@@ -49,7 +49,6 @@ function* getPreviewMenuData({ payload, type }) {
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (e) {
-    console.log("err: ", e);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.appendError(type));
   }

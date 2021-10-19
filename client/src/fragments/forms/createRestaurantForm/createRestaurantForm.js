@@ -51,14 +51,20 @@ export const CreateRestaurantForm = () => {
         >
           {title}
         </Typography>
+
+        <div>
+        <Typography className='input-padding' weight="bold" color="text">
+          Restaurant Name
+        </Typography>
         <Input
             padding={'8px'}
           placeholder="Add your Restaurant Name"
           {...register("name", { required: true })}
         />
+        </div>
         <div>
           <Typography className='input-padding' weight="bold" color="text">
-            Optional
+            Description
           </Typography>
           <Textarea
               containerClassName='input-padding'
@@ -66,7 +72,7 @@ export const CreateRestaurantForm = () => {
               padding={'10px'}
             placeholder="Add Brief Description"
             rows={4}
-            {...register("description", { required: true })}
+            {...register("description", { required: false })}
           />
           <Typography className='max-characters'  color="text">
             Max 500 characters
