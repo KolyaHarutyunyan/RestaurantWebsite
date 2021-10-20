@@ -21,7 +21,7 @@ export const Categories = () => {
                 onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
             >
 
-                <div style={{position: 'fixed', width: '90%', marginTop: '-68px'}}>
+                <div style={{position: 'fixed', width: '89.4%', marginTop: '-68px'}}>
                     <div className='image' style={{backgroundImage: `url(${menus.image})`}}>
                         <p className='name'>{menus.name}</p>
                     </div>
@@ -74,14 +74,17 @@ export const Categories = () => {
                                                 {item.item.mainImage ?
                                                     <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                     :
-                                                    <div className='no-image'><Icons.FoodIcon/></div>
+                                                    <div className='no-image-icon'><Icons.FoodIcon/></div>
                                                 }
                                                 </div>
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <SlicedText type={'nameDesc'} size={10}
                                                                     data={item && item.item.name}/>
-                                                        <p className={'price'}>{`$${item.item.price}`}</p>
+                                                        <p className={'price'}>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                            `${item.item.price}.00`
+                                                            :    item.item.price
+                                                        }`}</p>
                                                     </div>
                                                     <HtmlTooltip title={item.item.description.length > 40 ?
                                                         <ToolTipScreen
@@ -133,14 +136,17 @@ export const Categories = () => {
                                             {item.item.mainImage ?
                                                 <img src={item.item.mainImage.originalUrl} alt="icon"/>
                                                 :
-                                                <div className='no-image'><Icons.DrinkIcon/></div>
+                                                <div className='no-image-icon'><Icons.DrinkIcon/></div>
                                             }
                                             </div>
                                             <div className='card-info'>
                                                 <div className='title'>
                                                     <SlicedText type={'nameDesc'} size={10}
                                                                 data={item && item.item.name}/>
-                                                    <p className={'price'}>{`$${item.item.price}`}</p>
+                                                    <p className={'price'}>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                        `${item.item.price}.00`
+                                                        :    item.item.price
+                                                    }`}</p>
                                                 </div>
 
 

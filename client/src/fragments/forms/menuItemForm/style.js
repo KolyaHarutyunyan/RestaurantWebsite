@@ -11,6 +11,20 @@ export const Container = styled.div`
       margin-bottom: 20px;
 
   }
+  .price-input{
+    font-family: Open Sans, sans-serif;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #2b273c80;
+    height: 48px;
+    border-radius: 8px;
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px white inset !important;
+    }
+  }
   .uploaded {
     text-align: center;
   }

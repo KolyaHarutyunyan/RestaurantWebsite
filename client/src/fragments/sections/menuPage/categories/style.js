@@ -15,6 +15,9 @@ export const Container = styled.div`
     .select-wrapper {
       flex: 1;
       margin-right: 32px;
+      background: white;
+      border-radius: 12px;
+      height: 48px;
 
       .css-yk16xz-control {
         min-height: 48px;

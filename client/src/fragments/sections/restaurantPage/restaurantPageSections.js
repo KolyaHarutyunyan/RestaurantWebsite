@@ -295,7 +295,7 @@ export const RestaurantPageSections = () => {
                   <Loader/>
                   </div>
                   :
-                  menus.map((menu, index) => (
+                  menus.length && menus.map((menu, index) => (
                 <MenuCard
                   key={index}
                   data={menu}

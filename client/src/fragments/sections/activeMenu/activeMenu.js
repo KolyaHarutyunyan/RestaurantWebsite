@@ -22,6 +22,8 @@ export const ActiveMenuSection = ({}) => {
     const path = typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
 
+    // const itemPrice = item && item.item && item.item.price.toString().search("\\.")
+    // let pricePoint = itemPrice.search("\\.");
     return (
 
         <LazyLoad loaded={loaded}>
@@ -74,7 +76,10 @@ export const ActiveMenuSection = ({}) => {
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
-                                                        <p>{`$${item.item.price}`}</p>
+                                                        <p>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                             `${item.item.price}.00`
+                                                        :    item.item.price
+                                                        }`}</p>
                                                     </div>
                                                     <HtmlTooltip title={item.item.description.length > 40 ?
                                                         <ToolTipScreen
@@ -144,7 +149,10 @@ export const ActiveMenuSection = ({}) => {
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
-                                                        <p>{`$${item.item.price}`}</p>
+                                                        <p>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                            `${item.item.price}.00`
+                                                            :    item.item.price
+                                                        }`}</p>
                                                     </div>
                                                     <HtmlTooltip title={item.item.description.length > 20 ?
                                                         <ToolTipScreen
