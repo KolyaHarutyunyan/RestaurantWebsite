@@ -4,7 +4,7 @@ import {
   Typography,
   Menu,
   useModal,
-  MenuCard, SmallButton, Loader,
+  MenuCard, SmallButton, Loader, Image,
 } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 import { MODAL_NAMES } from "@eachbase/constants";
@@ -95,6 +95,11 @@ export const RestaurantPageSections = () => {
             <div className="header">
               <Typography className="title" color="text" weight="bold">
                 {business.logo ? (
+                        // <Image
+                        //     src={business.logo.originalUrl ? business.logo.originalUrl : null}
+                        //     className="logo"
+                        //     responsiveOnMobile
+                        // />
                   <span
                     style={{
                       backgroundImage: `url(${business.logo.originalUrl})`,

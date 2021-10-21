@@ -60,6 +60,7 @@ export const Container = styled.div`
       }
     }
   .content {
+    
     display: grid;
     grid-template-columns: 1fr 1fr;
     @media only screen and (max-width: 768px) {
@@ -68,12 +69,17 @@ export const Container = styled.div`
 
     @media (min-width: 320px) {
       gap: 16px;
+      display: flex;
+      flex-direction: column;
     }
     @media (min-width: 768px) {
       gap: 24px;
+    
     }
     @media (min-width: 1279px) {
       gap: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
     @media (min-width: 1919px) {
       gap: 32px;
@@ -93,6 +99,16 @@ export const Container = styled.div`
         white-space:nowrap;
         text-overflow:ellipsis;
         @media (min-width: 320px) {
+          font-size: 16px;
+          width:80px;
+          margin-left: 8px;
+        }
+        @media (min-width: 370px) {
+          font-size: 16px;
+          width:100px;
+          margin-left: 8px;
+        }
+        @media (min-width: 420px) {
           font-size: 16px;
           width:150px;
           margin-left: 8px;
@@ -145,6 +161,7 @@ export const Container = styled.div`
             display: inline-block;
             background-position: center;
             background-size: cover;
+            object-fit: cover;
             width: 80px;
             height: 80px;
             border-radius: 15px;

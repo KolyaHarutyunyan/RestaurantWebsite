@@ -12,7 +12,7 @@ export const Container = styled.div`
   height: 100%;
   .wrapper {
     position: fixed;
-    z-index: 1000;
+    z-index: 9999;
     background-color: white;
     box-shadow:  0px 0px 6px #0000001A;
     border-radius: 6px;

@@ -94,7 +94,7 @@ export const MenuForm = () => {
 
         <div>
           <Typography className='input-padding' weight="bold" color="text">
-            Restaurant Name
+            Menu Name
           </Typography>
         <Input
             padding={'8px'}
