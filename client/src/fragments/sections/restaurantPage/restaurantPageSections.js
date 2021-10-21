@@ -292,10 +292,10 @@ export const RestaurantPageSections = () => {
               {loading ?
 
                   <div className={'loader-section'}>
-                  <Loader/>
+                   <Loader/>
                   </div>
                   :
-                  menus.length && menus.map((menu, index) => (
+                  menus.length ? menus.map((menu, index) => (
                 <MenuCard
                   key={index}
                   data={menu}
@@ -316,7 +316,7 @@ export const RestaurantPageSections = () => {
                   }
                   onRequestToDelete={() => {deleteMenuSaga.dispatch(menu.id);}}
                 />
-              ))}
+              )): ''}
             </div>
           </div>
         </div>

@@ -7,10 +7,10 @@ export const Header = () => {
   const userEmail = useSelector(({ profile }) => profile.email || "");
 
   const logOut = () => {
-    if (window.confirm("Are you sure?")) {
+    // if (window.confirm("Are you sure?")) {
       localStorage.removeItem("token");
       history.push("/login");
-    }
+    // }
   };
   return (
     <Container>

@@ -23,9 +23,9 @@ export const DeleteAccountForm = () => {
   }, [status]);
 
   const deleteAccount = () => {
-    if (confirm("Are you sure? you cannot revert this action")) {
+    // if (confirm("Are you sure? you cannot revert this action")) {
       dispatch();
-    }
+    // }
   };
 
   return (

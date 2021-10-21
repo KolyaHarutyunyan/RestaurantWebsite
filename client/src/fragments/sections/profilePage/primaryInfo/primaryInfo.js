@@ -28,6 +28,7 @@ export const PrimaryInfo = () => {
   }, [onSuccess]);
 
   const onSubmit = (info) => {
+    if(info.fullName && info.email) {
     // if(editMode === true ) {
       if (profile.email === info.email) {
         const data = {
@@ -39,15 +40,17 @@ export const PrimaryInfo = () => {
           fullName: info.fullName,
           email: info.email
         }
-        if(info.fullName && info.email) {
           dispatch(data);
-        }else{
-          setErrors(
-              !info.fullName ? 'fullName' :
-                  !info.email ? 'email' : ''
-          )
-        }
+
       }
+    }
+    // else{
+    //   console.log('else')
+    //   setErrors(
+    //       !info.fullName ? 'fullName' :
+    //           !info.email ? 'email' : ''
+    //   )
+    // }
   }
 
   if (profile) {

@@ -121,9 +121,7 @@ export const Categories = ({ value, onChange }) => {
     const itemId = e.draggableId;
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
-    if (to && from !== to) {
       categoryReorderSaga.dispatch(categoryType, itemId, { from, to });
-    }
   };
 
   const foodCategories = menuCategories["food"].reduce((data, current) => {

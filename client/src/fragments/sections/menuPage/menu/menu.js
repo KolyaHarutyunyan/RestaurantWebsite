@@ -53,9 +53,9 @@ export const Menu = () => {
             link
             className='delete-button'
             onClick={() => {
-              if (window.confirm("Are you sure?")) {
+              // if (window.confirm("Are you sure?")) {
                 deleteMenuSaga.dispatch(currentMenu.id);
-              }
+              // }
             }}
           >
             <div className="icon">
