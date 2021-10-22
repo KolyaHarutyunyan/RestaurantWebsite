@@ -22,6 +22,8 @@ export const ActiveMenuSection = ({}) => {
     const path = typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
 
+    // const itemPrice = item && item.item && item.item.price.toString().search("\\.")
+    // let pricePoint = itemPrice.search("\\.");
     return (
 
         <LazyLoad loaded={loaded}>
@@ -71,25 +73,32 @@ export const ActiveMenuSection = ({}) => {
                                                     <div className='no-image'><Icons.FoodIcon/></div>
                                                 }
                                                 </div>
+                                                <HtmlTooltip title={item.item.description.length > 40 ?
+                                                    <ToolTipScreen
+                                                        name={item.item.name}
+                                                        desc={item.item.description}
+                                                        sub={item.item.option}
+                                                    />
+                                                    : ''} placement="top-center">
                                                 <div className='card-info'>
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
-                                                        <p>{`$${item.item.price}`}</p>
+                                                        <p>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                             `${item.item.price}.00`
+                                                        :    item.item.price
+                                                        }`}</p>
                                                     </div>
-                                                    <HtmlTooltip title={item.item.description.length > 40 ?
-                                                        <ToolTipScreen
-                                                            name={item.item.name}
-                                                            desc={item.item.description}
-                                                            sub={item.item.option}
-                                                        />
-                                                        : ''} placement="top-end">
+
+
+
                                                         <p className='desc'  color="text">
                                                             {item.item.description.length > 40 ? `${item.item.description.slice(0,40)}...` : item.item.description}
                                                         </p>
-                                                    </HtmlTooltip>
+
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
+                                                </HtmlTooltip>
                                             </div>
                                         ))}
                                     </div>
@@ -141,25 +150,32 @@ export const ActiveMenuSection = ({}) => {
                                                     <div className='no-image'><Icons.DrinkIcon/></div>
                                                 }
                                                 </div>
+                                                <HtmlTooltip title={item.item.description.length > 20 ?
+                                                    <ToolTipScreen
+                                                        name={item.item.name}
+                                                        desc={item.item.description}
+                                                        sub={item.item.option}
+                                                    />
+                                                    : ''} placement="top-end">
                                                 <div className='card-info'>
+
                                                     <div className='title'>
                                                         <p>{item.item.name}</p>
-                                                        <p>{`$${item.item.price}`}</p>
+                                                        <p>{`$${item.item.price.toString().search("\\.") === -1 ?
+                                                            `${item.item.price}.00`
+                                                            :    item.item.price
+                                                        }`}</p>
                                                     </div>
-                                                    <HtmlTooltip title={item.item.description.length > 20 ?
-                                                        <ToolTipScreen
-                                                            name={item.item.name}
-                                                            desc={item.item.description}
-                                                            sub={item.item.option}
-                                                        />
-                                                        : ''} placement="top-end">
+
                                                         <p className='desc'  color="text">
                                                             {item.item.description.length > 20 ? `${item.item.description.slice(0,20)}...` : item.item.description}
                                                         </p>
-                                                    </HtmlTooltip>
+
                                                     <p className='optional'>{item.item.option}</p>
 
                                                 </div>
+                                                </HtmlTooltip>
+
                                             </div>
                                         ))}
                                         </div>

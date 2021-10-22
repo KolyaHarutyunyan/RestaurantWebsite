@@ -41,10 +41,7 @@ export class ImageController {
   @ApiBody({ type: String, description: 'file to upload' })
   @ApiOkResponse({ type: String, description: 'id of added image' })
   @ApiOperation({ summary: summaries.ADD_IMAGES })
-  async uploadFile(
-    @UploadedFile() file: any,
-    @Body('userId') uploader: string,
-  ): Promise<string> {
+  async uploadFile(@UploadedFile() file: any, @Body('userId') uploader: string): Promise<string> {
     const fileUrl = await this.imageService.add(file, uploader);
     return fileUrl;
   }

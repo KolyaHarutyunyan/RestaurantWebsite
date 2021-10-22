@@ -13,4 +13,16 @@ export const Container = styled.div`
   .wrapper.phone-wrapper > * {
     transform: scale(0.8);
   }
+  .back-button{
+    width: 100px;
+    height: 38px;
+    border-radius: 24px;
+    color: white;
+    background: #FF453A;
+    left: 0;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    position: fixed;
+  }
 `;

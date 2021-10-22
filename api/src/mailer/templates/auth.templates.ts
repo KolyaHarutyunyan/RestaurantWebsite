@@ -5,10 +5,7 @@ import { DOMAIN_NAME, COMPANY_EMAIL } from '../../constants';
 @Injectable()
 export class AuthTemplate {
   /** Generates an email template for forgetPassword */
-  getForgetPasswordTemplate = (
-    token: string,
-    email: string,
-  ): SendEmailCommandInput => {
+  getForgetPasswordTemplate = (token: string, email: string): SendEmailCommandInput => {
     const url = `${DOMAIN_NAME}/resetPassword?resetToken=${token}`;
     const displayUrl = `${DOMAIN_NAME}/resetPassword`;
     const mailOptions: SendEmailCommandInput = {
@@ -51,10 +48,7 @@ export class AuthTemplate {
   };
 
   /** generate an email template for member invitations */
-  getMemberInviteTemplate = (
-    email: string,
-    invitor: string,
-  ): SendEmailCommandInput => {
+  getMemberInviteTemplate = (email: string, invitor: string): SendEmailCommandInput => {
     const mailOptions: SendEmailCommandInput = {
       Destination: { ToAddresses: [email] },
       Source: COMPANY_EMAIL,

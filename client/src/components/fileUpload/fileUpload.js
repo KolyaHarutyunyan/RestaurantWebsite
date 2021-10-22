@@ -36,18 +36,30 @@ export const FileUpload = ({
 
     const [error, setError] = useState(false)
     const onDrop = useCallback((acceptedFiles) => {
-        if (acceptedFiles[0].size > 2097152) {
-            setError(true)
-        } else {
-            setError(false)
-            acceptedFiles.map((file) =>
-                Object.assign(file, {
-                    preview: URL.createObjectURL(file),
-                    id: uuid(),
-                })
-            ).filter((_file, index) => !limit || (limit && index < limit));
-            onChange(acceptedFiles, "UPLOAD", acceptedFiles[0].id, mainImageId ? mainImageId : null);
-        }
+
+            let index = 0
+            for (let a of acceptedFiles) {
+                index += 1
+                let type = a.name.split('.');
+                type = type[type.length - 1];
+                let blob = a.slice(0, a.size, `image/${type}`)
+                let newFile = new File([blob], `${index}.${type}`, {type: `image/${type}`});
+                const file = [newFile]
+                if (file[0].size > 2097152) {
+                    setError(true)
+                } else {
+                    setError(false)
+                    file.map((file) =>
+                        Object.assign(file, {
+                            preview: URL.createObjectURL(file),
+                            id: uuid(),
+                        })
+                    ).filter((_file, index) => !limit || (limit && index < limit));
+                    onChange(file, "UPLOAD", file[0].id, mainImageId ? mainImageId : null);
+                }
+            }
+
+
     }, []);
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({

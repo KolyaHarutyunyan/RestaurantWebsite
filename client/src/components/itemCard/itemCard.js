@@ -15,6 +15,9 @@ export const ItemCard = forwardRef(
       backgroundImage: `url(${image})`,
     };
 
+    const itemPrice = item && item.item && item.item.price.toString()
+    let pricePoint = itemPrice.search("\\.");
+
     return (
       <Container {...rest} ref={ref}>
         <div className="image" style={imageStyle}>
@@ -47,7 +50,7 @@ export const ItemCard = forwardRef(
             </div>
             <Typography color="text" className="price"  weight="bold">
               <b>$</b>
-              {item.item.price}
+              {pricePoint === -1 ? `${item.item.price}.00` : item.item.price}
             </Typography>
           </div>
           <div className="under">

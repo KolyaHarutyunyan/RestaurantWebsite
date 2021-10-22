@@ -3,12 +3,7 @@ import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
 import { IMenu, IMenuCategory } from './interface';
 import { MenuSanitizer } from './interceptor';
-import {
-  CreateMenuDTO,
-  MenuCategoriesDTO,
-  MenuDTO,
-  UpdateMenuDTO,
-} from './dto';
+import { CreateMenuDTO, MenuCategoriesDTO, MenuDTO, UpdateMenuDTO } from './dto';
 import { BusinessValidator } from '../business';
 import { IImage, ImageService } from '../image';
 import { CategoryService } from '../category';
@@ -31,10 +26,7 @@ export class MenuService {
   /** Create menu */
   create = async (menuDTO: CreateMenuDTO): Promise<MenuDTO> => {
     // check if the correct user is creating a business
-    await this.bsnValidator.validateBusiness(
-      menuDTO.userId,
-      menuDTO.businessId,
-    );
+    await this.bsnValidator.validateBusiness(menuDTO.userId, menuDTO.businessId);
     let menu = new this.model({
       owner: menuDTO.userId,
       businessId: menuDTO.businessId,
@@ -71,15 +63,9 @@ export class MenuService {
         menu.image = updateDTO.mainImage;
       }
     }
-    if (updateDTO.name) {
-      menu.name = updateDTO.name;
-    }
-    if (updateDTO.tagline) {
-      menu.tagline = updateDTO.tagline;
-    }
-    if (updateDTO.description) {
-      menu.description = updateDTO.description;
-    }
+    if (updateDTO.name) menu.name = updateDTO.name;
+    if (updateDTO.tagline) menu.tagline = updateDTO.tagline;
+    if (updateDTO.description) menu.description = updateDTO.description;
     menu = await menu.save();
     if (menu.image) {
       menu = await (await menu.save()).populate('image').execPopulate();
@@ -107,10 +93,7 @@ export class MenuService {
   };
 
   /** Gets the menus for the business */
-  getByBusinessId = async (
-    businessId: string,
-    ownerId: string,
-  ): Promise<MenuDTO[]> => {
+  getByBusinessId = async (businessId: string, ownerId: string): Promise<MenuDTO[]> => {
     await this.bsnValidator.validateBusiness(ownerId, businessId);
     const menus = await this.model.find({ businessId }).populate('image');
     return this.sanitizer.sanitizeMany(menus);
@@ -203,10 +186,7 @@ export class MenuService {
   };
 
   /** Remove Category from all menus */
-  deleteCategory = async (
-    categoryId: string,
-    ownerId: string,
-  ): Promise<string> => {
+  deleteCategory = async (categoryId: string, ownerId: string): Promise<string> => {
     const category = await this.categoryService.delete(categoryId, ownerId);
     await this.model.updateMany(
       { businessId: category.businessId },
@@ -293,23 +273,14 @@ export class MenuService {
   /** Check bounds */
   private checkBounds(from: number, to: number, length: number) {
     if (from >= length || from < 0) {
-      throw new HttpException(
-        'From value falls outside of the items list',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('From value falls outside of the items list', HttpStatus.BAD_REQUEST);
     }
     if (to >= length || to < 0) {
-      throw new HttpException(
-        'To value falls outside of the items list',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('To value falls outside of the items list', HttpStatus.BAD_REQUEST);
     }
   }
 
-  private getCategoryFromMenu(
-    type: CategoryType,
-    menu: IMenu,
-  ): IMenuCategory[] {
+  private getCategoryFromMenu(type: CategoryType, menu: IMenu): IMenuCategory[] {
     let categories;
     if (type === CategoryType.FOOD) {
       categories = menu.foodCategories;

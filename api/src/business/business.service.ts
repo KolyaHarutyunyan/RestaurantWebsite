@@ -47,10 +47,7 @@ export class BusinessService {
   };
 
   /** Edit business info */
-  edit = async (
-    businessId: string,
-    businessDTO: EditBusinessDTO,
-  ): Promise<BusinessDTO> => {
+  edit = async (businessId: string, businessDTO: EditBusinessDTO): Promise<BusinessDTO> => {
     let business = await this.model.findOne({
       _id: businessId,
       owner: businessDTO.userId,
@@ -67,9 +64,7 @@ export class BusinessService {
       business.website = businessDTO.website;
     }
     if (businessDTO.address) {
-      business.address = await this.addressService.getAddress(
-        businessDTO.address,
-      );
+      business.address = await this.addressService.getAddress(businessDTO.address);
     }
     if (businessDTO.phoneNumber) {
       business.phoneNumber = businessDTO.phoneNumber;
@@ -90,9 +85,7 @@ export class BusinessService {
 
   /** Get all businesses with the ownerId */
   getByOwnerID = async (ownerId: string): Promise<BusinessDTO[]> => {
-    const businesses = await this.model
-      .find({ owner: ownerId })
-      .populate('logo');
+    const businesses = await this.model.find({ owner: ownerId }).populate('logo');
     this.checkBusiness(businesses[0]);
     return this.sanitizer.sanitizeMany(businesses);
   };
@@ -110,10 +103,7 @@ export class BusinessService {
   /** @throws not found exception if the business was not found */
   private checkBusiness(business: IBusiness) {
     if (!business) {
-      throw new HttpException(
-        'business with this information was not found',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('business with this information was not found', HttpStatus.NOT_FOUND);
     }
   }
 

@@ -5,6 +5,9 @@ export const MenuItemCard = ({ data }) => {
     ? data.images[0].thumbURL
     : CONSTANTS.ASSETS.DEFAULT_COVER;
 
+  const itemPrice = data && data.price.toString()
+  let pricePoint = itemPrice.search("\\.");
+
   return (
     <Container>
       <div className="wrapper">
@@ -17,7 +20,10 @@ export const MenuItemCard = ({ data }) => {
         <div className="content">
           <div className="head">
             <div className="title">{data.name}</div>
-            <div className="price">{data.price}</div>
+            <div className="price">
+              {pricePoint === -1 ? `${data.price}.00` : data.price}
+             </div>
+
           </div>
           <div className="descr">{data.description}</div>
           <div className="noth"></div>

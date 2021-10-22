@@ -23,12 +23,13 @@ export const PreviewPageSections = () => {
     previewDataActions.getMenuData
   );
   const getRestaurantSaga = useSagaStore(businessesActions.getBusinesses);
-
+  const back = () =>{
+    router.push("/");
+  }
   useEffect(() => {
     setMounted(true);
     getRestaurantSaga.dispatch();
   }, []);
-
 
   useEffect(() => {
 
@@ -63,7 +64,11 @@ export const PreviewPageSections = () => {
         !getMenuCategoriesAndItemsSaga.status.onLoad
       }
     >
+
       <Container>
+        <button onClick={back} className={'back-button'} >
+          Home
+        </button>
         <div ref={phoneWrapperRef} className="wrapper phone-wrapper">
           <MobileMockUp>
             <Categories />

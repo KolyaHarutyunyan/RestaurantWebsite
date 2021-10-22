@@ -81,7 +81,7 @@ function* editBusiness({ type, payload }) {
     } catch (e) {
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-      yield put(httpRequestsOnErrorsActions.appendError(type));
+      yield put(httpRequestsOnErrorsActions.appendError(type, e.data && e.data.message && e.data.message[0]));
     }
   }
 }

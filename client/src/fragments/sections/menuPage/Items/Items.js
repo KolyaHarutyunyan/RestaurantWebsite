@@ -105,14 +105,13 @@ export const Items = ({category, categType}) => {
         const itemId = e.draggableId;
         const from = e.source.index;
         const to = e.destination ? e.destination.index : null;
-
-        if (to && from !== to) {
-        itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {
-            from,
-            to,
-        });
-        }
+        itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {from, to,});
     };
+    const item = categoryItems.reduce((data, current) => {
+        data[current.rank] = current;
+        return data;
+    }, []);
+
 
 
     return (

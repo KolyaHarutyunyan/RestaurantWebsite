@@ -188,7 +188,7 @@ function* getCurrentMenu({ payload }) {
       payload: data,
     });
   } catch (e) {
-    console.log("err: ", e);
+
   }
 }
 

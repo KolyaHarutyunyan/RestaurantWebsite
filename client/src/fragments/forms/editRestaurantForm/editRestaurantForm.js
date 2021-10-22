@@ -105,6 +105,11 @@ export const EditRestaurantForm = () => {
         >
           Edit {business.name}
         </Typography>
+
+        <div>
+          <Typography className='input-padding' weight="bold" color="text">
+            Restaurant Name
+          </Typography>
         <Input
             containerClassName='input-padding'
             padding={'8px'}
@@ -112,9 +117,10 @@ export const EditRestaurantForm = () => {
             defaultValue={business.name ? business.name :'' }
             {...register("name", { required:!business.name })}
         />
+        </div>
         <div>
           <Typography  className='input-padding' weight="bold" color="text">
-            Optional
+            Description
           </Typography>
           <Textarea
               max={500}
@@ -123,7 +129,7 @@ export const EditRestaurantForm = () => {
               placeholder="Brief Description"
               defaultValue={business.description ? business.description : ''}
               rows={4}
-              {...register("description", { required: !business.description })}
+              {...register("description", { required: false })}
           />
           <Typography className='max-characters'  color="text">
             Max 500 characters

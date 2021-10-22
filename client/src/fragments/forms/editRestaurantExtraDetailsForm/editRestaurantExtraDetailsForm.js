@@ -30,6 +30,10 @@ export const EditRestaurantExtraDetailsForm = () => {
     businessesActions.editBusiness
   );
 
+  const { httpOnError } = useSelector((state) => ({
+    httpOnError: state.httpOnError,
+  }));
+
   const onSubmit = (info) => {
     const data ={
       website: info.website,
@@ -77,6 +81,7 @@ export const EditRestaurantExtraDetailsForm = () => {
   if (!restaurant) {
     return false;
   }
+  const editError =httpOnError.length && httpOnError.filter((i) => i.type === "EDIT_BUSINESS")
 
   return (
     <Container>
@@ -95,6 +100,8 @@ export const EditRestaurantExtraDetailsForm = () => {
           {...register("website", { required: true })}
         />
         <Input
+            helperColo={true}
+            helper={editError && editError[0] && editError[0].error === "phoneNumber must be a valid phone number" ? 'Not valid phone number' : ''}
           placeholder="Phone Number"
           icon={<Icons.CallIcon size={22} />}
           defaultValue={restaurant.phoneNumber}
@@ -103,7 +110,7 @@ export const EditRestaurantExtraDetailsForm = () => {
         <AddressInput
           Value={restaurant ? restaurant.address && restaurant.address.formattedAddress  : address}
           disabled={true}
-          handleSelectValue={()=> console.log('aaa')}
+          handleSelectValue={()=> console.log('')}
           handleChangeValue={(val) => setAddress(val)}
         />
         {/*button for hours*/}

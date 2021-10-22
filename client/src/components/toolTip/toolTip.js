@@ -13,7 +13,7 @@ export const HtmlTooltip = withStyles((theme) => ({
         color:colors.white,
         padding:'24px 16px',
         '@media (min-width: 767px)': {
-        marginLeft:'500px'
+            marginLeft:'500px'
          }
     },
 }))(Tooltip);

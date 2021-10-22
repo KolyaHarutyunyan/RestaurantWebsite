@@ -102,6 +102,7 @@ export const Container = styled.div`
     margin: 0 0 -2px 0;
     display: flex;
     height: 60px;
+    border-bottom: 2px solid #2B273C1A;
   }
   .category-card {
     display: flex;
@@ -137,11 +138,24 @@ export const Container = styled.div`
     svg{
       width: 89px;
     }
+  } 
+  .no-image-icon {
+    width: 90px;
+    height: 89px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: #0000001A;
+    svg{
+      width: 89px;
+    }
   }
 
   .price{
     margin-right: 20px;
   }
+  
   .card-info {
     width: 100%;
     margin-left: 16px;

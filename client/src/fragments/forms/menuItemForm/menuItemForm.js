@@ -29,6 +29,14 @@ export const MenuItemForm = (  ) => {
 
   const formStatus = params.categoryItem && params.category ? "edit" : "create";
 
+
+    const [price, setPrice] = useState('')
+    const [error, setError] = useState('')
+    const handleChangePrice = (ev)=>{
+
+        setPrice(ev.target.value)
+    }
+
   useEffect(() => {
     if (createItemSaga.status.onSuccess) {
       createItemSaga.destroy.all();
@@ -37,11 +45,13 @@ export const MenuItemForm = (  ) => {
         mainImageId: "",
       });
       reset();
+      setPrice('')
       close();
     }
     if (editItemSaga.status.onSuccess) {
       editItemSaga.destroy.all();
       reset();
+      setPrice('')
       close();
       createItemSaga.destroy.all();
       setItemIcon({
@@ -49,6 +59,7 @@ export const MenuItemForm = (  ) => {
         mainImageId: "",
       });
       reset();
+      setPrice('')
       close();
     }
   }, [createItemSaga, editItemSaga]);
@@ -74,6 +85,7 @@ export const MenuItemForm = (  ) => {
     if (params.categoryItem) {
       setValue("name", params.categoryItem.item["name"]);
       setValue("price", params.categoryItem.item["price"]);
+      setPrice( params.categoryItem.item.price);
       setValue("description", params.categoryItem.item["description"]);
       setValue("option", params.categoryItem.item["option"]);
     }
@@ -81,20 +93,24 @@ export const MenuItemForm = (  ) => {
 
   const onSubmit = (data) => {
     if (formStatus === "create") {
-      createItemSaga.dispatch(
-        { ...data, businessId },
-        params.categoryId,
-          itemIcon
-      );
+        if(price.length) {
+            createItemSaga.dispatch(
+                {...data, price, businessId},
+                params.categoryId,
+                itemIcon
+            );
+        }else{
+            setError('price')
+        }
     } else {
       let categoryId = params.category.categoryId
       if(itemIcon.files.length){
       editItemSaga.dispatch(
-        { ...params.categoryItem.item, ...data, businessId,itemIcon,categoryId  }
+        { ...params.categoryItem.item, ...data, price, businessId,itemIcon,categoryId  }
       );
     }else{
         editItemSaga.dispatch(
-            { ...params.categoryItem.item, ...data, businessId,categoryId  }
+            { ...params.categoryItem.item, ...data,price, businessId,categoryId  }
         )
       }
     }
@@ -108,6 +124,7 @@ export const MenuItemForm = (  ) => {
   const type =  sessionStorage.getItem('activeTab')
 
 
+
   return (
     <Container>
       <Typography className="title" color="text" weight="bold">
@@ -119,15 +136,23 @@ export const MenuItemForm = (  ) => {
               padding={'8px'}
               containerClassName='input-padding'
             placeholder="*Menu Item Name"
-            {...register("name", { required: true })}
+            {...register("name", { required: true,  })}
           />
-          <Input
-              padding={'8px'}
-              containerClassName='input-padding'
-            type="number"
-            placeholder="*Price"
-            {...register("price", { required: true })}
-          />
+            <input
+                className={'price-input'}
+                placeholder={'*Price'}
+                value={price}
+                required
+                type={'number'}
+                onChange={handleChangePrice}
+            />
+          {/*<Input*/}
+          {/*    padding={'8px'}*/}
+          {/*    containerClassName='input-padding'*/}
+          {/*  type="text"*/}
+          {/*  placeholder="*Price"*/}
+          {/*  {...register("price", { required: true,  })}*/}
+          {/*/>*/}
         </div>
         <Textarea
             padding={'8px'}

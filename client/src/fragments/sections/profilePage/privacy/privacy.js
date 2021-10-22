@@ -48,7 +48,9 @@ export const Privacy = () => {
       setErrors({...errors, confirmation: "Doesn't match which new password",});return;
     }
     setErrors({ ...errors, confirmation: "" });
-    dispatch(data);
+    if(info.password && info.newPassword && info.confirmation && newPassword === confirmation){
+            dispatch(data);
+        }
       // setEditMode(false)
   };
 
