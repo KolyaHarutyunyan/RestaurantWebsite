@@ -20,6 +20,7 @@ export const MenuPageSections = () => {
   const router = useRouter();
   const { restaurantId, menuId } = router.query;
 
+  console.log( router.query,' router.query')
   const getCategoriesSaga = useSagaStore(categoriesActions.get);
   const getMenuCategoriesSaga = useSagaStore(menuCategoriesActions.get);
   const getCurrentMenuSaga = useSagaStore(menusActions.getCurrentMenu);
@@ -45,12 +46,14 @@ export const MenuPageSections = () => {
   }, [deleteCategoryFromMenuSaga.status, deleteCategorySaga.status]);
 
   useEffect(() => {
-    getCategoriesSaga.dispatch(restaurantId);
-    getBusinessItems.dispatch(restaurantId);
-    getMenuCategoriesSaga.dispatch(menuId);
-    getCurrentRestaurantSaga.dispatch(restaurantId);
-    getCurrentMenuSaga.dispatch(menuId);
-  }, []);
+    if(router.query.restaurantId && router.query.menuId) {
+      getCategoriesSaga.dispatch(restaurantId);
+      getBusinessItems.dispatch(restaurantId);
+      getMenuCategoriesSaga.dispatch(menuId);
+      getCurrentRestaurantSaga.dispatch(restaurantId);
+      getCurrentMenuSaga.dispatch(menuId);
+    }
+  }, [router.query.restaurantId && router.query.menuId]);
 
 
   const categories = useSelector(({ categories }) => categories);
