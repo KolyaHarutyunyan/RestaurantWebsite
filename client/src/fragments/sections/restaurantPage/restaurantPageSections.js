@@ -305,7 +305,8 @@ export const RestaurantPageSections = () => {
                   key={index}
                   data={menu}
                   onTitleClick={() =>
-                    router.push(`/menu/${business.id}/${menu.id}`)
+                    router.push(`/menuId?restaurantId=${business.id}&menuId=${menu.id}`)
+                    // router.push(`/menu/${business.id}/${menu.id}`)
                   }
                   onRequestToSwitch={() =>
                     switchMenuStatusSaga.dispatch(menu.id, business.id)
