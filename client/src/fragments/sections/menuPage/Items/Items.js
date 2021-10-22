@@ -123,7 +123,8 @@ export const Items = ({category, categType}) => {
                     </Typography>
                     <button
                         className='preview'
-                        onClick={() => router.push(`/preview/${router.query.menuId}`)}
+                        // onClick={() => router.push(`/preview/${router.query.menuId}`)}
+                        onClick={() => router.push(`/preview?menuId=${router.query.menuId}`)}
                     >Preview
                     </button>
                 </div>

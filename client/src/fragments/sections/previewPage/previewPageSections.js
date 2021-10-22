@@ -31,12 +31,11 @@ export const PreviewPageSections = () => {
     getRestaurantSaga.dispatch();
   }, []);
 
-  useEffect(() => {
-
-    if(router.query.restaurantId) {
-      dispatch(menusActions.getBusinessMenu(router.query.restaurantId));
-    }
-  }, [router.query.restaurantId,]);
+  // useEffect(() => {
+  //   if(router.query.menuId) {
+  //     dispatch(menusActions.getBusinessMenu(router.query.menuId));
+  //   }
+  // }, [router.query.menuId,]);
 
   useEffect(() => {
     const resizeHandler = () => {
