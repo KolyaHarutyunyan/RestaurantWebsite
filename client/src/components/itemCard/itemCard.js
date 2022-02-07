@@ -35,10 +35,10 @@ export const ItemCard = forwardRef(
                 <SlicedText type={'name'} size={15} data={item && item.item.name}/>
               </Typography>
 
-              <HtmlTooltip title={item.item.description.length > 50 ?
+              <HtmlTooltip title={item &&  item.item.description && item.item.description.length > 50 ?
                   <ToolTipScreen
                       name={item.item.name}
-                      desc={item.item.description}
+                      desc={item && item.item.description && item.item.description }
                       sub={item.item.option}
                   />
                   : ''} placement="top-end">

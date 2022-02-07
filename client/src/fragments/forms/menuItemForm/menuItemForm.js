@@ -158,7 +158,7 @@ export const MenuItemForm = (  ) => {
             padding={'8px'}
             containerClassName='input-padding'
           placeholder="*Add Ingredients..."
-          {...register("description", { required: true })}
+          {...register("description", { required: false })}
         />
         <Input
             padding={'8px'}
