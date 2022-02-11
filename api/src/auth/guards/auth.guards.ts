@@ -11,6 +11,8 @@ import { ACCESS_TOKEN } from '../../constants';
 import { AuthService } from '../auth.service';
 import { AccountStatus, JWT_SECRET_SIGNIN, Role } from '../constants';
 import { IAuth, IToken } from '../interfaces';
+import { Reflector } from '@nestjs/core';
+
 
 /** Authorization and Authentication guard. Checks if the user has enough privilages to access a resource and whether the user is Authenticated */
 @Injectable()
@@ -18,13 +20,21 @@ export class AuthGuard implements CanActivate {
   constructor(roles?: Role[]) {
     this.allowedRoles = roles;
     this.authService = new AuthService();
+    this.reflector = new Reflector()
   }
   private allowedRoles: Role[];
   private authService: AuthService;
+  private reflector: Reflector
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: IRequest = context.switchToHttp().getRequest();
     const token: string = request.get(ACCESS_TOKEN);
+    if (!token) {
+      /** Check if the route is public */
+      if (this.isPublic(context)) {
+        return true;
+      }
+    }
     // Verify token
     const decoded: IToken = await this.decodeToken(token);
     //check roles
@@ -36,6 +46,14 @@ export class AuthGuard implements CanActivate {
     request.body.auth = auth;
     request.userId = auth.id;
     return true;
+  }
+
+
+  /** Private Methods */
+  /** Check if the public is set */
+  private isPublic(context: ExecutionContext): boolean {
+    return this.reflector.get<boolean>('isPublic', context.getHandler());
+    // return false;
   }
 
   /** Check account status */
