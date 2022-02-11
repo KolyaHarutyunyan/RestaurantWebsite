@@ -4,4 +4,4 @@
 # rm -R -f /var/www/menuzMini/admin/*
 # rm -R -f /var/www/menuzMini/webapp/*
 rm -R -f /var/www/menumango/api/*
-rm -R -f /etc/nginx/sites-enabled/menumango.nginx.config
+rm -R -f /etc/nginx/sites-enabled/menumango.dev.nginx.config
