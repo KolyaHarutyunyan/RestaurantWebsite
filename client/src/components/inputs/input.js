@@ -9,7 +9,6 @@ export const Input = forwardRef(
       required = false,
       helper = "",
       error = false,
-        name,
       containerClassName = "",
       type = "text",
         handleBlur,
