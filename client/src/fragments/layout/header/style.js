@@ -203,6 +203,40 @@ export const NavigationContainer = styled.ul`
     }
   }
   
+  .activeItem{
+    height: 41px;
+    background-color: #FF453A;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 767px) {
+      height: 41px;
+      background-color: #FF453A1A;
+    }
+
+    p {
+      margin-top: -2px;
+      font-family: Open Sans, sans-serif;
+      font-size: 16px;
+      color: white;
+
+      @media (max-width: 767px) {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2B273C;
+      }
+    }
+    svg {
+      fill: #FF453A !important;
+      transform: scale(0.7);
+      font-size: 40px;
+      @media (min-width: 767px) {
+        fill: white !important;
+      }
+    }
+  }
+ 
+  }
   
   li {
     @media (max-width: 767px) {

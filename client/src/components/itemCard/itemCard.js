@@ -35,10 +35,10 @@ export const ItemCard = forwardRef(
                 <SlicedText type={'name'} size={15} data={item && item.item.name}/>
               </Typography>
 
-              <HtmlTooltip title={item.item.description.length > 50 ?
+              <HtmlTooltip title={item &&  item.item.description && item.item.description.length > 50 ?
                   <ToolTipScreen
                       name={item.item.name}
-                      desc={item.item.description}
+                      desc={item && item.item.description && item.item.description }
                       sub={item.item.option}
                   />
                   : ''} placement="top-end">
@@ -55,8 +55,7 @@ export const ItemCard = forwardRef(
           </div>
           <div className="under">
             <Typography color="text" className="poor-option">
-              <SlicedText type={'option'} size={10} data={item && item.item.option && item.item.option}/>
-              {/*{item.item.option && item.item.option.length > 40 ? `${item.item.option.slice(0,40)}...` : item.item.option}*/}
+              <SlicedText type={'opt'} size={30} data={item && item.item.option && item.item.option}/>
             </Typography>
             <div className="actions">
               <button className="edit" onClick={() => onRequestToEdit()}>

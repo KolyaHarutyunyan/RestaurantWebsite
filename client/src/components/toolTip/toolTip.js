@@ -3,7 +3,8 @@ import { colors } from "@eachbase/theme";
 
 export const HtmlTooltip = withStyles((theme) => ({
     tooltip: {
-        maxWidth: 300,
+        width:'auto',
+        minWidth: 300,
         background: colors.text,
         height: 'auto',
         display: 'flex',

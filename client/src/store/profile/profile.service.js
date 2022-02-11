@@ -4,9 +4,11 @@ export const profileService = {
     signIn: (credentials) => axios.post("/auth/signin", credentials),
     signUp: (data) => axios.post("/owners", data),
 
-    signUpSocialGoogle: () => axios.get('/owners/socials/google'),
-    signUpSocialFace: () => axios.get('/owners/socials/facebook'),
-    signUpSocialApple: () => axios.get('/owners/socials/apple'),
+    signUpSocial: (type) => axios.get(
+        type === 'google' ? '/owners/socials/google' :
+              type === 'facebook' ? '/owners/socials/facebook' :
+                '/owners/socials/apple'
+    ),
 
     userInfo: () => axios.get("/owners/profile", {auth: true}),
     deleteProfile: () => axios.delete("/user", {auth: true}),

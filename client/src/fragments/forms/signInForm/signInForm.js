@@ -31,6 +31,9 @@ export const SignInForm = () => {
   // const handleSignUp = (type) => {
   //   dispatcher(profileActions.socialSignUp(type));
   // };
+    const handleSignUp = (type) => {
+        dispatcher(profileActions.socialSignUp(type))
+    }
 
   return (
     <Container>
@@ -77,24 +80,18 @@ export const SignInForm = () => {
         Sign in with your social media account
       </Typography>
       <div className="social">
-        <Link href={`${API_BASE}/owners/socials/google`}>
-          <Fab className="icons">
+          <Fab  onClick={() => handleSignUp('google')} className="icons">
             <Icons.GoogleIcon />
           </Fab>
-        </Link>
-        <Link href={`${API_BASE}/owners/socials/facebook`}>
-          <Fab className="icons">
+          <Fab onClick={() => handleSignUp('facebook')}  className="icons">
             <Icons.FaceBookIcon />
           </Fab>
-        </Link>
         {/*<Fab  className="icons">*/}
         {/*  <Icons.TwitterIcon />*/}
         {/*</Fab>*/}
-        <Link href={`${API_BASE}/owners/socials/apple`}>
-          <Fab className="apple">
+          <Fab onClick={() => handleSignUp('apple')} className="apple">
             <Icons.AppleIcon />
           </Fab>
-        </Link>
       </div>
       <Button
         className="sign-up-button"

@@ -9,11 +9,18 @@ export const Input = forwardRef(
       required = false,
       helper = "",
       error = false,
+        name,
       containerClassName = "",
       type = "text",
+        handleBlur,
+        sendBoolean,
+        validator,
+        max,
         helperColo,
         border,
         padding,
+        autoComplete,
+        handleChange,
       ...rest
     },
     ref
@@ -52,9 +59,12 @@ export const Input = forwardRef(
           <div className="icon-container">{icon}</div>
           <div className="input-container">
             <input
-              ref={ref}
-              type={type === "password" ? currentType : type}
-              {...rest}
+                onChange={handleChange}
+                autoComplete="new-password"
+                maxLength={max}
+                ref={ref}
+                type={type === "password" ? currentType : type}
+                {...rest}
             />
             {renderControllerEye()}
           </div>

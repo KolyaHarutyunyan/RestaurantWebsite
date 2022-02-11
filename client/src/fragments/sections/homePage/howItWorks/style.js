@@ -45,10 +45,14 @@ export const Container = styled.div`
       width: 100%;
       height: auto;
       min-height: auto;
+      margin-bottom: 45px;
+      
     }
     @media (min-width: 1279px) {
       max-width: 648px;
       min-height: 368px;
+      margin-left: 42px;
+      margin-bottom: 0;
     } 
     @media (min-width: 1919px) {
       max-width: 800px;
@@ -163,7 +167,7 @@ export const Container = styled.div`
       }
       
       @media (min-width: 320px) {
-        gap: 42px;
+        //gap: 42px;
         margin-bottom: 80px;
       }
       @media (min-width: 768px) {

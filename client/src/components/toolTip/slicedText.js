@@ -6,12 +6,15 @@ import {toolTipStyles} from "./styles";
 export const SlicedText = ({data, size, type, className}) => {
     const globalText = toolTipStyles()
 
-    const classType = type === 'name' ? globalText.nameEllipsis :
+    const classType =
+        type === 'name' ? globalText.nameEllipsis :
+        type === 'nameQr' ? globalText.nameEllipsisQr :
         // type === 'address' ? globalText.addressEllipsis :
         //     type === 'email' ? globalText.emailEllipsis :
                 type === 'desc' ? globalText.descEllipsis :
                 type === 'nameDesc' ? globalText.nameEllipsisDesc :
-                type === 'option' ? globalText.optionEllipsis : ''
+                type === 'option' ? globalText.optionEllipsis :
+                type === 'opt' ? globalText.optEllipsis : ''
     return (
         <>
             {data && data.length > size ?

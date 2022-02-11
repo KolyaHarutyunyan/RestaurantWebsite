@@ -21,14 +21,28 @@ export const toolTipStyles = makeStyles(() => ({
         overflow:'hidden',
         whiteSpace:'nowrap',
         textOverflow:'ellipsis',
-        width:'125px',
+        width:'115px',
         textTransform:'uppercase',
         "@media (min-width: 420px)": {
-            width:'200px',
+            width:'190px',
         },
         "@media (min-width: 767px)": {
             width:'90%',
-            minWidth:'300px',
+            minWidth:'290px',
+        },
+    },
+    nameEllipsisQr:{
+        overflow:'hidden',
+        whiteSpace:'nowrap',
+        textOverflow:'ellipsis',
+        width:'150px',
+        textTransform:'uppercase',
+        "@media (min-width: 420px)": {
+            width:'190px',
+        },
+        "@media (min-width: 767px)": {
+            width:'90%',
+            minWidth:'290px',
         },
     },
     nameEllipsisDesc:{
@@ -68,7 +82,22 @@ export const toolTipStyles = makeStyles(() => ({
             width:'300px',
         },
         "@media (min-width: 767px)": {
-            minWidth:'450px',
+            minWidth:'400px',
+        },
+    },   optEllipsis:{
+        overflow:'hidden',
+        whiteSpace:'nowrap',
+        textOverflow:'ellipsis',
+        width:'100px',
+        textTransform:'uppercase',
+        "@media (min-width: 490px)": {
+            width:'150px',
+        },
+        "@media (min-width: 600px)": {
+            width:'150px',
+        },
+        "@media (min-width: 767px)": {
+            minWidth:'250px',
         },
     },
 }))

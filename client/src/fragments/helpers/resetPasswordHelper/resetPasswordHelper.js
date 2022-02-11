@@ -17,7 +17,7 @@ export const ResetPasswordHelper = () => {
       <Button
         onClick={() => {
           close();
-          router.push("/restaurant");
+          router.push("/");
         }}
       >
         Done
