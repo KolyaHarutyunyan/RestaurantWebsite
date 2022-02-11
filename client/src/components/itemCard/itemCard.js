@@ -55,8 +55,7 @@ export const ItemCard = forwardRef(
           </div>
           <div className="under">
             <Typography color="text" className="poor-option">
-              <SlicedText type={'option'} size={10} data={item && item.item.option && item.item.option}/>
-              {/*{item.item.option && item.item.option.length > 40 ? `${item.item.option.slice(0,40)}...` : item.item.option}*/}
+              <SlicedText type={'opt'} size={30} data={item && item.item.option && item.item.option}/>
             </Typography>
             <div className="actions">
               <button className="edit" onClick={() => onRequestToEdit()}>

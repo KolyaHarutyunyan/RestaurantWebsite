@@ -192,3 +192,70 @@ export const Container = styled.div`
     }
   }
 `
+
+
+export const ModalContainer = styled.div`
+  height: 550px;
+  max-width: 768px;
+  border-top: 7px solid #FF453A;
+  border-radius: 20px 20px 0 0 ;
+  background: white;
+  padding: 24px 15px;
+  .no-image{
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #0000001A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .title{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 25px 0 10px 0;
+  }
+  .priceName{
+    display: flex;
+    flex-direction: column;
+  }
+  .image-name{
+    display: flex;
+    align-items: center;
+   p{
+      margin-left: 16px;
+      font-size: 18px;
+      font-weight: bold;
+     margin-bottom: 5px;
+     
+    }
+  }
+  .image{
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  .body{
+    height: 300px;
+    overflow: auto;
+  }
+  .line-class{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+    .line{
+      width: 60px;
+      background: #2B273C80;
+      border-radius: 15px;
+      height: 3px;
+    }
+  }
+  
+`

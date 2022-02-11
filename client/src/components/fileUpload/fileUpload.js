@@ -194,7 +194,7 @@ export const FileUpload = ({
                         *Drag & Drop or <span className="active">Upload</span> {title}
                     </div>
                     <div style={error === true ? {color: colors.primary} : {}} className="acceptable-file-size-noth">
-                        {error === true ? 'Max size must be 2mb' : 'Max size 2mb'}
+                        {error === true ? 'Max size must be 2MB' : 'Max size 2MB'}
                     </div>
                     {/*{mainImageId !== false ? (*/}
                     {/*  <div className="acceptable-file-size-noth">*/}

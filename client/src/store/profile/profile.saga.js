@@ -98,16 +98,11 @@ function* socialSignUp({ type, payload }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
-    if(payload === 'google') {
-      const data = yield call(profileService.signUpSocialGoogle, payload);
-    }
-    else if(payload === 'facebook'){
-      const data = yield call(profileService.signUpSocialFace);
-    }
-    else{
-      const data = yield call(profileService.signUpSocialApple);
-    }
-
+      const res = yield call(profileService.signUpSocial,);
+      if(res && res.data && res.data.token) {
+        // localStorage.setItem("token", res.data.token);
+        // window.location.replace('/')
+      }
   } catch (err) {
 
   }

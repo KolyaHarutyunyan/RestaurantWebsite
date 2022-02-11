@@ -20,7 +20,18 @@ const MyApp = ({ Component, pageProps }) => (
         defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnEVZH42jb76dK1GxIj1fqMXEWkBFJe80&libraries=places"
       />
+
       <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon.png"></link>
+        <meta name="theme-color" content="#fff" />
+
+
+        {/*<link rel="manifest.json" href="../public/manifest.json.json" />*/}
+        {/*<link rel="apple-touch-icon" href="../public/icon-512x512.png"/>*/}
+        {/*<meta name="theme-color" content="#fff" />*/}
+
       {/*<link*/}
       {/*  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@700&display=swap"*/}
       {/*  rel="stylesheet"*/}
