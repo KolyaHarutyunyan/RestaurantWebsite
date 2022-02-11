@@ -11,5 +11,5 @@ npm install
 
 # node restartsudo 
 cd /var/www/menumango/api
-sudo pm2 start /var/www/menumango/api/main.js --name "menumango"
+#sudo pm2 start /var/www/menumango/api/main.js --name "menumango"
 sudo pm2 restart menumango
