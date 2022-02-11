@@ -7,6 +7,7 @@ import { BusinessService } from './business.service';
 import { CreateBusinessDTO } from './dto';
 import { BusinessDTO } from './dto/business.dto';
 import { EditBusinessDTO } from './dto/editBusiness.dto';
+import { Public } from 'src/util/decorators';
 
 @Controller('businesses')
 @ApiTags('Businesses')
@@ -55,5 +56,15 @@ export class BusinessController {
   async getByOwnerId(@Body('userId') ownerId: string): Promise<BusinessDTO[]> {
     return await this.businessService.getByOwnerID(ownerId);
   }
+
+  @Get(':id')
+  @Public()
+  @ApiOkResponse({ type: BusinessDTO })
+  async getById(@Param('id') id: string): Promise<BusinessDTO> {
+    const business =  await this.businessService.get(id);
+    return business;
+  }
 }
 /** END OF CONTROLLER */
+
+

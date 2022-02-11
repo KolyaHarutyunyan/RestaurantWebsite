@@ -82,6 +82,12 @@ export class BusinessService {
     business = await (await business.save()).populate('logo').execPopulate();
     return this.sanitizer.sanitize(business);
   };
+  
+  /** Get a business by id */
+  async get(id: string): Promise<BusinessDTO>{
+    const business = await this.model.findById(id);
+    return this.sanitizer.sanitize(business)
+  }
 
   /** Get all businesses with the ownerId */
   getByOwnerID = async (ownerId: string): Promise<BusinessDTO[]> => {
