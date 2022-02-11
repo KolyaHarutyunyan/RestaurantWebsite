@@ -52,6 +52,7 @@ export const SignUpForm = () => {
                     helperColo={true}
                     containerClassName='input-padding'
                     type="text"
+                    max={20}
                     icon={<BsPerson size={22}/>}
                     placeholder="Full Name"
                     {...register("fullName", {required: false, minLength: 0, maxLength: 20})}
