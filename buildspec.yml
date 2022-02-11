@@ -65,7 +65,7 @@ artifacts:
         - clientDist/**/*
         - adminDist/**/*
         - scripts/**/*
-        - menumango.dev.nginx.config
+        - menumango.live.nginx.config
         - appspec.yml
         - .npmrc
      
