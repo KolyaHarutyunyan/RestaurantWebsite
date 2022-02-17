@@ -1,4 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
+import { FileSchema } from 'src/components/file';
 import { IMenu } from './interface';
 
 const MenuCategorySchema = new Schema({
@@ -11,7 +12,7 @@ const MenuSchema = new Schema({
   businessId: { type: Types.ObjectId, ref: 'business' },
   name: { type: String, required: true },
   tagline: { type: String },
-  image: { type: Types.ObjectId, ref: 'image' },
+  image: FileSchema,
   description: { type: String },
   foodCategories: [MenuCategorySchema],
   drinkCategories: [MenuCategorySchema],

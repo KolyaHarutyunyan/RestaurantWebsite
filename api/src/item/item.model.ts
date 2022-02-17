@@ -1,5 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
-import { FileDTO } from 'src/components/file';
+import { FileSchema } from 'src/components/file';
 import { IItem } from './interface';
 
 const itemSchema = new Schema({
@@ -8,8 +8,8 @@ const itemSchema = new Schema({
   description: { type: String },
   option: { type: String },
   price: { type: Number },
-  mainImage: FileDTO,
-  images: [FileDTO],
+  mainImage: FileSchema,
+  images: [FileSchema],
 });
 
 export const ItemModel = model<IItem>('item', itemSchema);

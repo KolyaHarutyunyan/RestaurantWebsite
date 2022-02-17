@@ -89,7 +89,7 @@ export class MenuController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: MenuDTO, description: 'Id of the activated menu' })
   @ApiOperation({ summary: summaries.ACTIVATE })
-  async activateMenu(
+  async toggleMenu(
     @Param('id', ParseObjectIdPipe) menuId: string,
     @Body('user') user: SessionDTO,
   ): Promise<MenuDTO> {
