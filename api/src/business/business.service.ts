@@ -1,111 +1,111 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { BusinessModel } from './business.model';
 import { Model } from 'mongoose';
-import { IBusiness, IWorkDay, IWorkHour, IWorkWeek } from './interface';
-import { ImageService } from '../image';
+import { IBusiness } from './interface';
 import { BusinessDTO, CreateBusinessDTO } from './dto';
-import { BusinessStatus, WorkDayStatus } from './business.constants';
-import { BusinessSanitizer } from './interceptor/sanitizer.interceptor';
-import { DOMAIN_NAME } from '../constants';
-import { AddressService } from '../address';
-import { EditBusinessDTO } from './dto/editBusiness.dto';
+import { BusinessStatus } from './business.constants';
+import { BusinessSanitizer } from './business.sanitizer';
+import { DOMAIN_NAME } from '../util/constants';
+import { AddressService } from '../components/address/address.service';
+import { EditBusinessDTO } from './dto/edit.dto';
+import { FileService } from 'src/components/file/file.service';
+import { ScheduleService } from 'src/components/schedule/schedule.service';
+import { AuthService } from 'src/auth/auth.service';
+import { SessionDTO } from 'src/auth';
 
 @Injectable()
 export class BusinessService {
   constructor(
-    private readonly imageService: ImageService,
+    private readonly fileService: FileService,
     private readonly sanitizer: BusinessSanitizer,
     private readonly addressService: AddressService,
+    private readonly scheduleService: ScheduleService,
+    private readonly authService: AuthService,
   ) {
     this.model = BusinessModel;
   }
   private model: Model<IBusiness>;
 
   /****************************** Public Methods *****************************/
-
   /** Create a new business */
-  create = async (businessDTO: CreateBusinessDTO): Promise<BusinessDTO> => {
-    let business = new this.model({
-      name: businessDTO.name,
-      owner: businessDTO.userId,
+  async create(dto: CreateBusinessDTO): Promise<BusinessDTO> {
+    const business = new this.model({
+      name: dto.name,
+      owner: dto.user.id,
       status: BusinessStatus.ACTIVE,
-      // hours: this.createWorkWeek(),
+      description: dto.description,
+      phoneNumber: dto.phoneNumber,
+      log: dto.logo,
     });
-    business.hours = this.createWorkWeek();
-    if (businessDTO.description) {
-      business.description = businessDTO.description;
-    }
-    /** Set the logo if it exists*/
-    if (businessDTO.logo) {
-      business.logo = businessDTO.logo;
-    }
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
-    const qrUrl = await this.imageService.generateQRCode(accessLink);
-    business.qrUrl = qrUrl;
-    business = await (await business.save()).populate('logo').execPopulate();
+    business.qr = await this.fileService.generateQRCode(dto.user.id, accessLink);
+    await business.save();
     return this.sanitizer.sanitize(business);
-  };
+  }
 
   /** Edit business info */
-  edit = async (businessId: string, businessDTO: EditBusinessDTO): Promise<BusinessDTO> => {
-    let business = await this.model.findOne({
-      _id: businessId,
-      owner: businessDTO.userId,
-    });
-    /** check if this business was found */
+  async edit(businessId: string, dto: EditBusinessDTO): Promise<BusinessDTO> {
+    let business = await this.model.findById(businessId);
     this.checkBusiness(business);
-    if (businessDTO.name) {
-      business.name = businessDTO.name;
-    }
-    if (businessDTO.description) {
-      business.description = businessDTO.description;
-    }
-    if (businessDTO.website) {
-      business.website = businessDTO.website;
-    }
-    if (businessDTO.address) {
-      business.address = await this.addressService.getAddress(businessDTO.address);
-    }
-    if (businessDTO.phoneNumber) {
-      business.phoneNumber = businessDTO.phoneNumber;
-    }
-    /** Decide what to do with the logo */
-    if (businessDTO.logo === 'DELETE') {
+    this.enforceOwner(dto.user.id, business._id.toString());
+    if (dto.name) business.name = dto.name;
+    if (dto.description) business.description = dto.description;
+    if (dto.website) business.website = dto.website;
+    if (dto.address) business.address = await this.addressService.getAddress(dto.address);
+    if (dto.phoneNumber) business.phoneNumber = dto.phoneNumber;
+    if (dto.hours) business.hours = this.scheduleService.create(dto.hours);
+    if (dto.logo) {
+      if (business.logo) await this.fileService.deleteFile(dto.user.id, business.logo.id);
+      business.logo = dto.logo;
+    } else if (dto.removeLogo) {
+      await this.fileService.deleteFile(dto.user.id, business.logo.id);
       business.logo = undefined;
-    } else if (businessDTO.logo) {
-      business.logo = businessDTO.logo;
     }
-
-    if (businessDTO.hours) {
-      business.hours = businessDTO.hours as IWorkWeek;
-    }
-    business = await (await business.save()).populate('logo').execPopulate();
+    business = await business.save();
     return this.sanitizer.sanitize(business);
-  };
-  
+  }
+
   /** Get a business by id */
-  async get(id: string): Promise<BusinessDTO>{
+  async get(id: string): Promise<BusinessDTO> {
     const business = await this.model.findById(id);
-    return this.sanitizer.sanitize(business)
+    this.checkBusiness(business);
+    return this.sanitizer.sanitize(business);
   }
 
   /** Get all businesses with the ownerId */
-  getByOwnerID = async (ownerId: string): Promise<BusinessDTO[]> => {
-    const businesses = await this.model.find({ owner: ownerId }).populate('logo');
+  async getByOwnerID(ownerId: string): Promise<BusinessDTO[]> {
+    const businesses = await this.model.find({ owner: ownerId });
     this.checkBusiness(businesses[0]);
     return this.sanitizer.sanitizeMany(businesses);
-  };
+  }
 
-  /** Changes the business' statuses owned by the ownerId to CLOSED. @returns the number of businesses modified */
-  closeBusiness = async (ownerId: string): Promise<number> => {
-    const updated = await this.model.updateMany(
-      { owner: ownerId },
+  /** set the business status. @returns the new status if updated. Throws if the business was not found */
+  async setStatus(id: string, status: BusinessStatus, user: SessionDTO): Promise<BusinessStatus> {
+    this.authService.enforceAdmin(user);
+    const business = await this.model.findOneAndUpdate(
+      { _id: id, owner: user.id },
+      { $set: { status: status } },
+    );
+    this.checkBusiness(business);
+    return business.status;
+  }
+
+  /** Closes all businesses for user */
+  async closeBusinesses(accountId, user: SessionDTO) {
+    this.authService.enforceAdmin(user);
+    await this.model.updateMany(
+      { ownerId: accountId },
       { $set: { status: BusinessStatus.CLOSED } },
     );
-    return updated.nModified;
-  };
+  }
 
-  /** Private Methods */
+  /** Validates if the Owner owns the business. @throws if the owner does not own the business */
+  async validateOwner(ownerId: string, businessId: string) {
+    const business = await this.model.findById({ _id: businessId });
+    this.enforceOwner(ownerId, business.owner.toString());
+  }
+
+  /***************************** Private Methods ****************************/
   /** @throws not found exception if the business was not found */
   private checkBusiness(business: IBusiness) {
     if (!business) {
@@ -113,29 +113,21 @@ export class BusinessService {
     }
   }
 
-  /** creates workweek to the business */
-  private createWorkWeek(): IWorkWeek {
-    const workweek: IWorkWeek = {
-      mon: this.createWorkDay(),
-      tue: this.createWorkDay(),
-      wed: this.createWorkDay(),
-      thr: this.createWorkDay(),
-      fri: this.createWorkDay(),
-      sat: this.createWorkDay(),
-      sun: this.createWorkDay(),
-    };
-    return workweek;
+  /** check if the logged in user is a business owner */
+  private checkOwner(userId: string, businessOwnerId: string): boolean {
+    if (userId == businessOwnerId) {
+      return true;
+    }
+    return false;
   }
 
-  /** creates workDay */
-  private createWorkDay(): IWorkDay {
-    const hour: IWorkHour = {
-      open: new Date().toUTCString(),
-      close: new Date().toUTCString(),
-    };
-    return {
-      status: WorkDayStatus.CLOSED,
-      hours: [hour],
-    };
+  /** Force the owner of the business */
+  private enforceOwner(userId: string, businessOwnerId: string) {
+    if (!this.checkOwner(userId, businessOwnerId)) {
+      throw new HttpException(
+        'You must be the business owner to do this change',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }

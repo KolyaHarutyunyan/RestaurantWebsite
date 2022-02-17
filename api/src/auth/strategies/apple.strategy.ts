@@ -1,7 +1,8 @@
 import * as constants from '../constants';
-import { AppleSignin } from '../../apple-signin/appleSignin';
+import { AppleSignin } from '../../components/apple-signin/appleSignin';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { AppleAuthorizedResponse } from '../../apple-signin';
+import { AppleAuthorizedResponse } from '../../components/apple-signin';
+import { SocialDTO } from '../dto';
 
 /** This class serves as an interface between the general AppleSignin module and our system */
 @Injectable()
@@ -24,10 +25,20 @@ export class AppleStrategy {
   };
 
   /** Get the code sent by apple and return the  */
-  authorize = async (authResponse: AppleAuthorizedResponse) => {
+  authorize = async (authResponse: AppleAuthorizedResponse): Promise<SocialDTO> => {
     try {
-      const signedinResponse = await this.appleSignin.authorize(authResponse);
-      return signedinResponse;
+      const response = await this.appleSignin.authorize(authResponse);
+      const dto: SocialDTO = {
+        providerKey: 'appleId',
+        socialId: response.openId,
+        email: response.email,
+      };
+      if (response.name) {
+        dto.fullName = `${response.name.firstName} ${response.name.lastName}`;
+      } else {
+        dto.fullName = 'Menumango User';
+      }
+      return dto;
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }

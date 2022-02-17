@@ -1,11 +1,9 @@
-import { Body, Controller, Post, Get, Param, UseGuards, Patch, Delete } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, Get, Param, UseGuards, Patch } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO } from './dto';
+import { AuthDTO, ChangePassDTO, ResetPassDTO, SessionDTO, SignedInDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
-import { AuthGuard } from './guards';
-import { ParseObjectIdPipe } from '../util/pipes';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
@@ -16,22 +14,18 @@ export class AuthController {
   @Post('signin')
   @ApiBody({ type: SigninDTO })
   @ApiOkResponse({ type: AuthDTO })
-  async login(@Body() signinDTO: SigninDTO): Promise<AuthDTO> {
+  async login(@Body() signinDTO: SigninDTO): Promise<SignedInDTO> {
     const auth = await this.authService.signin(signinDTO);
     return auth;
   }
 
   /** Changing user password */
-  @UseGuards(new AuthGuard())
   @Patch(':id/changePassword')
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiBody({ type: ChangePassDTO })
-  @ApiOkResponse({ type: AuthDTO })
-  async changePassword(
-    @Param('id', ParseObjectIdPipe) userId: string,
-    @Body() changePassDTO: ChangePassDTO,
-  ): Promise<AuthDTO> {
-    const auth = await this.authService.changePassword(userId, changePassDTO);
+  @ApiOkResponse({ type: SignedInDTO })
+  async changePassword(@Body() changePassDTO: ChangePassDTO): Promise<SignedInDTO> {
+    const auth = await this.authService.changePassword(changePassDTO);
     return auth;
   }
 
@@ -46,24 +40,19 @@ export class AuthController {
   @Post('resetPassword')
   @ApiBody({ type: ResetPassDTO })
   @ApiHeader({ name: RESET_TOKEN })
-  @ApiOkResponse({ type: AuthDTO })
+  @ApiOkResponse({ type: SignedInDTO })
   @UseGuards(new ResetPassGuard())
-  async resetPassword(@Body() resetPassDTO: ResetPassDTO): Promise<AuthDTO> {
+  async resetPassword(@Body() resetPassDTO: ResetPassDTO): Promise<SignedInDTO> {
     const auth = await this.authService.resetPassword(resetPassDTO);
     return auth;
   }
 
   /** logout the user */
-  @Post('logout')
-  @UseGuards(new AuthGuard())
+  @Get('logout')
   @ApiHeader({ name: ACCESS_TOKEN })
-  @ApiOkResponse({
-    type: String,
-    description: 'invalidated token',
-  })
-  async logout(@Body('userId') userId: string): Promise<string> {
-    const sessionToken = await this.authService.logout(userId);
-    return sessionToken;
+  @ApiOkResponse({ type: String, description: 'token that was invalidated' })
+  async logout(@Body('session') session: SessionDTO): Promise<string> {
+    return await this.authService.logout(session.id, session.token);
   }
 }
 /** End of Controller */

@@ -1,10 +1,10 @@
 import { Controller, Get, Redirect, Req, UseGuards, Post, Body, HttpStatus } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AppleStrategy, FacebookAuthGuard, GoogleAuthGuard, TwitterAuthGuard, Role } from '../auth';
-import { DOMAIN_NAME } from '../constants';
-import { AuthService, SocialLoginDTO } from '../auth';
+import { AppleStrategy, FacebookAuthGuard, GoogleAuthGuard, TwitterAuthGuard } from '../auth';
+import { DOMAIN_NAME } from '../util/constants';
+import { AuthService } from '../auth/auth.service';
 import { OwnerService } from './owner.service';
-import { AppleAuthorizedResponse } from '../apple-signin';
+import { AppleAuthorizedResponse } from '../components/apple-signin';
 
 @Controller('owners/socials')
 @ApiTags('Owner- Social')
@@ -28,8 +28,7 @@ export class SocialController {
   @UseGuards(GoogleAuthGuard)
   @Redirect(DOMAIN_NAME)
   async googleAuthRedirected(@Req() req) {
-    const redirectUrl = await this.socialRedirectHandler(req.user);
-    return redirectUrl;
+    return await this.ownerService.socialLogin(req.user);
   }
 
   /** Facebook login */
@@ -44,8 +43,7 @@ export class SocialController {
   @UseGuards(FacebookAuthGuard)
   @Redirect(DOMAIN_NAME)
   async facebookAuthRedirected(@Req() req) {
-    const redirectUrl = await this.socialRedirectHandler(req.user);
-    return redirectUrl;
+    return await this.ownerService.socialLogin(req.user);
   }
 
   /** Twitter login */
@@ -61,8 +59,7 @@ export class SocialController {
   @UseGuards(TwitterAuthGuard)
   @Redirect(DOMAIN_NAME)
   async twitterAuthRedirected(@Req() req) {
-    const redirectUrl = await this.socialRedirectHandler(req.user);
-    return redirectUrl;
+    return await this.ownerService.socialLogin(req.user);
   }
 
   /** APPLE STRATEGY - CUSTOME */
@@ -80,13 +77,7 @@ export class SocialController {
   async appleCallbackCustome(@Body() authResponse: AppleAuthorizedResponse) {
     const response = await this.appleStrategy.authorize(authResponse);
     try {
-      const socialLogin = await this.authService.appleLogin(response, Role.OWNER);
-      if (socialLogin.createUserDTO) {
-        await this.ownerService.createWithSocial(socialLogin.createUserDTO);
-      }
-      return {
-        url: `${DOMAIN_NAME}/socialLogin?token=${socialLogin.authDTO?.accessToken}`,
-      };
+      return await this.ownerService.socialLogin(response);
     } catch (err) {
       if (err.status === HttpStatus.EXPECTATION_FAILED) {
         return {
@@ -96,17 +87,5 @@ export class SocialController {
         throw err;
       }
     }
-  }
-
-  /**
-   * The function utlized by social login controller functions. It is generic and is meant to be reused for multiple login methods
-   */
-  async socialRedirectHandler(dto: SocialLoginDTO) {
-    const socialDTO = await this.authService.socialLogin(dto, Role.OWNER);
-    await this.ownerService.createWithSocial(socialDTO.createUserDTO);
-    const redirectUrl = {
-      url: `${DOMAIN_NAME}/socialLogin?token=${socialDTO.authDTO?.accessToken}`,
-    };
-    return redirectUrl;
   }
 }

@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
-import { IAuth } from './interfaces';
+import { IAuth } from './interface';
 import { AccountStatus } from './constants';
 
 const AuthSchema = new Schema({
@@ -10,7 +10,7 @@ const AuthSchema = new Schema({
   twitterId: String,
   appleId: String,
   password: String,
-  session: String,
+  sessions: [String],
   role: String,
   status: { type: Number, enum: [AccountStatus], required: true },
 });

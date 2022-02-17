@@ -1,6 +1,6 @@
 import { Request } from 'express';
+import { SessionDTO } from 'src/auth';
 
 export interface IRequest extends Request {
-  userId?: any;
-  token?: string;
+  user?: SessionDTO;
 }

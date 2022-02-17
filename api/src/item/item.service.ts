@@ -1,86 +1,115 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { ImageService } from '../image';
-import { BusinessValidator } from '../business';
+import { BusinessService } from '../business/business.service';
 import { CreateItemDTO, EditItemDTO, ItemDTO } from './dto';
-import { ItemSanitizer } from './interceptor';
+import { ItemSanitizer } from './item.sanitizer';
 import { IItem } from './interface';
 import { ItemModel } from './item.model';
+import { SessionDTO } from 'src/auth';
+import { FileService } from 'src/components/file/file.service';
 
 @Injectable()
 export class ItemService {
   constructor(
     private readonly sanitizer: ItemSanitizer,
-    private readonly bsnValidator: BusinessValidator,
-    private readonly imageService: ImageService,
+    private readonly bsnService: BusinessService,
+    private readonly fileService: FileService,
   ) {
     this.model = ItemModel;
   }
   private model: Model<IItem>;
 
   /** Public API */
-  create = async (itemDTO: CreateItemDTO): Promise<ItemDTO> => {
-    await this.bsnValidator.validateBusiness(itemDTO.userId, itemDTO.businessId);
-    let item = await new this.model({
-      name: itemDTO.name,
-      description: itemDTO.description,
-      price: itemDTO.price,
-      option: itemDTO.option,
-      mainImage: itemDTO.mainImage,
-      images: itemDTO.images,
-      businessId: itemDTO.businessId,
+  /** Create a new item */
+  async create(dto: CreateItemDTO): Promise<ItemDTO> {
+    await this.bsnService.validateOwner(dto.user.id, dto.businessId.toString());
+    const item = await new this.model({
+      name: dto.name,
+      description: dto.description,
+      price: dto.price,
+      option: dto.option,
+      mainImage: dto.mainImage,
+      images: dto.images,
+      businessId: dto.businessId,
     });
-    item = await (await item.save()).populate('mainImage').populate('images').execPopulate();
+    await item.save();
     return this.sanitizer.sanitize(item);
-  };
+  }
 
   /** Edit the menu item info */
-  edit = async (itemId: string, itemDTO: EditItemDTO): Promise<ItemDTO> => {
+  async edit(itemId: string, dto: EditItemDTO): Promise<ItemDTO> {
     let item = await this.model.findById(itemId);
     this.checkItem(item);
-    await this.bsnValidator.validateBusiness(itemDTO.userId, item.businessId);
-    if (itemDTO.name) item.name = itemDTO.name;
-    if (itemDTO.description) item.description = itemDTO.description;
-    if (itemDTO.option) item.option = itemDTO.option;
-    if (itemDTO.description) item.price = itemDTO.price;
-    if (itemDTO.mainImage) item.mainImage = itemDTO.mainImage;
-    if (itemDTO.images) item.images = itemDTO.images;
-    item = await (await item.save()).populate('mainImage').populate('images').execPopulate();
+    await this.bsnService.validateOwner(dto.user.id, item.businessId.toString());
+    if (dto.name) item.name = dto.name;
+    if (dto.description) item.description = dto.description;
+    if (dto.option) item.option = dto.option;
+    if (dto.price) item.price = dto.price;
+    await this.manageImages(item, dto);
+    item = await item.save();
     return this.sanitizer.sanitize(item);
-  };
-
-  /** Delets an item with a given id */
-  delete = async (id: string, ownerId: string): Promise<IItem> => {
-    let item = await this.model.findById(id);
-    this.checkItem(item);
-    await this.bsnValidator.validateBusiness(ownerId, item.businessId);
-    const imageIds = item.images as string[];
-    if (item.mainImage) imageIds.push(item.mainImage as string);
-    this.imageService.removeMany(imageIds, ownerId);
-    item = await item.delete();
-    return item;
-  };
+  }
 
   /** Gets all items in the system without their items */
-  getAll = async (businessId: string): Promise<ItemDTO[]> => {
+  async getAll(businessId: string): Promise<ItemDTO[]> {
     const items = await this.model
       .find({ businessId: businessId })
       .populate('images')
       .populate('mainImage');
     return this.sanitizer.sanitizeMany(items);
-  };
+  }
 
   /** @returns one item given its item id */
-  get = async (itemId: string): Promise<ItemDTO> => {
+  async get(itemId: string): Promise<ItemDTO> {
     const item = await this.model.findById(itemId);
     this.checkItem(item);
     return this.sanitizer.sanitize(item);
-  };
+  }
+
+  /** Get the item in its raw form */
+  async getRaw(itemId: string): Promise<IItem> {
+    const item = await this.model.findById(itemId);
+    return item;
+  }
+
+  /** Delets an item with a given id */
+  async delete(id: string, user: SessionDTO): Promise<IItem> {
+    let item = await this.model.findById(id);
+    this.checkItem(item);
+    await this.bsnService.validateOwner(user.id, item.businessId.toString());
+    if (item.images && item.images.length > 0) {
+      const imageIds = item.images.map((image) => image.id);
+      if (item.mainImage) imageIds.push(item.mainImage.id);
+      await this.fileService.deleteFiles(user.id, imageIds);
+    }
+    item = await item.delete();
+    return item;
+  }
 
   /** Private Methods */
   private checkItem(item) {
     if (!item) {
       throw new HttpException('item was not found', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  /** Manage the images of the item */
+  private async manageImages(item: IItem, dto: EditItemDTO) {
+    if (dto.mainImage) item.mainImage = dto.mainImage;
+    if (dto.imagesToAdd) dto.imagesToAdd.map((image) => item.images.push(image));
+    if (dto.imagesToRemove) {
+      const idsToRemove = dto.imagesToRemove.map((image) => image.id);
+      await this.fileService.deleteFiles(dto.user.id, idsToRemove);
+      let imageIndex;
+      for (let i = 0; i < idsToRemove.length; i++) {
+        imageIndex = item.images.findIndex((image) => image.id === idsToRemove[i]);
+        if (imageIndex > -1) {
+          item.images.splice(imageIndex, 1);
+        }
+        if (idsToRemove[i] === item.mainImage.id) {
+          if (item.images.length > 0) item.mainImage = item.images[0];
+        }
+      }
     }
   }
 }

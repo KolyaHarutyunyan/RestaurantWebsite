@@ -1,3 +1,2 @@
-export { BusinessModule } from './business.module';
-export { BusinessService } from './business.service';
-export { BusinessValidator } from './interceptor';
+export { BusinessDTO } from './dto';
+export { IBusiness } from './interface';

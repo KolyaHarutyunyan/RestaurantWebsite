@@ -2,21 +2,22 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
 import { IMenu, IMenuCategory } from './interface';
-import { MenuSanitizer } from './interceptor';
-import { CreateMenuDTO, MenuCategoriesDTO, MenuDTO, UpdateMenuDTO } from './dto';
-import { BusinessValidator } from '../business';
-import { IImage, ImageService } from '../image';
-import { CategoryService } from '../category';
+import { MenuSanitizer } from './menu.sanitizer';
+import { CreateMenuDTO, MenuCategoriesDTO, MenuDTO, EditMenuDTO } from './dto';
+import { BusinessService } from '../business/business.service';
+import { CategoryService } from '../category/category.service';
 import { CategoryType } from './menu.constants';
 import { ReorderDTO } from './dto';
 import { FullMenuDTO } from './dto/fullMenu.dto';
+import { FileService } from 'src/components/file/file.service';
+import { SessionDTO } from 'src/auth';
 
 @Injectable()
 export class MenuService {
   constructor(
     private readonly sanitizer: MenuSanitizer,
-    private readonly imageService: ImageService,
-    private readonly bsnValidator: BusinessValidator,
+    private readonly fileService: FileService,
+    private readonly bsnService: BusinessService,
     private readonly categoryService: CategoryService,
   ) {
     this.model = MenuModel;
@@ -24,124 +25,104 @@ export class MenuService {
   private model: Model<IMenu>;
 
   /** Create menu */
-  create = async (menuDTO: CreateMenuDTO): Promise<MenuDTO> => {
-    // check if the correct user is creating a business
-    await this.bsnValidator.validateBusiness(menuDTO.userId, menuDTO.businessId);
+  async create(dto: CreateMenuDTO): Promise<MenuDTO> {
+    await this.bsnService.validateOwner(dto.user.id, dto.businessId.toString());
     let menu = new this.model({
-      owner: menuDTO.userId,
-      businessId: menuDTO.businessId,
-      name: menuDTO.name,
+      owner: dto.user.id,
+      businessId: dto.businessId,
+      name: dto.name,
       isActive: false,
       foodCategories: [],
       drinkCategories: [],
+      description: dto.description,
+      tagline: dto.tagline,
+      image: dto.image,
     });
-    if (menuDTO.description) {
-      menu.description = menuDTO.description;
-    }
-    if (menuDTO.mainImage) {
-      menu.image = menuDTO.mainImage;
-    }
     menu = await menu.save();
-    if (menu.image) {
-      menu = await menu.populate('image').execPopulate();
-    }
     return this.sanitizer.sanitize(menu);
-  };
+  }
 
   /** Update the menu fields */
-  edit = async (menuId: string, updateDTO: UpdateMenuDTO): Promise<MenuDTO> => {
-    let menu = await this.model.findOne({
-      _id: menuId,
-      owner: updateDTO.userId,
-    });
+  async edit(id: string, dto: EditMenuDTO): Promise<MenuDTO> {
+    let menu = await this.model.findOne({ _id: id, owner: dto.user.id });
     this.checkMenu(menu);
-    //update image
-    if (updateDTO.mainImage) {
-      if (updateDTO.mainImage === 'DELETE') {
-        menu.image = undefined;
-      } else {
-        menu.image = updateDTO.mainImage;
-      }
+    if (dto.name) menu.name = dto.name;
+    if (dto.tagline) menu.tagline = dto.tagline;
+    if (dto.description) menu.description = dto.description;
+    if (dto.image) menu.image = dto.image;
+    if (dto.removeImage) {
+      menu.image = undefined;
+      await this.fileService.deleteFile(dto.user.id, menu.image.id);
     }
-    if (updateDTO.name) menu.name = updateDTO.name;
-    if (updateDTO.tagline) menu.tagline = updateDTO.tagline;
-    if (updateDTO.description) menu.description = updateDTO.description;
     menu = await menu.save();
-    if (menu.image) {
-      menu = await (await menu.save()).populate('image').execPopulate();
-    }
     return this.sanitizer.sanitize(menu);
-  };
+  }
 
   /** Activate a menu. @returns the id of the active menu*/
-  toggleActive = async (menuId: string, ownerId: string): Promise<string> => {
-    //find the active menu for this business and set it to inactive
-    let menu = await this.model.findOneAndUpdate(
-      { isActive: true, owner: ownerId },
-      { isActive: false },
-      { new: true },
-    );
-    // if the menu was not the one that needs toggling, find the menu and set it to active
-    if (menu?._id != menuId) {
-      menu = await this.model.findOne({ _id: menuId, owner: ownerId });
-      this.checkMenu(menu);
+  async toggle(id: string, owner: SessionDTO): Promise<MenuDTO> {
+    const menu = await this.model.findOne({ _id: id, owner: owner.id });
+    this.checkMenu(menu);
+    if (menu.isActive) {
+      menu.isActive = false;
+    } else {
+      //set every menu inactive and then set this one active
+      await this.model.updateMany({ owner: owner.id }, { $set: { isActive: false } });
       menu.isActive = true;
-      menu = await menu.save();
     }
-    menu = await menu.populate('image').execPopulate();
-    return menu._id;
-  };
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
+  }
 
   /** Gets the menus for the business */
-  getByBusinessId = async (businessId: string, ownerId: string): Promise<MenuDTO[]> => {
-    await this.bsnValidator.validateBusiness(ownerId, businessId);
-    const menus = await this.model.find({ businessId }).populate('image');
+  async getByBusinessId(businessId: string, user: SessionDTO): Promise<MenuDTO[]> {
+    await this.bsnService.validateOwner(user.id, businessId);
+    const menus = await this.model.find({ businessId });
     return this.sanitizer.sanitizeMany(menus);
-  };
+  }
 
   /** Gets a menu with menu Id */
-  getById = async (menuId: string): Promise<MenuDTO> => {
-    const menu = await this.model.findById(menuId).populate('image');
+  async getById(menuId: string): Promise<MenuDTO> {
+    const menu = await this.model.findById(menuId);
     return this.sanitizer.sanitize(menu);
-  };
+  }
 
   /** Get the active menu for a business with categories and items  */
-  getActive = async (businessId: string): Promise<FullMenuDTO> => {
-    const menu = await this.model
-      .findOne({
-        businessId: businessId,
-        isActive: true,
-      })
-      .populate('image');
+  async getActive(businessId: string): Promise<FullMenuDTO> {
+    const menu = await this.model.findOne({
+      businessId: businessId,
+      isActive: true,
+    });
     return await this.fillMenu(menu);
-  };
+  }
 
   /** Gets the fully populated menu with all of its categories and items */
-  getFullMenu = async (menuId: string): Promise<FullMenuDTO> => {
-    const menu = await this.model.findById(menuId).populate('image');
+  async getFullMenu(menuId: string): Promise<FullMenuDTO> {
+    const menu = await this.model.findById(menuId);
     return await this.fillMenu(menu);
-  };
+  }
 
   /** Delete Menu and remove images that were with it */
-  delete = async (menuId: string, ownerId: string): Promise<string> => {
+  async delete(menuId: string, ownerId: string): Promise<string> {
     const menu = await this.model.findById(menuId);
     this.checkMenu(menu);
-    await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
-    this.imageService.removeMany([menu.image], ownerId);
+    await this.bsnService.validateOwner(ownerId, menu.businessId.toString());
+    if (menu.image) {
+      await this.fileService.deleteFile(ownerId, menu.image.id);
+    }
     const deleted = await menu.delete();
     return deleted._id;
-  };
+  }
 
   /** Remove Item from Category */
-  addCategory = async (
+  async addCategory(
     menuId: string,
     catId: string,
     userId: string,
     type: CategoryType,
-  ): Promise<MenuCategoriesDTO> => {
+  ): Promise<MenuCategoriesDTO> {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const categories = this.getCategoryFromMenu(type, menu);
     categories.unshift({
       _id: catId,
@@ -157,18 +138,18 @@ export class MenuService {
       await menu.save();
     }
     return this.sanitizer.sanitizeCategories(menu);
-  };
+  }
 
   /** Remove Category from menu */
-  removeCategory = async (
+  async removeCategory(
     menuId: string,
     catId: string,
     userId: string,
     type: CategoryType,
-  ): Promise<MenuCategoriesDTO> => {
+  ): Promise<MenuCategoriesDTO> {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnValidator.validateBusiness(userId, menu.businessId);
+    await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const categories = this.getCategoryFromMenu(type, menu);
     for (let i = 0; i < categories.length; i++) {
       if (categories[i]._id == catId) {
@@ -183,10 +164,10 @@ export class MenuService {
       .populate('drinkCategories._id')
       .execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
-  };
+  }
 
   /** Remove Category from all menus */
-  deleteCategory = async (categoryId: string, ownerId: string): Promise<string> => {
+  async deleteCategory(categoryId: string, ownerId: string): Promise<string> {
     const category = await this.categoryService.delete(categoryId, ownerId);
     await this.model.updateMany(
       { businessId: category.businessId },
@@ -199,10 +180,10 @@ export class MenuService {
       { multi: true },
     );
     return category._id;
-  };
+  }
 
   /** Return the categories of the menu */
-  getCategories = async (menuId: string): Promise<MenuCategoriesDTO> => {
+  async getCategories(menuId: string): Promise<MenuCategoriesDTO> {
     const menu = await this.model
       .findOne({ _id: menuId })
       .populate('foodCategories._id')
@@ -210,18 +191,18 @@ export class MenuService {
     // this.rerank(menu.foodCategories);
     // this.rerank(menu.drinkCategories);
     return this.sanitizer.sanitizeCategories(menu);
-  };
+  }
 
   /** reorder the categories according to the orde */
-  reorderCategories = async (
+  async reorderCategories(
     menuId: string,
     ownerId: string,
     reorderDTO: ReorderDTO,
     type: CategoryType,
-  ): Promise<MenuCategoriesDTO> => {
+  ): Promise<MenuCategoriesDTO> {
     let menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnValidator.validateBusiness(ownerId, menu.businessId);
+    await this.bsnService.validateOwner(ownerId, menu.businessId);
     const categories = this.getCategoryFromMenu(type, menu);
     this.checkBounds(reorderDTO.from, reorderDTO.to, categories.length);
     const removedCategory = categories.splice(reorderDTO.from, 1);
@@ -232,7 +213,7 @@ export class MenuService {
       .populate('drinkCategories._id')
       .execPopulate();
     return this.sanitizer.sanitizeCategories(menu);
-  };
+  }
 
   /********************** Private Methods **********************/
   /** @throws if the menu is undefined */
@@ -256,7 +237,7 @@ export class MenuService {
       name: menu.name,
       tagline: menu.tagline,
       description: menu.description,
-      image: this.getMenuImage(menu.image as IImage),
+      image: menu.image,
       foodCategories: foodCategories,
       drinkCategories: drinkCategories,
     };
@@ -311,14 +292,5 @@ export class MenuService {
       ids.push(menuCategories[i]._id as string);
     }
     return ids;
-  }
-
-  /** Gets the menu image url if it exists */
-  private getMenuImage(menuImage?: IImage): string {
-    if (!menuImage) return undefined;
-    if (menuImage.originalUrl) {
-      return menuImage.originalUrl;
-    }
-    return undefined;
   }
 }

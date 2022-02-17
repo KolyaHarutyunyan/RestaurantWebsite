@@ -1,16 +1,5 @@
 /** Contant Primitieves */
-const mode = ['local', 'development', 'production'][2];
-export const BASE_URL = {
-  local: 'http://localhost:8005/api',
-  development: 'https://menuz.eachbase.com/api',
-  production: 'https://menumango.com/api',
-}[mode];
-
-export const DOMAIN_NAME = {
-  local: 'http://localhost:3000',
-  development: 'https://menuz.eachbase.com/socialLogin/',
-  production: 'https://menumango.com/socialLogin',
-}[mode];
+import { BASE_URL } from 'src/util/constants';
 
 export const SALT_ROUNDS = 8;
 
@@ -40,8 +29,9 @@ export const COMPANY_EMAIL = 'eachbase@gmail.com';
 
 export const ACCESS_TOKEN = 'access-token';
 export const RESET_TOKEN = 'reset-token';
-/** Enums */
+export const SESSION_EXPIRATION = '24h';
 
+/** Enums */
 export enum Role {
   ADMIN = 'ADMIN',
   OWNER = 'OWNER',

@@ -3,12 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseConnection } from './app.database';
-import { OwnerModule } from '../owner';
-import { BusinessModule } from '../business';
-import { MenuModule } from '../menu';
-import { ItemModule } from '../item';
-import { ImageModule } from '../image';
-import { CategoryModule } from '../category';
+import { OwnerModule } from '../owner/owner.module';
+import { BusinessModule } from '../business/business.module';
+import { MenuModule } from '../menu/menu.module';
+import { ItemModule } from '../item/item.module';
+import { CategoryModule } from '../category/category.module';
+import { FileModule } from '../components/file/file.module';
 
 @Module({
   imports: [
@@ -17,8 +17,8 @@ import { CategoryModule } from '../category';
     BusinessModule,
     MenuModule,
     ItemModule,
-    ImageModule,
     CategoryModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConnection],

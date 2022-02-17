@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ImageDTO } from 'src/image';
+import { FileDTO } from 'src/components/file';
 
 export class ItemDTO {
   @ApiProperty()
@@ -12,8 +12,8 @@ export class ItemDTO {
   option?: string;
   @ApiProperty()
   price: number;
-  @ApiProperty({ type: ImageDTO })
-  mainImage?: ImageDTO;
-  @ApiProperty({ type: [ImageDTO] })
-  images?: ImageDTO[];
+  @ApiProperty({ type: FileDTO })
+  mainImage?: FileDTO;
+  @ApiProperty({ type: [FileDTO] })
+  images?: FileDTO[];
 }

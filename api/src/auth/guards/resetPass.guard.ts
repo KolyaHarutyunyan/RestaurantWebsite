@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { JWT_SECRET_FORGET_PASS } from '../constants';
-import { IToken } from '../interfaces';
+import { IToken } from '../interface';
 
 @Injectable()
 export class ResetPassGuard implements CanActivate {

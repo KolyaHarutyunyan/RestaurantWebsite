@@ -1,2 +1,1 @@
-export { MenuModule } from './menu.module';
-export { MenuService } from './menu.service';
+export { IMenu } from './interface';

@@ -1,34 +1,37 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import * as jwt from 'jsonwebtoken';
-import { AuthDTO, ChangePassDTO, ResetPassDTO, SigninDTO, SocialDTO, SocialLoginDTO } from './dto';
-import { AccountStatus, JWT_SECRET_FORGET_PASS, JWT_SECRET_SIGNIN } from './constants';
+import { ChangePassDTO, ResetPassDTO, SignedInDTO, SigninDTO, SocialDTO, SessionDTO } from './dto';
+import {
+  AccountStatus,
+  JWT_SECRET_FORGET_PASS,
+  JWT_SECRET_SIGNIN,
+  SESSION_EXPIRATION,
+  Role,
+} from './constants';
 import { AuthModel } from './auth.model';
-import { IAuth, IToken } from './interfaces';
+import { IAuth, IToken } from './interface';
 import { MongooseUtil } from '../util';
-import { MailerService } from 'src/mailer';
-import { AppleSignedinResponse } from 'src/apple-signin/types';
-import { AuthSanitizer } from './interceptor';
-import { Role } from '.';
+import { MailerService } from 'src/components/mailer';
+import { AuthSanitizer } from './auth.sanitizer';
+import { NotificationType } from 'src/util/constants';
 
 @Injectable()
 export class AuthService {
-  constructor() {
-    this.sanitizer = new AuthSanitizer();
+  constructor(
+    private readonly sanitizer: AuthSanitizer,
+    private readonly mailerService: MailerService,
+  ) {
     this.mongooseUtil = new MongooseUtil();
-    this.mailerService = new MailerService();
     this.model = AuthModel;
   }
   //The Model
-  private sanitizer: AuthSanitizer;
   private model: Model<IAuth>;
-  private mailerService: MailerService;
   mongooseUtil: MongooseUtil;
 
   /************************** Service API *************************/
-
   /** Signup a new user with the username and password */
-  create = async (id: string, email: string, password: string, role: Role): Promise<AuthDTO> => {
+  async create(id: string, email: string, password: string, role: Role): Promise<SignedInDTO> {
     try {
       let auth: IAuth = new this.model({
         _id: id,
@@ -38,165 +41,126 @@ export class AuthService {
         session: null,
         status: AccountStatus.ACTIVE,
       });
-      auth.session = await this.createSession(auth);
+      const loggedInDTO = await this.login(auth);
       auth = await auth.save();
-      return this.sanitizer.sanitize(auth);
+      return loggedInDTO;
     } catch (err) {
       this.mongooseUtil.checkDuplicateKey(err, 'User with this email exists');
       throw err;
     }
-  };
+  }
 
   /** Singn in a new user with username and password */
-  signin = async (signinDTO: SigninDTO): Promise<any> => {
-    const auth: IAuth = await this.model.findOne({ email: signinDTO.email });
+  async signin(dto: SigninDTO): Promise<SignedInDTO> {
+    const auth: IAuth = await this.model.findOne({ email: dto.email });
     this.checkAuth(auth);
     this.checkStatus(auth.status);
-    const isPasswordCorrect = await auth.comparePassword(signinDTO.password);
+    const isPasswordCorrect = await auth.comparePassword(dto.password);
     this.checkPassword(isPasswordCorrect);
-    auth.session = await this.createSession(auth);
+    const loggedInDTO = await this.login(auth);
+    auth.sessions.push(loggedInDTO.token);
     await auth.save();
-    return this.sanitizer.sanitize(auth);
-  };
+    return loggedInDTO;
+  }
 
-  /** Login or Signup a user with social logins */
-  socialLogin = async (dto: SocialLoginDTO, role: Role): Promise<SocialDTO> => {
-    let auth: IAuth = await this.model.findOne({
-      email: dto.email,
-    });
-    if (!auth) {
-      // Scenario 1: Brand New User
+  /**
+   * @purpose - to determine whether the user trying to login to the system exists already or is a new user.
+   *            The registration process can have the following 3 scenarios:
+   *            1. Scenario 1: Brand new user - register user, generate token
+   *            2. Scenario 2: User is registered with a different method - add this method to the user, create and return a token
+   *            3. Scenario 3: User is registered with the current method- generate and return the token
+   * @param dto - Social profile object with which this function is called
+   * @returns {Object} - {accessToken: string, Flag}
+   */
+  async socialLogin(dto: SocialDTO): Promise<SignedInDTO> {
+    // eslint-disable-next-line prefer-const
+    let [existing, auth] = await Promise.all([
+      this.model.findOne({ [dto.providerKey]: dto.socialId }),
+      this.model.findOne({ email: dto.email }),
+    ]);
+    // Exiting account with this social method
+    if (existing) return await this.login(auth);
+    // Social method did not exists, search further for the account
+    if (auth) {
+      //Scenario 2: User is registered with a different method
+      if (!auth[dto.providerKey]) auth[dto.providerKey] = dto.socialId;
+    } else {
+      // Check if the provider state is valid
+      this.checkProviderError(dto.email);
       auth = new this.model({
         _id: dto.id,
         email: dto.email,
-        [dto.providerKey]: dto.providerId,
-        role: role,
+        [dto.providerKey]: dto.socialId,
+        role: dto.role,
         status: AccountStatus.ACTIVE,
       });
-    } else {
-      if (!auth[dto.providerKey]) {
-        //Scenario 2: User is registered with a different method
-        auth[dto.providerKey] = dto.id;
-        this.checkStatus(auth.status);
-      }
     }
-    auth.session = await this.createSession(auth);
-    auth = await auth.save();
-    const response = {
-      authDTO: this.sanitizer.sanitize(auth),
-      createUserDTO: dto,
-    };
-    return response;
-  };
+    const loggedInDTO = await this.login(auth);
+    auth.sessions.push(loggedInDTO.token);
+    await auth.save();
+    return loggedInDTO;
+  }
 
-  /** Apple Login */
-  appleLogin = async (appleDTO: AppleSignedinResponse, role: Role): Promise<SocialDTO> => {
-    const response: SocialDTO = {};
-    /** User already has an account */
-    let auth = await this.model.findOne({ appleId: appleDTO.openId });
-    if (auth) {
-      /** User is already found with that opneId */
-      auth.session = await this.createSession(auth);
-      response.authDTO = this.sanitizer.sanitize(auth);
-      return response;
-    } else if (appleDTO.email) {
-      /** Reaching this point means the user was not found with the given openId */
-      //email exists, check the email
-      auth = await this.model.findOne({ email: appleDTO.email });
-      if (!auth) {
-        /** Create a new account - no record exists for this user */
-        auth = new this.model({
-          email: appleDTO.email,
-          appleId: appleDTO.openId,
-          role: role,
-        });
-        response.createUserDTO = {
-          id: auth._id,
-          email: auth.email,
-          fullName: appleDTO.name
-            ? `${appleDTO.name.firstName} ${appleDTO.name.lastName}`
-            : 'Menumango User',
-        };
-      } else {
-        /** An auth was found with the email */
-        auth.appleId = appleDTO.openId;
-      }
-      /** Return the authDTO*/
-      auth = await auth.save();
-      response.authDTO = this.sanitizer.sanitize(auth);
-      return response;
-    } else {
-      // No account and apple did not send us email
-      throw new HttpException(
-        `Our records show that Apple Signin was used for an account that does not exist anymore. 
-        Please login to you Apple account, disconnect Armat from this appleId and try again`,
-        HttpStatus.EXPECTATION_FAILED,
-      );
-    }
-  };
-
-  /** Logs out the session by finding the used and deleting its session token
-   * @Returns the invalidated session token
-   */
-  logout = async (userId: string): Promise<string> => {
-    const auth = await this.model.findOneAndUpdate({ _id: userId }, { $set: { session: null } });
-    return auth.session;
-  };
+  /** Removes the user token from the auth, clearing the user session */
+  async logout(id: string, token: string): Promise<string> {
+    const auth = await this.model.findOneAndUpdate({ _id: id }, { $pull: { sessions: token } });
+    this.checkAuth(auth);
+    return auth.sessions.find((e) => e === token);
+  }
 
   /** Changing the user password **/
-  changePassword = async (userId: string, dto: ChangePassDTO): Promise<AuthDTO> => {
-    let auth = await this.model.findOne({ _id: userId });
+  async changePassword(dto: ChangePassDTO): Promise<SignedInDTO> {
+    const auth = await this.model.findOne({
+      _id: dto.user.id,
+    });
     this.confirmPassword(dto.newPassword, dto.confirmation);
+    if (auth.password) {
+      const isPasswordCorrect = await auth.comparePassword(dto.password);
+      this.checkPassword(isPasswordCorrect);
+      this.confirmPassword(dto.newPassword, dto.confirmation);
+    }
     auth.password = dto.newPassword;
-    auth.session = await this.createSession(auth);
-    auth = await auth.save();
-    return this.sanitizer.sanitize(auth);
-  };
+    const loggedInDTO = await this.login(auth);
+    auth.sessions.push(loggedInDTO.token);
+    await auth.save();
+    return loggedInDTO;
+  }
 
   /** Forgot password. sends a link with a token to the users email to reset password*/
-  forgotPassword = async (email: string) => {
+  async forgotPassword(email: string) {
     const auth = await this.model.findOne({ email });
     this.checkAuth(auth);
     this.checkStatus(auth.status);
     const minutesToExpire = Math.floor(Date.now() / 1000) + 60 * 30; // 30 minutes to expire
     const expString = minutesToExpire.toString();
-    const tokenEntity: IToken = {
-      email: auth.email,
-      id: auth.id,
-      role: auth.role,
-    };
-    const token = await jwt.sign(tokenEntity, JWT_SECRET_FORGET_PASS, {
-      expiresIn: expString,
+    const token = await this.generateToken(auth, JWT_SECRET_FORGET_PASS, expString);
+    await this.mailerService.sendMail({
+      email,
+      resetToken: token,
+      type: NotificationType.FORGOT_PASSWORD,
     });
-    // send email to the user with the reset link
-    const response = await this.mailerService.sendForgetPasswordMail({
-      token,
-      email: auth.email,
-    });
-    return response;
-  };
+  }
 
   /** Resets users password */
-  resetPassword = async (dto: ResetPassDTO): Promise<AuthDTO> => {
-    let auth = await this.model.findOne({ email: dto.email });
+  async resetPassword(resetPassDTO: ResetPassDTO): Promise<SignedInDTO> {
+    const auth = await this.model.findOne({ email: resetPassDTO.email });
     this.checkAuth(auth);
-    this.checkStatus(auth.status);
-    this.confirmPassword(dto.newPassword, dto.confirmation);
-    auth.password = dto.newPassword;
-    auth.session = await this.createSession(auth);
-    auth = await auth.save();
-    return this.sanitizer.sanitize(auth);
-  };
+    auth.password = resetPassDTO.newPassword;
+    const loggedInDTO = await this.login(auth);
+    auth.sessions.push(loggedInDTO.token);
+    await auth.save();
+    return loggedInDTO;
+  }
 
   /** find the user with the id */
-  findById = async (id: string): Promise<IAuth> => {
+  async getRaw(id: string): Promise<IAuth> {
     const auth = await this.model.findById(id);
     this.checkAuth(auth);
     return auth;
-  };
+  }
 
   /** delete auth object */
-  delete = async (id: string): Promise<string> => {
+  async delete(id: string): Promise<string> {
     const updated = await this.model.findOneAndUpdate(
       { _id: id },
       { $set: { status: AccountStatus.CLOSED } },
@@ -210,56 +174,115 @@ export class AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  };
+  }
 
   /** changes the email  */
-  changeEmail = async (id: string, email: string): Promise<string> => {
+  async changeEmail(id: string, email: string): Promise<string> {
     const auth = await this.model.findOneAndUpdate(
       { _id: id },
       { $set: { email: email } },
       { new: true },
     );
     return auth.email;
-  };
+  }
+
+  /** Verify session */
+  async getSession(authId: string, token: string): Promise<IAuth> {
+    const auth = await this.model.findById(authId);
+    this.checkAuth(auth);
+    // this.checkActive(auth);
+    if (!auth.sessions.includes(token)) {
+      throw new HttpException('session is invalid, sign in again', HttpStatus.UNAUTHORIZED);
+    }
+    return auth;
+  }
+
+  /** Checks for the tokens validity */
+  async decodeToken(token: string) {
+    if (!token) {
+      throw new HttpException(
+        'An access token must be set to access this resource',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    try {
+      // Verify token
+      const decoded: IToken = await jwt.verify(token, JWT_SECRET_SIGNIN);
+      return decoded;
+    } catch (err) {
+      throw new HttpException(
+        'Your session is expired, please login again',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
+
+  /** if the user is not an admin, @returns false. Else returns true*/
+  isAdmin(user: SessionDTO): boolean {
+    if (user.role !== Role.ADMIN) {
+      return false;
+    }
+    return true;
+  }
+
+  /** if the user is not an admin, @throws an error */
+  enforceAdmin(user: SessionDTO) {
+    if (!this.isAdmin(user)) {
+      throw new HttpException(
+        'Only system administrators are allowed to perform this function',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
 
   /*********************** Private Methods ***********************/
-
-  /** @Creates a session token from an auth object */
-  private async createSession(auth: IAuth): Promise<string> {
-    // const sessionExpiration = '7d';
-    const tokenEntity: IToken = {
-      email: auth.email,
-      id: auth.id,
+  /** generates the response for signed in users */
+  private async login(auth: IAuth): Promise<SignedInDTO> {
+    const token = await this.generateToken(auth, JWT_SECRET_SIGNIN, SESSION_EXPIRATION);
+    const signedIn: SignedInDTO = {
+      token,
       role: auth.role,
     };
-    return await jwt.sign(tokenEntity, JWT_SECRET_SIGNIN, {
-      // expiresIn: sessionExpiration,
-    });
+    return signedIn;
+  }
+
+  /** Generates a token using an IAuth object */
+  private async generateToken(auth: IAuth, secret: string, expiration?: string): Promise<string> {
+    const tokenEntity: IToken = {
+      email: auth.email,
+      id: auth._id,
+      role: auth.role,
+    };
+    if (expiration) {
+      return await jwt.sign(tokenEntity, secret, { expiresIn: expiration });
+    } else {
+      return await jwt.sign(tokenEntity, secret);
+    }
   }
 
   /** @throws error if the auth is undefined */
-  private checkAuth = (auth) => {
+  private checkAuth(auth) {
     if (!auth) {
       throw new HttpException('Such user does not exist in our records', HttpStatus.NOT_FOUND);
     }
-  };
+  }
 
   /** @throws error is the password is incorrect */
-  private checkPassword = (isCorrect) => {
+  private checkPassword(isCorrect) {
     if (!isCorrect) {
       throw new HttpException('user password does not match', HttpStatus.FORBIDDEN);
     }
-  };
+  }
 
   /** @throws error is the new password is not matching the confirmation */
-  private confirmPassword = (newPass, confirmation) => {
+  private confirmPassword(newPass, confirmation) {
     if (newPass !== confirmation) {
       throw new HttpException(
         'The new password does not match with the confirmation',
         HttpStatus.CONFLICT,
       );
     }
-  };
+  }
 
   /** Check account status, @throws error if the account status is anything but active */
   private checkStatus(status: AccountStatus) {
@@ -278,6 +301,17 @@ export class AuthService {
           'This account seems to be problematic, contact admin',
           HttpStatus.UNAUTHORIZED,
         );
+    }
+  }
+
+  /** Tells the user that the social login provider has an inconsistent state with Armat */
+  private checkProviderError(email: string) {
+    if (!email) {
+      throw new HttpException(
+        `Our records show that this social signin was used for an account that does not exist anymore.
+        Please login to you social account, disconnect Armat from this id (e.g. appleId) and try to login again or use another method`,
+        HttpStatus.EXPECTATION_FAILED,
+      );
     }
   }
 }

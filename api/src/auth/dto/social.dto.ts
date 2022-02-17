@@ -1,8 +1,12 @@
-import { SocialLoginDTO } from '.';
-import { AuthDTO } from './auth.dto';
+import { Role } from '../constants';
 
-/** The shape of the object that is returned from social servie */
+/** Data type is used to interact with passport to get and create the req.user object*/
 export class SocialDTO {
-  authDTO?: AuthDTO;
-  createUserDTO?: SocialLoginDTO;
+  email: string;
+  id?: string;
+  providerKey: string;
+  fullName?: string;
+  avatar?: string;
+  socialId: string;
+  role?: Role;
 }

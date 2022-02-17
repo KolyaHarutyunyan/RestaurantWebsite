@@ -1,19 +1,20 @@
 import { Document } from 'mongoose';
-import { IImage } from 'src/image';
-import { IAddress } from '../../address';
+import { IWeek } from 'src/components/schedule';
+import { FileDTO } from 'src/components/file';
+import { IAddress } from 'src/components/address';
 import { BusinessStatus } from '../business.constants';
-import { IWorkWeek } from './workWeek.interface';
+import { IMenu } from 'src/menu/interface';
 
 export interface IBusiness extends Document {
   owner: string;
   name: string;
   description: string;
-  logo: string | IImage;
+  logo: FileDTO;
   status: BusinessStatus;
-  menus: string[];
+  menus: IMenu[];
   website: string;
   phoneNumber: string;
   address: IAddress;
-  hours?: IWorkWeek;
-  qrUrl: string;
+  hours?: IWeek;
+  qr: FileDTO;
 }

@@ -1,11 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { AuthDTO, AuthService, Role, SocialLoginDTO } from '../auth';
+import { SignedInDTO } from 'src/auth/dto';
+import { DOMAIN_NAME } from 'src/util/constants';
+import { Role, SocialDTO } from '../auth';
 import { MongooseUtil } from '../util';
 import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
-import { OwnerSanitizer } from './interceptor';
+import { OwnerSanitizer } from './owner.sanitizer';
 import { IOwner } from './interfaces';
 import { OwnerModel } from './owner.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class OwnerService {
@@ -21,13 +24,14 @@ export class OwnerService {
 
   /** Service API */
   /** Used for creating a new user in the system with email and password. @throws if the email is a duplica*/
-  async create(dto: CreateOwnerDTO): Promise<AuthDTO> {
+  async create(dto: CreateOwnerDTO): Promise<SignedInDTO> {
     try {
       const owner = new this.model({
         email: dto.email,
         fullName: dto.fullName,
         avatar: dto.avatarURL,
       });
+      owner.auth = owner._id;
       const response = await Promise.all([
         owner.save(),
         this.authService.create(owner._id, dto.email, dto.password, Role.OWNER),
@@ -39,22 +43,28 @@ export class OwnerService {
     }
   }
 
-  /** Used for social authentication, either finds the user and returns it, or creates a new one if the email was not found */
-  async createWithSocial(dto: SocialLoginDTO): Promise<OwnerDTO> {
-    let owner = await this.model.findOne({ email: dto.email });
-    if (!owner) {
-      owner = new this.model({
-        fullname: dto.fullName,
+  /** Create an account with the social logins or log the user in */
+  async socialLogin(dto: SocialDTO): Promise<any> {
+    let user = await this.model.findOne({ email: dto.email });
+    if (!user) {
+      user = new this.model({
+        fullName: dto.fullName,
         email: dto.email,
-        avatar: dto.avatarURL,
+        avatar: dto.avatar,
       });
-      owner = await owner.save();
+      user.auth = user.id;
+      dto.id = user._id;
+      dto.role = Role.OWNER;
+      await user.save();
     }
-    return this.sanitizer.sanitize(owner);
+    const auth = await this.authService.socialLogin(dto);
+    return {
+      url: `${DOMAIN_NAME}/socialLogin?token=${auth.token}`,
+    };
   }
 
   /**  Get the owner profile */
-  async getOwner(userId: string): Promise<OwnerDTO> {
+  async get(userId: string): Promise<OwnerDTO> {
     const owner = await this.model.findById(userId);
     return this.sanitizer.sanitize(owner);
   }

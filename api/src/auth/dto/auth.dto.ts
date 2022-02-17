@@ -3,7 +3,5 @@ import { Role } from '../constants';
 
 export class AuthDTO {
   @ApiProperty()
-  accessToken: string;
-  @ApiProperty()
   role: Role;
 }

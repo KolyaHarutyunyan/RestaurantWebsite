@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IImage } from '../../image';
+import { FileDTO } from 'src/components/file';
 import { IMenuCategory } from './menuCategories.interface';
 
 export interface IMenu extends Document {
@@ -7,7 +7,7 @@ export interface IMenu extends Document {
   businessId: string;
   name: string;
   tagline?: string;
-  image?: string | IImage;
+  image?: FileDTO;
   description?: string;
   drinkCategories: IMenuCategory[];
   foodCategories: IMenuCategory[];

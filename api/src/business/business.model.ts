@@ -1,28 +1,9 @@
 import { model, Schema, Types } from 'mongoose';
-import { addressSchema } from '../address';
-import { WorkDayStatus, BusinessStatus } from './business.constants';
+import { WeekSchema } from 'src/components/schedule';
+import { addressSchema } from 'src/components/address';
+import { BusinessStatus } from './business.constants';
 import { IBusiness } from './interface';
-
-const workDaySchema = new Schema(
-  {
-    status: { type: String, enum: [WorkDayStatus] },
-    hours: [{ open: String, close: String, _id: false }],
-  },
-  { _id: false },
-);
-
-const workWeekSchema = new Schema(
-  {
-    mon: workDaySchema,
-    tue: workDaySchema,
-    wed: workDaySchema,
-    thr: workDaySchema,
-    fri: workDaySchema,
-    sat: workDaySchema,
-    sun: workDaySchema,
-  },
-  { _id: false },
-);
+import { FileSchema } from 'src/components/file';
 
 const businessSchema = new Schema({
   owner: { type: Types.ObjectId, ref: 'user', required: true },
@@ -34,8 +15,8 @@ const businessSchema = new Schema({
   website: { type: String },
   phoneNumber: { type: String },
   address: addressSchema,
-  hours: workWeekSchema,
-  qrUrl: { type: String, required: true, unique: true },
+  hours: WeekSchema,
+  qrUrl: FileSchema,
 });
 
 export const BusinessModel = model<IBusiness>('business', businessSchema);

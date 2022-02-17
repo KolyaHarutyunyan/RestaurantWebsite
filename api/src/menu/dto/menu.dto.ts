@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ImageDTO } from '../../image';
+import { FileDTO } from 'src/components/file';
 
 export class MenuDTO {
   @ApiProperty()
@@ -10,8 +10,8 @@ export class MenuDTO {
   tagline?: string;
   @ApiProperty()
   description?: string;
-  @ApiProperty()
-  image?: ImageDTO;
+  @ApiProperty({ type: FileDTO, required: false })
+  image?: FileDTO;
   @ApiProperty()
   isActive: boolean;
 }

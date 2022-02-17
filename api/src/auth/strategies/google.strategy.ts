@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
 import { GOOGLE_CALLBACK_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../constants';
-import { SocialLoginDTO } from '../dto';
+import { SocialDTO } from '../dto';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -16,12 +16,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   }
   async validate(accessToken: string, refreshToken: string, profile: any, done: any): Promise<any> {
     const { provider, displayName, emails, photos, id } = profile;
-    const socialLoginDTO: SocialLoginDTO = {
+    const socialLoginDTO: SocialDTO = {
       email: emails[0].value,
       providerKey: provider + 'Id',
-      providerId: id,
+      socialId: id,
       fullName: displayName,
-      avatarURL: photos[0].value,
+      avatar: photos[0].value,
     };
     done(null, socialLoginDTO);
   }

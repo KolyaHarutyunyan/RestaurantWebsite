@@ -3,7 +3,7 @@ import { AppModule } from './app';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerUtil } from './util';
 import * as session from 'express-session';
-import { PORT } from './constants';
+import { PORT } from './util/constants';
 // import { AllExceptionsFilter } from './all-exception.filters';
 
 async function bootstrap() {
