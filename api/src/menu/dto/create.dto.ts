@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsMongoId, IsNotEmpty } from 'class-validator';
-import { SessionDTO } from 'src/auth';
 import { FileDTO } from 'src/components/file';
+import { DTO } from 'src/util/dto';
+import { CategoryType } from '../menu.constants';
 
-export class CreateMenuDTO {
+export class CreateMenuDTO extends DTO {
   @ApiProperty()
   @IsMongoId()
   businessId: string;
@@ -16,7 +17,15 @@ export class CreateMenuDTO {
   tagline?: string;
   @ApiProperty({ type: FileDTO, required: false })
   image: FileDTO;
+}
 
-  /** Set by server */
-  user: SessionDTO;
+export class CreateCategoryDTO extends DTO {
+  name: string;
+  type: CategoryType;
+}
+
+export class AddItemDTO extends DTO {
+  @ApiProperty()
+  @IsMongoId()
+  itemId: string;
 }

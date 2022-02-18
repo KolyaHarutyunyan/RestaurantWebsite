@@ -13,7 +13,7 @@ export class AppleStrategy {
       teamId: constants.APPLE_TEAM_ID,
       keyId: constants.APPLE_KEY_ID,
       redirectUri: constants.APPLE_CALLBACK_URL,
-      privateKeyPath: '../AuthKey_X435C3KUNZ.p8',
+      privateKeyPath: '../AuthKey.p8',
     });
   }
   /** Members */

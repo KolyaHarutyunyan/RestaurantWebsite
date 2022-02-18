@@ -22,7 +22,7 @@ export const TWITTER_CALLBACK_URL = `${BASE_URL}/owners/socials/twitter/redirect
 export const APPLE_CLIENT_ID = 'com.menumango.service';
 export const APPLE_TEAM_ID = 'CNAUZUZ88T';
 export const APPLE_KEY_ID = 'X435C3KUNZ';
-export const APPLE_PRIVATE_KEY_LOCATION = './AuthKey_X435C3KUNZ.p8';
+export const APPLE_PRIVATE_KEY_LOCATION = './AuthKey.p8';
 export const APPLE_CALLBACK_URL = `${BASE_URL}/owners/socials/apple/redirected`;
 
 export const COMPANY_EMAIL = 'eachbase@gmail.com';

@@ -3,14 +3,20 @@ import { Model } from 'mongoose';
 import { MenuModel } from './menu.model';
 import { IMenu, IMenuCategory } from './interface';
 import { MenuSanitizer } from './menu.sanitizer';
-import { CreateMenuDTO, MenuCategoriesDTO, MenuDTO, EditMenuDTO } from './dto';
+import {
+  CreateMenuDTO,
+  MenuDTO,
+  EditMenuDTO,
+  CreateCategoryDTO,
+  EditCategoryDTO,
+  AddItemDTO,
+} from './dto';
 import { BusinessService } from '../business/business.service';
-import { CategoryService } from '../category/category.service';
 import { CategoryType } from './menu.constants';
-import { ReorderDTO } from './dto';
-import { FullMenuDTO } from './dto/fullMenu.dto';
+import { ReorderDTO } from '../util/dto/reorder.dto';
 import { FileService } from 'src/components/file/file.service';
 import { SessionDTO } from 'src/auth';
+import { IMenuItem } from './interface/menu.interface';
 
 @Injectable()
 export class MenuService {
@@ -18,7 +24,6 @@ export class MenuService {
     private readonly sanitizer: MenuSanitizer,
     private readonly fileService: FileService,
     private readonly bsnService: BusinessService,
-    private readonly categoryService: CategoryService,
   ) {
     this.model = MenuModel;
   }
@@ -81,24 +86,19 @@ export class MenuService {
   }
 
   /** Gets a menu with menu Id */
-  async getById(menuId: string): Promise<MenuDTO> {
+  async getOne(menuId: string): Promise<MenuDTO> {
     const menu = await this.model.findById(menuId);
     return this.sanitizer.sanitize(menu);
   }
 
   /** Get the active menu for a business with categories and items  */
-  async getActive(businessId: string): Promise<FullMenuDTO> {
+  async getActive(businessId: string): Promise<MenuDTO> {
     const menu = await this.model.findOne({
       businessId: businessId,
       isActive: true,
     });
-    return await this.fillMenu(menu);
-  }
-
-  /** Gets the fully populated menu with all of its categories and items */
-  async getFullMenu(menuId: string): Promise<FullMenuDTO> {
-    const menu = await this.model.findById(menuId);
-    return await this.fillMenu(menu);
+    const fullMenu = await this.fillMenu(menu);
+    return fullMenu;
   }
 
   /** Delete Menu and remove images that were with it */
@@ -114,30 +114,28 @@ export class MenuService {
   }
 
   /** Remove Item from Category */
-  async addCategory(
-    menuId: string,
-    catId: string,
-    userId: string,
-    type: CategoryType,
-  ): Promise<MenuCategoriesDTO> {
-    let menu = await this.model.findOne({ _id: menuId });
+  async addCategory(menuId: string, dto: CreateCategoryDTO): Promise<MenuDTO> {
+    const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(userId, menu.businessId.toString());
-    const categories = this.getCategoryFromMenu(type, menu);
-    categories.unshift({
-      _id: catId,
-      rank: 0,
-    });
-    this.rerank(menu.foodCategories);
-    this.rerank(menu.drinkCategories);
-    menu = await (await menu.save())
-      .populate('foodCategories._id')
-      .populate('drinkCategories._id')
-      .execPopulate();
-    if (this.cleanNulls(categories)) {
-      await menu.save();
-    }
-    return this.sanitizer.sanitizeCategories(menu);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId.toString());
+    this.getCategories(menu, dto.type).unshift({
+      name: dto.name,
+      items: [],
+    } as IMenuCategory);
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
+  }
+
+  /** Edit the category */
+  async editCategory(menuId: string, categoryId: string, dto: EditCategoryDTO): Promise<MenuDTO> {
+    const menu = await this.model.findById(menuId);
+    this.checkMenu(menu);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId.toString());
+    const categories = this.getCategories(menu, dto.type);
+    const category = categories.find((cat) => cat._id.toString() === categoryId);
+    category.name = dto.name;
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
   }
 
   /** Remove Category from menu */
@@ -146,73 +144,89 @@ export class MenuService {
     catId: string,
     userId: string,
     type: CategoryType,
-  ): Promise<MenuCategoriesDTO> {
-    let menu = await this.model.findOne({ _id: menuId });
+  ): Promise<MenuDTO> {
+    const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnService.validateOwner(userId, menu.businessId.toString());
-    const categories = this.getCategoryFromMenu(type, menu);
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i]._id == catId) {
-        categories.splice(i, 1);
-        i--;
-      }
-    }
-    this.rerank(menu.foodCategories);
-    this.rerank(menu.drinkCategories);
-    menu = await (await menu.save())
-      .populate('foodCategories._id')
-      .populate('drinkCategories._id')
-      .execPopulate();
-    return this.sanitizer.sanitizeCategories(menu);
-  }
-
-  /** Remove Category from all menus */
-  async deleteCategory(categoryId: string, ownerId: string): Promise<string> {
-    const category = await this.categoryService.delete(categoryId, ownerId);
-    await this.model.updateMany(
-      { businessId: category.businessId },
-      {
-        $pull: {
-          drinkCategories: { _id: categoryId },
-          foodCategories: { _id: categoryId },
-        },
-      },
-      { multi: true },
-    );
-    return category._id;
-  }
-
-  /** Return the categories of the menu */
-  async getCategories(menuId: string): Promise<MenuCategoriesDTO> {
-    const menu = await this.model
-      .findOne({ _id: menuId })
-      .populate('foodCategories._id')
-      .populate('drinkCategories._id');
-    // this.rerank(menu.foodCategories);
-    // this.rerank(menu.drinkCategories);
-    return this.sanitizer.sanitizeCategories(menu);
+    const categories = this.getCategories(menu, type);
+    const index = categories.findIndex((cat) => cat._id.toString() === catId);
+    //category was not found, just return the menu as is
+    if (index < 0) return this.sanitizer.sanitize(menu);
+    //Category was found, remove it and return the new menu
+    categories.splice(index, 1);
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
   }
 
   /** reorder the categories according to the orde */
   async reorderCategories(
     menuId: string,
     ownerId: string,
-    reorderDTO: ReorderDTO,
+    dto: ReorderDTO,
     type: CategoryType,
-  ): Promise<MenuCategoriesDTO> {
-    let menu = await this.model.findOne({ _id: menuId });
+  ): Promise<MenuDTO> {
+    const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnService.validateOwner(ownerId, menu.businessId);
-    const categories = this.getCategoryFromMenu(type, menu);
-    this.checkBounds(reorderDTO.from, reorderDTO.to, categories.length);
-    const removedCategory = categories.splice(reorderDTO.from, 1);
-    categories.splice(reorderDTO.to, 0, removedCategory[0]);
-    this.rerank(categories);
-    menu = await (await menu.save())
-      .populate('foodCategories._id')
-      .populate('drinkCategories._id')
-      .execPopulate();
-    return this.sanitizer.sanitizeCategories(menu);
+    const categories = this.getCategories(menu, type);
+    categories.reorder(dto.from, dto.to);
+    return this.sanitizer.sanitize(menu);
+  }
+
+  /** adds an item to a category */
+  async addItem(
+    menuId: string,
+    catId: string,
+    type: CategoryType,
+    dto: AddItemDTO,
+  ): Promise<MenuDTO> {
+    const menu = await this.model.findById(menuId);
+    this.checkMenu(menu);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId.toString());
+    const category = this.findCategory(menu, type, catId);
+    category.items.unshift({ item: dto.itemId } as IMenuItem);
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
+  }
+
+  /** Removes an item from a category */
+  async removeItem(
+    menuId: string,
+    catId: string,
+    type: CategoryType,
+    itemId: string,
+    userId: string,
+  ): Promise<MenuDTO> {
+    const menu = await this.model.findById(menuId);
+    this.checkMenu(menu);
+    await this.bsnService.validateOwner(userId, menu.businessId.toString());
+    const category = this.findCategory(menu, type, catId);
+    const index = category.items.findIndex((item) => item.item.toString() === itemId);
+    if (index < 0) {
+      throw new HttpException('Item was not found in this category', HttpStatus.NOT_FOUND);
+    }
+    category.items.splice(index, 1);
+    await menu.save();
+    return this.sanitizer.sanitize(menu);
+  }
+
+  /** Edits the item inside a category */
+  // async editItem() {}
+
+  /** reodred the items withing a category */
+  async reorderItems(
+    menuId: string,
+    ownerId: string,
+    catId: string,
+    dto: ReorderDTO,
+    type: CategoryType,
+  ): Promise<MenuDTO> {
+    const menu = await this.model.findOne({ _id: menuId });
+    this.checkMenu(menu);
+    await this.bsnService.validateOwner(ownerId, menu.businessId);
+    const category = this.getCategories(menu, type).find((el) => el._id.toString() === catId);
+    category.items.reorder(dto.from, dto.to);
+    return this.sanitizer.sanitize(menu);
   }
 
   /********************** Private Methods **********************/
@@ -224,52 +238,18 @@ export class MenuService {
   }
 
   /** Fills the menu with its categories and their items  */
-  private fillMenu = async (menu: IMenu): Promise<FullMenuDTO> => {
-    this.checkMenu(menu);
-    const foodCategoryIds = this.extractCategoryIds(menu.foodCategories);
-    const drinkCategoryIds = this.extractCategoryIds(menu.drinkCategories);
-    const [foodCategories, drinkCategories] = await Promise.all([
-      this.categoryService.getWithItems(foodCategoryIds),
-      this.categoryService.getWithItems(drinkCategoryIds),
-    ]);
-    const fullMenu: FullMenuDTO = {
-      id: menu._id,
-      name: menu.name,
-      tagline: menu.tagline,
-      description: menu.description,
-      image: menu.image,
-      foodCategories: foodCategories,
-      drinkCategories: drinkCategories,
-    };
-    return fullMenu;
+  private fillMenu = async (menu: IMenu): Promise<MenuDTO> => {
+    menu = await menu
+      .populate({
+        path: 'food',
+        populate: { path: 'items.item' },
+      })
+      .populate({
+        path: 'drinks',
+        populate: { path: 'items.item' },
+      });
+    return this.sanitizer.sanitize(menu);
   };
-
-  /** updates the ranks of the menu items */
-  private rerank(categories: IMenuCategory[]) {
-    for (let i = 0; i < categories.length; i++) {
-      categories[i].rank = i;
-    }
-  }
-
-  /** Check bounds */
-  private checkBounds(from: number, to: number, length: number) {
-    if (from >= length || from < 0) {
-      throw new HttpException('From value falls outside of the items list', HttpStatus.BAD_REQUEST);
-    }
-    if (to >= length || to < 0) {
-      throw new HttpException('To value falls outside of the items list', HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  private getCategoryFromMenu(type: CategoryType, menu: IMenu): IMenuCategory[] {
-    let categories;
-    if (type === CategoryType.FOOD) {
-      categories = menu.foodCategories;
-    } else if (type === CategoryType.DRINK) {
-      categories = menu.drinkCategories;
-    }
-    return categories;
-  }
 
   /** Cleans the null/ wrong entires in the array */
   private cleanNulls(categories: IMenuCategory[]): boolean {
@@ -284,13 +264,21 @@ export class MenuService {
     return hasRemoved;
   }
 
-  /** Extracts the category ids form MenuCategory */
-  private extractCategoryIds(menuCategories: IMenuCategory[]): string[] {
-    if (!menuCategories || menuCategories.length < 1) return [];
-    const ids: string[] = [];
-    for (let i = 0; i < menuCategories.length; i++) {
-      ids.push(menuCategories[i]._id as string);
+  /** Returns a reference to a category array based on type from a menu */
+  private getCategories(menu: IMenu, type: CategoryType): IMenuCategory[] {
+    if (type === CategoryType.DRINK) {
+      return menu.drinks;
+    } else if (type === CategoryType.FOOD) {
+      return menu.food;
     }
-    return ids;
+    return null;
+  }
+
+  /** Finds a category from a menu */
+  private findCategory(menu: IMenu, type: CategoryType, catId: string): IMenuCategory {
+    const categories = this.getCategories(menu, type);
+    const category = categories.find((cat) => cat._id === catId);
+    if (!category) throw new HttpException('Category was not found ', HttpStatus.NOT_FOUND);
+    return category;
   }
 }

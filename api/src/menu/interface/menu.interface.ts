@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { FileDTO } from 'src/components/file';
-import { IMenuCategory } from './menuCategories.interface';
+import { IItem } from 'src/item';
 
 export interface IMenu extends Document {
   owner: string;
@@ -9,7 +9,16 @@ export interface IMenu extends Document {
   tagline?: string;
   image?: FileDTO;
   description?: string;
-  drinkCategories: IMenuCategory[];
-  foodCategories: IMenuCategory[];
+  drinks: IMenuCategory[];
+  food: IMenuCategory[];
   isActive: boolean;
+}
+
+export interface IMenuCategory extends Document {
+  name: string;
+  items: IMenuItem[];
+}
+
+export interface IMenuItem extends Document {
+  item: string | IItem;
 }

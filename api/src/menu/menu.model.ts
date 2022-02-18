@@ -1,9 +1,14 @@
 import { model, Schema, Types } from 'mongoose';
 import { IMenu } from './interface';
 
-const MenuCategorySchema = new Schema({
-  _id: { type: Types.ObjectId, ref: 'category' },
-  rank: Number,
+const MenuItemSchema = new Schema({
+  price: Number,
+  item: { type: Types.ObjectId, ref: 'item' },
+});
+
+const CategorySchema = new Schema({
+  name: String,
+  items: [MenuItemSchema],
 });
 
 const MenuSchema = new Schema({
@@ -13,8 +18,8 @@ const MenuSchema = new Schema({
   tagline: { type: String },
   image: { type: Types.ObjectId, ref: 'image' },
   description: { type: String },
-  foodCategories: [MenuCategorySchema],
-  drinkCategories: [MenuCategorySchema],
+  food: [CategorySchema],
+  drinks: [CategorySchema],
   isActive: { type: Boolean, required: true },
 });
 

@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ICategory } from '../category';
 import { IMenu, IMenuCategory } from './interface';
 import { ISanitize } from '../util';
-import { MenuCategoriesDTO, MenuDTO, MenuCategoryDTO } from './dto';
-import { CategorySanitizer } from '../category/category.sanitizer';
+import { MenuDTO } from './dto';
+import { CategoryDTO } from './dto/menu.dto';
+import { ItemSanitizer } from 'src/item/item.sanitizer';
+import { IItem, ItemDTO } from 'src/item';
+import { IMenuItem } from './interface/menu.interface';
 
 @Injectable()
 export class MenuSanitizer implements ISanitize {
-  constructor(private readonly categorySanitizer: CategorySanitizer) {}
+  constructor(private readonly itemSanitizer: ItemSanitizer) {}
   /** Sanitizes a menu by turning IMenu instance to MenuDTO */
   sanitize(menu: IMenu): MenuDTO {
     const sanitizedMenu: MenuDTO = {
@@ -17,6 +19,8 @@ export class MenuSanitizer implements ISanitize {
       description: menu.description,
       isActive: menu.isActive,
       image: menu.image,
+      food: this.sanitizeCategories(menu.food),
+      drinks: this.sanitizeCategories(menu.drinks),
     };
     return sanitizedMenu;
   }
@@ -30,29 +34,23 @@ export class MenuSanitizer implements ISanitize {
     return sanitizedMenus;
   }
 
-  /** SanitizeCategories */
-  sanitizeCategories(menu: IMenu): MenuCategoriesDTO {
-    const response: MenuCategoriesDTO = {
-      id: menu._id,
-      food: this.cleanCategory(menu.foodCategories as IMenuCategory[]),
-      drink: this.cleanCategory(menu.drinkCategories as IMenuCategory[]),
-    };
-    return response;
-  }
-
   /** cleans a list of categories and returns it */
-  private cleanCategory(categories: IMenuCategory[]): MenuCategoryDTO[] {
-    const cleaned: MenuCategoryDTO[] = [];
-    let menuCategoryRO: MenuCategoryDTO;
-    let category: ICategory;
+  private sanitizeCategories(categories: IMenuCategory[]): CategoryDTO[] {
+    const sanitized: CategoryDTO[] = [];
+    let items: IMenuItem[];
+    let sanitizedItems: ItemDTO[];
+    //take each category, and sanitize its inner items from the items list=
     for (let i = 0; i < categories.length; i++) {
-      category = categories[i]._id as ICategory;
-      menuCategoryRO = {
-        rank: categories[i].rank,
-        category: this.categorySanitizer.sanitize(category),
-      };
-      cleaned.push(menuCategoryRO);
+      items = categories[i].items;
+      sanitizedItems = [];
+      for (let j = 0; j < items.length; j++) {
+        const item = items[j].item as IItem;
+        if (item.name) {
+          sanitizedItems.push(this.itemSanitizer.sanitize(item));
+        }
+      }
+      sanitized.push({ name: categories[i].name, items: sanitizedItems });
     }
-    return cleaned;
+    return sanitized;
   }
 }
