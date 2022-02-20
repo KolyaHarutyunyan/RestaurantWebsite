@@ -9,12 +9,14 @@ import { OwnerSanitizer } from './owner.sanitizer';
 import { IOwner } from './interfaces';
 import { OwnerModel } from './owner.model';
 import { AuthService } from '../auth/auth.service';
+import { FileService } from 'src/components/file/file.service';
 
 @Injectable()
 export class OwnerService {
   constructor(
     private readonly sanitizer: OwnerSanitizer,
     private readonly authService: AuthService,
+    private readonly fileService: FileService,
   ) {
     this.model = OwnerModel;
     this.mongooseUtil = new MongooseUtil();
@@ -29,7 +31,6 @@ export class OwnerService {
       const owner = new this.model({
         email: dto.email,
         fullName: dto.fullName,
-        avatar: dto.avatarURL,
       });
       owner.auth = owner._id;
       const response = await Promise.all([
@@ -50,7 +51,7 @@ export class OwnerService {
       user = new this.model({
         fullName: dto.fullName,
         email: dto.email,
-        avatar: dto.avatar,
+        socialAvatar: dto.avatar,
       });
       user.auth = user.id;
       dto.id = user._id;
@@ -63,6 +64,36 @@ export class OwnerService {
     };
   }
 
+  /** Used to update the fullname and email of the owner */
+  async edit(dto: EditOwnerDTO): Promise<OwnerDTO> {
+    let owner = await this.model.findById(dto.user.id);
+    this.checkOwner(owner);
+    if (dto.email) {
+      const otherOwner = await this.model.findOne({ email: dto.email });
+      this.checkDuplicateEmail(otherOwner, dto.user.id);
+      owner.email = dto.email;
+      const authEmail = await this.authService.changeEmail(dto.user.id, dto.email);
+      this.checkAuthEmail(authEmail, owner.email);
+    }
+    if (dto.fullName) owner.fullName = dto.fullName;
+    if (dto.avatar) {
+      if (owner.socialAvatar) owner.socialAvatar = undefined;
+      if (owner.avatar) {
+        await this.fileService.deleteFile(dto.user.id, owner.avatar.id);
+      }
+      owner.avatar = dto.avatar;
+    } else if (dto.avatar === null) {
+      //this is the case where the owner wants to delete their avatar
+      if (owner.avatar) {
+        if (owner.socialAvatar) owner.socialAvatar = undefined;
+        await this.fileService.deleteFile(dto.user.id, owner.avatar.id);
+        owner.avatar = undefined;
+      }
+    }
+    owner = await owner.save();
+    return this.sanitizer.sanitize(owner);
+  }
+
   /**  Get the owner profile */
   async get(userId: string): Promise<OwnerDTO> {
     const owner = await this.model.findById(userId);
@@ -73,25 +104,6 @@ export class OwnerService {
   async getAll(): Promise<OwnerDTO[]> {
     const owners = await this.model.find();
     return this.sanitizer.sanitizeMany(owners);
-  }
-
-  /** Used to update the fullname and email of the owner */
-  async edit(dto: EditOwnerDTO): Promise<OwnerDTO> {
-    let owner = await this.model.findById(dto.userId);
-    this.checkOwner(owner);
-    if (dto.email) {
-      const otherOwner = await this.model.findOne({ email: dto.email });
-      this.checkDuplicateEmail(otherOwner, dto.userId);
-      owner.email = dto.email;
-      const authEmail = await this.authService.changeEmail(dto.userId, dto.email);
-      this.checkAuthEmail(authEmail, owner.email);
-    }
-    if (dto.fullName) {
-      owner.fullName = dto.fullName;
-    }
-    if (dto.avatarURL) owner.avatar = dto.avatarURL;
-    owner = await owner.save();
-    return this.sanitizer.sanitize(owner);
   }
 
   /** Private Methods */

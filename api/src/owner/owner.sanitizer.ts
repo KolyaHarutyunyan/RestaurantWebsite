@@ -9,6 +9,7 @@ export class OwnerSanitizer implements ISanitize {
       fullName: user.fullName,
       email: user.email,
       avatar: user.avatar,
+      socialAvatar: user.socialAvatar,
     };
     return sanitizedUser;
   }
