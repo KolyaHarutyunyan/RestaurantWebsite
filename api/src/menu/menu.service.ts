@@ -82,7 +82,7 @@ export class MenuService {
   async getByBusinessId(businessId: string, user: SessionDTO): Promise<MenuDTO[]> {
     await this.bsnService.validateOwner(user.id, businessId);
     const menus = await this.model.find({ businessId });
-    return await this.fillMenu(menu);
+    return this.sanitizer.sanitizeMany(menus);
   }
 
   /** Gets a menu with menu Id */
