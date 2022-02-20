@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsOptional, IsUrl, Length } from 'class-validator';
+import { SessionDTO } from 'src/auth';
+import { FileDTO } from 'src/components/file';
 
 export class EditOwnerDTO {
   @ApiProperty()
@@ -10,11 +12,9 @@ export class EditOwnerDTO {
   @IsOptional()
   @IsEmail()
   email?: string;
-  @ApiProperty()
-  @IsOptional()
-  @IsUrl()
-  avatarURL: string;
+  @ApiProperty({ type: FileDTO, required: false })
+  avatar?: FileDTO;
 
   /** Set by the system */
-  userId?: string;
+  user?: SessionDTO;
 }

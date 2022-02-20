@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IMenu, IMenuCategory } from './interface';
 import { ISanitize } from '../util';
 import { MenuDTO } from './dto';
-import { CategoryDTO } from './dto/menu.dto';
+import { CategoryDTO, MenuItemDTO } from './dto/menu.dto';
 import { ItemSanitizer } from 'src/item/item.sanitizer';
 import { IItem, ItemDTO } from 'src/item';
 import { IMenuItem } from './interface/menu.interface';
@@ -38,7 +38,7 @@ export class MenuSanitizer implements ISanitize {
   private sanitizeCategories(categories: IMenuCategory[]): CategoryDTO[] {
     const sanitized: CategoryDTO[] = [];
     let items: IMenuItem[];
-    let sanitizedItems: ItemDTO[];
+    let sanitizedItems: MenuItemDTO[];
     //take each category, and sanitize its inner items from the items list=
     for (let i = 0; i < categories.length; i++) {
       items = categories[i].items;
@@ -46,10 +46,10 @@ export class MenuSanitizer implements ISanitize {
       for (let j = 0; j < items.length; j++) {
         const item = items[j].item as IItem;
         if (item.name) {
-          sanitizedItems.push(this.itemSanitizer.sanitize(item));
+          sanitizedItems.push({ id: item._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
-      sanitized.push({ name: categories[i].name, items: sanitizedItems });
+      sanitized.push({ id: categories[i]._id, name: categories[i].name, items: sanitizedItems });
     }
     return sanitized;
   }

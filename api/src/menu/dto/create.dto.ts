@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 import { FileDTO } from 'src/components/file';
 import { DTO } from 'src/util/dto';
 import { CategoryType } from '../menu.constants';
@@ -16,11 +16,15 @@ export class CreateMenuDTO extends DTO {
   @ApiProperty({ required: false })
   tagline?: string;
   @ApiProperty({ type: FileDTO, required: false })
-  image: FileDTO;
+  image?: FileDTO;
 }
 
 export class CreateCategoryDTO extends DTO {
+  @ApiProperty()
+  @IsString()
   name: string;
+  @ApiProperty({ enum: CategoryType })
+  @IsEnum(CategoryType)
   type: CategoryType;
 }
 

@@ -52,10 +52,7 @@ export class ItemService {
 
   /** Gets all items in the system without their items */
   async getAll(businessId: string): Promise<ItemDTO[]> {
-    const items = await this.model
-      .find({ businessId: businessId })
-      .populate('images')
-      .populate('mainImage');
+    const items = await this.model.find({ businessId: businessId });
     return this.sanitizer.sanitizeMany(items);
   }
 

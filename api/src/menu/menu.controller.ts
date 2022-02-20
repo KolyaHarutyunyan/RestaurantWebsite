@@ -1,11 +1,19 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ACCESS_TOKEN } from '../util/constants';
 import { CreateMenuDTO, MenuDTO, EditMenuDTO } from './dto';
 import { MenuService } from './menu.service';
 import { ParseObjectIdPipe } from 'src/util/pipes';
 import { summaries } from './menu.constants';
 import { SessionDTO } from 'src/auth';
+import { Public } from 'src/util';
 
 @Controller('menus')
 @ApiTags('Menus')
@@ -48,11 +56,13 @@ export class MenuController {
   }
 
   /** Get the active menu with its categories */
-  @Get('active/:businessId')
+  @Get('active/:id')
+  @Public()
+  @ApiParam({ name: 'id' })
   @ApiOkResponse({ type: MenuDTO })
   @ApiOperation({ summary: summaries.GET_ACTIVE })
-  async getActiveMenu(@Param('businessId', ParseObjectIdPipe) businessId): Promise<MenuDTO> {
-    const menu = await this.menuService.getActive(businessId);
+  async getActiveMenu(@Param('id', ParseObjectIdPipe) id): Promise<MenuDTO> {
+    const menu = await this.menuService.getActive(id);
     return menu;
   }
 

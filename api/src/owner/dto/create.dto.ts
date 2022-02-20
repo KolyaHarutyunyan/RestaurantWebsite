@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsUrl, MaxLength, MinLength } from 'class-validator';
-import { Role } from 'src/auth';
+import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+// import { FileDTO } from 'src/components/file';
 
 export class CreateOwnerDTO {
   @ApiProperty({
@@ -20,8 +20,6 @@ export class CreateOwnerDTO {
   @MinLength(8)
   @MaxLength(30)
   password: string;
-  @ApiProperty()
-  @IsOptional()
-  @IsUrl()
-  avatarURL: string;
+  // @ApiProperty({ type: FileDTO, required: false })
+  // avatar: FileDTO;
 }

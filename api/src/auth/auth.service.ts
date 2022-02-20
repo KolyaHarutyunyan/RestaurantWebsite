@@ -38,10 +38,11 @@ export class AuthService {
         email: email,
         password: password,
         role: role,
-        session: null,
+        sessions: [],
         status: AccountStatus.ACTIVE,
       });
       const loggedInDTO = await this.login(auth);
+      auth.sessions.push(loggedInDTO.token);
       auth = await auth.save();
       return loggedInDTO;
     } catch (err) {
@@ -93,6 +94,7 @@ export class AuthService {
         [dto.providerKey]: dto.socialId,
         role: dto.role,
         status: AccountStatus.ACTIVE,
+        sessions: [],
       });
     }
     const loggedInDTO = await this.login(auth);

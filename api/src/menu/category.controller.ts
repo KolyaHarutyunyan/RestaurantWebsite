@@ -57,6 +57,7 @@ export class CategoryController {
     @Query() query: CategoryQueryDTO,
     @Body() dto: AddItemDTO,
   ): Promise<MenuDTO> {
+    console.log(menuId, id);
     const menu = await this.menuService.addItem(menuId, id, query.type, dto);
     return menu;
   }

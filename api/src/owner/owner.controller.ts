@@ -6,7 +6,7 @@ import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business/business.service';
 import { summaries } from './owner.constants';
-import { VerifyCall } from 'src/util/decorators/public.decorator';
+import { Public, VerifyCall } from 'src/util/decorators/public.decorator';
 import { SessionDTO, SignedInDTO } from 'src/auth/dto';
 import { AuthService } from 'src/auth/auth.service';
 
@@ -21,7 +21,7 @@ export class OwnerController {
 
   /** Create a new owner */
   @Post()
-  @VerifyCall()
+  @Public()
   @ApiBody({ type: CreateOwnerDTO })
   @ApiOkResponse({ type: SignedInDTO })
   @ApiOperation({ summary: summaries.CREATE_ACCOUNT })

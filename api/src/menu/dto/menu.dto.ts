@@ -2,11 +2,19 @@ import { ApiProperty } from '@nestjs/swagger';
 import { FileDTO } from 'src/components/file';
 import { ItemDTO } from 'src/item';
 
+export class MenuItemDTO {
+  @ApiProperty()
+  id: string;
+  @ApiProperty({ type: ItemDTO })
+  item: ItemDTO;
+}
 export class CategoryDTO {
   @ApiProperty()
+  id: string;
+  @ApiProperty()
   name: string;
-  @ApiProperty({ type: [ItemDTO] })
-  items: ItemDTO[];
+  @ApiProperty({ type: [MenuItemDTO] })
+  items: MenuItemDTO[];
 }
 
 export class MenuDTO {

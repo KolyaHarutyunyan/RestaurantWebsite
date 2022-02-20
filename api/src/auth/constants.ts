@@ -39,9 +39,9 @@ export enum Role {
 
 export enum AccountStatus {
   // Active user account
-  ACTIVE = 22111,
+  ACTIVE = 'ACTIVE',
   // User closed the account
-  CLOSED = 22222,
+  CLOSED = 'CLOSED',
   // User account was suspended by the admin
-  SUSPENDED = 22333,
+  SUSPENDED = 'SUSPENDED',
 }
