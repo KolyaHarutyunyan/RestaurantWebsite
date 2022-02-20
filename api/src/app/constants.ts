@@ -5,10 +5,10 @@ const dbs = {
   PROD: 'productionv1',
 };
 
-const DB = dbs.DEV;
+const DB = dbs.PROD;
 let connectionString = null;
 if (DB === dbs.PROD) {
-  connectionString = `mongodb+srv://jackblack:pixQD%23WHd4DP(QWH@main.uvs5v.mongodb.net/live?retryWrites=true&w=majority`;
+  connectionString = `mongodb+srv://jackblack:pixQD#WHd4DP(QWH@main.uvs5v.mongodb.net/production?retryWrites=true&w=majority`;
 } else {
   connectionString = `mongodb+srv://test-menuz-user:menuzeachbase@maincluster.gh27e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 }
