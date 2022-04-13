@@ -10,7 +10,7 @@ export enum NotificationType {
   CONTACT_FORM_SUBMIT = 'CONTACT_FORM_SUBMIT',
 }
 
-const mode = ['local', 'development', 'production'][1];
+const mode = ['local', 'development', 'production'][2];
 export const BASE_URL = {
   local: 'http://localhost:8005/api',
   development: 'https://menuz.eachbase.com/api',
