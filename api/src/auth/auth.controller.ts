@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param, UseGuards, Patch } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { AuthDTO, ChangePassDTO, ResetPassDTO, SessionDTO, SignedInDTO, SigninDTO } from './dto';
+import { ChangePassDTO, ResetPassDTO, SessionDTO, SignedInDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
 
@@ -13,7 +13,7 @@ export class AuthController {
   /** Sign in a user */
   @Post('signin')
   @ApiBody({ type: SigninDTO })
-  @ApiOkResponse({ type: AuthDTO })
+  @ApiOkResponse({ type: SignedInDTO })
   async login(@Body() signinDTO: SigninDTO): Promise<SignedInDTO> {
     const auth = await this.authService.signin(signinDTO);
     return auth;
