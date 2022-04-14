@@ -60,7 +60,7 @@ export class BusinessController {
   }
 
   /** Change the status of a business */
-  @Patch(':id')
+  @Patch(':id/setStatus')
   async setStatus(
     @Param('id', ParseObjectIdPipe) id: string,
     @Query('status') queryStatus: BusinessStatus,

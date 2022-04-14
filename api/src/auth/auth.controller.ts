@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { ChangePassDTO, ResetPassDTO, SessionDTO, SignedInDTO, SigninDTO } from './dto';
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
+import { Public } from 'src/util';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
@@ -12,6 +13,7 @@ export class AuthController {
 
   /** Sign in a user */
   @Post('signin')
+  @Public()
   @ApiBody({ type: SigninDTO })
   @ApiOkResponse({ type: SignedInDTO })
   async login(@Body() signinDTO: SigninDTO): Promise<SignedInDTO> {
