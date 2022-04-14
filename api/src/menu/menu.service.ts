@@ -159,16 +159,14 @@ export class MenuService {
   }
 
   /** reorder the categories according to the orde */
-  async reorderCategories(
-    menuId: string,
-    ownerId: string,
-    dto: ReorderDTO,
-    type: CategoryType,
-  ): Promise<MenuDTO> {
+  async reorderCategories(menuId: string, type: CategoryType, dto: ReorderDTO): Promise<MenuDTO> {
     const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId);
     const categories = this.getCategories(menu, type);
+    if (!categories) {
+      throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
+    }
     categories.reorder(dto.from, dto.to);
     return await this.fillMenu(menu);
   }
@@ -216,15 +214,18 @@ export class MenuService {
   /** reodred the items withing a category */
   async reorderItems(
     menuId: string,
-    ownerId: string,
     catId: string,
-    dto: ReorderDTO,
     type: CategoryType,
+    dto: ReorderDTO,
   ): Promise<MenuDTO> {
     const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId);
-    const category = this.getCategories(menu, type).find((el) => el._id.toString() === catId);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId);
+    const categories = this.getCategories(menu, type);
+    if (!categories) {
+      throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
+    }
+    const category = categories.find((el) => el._id.toString() === catId);
     category.items.reorder(dto.from, dto.to);
     return await this.fillMenu(menu);
   }
@@ -267,8 +268,6 @@ export class MenuService {
 
   /** Returns a reference to a category array based on type from a menu */
   private getCategories(menu: IMenu, type: CategoryType): IMenuCategory[] {
-    console.log(menu);
-    console.log(type);
     if (type === CategoryType.DRINK) {
       return menu.drinks;
     } else if (type === CategoryType.FOOD) {
