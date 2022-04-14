@@ -3,6 +3,7 @@ import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SessionDTO } from 'src/auth';
 import { ParseObjectIdPipe } from 'src/util';
 import { ACCESS_TOKEN } from 'src/util/constants';
+import { ReorderDTO } from 'src/util/dto/reorder.dto';
 import { AddItemDTO, CategoryQueryDTO, CreateCategoryDTO, EditCategoryDTO, MenuDTO } from './dto';
 import { MenuService } from './menu.service';
 
@@ -34,6 +35,16 @@ export class CategoryController {
     const menu = await this.menuService.editCategory(menuId, id, dto);
     return menu;
   }
+
+  // @Patch('reorder')
+  // async reorderCategories(
+  //   @Param('menuId', ParseObjectIdPipe) menuId: string,
+  //   @Query() dto: ReorderDTO,
+  //   @Body('user') user: SessionDTO,
+  // ) {
+  //   await this.menuService.reorderCategories(manuId, user.id, dto);
+  //   return 
+  // }
 
   @Delete(':id')
   @ApiOkResponse({ type: MenuDTO })

@@ -6,7 +6,7 @@ import { CreateOwnerDTO, EditOwnerDTO, OwnerDTO } from './dto';
 import { OwnerService } from './owner.service';
 import { BusinessService } from '../business/business.service';
 import { summaries } from './owner.constants';
-import { Public, VerifyCall } from 'src/util/decorators/public.decorator';
+import { Public } from 'src/util/decorators/public.decorator';
 import { SessionDTO, SignedInDTO } from 'src/auth/dto';
 import { AuthService } from 'src/auth/auth.service';
 
@@ -35,8 +35,8 @@ export class OwnerController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: OwnerDTO })
   @ApiOperation({ summary: summaries.GET_PROFILE })
-  async getUser(@Body('userId', ParseObjectIdPipe) userId: string): Promise<OwnerDTO> {
-    const owner = await this.ownerService.get(userId);
+  async getUser(@Body('user') user: SessionDTO): Promise<OwnerDTO> {
+    const owner = await this.ownerService.get(user.id);
     return owner;
   }
 
