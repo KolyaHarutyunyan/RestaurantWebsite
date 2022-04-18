@@ -163,16 +163,12 @@ export class MenuService {
     const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
     await this.bsnService.validateOwner(dto.user.id, menu.businessId);
-    const categories = this.getCategories(menu, type);
+    let categories = this.getCategories(menu, type);
     if (!categories) {
       throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
     }
-    this.reorder(categories, dto.from, dto.to);
-    const [filledMenu, menuNew] = await Promise.all([this.fillMenu(menu), menu.save()]);
-    console.log(menuNew.food);
-    const menuNewww = await this.model.findOne({ _id: menuId });
-    console.log(menuNewww.food);
-
+    categories = this.reorder(categories, dto.from, dto.to);
+    const [filledMenu] = await Promise.all([this.fillMenu(menu), menu.save()]);
     return filledMenu;
   }
 
@@ -290,16 +286,16 @@ export class MenuService {
     return category;
   }
 
-  private reorder(arr: any[], from: number, to: number) {
+  /** removes the element that is in from index and inserts it in the to index */
+  private reorder(arr: any[], from: number, to: number): any[] {
     if (from >= arr.length || from < 0) {
       throw new HttpException('From value falls outside of the items list', HttpStatus.BAD_REQUEST);
     }
     if (to >= arr.length || to < 0) {
       throw new HttpException('To value falls outside of the items list', HttpStatus.BAD_REQUEST);
     }
-    const el = arr[to];
-    arr[to] = arr[from];
-    arr[from] = el;
-    // return this;
+    const removed = arr.splice(from, 1);
+    arr.splice(to, 0, removed[0]);
+    return arr;
   }
 }

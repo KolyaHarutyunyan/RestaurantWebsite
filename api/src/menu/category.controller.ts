@@ -35,7 +35,6 @@ export class CategoryController {
     @Query('type') type: CategoryType,
     @Body() dto: ReorderDTO,
   ): Promise<MenuDTO> {
-    console.log(menuId, type, dto);
     const menu = await this.menuService.reorderCategories(menuId, type, dto);
     return menu;
   }
