@@ -95,7 +95,7 @@ export class MenuController {
   @ApiOkResponse({ type: String, description: 'Id of the deleted menu' })
   async deleteMenu(
     @Param('menuId', ParseObjectIdPipe) menuId: string,
-    @Body('user') user: string,
+    @Body('user') user: SessionDTO,
   ): Promise<string> {
     const deletedId = await this.menuService.delete(menuId, user);
     return deletedId;

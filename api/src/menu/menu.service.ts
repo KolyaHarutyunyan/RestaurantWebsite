@@ -101,12 +101,12 @@ export class MenuService {
   }
 
   /** Delete Menu and remove images that were with it */
-  async delete(menuId: string, ownerId: string): Promise<string> {
+  async delete(menuId: string, user: SessionDTO): Promise<string> {
     const menu = await this.model.findById(menuId);
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId.toString());
+    await this.bsnService.validateOwner(user.id, menu.businessId.toString());
     if (menu.image) {
-      await this.fileService.deleteFile(ownerId, menu.image.id);
+      await this.fileService.deleteFile(user.id, menu.image.id);
     }
     const deleted = await menu.delete();
     return deleted._id;
@@ -167,8 +167,13 @@ export class MenuService {
     if (!categories) {
       throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
     }
-    categories.reorder(dto.from, dto.to);
-    return await this.fillMenu(menu);
+    this.reorder(categories, dto.from, dto.to);
+    const [filledMenu, menuNew] = await Promise.all([this.fillMenu(menu), menu.save()]);
+    console.log(menuNew.food);
+    const menuNewww = await this.model.findOne({ _id: menuId });
+    console.log(menuNewww.food);
+
+    return filledMenu;
   }
 
   /** adds an item to a category */
@@ -226,8 +231,9 @@ export class MenuService {
       throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
     }
     const category = categories.find((el) => el._id.toString() === catId);
-    category.items.reorder(dto.from, dto.to);
-    return await this.fillMenu(menu);
+    this.reorder(category.items, dto.from, dto.to);
+    const [filledMenu] = await Promise.all([this.fillMenu(menu), menu.save()]);
+    return filledMenu;
   }
 
   /********************** Private Methods **********************/
@@ -282,5 +288,18 @@ export class MenuService {
     const category = categories.find((cat) => cat._id.toString() === catId);
     if (!category) throw new HttpException('Category was not found ', HttpStatus.NOT_FOUND);
     return category;
+  }
+
+  private reorder(arr: any[], from: number, to: number) {
+    if (from >= arr.length || from < 0) {
+      throw new HttpException('From value falls outside of the items list', HttpStatus.BAD_REQUEST);
+    }
+    if (to >= arr.length || to < 0) {
+      throw new HttpException('To value falls outside of the items list', HttpStatus.BAD_REQUEST);
+    }
+    const el = arr[to];
+    arr[to] = arr[from];
+    arr[from] = el;
+    // return this;
   }
 }

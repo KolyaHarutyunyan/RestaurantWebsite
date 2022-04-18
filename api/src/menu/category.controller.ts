@@ -26,6 +26,20 @@ export class CategoryController {
     return menu;
   }
 
+  /** Reorder the categories in a menu */
+  @Patch('reorder')
+  @ApiQuery({ name: 'type', type: String })
+  @ApiOkResponse({ type: MenuDTO })
+  async reorderCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Query('type') type: CategoryType,
+    @Body() dto: ReorderDTO,
+  ): Promise<MenuDTO> {
+    console.log(menuId, type, dto);
+    const menu = await this.menuService.reorderCategories(menuId, type, dto);
+    return menu;
+  }
+
   /** Edit menu category */
   @Patch(':id')
   @ApiBody({ type: EditCategoryDTO })
@@ -36,19 +50,6 @@ export class CategoryController {
     @Body() dto: EditCategoryDTO,
   ): Promise<MenuDTO> {
     const menu = await this.menuService.editCategory(menuId, id, dto);
-    return menu;
-  }
-
-  /** Reorder the categories in a menu */
-  @Patch('reorder')
-  @ApiQuery({ name: 'type', type: String })
-  @ApiOkResponse({ type: MenuDTO })
-  async reorderCategories(
-    @Param('menuId', ParseObjectIdPipe) menuId: string,
-    @Query('type') type: CategoryType,
-    @Body() dto: ReorderDTO,
-  ): Promise<MenuDTO> {
-    const menu = await this.menuService.reorderCategories(menuId, type, dto);
     return menu;
   }
 

@@ -47,7 +47,7 @@ export class BusinessService {
   async edit(businessId: string, dto: EditBusinessDTO): Promise<BusinessDTO> {
     let business = await this.model.findById(businessId);
     this.checkBusiness(business);
-    this.enforceOwner(dto.user.id, business._id.toString());
+    this.enforceOwner(dto.user.id, business.owner);
     if (dto.name) business.name = dto.name;
     if (dto.description) business.description = dto.description;
     if (dto.website) business.website = dto.website;
