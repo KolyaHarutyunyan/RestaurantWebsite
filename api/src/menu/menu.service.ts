@@ -200,7 +200,9 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const category = this.findCategory(menu, type, catId);
+    console.log(category);
     const index = category.items.findIndex((item) => item._id.toString() === itemId);
+    console.log(index);
     if (index < 0) {
       throw new HttpException('Item was not found in this category', HttpStatus.NOT_FOUND);
     }

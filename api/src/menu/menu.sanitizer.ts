@@ -49,7 +49,7 @@ export class MenuSanitizer implements ISanitize {
         console.log(items[j]);
         const item = items[j].item as IItem;
         if (item?.name) {
-          sanitizedItems.push({ id: item._id, item: this.itemSanitizer.sanitize(item) });
+          sanitizedItems.push({ id: items[j]._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
       sanitized.push({ id: categories[i]._id, name: categories[i].name, items: sanitizedItems });
