@@ -8,7 +8,7 @@ const itemSchema = new Schema({
   description: { type: String },
   option: { type: String },
   price: { type: Number },
-  mainImage: FileSchema,
+  mainImage: Number,
   images: [FileSchema],
 });
 

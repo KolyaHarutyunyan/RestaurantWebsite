@@ -16,7 +16,7 @@ const businessSchema = new Schema({
   phoneNumber: { type: String },
   address: addressSchema,
   hours: WeekSchema,
-  qrUrl: FileSchema,
+  qr: FileSchema,
 });
 
 export const BusinessModel = model<IBusiness>('business', businessSchema);

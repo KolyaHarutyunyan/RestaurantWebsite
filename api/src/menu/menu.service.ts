@@ -55,9 +55,9 @@ export class MenuService {
     if (dto.tagline) menu.tagline = dto.tagline;
     if (dto.description) menu.description = dto.description;
     if (dto.image) menu.image = dto.image;
-    if (dto.removeImage) {
-      menu.image = undefined;
+    if (dto.removeImage && menu.image) {
       await this.fileService.deleteFile(dto.user.id, menu.image.id);
+      menu.image = undefined;
     }
     menu = await menu.save();
     return await this.fillMenu(menu);

@@ -18,8 +18,8 @@ export class EditItemDTO {
   @ApiProperty()
   @IsNotEmpty()
   businessId: string;
-  @ApiProperty({ type: FileDTO, required: false })
-  mainImage?: FileDTO;
+  @ApiProperty({ type: Number, required: false })
+  mainImage?: number;
   @ApiProperty({ type: [FileDTO], required: false })
   imagesToAdd?: FileDTO[];
   @ApiProperty({ type: [FileDTO], required: false })

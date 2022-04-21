@@ -35,10 +35,11 @@ export class BusinessService {
       status: BusinessStatus.ACTIVE,
       description: dto.description,
       phoneNumber: dto.phoneNumber,
-      log: dto.logo,
+      logo: dto.logo,
     });
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
     business.qr = await this.fileService.generateQRCode(dto.user.id, accessLink);
+    console.log(business.qr);
     await business.save();
     return this.sanitizer.sanitize(business);
   }

@@ -7,6 +7,6 @@ export interface IItem extends Document {
   description?: string;
   option?: string;
   price: number;
-  mainImage: FileDTO;
+  mainImage?: number;
   images?: FileDTO[];
 }
