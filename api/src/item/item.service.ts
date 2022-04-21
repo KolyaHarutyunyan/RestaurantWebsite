@@ -77,7 +77,6 @@ export class ItemService {
     await this.bsnService.validateOwner(user.id, item.businessId.toString());
     if (item.images && item.images.length > 0) {
       const imageIds = item.images.map((image) => image.id);
-      if (item.mainImage) imageIds.push(item.mainImage.id);
       await this.fileService.deleteFiles(user.id, imageIds);
     }
     item = await item.delete();
