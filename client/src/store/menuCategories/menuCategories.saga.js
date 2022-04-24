@@ -14,6 +14,7 @@ import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
 import { menuCategoriesActions } from "./menuCategories.actions";
 import { menuCategoriesService } from "./menuCategories.service";
+import {GET_CURRENT_MENU} from "../menus/menus.types";
 
 function* getMenuCategories({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -89,11 +90,15 @@ function* reorderCategory({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
+    // yield put({
+    //   type: REORDER_MENU_CATEGORY_SUCCESS,
+    //   payload,
+    // });
+    yield call(menuCategoriesService.reorder, payload.menuId, payload.move, payload.categoryType);
     yield put({
-      type: REORDER_MENU_CATEGORY_SUCCESS,
-      payload,
+      type: GET_CURRENT_MENU,
+      payload: payload.menuId,
     });
-    yield call(menuCategoriesService.reorder, payload.categoryId, payload.move);
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (e) {

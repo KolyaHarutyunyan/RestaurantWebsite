@@ -6,15 +6,13 @@ import { IoIosTrash } from "react-icons/io";
 import { forwardRef } from "react";
 
 export const ItemCard = forwardRef(
-  (
-    {category, item, onRequestToDelete = () => {}, onRequestToEdit = () => {}, ...rest },
+  ({category, categoryType, item, onRequestToDelete = () => {}, onRequestToEdit = () => {}, ...rest },
     ref
   ) => {
-    const image = item.item.mainImage ? item.item.mainImage.originalUrl : null;
+    const image = item.item.images ? item.item.images.length && item?.item?.images[item.item.mainImage]?.url : null;
     const imageStyle = {
       backgroundImage: `url(${image})`,
     };
-
     const itemPrice = item && item.item && item.item.price.toString()
     let pricePoint = itemPrice.search("\\.");
 
@@ -22,10 +20,10 @@ export const ItemCard = forwardRef(
       <Container {...rest} ref={ref}>
         <div className="image" style={imageStyle}>
           {image ? null :
-              category && category.categoryType === 'drink' ?
-                  <Icons.DrinkIcon />
-                    :
+              categoryType === 'FOOD' ?
                   <Icons.FoodIcon />
+                  :
+                  <Icons.DrinkIcon />
           }
         </div>
         <div className="content">

@@ -30,8 +30,6 @@ export const RestaurantPageSections = () => {
     })
   );
 
-  const [hourseMenuStatus, setHourseMenuStatus] = useState(false);
-  const hourseMenuToggleRef = useRef();
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const getMenusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const createMenuSaga = useSagaStore(menusActions.createMenu);
@@ -43,7 +41,7 @@ export const RestaurantPageSections = () => {
 
   const loading = httpOnLoad.length && httpOnLoad[0] === 'GET_MENUS'
 
-  useEffect(() => getBusinessesSaga.dispatch(), []);
+  // useEffect(() => getBusinessesSaga.dispatch(), []);
   useEffect(() => {
     if (business && Object.keys(business).length) {
       getMenusSaga.dispatch(business.id);
@@ -59,7 +57,7 @@ export const RestaurantPageSections = () => {
 
     const download = () => {
 
-        saveAs( business.qrUrl, 'image.jpg') // Put your image url here.
+        saveAs( business.qr.url, 'image.jpg') // Put your image url here.
       // }
       // let element = document.createElement("a");
       // let file = new Blob(
@@ -95,15 +93,8 @@ export const RestaurantPageSections = () => {
             <div className="header">
               <Typography className="title" color="text" weight="bold">
                 {business.logo ? (
-                        // <Image
-                        //     src={business.logo.originalUrl ? business.logo.originalUrl : null}
-                        //     className="logo"
-                        //     responsiveOnMobile
-                        // />
                   <span
-                    style={{
-                      backgroundImage: `url(${business.logo.originalUrl})`,
-                    }}
+                    style={{backgroundImage: `url(${business.logo.url})`,}}
                     className="logo"
                   />
                 ) :
@@ -115,7 +106,7 @@ export const RestaurantPageSections = () => {
               </Typography>
               <div>
                 <SmallButton
-                  handleClick={() => open(MODAL_NAMES.EDIT_RESTAURANT)}
+                  handleClick={() => open(MODAL_NAMES.EDIT_RESTAURANT,{ business:business })}
                   text={'Edit'}
                 />
               </div>
@@ -304,22 +295,10 @@ export const RestaurantPageSections = () => {
                 <MenuCard
                   key={index}
                   data={menu}
-                  onTitleClick={() =>
-                    router.push(`/menuId?restaurantId=${business.id}&menuId=${menu.id}`)
-                    // router.push(`/menu/${business.id}/${menu.id}`)
-                  }
-                  onRequestToSwitch={() =>
-                    switchMenuStatusSaga.dispatch(menu.id, business.id)
-                  }
-                  onRequestToDuplicate={() =>
-                    createMenuSaga.dispatch({
-                      businessId: business.id,
-                      ...menu,
-                    })
-                  }
-                  onRequestToEdit={() =>
-                    open(MODAL_NAMES.MENU_FORM, { menuId: menu.id })
-                  }
+                  onTitleClick={() => router.push(`/menuId?restaurantId=${business.id}&menuId=${menu.id}`)}
+                  onRequestToSwitch={() => switchMenuStatusSaga.dispatch(menu.id, business.id)}
+                  onRequestToDuplicate={() => createMenuSaga.dispatch({businessId: business.id, ...menu,})}
+                  onRequestToEdit={() => open(MODAL_NAMES.MENU_FORM, { menuId: menu.id, menuInfo: menu })}
                   onRequestToDelete={() => {deleteMenuSaga.dispatch(menu.id);}}
                 />
               )): ''}

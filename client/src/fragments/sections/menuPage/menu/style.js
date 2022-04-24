@@ -135,7 +135,7 @@ export const Container = styled.div`
       }
     }
     .logo {
-      flex: 0 0 300px;
+      width: 300px;
       height: 180px;
       border-radius: 16px;
       object-fit: cover;

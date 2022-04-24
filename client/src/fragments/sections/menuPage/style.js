@@ -46,4 +46,11 @@ export const Container = styled.div`
       height: 100px;
     }
   }
+  .load-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

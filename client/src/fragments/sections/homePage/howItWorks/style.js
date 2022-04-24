@@ -35,6 +35,7 @@ export const Container = styled.div`
     font-family: Open Sans, sans-serif;
     line-height: 24px ;
     font-size: 16px;
+    margin-top: 14px;
     @media (max-width: 767px) {
       font-size: 14px;
       line-height:21px ;
@@ -106,6 +107,7 @@ export const Container = styled.div`
               position: absolute;
               top: 50px;
               width: 2px;
+              height: auto;
               background-color: ${colors.text};
               @media (min-width: 320px) {
                 height: 60px;

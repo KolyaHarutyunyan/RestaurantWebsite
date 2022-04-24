@@ -16,10 +16,7 @@ export const ConfirmCategoryDeleteDialog = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      deleteCategorySaga.status.onSuccess ||
-      deleteCategoryFromMenuSaga.status.onSuccess
-    ) {
+    if (deleteCategorySaga.status.onSuccess || deleteCategoryFromMenuSaga.status.onSuccess) {
       deleteCategorySaga.destroy.all();
       deleteCategoryFromMenuSaga.destroy.all();
       close();

@@ -11,6 +11,7 @@ export const MenuCard = ({
   onRequestToDuplicate = () => {},
   onRequestToSwitch = () => {},
 }) => {
+
   const descrBarRef = useRef();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
@@ -19,8 +20,8 @@ export const MenuCard = ({
             name={data.name}
             desc={data.description && data.description}
           />
-          : ''} placement="top-end">
-    <Container coverImg={data.image ? data.image.originalUrl : null}>
+          : ''} placement="bottom">
+    <Container coverImg={data.image ? data.image.url : null}>
 
 
         <div onClick={() => onTitleClick()} className="cover">{!data.image ? <Icons.MenuIcon /> : null}</div>
@@ -43,7 +44,6 @@ export const MenuCard = ({
         </div>
       </div>
       </div>
-        {/*</HtmlTooltip>*/}
       <Menu
           left={'170px'}
           width={'119'}
