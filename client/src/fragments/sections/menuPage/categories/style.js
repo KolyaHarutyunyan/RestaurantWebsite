@@ -1,13 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  .loader-section{
+    width: 100%;
+    height: 350px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
   .select-create-category {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin: 35px 0 25px 0;
 
+   
+    
     .MuiChip-deleteIcon {
       display: none;
     }

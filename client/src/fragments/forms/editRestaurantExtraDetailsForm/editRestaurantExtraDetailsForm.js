@@ -1,38 +1,29 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import {
   Typography,
   Input,
   Button,
   useModal,
   AddressInput,
+  AvailabilitySchedule,
 } from "@eachbase/components";
-import { HoursList } from "./hoursList";
 import { Icons } from "@eachbase/theme";
 import { Container } from "./style";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { useSagaStore, businessesActions } from "@eachbase/store";
 import { useRouter } from "next/dist/client/router";
-import { useSelector } from "react-redux";
 
 export const EditRestaurantExtraDetailsForm = () => {
   const { close } = useModal();
-  const restaurant = useSelector(({ businesses }) => businesses);
-
-  const { register, handleSubmit, reset } = useForm();
-  const [restaurantIcon, setRestaurantIcon] = useState([]);
   const router = useRouter();
+  const restaurant = useSelector(({ businesses }) => businesses);
+  const { register, handleSubmit, reset } = useForm();
+  const [hours, setHours] = useState( null);
   const [address, setAddress] = useState(restaurant ? restaurant.address ?  restaurant.address.formattedAddress : '' : "");
-  const [hoursSnapshot, setHoursSnapshot] = useState(null);
-
-  const [toggleHoursOperations, setToggleHourseOperations] = useState(false);
-
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
-
-  const { httpOnError } = useSelector((state) => ({
-    httpOnError: state.httpOnError,
-  }));
 
   const onSubmit = (info) => {
     const data ={
@@ -40,26 +31,11 @@ export const EditRestaurantExtraDetailsForm = () => {
       phoneNumber: info.phoneNumber,
       address:address,
       id:restaurant.id,
-      // hours:hoursSnapshot ,
-
-      // Some example
-
-      // hours: [
-      //   {
-      //     "mon": {
-      //       "status": "OPEN",
-      //       "hours": [
-      //         {
-      //           "open": "11, min: 06, part: AM",
-      //           "close": "18, min: 19, part: AM"
-      //         }
-      //       ]
-      //     },
-      //   }]
     }
-
-    dispatch(data );
+    hours ? data.hours = hours : ''
+    dispatch(data);
   };
+
   useEffect(() => () => destroy.all(), []);
 
   useEffect(() => {
@@ -71,17 +47,9 @@ export const EditRestaurantExtraDetailsForm = () => {
     }
   }, [status]);
 
-  useEffect(() => {
-    if (restaurant && !hoursSnapshot) {
-      let modifiedHourses = { ...restaurant.hours };
-      setHoursSnapshot(restaurant.hours);
-    }
-  }, [restaurant]);
-
   if (!restaurant) {
     return false;
   }
-  const editError =httpOnError.length && httpOnError.filter((i) => i.type === "EDIT_BUSINESS")
 
   return (
     <Container>
@@ -101,11 +69,12 @@ export const EditRestaurantExtraDetailsForm = () => {
         />
         <Input
             helperColo={true}
-            helper={editError && editError[0] && editError[0].error === "phoneNumber must be a valid phone number" ? 'Not valid phone number' : ''}
-          placeholder="Phone Number"
-          icon={<Icons.CallIcon size={22} />}
-          defaultValue={restaurant.phoneNumber}
-          {...register("phoneNumber", { required: true })}
+            helper={status.onError === "phoneNumber must be a valid phone number" ? 'Not valid phone number' : ''}
+            placeholder="Phone Number"
+            icon={<Icons.CallIcon size={22} />}
+            defaultValue={restaurant.phoneNumber}
+            type={'number'}
+            {...register("phoneNumber", { required: true,  })}
         />
         <AddressInput
           Value={restaurant ? restaurant.address && restaurant.address.formattedAddress  : address}
@@ -113,34 +82,14 @@ export const EditRestaurantExtraDetailsForm = () => {
           handleSelectValue={()=> console.log('')}
           handleChangeValue={(val) => setAddress(val)}
         />
-        {/*button for hours*/}
-
-
-        {/*<div*/}
-        {/*  className={`hours-operations ${*/}
-        {/*    toggleHoursOperations ? "open" : "close"*/}
-        {/*  }`}*/}
-        {/*>*/}
-        {/*  < button*/}
-        {/*    color="text"*/}
-        {/*    className="toggle-button"*/}
-        {/*    onClick={() => setToggleHourseOperations(!toggleHoursOperations)}*/}
-        {/*  >*/}
-        {/*    Hours of Operation&nbsp;*/}
-        {/*    <div className="icon">*/}
-        {/*      <BiChevronDown size={25} />*/}
-        {/*    </div>*/}
-        {/*  </button>*/}
-        {/*  {hoursSnapshot && (*/}
-        {/*    <HoursList*/}
-        {/*      hourList={hoursSnapshot}*/}
-        {/*      onHourListChange={(newHoursSnap) =>*/}
-        {/*        setHoursSnapshot(newHoursSnap)*/}
-        {/*      }*/}
-        {/*      isOpen={toggleHoursOperations}*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*</div>*/}
+        <AvailabilitySchedule
+            // handleGetEditTimes={(t) => setEditedTime(t)}
+            // eventInfo={eventInfo}
+            onModel={'Client'}
+            handleGetTimes={(e) =>  setHours(e)}
+            availabilityData={restaurant ? restaurant?.hours : ''}
+            // handleClose={handleOpenClose}
+        />
         <Button
             square
             type="submit" onLoad={status.onLoad}>

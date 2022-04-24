@@ -14,9 +14,9 @@ export const businessesActions = {
     type: EDIT_BUSINESS,
     payload: business,
   }),
-  createBusiness: (business, icon) => ({
+  createBusiness: (business) => ({
     type: CREATE_BUSINESS,
-    payload: { business, icon },
+    payload: { business },
   }),
   deleteBusiness: (restaurantId) => ({
     type: DELETE_BUSINESS,

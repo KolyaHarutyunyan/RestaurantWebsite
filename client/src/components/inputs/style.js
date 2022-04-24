@@ -9,6 +9,70 @@ export const inputsStyle = makeStyles(() => ({
     color: "#2B273C",
     justifyContent: "center",
   },
+  SignInInput: {
+    '& .MuiFormControl-root': {
+      width: '395px',
+      marginTop: '20px',
+    },
+
+    '& .MuiFormLabel-root.Mui-error': {
+      color: '#F07379',
+      fontWeight: 'bold',
+    },
+
+    '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
+      border: '2px solid red',
+    },
+  },
+  inputTextField: {
+    width: '100%',
+    '& .MuiOutlinedInput-notchedOutline': {
+      // borderColor: Colors.ThemeBlack,
+    },
+    '& .MuiOutlinedInput-root': {
+      height: '48px',
+      // color: Colors.ThemeLightGray,
+    },
+    '& .MuiInputLabel-outlined': {
+      marginTop: '-3px',
+      // color: Colors.ThemeLightGray,
+    },
+    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+      transform: 'translate(14px, -2px) scale(0.75)',
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      // borderColor: Colors.ThemeBlack,
+    },
+    '& .MuiInputBase-input::placeholder': {
+      fontSize: 14,
+      color: '#4B5C6880',
+    },
+  },
+  inputTextFieldSmall: {
+    width: '100%',
+    '& .MuiOutlinedInput-notchedOutline': {
+      // borderColor: Colors.ThemeBlack,
+    },
+    '& .MuiOutlinedInput-root': {
+      height: '36px',
+      // color: Colors.ThemeLightGray,
+    },
+    '& .MuiInputLabel-outlined': {
+      marginTop: '-3px',
+      // color: Colors.ThemeLightGray,
+    },
+    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+      transform: 'translate(14px, -2px) scale(0.75)',
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      // borderColor: Colors.ThemeBlack,
+    },
+    '& .MuiInputBase-input::placeholder': {
+      fontSize: 14,
+      color: '#4B5C6880',
+    },
+  },
+
   Input: {
     flex: "1",
     border: "none",

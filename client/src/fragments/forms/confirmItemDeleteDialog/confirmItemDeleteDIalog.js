@@ -22,25 +22,24 @@ export const ConfirmItemDeleteDialog = () => {
     }
   }, [itemSaga, categoryItemSaga]);
 
-  if (!Object.keys(params).length) {
-    return null;
-  }
+  // if (!Object.keys(params).length) {
+  //   return null;
+  // }
 
   const onDelete = () => {
     if (selectedOption === "system") {
-      itemSaga.dispatch(
-        params.category.categoryId,
-        params.categoryItem.item.id
-      );
+      itemSaga.dispatch(params.categoryItem.item.id, params.menuId,);
     } else {
       categoryItemSaga.dispatch(
-        params.category.categoryId,
-        params.categoryItem.item.id
+          params.menuId,
+          params.categoryId,
+          params.categoryItem.id,
+          params.type === 'food' ? 'FOOD' : 'DRINK',
       );
     }
   };
 
-  if (!params.categoryItem || !params.category) {
+  if (!params?.categoryItem?.item || !params?.currentCategory) {
     return null;
   }
 
