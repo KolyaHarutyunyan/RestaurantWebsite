@@ -8,6 +8,7 @@ import {
 const initialState = {
   food: [],
   drink: [],
+
 };
 
 export const menuCategoriesReducer = (state = initialState, action) => {
@@ -15,7 +16,11 @@ export const menuCategoriesReducer = (state = initialState, action) => {
     case ADD_MENU_CATEGORY_SUCCESS:
       return action.payload;
     case GET_MENU_CATEGORIES_SUCCESS:
-      return action.payload;
+      return {
+        ...state,
+        food: action.payload.food,
+        drink: action.payload.drinks,
+      };
     case REORDER_MENU_CATEGORY_SUCCESS:
       return {
         ...state,

@@ -88,16 +88,18 @@ export class FileService {
   };
 
   /** creates a qr code image */
-  generateQRCode = async (userId: string, encodingURL: string): Promise<FileDTO> => {
+  async generateQRCode(userId: string, encodingURL: string): Promise<FileDTO> {
     await qrcode.toFile(path.join(__dirname, '/qrCode.png'), encodingURL);
     const fileBuffer = fs.readFileSync(path.join(__dirname, '/qrCode.png'));
-    const file = {
+    const fileObj = {
       buffer: fileBuffer,
       mimetype: 'image/png',
       originalname: Date.now() + '/qrcode.png',
     };
-    return await this.create(userId, file, false);
-  };
+    const file = await this.create(userId, fileObj, false);
+    console.log(file);
+    return file;
+  }
 
   /** Private Methods */
   private checkFile(file: IFile) {

@@ -13,27 +13,35 @@ import { categoriesService } from "./categories.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
+import {menusActions} from "../menus";
+import {GET_CURRENT_MENU} from "../menus/menus.types";
 
 function* createCategory({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const { data } = yield call(categoriesService.create, payload.data);
+    const { data } = yield call(categoriesService.create, payload.data, payload.menuId);
     yield put({
       type: CREATE_CATEGORY_SUCCESS,
       payload: data,
     });
 
-    if (payload.menuId) {
-      yield put(
-        menuCategoriesActions.addCategory(
-          payload.menuId,
-          data.id,
-          payload.categoryType
-        )
-      );
-    }
+    yield put({
+      type: GET_CURRENT_MENU,
+      payload: payload.menuId,
+    });
+
+
+    // if (payload.menuId) {
+    //   yield put(
+    //     menuCategoriesActions.addCategory(
+    //       payload.menuId,
+    //       data.id,
+    //       payload.categoryType
+    //     )
+    //   );
+    // }
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
@@ -66,15 +74,10 @@ function* deleteCategory({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.delete, payload.categoryId);
+    yield call(categoriesService.delete, payload.categoryId, payload.menuId, payload.categoryType);
     yield put({
-      type: DELETE_CATEGORY_SUCCESS,
-      payload: payload,
-    });
-
-    yield put({
-      type: DELETE_MENU_CATEGORY_SUCCESS,
-      payload,
+      type: GET_CURRENT_MENU,
+      payload: payload.menuId,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

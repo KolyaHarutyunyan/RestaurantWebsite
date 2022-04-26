@@ -12,10 +12,8 @@ import {inputsStyle} from "./uiStyles";
 
 export const MultiSelect = ({
                                 selected = [],
-                                onChange = () => {
-                                },
-                                onSearchBarValueChange = () => {
-                                },
+                                onChange = () => {},
+                                onSearchBarValueChange = () => {},
                                 searchBarValue,
                                 options,
                                 categoryItems,
@@ -91,6 +89,7 @@ export const MultiSelect = ({
         const isOptionSelected = !!selected.find(
             (sOpt) => sOpt.value === option.value
         );
+
         if (isOptionSelected) {
             onChange(
                 selected.filter((sOpt) => sOpt.value !== option.value),
@@ -112,6 +111,7 @@ export const MultiSelect = ({
     }
     const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
     const checkedIcon = <CheckBoxIcon fontSize="small"/>;
+
     return (
         <Fragment>
             {/*<Container*/}
@@ -124,7 +124,7 @@ export const MultiSelect = ({
             {/*>*/}
 
             <div className="dropdown-actions">
-                <form autoComplete="off">
+                {/*<form autoComplete="off">*/}
                     <Autocomplete
                         multiple
                         id="checkboxes-tags-demo"
@@ -163,7 +163,7 @@ export const MultiSelect = ({
                             />
                         )}
                     />
-                </form>
+                {/*</form>*/}
 
                 {/*<form style={{width:'100%'}}*/}
                 {/*      onSubmit={onSubmit}*/}

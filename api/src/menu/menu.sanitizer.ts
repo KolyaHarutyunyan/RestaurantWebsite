@@ -4,7 +4,7 @@ import { ISanitize } from '../util';
 import { MenuDTO } from './dto';
 import { CategoryDTO, MenuItemDTO } from './dto/menu.dto';
 import { ItemSanitizer } from 'src/item/item.sanitizer';
-import { IItem, ItemDTO } from 'src/item';
+import { IItem } from 'src/item';
 import { IMenuItem } from './interface/menu.interface';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class MenuSanitizer implements ISanitize {
   constructor(private readonly itemSanitizer: ItemSanitizer) {}
   /** Sanitizes a menu by turning IMenu instance to MenuDTO */
   sanitize(menu: IMenu): MenuDTO {
+    console.log(menu);
     const sanitizedMenu: MenuDTO = {
       id: menu._id,
       name: menu.name,
@@ -42,11 +43,13 @@ export class MenuSanitizer implements ISanitize {
     //take each category, and sanitize its inner items from the items list=
     for (let i = 0; i < categories.length; i++) {
       items = categories[i].items;
+      console.log(items);
       sanitizedItems = [];
       for (let j = 0; j < items.length; j++) {
+        console.log(items[j]);
         const item = items[j].item as IItem;
-        if (item.name) {
-          sanitizedItems.push({ id: item._id, item: this.itemSanitizer.sanitize(item) });
+        if (item?.name) {
+          sanitizedItems.push({ id: items[j]._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
       sanitized.push({ id: categories[i]._id, name: categories[i].name, items: sanitizedItems });

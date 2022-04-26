@@ -26,7 +26,7 @@ export const menusActions = {
   }),
   editMenu: (menu) => ({
     type: EDIT_MENU,
-    payload: menu,
+    payload: menu ,
   }),
   deleteMenu: (menu) => ({
     type: DELETE_MENU,

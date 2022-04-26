@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { SessionDTO } from 'src/auth';
 import { FileDTO } from 'src/components/file';
+import { DTO } from 'src/util/dto';
 import { CategoryType } from '../menu.constants';
 
-export class EditMenuDTO {
+export class EditMenuDTO extends DTO {
   @ApiProperty()
   @IsNotEmpty()
   businessId: string;
@@ -18,19 +18,13 @@ export class EditMenuDTO {
   image?: FileDTO;
   @ApiProperty({ required: false })
   removeImage?: boolean;
-
-  /** Set by the system */
-  user?: SessionDTO;
 }
 
-export class EditCategoryDTO {
+export class EditCategoryDTO extends DTO {
   @ApiProperty()
   name: string;
 
   @ApiProperty({ enum: CategoryType })
   @IsEnum(CategoryType)
   type: CategoryType;
-
-  /** Set by the system */
-  user?: SessionDTO;
 }

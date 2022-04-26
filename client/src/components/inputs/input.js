@@ -43,7 +43,6 @@ export const Input = forwardRef(
           </button>
         );
       }
-
       return null;
     }, [type, currentType]);
 
@@ -57,14 +56,26 @@ export const Input = forwardRef(
         <div style={{borderRadius:border, padding:padding}} className="main-container">
           <div className="icon-container">{icon}</div>
           <div className="input-container">
-            <input
-                onChange={handleChange}
-                autoComplete="new-password"
-                maxLength={max}
-                ref={ref}
-                type={type === "password" ? currentType : type}
-                {...rest}
-            />
+              {type === 'no' ?
+                  <input
+                      name="foo"
+                      autoComplete="off"
+                      onChange={handleChange}
+                      maxLength={max}
+                      ref={ref}
+                      type={'text'}
+                      {...rest}
+                  />
+                  :
+                  <input
+                      onChange={handleChange}
+                      autoComplete="new-password"
+                      maxLength={max}
+                      ref={ref}
+                      type={type === "password" ? currentType : type}
+                      {...rest}
+                  />
+              }
             {renderControllerEye()}
           </div>
         </div>

@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SessionDTO } from 'src/auth';
 import { ParseObjectIdPipe } from 'src/util';
 import { ACCESS_TOKEN } from 'src/util/constants';
+import { ReorderDTO } from 'src/util/dto/reorder.dto';
 import { AddItemDTO, CategoryQueryDTO, CreateCategoryDTO, EditCategoryDTO, MenuDTO } from './dto';
+import { CategoryType } from './menu.constants';
 import { MenuService } from './menu.service';
 
 @ApiTags('Menu Categories')
@@ -12,6 +14,7 @@ import { MenuService } from './menu.service';
 export class CategoryController {
   constructor(private readonly menuService: MenuService) {}
 
+  /** Create a new category in the menu */
   @Post()
   @ApiBody({ type: CreateCategoryDTO })
   @ApiOkResponse({ type: MenuDTO })
@@ -23,6 +26,20 @@ export class CategoryController {
     return menu;
   }
 
+  /** Reorder the categories in a menu */
+  @Patch('reorder')
+  @ApiQuery({ name: 'type', type: String })
+  @ApiOkResponse({ type: MenuDTO })
+  async reorderCategories(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Query('type') type: CategoryType,
+    @Body() dto: ReorderDTO,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.reorderCategories(menuId, type, dto);
+    return menu;
+  }
+
+  /** Edit menu category */
   @Patch(':id')
   @ApiBody({ type: EditCategoryDTO })
   @ApiOkResponse({ type: MenuDTO })
@@ -35,6 +52,21 @@ export class CategoryController {
     return menu;
   }
 
+  /** Reorder the items in a menu category */
+  @Patch(':id/items/reorder')
+  @ApiQuery({ name: 'type', type: String })
+  @ApiOkResponse({ type: MenuDTO })
+  async reorderItems(
+    @Param('menuId', ParseObjectIdPipe) menuId: string,
+    @Param('id', ParseObjectIdPipe) catId: string,
+    @Query('type') type: CategoryType,
+    @Body() dto: ReorderDTO,
+  ): Promise<MenuDTO> {
+    const menu = await this.menuService.reorderItems(menuId, catId, type, dto);
+    return menu;
+  }
+
+  /** Delete a category */
   @Delete(':id')
   @ApiOkResponse({ type: MenuDTO })
   async delete(

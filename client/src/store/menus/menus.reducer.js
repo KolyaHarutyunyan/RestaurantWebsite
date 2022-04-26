@@ -19,21 +19,22 @@ export const menusReducer = (state = initialState, action) => {
     case GET_BUSINESS_MENU_SUCCESS:
       return action.payload
     case EDIT_MENU_SUCCESS:
-      return state.map((menu) =>
-        menu.id === action.payload.id ? action.payload : menu
-      );
-    case CREATE_MENU_SUCCESS:
-      return [action.payload, ...state];
+      return action.payload
+
+
+    // case CREATE_MENU_SUCCESS:
+    //   return [action.payload, ...state];
     case GET_CURRENT_MENU_SUCCESS:
-      const allreadyIn = initialState.find(
-        (cMenu) => cMenu.id === action.payload.id
-      );
-      if (allreadyIn) {
-        return state.map((cMenu) =>
-          cMenu.id === action.payload.id ? action.payload : cMenu
-        );
-      }
-      return [...state, action.payload];
+      return action.payload;
+      // const allreadyIn = initialState.find(
+      //   (cMenu) => cMenu.id === action.payload.id
+      // );
+      // if (allreadyIn) {
+      //   return state.map((cMenu) =>
+      //     cMenu.id === action.payload.id ? action.payload : cMenu
+      //   );
+      // }
+      // return [...state, action.payload];
     case SWITCH_MENU_STATUS_SUCCESS:
       return state.map((menu) => {
         if (menu.id === action.payload) {

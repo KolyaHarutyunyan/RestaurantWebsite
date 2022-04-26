@@ -10,9 +10,9 @@ export const menuCategoriesActions = {
     type: GET_MENU_CATEGORIES,
     payload: menuId,
   }),
-  reorder: (categoryType, categoryId, move) => ({
+  reorder: (categoryType, menuId, categoryId, move) => ({
     type: REORDER_MENU_CATEGORY,
-    payload: { categoryType, categoryId, move },
+    payload: { categoryType, menuId, categoryId, move },
   }),
   addCategory: (menuId, categoryId, categoryType) => ({
     type: ADD_MENU_CATEGORY,

@@ -24,7 +24,7 @@ function* signIn({ type, payload }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   try {
     const { data } = yield call(profileService.signIn, payload);
-    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("token", data.token);
     try {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({
@@ -63,7 +63,7 @@ function* signUp({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     const { data } = yield call(profileService.signUp, payload);
-    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("token", data.token);
     try {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({
@@ -116,7 +116,7 @@ function* updateProfilePassword({ type, payload }) {
     const res = yield call(profileService.changePassword, payload);
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
-    localStorage.setItem("token", res.data.accessToken);
+    localStorage.setItem("token", res.data.token);
   } catch (err) {
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -170,7 +170,7 @@ function* resetPassword({ type, payload }) {
       payload.data,
       payload.token
     );
-    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("token", data.token);
     try {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({

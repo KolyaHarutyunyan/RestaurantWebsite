@@ -7,6 +7,7 @@ import { IItem } from './interface';
 import { ItemModel } from './item.model';
 import { SessionDTO } from 'src/auth';
 import { FileService } from 'src/components/file/file.service';
+import { FileDTO } from 'src/components/file';
 
 @Injectable()
 export class ItemService {
@@ -76,7 +77,6 @@ export class ItemService {
     await this.bsnService.validateOwner(user.id, item.businessId.toString());
     if (item.images && item.images.length > 0) {
       const imageIds = item.images.map((image) => image.id);
-      if (item.mainImage) imageIds.push(item.mainImage.id);
       await this.fileService.deleteFiles(user.id, imageIds);
     }
     item = await item.delete();
@@ -91,22 +91,53 @@ export class ItemService {
   }
 
   /** Manage the images of the item */
+  // private async manageImages(item: IItem, dto: EditItemDTO) {
+  //   if (dto.mainImage) item.mainImage = dto.mainImage;
+  //   if (dto.imagesToAdd) dto.imagesToAdd.map((image) => item.images.push(image));
+  //   if (dto.imagesToRemove) {
+  //     const idsToRemove = dto.imagesToRemove.map((image) => image.id);
+  //     await this.fileService.deleteFiles(dto.user.id, idsToRemove);
+  //     let imageIndex;
+  //     for (let i = 0; i < idsToRemove.length; i++) {
+  //       imageIndex = item.images.findIndex((image) => image.id === idsToRemove[i]);
+  //       if (imageIndex > -1) {
+  //         item.images.splice(imageIndex, 1);
+  //       }
+  //       if (idsToRemove[i] === item.mainImage.id) {
+  //         if (item.images.length > 0) item.mainImage = item.images[0];
+  //       }
+  //     }
+  //   }
+  // }
+
+  /** Updates the event images */
   private async manageImages(item: IItem, dto: EditItemDTO) {
-    if (dto.mainImage) item.mainImage = dto.mainImage;
-    if (dto.imagesToAdd) dto.imagesToAdd.map((image) => item.images.push(image));
-    if (dto.imagesToRemove) {
-      const idsToRemove = dto.imagesToRemove.map((image) => image.id);
-      await this.fileService.deleteFiles(dto.user.id, idsToRemove);
-      let imageIndex;
-      for (let i = 0; i < idsToRemove.length; i++) {
-        imageIndex = item.images.findIndex((image) => image.id === idsToRemove[i]);
-        if (imageIndex > -1) {
-          item.images.splice(imageIndex, 1);
-        }
-        if (idsToRemove[i] === item.mainImage.id) {
-          if (item.images.length > 0) item.mainImage = item.images[0];
+    const newImages: FileDTO[] = [];
+    const idsToRemove = [];
+    dto.imagesToAdd?.forEach((img) => item.images.push(img));
+    dto.imagesToRemove?.forEach((img) => idsToRemove.push(img.id));
+    if (idsToRemove.length > 0) await this.fileService.deleteFiles(dto.user.id, idsToRemove);
+    let imageIndex;
+    for (let i = 0; i < item.images?.length; i++) {
+      // check if this image needs to be deleted
+      imageIndex = idsToRemove.findIndex((id) => item.images[i].id === id);
+      if (imageIndex < 0) {
+        //does not need to be deleted
+        newImages.push(item.images[i]);
+      } else {
+        //needs to be deleted
+        if (item.mainImage > i) {
+          item.mainImage = item.mainImage - 1;
+        } else if (item.mainImage === i) {
+          item.mainImage = 0;
         }
       }
+    }
+    if (newImages.length < 1) item.mainImage = undefined;
+    item.images = newImages;
+    //Set the main image
+    if (dto.mainImage || !(dto.mainImage < 0 || dto.mainImage >= item.images.length)) {
+      item.mainImage = dto.mainImage;
     }
   }
 }

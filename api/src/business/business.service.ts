@@ -35,10 +35,11 @@ export class BusinessService {
       status: BusinessStatus.ACTIVE,
       description: dto.description,
       phoneNumber: dto.phoneNumber,
-      log: dto.logo,
+      logo: dto.logo,
     });
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
     business.qr = await this.fileService.generateQRCode(dto.user.id, accessLink);
+    console.log(business.qr);
     await business.save();
     return this.sanitizer.sanitize(business);
   }
@@ -47,7 +48,7 @@ export class BusinessService {
   async edit(businessId: string, dto: EditBusinessDTO): Promise<BusinessDTO> {
     let business = await this.model.findById(businessId);
     this.checkBusiness(business);
-    this.enforceOwner(dto.user.id, business._id.toString());
+    this.enforceOwner(dto.user.id, business.owner);
     if (dto.name) business.name = dto.name;
     if (dto.description) business.description = dto.description;
     if (dto.website) business.website = dto.website;

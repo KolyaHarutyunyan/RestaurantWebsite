@@ -15,9 +15,9 @@ import {MODAL_NAMES} from "@eachbase/constants";
 import {useRouter} from "next/router";
 import {CircularProgress} from "@material-ui/core";
 
-export const Items = ({category, categType}) => {
+export const Items = ({currentCategory, categType, categoryId, categoriesCheck, currentMenu}) => {
 
-    const {httpOnLoad,} = useSelector((state) => ({
+    const { httpOnLoad } = useSelector((state) => ({
         httpOnLoad: state.httpOnLoad,
     }));
 
@@ -28,50 +28,53 @@ export const Items = ({category, categType}) => {
         httpOnLoad.length && httpOnLoad[0] === 'REORDER_CATEGORY_ITEM' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'CREATE_CATEGORY_ITEM'
 
-    const {open} = useModal();
+    const { open } = useModal();
     const router = useRouter();
-    const currentCategory = useSelector(({menuCategories}) => {
-        if (!menuCategories.food.length && !menuCategories.drink.length) {
-            return "NO_CATEGORIES";
-        } else if (!category.categoryId) {
-            return "NO_SElECTION";
-        } else {
-            return menuCategories[category.categoryType].find(
-                (cCategory) => cCategory.category.id === category.categoryId
-            );
-        }
-    });
+    const rout = useRouter()
+
+    // const currentCategory = useSelector(({menuCategories}) => {
+    //     if (!menuCategories.food.length && !menuCategories.drink.length) {
+    //         return "NO_CATEGORIES";
+    //     } else if (!category.categoryId) {
+    //         return "NO_SElECTION";
+    //     } else {
+    //         return menuCategories[category.categoryType].find(
+    //             (cCategory) => cCategory.category.id === category.categoryId
+    //         );
+    //     }
+    // });
 
     const items = useSelector(({items}) => items);
     const categoryItems = useSelector(({categoryItems}) => categoryItems);
+
+    // const allItems = [...currentMenu.food, ...currentMenu.drinks]
     const itemOptions = items.map((item) => ({
         label: item.name,
         value: item.id,
     }));
-    const categoryItemOptions = categoryItems.map((item) => ({
+
+    const categoryItemOptions = currentCategory && currentCategory.map((item) => ({
         label: item.item.name,
         value: item.item.id,
     }));
-    const selectedOptions = categoryItemOptions.filter(
+
+
+    const selectedOptions = categoryItemOptions && categoryItemOptions.filter(
         (i) => !!itemOptions.find((cItem) => cItem.value === i.value)
     );
+
+
     const [itemsSelectSearchValue, setItemsSelectSearchValue] = useState("");
-    const getCurrentCategoryItemsSaga = useSagaStore(categoryItemActions.get);
     const addItemInCategorySaga = useSagaStore(categoryItemActions.add);
     const removeItemFromCategorySaga = useSagaStore(categoryItemActions.delete);
     const itemsReorderSaga = useSagaStore(categoryItemActions.reorder);
 
 
-    useEffect(() => {
-        if (currentCategory && typeof currentCategory === "object") {
-            getCurrentCategoryItemsSaga.dispatch(category.categoryId);
-        }
-    }, [currentCategory]);
 
-    if (currentCategory === "NO_CATEGORIES") {
-        return null;
-    }
-    if (currentCategory === "NO_SElECTION") {
+    // if (currentCategory === "NO_CATEGORIES") {
+    //     return null;
+    // }
+    if (categoriesCheck === "NO_SELECTED") {
         return (
             <Container className="no-menu-items">
                 <Typography weight="bold" size="1.5rem">
@@ -81,17 +84,13 @@ export const Items = ({category, categType}) => {
         );
     }
 
-    if (!currentCategory) {
-        return <Container/>;
-    }
-
+    // if (!currentCategory) {
+    //     return <Container/>;
+    // }
+    const type =  categType === 'drinks' ? 'DRINK' : 'FOOD'
     const onCategoryItemsChange = (_options, newItem, removedItem) => {
-
         if (newItem.length) {
-            addItemInCategorySaga.dispatch(
-                currentCategory.category.id,
-                newItem[newItem.length - 1].value
-            );
+            addItemInCategorySaga.dispatch(router.query.menuId, categoryId, newItem[newItem.length - 1].value, type);
         }
         if (removedItem) {
             removeItemFromCategorySaga.dispatch(
@@ -102,24 +101,22 @@ export const Items = ({category, categType}) => {
     };
 
     const onDragEnd = (e) => {
-        const itemId = e.draggableId;
         const from = e.source.index;
         const to = e.destination ? e.destination.index : null;
-        itemsReorderSaga.dispatch(currentCategory.category.id, itemId, {from, to,});
+        itemsReorderSaga.dispatch(router.query.menuId, categoryId, type,  {from, to,});
     };
+
     const item = categoryItems.reduce((data, current) => {
         data[current.rank] = current;
         return data;
     }, []);
-
-
 
     return (
         <Container>
             <div className='choose'>
                 <div className="head">
                     <Typography className='categ-name' color="text" weight="bold">
-                        {currentCategory.category.name}
+                        {currentCategory?.category?.name}
                     </Typography>
                     <button
                         className='preview'
@@ -132,7 +129,9 @@ export const Items = ({category, categType}) => {
                     <Button
                         onClick={() =>
                             open(MODAL_NAMES.MENU_ITEM_FORM, {
-                                categoryId: currentCategory.category.id,
+                                categoryId: categoryId,
+                                menuId : rout.query.menuId,
+                                categoryType: type,
                             })
                         }
                         link
@@ -147,13 +146,11 @@ export const Items = ({category, categType}) => {
                     <Typography weight="bold" color="text" className='or'>OR</Typography>
                     <MultiSelect
                         categType={categType}
-                        categoryItems={categoryItems}
+                        categoryItems={currentCategory}
                         searchBarValue={itemsSelectSearchValue}
                         selected={selectedOptions}
                         onSearchBarValueChange={(value) => setItemsSelectSearchValue(value)}
-                        onChange={(values, newValue, removedValue) =>
-                            onCategoryItemsChange(values, newValue, removedValue)
-                        }
+                        onChange={(values, newValue, removedValue) => onCategoryItemsChange(values, newValue, removedValue)}
                         options={itemOptions}
                     />
                 </div>
@@ -163,8 +160,7 @@ export const Items = ({category, categType}) => {
                   <Loader/>
                 </div>
                 :
-
-                categoryItems.length ? (
+                currentCategory && currentCategory.length ? (
                         <DragDropContext onDragEnd={(e) => onDragEnd(e)}>
                             <Droppable droppableId="category-items-list">
                                 {(provided) => (
@@ -173,27 +169,32 @@ export const Items = ({category, categType}) => {
                                         ref={provided.innerRef}
                                         className="list"
                                     >
-                                        {categoryItems.map((categoryItem, index) => (
+                                        {currentCategory.map((categoryItem, index) => (
                                             <Draggable
                                                 key={categoryItem.item.id}
                                                 draggableId={categoryItem.item.id}
-                                                index={categoryItem.rank}
+                                                index={index}
                                             >
                                                 {(provided) => (
                                                     <ItemCard
-                                                        category={category}
+                                                        categoryId={categoryId}
+                                                        categoryType={type}
                                                         key={`${categoryItem.item.id}-${index}`}
                                                         item={categoryItem}
                                                         onRequestToEdit={() =>
                                                             open(MODAL_NAMES.MENU_ITEM_FORM, {
                                                                 categoryItem,
-                                                                category,
+                                                                currentCategory,
+                                                                menuId : rout.query.menuId,
                                                             })
                                                         }
                                                         onRequestToDelete={() =>
                                                             open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
                                                                 categoryItem,
-                                                                category,
+                                                                currentCategory,
+                                                                categoryId,
+                                                                menuId : rout.query.menuId,
+                                                                type: categType
                                                             })
                                                         }
                                                         // key={`${categoryItem.item.id}-${index}`}

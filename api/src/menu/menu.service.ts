@@ -55,9 +55,9 @@ export class MenuService {
     if (dto.tagline) menu.tagline = dto.tagline;
     if (dto.description) menu.description = dto.description;
     if (dto.image) menu.image = dto.image;
-    if (dto.removeImage) {
-      menu.image = undefined;
+    if (dto.removeImage && menu.image) {
       await this.fileService.deleteFile(dto.user.id, menu.image.id);
+      menu.image = undefined;
     }
     menu = await menu.save();
     return await this.fillMenu(menu);
@@ -101,12 +101,12 @@ export class MenuService {
   }
 
   /** Delete Menu and remove images that were with it */
-  async delete(menuId: string, ownerId: string): Promise<string> {
+  async delete(menuId: string, user: SessionDTO): Promise<string> {
     const menu = await this.model.findById(menuId);
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId.toString());
+    await this.bsnService.validateOwner(user.id, menu.businessId.toString());
     if (menu.image) {
-      await this.fileService.deleteFile(ownerId, menu.image.id);
+      await this.fileService.deleteFile(user.id, menu.image.id);
     }
     const deleted = await menu.delete();
     return deleted._id;
@@ -159,18 +159,17 @@ export class MenuService {
   }
 
   /** reorder the categories according to the orde */
-  async reorderCategories(
-    menuId: string,
-    ownerId: string,
-    dto: ReorderDTO,
-    type: CategoryType,
-  ): Promise<MenuDTO> {
+  async reorderCategories(menuId: string, type: CategoryType, dto: ReorderDTO): Promise<MenuDTO> {
     const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId);
-    const categories = this.getCategories(menu, type);
-    categories.reorder(dto.from, dto.to);
-    return await this.fillMenu(menu);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId);
+    let categories = this.getCategories(menu, type);
+    if (!categories) {
+      throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
+    }
+    categories = this.reorder(categories, dto.from, dto.to);
+    const [filledMenu] = await Promise.all([this.fillMenu(menu), menu.save()]);
+    return filledMenu;
   }
 
   /** adds an item to a category */
@@ -201,7 +200,9 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const category = this.findCategory(menu, type, catId);
+    console.log(category);
     const index = category.items.findIndex((item) => item._id.toString() === itemId);
+    console.log(index);
     if (index < 0) {
       throw new HttpException('Item was not found in this category', HttpStatus.NOT_FOUND);
     }
@@ -216,17 +217,21 @@ export class MenuService {
   /** reodred the items withing a category */
   async reorderItems(
     menuId: string,
-    ownerId: string,
     catId: string,
-    dto: ReorderDTO,
     type: CategoryType,
+    dto: ReorderDTO,
   ): Promise<MenuDTO> {
     const menu = await this.model.findOne({ _id: menuId });
     this.checkMenu(menu);
-    await this.bsnService.validateOwner(ownerId, menu.businessId);
-    const category = this.getCategories(menu, type).find((el) => el._id.toString() === catId);
-    category.items.reorder(dto.from, dto.to);
-    return await this.fillMenu(menu);
+    await this.bsnService.validateOwner(dto.user.id, menu.businessId);
+    const categories = this.getCategories(menu, type);
+    if (!categories) {
+      throw new HttpException('Category was not found', HttpStatus.BAD_REQUEST);
+    }
+    const category = categories.find((el) => el._id.toString() === catId);
+    this.reorder(category.items, dto.from, dto.to);
+    const [filledMenu] = await Promise.all([this.fillMenu(menu), menu.save()]);
+    return filledMenu;
   }
 
   /********************** Private Methods **********************/
@@ -267,8 +272,6 @@ export class MenuService {
 
   /** Returns a reference to a category array based on type from a menu */
   private getCategories(menu: IMenu, type: CategoryType): IMenuCategory[] {
-    console.log(menu);
-    console.log(type);
     if (type === CategoryType.DRINK) {
       return menu.drinks;
     } else if (type === CategoryType.FOOD) {
@@ -283,5 +286,18 @@ export class MenuService {
     const category = categories.find((cat) => cat._id.toString() === catId);
     if (!category) throw new HttpException('Category was not found ', HttpStatus.NOT_FOUND);
     return category;
+  }
+
+  /** removes the element that is in from index and inserts it in the to index */
+  private reorder(arr: any[], from: number, to: number): any[] {
+    if (from >= arr.length || from < 0) {
+      throw new HttpException('From value falls outside of the items list', HttpStatus.BAD_REQUEST);
+    }
+    if (to >= arr.length || to < 0) {
+      throw new HttpException('To value falls outside of the items list', HttpStatus.BAD_REQUEST);
+    }
+    const removed = arr.splice(from, 1);
+    arr.splice(to, 0, removed[0]);
+    return arr;
   }
 }

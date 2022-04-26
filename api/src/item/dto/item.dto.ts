@@ -12,8 +12,8 @@ export class ItemDTO {
   option?: string;
   @ApiProperty()
   price: number;
-  @ApiProperty({ type: FileDTO })
-  mainImage?: FileDTO;
+  @ApiProperty({ type: Number, required: false })
+  mainImage?: number;
   @ApiProperty({ type: [FileDTO] })
   images?: FileDTO[];
 }

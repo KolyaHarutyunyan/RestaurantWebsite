@@ -10,6 +10,9 @@ export const Container = styled.div`
       font-size: 22px;
     }
   }
+  .MuiAutocomplete-tag{
+    display: none;
+  }
   &.no-menu-items {
     display: flex;
     align-items: center;

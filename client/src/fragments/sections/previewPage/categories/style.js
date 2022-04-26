@@ -14,7 +14,8 @@ export const Container = styled.div`
     width: 100%;
     position: relative;
     background-position: top;
-    background-size: auto;
+    background-size: cover;
+    background-repeat: no-repeat ;
     background-color: white;
     border-radius: 44px 44px 0 0;
   }
@@ -27,12 +28,13 @@ export const Container = styled.div`
   }
 
   .name {
-    font-size: 16px;
+    font-size: 18px;
     margin: 39px 16px 39px 16px;
     position: absolute;
     color: white;
     font-family: Poppins, sans-serif;
     font-weight: bold;
+    text-shadow: 2px 2px black;
   }
 
   .category-border {

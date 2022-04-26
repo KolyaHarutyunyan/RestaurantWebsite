@@ -75,36 +75,21 @@ function* editMenu({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-
-  if (payload.restaurantIcons.mainIconId) {
-    let mainImageId = "";
-    try {
-      const {data} = yield call(imageService.uploadImage, payload.restaurantIcons.files.find((cFile) => cFile.id === payload.restaurantIcons.mainIconId));
-      mainImageId = data;
-    } catch (err) {
-      return;
-    }
-    try {
-      const {data} = yield call(menusService.editMenu, {...payload, mainImage: mainImageId,});
-      yield put({
-        type: EDIT_MENU_SUCCESS,
-        payload: data,
-      });
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnErrorsActions.removeError(type));
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (e) {
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-      yield put(httpRequestsOnErrorsActions.appendError(type));
-    }
-  } else {
     try {
       const {data} = yield call(menusService.editMenu, payload);
-      yield put({
-        type: EDIT_MENU_SUCCESS,
-        payload: data,
-      });
+      if(payload.current === 'current') {
+        const { data } = yield call(menusService.getCurrentMenu, payload.id);
+        yield put({
+          type: GET_CURRENT_MENU,
+          payload: payload.id,
+        });
+      }else{
+        const res = yield call(menusService.getMenusByBusiness, payload.businessId);
+        yield put({
+          type: EDIT_MENU_SUCCESS,
+          payload: res.data,
+        });
+      }
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnErrorsActions.removeError(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));
@@ -113,41 +98,17 @@ function* editMenu({ payload, type }) {
       yield put(httpRequestsOnSuccessActions.removeSuccess(type));
       yield put(httpRequestsOnErrorsActions.appendError(type));
     }
-  }
 }
 
 function* createMenu({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-  if (payload.restaurantIcons.mainIconId) {
-    let mainImageId = "";
-    try {
-      const { data } = yield call(imageService.uploadImage, payload.restaurantIcons.files.find((cFile) => cFile.id === payload.restaurantIcons.mainIconId));
-      mainImageId = data;
-    } catch (err) {
-      return;
-    }
-    try {
-      const { data } = yield call(menusService.createMenu, {...payload, mainImage: mainImageId,});
-      yield put({
-        type: CREATE_MENU_SUCCESS,
-        payload: data,
-      });
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-      yield put(httpRequestsOnErrorsActions.removeError(type));
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-    } catch (err) {
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-      yield put(httpRequestsOnErrorsActions.appendError(type));
-    }
-  } else {
     try {
       const { data } = yield call(menusService.createMenu, payload);
       yield put({
-        type: CREATE_MENU_SUCCESS,
-        payload: data,
+        type: GET_MENUS,
+        payload: payload.businessId,
       });
       yield put(httpRequestsOnErrorsActions.removeError(type));
       yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -157,7 +118,6 @@ function* createMenu({ type, payload }) {
       yield put(httpRequestsOnSuccessActions.removeSuccess(type));
       yield put(httpRequestsOnErrorsActions.appendError(type));
     }
-  }
 }
 
 function* switchMenuStatus({ type, payload }) {
@@ -180,15 +140,25 @@ function* switchMenuStatus({ type, payload }) {
   }
 }
 
-function* getCurrentMenu({ payload }) {
+function* getCurrentMenu({ payload, type }) {
+  if(payload.load !== 'noLoad') {
+  // yield put(httpRequestsOnErrorsActions.removeError(type));
+  // yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  // yield put(httpRequestsOnLoadActions.appendLoading(type));
+  }
   try {
     const { data } = yield call(menusService.getCurrentMenu, payload);
     yield put({
       type: GET_CURRENT_MENU_SUCCESS,
       payload: data,
     });
-  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
 
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
   }
 }
 

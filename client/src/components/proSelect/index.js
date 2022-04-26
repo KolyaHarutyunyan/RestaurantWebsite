@@ -113,7 +113,7 @@ export const ProSelect = ({
               setDropDownOpen(true);
             }}
             onClick={(e) => e.stopPropagation()}
-            placeholder={current.label ? current.label : "Select/Create Category"}
+            placeholder={current.label ? current.label : "Create Category"}
             onChange={({ target: { value } }) => onSearchBarValueChange(value)}
             {...searchBarAttrs}
           />

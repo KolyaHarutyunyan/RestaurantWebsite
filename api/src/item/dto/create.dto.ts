@@ -16,8 +16,8 @@ export class CreateItemDTO {
   price?: number;
   @ApiProperty({ required: false })
   option?: string;
-  @ApiProperty({ type: FileDTO, required: false })
-  mainImage?: FileDTO;
+  @ApiProperty({ type: Number, required: false })
+  mainImage?: number;
   @ApiProperty({ type: [FileDTO], required: false })
   images?: FileDTO[];
   @ApiProperty()

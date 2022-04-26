@@ -10,6 +10,11 @@ export const Container = styled.div`
     ${({ isDragActive }) => (isDragActive ? "#007aff" : "#2b273c80")};
   border-radius: 8px;
   padding: 16px;
+  .uploaded-files-many{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
   .limit-reached-container {
     display: flex;
     align-items: center;
