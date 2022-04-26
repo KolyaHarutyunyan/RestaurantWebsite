@@ -101,7 +101,6 @@ function* getCurrentBusiness({ payload, type }) {
     const { data } = yield call(businessesService.getMyBusiness, payload);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
-    console.log(data,'datadatadatadatadata')
     yield put({
       type: GET_CURRENT_BUSINESS_SUCCESS,
       payload: data || {},

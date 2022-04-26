@@ -107,18 +107,18 @@ export const Categories = ({ value, onChange, currentMenu }) => {
           <Tabs.TabTitle tabName="drinks">Drinks</Tabs.TabTitle>
         </Tabs.TabHeader>
         <div className="select-create-category">
-          <div className="select-wrapper">
 
-           <form autoComplete="off">
+          <div className="select-wrapper">
 
              <Input
                  className='select-input'
+                 type={'no'}
                  variant='outlined'
                  value={categoriesSelectValue}
                  placeholder={'Create Category'}
                  onChange={(ev) => {setCategoriesSelectValue(ev.target.value);}}
              />
-           </form>
+
           </div>
           <Button
               height={'48px'}

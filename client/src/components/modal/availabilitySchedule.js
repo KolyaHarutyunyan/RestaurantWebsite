@@ -16,8 +16,8 @@ export const AvailabilitySchedule = ({ availabilityData, handleGetTimes, handleG
     const [times, setTime] = useState(
         availabilityData && Object.keys(availabilityData).length !== 0
             ? availabilityData
-            : width.width < 1240
-            ? {
+            :
+            {
                 monday: [],
                 tuesday: [],
                 wednesday: [],
@@ -26,15 +26,7 @@ export const AvailabilitySchedule = ({ availabilityData, handleGetTimes, handleG
                 saturday: [],
                 sunday: [],
             }
-            : {
-                monday: [],
-                friday: [],
-                tuesday: [],
-                saturday: [],
-                wednesday: [],
-                sunday: [],
-                thursday: [],
-            }
+
     );
 
     const shortDayNames = (name) => {
