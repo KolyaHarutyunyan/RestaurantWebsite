@@ -33,6 +33,7 @@ export class AuthController {
 
   /** Forgot Password */
   @Get('forgotPassword/:email')
+  @Public()
   async forgotPassword(@Param('email') email: string) {
     const emailedResponse = await this.authService.forgotPassword(email);
     return emailedResponse;
