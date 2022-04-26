@@ -89,6 +89,7 @@ export const MultiSelect = ({
         const isOptionSelected = !!selected.find(
             (sOpt) => sOpt.value === option.value
         );
+
         if (isOptionSelected) {
             onChange(
                 selected.filter((sOpt) => sOpt.value !== option.value),
