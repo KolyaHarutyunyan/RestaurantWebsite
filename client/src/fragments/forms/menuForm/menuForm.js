@@ -69,9 +69,11 @@ export const MenuForm = () => {
     );
 
     const onSubmit = async (data) => {
-        const upload = imgPush && await ImgUploader([imgPush]).then(res => res)
+        const upload = imgPush &&  imgPush !== 'delete' && await ImgUploader([imgPush]).then(res => res)
         const info = {...data}
         upload ? info.image = upload : ''
+        imgPush === 'delete' ? info.removeImage = true : ''
+
         if (editableMenu) {
             editMenuSaga.dispatch({
                 ...info,
@@ -104,19 +106,7 @@ export const MenuForm = () => {
 
     const handleRemoveImage = () => {
         setImg('')
-        setImgPush('')
-
-        if (editableMenu.image) {
-            const info = {
-                removeImage: true,
-            }
-            editMenuSaga.dispatch({
-                ...info,
-                id: editableMenu.id,
-                businessId: business.id,
-                current: params?.current ? 'current' : ''
-            })
-        }
+        setImgPush('delete')
     }
 
     return (

@@ -32,8 +32,6 @@ export const MenuItemForm = () => {
     const [imgPush, setImgPush] = useState([]);
     const [index, setIndex] = useState(0)
 
-    console.log(img,'imgimgimg')
-
     const handleChangePrice = (ev) => {
         setPrice(ev.target.value)
     }

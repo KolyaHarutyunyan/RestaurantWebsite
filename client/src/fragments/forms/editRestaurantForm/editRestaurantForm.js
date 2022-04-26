@@ -28,11 +28,11 @@ export const EditRestaurantForm = () => {
     );
 
     const onSubmit = async (info) => {
-        const images = imgPush && await ImgUploader([imgPush]).then(res => res)
+        const images = imgPush && imgPush !== 'delete' && await ImgUploader([imgPush]).then(res => res)
         const editDate = {...info}
         images ? editDate.logo = images : ''
+        imgPush === 'delete' ? editDate.removeLogo = true : ''
         editBusiness.dispatch({...editDate, id: params.business.id,})
-
     };
 
     useEffect(() => () => destroy.all(), []);
@@ -71,12 +71,7 @@ export const EditRestaurantForm = () => {
 
     const handleRemoveImage = () => {
         setImg('')
-        setImgPush('')
-        if (params.business.logo) {
-            axios.patch(`/businesses/${params.business.id}`, {removeLogo: true}, {auth: true}).then(() => {
-                getBusinessesSaga.dispatch();
-            })
-        }
+        setImgPush('delete')
     }
 
     return (

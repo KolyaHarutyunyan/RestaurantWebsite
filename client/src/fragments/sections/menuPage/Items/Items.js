@@ -17,7 +17,7 @@ import {CircularProgress} from "@material-ui/core";
 
 export const Items = ({currentCategory, categType, categoryId, categoriesCheck, currentMenu}) => {
 
-    const {httpOnLoad,} = useSelector((state) => ({
+    const { httpOnLoad } = useSelector((state) => ({
         httpOnLoad: state.httpOnLoad,
     }));
 
@@ -27,7 +27,6 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
         httpOnLoad.length && httpOnLoad[0] === 'ADD_CATEGORY_ITEM' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'REORDER_CATEGORY_ITEM' ? true :
         httpOnLoad.length && httpOnLoad[0] === 'CREATE_CATEGORY_ITEM'
-
 
     const { open } = useModal();
     const router = useRouter();
@@ -54,13 +53,17 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
         value: item.id,
     }));
 
-    const categoryItemOptions = categoryItems.map((item) => ({
+    const categoryItemOptions = currentCategory && currentCategory.map((item) => ({
         label: item.item.name,
         value: item.item.id,
     }));
-    const selectedOptions = categoryItemOptions.filter(
+
+
+    const selectedOptions = categoryItemOptions && categoryItemOptions.filter(
         (i) => !!itemOptions.find((cItem) => cItem.value === i.value)
     );
+
+
     const [itemsSelectSearchValue, setItemsSelectSearchValue] = useState("");
     const addItemInCategorySaga = useSagaStore(categoryItemActions.add);
     const removeItemFromCategorySaga = useSagaStore(categoryItemActions.delete);
@@ -84,13 +87,10 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
     // if (!currentCategory) {
     //     return <Container/>;
     // }
-
+    const type =  categType === 'drinks' ? 'DRINK' : 'FOOD'
     const onCategoryItemsChange = (_options, newItem, removedItem) => {
         if (newItem.length) {
-            addItemInCategorySaga.dispatch(
-                categoryId,
-                newItem[newItem.length - 1].value
-            );
+            addItemInCategorySaga.dispatch(router.query.menuId, categoryId, newItem[newItem.length - 1].value, type);
         }
         if (removedItem) {
             removeItemFromCategorySaga.dispatch(
@@ -99,7 +99,7 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
             );
         }
     };
-    const type =  categType === 'drinks' ? 'DRINK' : 'FOOD'
+
     const onDragEnd = (e) => {
         const from = e.source.index;
         const to = e.destination ? e.destination.index : null;
@@ -146,13 +146,11 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
                     <Typography weight="bold" color="text" className='or'>OR</Typography>
                     <MultiSelect
                         categType={categType}
-                        categoryItems={categoryItems}
+                        categoryItems={currentCategory}
                         searchBarValue={itemsSelectSearchValue}
                         selected={selectedOptions}
                         onSearchBarValueChange={(value) => setItemsSelectSearchValue(value)}
-                        onChange={(values, newValue, removedValue) =>
-                            onCategoryItemsChange(values, newValue, removedValue)
-                        }
+                        onChange={(values, newValue, removedValue) => onCategoryItemsChange(values, newValue, removedValue)}
                         options={itemOptions}
                     />
                 </div>

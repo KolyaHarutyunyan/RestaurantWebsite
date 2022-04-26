@@ -36,7 +36,6 @@ export const ActiveMenuSection = ({}) => {
         setModalInfo(info ? info : '')
     }
 
-    console.log(menus,'menusmenusmenus')
     return (
 
         <LazyLoad loaded={loaded}>
