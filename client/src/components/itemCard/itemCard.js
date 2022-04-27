@@ -32,19 +32,9 @@ export const ItemCard = forwardRef(
               <Typography className='item-title' color="text" weight="bold">
                 <SlicedText type={'name'} size={15} data={item && item.item.name}/>
               </Typography>
-
-              <HtmlTooltip title={item &&  item.item.description && item.item.description.length > 50 ?
-                  <ToolTipScreen
-                      name={item.item.name}
-                      desc={item && item.item.description && item.item.description }
-                      sub={item.item.option}
-                  />
-                  : ''} placement="top-end">
               <Typography className="poor" color="text">
                 <SlicedText type={'desc'} size={30} data={item && item.item.description}/>
               </Typography>
-              </HtmlTooltip>
-
             </div>
             <Typography color="text" className="price"  weight="bold">
               <b>$</b>

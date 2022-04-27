@@ -72,6 +72,10 @@ export const RestaurantPageSections = () => {
       // element.click();
   }
 
+  const phone =business.phoneNumber  ?
+      `${business.phoneNumber.slice(0,1)}(${business.phoneNumber.slice(1,4)})${business.phoneNumber.slice(4,7)}-${business.phoneNumber.slice(7)}`
+      : "Not Set"
+
   return (
       <div style={{ background: 'linear-gradient(to bottom,#ffffff,#fdfdfd,#fafafb,#f8f8f8,#f6f5f6,#f5f3f5,#f4f2f3,#f3f0f2,#f2eff1,#f1eef0,#f0edef,#efecee)'}}>
       <Container className="container">
@@ -92,6 +96,7 @@ export const RestaurantPageSections = () => {
           <div className="business-card">
             <div className="header">
               <Typography className="title" color="text" weight="bold">
+              <div className='image-wrapper'>
                 {business.logo ? (
                   <span
                     style={{backgroundImage: `url(${business.logo.url})`,}}
@@ -102,7 +107,8 @@ export const RestaurantPageSections = () => {
                 <Icons.BuildingIcon/>
                </div>
                 }
-             <span className='restaurant-name'> { business.name}</span>
+              </div>
+             <span className='restaurant-name'> { business.name }</span>
               </Typography>
               <div>
                 <SmallButton
@@ -134,7 +140,7 @@ export const RestaurantPageSections = () => {
                 <div className="icon">
                   <Icons.CallIcon />
                 </div>
-                <p className={business.phoneNumber  ?  classes.value : classes.valueNotSet}>{business.phoneNumber || "Not Set"}</p>
+                <p className={business.phoneNumber  ?  classes.value : classes.valueNotSet}>{phone}</p>
               </li>
               <li>
                 <div className="icon">

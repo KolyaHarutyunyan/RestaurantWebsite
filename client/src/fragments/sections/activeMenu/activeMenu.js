@@ -68,7 +68,6 @@ export const ActiveMenuSection = ({}) => {
                             </div>
 
                             <div className='category-border'/>
-
                             <div className={scrollPos.y === 0 ? 'menu-body' : ''}>
                                 {menus.food && menus.food.length && menus.food.map((item, key) => (item.items.length > 0 &&
                                     <div>
@@ -86,33 +85,20 @@ export const ActiveMenuSection = ({}) => {
                                                                 <div className='no-image'><Icons.FoodIcon/></div>
                                                             }
                                                         </div>
-                                                        <HtmlTooltip title={item?.item?.description?.length > 40 ?
-                                                            <ToolTipScreen
-                                                                name={item.item.name}
-                                                                desc={item.item.description}
-                                                                sub={item.item.option}
-                                                            />
-                                                            : ''} placement="top-center">
                                                             <div className='card-info'>
                                                                 <div className='title'>
                                                                     <SlicedText type={'nameQr'} size={10} data={item.item.name}/>
-
                                                                     {/*<p>{item.item.name}</p>*/}
                                                                     <p>{`$${item.item.price.toString().search("\\.") === -1 ?
                                                                         `${item.item.price}.00`
                                                                         : item.item.price
                                                                     }`}</p>
                                                                 </div>
-
-
                                                                 <p className='desc' color="text">
                                                                     {item?.item?.description?.length > 40 ? `${item.item.description.slice(0, 40)}...` : item?.item?.description}
                                                                 </p>
-
                                                                 <p className='optional'>{item?.item?.option}</p>
-
                                                             </div>
-                                                        </HtmlTooltip>
                                                     </div>
                                                 ))}
                                             </div>
@@ -164,13 +150,6 @@ export const ActiveMenuSection = ({}) => {
                                                                 <div className='no-image'><Icons.DrinkIcon/></div>
                                                             }
                                                         </div>
-                                                        <HtmlTooltip title={item?.item?.description?.length > 20 ?
-                                                            <ToolTipScreen
-                                                                name={item.item.name}
-                                                                desc={item.item.description}
-                                                                sub={item.item.option}
-                                                            />
-                                                            : ''} placement="top-end">
                                                             <div className='card-info'>
 
                                                                 <div className='title'>
@@ -185,12 +164,8 @@ export const ActiveMenuSection = ({}) => {
                                                                 <p className='desc' color="text">
                                                                     {item?.item?.description?.length > 20 ? `${item.item.description.slice(0, 20)}...` : item?.item?.description}
                                                                 </p>
-
                                                                 <p className='optional'>{item.item.option}</p>
-
                                                             </div>
-                                                        </HtmlTooltip>
-
                                                     </div>
                                                 ))}
                                             </div>

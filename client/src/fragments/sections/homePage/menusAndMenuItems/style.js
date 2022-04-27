@@ -167,9 +167,11 @@ export const Container = styled.div`
     gap: 50px 100px;
     margin-top: 60px;
     overflow: auto;
+    outline: none!important;
     li {
      
       &:nth-child(1) {
+        outline: none!important;
         transform: scale(0.7);
       }
       

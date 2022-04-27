@@ -71,7 +71,7 @@ export const Container = styled.div`
     margin-top: 13px;
     font-size: 16px;
     background: none;
-    color: #007AFF;
+    color: #2B273C80;
     font-weight: normal;
     @media (max-width: 767px) {
       font-size: 14px;

@@ -76,23 +76,23 @@ export const SignInForm = () => {
       </Button>
 
       <div className="divider-or" />
-      <Typography color="text" className="social-text">
-        Sign in with your social media account
-      </Typography>
-      <div className="social">
-          <Fab  onClick={() => handleSignUp('google')} className="icons">
-            <Icons.GoogleIcon />
-          </Fab>
-          <Fab onClick={() => handleSignUp('facebook')}  className="icons">
-            <Icons.FaceBookIcon />
-          </Fab>
-        {/*<Fab  className="icons">*/}
-        {/*  <Icons.TwitterIcon />*/}
-        {/*</Fab>*/}
-          <Fab onClick={() => handleSignUp('apple')} className="apple">
-            <Icons.AppleIcon />
-          </Fab>
-      </div>
+
+
+      {/*<Typography color="text" className="social-text">*/}
+      {/*  Sign in with your social media account*/}
+      {/*</Typography>*/}
+      {/*<div className="social">*/}
+      {/*    <Fab  onClick={() => handleSignUp('google')} className="icons">*/}
+      {/*      <Icons.GoogleIcon />*/}
+      {/*    </Fab>*/}
+      {/*    <Fab onClick={() => handleSignUp('facebook')}  className="icons">*/}
+      {/*      <Icons.FaceBookIcon />*/}
+      {/*    </Fab>*/}
+      {/*    <Fab onClick={() => handleSignUp('apple')} className="apple">*/}
+      {/*      <Icons.AppleIcon />*/}
+      {/*    </Fab>*/}
+      {/*</div>*/}
+
       <Button
         className="sign-up-button"
         color="action"
@@ -100,7 +100,7 @@ export const SignInForm = () => {
         link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
-        Doesn't have an account? Sign Up
+        Don't have an account? Sign Up
       </Button>
     </Container>
   );
