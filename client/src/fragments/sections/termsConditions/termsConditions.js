@@ -207,6 +207,7 @@ export const TermsConditionsSection = () => {
 
         <Container>
             <p>
+                <p className='boldTitle'>Terms & Conditions of www.menumango.com</p><br/>
                 <p className='title'>Site Availability</p><br/>
 
                 All reasonable measures are taken by our team to maintain and keep the site up and running, however some

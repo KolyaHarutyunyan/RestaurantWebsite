@@ -95,38 +95,41 @@ export const Container = styled.div`
         padding: 24px 16px 24px 16px;
       }
       .restaurant-name{
-        overflow:hidden;
-        white-space:nowrap;
-        text-overflow:ellipsis;
+        //overflow:hidden;
+        //white-space:nowrap;
+        //text-overflow:ellipsis;
+        //width: auto;
+        //max-width: 500px;
+        margin-right: 5px;
         @media (min-width: 320px) {
           font-size: 16px;
-          width:80px;
+          //width:80px;
           margin-left: 8px;
         }
-        @media (min-width: 370px) {
-          font-size: 16px;
-          width:100px;
-          margin-left: 8px;
-        }
-        @media (min-width: 420px) {
-          font-size: 16px;
-          width:150px;
-          margin-left: 8px;
-        }
+        //@media (min-width: 370px) {
+        //  font-size: 16px;
+        //  max-width: 150px;
+          //margin-left: 8px;
+        //}
+        //@media (min-width: 420px) {
+        //  font-size: 16px;
+        //  max-width: 200px;
+          //margin-left: 8px;
+        //}
         @media (min-width: 767px) {
           font-size: 32px;
-          width:200px;
+          //max-width: 350px;
           margin-left: 8px;
         }
-        @media (min-width: 1279px) {
-          font-size: 32px;
-          width:250px;
-          margin-left: 16px;
-        }
+        //@media (min-width: 1279px) {
+        //  font-size: 32px;
+        //  max-width: 400px;
+          //margin-left: 16px;
+        //}
         @media (min-width: 1920px) {
           font-size: 32px;
           margin-left: 24px;
-          width:400px;
+          //max-width: 500px;
         }
       }
       .restaurant-name-mini{
@@ -191,6 +194,10 @@ export const Container = styled.div`
           }
         }
       }
+    .image-wrapper {
+      width: 80px;
+      height: 80px;
+    }
       .classes-no-image{
         width: 80px;
         height: 80px;

@@ -60,8 +60,9 @@ export const Categories = () => {
                                             item.items.length && item.items.map((item, key) => (
                                                 <div key={key} className='category-card'>
                                                     <div>
-                                                        { item.item.images.length && item.item.mainImage ?
-                                                            <img src={item.item.images[item.item.mainImage].url} alt="icon"/>
+                                                        {item.item.images.length && item.item.mainImage ?
+                                                            <img src={item.item.images[item.item.mainImage].url}
+                                                                 alt="icon"/>
                                                             :
                                                             <div className='no-image-icon'><Icons.FoodIcon/></div>
                                                         }
@@ -75,17 +76,9 @@ export const Categories = () => {
                                                                 : item.item.price
                                                             }`}</p>
                                                         </div>
-                                                        <HtmlTooltip title={item.item?.description.length > 40 ?
-                                                            <ToolTipScreen
-                                                                name={item.item.name}
-                                                                desc={item.item?.description}
-                                                                sub={item.item?.option}
-                                                            />
-                                                            : ''} placement="top-end">
-                                                            <p style={{width: '250px'}} className='desc' color="text">
-                                                                {item.item?.description.length > 40 ? `${item.item?.description.slice(0, 40)}...` : item.item?.description}
-                                                            </p>
-                                                        </HtmlTooltip>
+                                                        <p style={{width: '250px'}} className='desc' color="text">
+                                                            {item.item?.description?.length > 40 ? `${item.item?.description?.slice(0, 40)}...` : item?.item?.description}
+                                                        </p>
                                                         <div className='optional'>
                                                             <SlicedText type={'option'} size={10}
                                                                         data={item && item.item.option}/>
@@ -115,8 +108,9 @@ export const Categories = () => {
                                             item.items.length && item.items.map((it, key) => (
                                                 <div key={key} className='category-card'>
                                                     <div>
-                                                        { it.item.images.length && it.item.mainImage ?
-                                                            <img src={it.item?.images[it.item.mainImage]?.url} alt="icon"/>
+                                                        {it.item.images.length && it.item.mainImage ?
+                                                            <img src={it.item?.images[it.item.mainImage]?.url}
+                                                                 alt="icon"/>
                                                             :
                                                             <div className='no-image-icon'><Icons.FoodIcon/></div>
                                                         }
@@ -130,17 +124,9 @@ export const Categories = () => {
                                                                 : it.item.price
                                                             }`}</p>
                                                         </div>
-                                                        <HtmlTooltip title={it.item?.description?.length > 40 ?
-                                                            <ToolTipScreen
-                                                                name={it.item.name}
-                                                                desc={it.item?.description}
-                                                                sub={it.item?.option}
-                                                            />
-                                                            : ''} placement="top-end">
-                                                            <p style={{width: '250px'}} className='desc' color="text">
-                                                                {it.item?.description?.length > 40 ? `${it.item?.description.slice(0, 40)}...` : it.item?.description}
-                                                            </p>
-                                                        </HtmlTooltip>
+                                                        <p style={{width: '250px'}} className='desc' color="text">
+                                                            {it.item?.description?.length > 40 ? `${it.item?.description.slice(0, 40)}...` : it.item?.description}
+                                                        </p>
                                                         <div className='optional'>
                                                             <SlicedText type={'option'} size={10} data={it && it?.item?.option}/>
                                                         </div>

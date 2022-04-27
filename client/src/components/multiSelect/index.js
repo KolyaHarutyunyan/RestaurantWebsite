@@ -9,6 +9,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import {inputsStyle} from "./uiStyles";
+import {AiOutlinePlus} from "react-icons/ai";
 
 export const MultiSelect = ({
                                 selected = [],
@@ -139,12 +140,17 @@ export const MultiSelect = ({
                         getOptionLabel={(option) => option.label}
                         renderOption={(option, {selected}) => (
                             <React.Fragment>
-                                <Checkbox
-                                    icon={icon}
-                                    checkedIcon={checkedIcon}
-                                    style={{marginRight: 8}}
-                                    checked={selected}
-                                />
+
+                                <div className={classes.addItemIcon}>
+                                    <AiOutlinePlus/>
+                                </div>
+
+                                {/*<Checkbox*/}
+                                {/*    icon={icon}*/}
+                                {/*    checkedIcon={checkedIcon}*/}
+                                {/*    style={{marginRight: 8}}*/}
+                                {/*    checked={selected}*/}
+                                {/*/>*/}
                                 {option.label}
                             </React.Fragment>
                         )}
@@ -158,7 +164,7 @@ export const MultiSelect = ({
                                 className={classes.inputTextFieldAutoHeight}
 
                                 variant="outlined"
-                                label={'Choose from the list'}
+                                label={'Add existing menu item'}
                                 // placeholder={'Choose from the list'}
                             />
                         )}

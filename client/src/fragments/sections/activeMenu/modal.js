@@ -35,7 +35,7 @@ export const Modal = ({info, modalType}) => {
                 }
                 {info.option ?
                     <>
-                        <p style={{color: '#54C762'}} className='title'>Option</p>
+                        <p style={{color: '#2B273C80'}} className='title'>Option</p>
                         <p>{info.option}</p>
                     </>
                     :
