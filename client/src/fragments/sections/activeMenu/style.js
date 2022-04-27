@@ -60,8 +60,9 @@ export const Container = styled.div`
     width: 100%;
     overflow: auto;
     margin: 32px 0 -2px 0;
-    display: flex;
+    display: -webkit-box;
   }
+  
   .passive-category{
     @media (max-width: 767px) {
       font-size: 16px;
@@ -197,13 +198,14 @@ export const Container = styled.div`
 export const ModalContainer = styled.div`
   height: 550px;
   max-width: 768px;
+  overflow: auto;
   border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0 ;
   background: white;
-  padding: 24px 15px;
+  padding: 16px 15px;
   .no-image{
-    width: 110px;
-    height: 110px;
+    width: 100%;
+    height: 270px;
     object-fit: cover;
     border-radius: 8px;
     background: #0000001A;
@@ -211,8 +213,8 @@ export const ModalContainer = styled.div`
     justify-content: center;
     align-items: center;
     svg{
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
   }
   .title{
@@ -222,8 +224,26 @@ export const ModalContainer = styled.div`
   }
   .priceName{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    
+    p{
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: bold;
+      color: #2B273C;
+    }
   }
+  
+  .option-style{
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: normal;
+    color: #54C762;
+    margin-top: 8px;
+  }
+  
   .image-name{
     display: flex;
     align-items: center;
@@ -231,20 +251,35 @@ export const ModalContainer = styled.div`
       margin-left: 16px;
       font-size: 18px;
       font-weight: bold;
-     margin-bottom: 5px;
-     
+      margin-bottom: 5px;
     }
   }
   .image{
-    width: 110px;
-    height: 110px;
+    width: 343px;
+    height: 270px;
     object-fit: cover;
     border-radius: 15px;
+    //padding: 10px 10px 0 10px;
   }
-  .body{
-    height: 300px;
+  
+  .description-title{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #2B273C;
+    margin: 8px 0;
+  }
+  
+  .description-text{
+    height: 80px;
     overflow: auto;
   }
+  
+  .option-text{
+    height: 50px;
+    overflow: auto;
+  }
+  
   .line-class{
     width: 100%;
     display: flex;
