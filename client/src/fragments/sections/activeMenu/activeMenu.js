@@ -38,7 +38,7 @@ export const ActiveMenuSection = ({}) => {
 
     return (
 
-        <LazyLoad loaded={loaded}>
+        <LazyLoad loaded={loaded} smallIcon={true}>
             <Container>
                 <Tabs.Wrapper
                     activeTab={activeTab}

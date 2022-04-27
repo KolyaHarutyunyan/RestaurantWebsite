@@ -2,12 +2,16 @@ import { Container } from "./style";
 import { Typography } from "@eachbase/components";
 import { Icons } from "@eachbase/theme";
 
-export const LazyLoad = ({ loaded = false, children }) => {
+export const LazyLoad = ({ loaded = false, children, smallIcon }) => {
   return (
     <Container loaded={loaded}>
       {children}
       <div className={`loader ${loaded ? "hide" : "show"}`}>
-        <Icons.LogoIcon />
+          {smallIcon === true?
+              <Icons.SmallIcon/>
+              :
+              <Icons.LogoIcon/>
+          }
         {/*<Typography>Menuz</Typography>*/}
       </div>
     </Container>
