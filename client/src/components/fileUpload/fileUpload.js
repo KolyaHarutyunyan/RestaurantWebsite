@@ -86,11 +86,13 @@ export const FileUpload = ({
                     )) : ''}
 
                     {many !== true && url &&
+
                     <BoxImagePreview
                         main
                         url={url?.url}
                         onRequestToRemove={handleRemove}
                     />
+
                     }
 
                     {many === true ?
