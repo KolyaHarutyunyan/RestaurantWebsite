@@ -101,7 +101,7 @@ export const SignUpForm = () => {
                 fullWidth
                 onClick={() => open(MODAL_NAMES.SIGN_IN)}
             >
-                Already have an account? Sign In
+                Already have an account? <span style={{color:'#007AFF'}}>Sign In</span>
             </Button>
 
             <div className='term-of-use'>

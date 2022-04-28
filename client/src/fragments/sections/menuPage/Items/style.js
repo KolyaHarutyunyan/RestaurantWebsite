@@ -10,9 +10,18 @@ export const Container = styled.div`
       font-size: 22px;
     }
   }
+  
   .MuiAutocomplete-tag{
     display: none;
   }
+  
+  .or-style{
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #2B273C;
+  }
+  
   &.no-menu-items {
     display: flex;
     align-items: center;

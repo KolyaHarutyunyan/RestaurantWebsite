@@ -15,7 +15,7 @@ import {
   CREATE_BUSINESS,
   CREATE_BUSINESS_SUCCESS,
   GET_CURRENT_BUSINESS,
-  GET_CURRENT_BUSINESS_SUCCESS,
+  GET_CURRENT_BUSINESS_SUCCESS, GET_BUSINESS_BY_ID_SUCCESS, GET_BUSINESS_BY_ID,
 } from "./businesses.types";
 
 function* getMyBusiness({ type }) {
@@ -112,10 +112,30 @@ function* getCurrentBusiness({ payload, type }) {
   }
 }
 
+function* getBusinessById({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    const { data } = yield call(businessesService.getBusinessById, payload);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put({
+      type: GET_BUSINESS_BY_ID_SUCCESS,
+      payload: data,
+    });
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
+}
+
 export const watchBusinesses = function* watchBusinesses() {
   yield takeLatest(CREATE_BUSINESS, createBusiness);
   yield takeLatest(GET_MY_BUSINESS, getMyBusiness);
   yield takeLatest(EDIT_BUSINESS, editBusiness);
   yield takeLatest(DELETE_BUSINESS, deleteBusiness);
   yield takeLatest(GET_CURRENT_BUSINESS, getCurrentBusiness);
+  yield takeLatest(GET_BUSINESS_BY_ID, getBusinessById);
 };

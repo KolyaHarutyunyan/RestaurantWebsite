@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   text-align: center;
+
+  .slider-slide {
+    :focus {outline: none;}
+  }
   .g-title {
     text-align: center;
     font-family: Poppins,sans-serif;
@@ -13,6 +17,7 @@ export const Container = styled.div`
       margin-bottom: 30px;
     }
   }
+
   
   .carousel-desktop-mini {
     @media (min-width: 320px) {
@@ -27,6 +32,7 @@ export const Container = styled.div`
     @media (min-width: 1919px) {
       display: none;
     }
+    
   }
   .carousel-desktop{
     @media (min-width: 320px) {
