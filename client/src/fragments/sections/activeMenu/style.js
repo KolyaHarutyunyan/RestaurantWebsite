@@ -9,6 +9,7 @@ export const Container = styled.div`
     @media (max-width: 767px) {
       height: 100px;
     }
+    background: red;
     height: 204px;
     margin: 0 auto;
     width: 100%;
@@ -19,7 +20,7 @@ export const Container = styled.div`
     
     //background-position: top;
     //background-size: auto;
-    background-color: white;
+    //background-color: white;
   }
   .category-active{
     @media (max-width: 767px) {
@@ -31,14 +32,15 @@ export const Container = styled.div`
   .name{
     @media (max-width: 767px) {
       font-size: 16px;
-      margin: 39px 16px 39px 16px
+      //margin: 39px 16px 39px 16px
     }
-    position: absolute;
-    color: white; 
+    //position: absolute;
+    color: black; 
     font-size: 28px;
+    margin-left: 12px;
     font-family: Poppins,sans-serif;
     font-weight: bold;
-    margin: 83px 0 83px 40px;
+    //margin: 83px 0 83px 40px;
   }
   .category-border{
     //margin-top: 143px;
@@ -54,33 +56,65 @@ export const Container = styled.div`
   .menu-category{
     border-bottom: 2px solid #2B273C1A;
     @media (max-width: 767px) {
-      margin: 24px 0 -2px 0;
+      margin: 20px 0 -2px 0;
     }
     background: white;
     width: 100%;
     overflow: auto;
-    margin: 32px 0 -2px 0;
-    display: flex;
+    margin: 24px 0 -2px 0;
+    display: -webkit-box;
   }
+  
+  .icon-title-wrapper{
+    display: flex;
+    height:115px;
+    align-items:center;
+    margin-left:12px
+  }
+  
+  .business-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 40px;
+    object-fit: cover;
+  }
+  
+  .building-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 40px;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0000002a;
+    svg{
+      width: 45px;
+      height: 45px;
+    }
+  }
+  
   .passive-category{
     @media (max-width: 767px) {
       font-size: 16px;
-      padding: 0 23px;
+      padding: 0 23px 12px 23px;
     }
-    padding: 0 32px;
+    padding: 0 32px 12px 32px;
     font-size: 20px;
     color: #2B273C80;
     font-family: Open Sans, sans-serif;
     margin-bottom: 10px;
     font-weight: 600;
   }  
- 
+ .active-category-wrapper{
+   padding-bottom: 10px;
+ }
   .active-category{
     @media (max-width: 767px) {
       font-size: 16px;
-      padding: 0 23px;
+      padding: 0 23px 12px 23px;
     }
-    padding: 0 32px;
+    padding: 0 23px 12px 23px;
     font-size: 20px;
     color: #2B273C;
     font-family: Open Sans, sans-serif;
@@ -197,13 +231,14 @@ export const Container = styled.div`
 export const ModalContainer = styled.div`
   height: 550px;
   max-width: 768px;
+  overflow: auto;
   border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0 ;
   background: white;
-  padding: 24px 15px;
+  padding: 16px 15px;
   .no-image{
-    width: 110px;
-    height: 110px;
+    width: 100%;
+    height: 270px;
     object-fit: cover;
     border-radius: 8px;
     background: #0000001A;
@@ -211,8 +246,8 @@ export const ModalContainer = styled.div`
     justify-content: center;
     align-items: center;
     svg{
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
   }
   .title{
@@ -222,8 +257,26 @@ export const ModalContainer = styled.div`
   }
   .priceName{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    
+    p{
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: bold;
+      color: #2B273C;
+    }
   }
+  
+  .option-style{
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: normal;
+    color: #54C762;
+    margin-top: 8px;
+  }
+  
   .image-name{
     display: flex;
     align-items: center;
@@ -231,20 +284,38 @@ export const ModalContainer = styled.div`
       margin-left: 16px;
       font-size: 18px;
       font-weight: bold;
-     margin-bottom: 5px;
-     
+      margin-bottom: 5px;
+    }
+    .slider-slide {
+      :focus {outline: none;}
     }
   }
   .image{
-    width: 110px;
-    height: 110px;
+    width: 343px;
+    height: 270px;
     object-fit: cover;
     border-radius: 15px;
+    //padding: 10px 10px 0 10px;
   }
-  .body{
-    height: 300px;
+  
+  .description-title{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #2B273C;
+    margin: 8px 0;
+  }
+  
+  .description-text{
+    height: 80px;
     overflow: auto;
   }
+  
+  .option-text{
+    height: 50px;
+    overflow: auto;
+  }
+  
   .line-class{
     width: 100%;
     display: flex;

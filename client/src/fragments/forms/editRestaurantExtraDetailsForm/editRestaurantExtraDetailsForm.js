@@ -79,7 +79,7 @@ export const EditRestaurantExtraDetailsForm = () => {
         <AddressInput
           Value={restaurant ? restaurant.address && restaurant.address.formattedAddress  : address}
           disabled={true}
-          handleSelectValue={()=> console.log('')}
+          handleSelectValue={(e)=> setAddress(e)}
           handleChangeValue={(val) => setAddress(val)}
         />
         <AvailabilitySchedule

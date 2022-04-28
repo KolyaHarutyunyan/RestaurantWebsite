@@ -20,6 +20,10 @@ export const Container = styled.div`
   @media (min-width: 1919px) {
     padding: 160px 100px 40px 100px;
   }
+  .boldTitle{
+    font-size: 24px;
+    font-family: Poppins, sans-serif!important;
+  }
   p{
     font-size: 16px;
     font-family: Open Sans, sans-serif;

@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import {Container} from "./style";
 import {MODAL_NAMES} from "@eachbase/constants";
 import {useRouter} from "next/router";
-import {CircularProgress} from "@material-ui/core";
+
 
 export const Items = ({currentCategory, categType, categoryId, categoriesCheck, currentMenu}) => {
 
@@ -141,9 +141,10 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
                         <div className="circle">
                             <AiOutlinePlus/>
                         </div>
-                        Add New Menu Item
+                        Create New Menu Item
                     </Button>
-                    <Typography weight="bold" color="text" className='or'>OR</Typography>
+                    <p className='or-style'>OR</p>
+                    {/*<Typography weight="bold" color="text" className='or'>OR</Typography>*/}
                     <MultiSelect
                         categType={categType}
                         categoryItems={currentCategory}

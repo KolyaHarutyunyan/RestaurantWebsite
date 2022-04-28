@@ -80,23 +80,20 @@ export const SignUpForm = () => {
                 </Button>
             </form>
             <div style={{marginTop: '40px'}} className="divider-or"/>
-            <Typography color="text" className='social-text'>
-                Sign up with your social media account
-            </Typography>
-            <div className="social">
-                <Fab onClick={() => handleSignUp('google')} className="icons">
-                    <Icons.GoogleIcon/>
-                </Fab>
-                <Fab onClick={() => handleSignUp('facebook')} className="icons">
-                    <Icons.FaceBookIcon/>
-                </Fab>
-                {/*<Fab className="icons">*/}
-                {/*  <Icons.TwitterIcon />*/}
-                {/*</Fab>*/}
-                <Fab onClick={() => handleSignUp('apple')} className="apple">
-                    <Icons.AppleIcon/>
-                </Fab>
-            </div>
+            {/*<Typography color="text" className='social-text'>*/}
+            {/*    Sign up with your social media account*/}
+            {/*</Typography>*/}
+            {/*<div className="social">*/}
+            {/*    <Fab onClick={() => handleSignUp('google')} className="icons">*/}
+            {/*        <Icons.GoogleIcon/>*/}
+            {/*    </Fab>*/}
+            {/*    <Fab onClick={() => handleSignUp('facebook')} className="icons">*/}
+            {/*        <Icons.FaceBookIcon/>*/}
+            {/*    </Fab>*/}
+            {/*    <Fab onClick={() => handleSignUp('apple')} className="apple">*/}
+            {/*        <Icons.AppleIcon/>*/}
+            {/*    </Fab>*/}
+            {/*</div>*/}
             <Button
                 className='sign-up-button'
                 link
@@ -104,7 +101,7 @@ export const SignUpForm = () => {
                 fullWidth
                 onClick={() => open(MODAL_NAMES.SIGN_IN)}
             >
-                Already have an account? Sign In
+                Already have an account? <span style={{color:'#007AFF'}}>Sign In</span>
             </Button>
 
             <div className='term-of-use'>
