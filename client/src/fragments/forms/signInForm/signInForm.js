@@ -100,7 +100,7 @@ export const SignInForm = () => {
         link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
-        Don't have an account? Sign Up
+        Don't have an account? <span style={{color:'#007AFF'}}>Sign Up</span>
       </Button>
     </Container>
   );

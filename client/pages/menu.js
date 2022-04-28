@@ -1,5 +1,5 @@
-import {ActiveMenu, SingleEvent} from '@eachbase/pages';
-import {appActions, EventsActions, menusActions} from '@eachbase/store';
+import {ActiveMenu} from '@eachbase/pages';
+import { businessesActions, menusActions} from '@eachbase/store';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ const Menu = () => {
     useEffect(() => {
         if(router.query.accessid) {
             dispatch(menusActions.getActiveMenu(router.query.accessid));
+            dispatch(businessesActions.getBusinessesById(router.query.accessid));
         }
     }, [router.query.accessid]);
 
