@@ -50,7 +50,7 @@ phases:
       - cd serverConfig
       - mv .npmrc ../
       - mv appspec.yml ../
-      - mv menumango.dev.nginx.config ../
+      - mv menumango.live.nginx.config ../
       - mv scripts ../
 
     #   - echo Build completed on `date`
@@ -65,7 +65,7 @@ artifacts:
         - clientDist/**/*
         - adminDist/**/*
         - scripts/**/*
-        - menumango.dev.nginx.config
+        - menumango.live.nginx.config
         - appspec.yml
         - .npmrc
      
