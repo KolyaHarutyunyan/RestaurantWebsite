@@ -19,7 +19,8 @@ export const CustomModal = ({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+       setMounted(true);
+       // document.getElementById('__next').classList.add('hide-scroll');
   }, []);
 
   if (mounted) {

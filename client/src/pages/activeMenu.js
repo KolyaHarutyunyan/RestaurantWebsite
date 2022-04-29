@@ -1,17 +1,13 @@
-import { ActiveMenuSection } from "@eachbase/fragments/sections";
+import {ActiveMenuSection} from "@eachbase/fragments/sections";
 import {useScrollPosition} from "react-use-scroll-position";
-import {FindLoad} from "@eachbase/utils";
-import {Loader} from "../components";
 
-export const ActiveMenu =()=>{
+export const ActiveMenu = () => {
     const scrollPos = useScrollPosition();
 
-    return(
-    <div>
-        <div style={scrollPos.y > 0 ? {} : {height:'100px'}}/>
-
+    return (
+        <div>
+            <div style={{transition: 'all .3s', height: scrollPos.y > 0 ? 0 : '100px'}}/>
             <ActiveMenuSection/>
-
-    </div>
-   )
+        </div>
+    )
 }

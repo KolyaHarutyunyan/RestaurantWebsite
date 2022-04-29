@@ -5,7 +5,7 @@ export const Container = styled.div`
   margin: 0 auto;
   background: white;
   padding-bottom: 50px;
-
+  
   .image {
     @media (max-width: 767px) {
       height: 100px;
@@ -16,12 +16,7 @@ export const Container = styled.div`
     width: 100%;
     position: relative;
     object-fit: cover;
-    /* background-position: top; */
     background-size: 100%;
-
-    //background-position: top;
-    //background-size: auto;
-    //background-color: white;
   }
 
   .category-active {
@@ -51,11 +46,11 @@ export const Container = styled.div`
   }
 
   .menu-body {
+    transition: all .3s;
     @media (min-width: 767px) {
       margin-top: 120px;
       background: white;
     }
-
   }
 
   .menu-category {
@@ -72,9 +67,9 @@ export const Container = styled.div`
 
   .icon-title-wrapper {
      display: flex;
-     height: 115px;
      align-items: center;
-     margin-left: 12px
+     margin-left: 12px;
+     transition: all .3s;
   }
 
   .business-icon {

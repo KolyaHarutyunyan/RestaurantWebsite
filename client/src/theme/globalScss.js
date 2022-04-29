@@ -2,6 +2,10 @@ import { createGlobalStyle } from "styled-components";
 import { media } from "./media";
 import { colors } from "./colors";
 export const GlobalScss = createGlobalStyle`
+  .hide-scroll{
+    overflow: hidden;
+    height: 100%;
+  }
   .container {
     width: 100%;
     overflow-x: visible;

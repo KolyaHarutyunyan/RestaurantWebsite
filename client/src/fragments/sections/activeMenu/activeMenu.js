@@ -27,11 +27,19 @@ export const ActiveMenuSection = ({}) => {
     const [modalInfo, setModalInfo] = useState('')
     const [modalType, setModalType] = useState('')
 
+    const handleOpenClose = () =>{
+        setOpen(!open)
+        if(!open === true) {
+            document.getElementById('__next').classList.add('hide-scroll');
+        }else{
+            document.getElementById('__next').classList.remove('hide-scroll');
+        }
+    }
     // const itemPrice = item && item.item && item.item.price.toString().search("\\.")
     // let pricePoint = itemPrice.search("\\.");
     const handleOpenSwipe = (info, type) => {
         setModalType(type)
-        setOpen(!open)
+        handleOpenClose()
         setModalInfo(info ? info : '')
     }
 
@@ -45,8 +53,12 @@ export const ActiveMenuSection = ({}) => {
                     <Tabs.TabContent contentOf="food">
                         <div className="slidable">
                             <div className='scrolled-tab'>
-                                {scrollPos.y > 0 ? '' :
-                                    <div className={'icon-title-wrapper'}>
+                                    <div style={{
+                                        height:scrollPos.y > 0  ? '0' : '115px',
+                                        opacity: scrollPos.y > 0  ? "0" : "1",
+                                        visibility: scrollPos.y > 0  ? "hidden" : "visible",  }}
+                                         className={'icon-title-wrapper'}
+                                    >
                                         <div>
                                             {business?.logo ?
                                                 <img className='business-icon' src={business?.logo?.thumbUrl}
@@ -59,7 +71,6 @@ export const ActiveMenuSection = ({}) => {
                                         </div>
                                         <p className='name'>{business?.name}</p>
                                     </div>
-                                }
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -81,7 +92,7 @@ export const ActiveMenuSection = ({}) => {
                             </div>
 
                             <div className='category-border'/>
-                            <div className={scrollPos.y === 0 ? 'menu-body' : ''}>
+                            <div >
                                 {menus.food && menus.food.length && menus.food.map((item, key) => (item.items.length > 0 &&
                                     <div>
                                         <div id={`${item.name}`} style={{height: '100px'}}/>
@@ -128,8 +139,12 @@ export const ActiveMenuSection = ({}) => {
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
                             <div className='scrolled-tab'>
-                                { scrollPos.y > 0 ? '' :
-                                    <div className='icon-title-wrapper'>
+                                    <div style={{
+                                        height:scrollPos.y > 0  ? '0' : '115px',
+                                        opacity: scrollPos.y > 0  ? "0" : "1",
+                                        visibility: scrollPos.y > 0  ? "hidden" : "visible",  }}
+                                         className={'icon-title-wrapper'}
+                                    >
                                         <div>
                                             { business?.logo ?
                                                 <img className='business-icon' src={business?.logo?.thumbUrl} alt={'icon'}/>
@@ -141,7 +156,6 @@ export const ActiveMenuSection = ({}) => {
                                          </div>
                                          <p className='name'>{business?.name}</p>
                                      </div>
-                                }
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -213,7 +227,7 @@ export const ActiveMenuSection = ({}) => {
 
             <SwipeUp
                 open={open}
-                onChange={() => setOpen(!open)}
+                onChange={ handleOpenClose }
             >
                 <Modal modalType={modalType} info={modalInfo}/>
             </SwipeUp>

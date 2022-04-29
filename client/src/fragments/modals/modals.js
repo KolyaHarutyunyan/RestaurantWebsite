@@ -21,6 +21,7 @@ import {CustomModal} from "../../components";
 
 export const Modals = () => {
   const router = useRouter();
+
   return (
       <Fragment>
       <CustomModal

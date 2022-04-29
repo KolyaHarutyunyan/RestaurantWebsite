@@ -16,7 +16,7 @@ import HoursIcon from "./svgs/hours.svg";
 import ProfileIcon from "./svgs/profile.svg";
 import CheckmarkIcon from "./svgs/checkmark.svg";
 import DrinkIcon from "./svgs/drink.svg";
-import LogoIcon from "./svgs/logo.svg";
+import LogoIcon from "./svgs/mainLogo.svg";
 import SmallIcon from "../../../public/assets/images/Logo.svg";
 import RedLineIcon from "./svgs/red_line.svg";
 import ChevronIcon from "./svgs/chevron.svg";
