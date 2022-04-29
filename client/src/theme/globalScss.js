@@ -6,6 +6,9 @@ export const GlobalScss = createGlobalStyle`
     overflow: hidden;
     height: 100%;
   }
+  ::-webkit-scrollbar {
+    display: none; 
+  }
   .container {
     width: 100%;
     overflow-x: visible;
