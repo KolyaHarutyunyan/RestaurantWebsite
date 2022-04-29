@@ -143,8 +143,8 @@ export const Items = ({currentCategory, categType, categoryId, categoriesCheck, 
                         </div>
                         Create New Menu Item
                     </Button>
-                    <p className='or-style'>OR</p>
-                    {/*<Typography weight="bold" color="text" className='or'>OR</Typography>*/}
+                      <p className='or-style'>OR</p>
+                      {/*<Typography weight="bold" color="text" className='or'>OR</Typography>*/}
                     <MultiSelect
                         categType={categType}
                         categoryItems={currentCategory}

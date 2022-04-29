@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-   max-width: 768px;
-   margin: 0 auto;
-   background: white;
-   padding-bottom: 50px;
-  .image{
+  max-width: 768px;
+  margin: 0 auto;
+  background: white;
+  padding-bottom: 50px;
+
+  .image {
     @media (max-width: 767px) {
       height: 100px;
     }
@@ -17,43 +18,47 @@ export const Container = styled.div`
     object-fit: cover;
     /* background-position: top; */
     background-size: 100%;
-    
+
     //background-position: top;
     //background-size: auto;
     //background-color: white;
   }
-  .category-active{
+
+  .category-active {
     @media (max-width: 767px) {
       margin-top: 104px;
     }
     margin-top: 124px;
   }
-  
-  .name{
+
+  .name {
     @media (max-width: 767px) {
       font-size: 16px;
       //margin: 39px 16px 39px 16px
     }
     //position: absolute;
-    color: black; 
+    color: black;
     font-size: 28px;
     margin-left: 12px;
-    font-family: Poppins,sans-serif;
+    font-family: Poppins, sans-serif;
     font-weight: bold;
     //margin: 83px 0 83px 40px;
   }
-  .category-border{
+
+  .category-border {
     //margin-top: 143px;
     //border-bottom: 2px solid #2B273C1A;
   }
-  .menu-body{
+
+  .menu-body {
     @media (min-width: 767px) {
       margin-top: 120px;
       background: white;
     }
-   
+
   }
-  .menu-category{
+
+  .menu-category {
     border-bottom: 2px solid #2B273C1A;
     @media (max-width: 767px) {
       margin: 20px 0 -2px 0;
@@ -64,40 +69,40 @@ export const Container = styled.div`
     margin: 24px 0 -2px 0;
     display: -webkit-box;
   }
-  
-  .icon-title-wrapper{
-    display: flex;
-    height:115px;
-    align-items:center;
-    margin-left:12px
+
+  .icon-title-wrapper {
+     display: flex;
+     height: 115px;
+     align-items: center;
+     margin-left: 12px
   }
-  
-  .business-icon{
-    width: 70px;
-    height: 70px;
-    border-radius: 40px;
-    object-fit: cover;
+
+  .business-icon {
+     width: 70px;
+     height: 70px;
+     border-radius: 40px;
+     object-fit: cover;
   }
-  
-  .building-icon{
-    width: 70px;
-    height: 70px;
-    border-radius: 40px;
-    object-fit: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0000002a;
-    svg{
+
+  .building-icon {
+     width: 70px;
+     height: 70px;
+     border-radius: 40px;
+     object-fit: cover;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: #0000002a;
+    svg {
       width: 45px;
       height: 45px;
     }
   }
-  
-  .passive-category{
+
+  .passive-category {
     @media (max-width: 767px) {
-      font-size: 16px;
-      padding: 0 23px 12px 23px;
+       font-size: 16px;
+       padding: 0 23px 12px 23px;
     }
     padding: 0 32px 12px 32px;
     font-size: 20px;
@@ -105,27 +110,31 @@ export const Container = styled.div`
     font-family: Open Sans, sans-serif;
     margin-bottom: 10px;
     font-weight: 600;
-  }  
- .active-category-wrapper{
-   padding-bottom: 10px;
- }
-  .active-category{
-    @media (max-width: 767px) {
-      font-size: 16px;
-      padding: 0 23px 12px 23px;
-    }
-    padding: 0 23px 12px 23px;
-    font-size: 20px;
-    color: #2B273C;
-    font-family: Open Sans, sans-serif;
-    font-weight: 600;
-    border-bottom: 2px solid #2B273C;
   }
-  .category{
+
+  .active-category-wrapper {
+     padding-bottom: 10px;
+  }
+
+  .active-category {
+    @media (max-width: 767px) {
+        font-size: 16px;
+        padding: 0 23px 12px 23px;
+    }
+     padding: 0 23px 12px 23px;
+     font-size: 20px;
+     color: #2B273C;
+     font-family: Open Sans, sans-serif;
+     font-weight: 600;
+     border-bottom: 2px solid #2B273C;
+  }
+
+  .category {
     margin-top: 16px;
     margin-bottom: -100px;
   }
-  .category-title{
+
+  .category-title {
     @media (max-width: 767px) {
       font-size: 20px;
       margin: 0 16px 8px 16px;
@@ -135,21 +144,23 @@ export const Container = styled.div`
     font-family: Poppins, sans-serif;
     font-weight: bold;
   }
-  .scrolled-tab{
-    position:fixed;
-    width:100%; 
-    background:white;
+
+  .scrolled-tab {
+    position: fixed;
+    width: 100%;
+    background: white;
     top: 0;
-    max-width:768px;
+    max-width: 768px;
     //box-shadow: 0px 0px 12px #0052E01A;
-    
-    hr{
-      height:2px;
-      background:#2B273C1A;
-      border-color:#2B273C1A
+
+    hr {
+      height: 2px;
+      background: #2B273C1A;
+      border-color: #2B273C1A
     }
   }
-  .category-card{
+
+  .category-card {
     display: flex;
     background: white;
     padding: 16px;
@@ -161,7 +172,8 @@ export const Container = styled.div`
       height: 109px;
       padding: 10px;
     }
-    img{
+
+    img {
       @media (max-width: 767px) {
         width: 89px;
         height: 89px;
@@ -171,12 +183,14 @@ export const Container = styled.div`
       height: 118px;
       border-radius: 8px;
     }
-    svg{
+
+    svg {
       width: 50px;
       height: 50px;
     }
   }
-  .no-image{
+
+  .no-image {
     @media (max-width: 767px) {
       width: 89px;
       height: 89px;
@@ -189,14 +203,16 @@ export const Container = styled.div`
     border-radius: 8px;
     background-color: #0000001A;
   }
-  .card-info{
+
+  .card-info {
     width: 100%;
     margin-left: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  .title{
+
+  .title {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -208,8 +224,8 @@ export const Container = styled.div`
       font-size: 16px;
     }
   }
- 
-  .desc{
+
+  .desc {
     font-size: 16px;
     font-family: Open Sans, sans-serif;
     color: #313131;
@@ -217,7 +233,8 @@ export const Container = styled.div`
       font-size: 14px;
     }
   }
-  .optional{
+
+  .optional {
     font-size: 14px;
     font-family: Open Sans, sans-serif;
     color: #54C762;
@@ -233,10 +250,11 @@ export const ModalContainer = styled.div`
   max-width: 768px;
   overflow: auto;
   border-top: 7px solid #FF453A;
-  border-radius: 20px 20px 0 0 ;
+  border-radius: 20px 20px 0 0;
   background: white;
   padding: 16px 15px;
-  .no-image{
+
+  .no-image {
     width: 100%;
     height: 270px;
     object-fit: cover;
@@ -245,88 +263,97 @@ export const ModalContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    svg{
+
+    svg {
       width: 70px;
       height: 70px;
     }
   }
-  .title{
+
+  .title {
     font-weight: bold;
     font-size: 18px;
     margin: 25px 0 10px 0;
   }
-  .priceName{
+
+  .priceName {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 16px;
-    
-    p{
+
+    p {
       font-size: 16px;
       line-height: 20px;
       font-weight: bold;
       color: #2B273C;
     }
   }
-  
-  .option-style{
+
+  .option-style {
     font-size: 14px;
     line-height: 21px;
     font-weight: normal;
     color: #54C762;
     margin-top: 8px;
   }
-  
-  .image-name{
+
+  .image-name {
     display: flex;
     align-items: center;
-   p{
+
+    p {
       margin-left: 16px;
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 5px;
     }
+
     .slider-slide {
-      :focus {outline: none;}
+       :focus {
+         outline: none;
+       }
     }
   }
-  .image{
+
+  .image {
     width: 343px;
     height: 270px;
     object-fit: cover;
     border-radius: 15px;
     //padding: 10px 10px 0 10px;
   }
-  
-  .description-title{
+
+  .description-title {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
     color: #2B273C;
     margin: 8px 0;
   }
-  
-  .description-text{
+
+  .description-text {
     height: 80px;
     overflow: auto;
   }
-  
-  .option-text{
+
+  .option-text {
     height: 50px;
     overflow: auto;
   }
-  
-  .line-class{
+
+  .line-class {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 14px;
-    .line{
+
+    .line {
       width: 60px;
       background: #2B273C80;
       border-radius: 15px;
       height: 3px;
     }
   }
-  
+
 `

@@ -238,9 +238,7 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={false}
-                    // autoplay={true}
-
+                    autoplay={true}
                 >
 
                     <div>
@@ -391,11 +389,8 @@ export const MenusAndMenuItems = () => {
                     renderCenterLeftControls={false}
                     renderCenterRightControls={false}
                     wrapAround={true}
-                    autoplay={false}
-                    // autoplay={true}
+                    autoplay={true}
                 >
-
-
                     <ul className="cards">
                         <li>
                             <Image src={"./assets/images/recent/chocolate.jpg"}/>

@@ -13,9 +13,9 @@ const Menu = () => {
 
 
     useEffect(() => {
-        if(router.query.accessid) {
-            dispatch(menusActions.getActiveMenu(router.query.accessid));
-            dispatch(businessesActions.getBusinessesById(router.query.accessid));
+        if( router.query.accessid ) {
+          dispatch(menusActions.getActiveMenu(router.query.accessid));
+          dispatch(businessesActions.getBusinessesById(router.query.accessid));
         }
     }, [router.query.accessid]);
 

@@ -16,10 +16,10 @@ export const Container = styled.div`
   }
   
   .or-style{
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    color: #2B273C;
+     font-size: 18px;
+     font-weight: 600;
+     line-height: 20px;
+     color: #2B273C;
   }
   
   &.no-menu-items {

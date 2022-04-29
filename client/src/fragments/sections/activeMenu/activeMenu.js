@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {HtmlTooltip, LazyLoad, SlicedText, Tabs, ToolTipScreen} from "@eachbase/components";
+import {LazyLoad, SlicedText, Tabs} from "@eachbase/components";
 import {Container} from "./style";
 import {Icons} from "@eachbase/theme";
 import {useScrollPosition} from 'react-use-scroll-position';
@@ -9,15 +9,11 @@ import {Modal} from "./modal";
 
 export const ActiveMenuSection = ({}) => {
     const [active, setActive] = useState('')
-
     const {menus} = useSelector(({menus}) => ({menus}));
     const business = useSelector(({businesses}) => businesses);
-
     const [activeTab, setActiveTab] = useState("food");
     const [loaded, setLoaded] = useState(false);
-    // const params = useParams()
 
-    console.log(business,'businessbusinessbusiness')
     useEffect(() => {
         setTimeout(() => {
             setLoaded(true);
@@ -39,13 +35,7 @@ export const ActiveMenuSection = ({}) => {
         setModalInfo(info ? info : '')
     }
 
-    // console.log(params,'paramsparamsparams')
-    useEffect(() =>{
-        // axios.get(`/businesses/${params}`)
-    }, [])
-
     return (
-
         <LazyLoad loaded={loaded} smallIcon={true}>
             <Container>
                 <Tabs.Wrapper
@@ -57,15 +47,16 @@ export const ActiveMenuSection = ({}) => {
                             <div className='scrolled-tab'>
                                 {scrollPos.y > 0 ? '' :
                                     <div className={'icon-title-wrapper'}>
-                                      <div>
-                                        {business?.logo ?
-                                            <img className='business-icon' src={business?.logo?.thumbUrl} alt={'icon'}/>
-                                            :
-                                            <div className='building-icon'>
-                                               <Icons.BuildingIcon/>
-                                            </div>
-                                        }
-                                      </div>
+                                        <div>
+                                            {business?.logo ?
+                                                <img className='business-icon' src={business?.logo?.thumbUrl}
+                                                     alt={'icon'}/>
+                                                :
+                                                <div className='building-icon'>
+                                                    <Icons.BuildingIcon/>
+                                                </div>
+                                            }
+                                        </div>
                                         <p className='name'>{business?.name}</p>
                                     </div>
                                 }
@@ -76,7 +67,7 @@ export const ActiveMenuSection = ({}) => {
                                 <div style={{width: '100%'}}>
                                     <div className='menu-category'>{
                                         menus.food ? menus.food.length ? menus.food.map((item, key) => (item.items.length > 0 &&
-                                            <div className='active-category-wrapper'>
+                                            <div  className='active-category-wrapper'>
                                                 <a key={key}
                                                    onClick={() => setActive(item.name)}
                                                    className={active === item.name ? 'active-category' : 'passive-category'}
@@ -137,19 +128,19 @@ export const ActiveMenuSection = ({}) => {
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
                             <div className='scrolled-tab'>
-                                {scrollPos.y > 0 ? '' :
-                                    <div className={'icon-title-wrapper'}>
+                                { scrollPos.y > 0 ? '' :
+                                    <div className='icon-title-wrapper'>
                                         <div>
-                                            {business?.logo ?
+                                            { business?.logo ?
                                                 <img className='business-icon' src={business?.logo?.thumbUrl} alt={'icon'}/>
                                                 :
                                                 <div className='building-icon'>
-                                                    <Icons.BuildingIcon/>
+                                                     <Icons.BuildingIcon/>
                                                 </div>
-                                            }
-                                        </div>
-                                        <p className='name'>{business?.name}</p>
-                                    </div>
+                                             }
+                                         </div>
+                                         <p className='name'>{business?.name}</p>
+                                     </div>
                                 }
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
@@ -158,13 +149,13 @@ export const ActiveMenuSection = ({}) => {
                                 <div style={{width: '100%'}}>
                                     <div className='menu-category'>{
                                         menus.drinks ? menus.drinks.length ? menus.drinks.map((item, key) => (item.items.length > 0 &&
-                                            <div className='active-category-wrapper'>
-                                            <a key={key}
-                                               onClick={() => setActive(item.name)}
-                                               className={active === item.name ? 'active-category' : 'passive-category'}
-                                               href={`#${item.name}`}>
-                                                {item.name}
-                                            </a>
+                                            <div  className='active-category-wrapper' >
+                                                <a key={key}
+                                                   onClick={() => setActive(item.name)}
+                                                   className={active === item.name ? 'active-category' : 'passive-category'}
+                                                   href={`#${item.name}`}>
+                                                    {item.name}
+                                                </a>
                                             </div>
                                         )) : '' : ''
                                     }</div>

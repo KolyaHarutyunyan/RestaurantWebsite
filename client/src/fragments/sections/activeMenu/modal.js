@@ -1,6 +1,8 @@
 import {ModalContainer} from "./style";
 import {Icons} from "@eachbase/theme";
 import Carousel from "nuka-carousel";
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 export const Modal = ({info, modalType}) => {
     return (
@@ -18,8 +20,16 @@ export const Modal = ({info, modalType}) => {
                             slidesToScroll={1}
                             style={{outline: 'none'}}
                             renderBottomCenterControls={false}
-                            renderCenterLeftControls={false}
-                            renderCenterRightControls={false}
+                            renderCenterLeftControls={({ previousSlide }) => (
+                                <button onClick={previousSlide}>
+                                    <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>
+                                </button>
+                            )}
+                            renderCenterRightControls={({ nextSlide }) => (
+                                <button onClick={nextSlide}>
+                                  <ChevronRightIcon style={{fontSize:'28px'}}/>
+                                </button>
+                            )}
                             wrapAround={true}
                             autoplay={true}
                         >
