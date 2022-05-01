@@ -5,7 +5,7 @@ const dbs = {
   PROD: 'productionv1',
 };
 
-const DB = dbs.PROD;
+const DB = dbs.DEV;
 let connectionString = null;
 if (DB === dbs.PROD) {
   connectionString = `mongodb+srv://jackblack:pixQD#WHd4DP(QWH@main.uvs5v.mongodb.net/${DB}?retryWrites=true&w=majority`;
