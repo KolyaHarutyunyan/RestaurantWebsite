@@ -312,7 +312,7 @@ export const ModalContainer = styled.div`
   }
 
   .image {
-    width: 343px;
+    width: 320px;
     height: 270px;
     object-fit: cover;
     border-radius: 15px;

@@ -80,8 +80,7 @@ export const Categories = () => {
                                                             {item.item?.description?.length > 40 ? `${item.item?.description?.slice(0, 40)}...` : item?.item?.description}
                                                         </p>
                                                         <div className='optional'>
-                                                            <SlicedText type={'option'} size={10}
-                                                                        data={item && item.item.option}/>
+                                                            {item?.item?.option?.length > 30 ? `${item.item.option.slice(0, 30)}...` : item.item.option}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -128,7 +127,7 @@ export const Categories = () => {
                                                             {it.item?.description?.length > 40 ? `${it.item?.description.slice(0, 40)}...` : it.item?.description}
                                                         </p>
                                                         <div className='optional'>
-                                                            <SlicedText type={'option'} size={10} data={it && it?.item?.option}/>
+                                                            {item?.item?.option?.length > 30 ? `${item.item.option.slice(0, 30)}...` : item.item.option}
                                                         </div>
                                                     </div>
                                                 </div>

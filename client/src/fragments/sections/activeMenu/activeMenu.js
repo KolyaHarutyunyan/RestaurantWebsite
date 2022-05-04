@@ -7,7 +7,7 @@ import {useScrollPosition} from 'react-use-scroll-position';
 import {SwipeUp} from "../../../components/swipe";
 import {Modal} from "./modal";
 
-export const ActiveMenuSection = ({}) => {
+export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
     const [active, setActive] = useState('')
     const {menus} = useSelector(({menus}) => ({menus}));
     const business = useSelector(({businesses}) => businesses);
@@ -23,18 +23,18 @@ export const ActiveMenuSection = ({}) => {
     const path = typeof window !== 'undefined' && window.location
     const scrollPos = useScrollPosition();
 
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
     const [modalInfo, setModalInfo] = useState('')
     const [modalType, setModalType] = useState('')
 
-    const handleOpenClose = () =>{
-        setOpen(!open)
-        if(!open === true) {
-            document.getElementById('__next').classList.add('hide-scroll');
-        }else{
-            document.getElementById('__next').classList.remove('hide-scroll');
-        }
-    }
+    // const handleOpenClose = () =>{
+    //     setOpen(!open)
+    //     if(!open === true) {
+    //         document.getElementById('__next').classList.add('hide-scroll');
+    //     }else{
+    //         document.getElementById('__next').classList.remove('hide-scroll');
+    //     }
+    // }
     // const itemPrice = item && item.item && item.item.price.toString().search("\\.")
     // let pricePoint = itemPrice.search("\\.");
     const handleOpenSwipe = (info, type) => {
@@ -54,9 +54,9 @@ export const ActiveMenuSection = ({}) => {
                         <div className="slidable">
                             <div className='scrolled-tab'>
                                     <div style={{
-                                        height:scrollPos.y > 0  ? '0' : '115px',
-                                        opacity: scrollPos.y > 0  ? "0" : "1",
-                                        visibility: scrollPos.y > 0  ? "hidden" : "visible",  }}
+                                        height:!open && scrollPos.y > 0  ? '0' : '115px',
+                                        opacity:!open && scrollPos.y > 0  ? "0" : "1",
+                                        visibility:!open && scrollPos.y > 0  ? "hidden" : "visible",  }}
                                          className={'icon-title-wrapper'}
                                     >
                                         <div>
@@ -124,7 +124,9 @@ export const ActiveMenuSection = ({}) => {
                                                             <p className='desc' color="text">
                                                                 {item?.item?.description?.length > 40 ? `${item.item.description.slice(0, 40)}...` : item?.item?.description}
                                                             </p>
-                                                            <p className='optional'>{item?.item?.option}</p>
+                                                            <p className='optional'>
+                                                                {item?.item?.option?.length > 40 ? `${item.item.option.slice(0, 40)}...` : item.item.option}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -140,9 +142,9 @@ export const ActiveMenuSection = ({}) => {
                         <div className="slidable">
                             <div className='scrolled-tab'>
                                     <div style={{
-                                        height:scrollPos.y > 0  ? '0' : '115px',
-                                        opacity: scrollPos.y > 0  ? "0" : "1",
-                                        visibility: scrollPos.y > 0  ? "hidden" : "visible",  }}
+                                        height:!open && scrollPos.y > 0  ? '0' : '115px',
+                                        opacity: !open && scrollPos.y > 0  ? "0" : "1",
+                                        visibility:!open && scrollPos.y > 0  ? "hidden" : "visible",  }}
                                          className={'icon-title-wrapper'}
                                     >
                                         <div>
@@ -177,7 +179,7 @@ export const ActiveMenuSection = ({}) => {
                             </div>
 
                             <div className='category-border'/>
-                            <div className={scrollPos.y === 0 ? 'menu-body' : ''}>
+                            <div className={!open && scrollPos.y === 0 ? 'menu-body' : ''}>
                                 {menus.drinks && menus.drinks.length && menus.drinks.map((item, key) => (item.items.length > 0 &&
                                     <div>
                                         <div id={`${item.name}`} style={{height: '100px'}}/>
@@ -211,7 +213,9 @@ export const ActiveMenuSection = ({}) => {
                                                             <p className='desc' color="text">
                                                                 {item?.item?.description?.length > 20 ? `${item.item.description.slice(0, 20)}...` : item?.item?.description}
                                                             </p>
-                                                            <p className='optional'>{item.item.option}</p>
+                                                            <p className='optional'>
+                                                                    {item?.item?.option?.length > 40 ? `${item.item.option.slice(0, 40)}...` : item.item.option}
+                                                                </p>
                                                         </div>
                                                     </div>
                                                 ))}

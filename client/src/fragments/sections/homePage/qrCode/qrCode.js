@@ -5,7 +5,7 @@ export const QRCode = () => {
     <Container>
       <div className="line" />
         <div className='qr-image'>
-      <Image src={"./assets/images/QR_Code.png"} />
+      <Image src={"./assets/images/qrDownloaded.svg"} />
         </div>
       <div className="line">
         <Typography  className='qr-text' color="invert" weight="bold">
