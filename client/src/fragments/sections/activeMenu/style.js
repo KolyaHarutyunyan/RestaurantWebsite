@@ -243,7 +243,7 @@ export const Container = styled.div`
 export const ModalContainer = styled.div`
   height: 550px;
   max-width: 768px;
-  overflow: auto;
+  overflow: hidden;
   border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0;
   background: white;
