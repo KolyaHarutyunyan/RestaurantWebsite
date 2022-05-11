@@ -9,8 +9,10 @@ export const ActiveMenu = () => {
     const handleOpenClose = () =>{
         setOpen(!open)
         if(!open === true) {
+            document.body.style.overflow = 'hidden';
             // document.getElementById('__next').classList.add('hide-scroll');
         }else{
+            document.body.style.overflow = 'auto';
             // document.getElementById('__next').classList.remove('hide-scroll');
         }
     }
