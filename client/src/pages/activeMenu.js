@@ -12,9 +12,11 @@ export const ActiveMenu = () => {
             // disableWheel.on()
             document.body.style.overflow = 'hidden';
             window.history.scrollRestoration = 'manual'
+            document.getElementById("__next").style.overflowY = 'hidden' ;
         }else{
             // disableScroll.off()
             document.body.style.overflow = 'auto';
+            document.getElementById("__next").style.overflowY = 'auto' ;
         }
     }
 

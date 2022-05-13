@@ -60,7 +60,8 @@ export const Container = styled.div`
     }
     background: white;
     width: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 24px 0 -2px 0;
     display: -webkit-box;
   }
