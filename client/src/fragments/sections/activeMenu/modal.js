@@ -18,22 +18,25 @@ export const Modal = ({info, modalType}) => {
                             animation={'zoom'}
                             zoomScale={0.7}
                             pauseOnHover={false}
+
                             autoplayInterval={2000}
                             slidesToShow={1}
                             // speed={2}
                             slidesToScroll={1}
                             style={{outline: 'none'}}
                             renderBottomCenterControls={false}
-                            renderCenterLeftControls={({ previousSlide }) => (
-                                <button onClick={previousSlide}>
-                                    <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>
-                                </button>
-                            )}
-                            renderCenterRightControls={({ nextSlide }) => (
-                                <button onClick={nextSlide}>
-                                  <ChevronRightIcon style={{fontSize:'28px'}}/>
-                                </button>
-                            )}
+                            renderCenterLeftControls={false}
+                            renderCenterRightControls={false}
+                            // renderCenterLeftControls={({ previousSlide }) => (
+                            //     <button onClick={previousSlide}>
+                            //         <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>
+                            //     </button>
+                            // )}
+                            // renderCenterRightControls={({ nextSlide }) => (
+                            //     <button onClick={nextSlide}>
+                            //       <ChevronRightIcon style={{fontSize:'28px'}}/>
+                            //     </button>
+                            // )}
                         >
                             {info.images.map((i, k) => (
                                 <div style={{
