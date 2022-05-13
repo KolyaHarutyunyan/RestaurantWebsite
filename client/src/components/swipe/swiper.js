@@ -9,7 +9,7 @@ export const SwipeUp = ({ overlayBool,open, overlayStyle, onTransitionEnd, onCha
         <SwipeableBottomSheet
             overlayStyle={overlayStyle}
             onTransitionEnd={onTransitionEnd}
-            bodyStyle={{ borderRadius:'20px 20px 0 0',  margin:'0 auto', maxWidth:'768px'}}
+            bodyStyle={{ borderRadius:'20px 20px 0 0',  margin:'-2px auto 0 auto', maxWidth:'768px'}}
             open={open}
             onChange={onChange}
             defaultOpen={false}

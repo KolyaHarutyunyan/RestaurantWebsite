@@ -98,9 +98,9 @@ export const Container = styled.div`
   .passive-category {
     @media (max-width: 767px) {
        font-size: 16px;
-       padding: 0 23px 12px 23px;
+       padding: 0 23px 10px 23px;
     }
-    padding: 0 32px 12px 32px;
+    padding: 0 32px 10px 32px;
     font-size: 20px;
     color: #2B273C80;
     font-family: Open Sans, sans-serif;
@@ -115,9 +115,9 @@ export const Container = styled.div`
   .active-category {
     @media (max-width: 767px) {
         font-size: 16px;
-        padding: 0 23px 12px 23px;
+        padding: 0 23px 10px 23px;
     }
-     padding: 0 23px 12px 23px;
+     padding: 0 23px 10px 23px;
      font-size: 20px;
      color: #2B273C;
      font-family: Open Sans, sans-serif;
