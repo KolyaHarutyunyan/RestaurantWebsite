@@ -1,6 +1,8 @@
 import {ActiveMenuSection} from "@eachbase/fragments/sections";
 import {useScrollPosition} from "react-use-scroll-position";
 import {useState} from "react";
+import disableScroll from 'disable-scroll';
+
 
 export const ActiveMenu = () => {
     const scrollPos = useScrollPosition();
@@ -9,9 +11,11 @@ export const ActiveMenu = () => {
     const handleOpenClose = () =>{
         setOpen(!open)
         if(!open === true) {
-            document.body.style.overflow = 'hidden';
+            disableScroll.on()
+            // document.body.style.overflow = 'hidden';
         }else{
-            document.body.style.overflow = 'auto';
+            disableScroll.off()
+            // document.body.style.overflow = 'auto';
         }
     }
 
