@@ -1,8 +1,9 @@
 import {ModalContainer} from "./style";
 import {Icons} from "@eachbase/theme";
-import Carousel from "nuka-carousel";
+// import Carousel from "nuka-carousel";
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Carousel from "nuka-carousel";
 
 export const Modal = ({info, modalType}) => {
     return (
@@ -14,9 +15,12 @@ export const Modal = ({info, modalType}) => {
                 {info && info.images && info.images.length ?
                     info.images.length > 1 ?
                         <Carousel
+                            animation={'zoom'}
+                            zoomScale={0.7}
                             pauseOnHover={false}
                             autoplayInterval={2000}
                             slidesToShow={1}
+                            // speed={2}
                             slidesToScroll={1}
                             style={{outline: 'none'}}
                             renderBottomCenterControls={false}
@@ -30,8 +34,6 @@ export const Modal = ({info, modalType}) => {
                                   <ChevronRightIcon style={{fontSize:'28px'}}/>
                                 </button>
                             )}
-                            wrapAround={true}
-                            autoplay={false}
                         >
                             {info.images.map((i, k) => (
                                 <div style={{
