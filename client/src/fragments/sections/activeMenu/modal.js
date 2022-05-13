@@ -31,7 +31,7 @@ export const Modal = ({info, modalType}) => {
                                 </button>
                             )}
                             wrapAround={true}
-                            autoplay={true}
+                            autoplay={false}
                         >
                             {info.images.map((i, k) => (
                                 <div style={{
