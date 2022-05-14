@@ -22,8 +22,8 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open, setModalType,
     }
 
     return (
-        <div>
-        {/*<LazyLoad loaded={loaded} smallIcon={true}>*/}
+        // <div>
+        <LazyLoad loaded={true} smallIcon={true}>
             <Container>
                 <Tabs.Wrapper
                     activeTab={activeTab}
@@ -215,6 +215,6 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open, setModalType,
             {/*    <Modal modalType={modalType} info={modalInfo}/>*/}
             {/*</SwipeUp>*/}
 
-        </div>
+        </LazyLoad>
     )
 }

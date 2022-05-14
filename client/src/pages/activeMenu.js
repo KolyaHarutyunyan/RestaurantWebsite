@@ -54,10 +54,10 @@ export const ActiveMenu = () => {
                 open={open}
                 onChange={ handleOpenClose }
             >
-                <RemoveScroll className="scroll">
+                {/*<RemoveScroll className="scroll">*/}
 
                 <Modal modalType={modalType} info={modalInfo}/>
-                </RemoveScroll>
+                {/*</RemoveScroll>*/}
             </SwipeUp>
         </LazyLoad>
     )
