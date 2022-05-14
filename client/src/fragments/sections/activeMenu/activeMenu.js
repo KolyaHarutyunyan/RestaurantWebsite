@@ -7,21 +7,13 @@ import {useScrollPosition} from 'react-use-scroll-position';
 import {SwipeUp} from "../../../components/swipe";
 import {Modal} from "./modal";
 
-export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
+export const ActiveMenuSection = ({handleOpenClose, setOpen, open, setModalType, setModalInfo}) => {
     const scrollPos = useScrollPosition();
     const [active, setActive] = useState('')
     const {menus} = useSelector(({menus}) => ({menus}));
     const business = useSelector(({businesses}) => businesses);
     const [activeTab, setActiveTab] = useState("food");
-    const [loaded, setLoaded] = useState(false);
-    const [modalInfo, setModalInfo] = useState('')
-    const [modalType, setModalType] = useState('')
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoaded(true);
-        }, 500);
-    }, []);
 
     const handleOpenSwipe = (info, type) => {
         setModalType(type)
@@ -30,7 +22,8 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
     }
 
     return (
-        <LazyLoad loaded={loaded} smallIcon={true}>
+        <div>
+        {/*<LazyLoad loaded={loaded} smallIcon={true}>*/}
             <Container>
                 <Tabs.Wrapper
                     activeTab={activeTab}
@@ -215,13 +208,13 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
 
             </Container>
 
-            <SwipeUp
-                open={open}
-                onChange={ handleOpenClose }
-            >
-                <Modal modalType={modalType} info={modalInfo}/>
-            </SwipeUp>
+            {/*<SwipeUp*/}
+            {/*    open={open}*/}
+            {/*    onChange={ handleOpenClose }*/}
+            {/*>*/}
+            {/*    <Modal modalType={modalType} info={modalInfo}/>*/}
+            {/*</SwipeUp>*/}
 
-        </LazyLoad>
+        </div>
     )
 }

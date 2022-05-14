@@ -69,7 +69,7 @@ export const Modal = ({info, modalType}) => {
                     <p>{`$${info?.price}`}</p>
                 </div>
                 {info?.option &&
-                <div className='option-text'>
+                <div>
                     <p className='option-style'>{info?.option}</p>
                 </div>
                 }
@@ -78,7 +78,7 @@ export const Modal = ({info, modalType}) => {
             {info?.description &&
             <div>
                 <p className='description-title'>Description</p>
-                <div className='description-text'>
+                <div>
                     <p>{info?.description}</p>
                 </div>
             </div>

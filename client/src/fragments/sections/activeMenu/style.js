@@ -244,7 +244,7 @@ export const Container = styled.div`
 export const ModalContainer = styled.div`
   height: 550px;
   max-width: 768px;
-  overflow: hidden;
+  overflow: auto;
   border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0;
   background: white;
@@ -326,16 +326,6 @@ export const ModalContainer = styled.div`
     line-height: 20px;
     color: #2B273C;
     margin: 8px 0;
-  }
-
-  .description-text {
-    height: 80px;
-    overflow: auto;
-  }
-
-  .option-text {
-    height: 50px;
-    overflow: auto;
   }
 
   .line-class {
