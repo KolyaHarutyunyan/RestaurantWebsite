@@ -145,7 +145,7 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     background: white;
-    top: -1px;
+    top: -2px;
     max-width: 768px;
     //box-shadow: 0px 0px 12px #0052E01A;
 
