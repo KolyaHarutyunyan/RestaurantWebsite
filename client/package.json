@@ -51,6 +51,7 @@
     "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.2",
     "react-remove-scroll": "^2.5.3",
+    "react-remove-scroll-bar": "^2.3.1",
     "react-select": "^4.3.1",
     "react-spinners": "^0.11.0",
     "react-spring": "^8.0.27",

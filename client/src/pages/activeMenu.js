@@ -5,6 +5,8 @@ import {RemoveScroll} from "react-remove-scroll";
 import {SwipeUp} from "../components/swipe";
 import {Modal} from "../fragments/sections/activeMenu/modal";
 import {LazyLoad} from "../components";
+import {RemoveScrollBar, noScrollbarsClassName} from "react-remove-scroll-bar";
+import {fullWidthClassName, zeroRightClassName} from "react-remove-scroll-bar/constants";
 
 
 export const ActiveMenu = () => {
@@ -12,14 +14,14 @@ export const ActiveMenu = () => {
     const [open, setOpen] = useState(false)
     const [modalInfo, setModalInfo] = useState('')
     const [modalType, setModalType] = useState('')
-    const handleOpenClose = () =>{
+    const handleOpenClose = () => {
         setOpen(!open)
-        if(!open === true) {
+        if (!open === true) {
             // disableScroll.on({disableScroll:false})
             // document.body.style.overflow = 'hidden';
             // window.history.scrollRestoration = 'manual'
             // document.getElementById("__next").style.overflowY = 'hidden' ;
-        }else{
+        } else {
             // disableScroll.off()
             // document.body.style.overflow = 'auto';
             // document.getElementById("__next").style.overflowY = 'auto' ;
@@ -39,11 +41,11 @@ export const ActiveMenu = () => {
         <LazyLoad loaded={loaded} smallIcon={true}>
             <div style={{transition: 'all .3s', height: !open && scrollPos.y > 0 ? 0 : '100px'}}/>
             {open ?
-                <RemoveScroll>
-
-                <ActiveMenuSection handleOpenClose={handleOpenClose} setOpen={setOpen} open={open}
-                                   setModalInfo={setModalInfo} setModalType={setModalType}/>
-                </RemoveScroll>
+                <div>
+                    <RemoveScrollBar/>
+                    <ActiveMenuSection handleOpenClose={handleOpenClose} setOpen={setOpen} open={open}
+                                       setModalInfo={setModalInfo} setModalType={setModalType}/>
+                </div>
 
                 :
                 <ActiveMenuSection handleOpenClose={handleOpenClose} setOpen={setOpen} open={open}
@@ -52,7 +54,7 @@ export const ActiveMenu = () => {
 
             <SwipeUp
                 open={open}
-                onChange={ handleOpenClose }
+                onChange={handleOpenClose}
             >
                 {/*<RemoveScroll className="scroll">*/}
 
