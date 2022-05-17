@@ -35,9 +35,9 @@ export const ActiveMenuSection = ({
                         <div className="slidable">
                             <div className='scrolled-tab'>
                                 <div style={{
-                                    height: scrollPos.y > 0  || open ? '0' : '115px',
-                                    opacity: scrollPos.y > 0 || open ? "0" : "1",
-                                    visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    height: scrollPos.y > 0 ? '0' : '115px',
+                                    opacity: scrollPos.y > 0 ? "0" : "1",
+                                    visibility: scrollPos.y > 0 ? "hidden" : "visible",
                                 }}
                                      className={'icon-title-wrapper'}
                                 >
