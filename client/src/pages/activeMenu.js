@@ -3,9 +3,7 @@ import {useEffect, useState} from "react";
 import {SwipeUp} from "../components/swipe";
 import {Modal} from "../fragments/sections/activeMenu/modal";
 import {LazyLoad} from "../components";
-import {RemoveScrollBar} from "react-remove-scroll-bar";
 import { useScrollPosition } from "react-use-scroll-position";
-import { RemoveScroll } from "react-remove-scroll";
 
 export const ActiveMenu = () => {
     const [open, setOpen] = useState(false)
@@ -18,8 +16,10 @@ export const ActiveMenu = () => {
         setOpen(!open)
       if(open === true){
         document.body.style.overflow = 'auto';
+        document.body.style.position = 'relative';
       }else{
         document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'fixed';
       }
     }
 
