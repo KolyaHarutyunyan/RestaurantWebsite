@@ -4,6 +4,7 @@ import {SwipeUp} from "../components/swipe";
 import {Modal} from "../fragments/sections/activeMenu/modal";
 import {LazyLoad} from "../components";
 import {RemoveScrollBar} from "react-remove-scroll-bar";
+import { useScrollPosition } from "react-use-scroll-position";
 
 export const ActiveMenu = () => {
     const [open, setOpen] = useState(false)
@@ -11,7 +12,7 @@ export const ActiveMenu = () => {
     const [modalType, setModalType] = useState('')
     const [activeTab, setActiveTab] = useState("food");
     const [loaded, setLoaded] = useState(false);
-
+    const scrollPos = useScrollPosition();
     const handleOpenClose = () => {
         setOpen(!open)
         document.getElementById("__next").style.overflowY = open ? 'hidden' : 'auto'
@@ -25,7 +26,7 @@ export const ActiveMenu = () => {
 
     return (
         <LazyLoad loaded={loaded} smallIcon={true}>
-            <div style={{ height: '100px'}}/>
+            <div style={{ height: scrollPos.y > 0  || open ? '0' : '100px'}}/>
             {open ?
                 <div>
                     <RemoveScrollBar/>
