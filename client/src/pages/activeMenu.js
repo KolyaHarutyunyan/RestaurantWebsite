@@ -16,7 +16,11 @@ export const ActiveMenu = () => {
     const scrollPos = useScrollPosition();
     const handleOpenClose = () => {
         setOpen(!open)
-        document.getElementById("__next").style.overflowY = open ? 'hidden' : 'auto'
+      if(open === true){
+        document.body.style.overflow = 'auto';
+      }else{
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     useEffect(() => {
@@ -28,9 +32,7 @@ export const ActiveMenu = () => {
     return (
         <LazyLoad loaded={loaded} smallIcon={true}>
             <div style={{ height: scrollPos.y > 0 ? '0' : '100px'}}/>
-            {open ?
-                <div>
-                  <RemoveScroll>
+
                     <ActiveMenuSection
                         activeTab={activeTab}
                         setActiveTab={setActiveTab}
@@ -40,22 +42,9 @@ export const ActiveMenu = () => {
                         setModalInfo={setModalInfo}
                         setModalType={setModalType}
                     />
-                  </RemoveScroll>
-                </div>
 
-                :
-                <ActiveMenuSection
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                    handleOpenClose={handleOpenClose}
-                    setOpen={setOpen}
-                    open={open}
-                    setModalInfo={setModalInfo}
-                    setModalType={setModalType}
-                />
-            }
 
-            <div style={{position:'relative', bottom:'-2px'}}>
+            <div style={{position:'relative', bottom:'-3px'}}>
             <SwipeUp
                 open={open}
                 onChange={handleOpenClose}
