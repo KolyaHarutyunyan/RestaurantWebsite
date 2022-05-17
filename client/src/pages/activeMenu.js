@@ -14,6 +14,7 @@ export const ActiveMenu = () => {
 
     const handleOpenClose = () => {
         setOpen(!open)
+        document.getElementById("__next").style.overflowY = open ? 'hidden' : 'auto'
     }
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export const ActiveMenu = () => {
             <div style={{ height: '100px'}}/>
             {open ?
                 <div>
-                    <RemoveScrollBar>
+                    <RemoveScrollBar/>
                     <ActiveMenuSection
                         activeTab={activeTab}
                         setActiveTab={setActiveTab}
@@ -37,7 +38,6 @@ export const ActiveMenu = () => {
                         setModalInfo={setModalInfo}
                         setModalType={setModalType}
                     />
-                    </RemoveScrollBar>
                 </div>
 
                 :
