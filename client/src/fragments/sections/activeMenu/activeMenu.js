@@ -32,13 +32,12 @@ export const ActiveMenuSection = ({
                     onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
                 >
                     <Tabs.TabContent contentOf="food">
-                        <div className="slidable">
-                            <div className='scrolled-tab'>
+                        <div  className="slidable">
+                            <div style={{marginTop:'-3px'}} className='scrolled-tab'>
                                 <div style={{
                                     height: scrollPos.y > 0 || open ?  '0' : '115px',
                                     opacity: scrollPos.y > 0 || open ? "0" : "1",
                                     visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
-                                    marginTop: '-1px'
                                 }}
                                      className={'icon-title-wrapper'}
                                 >
@@ -123,7 +122,7 @@ export const ActiveMenuSection = ({
 
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
-                            <div className='scrolled-tab'>
+                            <div style={{marginTop:'-3px'}} className='scrolled-tab'>
                                 <div style={{
                                     height: scrollPos.y > 0  || open ? '0' : '115px',
                                     opacity: scrollPos.y > 0 || open ? "0" : "1",
