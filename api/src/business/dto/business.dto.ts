@@ -3,6 +3,7 @@ import { AddressDTO } from 'src/components/address';
 import { BusinessStatus } from '../business.constants';
 import { FileDTO } from 'src/components/file';
 import { WeekDTO } from 'src/components/schedule';
+import { OwnerDTO } from 'src/owner/dto';
 
 export class BusinessDTO {
   @ApiProperty()
@@ -25,4 +26,8 @@ export class BusinessDTO {
   hours?: WeekDTO;
   @ApiProperty({ type: FileDTO })
   qr: FileDTO;
+  @ApiProperty({ required: false })
+  ownerId?: string;
+  @ApiProperty({ required: false })
+  ownerName?: string;
 }

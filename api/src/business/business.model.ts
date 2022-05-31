@@ -6,7 +6,7 @@ import { IBusiness } from './interface';
 import { FileSchema } from 'src/components/file';
 
 const businessSchema = new Schema({
-  owner: { type: Types.ObjectId, ref: 'user', required: true },
+  owner: { type: Types.ObjectId, ref: 'owner', required: true },
   name: { type: String, required: true },
   description: { type: String },
   logo: FileSchema,

@@ -8,9 +8,18 @@ import { BusinessModule } from '../business/business.module';
 import { MenuModule } from '../menu/menu.module';
 import { ItemModule } from '../item/item.module';
 import { FileModule } from '../components/file/file.module';
+import { AdminModule } from 'src/admin/admin.module';
 
 @Module({
-  imports: [AuthModule, OwnerModule, BusinessModule, MenuModule, ItemModule, FileModule],
+  imports: [
+    AuthModule,
+    OwnerModule,
+    BusinessModule,
+    MenuModule,
+    ItemModule,
+    FileModule,
+    AdminModule,
+  ],
   controllers: [AppController],
   providers: [AppService, DatabaseConnection],
 })

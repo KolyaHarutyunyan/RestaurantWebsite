@@ -11,7 +11,7 @@ import { EditBusinessDTO } from './dto/edit.dto';
 import { FileService } from 'src/components/file/file.service';
 import { ScheduleService } from 'src/components/schedule/schedule.service';
 import { AuthService } from 'src/auth/auth.service';
-import { SessionDTO } from 'src/auth';
+import { Role, SessionDTO } from 'src/auth';
 
 @Injectable()
 export class BusinessService {
@@ -71,6 +71,24 @@ export class BusinessService {
     const business = await this.model.findById(id);
     this.checkBusiness(business);
     return this.sanitizer.sanitize(business);
+  }
+  async getAll(page: number, user: SessionDTO): Promise<BusinessDTO[]> {
+    if (!user || user.role !== Role.ADMIN) {
+      throw new HttpException(
+        'The user needs to be an admin to see this info',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    if (page < 0) {
+      throw new HttpException('Invalid Page', HttpStatus.BAD_REQUEST);
+    }
+    const PAGE_SIZE = 20;
+    const businesses = await this.model
+      .find({})
+      .skip(PAGE_SIZE * page)
+      .limit(PAGE_SIZE)
+      .populate('owner');
+    return this.sanitizer.sanitizeMany(businesses);
   }
 
   /** Get all businesses with the ownerId */

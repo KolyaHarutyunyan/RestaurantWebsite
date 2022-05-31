@@ -6,6 +6,7 @@ import { BusinessSanitizer } from './business.sanitizer';
 import { FileModule } from 'src/components/file/file.module';
 import { ScheduleModule } from 'src/components/schedule/schedule.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { OwnerModule } from 'src/owner';
 
 @Module({
   imports: [FileModule, AddressModule, ScheduleModule, AuthModule],

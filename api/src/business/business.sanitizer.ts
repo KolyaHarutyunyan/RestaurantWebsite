@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AddressSanitizer } from 'src/components/address/address.sanitizer';
-// import { IImage, ImageSanitizer } from 'src/image';
+import { IOwner } from 'src/owner/interfaces';
 import { ISanitize } from 'src/util';
 import { BusinessDTO } from './dto';
 import { IBusiness } from './interface';
@@ -10,6 +10,7 @@ export class BusinessSanitizer implements ISanitize {
   constructor(private readonly addressSanitizer: AddressSanitizer) {}
 
   sanitize(business: IBusiness): BusinessDTO {
+    const owner = this.getOwner(business.owner);
     const santizedBusiness: BusinessDTO = {
       id: business.id,
       name: business.name,
@@ -21,6 +22,8 @@ export class BusinessSanitizer implements ISanitize {
       phoneNumber: business.phoneNumber,
       hours: business.hours,
       address: this.addressSanitizer.sanitize(business.address),
+      ownerId: owner?.id,
+      ownerName: owner?.fullName,
     };
     return santizedBusiness;
   }
@@ -31,5 +34,13 @@ export class BusinessSanitizer implements ISanitize {
       sanitizedbusinesses.push(this.sanitize(businesses[i]));
     }
     return sanitizedbusinesses;
+  }
+
+  getOwner(owner: any): IOwner {
+    const user = owner as IOwner;
+    if (user?.fullName) {
+      return user;
+    }
+    return undefined;
   }
 }

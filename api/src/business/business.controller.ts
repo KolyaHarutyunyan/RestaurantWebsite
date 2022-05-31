@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SessionDTO } from '../auth';
 import { ACCESS_TOKEN } from '../util/constants';
 import { ParseObjectIdPipe } from 'src/util/pipes';
@@ -33,6 +33,19 @@ export class BusinessController {
   async edit(@Param('id', ParseObjectIdPipe) id: string, @Body() editBusinessDTO: EditBusinessDTO) {
     const business = await this.businessService.edit(id, editBusinessDTO);
     return business;
+  }
+
+  /** Get all businesses */
+  @Get()
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'page' })
+  @ApiOkResponse({ type: [BusinessDTO] })
+  async getAll(
+    @Query('page') page: number,
+    @Body('user') user: SessionDTO,
+  ): Promise<BusinessDTO[]> {
+    const businesses = await this.businessService.getAll(page, user);
+    return businesses;
   }
 
   /** Get users business */
