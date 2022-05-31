@@ -20,7 +20,7 @@ export const Sidebar = () => {
           <div className="logo">
             <RiRestaurantLine />
           </div>
-          <div className="title">Restaurants</div>
+          <div className="title">Owners</div>
         </li>
       </ul>
     </Container>

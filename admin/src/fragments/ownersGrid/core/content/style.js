@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  min-height: 60vh;
   .row {
+   
     &:hover {
       background-color: var(--filling-third);
     }
@@ -55,9 +57,9 @@ export const Container = styled.div`
         margin-left: 10px;
       }
       .title {
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: dotted;
+        //max-width: 150px;
+        //overflow: hidden;
+        //text-overflow: dotted;
       }
     }
   }

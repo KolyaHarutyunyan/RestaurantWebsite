@@ -30,8 +30,11 @@ export const initAxiosInterceptors = () => {
       return response;
     },
     (error) => {
-      localStorage.removeItem("token");
-      history.push("/login");
+
+      // localStorage.removeItem("token");
+      // history.push("/login");
+
+
       return error;
     }
   );
