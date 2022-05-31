@@ -34,7 +34,7 @@ export const TabTitleContainer = styled.div`
   background-color: ${({ activeTab }) => (activeTab ? "#FF453A" : "white")};
   color: ${({ activeTab }) => (activeTab ? "white" : "#2B273C")};
   ${({ activeTab }) =>
-    !activeTab ? "box-shadow: 0px 0px 5px 1px #d2d2d2;" : ""};
+    !activeTab ? "box-shadow: 4px 0px 5px 1px #d2d2d2;" : ""};
 `;
 export const TabContentContainer = styled.div`
   margin-top: 10px;

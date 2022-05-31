@@ -1,27 +1,22 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useSelector} from "react-redux";
 import {LazyLoad, SlicedText, Tabs} from "@eachbase/components";
 import {Container} from "./style";
 import {Icons} from "@eachbase/theme";
 import {useScrollPosition} from 'react-use-scroll-position';
-import {SwipeUp} from "../../../components/swipe";
-import {Modal} from "./modal";
 
-export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
+export const ActiveMenuSection = ({
+                                      handleOpenClose,
+                                      open,
+                                      setModalType,
+                                      setModalInfo,
+                                      activeTab,
+                                      setActiveTab
+                                  }) => {
     const scrollPos = useScrollPosition();
     const [active, setActive] = useState('')
     const {menus} = useSelector(({menus}) => ({menus}));
     const business = useSelector(({businesses}) => businesses);
-    const [activeTab, setActiveTab] = useState("food");
-    const [loaded, setLoaded] = useState(false);
-    const [modalInfo, setModalInfo] = useState('')
-    const [modalType, setModalType] = useState('')
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoaded(true);
-        }, 500);
-    }, []);
 
     const handleOpenSwipe = (info, type) => {
         setModalType(type)
@@ -30,33 +25,34 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
     }
 
     return (
-        <LazyLoad loaded={loaded} smallIcon={true}>
+        <LazyLoad loaded={true} smallIcon={true}>
             <Container>
                 <Tabs.Wrapper
                     activeTab={activeTab}
                     onRequestToChange={(newActiveTab) => setActiveTab(newActiveTab)}
                 >
                     <Tabs.TabContent contentOf="food">
-                        <div className="slidable">
-                            <div className='scrolled-tab'>
-                                    <div style={{
-                                        height:scrollPos.y > 0  ? '0' : '115px',
-                                        opacity: scrollPos.y > 0  ? "0" : "1",
-                                        visibility:scrollPos.y > 0  ? "hidden" : "visible",  }}
-                                         className={'icon-title-wrapper'}
-                                    >
-                                        <div>
-                                            {business?.logo ?
-                                                <img className='business-icon' src={business?.logo?.thumbUrl}
-                                                     alt={'icon'}/>
-                                                :
-                                                <div className='building-icon'>
-                                                    <Icons.BuildingIcon/>
-                                                </div>
-                                            }
-                                        </div>
-                                        <p className='name'>{business?.name}</p>
+                        <div  className="slidable">
+                            <div style={{marginTop:'-3px'}} className='scrolled-tab'>
+                                <div style={{
+                                    height: scrollPos.y > 0 || open ?  '0' : '115px',
+                                    opacity: scrollPos.y > 0 || open ? "0" : "1",
+                                    visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                }}
+                                     className={'icon-title-wrapper'}
+                                >
+                                    <div>
+                                        {business?.logo ?
+                                            <img className='business-icon' src={business?.logo?.thumbUrl}
+                                                 alt={'icon'}/>
+                                            :
+                                            <div className='building-icon'>
+                                                <Icons.BuildingIcon/>
+                                            </div>
+                                        }
                                     </div>
+                                    <p className='name'>{business?.name}</p>
+                                </div>
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -64,7 +60,7 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
                                 <div style={{width: '100%'}}>
                                     <div className='menu-category'>{
                                         menus.food ? menus.food.length ? menus.food.map((item, key) => (item.items.length > 0 &&
-                                            <div  className='active-category-wrapper'>
+                                            <div className='active-category-wrapper'>
                                                 <a key={key}
                                                    onClick={() => setActive(item.name)}
                                                    className={active === item.name ? 'active-category' : 'passive-category'}
@@ -78,7 +74,7 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
                             </div>
 
                             <div className='category-border'/>
-                            <div >
+                            <div>
                                 {menus.food && menus.food.length && menus.food.map((item, key) => (item.items.length > 0 &&
                                     <div>
                                         <div id={`${item.name}`} style={{height: '100px'}}/>
@@ -126,24 +122,26 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
 
                     <Tabs.TabContent contentOf="drink">
                         <div className="slidable">
-                            <div className='scrolled-tab'>
-                                    <div style={{
-                                        height:scrollPos.y > 0  ? '0' : '115px',
-                                        opacity:scrollPos.y > 0  ? "0" : "1",
-                                        visibility:scrollPos.y > 0  ? "hidden" : "visible",  }}
-                                         className={'icon-title-wrapper'}
-                                    >
-                                        <div>
-                                            { business?.logo ?
-                                                <img className='business-icon' src={business?.logo?.thumbUrl} alt={'icon'}/>
-                                                :
-                                                <div className='building-icon'>
-                                                     <Icons.BuildingIcon/>
-                                                </div>
-                                             }
-                                         </div>
-                                         <p className='name'>{business?.name}</p>
-                                     </div>
+                            <div style={{marginTop:'-3px'}} className='scrolled-tab'>
+                                <div style={{
+                                    height: scrollPos.y > 0  || open ? '0' : '115px',
+                                    opacity: scrollPos.y > 0 || open ? "0" : "1",
+                                    visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    marginTop: '-1px'
+                                }}
+                                     className={'icon-title-wrapper'}
+                                >
+                                    <div>
+                                        {business?.logo ?
+                                            <img className='business-icon' src={business?.logo?.thumbUrl} alt={'icon'}/>
+                                            :
+                                            <div className='building-icon'>
+                                                <Icons.BuildingIcon/>
+                                            </div>
+                                        }
+                                    </div>
+                                    <p className='name'>{business?.name}</p>
+                                </div>
                                 <Tabs.TabHeader square>
                                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                                     <Tabs.TabTitle tabName="drink">Drinks</Tabs.TabTitle>
@@ -151,7 +149,7 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
                                 <div style={{width: '100%'}}>
                                     <div className='menu-category'>{
                                         menus.drinks ? menus.drinks.length ? menus.drinks.map((item, key) => (item.items.length > 0 &&
-                                            <div  className='active-category-wrapper' >
+                                            <div className='active-category-wrapper'>
                                                 <a key={key}
                                                    onClick={() => setActive(item.name)}
                                                    className={active === item.name ? 'active-category' : 'passive-category'}
@@ -200,8 +198,8 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
                                                                 {item?.item?.description?.length > 20 ? `${item.item.description.slice(0, 20)}...` : item?.item?.description}
                                                             </p>
                                                             <p className='optional'>
-                                                                    {item?.item?.option?.length > 40 ? `${item.item.option.slice(0, 40)}...` : item.item.option}
-                                                                </p>
+                                                                {item?.item?.option?.length > 40 ? `${item.item.option.slice(0, 40)}...` : item.item.option}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -215,12 +213,12 @@ export const ActiveMenuSection = ({handleOpenClose, setOpen, open}) => {
 
             </Container>
 
-            <SwipeUp
-                open={open}
-                onChange={ handleOpenClose }
-            >
-                <Modal modalType={modalType} info={modalInfo}/>
-            </SwipeUp>
+            {/*<SwipeUp*/}
+            {/*    open={open}*/}
+            {/*    onChange={ handleOpenClose }*/}
+            {/*>*/}
+            {/*    <Modal modalType={modalType} info={modalInfo}/>*/}
+            {/*</SwipeUp>*/}
 
         </LazyLoad>
     )

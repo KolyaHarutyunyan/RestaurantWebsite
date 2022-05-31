@@ -1,0 +1,6 @@
+export const GET_OWNERS = "GET_OWNERS";
+export const GET_OWNERS_SUCCESS = "GET_OWNERS_SUCCESS";
+
+export const SEARCH_OWNERS = "SEARCH_OWNERS";
+
+export const DELETE_OWNER = "DELETE_OWNER";

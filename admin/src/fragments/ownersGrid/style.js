@@ -6,12 +6,18 @@ export const Container = styled.div`
     margin-bottom: 25px;
     align-items: center;
     max-width: 500px;
+    padding: 0 4px;
     .noth {
       flex: 0 0 250px;
       margin-left: 10px;
     }
   }
   .grid-wrapper {
+    border-right: 0.5px solid #545F7E4D;
+    border-left: 0.5px solid #545F7E4D;
+    border-bottom: 0.5px solid #545F7E4D;
+    border-radius: 8px;
+    padding: 0 0 20px 0;
     min-width: 1200px;
     .pagination-wrapper {
       display: flex;
@@ -21,7 +27,7 @@ export const Container = styled.div`
   .pagination-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin: 10px 0;
+    margin: 25px 15px 10px 0;
     .noth {
       margin-right: 5px;
     }
@@ -41,5 +47,13 @@ export const Container = styled.div`
         }
       }
     }
+  }
+  .loader{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
   }
 `;

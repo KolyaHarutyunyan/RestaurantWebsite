@@ -1,8 +1,9 @@
 import {ModalContainer} from "./style";
 import {Icons} from "@eachbase/theme";
-import Carousel from "nuka-carousel";
+// import Carousel from "nuka-carousel";
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Carousel from "nuka-carousel";
 
 export const Modal = ({info, modalType}) => {
     return (
@@ -14,24 +15,28 @@ export const Modal = ({info, modalType}) => {
                 {info && info.images && info.images.length ?
                     info.images.length > 1 ?
                         <Carousel
+                            animation={'zoom'}
+                            zoomScale={0.7}
                             pauseOnHover={false}
+
                             autoplayInterval={2000}
                             slidesToShow={1}
+                            // speed={2}
                             slidesToScroll={1}
                             style={{outline: 'none'}}
                             renderBottomCenterControls={false}
-                            renderCenterLeftControls={({ previousSlide }) => (
-                                <button onClick={previousSlide}>
-                                    <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>
-                                </button>
-                            )}
-                            renderCenterRightControls={({ nextSlide }) => (
-                                <button onClick={nextSlide}>
-                                  <ChevronRightIcon style={{fontSize:'28px'}}/>
-                                </button>
-                            )}
-                            wrapAround={true}
-                            autoplay={true}
+                            renderCenterLeftControls={false}
+                            renderCenterRightControls={false}
+                            // renderCenterLeftControls={({ previousSlide }) => (
+                            //     <button onClick={previousSlide}>
+                            //         <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>
+                            //     </button>
+                            // )}
+                            // renderCenterRightControls={({ nextSlide }) => (
+                            //     <button onClick={nextSlide}>
+                            //       <ChevronRightIcon style={{fontSize:'28px'}}/>
+                            //     </button>
+                            // )}
                         >
                             {info.images.map((i, k) => (
                                 <div style={{
@@ -64,7 +69,7 @@ export const Modal = ({info, modalType}) => {
                     <p>{`$${info?.price}`}</p>
                 </div>
                 {info?.option &&
-                <div className='option-text'>
+                <div>
                     <p className='option-style'>{info?.option}</p>
                 </div>
                 }
@@ -73,7 +78,7 @@ export const Modal = ({info, modalType}) => {
             {info?.description &&
             <div>
                 <p className='description-title'>Description</p>
-                <div className='description-text'>
+                <div>
                     <p>{info?.description}</p>
                 </div>
             </div>

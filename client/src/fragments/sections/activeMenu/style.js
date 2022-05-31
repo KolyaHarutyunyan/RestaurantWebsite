@@ -60,7 +60,8 @@ export const Container = styled.div`
     }
     background: white;
     width: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 24px 0 -2px 0;
     display: -webkit-box;
   }
@@ -97,9 +98,9 @@ export const Container = styled.div`
   .passive-category {
     @media (max-width: 767px) {
        font-size: 16px;
-       padding: 0 23px 12px 23px;
+       padding: 0 23px 10px 23px;
     }
-    padding: 0 32px 12px 32px;
+    padding: 0 32px 10px 32px;
     font-size: 20px;
     color: #2B273C80;
     font-family: Open Sans, sans-serif;
@@ -114,9 +115,9 @@ export const Container = styled.div`
   .active-category {
     @media (max-width: 767px) {
         font-size: 16px;
-        padding: 0 23px 12px 23px;
+        padding: 0 23px 10px 23px;
     }
-     padding: 0 23px 12px 23px;
+     padding: 0 23px 10px 23px;
      font-size: 20px;
      color: #2B273C;
      font-family: Open Sans, sans-serif;
@@ -144,7 +145,7 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     background: white;
-    top: 0;
+    top: -3px;
     max-width: 768px;
     //box-shadow: 0px 0px 12px #0052E01A;
 
@@ -243,7 +244,7 @@ export const Container = styled.div`
 export const ModalContainer = styled.div`
   height: 550px;
   max-width: 768px;
-  overflow: hidden;
+  overflow: auto;
   border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0;
   background: white;
@@ -325,16 +326,6 @@ export const ModalContainer = styled.div`
     line-height: 20px;
     color: #2B273C;
     margin: 8px 0;
-  }
-
-  .description-text {
-    height: 80px;
-    overflow: auto;
-  }
-
-  .option-text {
-    height: 50px;
-    overflow: auto;
   }
 
   .line-class {

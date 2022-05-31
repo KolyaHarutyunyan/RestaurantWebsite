@@ -1,0 +1,1 @@
+export { OwnersGrid } from "./ownersGrid";
