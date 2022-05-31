@@ -38,6 +38,7 @@ export const ActiveMenuSection = ({
                                     height: scrollPos.y > 0 || open ?  '0' : '115px',
                                     opacity: scrollPos.y > 0 || open ? "0" : "1",
                                     visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    marginTop: '-1px'
                                 }}
                                      className={'icon-title-wrapper'}
                                 >
@@ -127,6 +128,7 @@ export const ActiveMenuSection = ({
                                     height: scrollPos.y > 0  || open ? '0' : '115px',
                                     opacity: scrollPos.y > 0 || open ? "0" : "1",
                                     visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    marginTop: '-1px'
                                 }}
                                      className={'icon-title-wrapper'}
                                 >
