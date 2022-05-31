@@ -6,7 +6,7 @@ export const Style = {
     z-index: 1;
     width: 100%;
     height: 100%;
-    margin-top: 140px;
+    margin-top: 120px;
     .wrapper {
       transition: margin 0.3s ease-in-out, padding 0.3s ease-in-out;
       margin-left: ${({ sideBarIsOpen, isTablet }) =>

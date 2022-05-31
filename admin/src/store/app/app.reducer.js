@@ -6,6 +6,11 @@ import { restaurantsReducer } from "../restaurants";
 import { menuItemsReducer } from "../menuItems";
 import { categoriesReducer } from "../categories";
 import { menusReducer } from "../menus";
+import { ownersReducer } from "../owners";
+import { httpRequestsOnLoadReducer } from "../http_requests_on_load";
+import { httpRequestsOnSuccessReducer } from "../http_requests_on_success";
+import { httpRequestsOnErrorsReducer } from "../http_requests_on_errors";
+
 
 const initialState = {
   isLoading: false,
@@ -42,4 +47,9 @@ export const appReducer = combineReducers({
   categories: categoriesReducer,
   menuItems: menuItemsReducer,
   menus: menusReducer,
+  owners: ownersReducer,
+
+  httpOnLoad: httpRequestsOnLoadReducer,
+  httpOnSuccess: httpRequestsOnSuccessReducer,
+  httpOnError: httpRequestsOnErrorsReducer,
 });
