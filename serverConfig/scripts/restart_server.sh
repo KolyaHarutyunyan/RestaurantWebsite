@@ -1,6 +1,6 @@
 #!/bin/bash
 # restart the nginx server
-sudo service restart nginx
+sudo service nginx restart
 # log the status 
 # service nginx status
 
