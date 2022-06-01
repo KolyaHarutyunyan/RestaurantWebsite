@@ -1,7 +1,8 @@
 import { Container } from "./style";
-import { IoTrash } from "react-icons/all";
 import { useDispatch } from "react-redux";
 import { ownersActions } from "../../../../store/owners";
+import { Images } from "../../../../assets";
+
 export const Content = ({ owners }) => {
   const dispatch = useDispatch();
 
@@ -19,25 +20,34 @@ export const Content = ({ owners }) => {
           key={item.id}
         >
           <div className="col">
-            {item.fullName ? item.fullName : ""}
+            {item.ownerName ? item.ownerName : ""}
           </div>
           <div className="col">
             <div className="restaurant-name">
-              <div className="title">{item.email ? item.email : ""}</div>
+
+
+              <img
+                className='logo'
+                src={item?.logo?.url ? item?.logo?.url : Images.Building} alt='restaLogo'/>
+              <p className="title">{item.name ? item.name : ""}</p>
             </div>
           </div>
           <div className="col">
-            Delete
-            <button
-              className="delete-button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onRequestToDelete(item.id);
-              }}
-            >
-              <IoTrash />
-            </button>
+            {item.phoneNumber ? item.phoneNumber : 'Not Set'}
           </div>
+
+          {/*<div className="col">*/}
+          {/*  Delete*/}
+          {/*  <button*/}
+          {/*    className="delete-button"*/}
+          {/*    onClick={(e) => {*/}
+          {/*      e.stopPropagation();*/}
+          {/*      onRequestToDelete(item.id);*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    <IoTrash />*/}
+          {/*  </button>*/}
+          {/*</div>*/}
         </div>
       ))}
     </Container>

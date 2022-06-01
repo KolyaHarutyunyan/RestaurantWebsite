@@ -12,7 +12,6 @@ import {
 function* getRestaurants() {
   try {
     const res = yield call(restaurantsService.getResturants);
-    console.log(res,'resres');
     yield put({
       type: GET_RESTAURANTS_SUCCESS,
       payload: res.data,
