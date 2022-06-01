@@ -4,8 +4,8 @@ export const Head = () => {
   return (
     <Container>
       <li>Owner Name</li>
-      <li>Email</li>
-      <li>Action</li>
+      <li>Restaurant Name</li>
+      <li>Phone Number</li>
     </Container>
   );
 };

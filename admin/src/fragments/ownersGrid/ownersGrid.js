@@ -8,7 +8,7 @@ import { Content } from "./core/content";
 import { ownersActions } from "../../store/owners";
 import { FindLoad } from "@eachbase/utils";
 
-export const OwnersGrid = () => {
+export const  OwnersGrid = () => {
   const { ownersList, reserveOwners } = useSelector((state) => ({
     ownersList: state.owners.ownersList,
     reserveOwners: state.owners.reserveOwners
@@ -32,11 +32,11 @@ export const OwnersGrid = () => {
       <div className="search-bar">
         <SearchInput
           value={searchBarValue}
-          placeholder="Search Owner"
+          placeholder="Search Restaurant"
           onChange={({ target: { value } }) => setSearchBarValue(value)}
         />
         <div className="noth">
-          Total Owners: {reserveOwners?.length}
+          Total Restaurants: {reserveOwners?.length}
         </div>
       </div>
       {loader ?
@@ -65,4 +65,3 @@ export const OwnersGrid = () => {
     </Container>
   );
 }
-;

@@ -53,4 +53,10 @@ export const Container = styled.div`
       }
     }
   }
+  .error{
+    color: red;
+    font-size: 16px;
+    height: 20px;
+    margin: 10px 0;
+  }
 `;

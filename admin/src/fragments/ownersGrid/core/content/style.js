@@ -50,11 +50,12 @@ export const Container = styled.div`
       display: flex;
       width: 100%;
       align-items: center;
-      justify-content: space-between;
       .logo {
-        width: 40px;
-        height: 40px;
-        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+        border-radius: 40px;
+        object-fit: cover;
       }
       .title {
         //max-width: 150px;

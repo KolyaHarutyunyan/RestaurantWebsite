@@ -19,7 +19,7 @@ export const ownersReducer = (state = initialState, action) => {
     case SEARCH_OWNERS:
       return {
         ...state,
-        ownersList: paginate(state.reserveOwners.filter((el) => el.fullName.toLowerCase().indexOf(action.payload.toLowerCase()) > -1), 10)
+        ownersList: paginate(state.reserveOwners.filter((el) => el.ownerName.toLowerCase().indexOf(action.payload.toLowerCase()) > -1), 10)
       };
 
     default:
