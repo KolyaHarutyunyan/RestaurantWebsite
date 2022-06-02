@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /menumango.dev.nginx.config
+  - source: /menumango.live.nginx.config
     destination: /etc/nginx/sites-enabled/
   - source: /api
     destination: /var/www/menumango/api
