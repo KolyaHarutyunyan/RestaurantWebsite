@@ -8,7 +8,7 @@ const dbs = {
 const DB = dbs.PROD;
 let connectionString = null;
 if (DB === dbs.PROD) {
-  connectionString = `mongodb+srv://jackblack:pixQD#WHd4DPaQWH@main.uvs5v.mongodb.net/${DB}?retryWrites=true&w=majority`;
+  connectionString = `mongodb+srv://jackblack:pixQDrWHd4DPaQWH@main.uvs5v.mongodb.net/${DB}?retryWrites=true&w=majority`;
 } else {
   connectionString = `mongodb+srv://test-menuz-user:menuzeachbase@maincluster.gh27e.mongodb.net/${DB}?retryWrites=true&w=majority`;
 }
