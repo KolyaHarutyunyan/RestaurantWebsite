@@ -4,7 +4,6 @@ import { colors } from "./colors";
 export const GlobalScss = createGlobalStyle`
   body {
     -webkit-overflow-scrolling: touch !important;
-    background: red;
   }
     .element::-webkit-scrollbar {
         -webkit-appearance: none;
