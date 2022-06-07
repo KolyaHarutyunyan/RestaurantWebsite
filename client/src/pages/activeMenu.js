@@ -14,13 +14,14 @@ export const ActiveMenu = () => {
   const scrollPos = useScrollPosition();
   const handleOpenClose = () => {
     setOpen(!open);
+
     if (open === true) {
       document.body.style.overflow = "auto";
       document.body.style.position = "relative";
     } else {
       document.body.style.overflow = "hidden";
-      // document.body.style.position = "fixed";
-      document.body.style.position = "absolute";
+      document.body.style.position = "fixed";
+      // document.body.style.position = "absolute";
       document.body.style.width = "100%";
     }
   };
@@ -33,7 +34,7 @@ export const ActiveMenu = () => {
 
   return (
     <LazyLoad loaded={loaded} smallIcon={true}>
-      <div style={{ height: scrollPos.y > 0 ? "0" : "100px" }} />
+      <div style={{ height: scrollPos.y > 0 || open ? "0" : "100px" }} />
 
       <ActiveMenuSection
         activeTab={activeTab}
@@ -46,7 +47,7 @@ export const ActiveMenu = () => {
       />
 
 
-      <div style={{ position: "relative",  }}>
+      <div style={{ position: "relative" }}>
         <SwipeUp
           open={open}
           onChange={handleOpenClose}
