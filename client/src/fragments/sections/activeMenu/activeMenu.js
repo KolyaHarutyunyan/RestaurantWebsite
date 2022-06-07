@@ -35,9 +35,15 @@ export const ActiveMenuSection = ({
                         <div  className="slidable">
                             <div style={{marginTop:'-3px'}} className='scrolled-tab'>
                                 <div style={{
-                                    height: scrollPos.y > 0 || open ?  '0' : '115px',
-                                    opacity: scrollPos.y > 0 || open ? "0" : "1",
-                                    visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    height: scrollPos.y > 0
+                                    // || open
+                                      ?  '0' : '115px',
+                                    opacity: scrollPos.y > 0
+                                    // || open
+                                      ? "0" : "1",
+                                    visibility: scrollPos.y > 0
+                                    // || open
+                                      ? "hidden" : "visible",
                                 }}
                                      className={'icon-title-wrapper'}
                                 >
@@ -124,9 +130,15 @@ export const ActiveMenuSection = ({
                         <div className="slidable">
                             <div style={{marginTop:'-3px'}} className='scrolled-tab'>
                                 <div style={{
-                                    height: scrollPos.y > 0  || open ? '0' : '115px',
-                                    opacity: scrollPos.y > 0 || open ? "0" : "1",
-                                    visibility: scrollPos.y > 0 || open ? "hidden" : "visible",
+                                    height: scrollPos.y > 0
+                                    // || open
+                                      ? '0' : '115px',
+                                    opacity: scrollPos.y > 0
+                                    // || open
+                                      ? "0" : "1",
+                                    visibility: scrollPos.y > 0
+                                    // || open
+                                      ? "hidden" : "visible",
                                     marginTop: '-1px'
                                 }}
                                      className={'icon-title-wrapper'}
@@ -163,7 +175,9 @@ export const ActiveMenuSection = ({
                             </div>
 
                             <div className='category-border'/>
-                            <div className={!open && scrollPos.y === 0 ? 'menu-body' : ''}>
+                            <div className={
+                                // !open &&
+                            scrollPos.y === 0 ? 'menu-body' : ''}>
                                 {menus.drinks && menus.drinks.length && menus.drinks.map((item, key) => (item.items.length > 0 &&
                                     <div>
                                         <div id={`${item.name}`} style={{height: '100px'}}/>
