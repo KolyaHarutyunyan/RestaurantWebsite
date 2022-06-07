@@ -2,13 +2,18 @@ import { createGlobalStyle } from "styled-components";
 import { media } from "./media";
 import { colors } from "./colors";
 export const GlobalScss = createGlobalStyle`
+  body {
+    -webkit-overflow-scrolling: touch !important;
+    background: red;
+  }
     .element::-webkit-scrollbar {
         -webkit-appearance: none;
         width: 0;
         height: 0;
     }
-    
-  .hide-scroll{
+
+  
+    .hide-scroll{
     overflow: hidden;
     height: 100%;
   }
