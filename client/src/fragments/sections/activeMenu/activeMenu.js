@@ -1,9 +1,10 @@
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import {useSelector} from "react-redux";
 import {LazyLoad, SlicedText, Tabs} from "@eachbase/components";
 import {Container} from "./style";
 import {Icons} from "@eachbase/theme";
 import {useScrollPosition} from 'react-use-scroll-position';
+import { useRouter } from "next/dist/client/router";
 
 export const ActiveMenuSection = ({
                                       handleOpenClose,
@@ -23,6 +24,10 @@ export const ActiveMenuSection = ({
         handleOpenClose()
         setModalInfo(info ? info : '')
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [activeTab]);
 
     return (
         <LazyLoad loaded={true} smallIcon={true}>

@@ -20,8 +20,7 @@ export const ActiveMenu = () => {
       document.body.style.position = "relative";
     } else {
       document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      // document.body.style.position = "absolute";
+      document.body.style.position = "static";
       document.body.style.width = "100%";
     }
   };
