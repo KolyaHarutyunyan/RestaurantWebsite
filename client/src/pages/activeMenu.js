@@ -19,7 +19,7 @@ export const ActiveMenu = () => {
       document.body.style.position = "relative";
     } else {
       document.body.style.overflow = "hidden";
-      document.body.style.overflow = "fixed";
+      document.body.style.position = "fixed";
     }
   };
 
