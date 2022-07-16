@@ -242,10 +242,10 @@ export const Container = styled.div`
 
 
 export const ModalContainer = styled.div`
-  height: 550px;
+  height: 100%;
   max-width: 768px;
   overflow: auto;
-  border-top: 7px solid #FF453A;
+  //border-top: 7px solid #FF453A;
   border-radius: 20px 20px 0 0;
   background: white;
   padding: 16px 15px;
@@ -331,7 +331,7 @@ export const ModalContainer = styled.div`
   .line-class {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 14px;
 
     .line {
