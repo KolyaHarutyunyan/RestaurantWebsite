@@ -3,8 +3,12 @@ import {useEffect, useState} from "react";
 import {Modal} from "../fragments/sections/activeMenu/modal";
 import {LazyLoad} from "../components";
 import {useScrollPosition} from "react-use-scroll-position";
-import {Dialog} from "@material-ui/core";
+import {AppBar, Dialog, Slide, Toolbar} from "@material-ui/core";
 import React from 'react';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const ActiveMenu = () => {
     const [open, setOpen] = useState(false);
@@ -32,11 +36,13 @@ export const ActiveMenu = () => {
                 open={open}
                 onClose={handleOpenClose}
                 style={{maxWidth: '768px', margin: '0 auto'}}
+                TransitionComponent={Transition}
             >
                 <div>
                     <Modal modalType={modalType} info={modalInfo} handleOpenClose={handleOpenClose}/>
                 </div>
             </Dialog>
+
             <ActiveMenuSection
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
