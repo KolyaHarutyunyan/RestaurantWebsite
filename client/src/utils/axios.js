@@ -27,7 +27,7 @@ export const initAxiosInterceptors = () => {
     (response) => response,
     (error) => {
       if (error.response.status === 401) {
-        // localStorage.removeItem("token");
+        localStorage.removeItem("token");
         //NOW
         if(path !== '/privacyPolicy' &&  path !==  '/termsAndConditions' && path.length > 150) {
           router.push("/");

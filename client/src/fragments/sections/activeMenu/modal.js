@@ -1,15 +1,16 @@
 import {ModalContainer} from "./style";
 import {Icons} from "@eachbase/theme";
-// import Carousel from "nuka-carousel";
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Carousel from "nuka-carousel";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-export const Modal = ({info, modalType}) => {
+export const Modal = ({info, modalType, handleOpenClose}) => {
     return (
         <ModalContainer>
             <div className='line-class'>
-                <div className='line'/>
+                <button onClick={handleOpenClose}>
+                    <ArrowBackIosIcon style={{color:'#FF453A', fontSize:'30px'}}/>
+                </button>
+                {/*<div className='line'/>*/}
             </div>
             <div className='image-name'>
                 {info && info.images && info.images.length ?
