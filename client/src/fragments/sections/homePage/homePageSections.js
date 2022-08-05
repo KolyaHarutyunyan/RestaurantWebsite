@@ -8,6 +8,7 @@ import { YourBusiness } from "./yourBusiness";
 import { Container } from "./style";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Payments } from "../payments/payments";
 
 export const HomePageSections = () => {
   const [loaded, setLoaded] = useState(false);
@@ -25,6 +26,9 @@ export const HomePageSections = () => {
         <QRCode />
         <HowItWorks />
         <DigitalMenu />
+
+         <Payments/>
+
         <MenusAndMenuItems />
       </Container>
     </LazyLoad>

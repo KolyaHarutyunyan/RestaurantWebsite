@@ -23,6 +23,7 @@ const MyApp = ({ Component, pageProps }) => (
 
       <link rel="preconnect" href="https://fonts.gstatic.com" />
 
+
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="apple-touch-icon" href="favicon.ico"/>

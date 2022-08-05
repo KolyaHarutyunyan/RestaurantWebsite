@@ -8,7 +8,7 @@ export const Modal = ({info, modalType, handleOpenClose}) => {
         <ModalContainer>
             <div className='line-class'>
                 <button onClick={handleOpenClose}>
-                    <ArrowBackIosIcon style={{color:'#FF453A', fontSize:'30px'}}/>
+                  <Icons.BackButton/>
                 </button>
                 {/*<div className='line'/>*/}
             </div>
@@ -75,7 +75,7 @@ export const Modal = ({info, modalType, handleOpenClose}) => {
                 </div>
                 }
             </div>
-            <hr style={{marginTop: '20px'}}/>
+            <hr style={{marginTop: '20px', border:'1px solid #E9E9EB'}}/>
             {info?.description &&
             <div>
                 <p className='description-title'>Description</p>

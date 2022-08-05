@@ -29,4 +29,8 @@ export {
   ResetPasswordPageSections,
   PrivacyPolicySection,
   TermsConditionsSection,
+  Payments,
+  BillingPage,
+  PayInfo,
+  InvoiceInfo,
 } from "./sections";

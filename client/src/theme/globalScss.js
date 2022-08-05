@@ -104,4 +104,73 @@ export const GlobalScss = createGlobalStyle`
       }
     }
   }
+
+    .breadcrumb{
+        @media (min-width: 320px) {
+            margin: 120px 0 24px 0;
+        }
+        @media (min-width: 768px) {
+            margin: 120px 0 40px 0;
+        }
+        @media (min-width: 1279px) {
+            margin: 120px 0 40px 0;
+        }
+        @media (min-width: 1919px) {
+            margin: 120px 0 40px 0;
+        }
+
+        display: flex;
+        align-items: center;
+        margin:40px 0;
+
+
+        a{
+            font-family: Open Sans, sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            color: #2B273C80;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+        }
+        svg{
+            margin: -4px 4px 0 4px;
+        }
+        .bred-menu{
+            font-family: Open Sans, sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .g-title {
+        text-align: center;
+        font-family: Poppins,sans-serif;
+        line-height: 72px;
+        font-size: 48px!important;
+        @media (max-width: 767px) {
+            line-height: 36px;
+            font-size: 28px!important;
+        }
+    }
+    .descr {
+        text-align: center;
+        font-family: Open Sans, sans-serif;
+        line-height: 24px ;
+        font-size: 16px;
+        @media (min-width: 320px) {
+            font-size: 14px;
+            line-height:21px ;
+            margin-top: 32px;
+        }
+        @media (min-width: 768px) {
+            line-height: 24px ;
+            font-size: 16px;
+            margin-top: 23px;
+        }
+    }
+    
 `;

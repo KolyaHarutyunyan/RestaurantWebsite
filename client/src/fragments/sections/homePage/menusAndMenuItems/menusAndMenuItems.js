@@ -18,7 +18,7 @@ export const MenusAndMenuItems = () => {
     return (
         <Container>
             <div className="container">
-                <Typography className="g-title" color="text" size="3rem">
+                <Typography weight="bold" className="g-title" color="text" size="3rem">
                     Popular Menu Items
                 </Typography>
                 <Typography color="text" className="descr">
