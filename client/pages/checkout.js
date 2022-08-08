@@ -35,7 +35,7 @@ import { CheckoutContainer } from "../src/fragments/sections/payments/styles";
 
 const stripePromise = loadStripe("pk_test_51LPm9qL4pro3KzC9ZdcZLKSOQuZCwacegagY17KtxY8QlRxecUhIriHncjwUVLsffspIhIEUcEYWRVDL9YP0KMLy00PslKiMpN");
 
-export const getServerSideProps = async ctx => {
+export const getStaticProps = async ctx => {
   const stripe = new Stripe("sk_test_51LPm9qL4pro3KzC9xiyiraypdCNtnPFb5NgC5B8237KW4EbH6FNbUMdetNe3YFPq0HH7ghXyq9PFzvfXqifYy0jZ00qljeLraV");
 
 
