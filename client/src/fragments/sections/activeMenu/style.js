@@ -277,11 +277,10 @@ export const ModalContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 16px;
-
+    font-weight: 700;
     p {
       font-size: 16px;
       line-height: 20px;
-      font-weight: bold;
       color: #2B273C;
     }
   }

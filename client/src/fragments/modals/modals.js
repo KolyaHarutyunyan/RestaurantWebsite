@@ -14,10 +14,11 @@ import {
   ResetPasswordHelper,
   ConfirmCategoryDeleteDialog,
   ConfirmItemDeleteDialog,
-  MenuItemForm,
+  MenuItemForm, InvoiceInfo
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
 import {CustomModal} from "../../components";
+import { PaymentSuccess } from "../helpers/paymentSuccess/paymentSuccess";
 
 export const Modals = () => {
   const router = useRouter();
@@ -56,6 +57,20 @@ export const Modals = () => {
           modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
         <CheckEmailHelper />
       </CustomModal>
+        <CustomModal
+          closeBorder={'close'}
+          max={400}
+          modalName={MODAL_NAMES.CHECK_PAYMENT_HELPER}>
+        <PaymentSuccess />
+      </CustomModal>
+
+        <CustomModal
+          closeBorder={'close'}
+          max={400}
+          modalName={MODAL_NAMES.INVOICE_INFO}>
+        <InvoiceInfo />
+      </CustomModal>
+
       <CustomModal closeBorder={'close'} modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
         <SignUpSuccessHelper />
       </CustomModal>
