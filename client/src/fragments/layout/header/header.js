@@ -6,14 +6,17 @@ import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
 import { BsPerson, BsPersonFill, BsChevronUp } from "react-icons/bs";
 import { HiMenuAlt4 } from "react-icons/hi";
-import { useSagaStore, profileActions, businessesActions } from "@eachbase/store";
+import {
+  useSagaStore,
+  profileActions,
+  businessesActions,
+} from "@eachbase/store";
 import { useEffect, useRef, useState } from "react";
 import useMedia from "use-media";
 import axios from "axios";
 import { useScrollPosition } from "react-use-scroll-position";
 
 export const Header = () => {
-
   const path = typeof window !== "undefined" && window.location.pathname;
   const scrollPos = useScrollPosition();
   const router = useRouter();
@@ -24,11 +27,13 @@ export const Header = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const [windowPath, setWindowPath] = useState(router?.pathname);
-  const [openSub, setOpenSub] = useState(windowPath === '/plans' || windowPath === '/billing');
+  const [openSub, setOpenSub] = useState(
+    windowPath === "/plans" || windowPath === "/billing"
+  );
   const { open } = useModal();
   const token = typeof window !== "undefined" && localStorage.getItem("token");
 
-  const pageOffset = typeof window !== "undefined" && window.pageYOffset;
+  // const pageOffset = typeof window !== "undefined" && window.pageYOffset;
   const profileNavigationalList = () => {
     const signOut = () => {
       localStorage.removeItem("token");
@@ -39,14 +44,13 @@ export const Header = () => {
     const handleRestaurant = async () => {
       setWindowPath("/restaurant");
 
-      await axios(`/businesses/mybusiness`, { auth: true }).then(res =>
-        router.push("/restaurant")
-      ).catch(() => open(MODAL_NAMES.CREATE_RESTAURANT)
-      );
+      await axios(`/businesses/mybusiness`, { auth: true })
+        .then((res) => router.push("/restaurant"))
+        .catch(() => open(MODAL_NAMES.CREATE_RESTAURANT));
     };
 
     const createMenu = async () => {
-      await axios(`/businesses/mybusiness`, { auth: true }).then(res =>
+      await axios(`/businesses/mybusiness`, { auth: true }).then((res) =>
         open(MODAL_NAMES.MENU_FORM)
       );
     };
@@ -56,14 +60,13 @@ export const Header = () => {
       setWindowPath("/profile");
     };
 
-
     const handleSubscriptions = () => {
       setOpenSub(!openSub);
       // router.push("/profile")
       // setWindowPath('/profile')
     };
 
-    const handleSubPages = ( link ) => {
+    const handleSubPages = (link) => {
       router.push(link);
       setWindowPath(link);
     };
@@ -71,8 +74,7 @@ export const Header = () => {
     if (profile) {
       return (
         <NavigationContainer>
-
-          <Button
+          {/* <Button
             className="create-button"
             color="default"
             outlined
@@ -80,7 +82,7 @@ export const Header = () => {
             onClick={() => createMenu()}
           >
             Create Menu
-          </Button>
+          </Button> */}
           <li style={{ pointerEvents: "none" }} className="account-icon">
             <div className="icon-container">
               <Icons.RedUser />
@@ -89,61 +91,60 @@ export const Header = () => {
               {profile.fullName}
             </Typography>
           </li>
-          <li className={windowPath === "/restaurant" ? "activeItem" : " "}
+          <li
+            className={windowPath === "/restaurant" ? "activeItem" : " "}
             // onMouseDown={() =>  setWindowPath('/restaurant')}
-              onClick={() => handleRestaurant()}>
+            onClick={() => handleRestaurant()}
+          >
             <div className="icon-container">
               <Icons.MenuIcon />
             </div>
-            <Typography>
-              Restaurant Profile
-            </Typography>
+            <Typography>Restaurant Profile</Typography>
           </li>
-          <li className={windowPath === "/profile" ? "activeItem" : " "} onClick={handleProfile}>
+          <li
+            className={windowPath === "/profile" ? "activeItem" : " "}
+            onClick={handleProfile}
+          >
             <div className="icon-container">
               <BsPerson />
             </div>
-            <Typography>
-              Account Settings
-            </Typography>
+            <Typography>Account Settings</Typography>
           </li>
 
-          <li className={openSub ? "activeItem" : " "} onClick={handleSubscriptions}>
+          <li
+            className={openSub ? "activeItem" : " "}
+            onClick={handleSubscriptions}
+          >
             <div className="icon-container-sub">
               {/*<Icons.MenuIcon />*/}
               <Icons.Subscriptions />
             </div>
-            <Typography>
-              Subscription
-            </Typography>
+            <Typography>Subscription</Typography>
           </li>
-          {openSub &&
+          {openSub && (
             <div className="sub-wrapper">
               <div
-                className='items'
+                className="items"
                 onClick={() => handleSubPages("/plans")}
-                style={windowPath === "/plans" ? { color: "#FF453A" } :  {}}
+                style={windowPath === "/plans" ? { color: "#FF453A" } : {}}
               >
                 Plans and Pricing
               </div>
               <div
-                className='items'
+                className="items"
                 onClick={() => handleSubPages("/billing")}
                 style={windowPath === "/billing" ? { color: "#FF453A" } : {}}
               >
                 Billing and Payment
               </div>
             </div>
-          }
-
+          )}
 
           <li onClick={() => signOut()}>
             <div className="icon-container">
               <Icons.LogoutIcon />
             </div>
-            <Typography>
-              Sign out
-            </Typography>
+            <Typography>Sign out</Typography>
           </li>
         </NavigationContainer>
       );
@@ -153,19 +154,16 @@ export const Header = () => {
   };
 
   const renderProfileDropdown = () => {
-
     useEffect(() => {
       if (token) {
         getBusinessesSaga.dispatch();
       }
     }, []);
-    const createMenu = async () => {
-      await axios(`/businesses/mybusiness`, { auth: true }).then(res =>
-        open(MODAL_NAMES.MENU_FORM)
-      ).catch(
-        () => open(MODAL_NAMES.CREATE_RESTAURANT)
-      );
-    };
+    // const createMenu = async () => {
+    //   await axios(`/businesses/mybusiness`, { auth: true })
+    //     .then((res) => open(MODAL_NAMES.MENU_FORM))
+    //     .catch(() => open(MODAL_NAMES.CREATE_RESTAURANT));
+    // };
 
     if (!isMobileViewport && profile) {
       return (
@@ -181,7 +179,7 @@ export const Header = () => {
               className={`menu-toggle ${menuIsOpen ? "open" : ""}`}
             />
           </div>
-          <Button
+          {/* <Button
             color="default"
             outlined
             inactive
@@ -189,9 +187,8 @@ export const Header = () => {
             // onClick={() => open(MODAL_NAMES.MENU_FORM)}
           >
             Create Menu
-          </Button>
+          </Button> */}
           <Menu
-
             width={300}
             open={menuIsOpen}
             onRequestToClose={() => setMenuIsOpen(false)}
@@ -209,15 +206,20 @@ export const Header = () => {
     if (!profile) {
       return (
         <div className="sign-in-buttons">
-          <Button className={"sign-in"} onClick={() => open(MODAL_NAMES.SIGN_IN)}>Sign In</Button>
           <Button
+            className={"sign-in"}
+            onClick={() => open(MODAL_NAMES.SIGN_IN)}
+          >
+            Sign In
+          </Button>
+          {/* <Button
             onClick={() => open(MODAL_NAMES.SIGN_IN)}
             color="default"
             outlined
             inactive
           >
             Create Menu
-          </Button>
+          </Button> */}
         </div>
       );
     }
@@ -249,10 +251,29 @@ export const Header = () => {
 
   return (
     <Container>
-      <div className={path === "/" ?
-        scrollPos.y > 10 ? "header-scrolled" :
-          menuIsOpen === true ? "header-scrolled-open" :
-            "header-not-scrolled" : "header-scrolled"}>
+      <div
+        className={
+          path === "/"
+            ? scrollPos.y > 10
+              ? "header-scrolled"
+              : menuIsOpen === true
+              ? "header-scrolled-open"
+              : "header-not-scrolled"
+            : "header-not-scrolled"
+        }
+      >
+        <div className="free-package-content">
+          <span className="free-package-text">
+            We have FREE Package for you!
+          </span>
+          <button
+            type="button"
+            className="start-btn"
+            onClick={() => alert("Start")}
+          >
+            Start
+          </button>
+        </div>
         <div className="container-header">
           <div className="logo-container" onClick={() => router.push("/")}>
             <Icons.LogoIcon />

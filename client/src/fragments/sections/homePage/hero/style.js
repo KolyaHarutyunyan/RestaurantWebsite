@@ -15,69 +15,65 @@ export const Container = styled.section`
     padding: 0 0 0 42px;
   }
   @media (min-width: 1920px) {
-     padding: 0 0 0 100px;
+    padding: 0 0 0 100px;
   }
-  
-  
+
   .hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     @media (min-width: 320px) {
       align-items: flex-start;
     }
     @media (min-width: 768px) {
       align-items: flex-start;
     }
-    
-    
+
     //padding: 60px 0 0 0;
-    
+
     @media only screen and (max-width: 1279px) {
-        flex-direction: column;
-    } 
-    @media only screen and (max-width: 768px) {
-           padding: 60px 16px 0 16px;
+      flex-direction: column;
     }
-    
+    @media only screen and (max-width: 768px) {
+      padding: 60px 16px 0 16px;
+    }
+
     .content {
-      
       @media only screen and (max-width: 768px) {
         margin-right: 0 !important;
       }
-      
+
       @media (min-width: 320px) {
-        margin-top: 63px;
-        max-width: 100%;  
+        margin-top: 92px;
+        max-width: 100%;
       }
       @media (min-width: 768px) {
-        margin-top: 130px;
+        margin-top: 185px;
         max-width: 100%;
       }
       @media (min-width: 1279px) {
-        margin-top: 145px;
+        margin-top: 185px;
         margin-right: 51px;
         max-width: 40%;
       }
       @media (min-width: 1920px) {
-          margin-top: 215px;
-          margin-right: 80px;
-          max-width: 31%;
+        margin-top: 255px;
+        margin-right: 80px;
+        max-width: 31%;
       }
-      
-      
+
       flex: 1;
-      
+
       .title {
         font-family: Poppins, sans-serif;
         font-weight: bold;
         font-size: 47px;
-        
+
         @media (max-width: 768px) {
-           font-size: 24px;
+          font-size: 24px;
         }
-        
+
         margin-bottom: 5px;
         @media (max-width: 1600px) and (min-width: 768px) {
           //margin-top: 72px;
@@ -113,17 +109,13 @@ export const Container = styled.section`
       //padding: 70px 24px 20px 0;
       //padding-right: 24px;
       //padding-bottom: 20px;
-      
-      
-     
-      
-      
+
       flex: 3;
       display: flex;
       justify-content: flex-end;
       height: 100%;
       width: 100%;
-      
+
       @media (min-width: 320px) {
         justify-content: center;
         background: none;
@@ -133,20 +125,45 @@ export const Container = styled.section`
         background: none;
       }
       @media (min-width: 1279px) {
-        padding: 70px 42px 60px 30px;
+        padding: 150px 42px 60px 30px;
         justify-content: flex-end;
         flex: 1;
-        background:  linear-gradient(to top, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee, #eaeaea, #e6e6e6, #e2e2e2, #dddddd, #d8d8d8, #d4d4d4, #cfcfcf);
+        background: linear-gradient(
+          to top,
+          #ffffff,
+          #fbfbfb,
+          #f6f6f6,
+          #f2f2f2,
+          #eeeeee,
+          #eaeaea,
+          #e6e6e6,
+          #e2e2e2,
+          #dddddd,
+          #d8d8d8,
+          #d4d4d4,
+          #cfcfcf
+        );
       }
       @media (min-width: 1920px) {
-        padding: 90px 21px 80px 40px;
+        padding: 190px 21px 80px 40px;
         justify-content: flex-end;
-        background:linear-gradient(to top, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee, #eaeaea, #e6e6e6, #e2e2e2, #dddddd, #d8d8d8, #d4d4d4, #cfcfcf);
-
+        background: linear-gradient(
+          to top,
+          #ffffff,
+          #fbfbfb,
+          #f6f6f6,
+          #f2f2f2,
+          #eeeeee,
+          #eaeaea,
+          #e6e6e6,
+          #e2e2e2,
+          #dddddd,
+          #d8d8d8,
+          #d4d4d4,
+          #cfcfcf
+        );
       }
-      
-      
-      
+
       //@media (max-width: 1280px) {
       //  max-width: 100%;
       //  height: 430px;
@@ -165,7 +182,6 @@ export const Container = styled.section`
         height: 100%;
         width: 100%;
 
-       
         @media (min-width: 320px) {
           height: 208px;
           max-width: 343px;
@@ -191,8 +207,7 @@ export const Container = styled.section`
           max-width: 1143px;
           margin-top: 32px;
         }
-        
-        
+
         //@media (max-width: 1280px) {
         //  margin-top: 76px;
         //}

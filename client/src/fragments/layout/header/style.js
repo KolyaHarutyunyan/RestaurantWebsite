@@ -11,17 +11,15 @@ export const Container = styled.div`
     box-shadow: 0px 2px 6px #0000002a;
     background: white !important;
     width: 100%;
-    height: 80px;
+    height: 120px;
     transition-duration: 1s;
-
   }
 
   .header-scrolled-open {
-
     box-shadow: 0px 2px 6px #0000002a;
     background: white !important;
     width: 100%;
-    height: 80px;
+    height: 120px;
     transition-duration: 1s;
     @media (min-width: 1279px) {
       box-shadow: none;
@@ -32,11 +30,39 @@ export const Container = styled.div`
   .header-not-scrolled {
     background: transparent !important;
     width: 100%;
-    height: 80px;
+    height: 120px;
     transition-duration: 1s;
-
   }
 
+  .free-package-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0px;
+    background-color: #ff453a;
+  }
+
+  .free-package-text {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+    margin-right: 14px;
+  }
+
+  .start-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 32px;
+    background: #ffffff;
+    border-radius: 8px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ff453a;
+  }
 
   .container-header {
     @media only screen and (min-width: 1279px) {
@@ -44,8 +70,11 @@ export const Container = styled.div`
     }
     display: flex;
     justify-content: space-between;
+    width: 100%;
     height: 100%;
-
+    position: absolute;
+    top: 50%;
+    left: 0;
     @media (min-width: 320px) {
       padding: 0 16px;
     }
@@ -58,7 +87,6 @@ export const Container = styled.div`
     @media (min-width: 1920px) {
       padding: 0 100px;
     }
-
 
     .logo-container {
       cursor: pointer;
@@ -83,7 +111,6 @@ export const Container = styled.div`
       }
       display: flex;
       align-items: center;
-
     }
 
     .sign-in {
@@ -143,12 +170,13 @@ export const Container = styled.div`
         justify-content: center;
         font-size: 45px;
         color: ${colors.primary};
-
       }
 
       .menu {
+        width: 340px;
+        padding: 32px 0px;
         position: fixed;
-        top: 80px;
+        top: 120px;
         right: -340px;
         opacity: 0;
         transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -159,8 +187,22 @@ export const Container = styled.div`
           right: 0px;
         }
 
-        height: calc(100vh - 80px);
-        background-image: linear-gradient(to bottom, #ffffff, #fdfdfd, #fafafb, #f8f8f8, #f6f5f6, #f5f3f5, #f4f2f3, #f3f0f2, #f2eff1, #f1eef0, #f0edef, #efecee); //background: transparent linear-gradient(180deg, #ffffff 0%, #f3f3f3df 53%, #e3e3e3b3 100%) 0% 0% no-repeat padding-box;
+        height: calc(100vh - 120px);
+        background-image: linear-gradient(
+          to bottom,
+          #ffffff,
+          #fdfdfd,
+          #fafafb,
+          #f8f8f8,
+          #f6f5f6,
+          #f5f3f5,
+          #f4f2f3,
+          #f3f0f2,
+          #f2eff1,
+          #f1eef0,
+          #f0edef,
+          #efecee
+        ); //background: transparent linear-gradient(180deg, #ffffff 0%, #f3f3f3df 53%, #e3e3e3b3 100%) 0% 0% no-repeat padding-box;
         overflow: auto;
         width: 340px;
         z-index: 9999;
