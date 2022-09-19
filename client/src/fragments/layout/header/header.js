@@ -49,11 +49,11 @@ export const Header = () => {
         .catch(() => open(MODAL_NAMES.CREATE_RESTAURANT));
     };
 
-    const createMenu = async () => {
-      await axios(`/businesses/mybusiness`, { auth: true }).then((res) =>
-        open(MODAL_NAMES.MENU_FORM)
-      );
-    };
+    // const createMenu = async () => {
+    //   await axios(`/businesses/mybusiness`, { auth: true }).then((res) =>
+    //     open(MODAL_NAMES.MENU_FORM)
+    //   );
+    // };
 
     const handleProfile = () => {
       router.push("/profile");

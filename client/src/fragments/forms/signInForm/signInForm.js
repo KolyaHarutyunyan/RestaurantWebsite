@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
 
+  const router = useRouter();
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -23,6 +25,7 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
+      router.push("/restaurant");
     }
   }, [status]);
 
@@ -31,9 +34,9 @@ export const SignInForm = () => {
   // const handleSignUp = (type) => {
   //   dispatcher(profileActions.socialSignUp(type));
   // };
-    const handleSignUp = (type) => {
-        dispatcher(profileActions.socialSignUp(type))
-    }
+  const handleSignUp = (type) => {
+    dispatcher(profileActions.socialSignUp(type));
+  };
 
   return (
     <Container>
@@ -97,7 +100,7 @@ export const SignInForm = () => {
         link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
-        Don't have an account? <span style={{ color:'#007AFF' }}>Sign Up</span>
+        Don't have an account? <span style={{ color: "#007AFF" }}>Sign Up</span>
       </Button>
     </Container>
   );

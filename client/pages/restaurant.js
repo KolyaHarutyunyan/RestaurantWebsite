@@ -1,13 +1,15 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { RestaurantPage } from "@eachbase/pages";
+import { RestaurantPage, RestaurantProfile } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";
+
 export default function Restaurant(props) {
   return (
     <Fragment>
       <Head>{props.meta || <title>welcome menuz</title>}</Head>
       <Layout>
-        <RestaurantPage {...props.pageData} />
+        {/* <RestaurantPage {...props.pageData} /> */}
+        <RestaurantProfile />
       </Layout>
     </Fragment>
   );

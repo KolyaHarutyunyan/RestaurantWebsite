@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
 export const Container = styled.div`
+  flex-shrink: 0;
   min-height: 64px;
   padding: 20px 80px;
   //position: absolute;
