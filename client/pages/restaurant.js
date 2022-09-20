@@ -1,20 +1,32 @@
-import { Fragment } from "react";
-import Head from "next/head";
-import { RestaurantPage, RestaurantProfile } from "@eachbase/pages";
 import { Layout } from "@eachbase/fragments";
+import { RestaurantProfile } from "@eachbase/pages";
 
-export default function Restaurant(props) {
+const Restaurant = () => {
   return (
-    <Fragment>
-      <Head>{props.meta || <title>welcome menuz</title>}</Head>
-      <Layout>
-        {/* <RestaurantPage {...props.pageData} /> */}
-        <RestaurantProfile />
-      </Layout>
-    </Fragment>
+    <Layout>
+      <RestaurantProfile />
+    </Layout>
   );
-}
-
-Restaurant.getInitialProps = async () => {
-  return { meta: null, pageData: null };
 };
+
+export default Restaurant;
+
+// import { Fragment } from "react";
+// import Head from "next/head";
+// import { RestaurantPage } from "@eachbase/pages";
+// import { Layout } from "@eachbase/fragments";
+
+// export default function Restaurant(props) {
+//   return (
+//     <Fragment>
+//       <Head>{props.meta || <title>welcome menuz</title>}</Head>
+//       <Layout>
+//         <RestaurantPage {...props.pageData} />
+//       </Layout>
+//     </Fragment>
+//   );
+// }
+
+// Restaurant.getInitialProps = async () => {
+//   return { meta: null, pageData: null };
+// };
