@@ -22,8 +22,7 @@ export const Layout = ({ children, privatePage = true }) => {
         <>
           <ProfileHeader />
           <div className="main">
-            <SideSheetsDrawer />
-            <div className="main-content">{children}</div>
+            <SideSheetsDrawer>{children}</SideSheetsDrawer>
           </div>
         </>
       ) : (

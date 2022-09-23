@@ -12,6 +12,7 @@ import MenuItem from "./sideSheetsDrawer/menuItem.svg";
 import CollapseButton from "./sideSheetsDrawer/collapseButton.svg";
 import CollapseButtonClosed from "./sideSheetsDrawer/collapseButtonClosed.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
+import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
 export const Images = {
   Notification,
@@ -25,4 +26,5 @@ export const Images = {
   CollapseButton,
   CollapseButtonClosed,
   MenumangoLogo,
+  BreadcrumbArrow,
 };
