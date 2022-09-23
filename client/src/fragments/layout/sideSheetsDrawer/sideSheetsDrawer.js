@@ -4,6 +4,7 @@ import { addClosed, Drawer, DrawerFooter, DrawerHeader } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
+import Router from "next/router";
 
 export const SideSheetsDrawer = () => {
   const { open, toggleDrawer } = useContext(SideSheetsDrawerContext);
@@ -15,10 +16,13 @@ export const SideSheetsDrawer = () => {
       </div>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <div className="restaurant-profile-box">
+          <div
+            className="restaurant-profile-box"
+            onClick={() => Router.push("/restaurant")}
+          >
             <Images.RestaurantProfile className="restaurant-profile" />
             <span className={addClosed("restaurant-name", !open)}>
-              Restuarant Name
+              Restaurant Name
             </span>
             <Images.Arrow className={addClosed("arrow", !open)} />
           </div>

@@ -23,7 +23,7 @@
     display: flex;
     justify-content: initial;
     align-items: center;
-    cursor: default;
+    cursor: pointer;
     .restaurant-profile {
       width: 24px;
       height: 24px;
@@ -65,6 +65,9 @@
           justify-content: center;
           padding: 10px 0px;
           margin: 2px auto;
+          .arrow {
+            display: none;
+          }
         }
         &:hover {
           background-color: #f5f5f5;
@@ -77,6 +80,16 @@
           }
           .side-sheet-item-text {
             font-weight: 600;
+          }
+          svg.arrow {
+            path {
+              stroke: #292d32;
+            }
+          }
+        }
+        &.shown {
+          svg.arrow {
+            transform: rotate(180deg);
           }
         }
         &.active {
@@ -91,6 +104,11 @@
           .side-sheet-item-text {
             color: #ff453a;
             font-weight: 600;
+          }
+          svg.arrow {
+            path {
+              stroke: #ff453a;
+            }
           }
         }
         .side-sheet-item-icon {
@@ -113,12 +131,19 @@
           margin-left: 10px;
           @include changeDisplay();
         }
+        .arrow {
+          margin-left: auto;
+          transform: rotate(0deg);
+        }
       }
       .page-list {
+        max-width: 167px;
+        width: 100%;
         position: absolute;
         top: 44px;
         left: 49px;
         .page-item {
+          width: 100%;
           margin-top: 4px;
           list-style: none;
           padding: 12px 16px;

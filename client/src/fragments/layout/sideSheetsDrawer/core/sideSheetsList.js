@@ -1,26 +1,26 @@
 import React, { useContext, useState } from "react";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { addActive, sideSheetsList } from "./constants";
 import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { addClosed } from "../constants";
+import { Images } from "@eachbase/theme/images";
 
 export const SideSheetsList = () => {
   const { open } = useContext(SideSheetsDrawerContext);
-  const router = useRouter();
   const [isShown, setIsShown] = useState(false);
 
   const {
     location: { pathname },
   } = window;
 
-  const handleItemClick = (item) => {
+  const handleSideSheetClick = (item) => {
     if (item.path) {
-      router.push(item.path);
+      Router.push(item.path);
     } else {
       if (open) {
         setIsShown((pS) => !pS);
       } else {
-        router.push(item.pages[0].path);
+        Router.push(item.pages[0].path);
       }
     }
   };
@@ -31,20 +31,30 @@ export const SideSheetsList = () => {
         <li key={index} className="side-sheet-item">
           <div
             className={addClosed(
-              `side-sheet-item-button ${addActive(sideSheetItem, pathname)}`,
+              `side-sheet-item-button ${
+                open && isShown ? "shown" : ""
+              } ${addActive(sideSheetItem, pathname)}`,
               !open
             )}
-            onClick={() => handleItemClick(sideSheetItem)}
+            onClick={() => handleSideSheetClick(sideSheetItem)}
           >
             <div className="side-sheet-item-icon">{sideSheetItem.icon}</div>
             <span className={addClosed("side-sheet-item-text", !open)}>
               {sideSheetItem.text}
             </span>
+            {sideSheetItem.pages && <Images.Arrow className="arrow" />}
           </div>
-          {sideSheetItem.pages && (
+          {sideSheetItem.pages && isShown && (
             <ul className="page-list">
               {sideSheetItem.pages.map((page, index) => (
-                <li key={index} className="page-item">
+                <li
+                  key={index}
+                  className={addClosed(
+                    `page-item ${addActive(page, pathname)}`,
+                    !open
+                  )}
+                  onClick={() => Router.push(page.path)}
+                >
                   <span className={addClosed("side-sheet-item-text", !open)}>
                     {page.text}
                   </span>
