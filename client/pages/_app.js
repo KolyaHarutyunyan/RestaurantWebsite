@@ -1,15 +1,16 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
-import { initAxiosInterceptors } from "@eachbase/utils";
+import {
+  initAxiosInterceptors,
+  SideSheetsDrawerContextProvider,
+} from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
 import { Modals } from "@eachbase/fragments";
 import { reduxWrapper } from "@eachbase/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { Modal } from "@material-ui/core";
-import "../src/theme/styles/allStyles.scss";
+import "../styles/allStyles.scss";
 
 initAxiosInterceptors();
 const MyApp = ({ Component, pageProps }) => (
@@ -61,7 +62,9 @@ const MyApp = ({ Component, pageProps }) => (
     {/*</noscript>*/}
     <ThemeProvider>
       <ModalProvider>
-        <Component {...pageProps} />
+        <SideSheetsDrawerContextProvider>
+          <Component {...pageProps} />
+        </SideSheetsDrawerContextProvider>
         <Modals />
         <ToastContainer hideProgressBar position="bottom-right" />
       </ModalProvider>

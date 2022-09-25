@@ -7,12 +7,11 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "@material-ui/core";
-import { useRouter } from "next/router";
+import Router from "next/router";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
 
-  const router = useRouter();
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -25,7 +24,7 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
-      router.push("/restaurant");
+      Router.push("/restaurant");
     }
   }, [status]);
 

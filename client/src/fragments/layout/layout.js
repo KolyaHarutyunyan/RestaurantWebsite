@@ -18,12 +18,11 @@ export const Layout = ({ children, privatePage = true }) => {
 
   return (
     <div className="main-wrapper">
-      {token && window.location.pathname === "/restaurant" ? (
+      {token ? (
         <>
           <ProfileHeader />
           <div className="main">
-            <SideSheetsDrawer />
-            <div className="main-content">{children}</div>
+            <SideSheetsDrawer>{children}</SideSheetsDrawer>
           </div>
         </>
       ) : (
