@@ -5,6 +5,7 @@ import { Footer } from "./footer";
 import { useDispatch } from "react-redux";
 import { ProfileHeader } from "./profileHeader/profileHeader";
 import { SideSheetsDrawer } from "./sideSheetsDrawer/sideSheetsDrawer";
+import { StyledLayout } from "./style";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export const Layout = ({ children, privatePage = true }) => {
   }, []);
 
   return (
-    <div className="main-wrapper">
+    <StyledLayout>
       {token ? (
         <>
           <ProfileHeader />
@@ -32,6 +33,6 @@ export const Layout = ({ children, privatePage = true }) => {
           <Footer />
         </>
       )}
-    </div>
+    </StyledLayout>
   );
 };

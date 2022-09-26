@@ -4,10 +4,11 @@ import {
   plansAndPricingStarterList,
 } from "./constants";
 import { PlansAndPricingCard } from "./core/plansAndPricingCard";
+import { StyledRestaurantPlansAndPricing } from "./style";
 
 export const RestaurantPlansAndPricingFragment = () => {
   return (
-    <div className="cards-box">
+    <StyledRestaurantPlansAndPricing>
       <div className="cards-wrapper">
         <PlansAndPricingCard
           cardTitle={"Starter"}
@@ -27,6 +28,6 @@ export const RestaurantPlansAndPricingFragment = () => {
           cardList={plansAndPricingStandardList}
         />
       </div>
-    </div>
+    </StyledRestaurantPlansAndPricing>
   );
 };

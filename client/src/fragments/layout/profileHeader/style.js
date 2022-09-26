@@ -1,4 +1,6 @@
-.profile-header {
+import styled from "styled-components";
+
+export const StyledProfileHeader = styled.div`
   max-width: 100vw;
   width: 100%;
   padding: 8px 25px;
@@ -13,4 +15,4 @@
   .avatar {
     cursor: pointer;
   }
-}
+`;

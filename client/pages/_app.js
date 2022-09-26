@@ -10,7 +10,6 @@ import { Modals } from "@eachbase/fragments";
 import { reduxWrapper } from "@eachbase/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/allStyles.scss";
 
 initAxiosInterceptors();
 const MyApp = ({ Component, pageProps }) => (

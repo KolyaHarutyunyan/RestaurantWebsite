@@ -1,4 +1,6 @@
-.main-wrapper {
+import styled from "styled-components";
+
+export const StyledLayout = styled.div`
   width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -12,4 +14,4 @@
     background-color: #e3e3e3;
     display: flex;
   }
-}
+`;

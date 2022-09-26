@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
-import Box from "@mui/material/Box";
 import { addClosed, Drawer, DrawerFooter, DrawerHeader } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
 import Router from "next/router";
+import { StyledSideSheetsDrawer } from "./style";
 
 export const SideSheetsDrawer = ({ children }) => {
   const { open, toggleDrawer } = useContext(SideSheetsDrawerContext);
   const [currentPage, setCurrentPage] = useState({});
 
   return (
-    <Box className="side-sheets-drawer-box">
+    <StyledSideSheetsDrawer>
       <div className={addClosed("collapse", !open)} onClick={toggleDrawer}>
         {open ? <Images.CollapseButton /> : <Images.CollapseButtonClosed />}
       </div>
@@ -45,6 +45,6 @@ export const SideSheetsDrawer = ({ children }) => {
         </div>
         {children}
       </div>
-    </Box>
+    </StyledSideSheetsDrawer>
   );
 };

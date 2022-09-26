@@ -1,10 +1,7 @@
-@mixin changeDisplay {
-  &.closed {
-    display: none;
-  }
-}
+import styled from "styled-components";
+import Box from "@mui/material/Box";
 
-.side-sheets-drawer-box {
+export const StyledSideSheetsDrawer = styled(Box)`
   max-width: 100vw;
   width: 100%;
   display: flex;
@@ -37,14 +34,20 @@
       line-height: 20px;
       color: #2a374e;
       margin: 0px 14px 0px 10px;
-      @include changeDisplay();
+      &.closed {
+        display: none;
+      }
     }
     .arrow {
-      @include changeDisplay();
+      &.closed {
+        display: none;
+      }
     }
   }
   .menumangoLogo {
-    @include changeDisplay();
+    &.closed {
+      display: none;
+    }
   }
   .side-sheets-list {
     flex-grow: 1;
@@ -131,7 +134,9 @@
           line-height: 20px;
           color: #2a374e;
           margin-left: 10px;
-          @include changeDisplay();
+          &.closed {
+            display: none;
+          }
         }
         .arrow {
           margin-left: auto;
@@ -151,7 +156,9 @@
           padding: 12px 16px;
           cursor: pointer;
           border-radius: 8px;
-          @include changeDisplay();
+          &.closed {
+            display: none;
+          }
           &:hover {
             background-color: #f5f5f5;
             .side-sheet-item-text {
@@ -192,4 +199,4 @@
       }
     }
   }
-}
+`;
