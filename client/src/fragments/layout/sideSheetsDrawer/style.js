@@ -2,11 +2,8 @@ import styled from "styled-components";
 import Box from "@mui/material/Box";
 
 export const StyledSideSheetsDrawer = styled(Box)`
-  max-width: 100vw;
-  width: 100%;
-  display: flex;
   .collapse {
-    position: absolute;
+    position: fixed;
     width: 34px;
     height: 34px;
     top: 57px;
@@ -173,29 +170,6 @@ export const StyledSideSheetsDrawer = styled(Box)`
             }
           }
         }
-      }
-    }
-  }
-  .main-content {
-    width: 100%;
-    margin: 24px 42px;
-    .page-title-box {
-      display: flex;
-      justify-content: initial;
-      align-items: center;
-      .page-title {
-        font-family: Open Sans, sans-serif;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 28px;
-        color: #2a374e;
-        &.subtitle {
-          color: #9d9d9d;
-        }
-      }
-      .breadcrumb-arrow {
-        display: inline-block;
-        margin: 0px 14px;
       }
     }
   }

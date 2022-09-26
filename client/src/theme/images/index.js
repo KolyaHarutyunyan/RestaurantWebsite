@@ -14,6 +14,10 @@ import CollapseButtonClosed from "./sideSheetsDrawer/collapseButtonClosed.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
+// PAYMENT_PAGE_IMAGES
+import Info from "./paymentPage/info.svg";
+import Visa2 from "./paymentPage/visa2.svg";
+
 export const Images = {
   Notification,
   Avatar,
@@ -27,4 +31,6 @@ export const Images = {
   CollapseButtonClosed,
   MenumangoLogo,
   BreadcrumbArrow,
+  Info,
+  Visa2,
 };

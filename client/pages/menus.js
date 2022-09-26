@@ -1,10 +1,10 @@
 import { RestaurantMenus } from "@eachbase/pages";
 
-const Menu = () => {
+const Menus = () => {
   return <RestaurantMenus />;
 };
 
-export default Menu;
+export default Menus;
 
 // import { businessesActions, menusActions } from "@eachbase/store";
 // import { useRouter } from "next/router";

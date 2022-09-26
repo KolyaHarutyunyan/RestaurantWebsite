@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { profileActions } from "@eachbase/store";
 import { Header } from "./header";
 import { Footer } from "./footer";
@@ -9,7 +9,11 @@ import { StyledLayout } from "./style";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
-  const token = typeof window !== "undefined" && localStorage.getItem("token");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    setToken(typeof window !== "undefined" && localStorage.getItem("token"));
+  }, [token]);
 
   useEffect(() => {
     if (privatePage && token) {
@@ -23,7 +27,8 @@ export const Layout = ({ children, privatePage = true }) => {
         <>
           <ProfileHeader />
           <div className="main">
-            <SideSheetsDrawer>{children}</SideSheetsDrawer>
+            <SideSheetsDrawer />
+            <div className="main-content">{children}</div>
           </div>
         </>
       ) : (

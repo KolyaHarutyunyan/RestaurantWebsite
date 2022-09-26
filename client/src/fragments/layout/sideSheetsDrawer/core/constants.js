@@ -1,7 +1,7 @@
 import { Images } from "@eachbase/theme/images";
 
 export const sideSheetsList = [
-  { icon: <Images.Menus />, text: "Menus", path: "/menu" },
+  { icon: <Images.Menus />, text: "Menus", path: "/menus" },
   { icon: <Images.Settings />, text: "Settings", path: "/settings" },
   {
     icon: <Images.Billing />,

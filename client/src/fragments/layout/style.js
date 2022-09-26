@@ -11,7 +11,11 @@ export const StyledLayout = styled.div`
   }
   .main {
     flex-grow: 1;
-    background-color: #e3e3e3;
+    background-color: #E3E3E3;
     display: flex;
+    .main-content {
+      width: 100%;
+      margin: 24px 42px;
+    }
   }
 `;

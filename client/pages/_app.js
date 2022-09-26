@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@eachbase/theme";
 import {
@@ -13,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 initAxiosInterceptors();
 const MyApp = ({ Component, pageProps }) => (
-  <Fragment>
+  <>
     <Head>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -70,7 +69,7 @@ const MyApp = ({ Component, pageProps }) => (
         <ToastContainer hideProgressBar position="bottom-right" />
       </ModalProvider>
     </ThemeProvider>
-  </Fragment>
+  </>
 );
 
 export default reduxWrapper().withRedux(MyApp);
