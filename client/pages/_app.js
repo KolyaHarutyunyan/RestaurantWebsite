@@ -6,7 +6,7 @@ import {
   SideSheetsDrawerContextProvider,
 } from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
-import { Modals } from "@eachbase/fragments";
+import { Layout, Modals } from "@eachbase/fragments";
 import { reduxWrapper } from "@eachbase/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -62,7 +62,9 @@ const MyApp = ({ Component, pageProps }) => (
     <ThemeProvider>
       <ModalProvider>
         <SideSheetsDrawerContextProvider>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SideSheetsDrawerContextProvider>
         <Modals />
         <ToastContainer hideProgressBar position="bottom-right" />

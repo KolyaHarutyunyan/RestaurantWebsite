@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from "react";
 import Head from "next/head";
 import { HomePage } from "@eachbase/pages";
-import { Layout } from "@eachbase/fragments";
 import { CardElement } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -29,24 +28,22 @@ export default function Home(props) {
       {/*</form>*/}
 
       <Head>{props.meta || <title>Welcome menuz</title>}</Head>
-      <Layout>
-        <HomePage {...props.pageData} />
+      <HomePage {...props.pageData} />
 
-        {/*<Elements stripe={stripePromise} options={options}>*/}
-        {/*  <PaymentElement />*/}
-        {/*</Elements>*/}
+      {/*<Elements stripe={stripePromise} options={options}>*/}
+      {/*  <PaymentElement />*/}
+      {/*</Elements>*/}
 
-        {/*<h1>asdasd</h1>*/}
-        {/*<button onClick={() => checkout({*/}
-        {/*  lineItems: [*/}
-        {/*    {*/}
-        {/*      price: "price_1LPmbbL4pro3KzC99gEIvIwb",*/}
-        {/*      quantity: 1*/}
-        {/*    }*/}
-        {/*  ]*/}
-        {/*})}>aaaa*/}
-        {/*</button>*/}
-      </Layout>
+      {/*<h1>asdasd</h1>*/}
+      {/*<button onClick={() => checkout({*/}
+      {/*  lineItems: [*/}
+      {/*    {*/}
+      {/*      price: "price_1LPmbbL4pro3KzC99gEIvIwb",*/}
+      {/*      quantity: 1*/}
+      {/*    }*/}
+      {/*  ]*/}
+      {/*})}>aaaa*/}
+      {/*</button>*/}
     </Fragment>
   );
 }

@@ -1,12 +1,7 @@
 import { RestaurantMenus } from "@eachbase/pages";
-import { Layout } from "@eachbase/fragments";
 
 const Menu = () => {
-  return (
-    <Layout>
-      <RestaurantMenus />
-    </Layout>
-  );
+  return <RestaurantMenus />;
 };
 
 export default Menu;
