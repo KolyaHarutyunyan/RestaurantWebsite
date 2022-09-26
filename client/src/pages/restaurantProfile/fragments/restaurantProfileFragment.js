@@ -1,5 +1,6 @@
 import React from "react";
+import { StyledRestaurantProfile } from "./style";
 
 export const RestaurantProfileFragment = () => {
-  return <div>RestaurantProfileFragment</div>;
+  return <StyledRestaurantProfile>RestaurantProfile</StyledRestaurantProfile>;
 };

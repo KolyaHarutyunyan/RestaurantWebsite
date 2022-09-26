@@ -1,17 +1,16 @@
-import React, { useContext, useState } from "react";
-import Box from "@mui/material/Box";
+import React, { useContext } from "react";
 import { addClosed, Drawer, DrawerFooter, DrawerHeader } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
 import Router from "next/router";
+import { StyledSideSheetsDrawer } from "./style";
 
-export const SideSheetsDrawer = ({ children }) => {
+export const SideSheetsDrawer = () => {
   const { open, toggleDrawer } = useContext(SideSheetsDrawerContext);
-  const [currentPage, setCurrentPage] = useState({});
 
   return (
-    <Box className="side-sheets-drawer-box">
+    <StyledSideSheetsDrawer>
       <div className={addClosed("collapse", !open)} onClick={toggleDrawer}>
         {open ? <Images.CollapseButton /> : <Images.CollapseButtonClosed />}
       </div>
@@ -28,23 +27,11 @@ export const SideSheetsDrawer = ({ children }) => {
             <Images.Arrow className={addClosed("arrow", !open)} />
           </div>
         </DrawerHeader>
-        <SideSheetsList triggerPage={(page) => setCurrentPage(page)} />
+        <SideSheetsList />
         <DrawerFooter>
           <Images.MenumangoLogo className={addClosed("menumangoLogo", !open)} />
         </DrawerFooter>
       </Drawer>
-      <div className="main-content">
-        <div className="page-title-box">
-          <h2 className="page-title">{currentPage.text}</h2>
-          {/* {currentPage.item && ( */}
-          <>
-            <Images.BreadcrumbArrow className="breadcrumb-arrow" />
-            <h2 className="page-title subtitle">page subtitle</h2>
-          </>
-          {/* )} */}
-        </div>
-        {children}
-      </div>
-    </Box>
+    </StyledSideSheetsDrawer>
   );
 };

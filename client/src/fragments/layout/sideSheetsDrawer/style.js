@@ -1,15 +1,9 @@
-@mixin changeDisplay {
-  &.closed {
-    display: none;
-  }
-}
+import styled from "styled-components";
+import Box from "@mui/material/Box";
 
-.side-sheets-drawer-box {
-  max-width: 100vw;
-  width: 100%;
-  display: flex;
+export const StyledSideSheetsDrawer = styled(Box)`
   .collapse {
-    position: absolute;
+    position: fixed;
     width: 34px;
     height: 34px;
     top: 57px;
@@ -37,14 +31,20 @@
       line-height: 20px;
       color: #2a374e;
       margin: 0px 14px 0px 10px;
-      @include changeDisplay();
+      &.closed {
+        display: none;
+      }
     }
     .arrow {
-      @include changeDisplay();
+      &.closed {
+        display: none;
+      }
     }
   }
   .menumangoLogo {
-    @include changeDisplay();
+    &.closed {
+      display: none;
+    }
   }
   .side-sheets-list {
     flex-grow: 1;
@@ -131,7 +131,9 @@
           line-height: 20px;
           color: #2a374e;
           margin-left: 10px;
-          @include changeDisplay();
+          &.closed {
+            display: none;
+          }
         }
         .arrow {
           margin-left: auto;
@@ -151,7 +153,9 @@
           padding: 12px 16px;
           cursor: pointer;
           border-radius: 8px;
-          @include changeDisplay();
+          &.closed {
+            display: none;
+          }
           &:hover {
             background-color: #f5f5f5;
             .side-sheet-item-text {
@@ -169,27 +173,4 @@
       }
     }
   }
-  .main-content {
-    width: 100%;
-    margin: 24px 42px;
-    .page-title-box {
-      display: flex;
-      justify-content: initial;
-      align-items: center;
-      .page-title {
-        font-family: Open Sans, sans-serif;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 28px;
-        color: #2a374e;
-        &.subtitle {
-          color: #9d9d9d;
-        }
-      }
-      .breadcrumb-arrow {
-        display: inline-block;
-        margin: 0px 14px;
-      }
-    }
-  }
-}
+`;

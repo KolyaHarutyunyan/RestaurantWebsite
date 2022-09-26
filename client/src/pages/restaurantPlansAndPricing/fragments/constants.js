@@ -1,5 +1,9 @@
 import { Icons } from "@eachbase/theme";
 
+export const plansAndPricingBreadcrumbs = [
+  { path: "/plansAndPricing", text: "Plans and Pricing" },
+];
+
 export const plansAndPricingStarterList = [
   {
     icon: <Icons.CheckPayment />,

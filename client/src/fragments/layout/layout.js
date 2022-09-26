@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { profileActions } from "@eachbase/store";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { useDispatch } from "react-redux";
 import { ProfileHeader } from "./profileHeader/profileHeader";
 import { SideSheetsDrawer } from "./sideSheetsDrawer/sideSheetsDrawer";
+import { StyledLayout } from "./style";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
-  const token = typeof window !== "undefined" && localStorage.getItem("token");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    setToken(typeof window !== "undefined" && localStorage.getItem("token"));
+  }, [token]);
 
   useEffect(() => {
     if (privatePage && token) {
@@ -17,12 +22,13 @@ export const Layout = ({ children, privatePage = true }) => {
   }, []);
 
   return (
-    <div className="main-wrapper">
+    <StyledLayout>
       {token ? (
         <>
           <ProfileHeader />
           <div className="main">
-            <SideSheetsDrawer>{children}</SideSheetsDrawer>
+            <SideSheetsDrawer />
+            <div className="main-content">{children}</div>
           </div>
         </>
       ) : (
@@ -32,6 +38,6 @@ export const Layout = ({ children, privatePage = true }) => {
           <Footer />
         </>
       )}
-    </div>
+    </StyledLayout>
   );
 };

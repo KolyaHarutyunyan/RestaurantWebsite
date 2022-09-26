@@ -1,12 +1,7 @@
 import { ProfilePage } from "@eachbase/pages";
-import { Layout } from "@eachbase/fragments";
 
 const Profile = () => {
-  return (
-    <Layout>
-      <ProfilePage />
-    </Layout>
-  );
+  return <ProfilePage />;
 };
 
 export default Profile;

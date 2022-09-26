@@ -1,12 +1,7 @@
 import { RestaurantPayment } from "@eachbase/pages";
-import { Layout } from "@eachbase/fragments";
 
 const Payment = () => {
-  return (
-    <Layout>
-      <RestaurantPayment />
-    </Layout>
-  );
+  return <RestaurantPayment />;
 };
 
 export default Payment;

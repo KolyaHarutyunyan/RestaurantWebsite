@@ -1,12 +1,7 @@
-import { Layout } from "@eachbase/fragments";
 import { RestaurantProfile } from "@eachbase/pages";
 
 const Restaurant = () => {
-  return (
-    <Layout>
-      <RestaurantProfile />
-    </Layout>
-  );
+  return <RestaurantProfile />;
 };
 
 export default Restaurant;
@@ -20,9 +15,7 @@ export default Restaurant;
 //   return (
 //     <Fragment>
 //       <Head>{props.meta || <title>welcome menuz</title>}</Head>
-//       <Layout>
-//         <RestaurantPage {...props.pageData} />
-//       </Layout>
+//       <RestaurantPage {...props.pageData} />
 //     </Fragment>
 //   );
 // }

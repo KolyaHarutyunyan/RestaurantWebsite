@@ -1,4 +1,6 @@
-.cards-box {
+import styled from "styled-components";
+
+export const StyledRestaurantPlansAndPricing = styled.section`
   display: flex;
   justify-content: center;
   margin: 24px 0px;
@@ -76,4 +78,4 @@
       }
     }
   }
-}
+`;
