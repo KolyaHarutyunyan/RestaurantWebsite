@@ -1,8 +1,15 @@
-export { Button, Fab, SmallButton, EditSaveButtons } from "./buttons";
+export { Button, Fab, SmallButton, EditSaveButtons, MyButton } from "./buttons";
 export { Switch } from "./swich";
 export { Typography } from "./typography";
 export { Image } from "./image";
-export { Input, Textarea, Select, AddressInput, Radio } from "./inputs";
+export {
+  Input,
+  Textarea,
+  Select,
+  AddressInput,
+  Radio,
+  SettingsInput,
+} from "./inputs";
 export { CustomModal, ModalProvider, useModal } from "./modal";
 export { Menu } from "./menu";
 export { FileUpload } from "./fileUpload";

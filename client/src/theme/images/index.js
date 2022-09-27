@@ -1,6 +1,11 @@
 // PROFILE_HEADER_IMAGES
 import Notification from "./profileHeader/notification.svg";
 import Avatar from "./profileHeader/avatar.svg";
+import UserProfile from "./profileHeader/userProfile.svg";
+import AddPhoto from "./profileHeader/addPhoto.svg";
+import FullNameIcon from "./profileHeader/fullNameIcon.svg";
+import EmailIcon from "./profileHeader/emailIcon.svg";
+import SignOut from "./profileHeader/signOut.svg";
 
 // SIDE_SHEETS_DRAWER_IMAGES
 import RestaurantProfile from "./sideSheetsDrawer/restaurantProfile.svg";
@@ -21,6 +26,11 @@ import Visa2 from "./paymentPage/visa2.svg";
 export const Images = {
   Notification,
   Avatar,
+  UserProfile,
+  AddPhoto,
+  FullNameIcon,
+  EmailIcon,
+  SignOut,
   RestaurantProfile,
   Arrow,
   Menus,

@@ -5,15 +5,14 @@ const colors = {
   default: "#2B273C1A",
   action: "#007AFF",
 };
-export const EditSave =styled.div`
+export const EditSave = styled.div`
   margin-bottom: -2px;
   .classes-close-button {
     color: rgba(28, 26, 38, 0.6);
     margin-right: 16px;
     font-size: 18px;
   }
-
-`
+`;
 
 export const ButtonContainer = styled.button`
   position: relative;
@@ -80,4 +79,13 @@ export const FabContainer = styled.button`
   outline: 0;
   border-radius: 50%;
   box-shadow: 0px 0px 12px 0px #e2e2e2;
+`;
+
+export const StyledMyButton = styled.button.attrs((props) => ({
+  className: props.className,
+}))`
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

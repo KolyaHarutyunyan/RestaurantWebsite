@@ -1,31 +1,38 @@
-import { CardContainer } from "./styles";
+import { StyledPaymentMethod } from "./style";
 import { Icons } from "@eachbase/theme";
 import { Images } from "@eachbase/theme/images";
+import { addedCards } from "./constants";
 
 export const PaymentMethod = () => {
   return (
-    <CardContainer>
+    <StyledPaymentMethod>
       <p className="title">Card Information</p>
       <div className="cards-wrapper-section">
-        <div className="card-wrapper">
-          <div className="visa-info">
-            <p>Visa Card</p>
-            <Icons.VisaCard />
+        {addedCards.map((card) => (
+          <div className="card-wrapper">
+            <div className="visa-info">
+              <p>{card.type} Card</p>
+              {card.icon}
+            </div>
+            <div className="card-date">
+              <p>{card.cardNumbers}</p>
+              <p>{card.expirationDate}</p>
+            </div>
+            <div className="action-wrapper">
+              <button type="button" className="edit-btn">
+                Edit
+              </button>
+              <button type="button" className="delete-btn">
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="card-date">
-            <p>458923******8965</p>
-            <p>06/24</p>
-          </div>
-          <div className="delete-wrapper">
-            <Icons.DeleteCard />
-            <p>Delete</p>
-          </div>
-        </div>
+        ))}
         <div className="add-card">
-          <div className="add-card-info">
+          <button type="button" className="add-card-btn">
             <Icons.AddCard />
-            <p>Add Card</p>
-          </div>
+            Add Card
+          </button>
         </div>
       </div>
       <div className="we-accept-wrapper">
@@ -33,6 +40,6 @@ export const PaymentMethod = () => {
         <Icons.VisaCard />
         <Images.Visa2 />
       </div>
-    </CardContainer>
+    </StyledPaymentMethod>
   );
 };
