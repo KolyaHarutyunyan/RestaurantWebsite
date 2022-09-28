@@ -1,1 +1,3 @@
-export const settingsBreadcrumbs = [{ path: "/settings", text: "Settings" }];
+export const settingsBreadcrumbs = [
+  { path: "/settings", text: "Restuarant Settings" },
+];

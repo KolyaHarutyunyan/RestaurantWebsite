@@ -10,66 +10,66 @@ export const inputsStyle = makeStyles(() => ({
     justifyContent: "center",
   },
   SignInInput: {
-    '& .MuiFormControl-root': {
-      width: '395px',
-      marginTop: '20px',
+    "& .MuiFormControl-root": {
+      width: "395px",
+      marginTop: "20px",
     },
 
-    '& .MuiFormLabel-root.Mui-error': {
-      color: '#F07379',
-      fontWeight: 'bold',
+    "& .MuiFormLabel-root.Mui-error": {
+      color: "#F07379",
+      fontWeight: "bold",
     },
 
-    '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
-      border: '2px solid red',
+    "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid red",
     },
   },
   inputTextField: {
-    width: '100%',
-    '& .MuiOutlinedInput-notchedOutline': {
+    width: "100%",
+    "& .MuiOutlinedInput-notchedOutline": {
       // borderColor: Colors.ThemeBlack,
     },
-    '& .MuiOutlinedInput-root': {
-      height: '48px',
+    "& .MuiOutlinedInput-root": {
+      height: "48px",
       // color: Colors.ThemeLightGray,
     },
-    '& .MuiInputLabel-outlined': {
-      marginTop: '-3px',
+    "& .MuiInputLabel-outlined": {
+      marginTop: "-3px",
       // color: Colors.ThemeLightGray,
     },
-    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-      transform: 'translate(14px, -2px) scale(0.75)',
+    "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
+      transform: "translate(14px, -2px) scale(0.75)",
     },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
+    "&:hover .MuiOutlinedInput-notchedOutline": {
       // borderColor: Colors.ThemeBlack,
     },
-    '& .MuiInputBase-input::placeholder': {
+    "& .MuiInputBase-input::placeholder": {
       fontSize: 14,
-      color: '#4B5C6880',
+      color: "#4B5C6880",
     },
   },
   inputTextFieldSmall: {
-    width: '100%',
-    '& .MuiOutlinedInput-notchedOutline': {
+    width: "100%",
+    "& .MuiOutlinedInput-notchedOutline": {
       // borderColor: Colors.ThemeBlack,
     },
-    '& .MuiOutlinedInput-root': {
-      height: '36px',
+    "& .MuiOutlinedInput-root": {
+      height: "36px",
       // color: Colors.ThemeLightGray,
     },
-    '& .MuiInputLabel-outlined': {
-      marginTop: '-3px',
+    "& .MuiInputLabel-outlined": {
+      marginTop: "-3px",
       // color: Colors.ThemeLightGray,
     },
-    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-      transform: 'translate(14px, -2px) scale(0.75)',
+    "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
+      transform: "translate(14px, -2px) scale(0.75)",
     },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
+    "&:hover .MuiOutlinedInput-notchedOutline": {
       // borderColor: Colors.ThemeBlack,
     },
-    '& .MuiInputBase-input::placeholder': {
+    "& .MuiInputBase-input::placeholder": {
       fontSize: 14,
-      color: '#4B5C6880',
+      color: "#4B5C6880",
     },
   },
 
@@ -88,7 +88,7 @@ export const inputsStyle = makeStyles(() => ({
     color: "#545F7EB3",
   },
   SearchAddress: {
-    fontFamily: 'Open Sans, sans-serif',
+    fontFamily: "Open Sans, sans-serif",
     gap: "10px",
     fontSize: "16px",
     lineHeight: "22px",
@@ -104,14 +104,14 @@ export const inputsStyle = makeStyles(() => ({
     padding: "0 18px",
     cursor: "pointer",
     color: "#545F7E",
-    '& input':{
-      fontFamily: 'Open Sans, sans-serif',
+    "& input": {
+      fontFamily: "Open Sans, sans-serif",
       fontSize: "16px",
-      color:'#2B273C'
-    }
+      color: "#2B273C",
+    },
   },
   SearchAddressDisable: {
-    fontFamily: 'Open Sans, sans-serif',
+    fontFamily: "Open Sans, sans-serif",
     fontSize: "16px",
     lineHeight: "22px",
     gap: "14px",
@@ -127,12 +127,11 @@ export const inputsStyle = makeStyles(() => ({
     padding: "0 18px",
     cursor: "no-drop",
     color: "#545F7E",
-    '& input':{
-      fontFamily: 'Open Sans, sans-serif',
+    "& input": {
+      fontFamily: "Open Sans, sans-serif",
       fontSize: "16px",
-      color:'#2B273C'
+      color: "#2B273C",
     },
-
   },
   searchAddressDescription: {
     background: "#FFFFFF 0% 0% no-repeat padding-box",
@@ -144,12 +143,11 @@ export const inputsStyle = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     top: "326px",
-    overflow:'auto',
-    '@media (max-width: 767px)': {
+    overflow: "auto",
+    "@media (max-width: 767px)": {
       top: "280px",
       width: "308px",
-}
-
+    },
   },
 
   searchAddressDescriptionText: {
@@ -182,7 +180,7 @@ export const InputContainer = styled.div`
     @media (max-width: 767px) {
       height: 42px;
     }
-    
+
     .icon-container {
       padding-left: 16px;
       display: ${({ icon }) => (icon !== null ? "flex" : "none")};
@@ -291,5 +289,34 @@ export const RadioContainer = styled.div`
   padding-left: 3px;
   input {
     transform: scale(1.5);
+  }
+`;
+
+export const StyledSettingsInput = styled.div.attrs((props) => ({
+  className: props.inputClassName,
+}))`
+  max-width: 347px;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #c4c4c4;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  input {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 10px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #262626;
   }
 `;

@@ -1,4 +1,5 @@
 export { Button } from "./button";
-export { SmallButton } from './smallButton'
+export { SmallButton } from "./smallButton";
 export { Fab } from "./fab";
-export { EditSaveButtons } from './editSaveButtons';
+export { EditSaveButtons } from "./editSaveButtons";
+export { MyButton } from "./myButton";

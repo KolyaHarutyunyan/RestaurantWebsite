@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ActivePlanContainer = styled.div`
+export const StyledActivePlan = styled.div`
   .active-plan-wrapper {
     display: flex;
     align-items: start;
@@ -18,7 +18,7 @@ export const ActivePlanContainer = styled.div`
     font-weight: 700;
     font-size: 18px;
     line-height: 28px;
-    color: #000000;
+    color: #2a374e;
     margin-bottom: 24px;
   }
   .items-wrapper {
@@ -32,6 +32,12 @@ export const ActivePlanContainer = styled.div`
       font-size: 16px;
       line-height: 24px;
       color: #7e7e7e;
+      span {
+        color: #000000;
+        &.status {
+          color: #54c762;
+        }
+      }
     }
     .features-text {
       margin-left: 16px;
@@ -39,7 +45,7 @@ export const ActivePlanContainer = styled.div`
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: #000000;
+      color: #2a374e;
     }
   }
   .upgrade-button-wrapper {
@@ -107,7 +113,7 @@ export const ActivePlanContainer = styled.div`
   }
 `;
 
-export const CardContainer = styled.div`
+export const StyledPaymentMethod = styled.div`
   .title {
     font-family: Poppins, sans-serif;
     font-weight: 700;
@@ -130,7 +136,7 @@ export const CardContainer = styled.div`
     max-width: 285px;
     height: 164px;
     background: #f9f9f9;
-    border: 1px solid #007aff;
+    border: 1px solid #c4c4c4;
     border-radius: 8px;
     padding: 26px 24px;
     margin-right: 10px;
@@ -138,13 +144,14 @@ export const CardContainer = styled.div`
   .visa-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     p {
       font-family: Open Sans, sans-serif;
-      font-weight: 400;
+      font-weight: 600;
       font-size: 14px;
       line-height: 20px;
-      color: #007aff;
+      color: #2a374e;
     }
   }
   .card-date {
@@ -158,23 +165,31 @@ export const CardContainer = styled.div`
     color: #000000;
     margin: 16px 0 32px 0;
   }
-  .delete-wrapper {
+  .action-wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    p {
+    button {
       font-family: Open Sans, sans-serif;
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #ff453a;
-      margin-left: 10px;
+      &.edit-btn {
+        color: #ff9900;
+      }
+      &.delete-btn {
+        margin-left: 16px;
+        color: #ff453a;
+      }
     }
   }
   .we-accept-wrapper {
     display: flex;
     align-items: center;
     margin-top: 18px;
+    svg {
+      margin-right: 9px;
+    }
   }
   .we-accept {
     font-family: Open Sans, sans-serif;
@@ -198,7 +213,7 @@ export const CardContainer = styled.div`
     @media (min-width: 767px) {
       margin-top: 0;
     }
-    .add-card-info {
+    .add-card-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -206,17 +221,30 @@ export const CardContainer = styled.div`
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #007aff;
-      p {
-        margin-top: 19px;
+      color: #ff9900;
+      svg {
+        margin-bottom: 19px;
+        path {
+          fill: #ff9900;
+        }
       }
     }
   }
 `;
 
-export const InvoiceContainer = styled.div`
+export const StyledInvoiceTable = styled.div`
   width: 100%;
-  .mobile-cards-table {
+  .actions-wrapper {
+    max-width: 165px;
+    display: flex;
+    align-items: center;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  /* .mobile-cards-table {
     @media (min-width: 320px) {
       display: block;
     }
@@ -257,8 +285,13 @@ export const InvoiceContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
-  }
+  } */
   .cards-table {
     width: 100%;
     height: auto;
@@ -310,7 +343,7 @@ export const InvoiceContainer = styled.div`
   }
 `;
 
-export const PayInfoContainer = styled.div`
+export const StyledPayInfo = styled.div`
   width: auto;
   height: auto;
   background: white;
