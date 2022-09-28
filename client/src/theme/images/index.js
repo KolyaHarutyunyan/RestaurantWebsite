@@ -23,6 +23,9 @@ import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 import Info from "./paymentPage/info.svg";
 import Visa2 from "./paymentPage/visa2.svg";
 
+// SETTINGS_PAGE_IMAGES
+import DownloadIcon from "./settingsPage/downloadIcon.svg";
+
 export const Images = {
   Notification,
   Avatar,
@@ -43,4 +46,5 @@ export const Images = {
   BreadcrumbArrow,
   Info,
   Visa2,
+  DownloadIcon,
 };
