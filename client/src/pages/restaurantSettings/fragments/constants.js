@@ -36,3 +36,9 @@ export const a11yProps = (index) => {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 };
+
+export const restaurantData = {
+  name: "Breakfast Menu",
+  description: "",
+  logo: null,
+};

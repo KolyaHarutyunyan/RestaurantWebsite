@@ -11,7 +11,7 @@ export const StyledLayout = styled.div`
   }
   .main {
     flex-grow: 1;
-    background-color: #E3E3E3;
+    background-color: #f5f7f9;
     display: flex;
     .main-content {
       width: 100%;
