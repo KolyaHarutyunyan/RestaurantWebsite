@@ -29,7 +29,7 @@ import RestaurantLogo from "./settingsPage/restaurantLogo.svg";
 import CheckedIcon from "./settingsPage/checkedIcon.svg";
 import UncheckedIcon from "./settingsPage/uncheckedIcon.svg";
 import DeleteIcon from "./settingsPage/deleteIcon.svg";
-import TimePickerIcon from "./settingsPage/timePickerIcon.svg";
+// import TimePickerIcon from "./settingsPage/timePickerIcon.svg";
 
 export const Images = {
   Notification,
@@ -56,5 +56,5 @@ export const Images = {
   CheckedIcon,
   UncheckedIcon,
   DeleteIcon,
-  TimePickerIcon,
+  // TimePickerIcon,
 };
