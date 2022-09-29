@@ -12,7 +12,7 @@ export const SideSheetsDrawer = () => {
   return (
     <StyledSideSheetsDrawer>
       <div className={addClosed("collapse", !open)} onClick={toggleDrawer}>
-        {open ? <Images.CollapseButton /> : <Images.CollapseButtonClosed />}
+        {open ? <Images.CollapseButton /> : <Images.CollapseButton />}
       </div>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>

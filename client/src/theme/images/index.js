@@ -15,7 +15,7 @@ import Settings from "./sideSheetsDrawer/settings.svg";
 import Billing from "./sideSheetsDrawer/billing.svg";
 import MenuItem from "./sideSheetsDrawer/menuItem.svg";
 import CollapseButton from "./sideSheetsDrawer/collapseButton.svg";
-import CollapseButtonClosed from "./sideSheetsDrawer/collapseButtonClosed.svg";
+// import CollapseButtonClosed from "./sideSheetsDrawer/collapseButton.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
@@ -46,7 +46,7 @@ export const Images = {
   Billing,
   MenuItem,
   CollapseButton,
-  CollapseButtonClosed,
+  // CollapseButtonClosed,
   MenumangoLogo,
   BreadcrumbArrow,
   Info,
