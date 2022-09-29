@@ -4,7 +4,7 @@ export const SettingsInput = ({
   inputType,
   inputClassName,
   inputIcon,
-  inputValue,
+  inputValue = "",
   onChangeInput,
   inputDisabled,
   inputRequired,

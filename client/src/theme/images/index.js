@@ -23,6 +23,14 @@ import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 import Info from "./paymentPage/info.svg";
 import Visa2 from "./paymentPage/visa2.svg";
 
+// SETTINGS_PAGE_IMAGES
+import DownloadIcon from "./settingsPage/downloadIcon.svg";
+import RestaurantLogo from "./settingsPage/restaurantLogo.svg";
+import CheckedIcon from "./settingsPage/checkedIcon.svg";
+import UncheckedIcon from "./settingsPage/uncheckedIcon.svg";
+import DeleteIcon from "./settingsPage/deleteIcon.svg";
+import TimePickerIcon from "./settingsPage/timePickerIcon.svg";
+
 export const Images = {
   Notification,
   Avatar,
@@ -43,4 +51,10 @@ export const Images = {
   BreadcrumbArrow,
   Info,
   Visa2,
+  DownloadIcon,
+  RestaurantLogo,
+  CheckedIcon,
+  UncheckedIcon,
+  DeleteIcon,
+  TimePickerIcon,
 };
