@@ -1,0 +1,1 @@
+export { SettingsTabItem } from './settingsTabItem'

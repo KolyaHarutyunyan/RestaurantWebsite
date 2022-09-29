@@ -11,8 +11,8 @@ import { Images } from "@eachbase/theme/images";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { SettingsTabItem } from "./core/SettingsTabItem";
 import { SocialAccountsTabItem } from "./core/SocialAccountsTabItem";
+import { SettingsTabItem } from "./core";
 
 export const RestaurantSettingsFragment = () => {
   const [value, setValue] = useState(0);
