@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledActivePlan = styled.div`
   .active-plan-wrapper {
@@ -18,7 +19,7 @@ export const StyledActivePlan = styled.div`
     font-weight: 700;
     font-size: 18px;
     line-height: 28px;
-    color: #2a374e;
+    color: ${colors.secondary};
     margin-bottom: 24px;
   }
   .items-wrapper {
@@ -33,9 +34,9 @@ export const StyledActivePlan = styled.div`
       line-height: 24px;
       color: #7e7e7e;
       span {
-        color: #000000;
+        color: ${colors.black};
         &.status {
-          color: #54c762;
+          color: ${colors.green};
         }
       }
     }
@@ -45,7 +46,7 @@ export const StyledActivePlan = styled.div`
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: #2a374e;
+      color: ${colors.secondary};
     }
   }
   .upgrade-button-wrapper {
@@ -62,7 +63,7 @@ export const StyledActivePlan = styled.div`
       font-weight: 700;
       font-size: 16px;
       line-height: 22px;
-      color: #ffffff;
+      color: ${colors.white};
       margin-top: 24px;
     }
   }
@@ -119,7 +120,7 @@ export const StyledPaymentMethod = styled.div`
     font-weight: 700;
     font-size: 18px;
     line-height: 28px;
-    color: #000000;
+    color: ${colors.black};
     margin-bottom: 24px;
   }
   .cards-wrapper-section {
@@ -151,7 +152,7 @@ export const StyledPaymentMethod = styled.div`
       font-weight: 600;
       font-size: 14px;
       line-height: 20px;
-      color: #2a374e;
+      color: ${colors.secondary};
     }
   }
   .card-date {
@@ -162,7 +163,7 @@ export const StyledPaymentMethod = styled.div`
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #000000;
+    color: ${colors.black};
     margin: 16px 0 32px 0;
   }
   .action-wrapper {
@@ -179,7 +180,7 @@ export const StyledPaymentMethod = styled.div`
       }
       &.delete-btn {
         margin-left: 16px;
-        color: #ff453a;
+        color: ${colors.primary};
       }
     }
   }
@@ -256,7 +257,7 @@ export const StyledInvoiceTable = styled.div`
       min-height: 152px;
       height: auto;
       margin-bottom: 8px;
-      background: #ffffff;
+      background: ${colors.white};
       border-radius: 8px;
       padding: 16px 24px;
     }
@@ -270,7 +271,7 @@ export const StyledInvoiceTable = styled.div`
         font-weight: 700;
         font-size: 14px;
         line-height: 20px;
-        color: #2a374e;
+        color: ${colors.secondary};
         margin-right: 22px;
       }
       .info {
@@ -317,11 +318,11 @@ export const StyledInvoiceTable = styled.div`
         font-weight: 700;
         font-size: 14px;
         line-height: 20px;
-        color: #2a374e;
+        color: ${colors.secondary};
       }
     }
     .cards-table-body {
-      background: #ffffff;
+      background: ${colors.white};
       border-radius: 8px;
       height: 200px;
     }
@@ -370,7 +371,7 @@ export const StyledPayInfo = styled.div`
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #000000;
+      color: ${colors.black};
     }
   }
   .price-title {
@@ -378,7 +379,7 @@ export const StyledPayInfo = styled.div`
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
-    color: #000000;
+    color: ${colors.black};
   }
   .plane-type {
     margin: 24px 0;
@@ -390,7 +391,7 @@ export const StyledPayInfo = styled.div`
     font-weight: 700;
     font-size: 18px;
     line-height: 28px;
-    color: #000000;
+    color: ${colors.black};
   }
   .check-wrapper {
     display: flex;
@@ -400,7 +401,7 @@ export const StyledPayInfo = styled.div`
     font-size: 14px;
     line-height: 20px;
     a {
-      color: #ff453a;
+      color: ${colors.primary};
     }
   }
   .check-text-style {
@@ -409,7 +410,7 @@ export const StyledPayInfo = styled.div`
     font-size: 14px;
     line-height: 20px;
     margin-left: 8px;
-    color: #2b273c;
+    color: ${colors.text};
   }
 `;
 

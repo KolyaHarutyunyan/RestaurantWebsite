@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledRestaurantPayment = styled.section`
   .cancel-button-wrapper {
@@ -12,7 +13,7 @@ export const StyledRestaurantPayment = styled.section`
   .cancel-button {
     margin-right: 16px;
     padding: 12px 81px;
-    background-color: #ff453a;
+    background-color: ${colors.primary};
     border-radius: 32px;
     display: flex;
     justify-content: center;
@@ -22,7 +23,7 @@ export const StyledRestaurantPayment = styled.section`
     font-size: 16px;
     line-height: 24px;
     text-align: center;
-    color: #ffffff;
+    color: ${colors.white};
   }
   .billing-wrapper {
     display: flex;
@@ -34,14 +35,14 @@ export const StyledRestaurantPayment = styled.section`
       font-weight: 700;
       font-size: 32px;
       line-height: 48px;
-      color: #2a374e;
+      color: ${colors.secondary};
     }
     .active-plane {
       font-family: Open Sans, sans-serif;
       font-weight: 700;
       font-size: 24px;
       line-height: 36px;
-      color: #2a374e;
+      color: ${colors.secondary};
       @media (min-width: 320px) {
         margin: 24px 0 16px;
         font-size: 18px;
@@ -59,7 +60,7 @@ export const StyledRestaurantPayment = styled.section`
     .cards-wrapper {
       width: 100%;
       height: auto;
-      background-color: white;
+      background-color: ${colors.white};
       border: 1px solid #e9e9eb;
       border-radius: 8px;
       padding: 32px 48px;

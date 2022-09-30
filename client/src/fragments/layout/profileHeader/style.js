@@ -1,3 +1,4 @@
+import { colors } from "@eachbase/theme";
 import { Drawer } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -10,7 +11,7 @@ export const StyledProfileHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #ffffff;
+  background-color: ${colors.white};
   .notification {
     margin-right: 16px;
     cursor: pointer;

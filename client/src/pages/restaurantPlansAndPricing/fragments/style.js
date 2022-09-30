@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledRestaurantPlansAndPricing = styled.section`
   display: flex;
@@ -10,8 +11,8 @@ export const StyledRestaurantPlansAndPricing = styled.section`
     .card {
       width: 302px;
       height: 655px;
-      background: #ffffff;
-      border-top: 4px solid #ff453a;
+      background: ${colors.white};
+      border-top: 4px solid ${colors.primary};
       padding: 32px 20px;
       text-align: start;
       margin: 0 auto;
@@ -47,14 +48,14 @@ export const StyledRestaurantPlansAndPricing = styled.section`
     .get-button {
       width: 261px;
       height: 48px;
-      background: #ff453a;
+      background: ${colors.primary};
       border-radius: 8px;
       margin: 24px 0 49px;
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
       text-align: center;
-      color: #ffffff;
+      color: ${colors.white};
       font-family: Open Sans, sans-serif;
     }
     .packages {
@@ -72,7 +73,7 @@ export const StyledRestaurantPlansAndPricing = styled.section`
           font-weight: 600;
           font-size: 15px;
           line-height: 24px;
-          color: #000000;
+          color: ${colors.black};
           margin-bottom: 16px;
         }
       }

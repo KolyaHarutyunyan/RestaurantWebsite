@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledSettingsInput = styled.div.attrs((props) => ({
   className: props.inputClassName,
@@ -9,8 +10,8 @@ export const StyledSettingsInput = styled.div.attrs((props) => ({
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #c4c4c4;
+  background-color: ${colors.white};
+  border: 1px solid ${colors.borderColor};
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 16px;

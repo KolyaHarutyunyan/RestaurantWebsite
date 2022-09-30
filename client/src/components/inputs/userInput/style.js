@@ -1,3 +1,4 @@
+import { colors } from "@eachbase/theme";
 import styled from "styled-components";
 
 export const StyledUserInput = styled.div`
@@ -11,16 +12,16 @@ export const StyledUserInput = styled.div`
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: #2a374e;
+      color: ${colors.secondary};
       display: flex;
       &.required::after {
         content: "*";
-        color: #ff453a;
+        color: ${colors.primary};
       }
     }
     & > input {
       outline: none;
-      border: 1px solid #c4c4c4;
+      border: 1px solid ${colors.borderColor};
       width: 100%;
       padding: 12px 16px;
       border-radius: 8px;
@@ -28,12 +29,12 @@ export const StyledUserInput = styled.div`
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #2a374e;
+      color: ${colors.secondary};
     }
     & > textarea {
       outline: none;
       resize: none;
-      border: 1px solid #c4c4c4;
+      border: 1px solid ${colors.borderColor};
       max-width: 584px;
       width: 100%;
       height: 118px;
@@ -45,7 +46,7 @@ export const StyledUserInput = styled.div`
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #2a374e;
+      color: ${colors.secondary};
     }
   }
   .user-input-error-text {
@@ -61,7 +62,7 @@ export const StyledUserInput = styled.div`
   .user-input-char-counter {
     width: 100%;
     margin: 4px 0px 16px;
-    color: #c4c4c4;
+    color: ${colors.borderColor};
     font-family: Open Sans, sans-serif;
     font-weight: 400;
     font-size: 12px;

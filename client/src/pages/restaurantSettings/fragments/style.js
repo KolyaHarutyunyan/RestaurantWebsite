@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledRestaurantSettings = styled.section`
   .settings-header {
@@ -13,7 +14,7 @@ export const StyledRestaurantSettings = styled.section`
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: #ff453a;
+      color: ${colors.primary};
       svg {
         margin-right: 7px;
       }
@@ -39,11 +40,11 @@ export const StyledRestaurantSettings = styled.section`
           margin-right: 10px;
         }
         &.Mui-selected {
-          color: #ff453a;
+          color: ${colors.primary};
         }
       }
       span.MuiTabs-indicator {
-        background-color: #ff453a;
+        background-color: ${colors.primary};
         height: 4px;
       }
     }
