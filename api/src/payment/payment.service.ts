@@ -13,7 +13,7 @@ export class PaymentService {
   /** Public API */
   /** Create a new payment */
   async create(dto: any): Promise<any> {
-    const item = await this.model.findOne();
+    const item = await this.model.findById('6272182cbe4fb8640f63294e');
     item.images.push(dto);
     return 'ok';
   }
