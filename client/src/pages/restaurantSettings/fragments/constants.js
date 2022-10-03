@@ -39,6 +39,9 @@ export const a11yProps = (index) => {
 
 export const restaurantData = {
   name: "Breakfast Menu",
-  description: "",
+  description: null,
   logo: null,
+  website: null,
+  facebook: null,
+  instagram: null,
 };

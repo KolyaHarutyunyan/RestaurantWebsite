@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledSettingsTabItem = styled.div`
   width: 100%;
@@ -36,7 +37,7 @@ export const StyledSettingsTabItem = styled.div`
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
-        color: #2a374e;
+        color: ${colors.secondary};
         cursor: default;
         .upload-label {
           margin: 0px 6px;
@@ -79,34 +80,35 @@ export const StyledSettingsTabItem = styled.div`
       padding: 24px;
     }
   }
-  .form-actions-box {
-    max-width: 583px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    button {
-      max-width: 284px;
-      width: 100%;
-      height: 48px;
-      border-radius: 8px;
-      font-family: Open Sans, sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      &.cancel-button {
-        background-color: #f5f5f5;
-        color: #2a374e;
-      }
-      &.save-button {
-        background-color: #ff453a;
-        color: #ffffff;
-      }
-    }
-  }
 `;
 
 export const StyledSocialAccountsTabItem = styled.div`
   width: 100%;
   padding: 16px;
   background-color: inherit;
+`;
+
+export const StyledFormActionsBox = styled.div`
+  max-width: 583px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    max-width: 284px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    &.cancel-button {
+      background-color: #f5f5f5;
+      color: ${colors.secondary};
+    }
+    &.save-button {
+      background-color: ${colors.primary};
+      color: ${colors.white};
+    }
+  }
 `;

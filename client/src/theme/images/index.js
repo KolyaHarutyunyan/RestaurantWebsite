@@ -15,7 +15,7 @@ import Settings from "./sideSheetsDrawer/settings.svg";
 import Billing from "./sideSheetsDrawer/billing.svg";
 import MenuItem from "./sideSheetsDrawer/menuItem.svg";
 import CollapseButton from "./sideSheetsDrawer/collapseButton.svg";
-// import CollapseButtonClosed from "./sideSheetsDrawer/collapseButton.svg";
+import CollapseButtonClosed from "./sideSheetsDrawer/collapseButton.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
@@ -29,7 +29,7 @@ import RestaurantLogo from "./settingsPage/restaurantLogo.svg";
 import CheckedIcon from "./settingsPage/checkedIcon.svg";
 import UncheckedIcon from "./settingsPage/uncheckedIcon.svg";
 import DeleteIcon from "./settingsPage/deleteIcon.svg";
-// import TimePickerIcon from "./settingsPage/timePickerIcon.svg";
+import TimePickerArrow from "./settingsPage/timePickerArrow.svg";
 
 export const Images = {
   Notification,
@@ -46,7 +46,7 @@ export const Images = {
   Billing,
   MenuItem,
   CollapseButton,
-  // CollapseButtonClosed,
+  CollapseButtonClosed,
   MenumangoLogo,
   BreadcrumbArrow,
   Info,
@@ -56,5 +56,5 @@ export const Images = {
   CheckedIcon,
   UncheckedIcon,
   DeleteIcon,
-  // TimePickerIcon,
+  TimePickerArrow,
 };
