@@ -41,7 +41,7 @@ export const RestaurantSettingsFragment = () => {
           <SettingsTabItem restaurantData={restaurantData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SocialAccountsTabItem />
+          <SocialAccountsTabItem restaurantData={restaurantData} />
         </TabPanel>
       </Box>
     </StyledRestaurantSettings>

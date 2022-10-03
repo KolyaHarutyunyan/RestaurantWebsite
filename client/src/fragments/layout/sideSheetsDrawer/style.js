@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Box from "@mui/material/Box";
+import { colors } from "@eachbase/theme";
 
 export const StyledSideSheetsDrawer = styled(Box)`
   .collapse {
@@ -29,7 +30,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #2a374e;
+      color: ${colors.secondary};
       margin: 0px 14px 0px 10px;
       &.closed {
         display: none;
@@ -99,17 +100,17 @@ export const StyledSideSheetsDrawer = styled(Box)`
           .side-sheet-item-icon {
             svg {
               path {
-                fill: #ff453a;
+                fill: ${colors.primary};
               }
             }
           }
           .side-sheet-item-text {
-            color: #ff453a;
+            color: ${colors.primary};
             font-weight: 600;
           }
           svg.arrow {
             path {
-              stroke: #ff453a;
+              stroke: ${colors.primary};
             }
           }
         }
@@ -129,7 +130,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
           font-weight: 500;
           font-size: 14px;
           line-height: 20px;
-          color: #2a374e;
+          color: ${colors.secondary};
           margin-left: 10px;
           &.closed {
             display: none;
@@ -165,7 +166,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
           &.active {
             background-color: #ffecef;
             .side-sheet-item-text {
-              color: #ff453a;
+              color: ${colors.primary};
               font-weight: 600;
             }
           }

@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledAccountSettings = styled.div`
   width: 100%;
   padding: 16px;
-  background-color: #ffffff;
+  background-color: ${colors.white};
   border-radius: inherit;
   .name-and-avatar {
     width: 100%;
@@ -13,7 +14,7 @@ export const StyledAccountSettings = styled.div`
       font-weight: 700;
       font-size: 18px;
       line-height: 28px;
-      color: #2a374e;
+      color: ${colors.secondary};
       text-align: center;
     }
     .avatar {
@@ -68,14 +69,14 @@ export const StyledAccountSettings = styled.div`
         font-family: Open Sans, sans-serif;
         font-weight: 700;
         font-size: 14px;
-        color: #ff453a;
+        color: ${colors.primary};
       }
     }
     .change-password {
       width: 100%;
       max-width: 347px;
       width: 100%;
-      background-color: #ffffff;
+      background-color: ${colors.white};
       border: 1px solid #c4c4c4;
       border-radius: 8px;
       padding: 12px 16px;
@@ -91,7 +92,7 @@ export const StyledAccountSettings = styled.div`
           font-weight: 700;
           font-size: 16px;
           line-height: 24px;
-          color: #2a374e;
+          color: ${colors.secondary};
         }
         .edit-and-save-button {
           width: 28px;
@@ -100,7 +101,7 @@ export const StyledAccountSettings = styled.div`
           font-family: Open Sans, sans-serif;
           font-weight: 700;
           font-size: 14px;
-          color: #ff453a;
+          color: ${colors.primary};
         }
       }
       .use-strong-password {
@@ -115,13 +116,13 @@ export const StyledAccountSettings = styled.div`
   .sign-out-button {
     width: 100%;
     height: 48px;
-    background-color: #ff453a;
+    background-color: ${colors.primary};
     border-radius: 8px;
     font-family: Open Sans, sans-serif;
     font-weight: 600;
     font-size: 16px;
     text-align: center;
-    color: #ffffff;
+    color: ${colors.white};
     svg {
       margin-right: 8px;
     }

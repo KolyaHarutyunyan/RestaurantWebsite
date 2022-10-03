@@ -1,3 +1,4 @@
+import { colors } from "@eachbase/theme";
 import styled from "styled-components";
 
 export const StyledMuiBreadcrumbs = styled.div`
@@ -9,7 +10,7 @@ export const StyledMuiBreadcrumbs = styled.div`
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
-    color: #2a374e;
+    color: ${colors.secondary};
     &.last {
       color: #9d9d9d;
     }

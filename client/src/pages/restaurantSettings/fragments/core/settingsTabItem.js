@@ -1,4 +1,4 @@
-import { StyledSettingsTabItem } from "./style";
+import { StyledFormActionsBox, StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
 import { MyButton, UserInput } from "@eachbase/components";
 import { useState } from "react";
@@ -77,7 +77,7 @@ export const SettingsTabItem = ({ restaurantData }) => {
           </div>
           {isShown && <div className="weekdays-box">weekdays here...</div>}
         </div>
-        <div className="form-actions-box">
+        <StyledFormActionsBox>
           <MyButton
             type="button"
             buttonClassName="cancel-button"
@@ -91,7 +91,7 @@ export const SettingsTabItem = ({ restaurantData }) => {
           <MyButton type="submit" buttonClassName="save-button">
             Save
           </MyButton>
-        </div>
+        </StyledFormActionsBox>
       </form>
     </StyledSettingsTabItem>
   );
