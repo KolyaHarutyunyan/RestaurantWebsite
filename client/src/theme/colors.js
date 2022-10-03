@@ -10,4 +10,6 @@ export const colors = {
   green: "#54C762",
   notSet: "#2B273C80",
   borderColor: "#c4c4c4",
+  yellowOrange: "#FF9900",
+  halfBlack: "#7B7B7B",
 };

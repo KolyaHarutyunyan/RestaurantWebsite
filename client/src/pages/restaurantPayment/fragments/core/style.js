@@ -176,7 +176,7 @@ export const StyledPaymentMethod = styled.div`
       font-size: 14px;
       line-height: 20px;
       &.edit-btn {
-        color: #ff9900;
+        color: ${colors.yellowOrange};
       }
       &.delete-btn {
         margin-left: 16px;
@@ -222,11 +222,11 @@ export const StyledPaymentMethod = styled.div`
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #ff9900;
+      color: ${colors.yellowOrange};
       svg {
         margin-bottom: 19px;
         path {
-          fill: #ff9900;
+          fill: ${colors.yellowOrange};
         }
       }
     }

@@ -121,7 +121,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
           justify-content: center;
           svg {
             path {
-              fill: #7b7b7b;
+              fill: ${colors.halfBlack};
             }
           }
         }
