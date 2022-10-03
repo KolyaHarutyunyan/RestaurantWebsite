@@ -15,7 +15,7 @@ import Settings from "./sideSheetsDrawer/settings.svg";
 import Billing from "./sideSheetsDrawer/billing.svg";
 import MenuItem from "./sideSheetsDrawer/menuItem.svg";
 import CollapseButton from "./sideSheetsDrawer/collapseButton.svg";
-import CollapseButtonClosed from "./sideSheetsDrawer/collapseButton.svg";
+import CollapseButtonClosed from "./sideSheetsDrawer/collapseButtonClosed.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
@@ -26,8 +26,7 @@ import Visa2 from "./paymentPage/visa2.svg";
 // SETTINGS_PAGE_IMAGES
 import DownloadIcon from "./settingsPage/downloadIcon.svg";
 import RestaurantLogo from "./settingsPage/restaurantLogo.svg";
-import CheckedIcon from "./settingsPage/checkedIcon.svg";
-import UncheckedIcon from "./settingsPage/uncheckedIcon.svg";
+import Checkmark from "./settingsPage/checkmark.svg";
 import DeleteIcon from "./settingsPage/deleteIcon.svg";
 import TimePickerArrow from "./settingsPage/timePickerArrow.svg";
 
@@ -53,8 +52,7 @@ export const Images = {
   Visa2,
   DownloadIcon,
   RestaurantLogo,
-  CheckedIcon,
-  UncheckedIcon,
+  Checkmark,
   DeleteIcon,
   TimePickerArrow,
 };

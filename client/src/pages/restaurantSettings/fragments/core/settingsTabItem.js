@@ -1,6 +1,6 @@
 import { StyledFormActionsBox, StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
-import { MyButton, UserInput } from "@eachbase/components";
+import { MuiTimePicker, MyButton, UserInput } from "@eachbase/components";
 import { useState } from "react";
 import { Images } from "@eachbase/theme/images";
 
@@ -75,7 +75,17 @@ export const SettingsTabItem = ({ restaurantData }) => {
             Add Hours of Operation
             <Images.Arrow className={isShown ? "shown" : ""} />
           </div>
-          {isShown && <div className="weekdays-box">weekdays here...</div>}
+          {isShown && (
+            <div className="time-pickers-box">
+              <MuiTimePicker timePickerFor={"Monday"} />
+              <MuiTimePicker timePickerFor={"Tuesday"} />
+              <MuiTimePicker timePickerFor={"Wednesday"} />
+              <MuiTimePicker timePickerFor={"Thursday"} />
+              <MuiTimePicker timePickerFor={"Friday"} />
+              <MuiTimePicker timePickerFor={"Saturday"} />
+              <MuiTimePicker timePickerFor={"Sunday"} />
+            </div>
+          )}
         </div>
         <StyledFormActionsBox>
           <MyButton

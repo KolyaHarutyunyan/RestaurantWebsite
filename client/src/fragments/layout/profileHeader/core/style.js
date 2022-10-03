@@ -109,7 +109,7 @@ export const StyledAccountSettings = styled.div`
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: #7b7b7b;
+        color: ${colors.halfBlack};
       }
     }
   }

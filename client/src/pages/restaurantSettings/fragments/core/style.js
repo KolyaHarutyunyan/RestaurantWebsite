@@ -41,7 +41,7 @@ export const StyledSettingsTabItem = styled.div`
         cursor: default;
         .upload-label {
           margin: 0px 6px;
-          color: #ff9900;
+          color: ${colors.yellowOrange};
           cursor: pointer;
           input[type="file"] {
             display: none;
