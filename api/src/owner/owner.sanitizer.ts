@@ -7,6 +7,7 @@ export class OwnerSanitizer implements ISanitize {
     const sanitizedUser: OwnerDTO = {
       id: user.id,
       fullName: user.fullName,
+      packages: user.packages,
       email: user.email,
       avatar: user.avatar,
       socialAvatar: user.socialAvatar,

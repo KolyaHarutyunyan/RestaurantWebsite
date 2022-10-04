@@ -1,9 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from '../util';
 import { ACCESS_TOKEN } from 'src/util/constants';
 import { PaymentService } from './payment.service';
 import Stripe from 'stripe';
+import { EditWebhookDTO } from './dto/update.dto';
+import { WebhookDTO } from './dto/payment.dto';
+import { CreateWebhookDTO } from './dto/create.dto';
+import { WebhookAction } from './payment.constants';
 const stripe = new Stripe(
   'sk_test_51LmCY4HoKYb9ljrZILnOepvZ0NszY0Y9utWnCqULpk4wksodTRBAdwgroq8HOymLYAxODWNWGncfAhZU4x0yeR8100tdbGRDIO',
   {
@@ -33,5 +37,50 @@ export class PaymentController {
   async createItem(@Body() dto: any): Promise<any> {
     const payment = await this.paymentService.create(dto);
     return payment;
+  }
+
+  /** Configure a webhook */
+  @Post('webhooks')
+  @Public()
+  @ApiBody({ type: CreateWebhookDTO })
+  @ApiOkResponse({ type: WebhookDTO })
+  async addWebhook(): Promise<WebhookDTO> {
+    const webhook = await this.paymentService.addWebhook();
+    return webhook;
+  }
+  /** Get configured webhook list */
+  //   @Get('webhooks')
+  //   @Public()
+  //   async getwebhooks(): Promise<any> {
+  //     const webhooks = await this.paymentService.getWebhooks();
+  //     return webhooks;
+  //   }
+
+  /** Get recently (up to 1 hour) sent events via webhooks for a table */
+  //   @Get('webhooks/sentevents/:table')
+  //   @Public()
+  //   async getSentEvents(
+  //     @Query('table') table: string,
+  //     @Query('action') action: WebhookAction,
+  //   ): Promise<any> {
+  //     const webhooks = await this.paymentService.getSentEvents(table, action);
+  //     return webhooks;
+  //   }
+
+  /** Get configured webhook list */
+  @Patch('webhooks/:id')
+  @Public()
+  @ApiBody({ type: EditWebhookDTO })
+  @ApiOkResponse({ type: WebhookDTO })
+  async updateWebhook(@Param('id') id: string, @Body() dto: EditWebhookDTO): Promise<WebhookDTO> {
+    const webhook = await this.paymentService.updateWebhook(id, dto);
+    return webhook;
+  }
+
+  @Delete('webhooks/:id')
+  @Public()
+  async deleteWebhook(@Param('id') id: string): Promise<any> {
+    const webhook = await this.paymentService.deleteWebhook(id);
+    return webhook;
   }
 }
