@@ -1,14 +1,22 @@
 import { StyledFormActionsBox, StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
-import { MuiTimePicker, MyButton, UserInput } from "@eachbase/components";
+import {
+  AddressInput,
+  AvailabilitySchedule,
+  MyButton,
+  UserInput,
+} from "@eachbase/components";
 import { useState } from "react";
 import { Images } from "@eachbase/theme/images";
+import { addressInputs } from "./constants";
 
 export const SettingsTabItem = ({ restaurantData }) => {
   const [inputs, setInputs] = useState(
     restaurantData ? { ...restaurantData } : {}
   );
   const [isShown, setIsShown] = useState(false);
+  const [address, setAddress] = useState(inputs.address || {});
+  const [hours, setHours] = useState(inputs.hours || {});
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -58,7 +66,31 @@ export const SettingsTabItem = ({ restaurantData }) => {
             </p>
           </div>
         </div>
-        {/* Address Input goes here... */}
+        <UserInput
+          required={false}
+          inputLabel={"Address"}
+          inputFromOutside={
+            <AddressInput
+              Value={address.formattedAddress}
+              disabled={true}
+              getAddress={(newAddress) => setAddress(newAddress)}
+            />
+          }
+        />
+        <div className="address-inputs-box">
+          {addressInputs.map((addressInput) => (
+            <UserInput
+              key={addressInput.label}
+              inputClassName={"address-input"}
+              required={false}
+              inputLabel={addressInput.label}
+              inputType={"text"}
+              inputName={addressInput.name}
+              inputPlaceholder={address[addressInput.name]}
+              inputDisabled={true}
+            />
+          ))}
+        </div>
         <UserInput
           required={false}
           inputLabel={"Phone Number"}
@@ -77,13 +109,11 @@ export const SettingsTabItem = ({ restaurantData }) => {
           </div>
           {isShown && (
             <div className="time-pickers-box">
-              <MuiTimePicker timePickerFor={"Monday"} />
-              <MuiTimePicker timePickerFor={"Tuesday"} />
-              <MuiTimePicker timePickerFor={"Wednesday"} />
-              <MuiTimePicker timePickerFor={"Thursday"} />
-              <MuiTimePicker timePickerFor={"Friday"} />
-              <MuiTimePicker timePickerFor={"Saturday"} />
-              <MuiTimePicker timePickerFor={"Sunday"} />
+              <AvailabilitySchedule
+                onModel={"Client"}
+                handleGetTimes={(e) => setHours(e)}
+                availabilityData={hours}
+              />
             </div>
           )}
         </div>
