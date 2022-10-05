@@ -27,4 +27,3 @@ export { Loader } from "./loading";
 export { Toast } from "./screens";
 export { AvailabilitySchedule } from "./modal/availabilitySchedule";
 export { MuiBreadcrumbs } from "./muiBreadcrumbs";
-export { MuiTimePicker } from "./muiTimePicker";

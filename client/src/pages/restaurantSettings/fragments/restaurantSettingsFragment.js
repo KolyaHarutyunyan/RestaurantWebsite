@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { MuiBreadcrumbs } from "@eachbase/components";
-import {
-  settingsBreadcrumbs,
-  a11yProps,
-  TabPanel,
-  restaurantData,
-} from "./constants";
+import { settingsBreadcrumbs, a11yProps, TabPanel } from "./constants";
 import { StyledRestaurantSettings } from "./style";
 import { Images } from "@eachbase/theme/images";
 import Tabs from "@mui/material/Tabs";
@@ -38,10 +33,10 @@ export const RestaurantSettingsFragment = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <SettingsTabItem restaurantData={restaurantData} />
+          <SettingsTabItem />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SocialAccountsTabItem restaurantData={restaurantData} />
+          <SocialAccountsTabItem />
         </TabPanel>
       </Box>
     </StyledRestaurantSettings>
