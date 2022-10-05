@@ -1,38 +1,38 @@
 import { useState } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { inputsStyle } from "./style";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import axios from "axios";
+
 export const AddressInput = ({
-  handleChangeValue,
-  handleSelectValue,
   disabled,
   disableLabels,
   Value,
+  getAddress,
 }) => {
   const classes = inputsStyle();
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(Value || "");
 
-  const handleChange = (value) => {
+  const handleSelect = async (value, ev) => {
+    if (address === value) return;
     setAddress(value);
-    handleChangeValue(value);
-  };
-
-  const handleSelect = (value) => {
-    handleSelectValue(value);
-    setAddress(value);
+    try {
+      const response = await axios.post(`/address`, { address: value });
+      getAddress(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const disable = disabled ? disabled === "Online" : true;
-  const placeholder = Value ? Value : "Search address...";
 
   return (
     <PlacesAutocomplete
       value={address}
-      onChange={handleChange}
+      onChange={(value) => setAddress(value)}
       onSelect={handleSelect}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div style={{ cursor: "pointer" }}>
+        <div style={{ cursor: "pointer", position: "relative" }}>
           <div
             className={
               disable || disableLabels
@@ -40,15 +40,15 @@ export const AddressInput = ({
                 : classes.SearchAddress
             }
           >
-            <div className={classes.Icon}>
+            {/* <div className={classes.Icon}>
               <FaMapMarkedAlt />
-            </div>
+            </div> */}
             <input
               className={`${classes.Input} ${
                 disable || disableLabels ? classes.disabledInput : ""
               }`}
+              value={address}
               {...getInputProps({
-                placeholder: placeholder,
                 disabled: disableLabels ? disableLabels : disable,
               })}
             />
@@ -60,8 +60,16 @@ export const AddressInput = ({
                 ? "suggestion-item--active"
                 : "suggestion-item";
               const style = suggestion.active
-                ? { backgroundColor: "#fafafa", cursor: "pointer", margin:'10px 20px 0 20px' , }
-                : { backgroundColor: "#ffffff", cursor: "pointer",margin:'10px 20px 0 20px' , };
+                ? {
+                    backgroundColor: "#fafafa",
+                    cursor: "pointer",
+                    margin: "10px 20px 0 20px",
+                  }
+                : {
+                    backgroundColor: "#ffffff",
+                    cursor: "pointer",
+                    margin: "10px 20px 0 20px",
+                  };
               return (
                 <div
                   key={index}

@@ -60,6 +60,17 @@ export const StyledSettingsTabItem = styled.div`
       }
     }
   }
+  .address-inputs-box {
+    max-width: 583px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    .address-input {
+      max-width: 283px;
+    }
+  }
   .hours-of-operation-box {
     max-width: 583px;
     width: 100%;

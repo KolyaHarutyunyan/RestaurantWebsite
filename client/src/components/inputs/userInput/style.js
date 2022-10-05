@@ -1,7 +1,9 @@
 import { colors } from "@eachbase/theme";
 import styled from "styled-components";
 
-export const StyledUserInput = styled.div`
+export const StyledUserInput = styled.div.attrs((props) => ({
+  className: props.inputClassName,
+}))`
   position: relative;
   max-width: 584px;
   width: 100%;
