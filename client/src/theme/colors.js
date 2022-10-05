@@ -12,4 +12,5 @@ export const colors = {
   borderColor: "#c4c4c4",
   yellowOrange: "#FF9900",
   halfBlack: "#7B7B7B",
+  gray: "#9d9d9d",
 };

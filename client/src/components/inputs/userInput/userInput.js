@@ -1,22 +1,24 @@
-import React from "react";
+import { forwardRef } from "react";
 import { StyledUserInput } from "./style";
 
-export const UserInput = ({
-  inputClassName,
-  required,
-  inputLabel,
-  inputType,
-  inputName,
-  inputValue,
-  onInputChange,
-  inputPlaceholder,
-  inputDisabled,
-  inputError,
-  charCounterIsShown,
-  charLimit = "50",
-  isTextArea,
-  inputFromOutside,
-}) => {
+export const UserInput = forwardRef((props, ref) => {
+  const {
+    inputClassName,
+    required,
+    inputLabel,
+    inputType,
+    inputName,
+    inputValue,
+    onInputChange,
+    inputPlaceholder,
+    inputDisabled,
+    inputError,
+    charCounterIsShown,
+    charLimit = "50",
+    isTextArea,
+    inputFromOutside,
+  } = props;
+
   return (
     <StyledUserInput className={inputClassName}>
       <label className="user-input-label">
@@ -26,6 +28,7 @@ export const UserInput = ({
         {isTextArea ? (
           <>
             <textarea
+              ref={ref}
               className={`${inputError ? "error" : ""}`}
               name={inputName}
               value={inputValue || ""}
@@ -41,6 +44,7 @@ export const UserInput = ({
           <>
             {inputFromOutside || (
               <input
+                ref={ref}
                 type={inputType ? inputType : "text"}
                 className={`${inputError ? "error" : ""}`}
                 name={inputName}
@@ -58,4 +62,4 @@ export const UserInput = ({
       </label>
     </StyledUserInput>
   );
-};
+});

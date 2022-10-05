@@ -1,17 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { UserInput, MyButton } from "@eachbase/components";
+import { UserInput, MyButton, Button } from "@eachbase/components";
 import { StyledFormActionsBox, StyledSocialAccountsTabItem } from "./style";
+import { businessesActions, useSagaStore } from "@eachbase/store";
+import { useSelector } from "react-redux";
+import Router from "next/router";
 
-export const SocialAccountsTabItem = ({ restaurantData }) => {
-  const [inputs, setInputs] = useState(
-    restaurantData ? { ...restaurantData } : {}
-  );
+export const SocialAccountsTabItem = () => {
+  const restaurant = useSelector(({ businesses }) => businesses);
+
+  const [inputs, setInputs] = useState(restaurant ? { ...restaurant } : {});
 
   const { register, handleSubmit, reset } = useForm();
 
+  const { dispatch, status, destroy } = useSagaStore(
+    businessesActions.editBusiness
+  );
+
+  useEffect(() => () => destroy.all(), []);
+
+  useEffect(() => {
+    if (status.onSuccess) {
+      destroy.success();
+      reset();
+      Router.push("/restaurant");
+    }
+  }, [status]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    data = {
+      id: restaurant?.id,
+      website: inputs.website,
+      facebook: inputs.facebook,
+      instagram: inputs.instagram,
+    };
+    dispatch(data);
   };
 
   return (
@@ -26,6 +49,7 @@ export const SocialAccountsTabItem = ({ restaurantData }) => {
           onInputChange={(e) =>
             setInputs({ ...inputs, website: e.target.value })
           }
+          {...register("website")}
         />
         <UserInput
           required={false}
@@ -36,6 +60,7 @@ export const SocialAccountsTabItem = ({ restaurantData }) => {
           onInputChange={(e) =>
             setInputs({ ...inputs, facebook: e.target.value })
           }
+          {...register("facebook")}
         />
         <UserInput
           required={false}
@@ -46,6 +71,7 @@ export const SocialAccountsTabItem = ({ restaurantData }) => {
           onInputChange={(e) =>
             setInputs({ ...inputs, instagram: e.target.value })
           }
+          {...register("instagram")}
         />
         <StyledFormActionsBox>
           <MyButton
@@ -58,9 +84,9 @@ export const SocialAccountsTabItem = ({ restaurantData }) => {
           >
             Cancel
           </MyButton>
-          <MyButton type="submit" buttonClassName="save-button">
+          <Button square type="submit" onLoad={status.onLoad}>
             Save
-          </MyButton>
+          </Button>
         </StyledFormActionsBox>
       </form>
     </StyledSocialAccountsTabItem>
