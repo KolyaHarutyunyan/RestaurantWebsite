@@ -5,6 +5,9 @@ export const StyledSettingsTabItem = styled.div`
   width: 100%;
   padding: 16px;
   background-color: inherit;
+  .file-upload-box {
+    max-width: 583px;
+  }
   .address-inputs-box {
     max-width: 583px;
     width: 100%;

@@ -9,7 +9,8 @@ export const Styled = {
     display: flex;
     border-radius: 18px;
     justify-content: flex-${(props) => (props.status ? "end" : "start")};
-    background-color: ${(props) => (props.status ? colors.action : "#D2D2D2")};
+    background-color: ${(props) =>
+      props.status ? colors.yellowOrange : colors.lightGray};
     align-items: center;
     cursor: pointer;
     ${animation(["all"])};

@@ -6,7 +6,7 @@ export const Container = styled.div`
   background-color: ${({ limit }) =>
     limit === 0 ? colors.primary : colors.white};
   ${({ isDragActive }) => (isDragActive ? colors.action : colors.notSet)};
-  max-width: 584px;
+  /* max-width: 584px; */
   width: 100%;
   border: 1px dashed ${colors.gray};
   padding: 24px 0px 25px;

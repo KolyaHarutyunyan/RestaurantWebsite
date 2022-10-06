@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledPayInfo } from "./style";
-import { Icons } from "@eachbase/theme";
+import { colors, Icons } from "@eachbase/theme";
 import { Checkbox } from "@material-ui/core";
 
 export const PayInfo = ({ checked, setChecked }) => {
@@ -10,7 +10,7 @@ export const PayInfo = ({ checked, setChecked }) => {
       <div className="plane-type">
         <p>Standart</p>
         <p>
-          $25 <span style={{ color: "#E9E9E9" }}>/MO</span>
+          $25 <span style={{ color: colors.lightGray }}>/MO</span>
         </p>
       </div>
       <div className="items-wrapper">
