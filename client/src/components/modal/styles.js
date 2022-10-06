@@ -185,7 +185,7 @@ export const StyledAvailabilitySchedule = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffecef;
+    background-color: ${colors.active};
     border-radius: 4px;
     cursor: pointer;
     @media (min-width: 320px) {

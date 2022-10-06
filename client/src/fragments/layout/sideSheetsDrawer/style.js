@@ -96,7 +96,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
           }
         }
         &.active {
-          background-color: #ffecef;
+          background-color: ${colors.active};
           .side-sheet-item-icon {
             svg {
               path {
@@ -164,7 +164,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
             }
           }
           &.active {
-            background-color: #ffecef;
+            background-color: ${colors.active};
             .side-sheet-item-text {
               color: ${colors.primary};
               font-weight: 600;

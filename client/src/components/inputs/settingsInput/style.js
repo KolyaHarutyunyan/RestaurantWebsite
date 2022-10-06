@@ -11,7 +11,7 @@ export const StyledSettingsInput = styled.div.attrs((props) => ({
   justify-content: flex-start;
   align-items: center;
   background-color: ${colors.white};
-  border: 1px solid ${colors.borderColor};
+  border: 1px solid ${colors.lightBlack};
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 16px;

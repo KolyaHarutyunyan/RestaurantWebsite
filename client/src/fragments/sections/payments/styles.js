@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { BillingPage } from "./billingPage";
+import { colors } from "@eachbase/theme";
 
 export const Container = styled.div`
   .wrapper {
-    background: #F9F9F9;
+    background: #f9f9f9;
     padding: 70px 0;
     height: auto;
     display: flex;
@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 
   .small-wrapper {
-    background: #F9F9F9;
+    background: #f9f9f9;
     padding: 70px 0;
     height: auto;
     display: flex;
@@ -64,11 +64,11 @@ export const Container = styled.div`
     font-size: 16px;
     @media (min-width: 320px) {
       font-size: 14px;
-      line-height: 21px ;
+      line-height: 21px;
       margin-top: 32px;
     }
     @media (min-width: 768px) {
-      line-height: 24px ;
+      line-height: 24px;
       font-size: 16px;
       margin-top: 23px;
     }
@@ -92,14 +92,13 @@ export const Container = styled.div`
       @media (min-width: 768px) {
         margin-right: 24px;
       }
-
     }
 
     .card {
       width: 302px;
       height: 655px;
-      background: #FFFFFF;
-      border-top: 4px solid #FF453A;
+      background: #ffffff;
+      border-top: 4px solid #ff453a;
       padding: 32px 20px;
       text-align: start;
       margin: 0 auto;
@@ -132,19 +131,18 @@ export const Container = styled.div`
     .get-button {
       width: 261px;
       height: 48px;
-      background: #FF453A;
+      background: #ff453a;
       border-radius: 8px;
       margin: 24px 0 49px;
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
       text-align: center;
-      color: #FFFFFF;
+      color: #ffffff;
       font-family: Open Sans, sans-serif;
     }
 
     .packages {
-
       li {
         list-style-type: none;
         display: flex;
@@ -167,9 +165,7 @@ export const Container = styled.div`
       }
     }
   }
-
 `;
-
 
 export const CheckoutContainer = styled.div`
   .checkout-container-wrapper {
@@ -179,7 +175,7 @@ export const CheckoutContainer = styled.div`
     align-items: center;
     width: 100%;
     margin: 78px auto 0;
-    background: #E9E9E9;
+    background: ${colors.lightGray};
     padding: 80px 0 200px;
 
     @media (min-width: 320px) {
@@ -229,7 +225,7 @@ export const CheckoutContainer = styled.div`
     .input-style {
       height: 48px;
       width: 100%;
-      border: 1px solid #7E7E7E;
+      border: 1px solid #7e7e7e;
       border-radius: 8px;
       padding: 12px 16px;
     }
@@ -246,7 +242,7 @@ export const CheckoutContainer = styled.div`
       min-width: 130px;
       width: 100%;
       height: 42px;
-      background: #FF453A;
+      background: #ff453a;
       border-radius: 8px;
       color: white;
       font-family: Open Sans, sans-serif;
@@ -261,7 +257,7 @@ export const CheckoutContainer = styled.div`
       min-width: 130px;
       width: 100%;
       height: 42px;
-      background: #E1E1E3;
+      background: #e1e1e3;
       border-radius: 8px;
       font-family: Open Sans, sans-serif;
       font-style: normal;
@@ -274,7 +270,7 @@ export const CheckoutContainer = styled.div`
 
     .card-element {
       padding: 12px 16px;
-      border: 1px solid #7E7E7E;
+      border: 1px solid #7e7e7e;
       border-radius: 8px;
       width: 100%;
       height: 48px;
@@ -283,7 +279,6 @@ export const CheckoutContainer = styled.div`
 `;
 
 export const BillingContainer = styled.div`
-
   @media (min-width: 320px) {
     padding: 0 16px 75px;
   }
@@ -364,7 +359,7 @@ export const BillingContainer = styled.div`
       width: 100%;
       height: auto;
       background: white;
-      border: 1px solid #E9E9EB;
+      border: 1px solid #e9e9eb;
       border-radius: 8px;
       padding: 32px 48px;
       @media (min-width: 320px) {
@@ -377,10 +372,5 @@ export const BillingContainer = styled.div`
         padding: 32px 48px;
       }
     }
-
-
   }
-
-
 `;
-

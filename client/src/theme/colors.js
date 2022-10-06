@@ -9,8 +9,11 @@ export const colors = {
   shadow: "#0000001A",
   green: "#54C762",
   notSet: "#2B273C80",
-  borderColor: "#c4c4c4",
+  lightBlack: "#c4c4c4",
   yellowOrange: "#FF9900",
   halfBlack: "#7B7B7B",
   gray: "#9d9d9d",
+  active: "#FFECEF",
+  lightGray: "#E9E9E9",
+  lightGreen: "#74C51D",
 };

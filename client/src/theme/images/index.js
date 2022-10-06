@@ -19,9 +19,9 @@ import CollapseButtonClosed from "./sideSheetsDrawer/collapseButtonClosed.svg";
 import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
-// PAYMENT_PAGE_IMAGES
-import Info from "./paymentPage/info.svg";
-import Visa2 from "./paymentPage/visa2.svg";
+// MENUS_PAGE_IMAGES
+import MenuMore from "./menusPage/more.svg";
+import MenuSettings from "./menusPage/settings.svg";
 
 // SETTINGS_PAGE_IMAGES
 import DownloadIcon from "./settingsPage/downloadIcon.svg";
@@ -29,6 +29,10 @@ import RestaurantLogo from "./settingsPage/restaurantLogo.svg";
 import Checkmark from "./settingsPage/checkmark.svg";
 import DeleteIcon from "./settingsPage/deleteIcon.svg";
 import TimePickerArrow from "./settingsPage/timePickerArrow.svg";
+
+// PAYMENT_PAGE_IMAGES
+import Info from "./paymentPage/info.svg";
+import Visa2 from "./paymentPage/visa2.svg";
 
 export const Images = {
   Notification,
@@ -48,11 +52,13 @@ export const Images = {
   CollapseButtonClosed,
   MenumangoLogo,
   BreadcrumbArrow,
-  Info,
-  Visa2,
+  MenuMore,
+  MenuSettings,
   DownloadIcon,
   RestaurantLogo,
   Checkmark,
   DeleteIcon,
   TimePickerArrow,
+  Info,
+  Visa2,
 };

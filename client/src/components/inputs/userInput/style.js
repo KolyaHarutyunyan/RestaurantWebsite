@@ -23,7 +23,7 @@ export const StyledUserInput = styled.div.attrs((props) => ({
     }
     & > input {
       outline: none;
-      border: 1px solid ${colors.borderColor};
+      border: 1px solid ${colors.lightBlack};
       width: 100%;
       padding: 12px 16px;
       border-radius: 8px;
@@ -36,7 +36,7 @@ export const StyledUserInput = styled.div.attrs((props) => ({
     & > textarea {
       outline: none;
       resize: none;
-      border: 1px solid ${colors.borderColor};
+      border: 1px solid ${colors.lightBlack};
       max-width: 584px;
       width: 100%;
       height: 118px;
@@ -64,7 +64,7 @@ export const StyledUserInput = styled.div.attrs((props) => ({
   .user-input-char-counter {
     width: 100%;
     margin: 4px 0px 16px;
-    color: ${colors.borderColor};
+    color: ${colors.lightBlack};
     font-family: Open Sans, sans-serif;
     font-weight: 400;
     font-size: 12px;

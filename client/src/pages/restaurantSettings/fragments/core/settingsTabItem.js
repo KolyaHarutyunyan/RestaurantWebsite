@@ -103,14 +103,16 @@ export const SettingsTabItem = () => {
           charCounterIsShown={true}
           charLimit={"1000"}
         />
-        <FileUpload
-          title="Restaurant Logo"
-          type={"restaurant"}
-          handleChange={handleFileChange}
-          url={inputs.logo || img || ""}
-          handleRemove={handleFileRemove}
-          error={error}
-        />
+        <div className="file-upload-box">
+          <FileUpload
+            title="Restaurant Logo"
+            type={"restaurant"}
+            handleChange={handleFileChange}
+            url={img || inputs.logo}
+            handleRemove={handleFileRemove}
+            error={error}
+          />
+        </div>
         <UserInput
           required={false}
           inputLabel={"Address"}
