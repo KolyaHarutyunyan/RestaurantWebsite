@@ -40,7 +40,7 @@ export const StyledRestaurantMenus = styled.section`
       align-items: flex-start;
       padding: 16px;
       isolation: isolate;
-      background: ${colors.white};
+      background-color: ${colors.white};
       border-radius: 8px;
       & > div {
         &:not(:first-of-type) {
@@ -69,8 +69,6 @@ export const StyledRestaurantMenus = styled.section`
         justify-content: center;
         align-items: center;
         svg {
-          width: 100%;
-          object-fit: contain;
           path {
             fill: ${colors.primary};
           }
@@ -119,24 +117,54 @@ export const StyledRestaurantMenus = styled.section`
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        padding: 4px 0px;
         border-top: 1px solid ${colors.lightGray};
-        .menu-more-icon-button {
-          width: 24px;
-          height: 24px;
-          svg {
+        .menu-more-dropdown {
+          position: relative;
+          padding: 4px 0px;
+          &:hover .menu-more-dropdown-content {
+            display: flex;
+          }
+          .menu-more-icon-button {
+            width: 24px;
+            height: 24px;
+          }
+          .menu-more-dropdown-content {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 4px 0px;
+            position: absolute;
+            min-width: 119px;
             width: 100%;
-            object-fit: contain;
+            top: 28px;
+            right: 0;
+            background-color: ${colors.white};
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            button {
+              width: 100%;
+              justify-content: flex-start;
+              align-items: flex-start;
+              padding: 9px 24px;
+              background-color: inherit;
+              font-family: Open Sans, sans-serif;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 24px;
+              color: ${colors.secondary};
+              &.danger {
+                color: ${colors.primary};
+              }
+              &:hover {
+                background-color: ${colors.lightGray};
+              }
+            }
           }
         }
         .menu-settings-icon-button {
           width: 24px;
           height: 24px;
           margin-left: 8px;
-          svg {
-            width: 100%;
-            object-fit: contain;
-          }
         }
       }
     }

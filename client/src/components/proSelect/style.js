@@ -36,11 +36,11 @@ export const DropDownContainer = styled.div`
     margin-left: 160px;
     width: 369px;
   }
-  
+
   .wrapper {
     flex-direction: column;
     font-size: 16px;
-    color: #2B273C;
+    color: #2b273c;
     font-family: Open Sans, sans-serif;
     & > * {
       text-align: left;
@@ -53,7 +53,7 @@ export const DropDownContainer = styled.div`
       }
     }
   }
- 
+
   div {
     cursor: pointer;
     flex: 0 0 48px;
@@ -92,9 +92,9 @@ export const Container = styled.label`
       outline: 0;
       border-color: transparent;
     }
-    input::placeholder{
+    input::placeholder {
       font-size: 16px;
-      color: #2B273C;
+      color: #2b273c;
       font-family: Open Sans, sans-serif;
     }
     .dropdown-toggle {

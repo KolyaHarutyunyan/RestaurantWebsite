@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { UserInput, MyButton, Button } from "@eachbase/components";
+import {
+  UserInput,
+  MyButton,
+  Button,
+  SaveOrCancelButton,
+} from "@eachbase/components";
 import { StyledFormActionsBox, StyledSocialAccountsTabItem } from "./style";
 import { businessesActions, useSagaStore } from "@eachbase/store";
 import { useSelector } from "react-redux";
@@ -73,21 +78,13 @@ export const SocialAccountsTabItem = () => {
           }
           {...register("instagram")}
         />
-        <StyledFormActionsBox>
-          <MyButton
-            type="button"
-            buttonClassName="cancel-button"
-            onClickButton={(e) => {
-              e.preventDefault();
-              alert("Cancelled");
-            }}
-          >
-            Cancel
-          </MyButton>
-          <Button square type="submit" onLoad={status.onLoad}>
-            Save
-          </Button>
-        </StyledFormActionsBox>
+        <SaveOrCancelButton
+          onCancel={(e) => {
+            e.preventDefault();
+            alert("Cancelled");
+          }}
+          onLoad={status.onLoad}
+        />
       </form>
     </StyledSocialAccountsTabItem>
   );

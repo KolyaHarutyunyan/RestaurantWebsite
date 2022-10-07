@@ -14,24 +14,23 @@ import {
   ResetPasswordHelper,
   ConfirmCategoryDeleteDialog,
   ConfirmItemDeleteDialog,
-  MenuItemForm, InvoiceInfo
+  MenuItemForm,
+  InvoiceInfo,
 } from "@eachbase/fragments";
 import { useRouter } from "next/router";
-import {CustomModal} from "../../components";
+import { CustomModal } from "../../components";
 import { PaymentSuccess } from "../helpers/paymentSuccess/paymentSuccess";
 
 export const Modals = () => {
   const router = useRouter();
 
   return (
-      <Fragment>
-      <CustomModal
-          closeBorder={'close'}
-          modalName={MODAL_NAMES.SIGN_IN}>
+    <Fragment>
+      <CustomModal closeBorder={"close"} modalName={MODAL_NAMES.SIGN_IN}>
         <SignInForm />
       </CustomModal>
       <CustomModal
-          closeBorder={'back'}
+        closeBorder={"back"}
         max={463}
         backButton
         onBackButtonClick={({ open }) => open(MODAL_NAMES.SIGN_IN)}
@@ -39,9 +38,7 @@ export const Modals = () => {
       >
         <ForgotPasswordForm />
       </CustomModal>
-      <CustomModal
-          closeBorder={'close'}
-          modalName={MODAL_NAMES.SIGN_UP}>
+      <CustomModal closeBorder={"close"} modalName={MODAL_NAMES.SIGN_UP}>
         <SignUpForm />
       </CustomModal>
       <CustomModal
@@ -52,26 +49,32 @@ export const Modals = () => {
         <CreateRestaurantForm />
       </CustomModal>
       <CustomModal
-          closeBorder={'close'}
-          max={400}
-          modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}>
+        closeBorder={"close"}
+        max={400}
+        modalName={MODAL_NAMES.CHECK_EMAIL_HELPER}
+      >
         <CheckEmailHelper />
       </CustomModal>
-        <CustomModal
-          closeBorder={'close'}
-          max={400}
-          modalName={MODAL_NAMES.CHECK_PAYMENT_HELPER}>
+      <CustomModal
+        closeBorder={"close"}
+        max={400}
+        modalName={MODAL_NAMES.CHECK_PAYMENT_HELPER}
+      >
         <PaymentSuccess />
       </CustomModal>
 
-        <CustomModal
-          closeBorder={'close'}
-          max={400}
-          modalName={MODAL_NAMES.INVOICE_INFO}>
+      <CustomModal
+        closeBorder={"close"}
+        max={400}
+        modalName={MODAL_NAMES.INVOICE_INFO}
+      >
         <InvoiceInfo />
       </CustomModal>
 
-      <CustomModal closeBorder={'close'} modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}>
+      <CustomModal
+        closeBorder={"close"}
+        modalName={MODAL_NAMES.SIGN_UP_SUCCESS_HELPER}
+      >
         <SignUpSuccessHelper />
       </CustomModal>
       <CustomModal modalName={MODAL_NAMES.DELETE_ACCOUNT}>
@@ -80,11 +83,14 @@ export const Modals = () => {
       <CustomModal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT}>
         <EditRestaurantForm />
       </CustomModal>
-      <CustomModal border={true} modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}>
+      <CustomModal
+        border={true}
+        modalName={MODAL_NAMES.EDIT_RESTAURANT_EXTRA_DETAILS}
+      >
         <EditRestaurantExtraDetailsForm />
       </CustomModal>
-      <CustomModal border={true} modalName={MODAL_NAMES.MENU_FORM}>
-        <MenuForm  />
+      <CustomModal border={true} modal={true} modalName={MODAL_NAMES.MENU_FORM}>
+        <MenuForm />
       </CustomModal>
       <CustomModal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
         <ResetPasswordHelper />
@@ -92,12 +98,16 @@ export const Modals = () => {
       <CustomModal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
         <MenuItemForm />
       </CustomModal>
-      <CustomModal border={true} max={464} modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}>
+      <CustomModal
+        border={true}
+        max={464}
+        modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}
+      >
         <ConfirmCategoryDeleteDialog />
       </CustomModal>
-      <CustomModal border={true}   modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
+      <CustomModal border={true} modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
         <ConfirmItemDeleteDialog />
       </CustomModal>
-      </Fragment>
+    </Fragment>
   );
 };

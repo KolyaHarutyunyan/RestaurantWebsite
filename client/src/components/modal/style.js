@@ -1,14 +1,25 @@
+import { colors } from "@eachbase/theme";
 import styled from "styled-components";
+
 export const ModalContainer = styled.div`
   z-index: ${({ isOpen }) => (isOpen ? "9999" : "-9999")};
   visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 0 5px;
-    
+    .close-modal-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+      background: ${colors.black50};
+      border-radius: 32px;
+    }
     .head {
       display: flex;
       justify-content: flex-end;
@@ -35,12 +46,13 @@ export const ModalContainer = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
     max-height: 92vh;
-    padding: ${({ mini }) => (mini ? "10px 30px 30px 30px" : "30px")};
-    
+    padding: ${({ mini, modal }) =>
+      mini ? "10px 30px 30px 30px" : modal ? "32px" : "30px"};
+
     @media only screen and (max-width: 768px) {
       width: 340px;
     }
-    @media (min-width: 320px) {
+    /* @media (min-width: 320px) {
       padding: 8px 16px 32px 16px;
     }
     @media (min-width: 768px) {
@@ -48,10 +60,10 @@ export const ModalContainer = styled.div`
     }
     @media (min-width: 1279px) {
       padding: 8px 32px 42px 32px;
-    } 
+    }
     @media (min-width: 1920px) {
       padding: 8px 48px 48px 48px;
-    }
+    } */
     border-radius: ${({ mini, border }) => (mini || border ? "8px" : "32px")};
     opacity: 1;
     background-color: white;
@@ -66,7 +78,7 @@ export const ModalContainer = styled.div`
     height: 100vh;
     z-index: 10000;
   }
-  .close-button{
+  .close-button {
     @media (min-width: 320px) {
       margin-right: -8px;
     }
@@ -80,8 +92,8 @@ export const ModalContainer = styled.div`
       margin-right: -39px;
     }
   }
-  
-  .close-button-border{
+
+  .close-button-border {
     margin-top: 8px;
     @media (min-width: 320px) {
       margin-right: 0;
@@ -95,9 +107,9 @@ export const ModalContainer = styled.div`
     @media (min-width: 1920px) {
       margin-right: -30px;
     }
-  } 
-  
-  .back-button-border{
+  }
+
+  .back-button-border {
     margin-top: 8px;
     @media (min-width: 320px) {
       margin-right: 0;

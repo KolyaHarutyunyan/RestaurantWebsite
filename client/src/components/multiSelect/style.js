@@ -20,7 +20,7 @@ export const DropDownContainer = styled.div`
     padding: 3px 0;
     flex-direction: column;
     font-size: 16px;
-    color: #2B273C;
+    color: #2b273c;
     font-family: Open Sans, sans-serif;
     & > * {
       text-align: left;
@@ -65,7 +65,7 @@ export const Container = styled.label`
   border-radius: 8px;
   padding: 10px;
   background: white;
-  
+
   &,
   & * {
     box-sizing: border-box;
@@ -86,9 +86,9 @@ export const Container = styled.label`
       outline: 0;
       border-color: transparent;
     }
-    input::placeholder{
+    input::placeholder {
       font-size: 16px;
-      color: #2B273C;
+      color: #2b273c;
       font-family: Open Sans, sans-serif;
     }
     .dropdown-toggle {
