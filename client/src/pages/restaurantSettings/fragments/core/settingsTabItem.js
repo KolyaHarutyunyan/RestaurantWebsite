@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { StyledFormActionsBox, StyledSettingsTabItem } from "./style";
+import { StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
 import {
   AddressInput,
   AvailabilitySchedule,
-  Button,
   FileUpload,
-  MyButton,
+  SaveOrCancelButton,
   UserInput,
 } from "@eachbase/components";
 import { Images } from "@eachbase/theme/images";
@@ -166,21 +165,13 @@ export const SettingsTabItem = () => {
             </div>
           )}
         </div>
-        <StyledFormActionsBox>
-          <MyButton
-            type="button"
-            buttonClassName="cancel-button"
-            onClickButton={(e) => {
-              e.preventDefault();
-              alert("Cancelled");
-            }}
-          >
-            Cancel
-          </MyButton>
-          <Button square type="submit" onLoad={status.onLoad}>
-            Save
-          </Button>
-        </StyledFormActionsBox>
+        <SaveOrCancelButton
+          onCancel={(e) => {
+            e.preventDefault();
+            alert("Cancelled");
+          }}
+          onLoad={status.onLoad}
+        />
       </form>
     </StyledSettingsTabItem>
   );

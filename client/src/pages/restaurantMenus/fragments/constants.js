@@ -1,7 +1,5 @@
 import moment from "moment";
 
-export const menusBreadcrumbs = [{ path: "/menus", text: "Menus" }];
-
 export const dummyMenus = [
   {
     id: Date.now(),

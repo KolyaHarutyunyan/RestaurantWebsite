@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
-const colors = {
+const buttonColors = {
   active: "#FF453A",
   default: "#2B273C1A",
   action: "#007AFF",
@@ -55,20 +56,20 @@ export const ButtonContainer = styled.button`
       return `
         background-color: transparent;
         border-color: transparent;
-        color: ${color === "default" ? "#2B273C" : colors[color]};
+        color: ${color === "default" ? "#2B273C" : buttonColors[color]};
       `;
     }
     if (outlined) {
       return `
-        border-color: ${color === "default" ? "#2B273C" : colors[color]};
-        color: ${color === "default" ? "#2B273C" : colors[color]};
+        border-color: ${color === "default" ? "#2B273C" : buttonColors[color]};
+        color: ${color === "default" ? "#2B273C" : buttonColors[color]};
         background-color: transparent;
       `;
     }
     return `
         border-color: transparent;
         color: ${color === "default" ? "#2B273C" : "white"};
-        background-color: ${colors[color]};
+        background-color: ${buttonColors[color]};
     `;
   }}
 `;
@@ -88,4 +89,31 @@ export const StyledMyButton = styled.button.attrs((props) => ({
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  max-width: 583px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    max-width: 284px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    &.cancel-button {
+      background-color: #f5f5f5;
+      color: ${colors.secondary};
+    }
+    &.save-button {
+      background-color: ${colors.primary};
+      color: ${colors.white};
+    }
+  }
 `;

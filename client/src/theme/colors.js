@@ -16,4 +16,6 @@ export const colors = {
   active: "#FFECEF",
   lightGray: "#E9E9E9",
   lightGreen: "#74C51D",
+  black50: "#F5F5F5",
+  black600: "#555555",
 };

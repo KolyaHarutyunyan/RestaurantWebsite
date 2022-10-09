@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
+import { colors } from "@eachbase/theme";
 
 export const inputsStyle = makeStyles(() => ({
   Icon: {
@@ -173,7 +174,8 @@ export const InputContainer = styled.div`
     display: flex;
     gap: 5px;
     border: 1px solid;
-    border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+    border-color: ${({ error }) =>
+      error ? colors.primary : colors.lightBlack};
     height: 48px;
     border-radius: 8px;
     @media (max-width: 767px) {
@@ -208,6 +210,7 @@ export const InputContainer = styled.div`
         outline: 0;
         font-size: 16px;
         font-family: Open Sans, sans-serif;
+        color: ${colors.secondary};
         @media (max-width: 768px) {
           font-size: 14px;
         }

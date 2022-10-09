@@ -4,6 +4,7 @@ import { HiArrowLeft } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
+import { MyButton } from "..";
 
 export const CustomModal = ({
   modalName,
@@ -12,29 +13,47 @@ export const CustomModal = ({
   onBackButtonClick = () => {},
   children,
   mini = false,
-    closeBorder, max,
-    border,confirm,
+  closeBorder,
+  max,
+  border,
+  confirm,
+  modal,
 }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-       setMounted(true);
-       // document.getElementById('__next').classList.add('hide-scroll');
+    setMounted(true);
+    // document.getElementById('__next').classList.add('hide-scroll');
   }, []);
 
   if (mounted) {
     return createPortal(
-      <ModalContainer isOpen={activeModal === modalName} mini={mini} border={border}>
-        <div style={{maxWidth:max, }} className="container">
-          {!fixed ? (
+      <ModalContainer
+        isOpen={activeModal === modalName}
+        mini={mini}
+        border={border}
+        modal={modal}
+      >
+        <div style={{ maxWidth: max }} className="container">
+          {modalName === "MENU_FORM" ? (
+            <MyButton
+              buttonType={"button"}
+              buttonClassName={"close-modal-button"}
+              onClickButton={() => setActiveModal("")}
+            >
+              <MdClose style={{ fontSize: 24 }} />
+            </MyButton>
+          ) : !fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
-                  className={
-                      closeBorder === 'close' ? 'close-button-border' :
-                        closeBorder === 'back' ? 'back-button-border'
-
-                      : 'close-button' }
+                className={
+                  closeBorder === "close"
+                    ? "close-button-border"
+                    : closeBorder === "back"
+                    ? "back-button-border"
+                    : "close-button"
+                }
                 onClick={() => {
                   if (backButton) {
                     onBackButtonClick({
@@ -52,20 +71,23 @@ export const CustomModal = ({
                   }
                 }}
               >
-                {backButton ? <HiArrowLeft style={{fontSize:24}}/> : <MdClose style={{fontSize:24}} />}
+                {backButton ? (
+                  <HiArrowLeft style={{ fontSize: 24 }} />
+                ) : (
+                  <MdClose style={{ fontSize: 24 }} />
+                )}
               </button>
             </div>
           ) : null}
           <div className="content">{children}</div>
         </div>
-
         <div
           className="fade"
           onClick={() => {
             if (!fixed) {
               // if (window.confirm("Leave current window?")) {
-                setActiveModal("");
-                setParams({});
+              setActiveModal("");
+              setParams({});
               // }
             }
           }}
