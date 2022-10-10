@@ -10,6 +10,7 @@ const itemSchema = new Schema({
   price: { type: Number },
   mainImage: Number,
   images: [FileSchema],
+  testWebhook: [],
 });
 
 export const ItemModel = model<IItem>('item', itemSchema);

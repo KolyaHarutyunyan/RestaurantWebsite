@@ -9,4 +9,5 @@ export interface IItem extends Document {
   price: number;
   mainImage?: number;
   images?: FileDTO[];
+  testWebhook: any;
 }

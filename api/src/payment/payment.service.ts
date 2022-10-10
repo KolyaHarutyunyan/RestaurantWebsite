@@ -29,22 +29,58 @@ export class PaymentService {
     switch (event.type) {
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object;
+        let item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(paymentIntent);
+        await item.save();
         console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
         // Then define and call a method to handle the successful payment intent.
         // handlePaymentIntentSucceeded(paymentIntent);
         break;
       case 'payment_method.canceled':
         const paymentCancel = event.data.object;
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(paymentCancel);
+        await item.save();
         // Then define and call a method to handle the successful attachment of a PaymentMethod.
         // handlePaymentMethodAttached(paymentMethod);
         break;
       case 'payment_method.payment_failed':
         const paymentFaile = event.data.object;
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(paymentFaile);
+        await item.save();
+        // Then define and call a method to handle the successful attachment of a PaymentMethod.
+        // handlePaymentMethodAttached(paymentMethod);
+        break;
+      case 'customer.subscription.created	':
+        const subCreate = event.data.object;
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(subCreate);
+        await item.save();
+        // Then define and call a method to handle the successful attachment of a PaymentMethod.
+        // handlePaymentMethodAttached(paymentMethod);
+        break;
+      case 'customer.subscription.deleted	':
+        const subDelete = event.data.object;
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(subDelete);
+        await item.save();
+        // Then define and call a method to handle the successful attachment of a PaymentMethod.
+        // handlePaymentMethodAttached(paymentMethod);
+        break;
+      case 'customer.subscription.updated	':
+        const subUpdate = event.data.object;
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push(subUpdate);
+        await item.save();
         // Then define and call a method to handle the successful attachment of a PaymentMethod.
         // handlePaymentMethodAttached(paymentMethod);
         break;
       default:
         // Unexpected event type
+        item = await this.model.findById('6272182cbe4fb8640f63294e');
+        item.testWebhook.push('defaulet');
+        await item.save();
         console.log(`Unhandled event type ${event.type}.`);
     }
     // const item = await this.model.findById('6272182cbe4fb8640f63294e');
