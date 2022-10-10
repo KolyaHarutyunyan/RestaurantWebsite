@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const StyledLayout = styled.div`
   width: 100vw;
@@ -11,7 +12,7 @@ export const StyledLayout = styled.div`
   }
   .main {
     flex-grow: 1;
-    background-color: #f5f7f9;
+    background-color: ${colors.neautralLightGray};
     display: flex;
     .main-content {
       width: 100%;

@@ -4,9 +4,7 @@ import { StyledMenusSettings } from "./style";
 
 export const MenusSettingsFragment = () => (
   <StyledMenusSettings>
-    <div className="settings-header">
-      <MuiBreadcrumbs breadcrumbs={menusSettingsBreadcrumbs} />
-    </div>
+    <MuiBreadcrumbs breadcrumbs={menusSettingsBreadcrumbs} />
     <MuiTabs tabs={menuSettingsTabs} />
   </StyledMenusSettings>
 );

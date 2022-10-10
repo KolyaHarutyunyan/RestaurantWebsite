@@ -3,9 +3,13 @@ import { StyledRestaurantMenus } from "./style";
 import { dummyMenus, formatDate } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { MODAL_NAMES } from "@eachbase/constants";
+import Router from "next/router";
+import { useSelector } from "react-redux";
 
 export const RestaurantMenusFragment = () => {
   const { open } = useModal();
+
+  const menus = useSelector((state) => state.menus);
 
   return (
     <>
@@ -21,7 +25,7 @@ export const RestaurantMenusFragment = () => {
           </MyButton>
         </div>
         <div className="menus-list-box">
-          {dummyMenus.map((menu, index) => (
+          {menus.map((menu, index) => (
             <div
               key={index}
               className={`menu-item-card ${menu.isActive ? "active" : ""}`}
@@ -38,7 +42,7 @@ export const RestaurantMenusFragment = () => {
               </div>
               <div className="menu-extra-info-box">
                 <span className="menu-extra-info-text">{`${
-                  menu.items.length
+                  menu.items?.length
                 } Items, Last updated on ${formatDate(menu.lastUpdate)}`}</span>
               </div>
               <div className="menu-more-and-settings-box">
@@ -51,7 +55,10 @@ export const RestaurantMenusFragment = () => {
                     <Images.MenuMore />
                   </MyButton>
                   <div className="menu-more-dropdown-content">
-                    <MyButton buttonType={"button"} onClickButton={() => {}}>
+                    <MyButton
+                      buttonType={"button"}
+                      onClickButton={() => Router.push("/menus/edit")}
+                    >
                       Edit
                     </MyButton>
                     <MyButton buttonType={"button"} onClickButton={() => {}}>

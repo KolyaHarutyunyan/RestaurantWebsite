@@ -22,6 +22,7 @@ import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 // MENUS_PAGE_IMAGES
 import MenuMore from "./menusPage/more.svg";
 import MenuSettings from "./menusPage/settings.svg";
+import AddIcon from "./menusPage/addIcon.svg";
 
 // SETTINGS_PAGE_IMAGES
 import DownloadIcon from "./settingsPage/downloadIcon.svg";
@@ -54,6 +55,7 @@ export const Images = {
   BreadcrumbArrow,
   MenuMore,
   MenuSettings,
+  AddIcon,
   DownloadIcon,
   RestaurantLogo,
   Checkmark,
