@@ -1,20 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  UserInput,
-  MyButton,
-  Button,
-  SaveOrCancelButton,
-} from "@eachbase/components";
-import { StyledFormActionsBox, StyledSocialAccountsTabItem } from "./style";
+import { UserInput, SaveOrCancelButton } from "@eachbase/components";
+import { StyledSocialAccountsTabItem } from "./style";
 import { businessesActions, useSagaStore } from "@eachbase/store";
 import { useSelector } from "react-redux";
 import Router from "next/router";
 
 export const SocialAccountsTabItem = () => {
-  const restaurant = useSelector(({ businesses }) => businesses);
-
-  const [inputs, setInputs] = useState(restaurant ? { ...restaurant } : {});
+  const restaurant = useSelector((state) => state.businesses);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -34,10 +27,10 @@ export const SocialAccountsTabItem = () => {
 
   const onSubmit = (data) => {
     data = {
-      id: restaurant?.id,
-      website: inputs.website,
-      facebook: inputs.facebook,
-      instagram: inputs.instagram,
+      id: restaurant.id,
+      website: data.website || restaurant.website,
+      facebook: data.facebook || restaurant.facebook,
+      instagram: data.instagram || restaurant.instagram,
     };
     dispatch(data);
   };
@@ -50,10 +43,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Website"}
           inputType={"text"}
           inputName={"website"}
-          inputValue={inputs.website}
-          onInputChange={(e) =>
-            setInputs({ ...inputs, website: e.target.value })
-          }
+          defaultValue={restaurant.website}
           {...register("website")}
         />
         <UserInput
@@ -61,10 +51,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Facebook"}
           inputType={"text"}
           inputName={"facebook"}
-          inputValue={inputs.facebook}
-          onInputChange={(e) =>
-            setInputs({ ...inputs, facebook: e.target.value })
-          }
+          defaultValue={restaurant.facebook}
           {...register("facebook")}
         />
         <UserInput
@@ -72,10 +59,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Instagram"}
           inputType={"text"}
           inputName={"instagram"}
-          inputValue={inputs.instagram}
-          onInputChange={(e) =>
-            setInputs({ ...inputs, instagram: e.target.value })
-          }
+          defaultValue={restaurant.instagram}
           {...register("instagram")}
         />
         <SaveOrCancelButton

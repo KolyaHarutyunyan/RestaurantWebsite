@@ -8,8 +8,7 @@ export const UserInput = forwardRef((props, ref) => {
     inputLabel,
     inputType,
     inputName,
-    inputValue,
-    onInputChange,
+    defaultValue,
     inputPlaceholder,
     inputDisabled,
     inputError,
@@ -17,6 +16,7 @@ export const UserInput = forwardRef((props, ref) => {
     charLimit = "50",
     isTextArea,
     inputFromOutside,
+    ...rest
   } = props;
 
   return (
@@ -31,10 +31,10 @@ export const UserInput = forwardRef((props, ref) => {
               ref={ref}
               className={`${inputError ? "error" : ""}`}
               name={inputName}
-              value={inputValue || ""}
-              onChange={onInputChange}
+              defaultValue={defaultValue || ""}
               placeholder={inputPlaceholder}
               disabled={inputDisabled}
+              {...rest}
             />
             {charCounterIsShown && (
               <p className="user-input-char-counter">{`Max ${charLimit} characters`}</p>
@@ -48,12 +48,12 @@ export const UserInput = forwardRef((props, ref) => {
                 type={inputType ? inputType : "text"}
                 className={`${inputError ? "error" : ""}`}
                 name={inputName}
-                value={inputValue || ""}
-                onChange={onInputChange}
+                defaultValue={defaultValue || ""}
                 onWheel={(evt) => inputType === "number" && evt.target.blur()}
                 autoComplete="off"
                 placeholder={inputPlaceholder}
                 disabled={inputDisabled}
+                {...rest}
               />
             )}
             <p className="user-input-error-text">{inputError}</p>

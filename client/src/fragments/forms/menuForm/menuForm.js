@@ -1,21 +1,36 @@
+import { useContext, useEffect } from "react";
 import { Button } from "@eachbase/components";
 import { useForm } from "react-hook-form";
 import { StyledMenuForm } from "./style";
 import { Input } from "@eachbase/components";
 import Router from "next/router";
-import { useContext } from "react";
 import { ModalContext } from "@eachbase/components/modal/context";
+import { useSelector } from "react-redux";
+import { menusActions, useSagaStore } from "@eachbase/store";
 
 export const MenuForm = () => {
   const { setActiveModal } = useContext(ModalContext);
 
+  const restaurant = useSelector((state) => state.businesses);
+
+  const { dispatch, status, destroy } = useSagaStore(menusActions.createMenu);
+
   const { register, handleSubmit, reset } = useForm();
 
+  useEffect(() => {
+    if (status.onSuccess) {
+      destroy.all();
+      reset();
+      setActiveModal("");
+      Router.push("/menus/settings");
+    }
+  }, [status]);
+
   const onSubmit = (data) => {
-    console.log(data);
-    setActiveModal("");
-    Router.push("/menus/settings");
-    reset();
+    dispatch({
+      name: data.name,
+      businessId: restaurant.id,
+    });
   };
 
   return (
@@ -33,7 +48,13 @@ export const MenuForm = () => {
             padding={"12px 8px"}
             {...register("name", { required: true })}
           />
-          <Button type={"submit"} square fullWidth className={"add-button"}>
+          <Button
+            type={"submit"}
+            square
+            fullWidth
+            className={"add-button"}
+            onLoad={status.onLoad}
+          >
             Add
           </Button>
         </form>

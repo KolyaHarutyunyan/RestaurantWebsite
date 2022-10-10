@@ -39,7 +39,7 @@ export const StyledAvailabilitySchedule = styled.div`
     display: flex;
     align-items: center;
     background-color: ${colors.white};
-    border: 1px solid #f5f7f9;
+    border: 1px solid ${colors.neautralLightGray};
     border-radius: 8px;
     padding: 16px;
     display: flex;

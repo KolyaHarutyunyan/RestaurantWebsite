@@ -18,4 +18,6 @@ export const colors = {
   lightGreen: "#74C51D",
   black50: "#F5F5F5",
   black600: "#555555",
+  red700: "#DD2F33",
+  neautralLightGray: "#F5F7F9",
 };
