@@ -1,19 +1,81 @@
-import { StyledFormActionsBox, StyledSettingsTabItem } from "./style";
+import { useEffect, useState } from "react";
+import { StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
-import { MuiTimePicker, MyButton, UserInput } from "@eachbase/components";
-import { useState } from "react";
+import {
+  AddressInput,
+  AvailabilitySchedule,
+  FileUpload,
+  SaveOrCancelButton,
+  UserInput,
+} from "@eachbase/components";
 import { Images } from "@eachbase/theme/images";
+import { addressInputs } from "./constants";
+import { useSelector } from "react-redux";
+import { businessesActions, useSagaStore } from "@eachbase/store";
+import Router from "next/router";
+import { ImgUploader } from "@eachbase/utils";
 
-export const SettingsTabItem = ({ restaurantData }) => {
-  const [inputs, setInputs] = useState(
-    restaurantData ? { ...restaurantData } : {}
-  );
+export const SettingsTabItem = () => {
+  const restaurant = useSelector(({ businesses }) => businesses);
+
+  const [inputs, setInputs] = useState(restaurant ? { ...restaurant } : {});
+  const [img, setImg] = useState("");
+  const [imgPush, setImgPush] = useState("");
+  const [error, setError] = useState(false);
+  const [address, setAddress] = useState(inputs.address || {});
+  const [hours, setHours] = useState(inputs.hours || {});
   const [isShown, setIsShown] = useState(false);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const { dispatch, status, destroy } = useSagaStore(
+    businessesActions.editBusiness
+  );
+
+  useEffect(() => () => destroy.all(), []);
+
+  useEffect(() => {
+    if (status.onSuccess) {
+      destroy.success();
+      reset();
+      Router.push("/restaurant");
+    }
+  }, [status]);
+
+  const handleFileChange = (e) => {
+    for (let item of e) {
+      if (item && item.size > 2097152) {
+        setError(true);
+      } else {
+        setError("");
+        setImg({
+          url: URL.createObjectURL(
+            new File([item], "image", { type: "text/json;charset=utf-8" })
+          ),
+          id: 1,
+        });
+        setImgPush(new File([item], `img1`));
+      }
+    }
+  };
+
+  const handleFileRemove = () => {
+    setImg("");
+    setImgPush("");
+  };
+
+  const onSubmit = async (data) => {
+    const images = imgPush && (await ImgUploader([imgPush]).then((res) => res));
+    data = {
+      id: restaurant?.id,
+      name: inputs.name,
+      description: inputs.description,
+      address,
+      phoneNumber: inputs.phoneNumber,
+      hours,
+    };
+    images ? (data.logo = images) : "";
+    dispatch(data);
   };
 
   return (
@@ -40,32 +102,50 @@ export const SettingsTabItem = ({ restaurantData }) => {
           charCounterIsShown={true}
           charLimit={"1000"}
         />
-        <div className="file-input-box">
-          <div className="file-input-wrapper">
-            <div className="restaurant-logo">
-              {inputs.logo || <Images.RestaurantLogo />}
-            </div>
-            <p className="file-upload-text">
-              {"Drag & Drop or"}
-              <label className="upload-label">
-                <input type="file" />
-                Upload
-              </label>
-              {"Restaurant Logo"}
-            </p>
-            <p className="supported-file-text">
-              Only jpg,jpeg and png files are supported. Max size 2MB
-            </p>
-          </div>
+        <div className="file-upload-box">
+          <FileUpload
+            title="Restaurant Logo"
+            type={"restaurant"}
+            handleChange={handleFileChange}
+            url={img || inputs.logo}
+            handleRemove={handleFileRemove}
+            error={error}
+          />
         </div>
-        {/* Address Input goes here... */}
+        <UserInput
+          required={false}
+          inputLabel={"Address"}
+          inputFromOutside={
+            <AddressInput
+              Value={address.formattedAddress}
+              disabled={true}
+              getAddress={(newAddress) => setAddress(newAddress)}
+            />
+          }
+        />
+        <div className="address-inputs-box">
+          {addressInputs.map((addressInput, index) => (
+            <UserInput
+              key={index}
+              inputClassName={"address-input"}
+              required={false}
+              inputLabel={addressInput.label}
+              inputType={"text"}
+              inputName={addressInput.name}
+              inputPlaceholder={address[addressInput.name]}
+              inputDisabled={true}
+            />
+          ))}
+        </div>
         <UserInput
           required={false}
           inputLabel={"Phone Number"}
           inputType={"number"}
-          inputName={"phone"}
-          inputValue={inputs.phone}
-          onInputChange={(e) => setInputs({ ...inputs, phone: e.target.value })}
+          inputName={"phoneNumber"}
+          inputValue={inputs.phoneNumber}
+          onInputChange={(e) =>
+            setInputs({ ...inputs, phoneNumber: e.target.value })
+          }
         />
         <div className="hours-of-operation-box">
           <div
@@ -77,31 +157,21 @@ export const SettingsTabItem = ({ restaurantData }) => {
           </div>
           {isShown && (
             <div className="time-pickers-box">
-              <MuiTimePicker timePickerFor={"Monday"} />
-              <MuiTimePicker timePickerFor={"Tuesday"} />
-              <MuiTimePicker timePickerFor={"Wednesday"} />
-              <MuiTimePicker timePickerFor={"Thursday"} />
-              <MuiTimePicker timePickerFor={"Friday"} />
-              <MuiTimePicker timePickerFor={"Saturday"} />
-              <MuiTimePicker timePickerFor={"Sunday"} />
+              <AvailabilitySchedule
+                onModel={"Client"}
+                handleGetTimes={(e) => setHours(e)}
+                availabilityData={hours}
+              />
             </div>
           )}
         </div>
-        <StyledFormActionsBox>
-          <MyButton
-            type="button"
-            buttonClassName="cancel-button"
-            onClickButton={(e) => {
-              e.preventDefault();
-              alert("Cancelled");
-            }}
-          >
-            Cancel
-          </MyButton>
-          <MyButton type="submit" buttonClassName="save-button">
-            Save
-          </MyButton>
-        </StyledFormActionsBox>
+        <SaveOrCancelButton
+          onCancel={(e) => {
+            e.preventDefault();
+            alert("Cancelled");
+          }}
+          onLoad={status.onLoad}
+        />
       </form>
     </StyledSettingsTabItem>
   );

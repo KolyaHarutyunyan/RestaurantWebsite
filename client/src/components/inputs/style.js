@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
+import { colors } from "@eachbase/theme";
 
 export const inputsStyle = makeStyles(() => ({
   Icon: {
@@ -88,10 +89,12 @@ export const inputsStyle = makeStyles(() => ({
     color: "#545F7EB3",
   },
   SearchAddress: {
+    position: "relative",
     fontFamily: "Open Sans, sans-serif",
     gap: "10px",
     fontSize: "16px",
-    lineHeight: "22px",
+    fontWeight: 400,
+    lineHeight: "24px",
     outline: "none",
     display: "flex",
     justifyContent: "space-between",
@@ -99,7 +102,7 @@ export const inputsStyle = makeStyles(() => ({
     width: "100%",
     height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
-    border: "1px solid #2b273c80",
+    border: "1px solid #C4C4C4",
     borderRadius: "8px",
     padding: "0 18px",
     cursor: "pointer",
@@ -113,7 +116,8 @@ export const inputsStyle = makeStyles(() => ({
   SearchAddressDisable: {
     fontFamily: "Open Sans, sans-serif",
     fontSize: "16px",
-    lineHeight: "22px",
+    fontWeight: 400,
+    lineHeight: "24px",
     gap: "14px",
     outline: "none",
     display: "flex",
@@ -122,7 +126,7 @@ export const inputsStyle = makeStyles(() => ({
     width: "100%",
     height: "48px",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
-    border: "1px solid #2b273c80",
+    border: "1px solid #C4C4C4",
     borderRadius: "8px",
     padding: "0 18px",
     cursor: "no-drop",
@@ -138,16 +142,12 @@ export const inputsStyle = makeStyles(() => ({
     boxShadow: "0px 0px 12px #0052E01A",
     borderRadius: "6px",
     position: "absolute",
+    top: "52px",
     zIndex: "9999",
-    width: "452px",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
-    top: "326px",
-    overflow: "auto",
-    "@media (max-width: 767px)": {
-      top: "280px",
-      width: "308px",
-    },
+    overflowY: "auto",
   },
 
   searchAddressDescriptionText: {
@@ -174,7 +174,8 @@ export const InputContainer = styled.div`
     display: flex;
     gap: 5px;
     border: 1px solid;
-    border-color: ${({ error }) => (error ? "#FF453A" : "#2b273c80")};
+    border-color: ${({ error }) =>
+      error ? colors.primary : colors.lightBlack};
     height: 48px;
     border-radius: 8px;
     @media (max-width: 767px) {
@@ -209,6 +210,7 @@ export const InputContainer = styled.div`
         outline: 0;
         font-size: 16px;
         font-family: Open Sans, sans-serif;
+        color: ${colors.secondary};
         @media (max-width: 768px) {
           font-size: 14px;
         }

@@ -12,7 +12,7 @@ export const StyledMuiBreadcrumbs = styled.div`
     line-height: 28px;
     color: ${colors.secondary};
     &.last {
-      color: #9d9d9d;
+      color: ${colors.gray};
     }
   }
 `;

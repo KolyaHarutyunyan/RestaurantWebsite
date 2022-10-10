@@ -1,22 +1,26 @@
-import React from "react";
+import { forwardRef } from "react";
 import { StyledUserInput } from "./style";
 
-export const UserInput = ({
-  inputClassName,
-  required,
-  inputLabel,
-  inputType,
-  inputName,
-  inputValue = "",
-  onInputChange,
-  inputPlaceholder,
-  inputError,
-  charCounterIsShown,
-  charLimit = "50",
-  isTextArea,
-}) => {
+export const UserInput = forwardRef((props, ref) => {
+  const {
+    inputClassName,
+    required,
+    inputLabel,
+    inputType,
+    inputName,
+    inputValue,
+    onInputChange,
+    inputPlaceholder,
+    inputDisabled,
+    inputError,
+    charCounterIsShown,
+    charLimit = "50",
+    isTextArea,
+    inputFromOutside,
+  } = props;
+
   return (
-    <StyledUserInput>
+    <StyledUserInput className={inputClassName}>
       <label className="user-input-label">
         <p className={`input-label ${required ? "required" : ""}`}>
           {inputLabel}
@@ -24,11 +28,13 @@ export const UserInput = ({
         {isTextArea ? (
           <>
             <textarea
+              ref={ref}
               className={`${inputError ? "error" : ""}`}
               name={inputName}
-              value={inputValue}
+              value={inputValue || ""}
               onChange={onInputChange}
               placeholder={inputPlaceholder}
+              disabled={inputDisabled}
             />
             {charCounterIsShown && (
               <p className="user-input-char-counter">{`Max ${charLimit} characters`}</p>
@@ -36,20 +42,24 @@ export const UserInput = ({
           </>
         ) : (
           <>
-            <input
-              type={inputType ? inputType : "text"}
-              className={`${inputError ? "error" : ""} ${inputClassName}`}
-              name={inputName}
-              value={inputValue}
-              onChange={onInputChange}
-              onWheel={(evt) => inputType === "number" && evt.target.blur()}
-              autoComplete="off"
-              placeholder={inputPlaceholder}
-            />
+            {inputFromOutside || (
+              <input
+                ref={ref}
+                type={inputType ? inputType : "text"}
+                className={`${inputError ? "error" : ""}`}
+                name={inputName}
+                value={inputValue || ""}
+                onChange={onInputChange}
+                onWheel={(evt) => inputType === "number" && evt.target.blur()}
+                autoComplete="off"
+                placeholder={inputPlaceholder}
+                disabled={inputDisabled}
+              />
+            )}
             <p className="user-input-error-text">{inputError}</p>
           </>
         )}
       </label>
     </StyledUserInput>
   );
-};
+});

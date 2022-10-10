@@ -14,7 +14,7 @@ export const Container = styled.div`
     position: fixed;
     z-index: 9999;
     background-color: white;
-    box-shadow:  0px 0px 6px #0000001A;
+    box-shadow: 0px 0px 6px #0000001a;
     border-radius: 6px;
     ${({ position: { top, left } }) =>
       `
