@@ -26,7 +26,7 @@ export class PaymentService {
     try {
       const product = await stripe.products.create({
         name,
-        active,
+        active: active == undefined ? true : active,
       });
       return 'ok';
     } catch (e) {
@@ -35,7 +35,7 @@ export class PaymentService {
   }
 
   /** get the products */
-  async getProducts(name: string) {
+  async getProducts() {
     const products = await stripe.products.list({
       limit: 100,
     });

@@ -50,7 +50,22 @@ export class PaymentController {
     );
     return payment;
   }
-
+  /** Create an product */
+  @Post('product')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async createProduct(@Query('name') name: string, @Query('active') active: boolean): Promise<any> {
+    const payment = await this.paymentService.createProduct(name, active);
+    return payment;
+  }
+  /** Get the products */
+  @Get('product')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async getProducts(): Promise<any> {
+    const payment = await this.paymentService.getProducts();
+    return payment;
+  }
   /** Configure a webhook */
   @Post('webhooks')
   @Public()
