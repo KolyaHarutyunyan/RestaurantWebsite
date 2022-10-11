@@ -2,13 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { IItem } from 'src/item';
 import { ItemModel } from 'src/item/item.model';
-import { CreateWebhookDTO } from './dto/create.dto';
-import { WebhookDTO } from './dto/payment.dto';
+import { CreatePaymentDTO } from './dto/create.dto';
 import { EditWebhookDTO } from './dto/update.dto';
 import Stripe from 'stripe';
 import { Keys } from './payment.constants';
 import { BASE_URL } from '../util/constants';
-import { SessionDTO } from '../auth';
 
 const stripe = new Stripe(Keys.skey, {
   apiVersion: '2022-08-01',
@@ -21,14 +19,15 @@ export class PaymentService {
   }
   private model: Model<IItem>;
 
+  /** Public API */
   /** create the products */
-  async createProduct(name: string, active: boolean): Promise<string> {
+  async createProduct(name: string, active: boolean): Promise<any> {
     try {
       const product = await stripe.products.create({
         name,
         active: active == undefined ? true : active,
       });
-      return 'ok';
+      return product;
     } catch (e) {
       throw new HttpException('Can not create product', HttpStatus.BAD_REQUEST);
     }
@@ -43,8 +42,17 @@ export class PaymentService {
   }
 
   /** refund the subscription */
-  async refundSub() {}
-  /** Public API */
+  async refundSub(chargeId: string) {
+    try {
+      const refund = await stripe.refunds.create({
+        charge: chargeId,
+      });
+      return refund;
+    } catch (e) {
+      throw new HttpException(`Can not refund the subscription ${e}`, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   /** Create a new payment */
   async create(dto: any): Promise<any> {
     const event = dto;
@@ -112,17 +120,13 @@ export class PaymentService {
   }
   /** create the subscription */
   // customerId: string, items: Array<string>
-  async createSubscription(
-    paymentMethod: string,
-    productId: string,
-    user: SessionDTO,
-  ): Promise<any> {
+  async createSubscription(dto: CreatePaymentDTO): Promise<any> {
     try {
       const customer = await stripe.customers.create({
-        description: `email - ${user.email}`,
-        email: user.email,
-        payment_method: paymentMethod,
-        invoice_settings: { default_payment_method: paymentMethod },
+        description: `email - ${dto.user.email}`,
+        email: dto.user.email,
+        payment_method: dto.paymentMethod,
+        invoice_settings: { default_payment_method: dto.paymentMethod },
       });
       const subscription = await stripe.subscriptions.create({
         customer: customer.id,
@@ -130,8 +134,8 @@ export class PaymentService {
           {
             price_data: {
               currency: 'USD',
-              product: productId,
-              unit_amount: 500,
+              product: dto.productId,
+              unit_amount: dto.amount,
               recurring: {
                 interval: 'month',
               },

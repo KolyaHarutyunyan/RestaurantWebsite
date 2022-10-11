@@ -43,13 +43,18 @@ export class PaymentController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @Public()
   async createSubscription(@Body() dto: CreatePaymentDTO): Promise<any> {
-    const payment = await this.paymentService.createSubscription(
-      dto.paymentMethod,
-      dto.productId,
-      dto.user,
-    );
+    const payment = await this.paymentService.createSubscription(dto);
     return payment;
   }
+  /** Refund the subscription */
+  @Post('refundSub')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async refundSub(@Query('charge') charge: string): Promise<any> {
+    const payment = await this.paymentService.refundSub(charge);
+    return payment;
+  }
+
   /** Create an product */
   @Post('product')
   @ApiHeader({ name: ACCESS_TOKEN })
