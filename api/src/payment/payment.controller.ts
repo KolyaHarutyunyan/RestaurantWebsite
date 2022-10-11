@@ -6,7 +6,7 @@ import { PaymentService } from './payment.service';
 import Stripe from 'stripe';
 import { EditWebhookDTO } from './dto/update.dto';
 import { WebhookDTO } from './dto/payment.dto';
-import { CreateWebhookDTO } from './dto/create.dto';
+import { CreatePaymentDTO, CreateWebhookDTO } from './dto/create.dto';
 import { WebhookAction } from './payment.constants';
 const stripe = new Stripe(
   'sk_test_51LmCY4HoKYb9ljrZILnOepvZ0NszY0Y9utWnCqULpk4wksodTRBAdwgroq8HOymLYAxODWNWGncfAhZU4x0yeR8100tdbGRDIO',
@@ -36,6 +36,18 @@ export class PaymentController {
   @Public()
   async createItem(@Body() dto: any): Promise<any> {
     const payment = await this.paymentService.create(dto);
+    return payment;
+  }
+  /** Create an subscription */
+  @Post('sub')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async createSubscription(@Body() dto: CreatePaymentDTO): Promise<any> {
+    const payment = await this.paymentService.createSubscription(
+      dto.paymentMethod,
+      dto.productId,
+      dto.user,
+    );
     return payment;
   }
 
