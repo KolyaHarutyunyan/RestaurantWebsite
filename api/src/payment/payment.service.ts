@@ -21,6 +21,29 @@ export class PaymentService {
   }
   private model: Model<IItem>;
 
+  /** create the products */
+  async createProduct(name: string, active: boolean): Promise<string> {
+    try {
+      const product = await stripe.products.create({
+        name,
+        active,
+      });
+      return 'ok';
+    } catch (e) {
+      throw new HttpException('Can not create product', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /** get the products */
+  async getProducts(name: string) {
+    const products = await stripe.products.list({
+      limit: 100,
+    });
+    return products;
+  }
+
+  /** refund the subscription */
+  async refundSub() {}
   /** Public API */
   /** Create a new payment */
   async create(dto: any): Promise<any> {
@@ -88,16 +111,43 @@ export class PaymentService {
     // return 'ok';
   }
   /** create the subscription */
-  async createSubscription(customerId: string, items: Array<string>): Promise<any> {
-    const subItems = [];
-    items.map((item) => {
-      subItems.push({ price: item });
-    });
-    const createSub = await stripe.subscriptions.create({
-      customer: customerId,
-      items: subItems,
-    });
-    return createSub;
+  // customerId: string, items: Array<string>
+  async createSubscription(
+    paymentMethod: string,
+    productId: string,
+    user: SessionDTO,
+  ): Promise<any> {
+    try {
+      const customer = await stripe.customers.create({
+        description: `email - ${user.email}`,
+        email: user.email,
+        payment_method: paymentMethod,
+        invoice_settings: { default_payment_method: paymentMethod },
+      });
+      const subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        items: [
+          {
+            price_data: {
+              currency: 'USD',
+              product: productId,
+              unit_amount: 500,
+              recurring: {
+                interval: 'month',
+              },
+            },
+          },
+        ],
+        payment_settings: {
+          payment_method_types: ['card'],
+          save_default_payment_method: 'on_subscription',
+        },
+        expand: ['latest_invoice.payment_intent'],
+      });
+      return subscription;
+    } catch (e) {
+      throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
+    }
   }
   /** cancel the subscription */
   async cancelSubscription(subId: string): Promise<any> {
