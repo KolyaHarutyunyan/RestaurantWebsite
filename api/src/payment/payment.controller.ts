@@ -43,14 +43,34 @@ export class PaymentController {
   @ApiHeader({ name: ACCESS_TOKEN })
   @Public()
   async createSubscription(@Body() dto: CreatePaymentDTO): Promise<any> {
-    const payment = await this.paymentService.createSubscription(
-      dto.paymentMethod,
-      dto.productId,
-      dto.user,
-    );
+    const payment = await this.paymentService.createSubscription(dto);
+    return payment;
+  }
+  /** Refund the subscription */
+  @Post('refundSub')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async refundSub(@Query('charge') charge: string): Promise<any> {
+    const payment = await this.paymentService.refundSub(charge);
     return payment;
   }
 
+  /** Create an product */
+  @Post('product')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async createProduct(@Query('name') name: string, @Query('active') active: boolean): Promise<any> {
+    const payment = await this.paymentService.createProduct(name, active);
+    return payment;
+  }
+  /** Get the products */
+  @Get('product')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async getProducts(): Promise<any> {
+    const payment = await this.paymentService.getProducts();
+    return payment;
+  }
   /** Configure a webhook */
   @Post('webhooks')
   @Public()
