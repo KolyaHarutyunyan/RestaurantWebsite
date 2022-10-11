@@ -6,8 +6,6 @@ import { API_BASE, MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link } from "@material-ui/core";
-import Router from "next/router";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
@@ -24,7 +22,7 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
-      Router.push("/restaurant");
+      window.location.replace("/restaurant");
     }
   }, [status]);
 

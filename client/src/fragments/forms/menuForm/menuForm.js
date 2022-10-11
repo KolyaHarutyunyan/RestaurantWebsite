@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Button } from "@eachbase/components";
 import { useForm } from "react-hook-form";
 import { StyledMenuForm } from "./style";
-import { Input } from "@eachbase/components";
+import { UserInput } from "@eachbase/components";
 import Router from "next/router";
 import { ModalContext } from "@eachbase/components/modal/context";
 import { useSelector } from "react-redux";
@@ -41,11 +41,11 @@ export const MenuForm = () => {
       </div>
       <div className="menu-form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            containerClassName="input-padding"
-            type={"no"}
-            placeholder="Menu Name"
-            padding={"12px 8px"}
+          <UserInput
+            required={true}
+            inputType={"text"}
+            inputName={"name"}
+            inputPlaceholder={"Menu Name"}
             {...register("name", { required: true })}
           />
           <Button

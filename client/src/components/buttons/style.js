@@ -17,8 +17,8 @@ export const EditSave = styled.div`
 
 export const ButtonContainer = styled.button`
   position: relative;
-  min-width: ${({ link }) => (link ? "fit-content" : "160px")};
-  height: 44px;
+  min-width: ${({ link }) => (link ? "fit-content" : "unset")};
+  height: 48px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   border-radius: ${({ square }) => (square ? "8px" : "24px")};
   border: 1px solid;

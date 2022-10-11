@@ -24,7 +24,7 @@ export const Header = () => {
   const profile = useSelector(({ profile }) => profile);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isMobileViewport = useMedia({ maxWidth: 768 });
-  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
+  // const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
   const signOutSaga = useSagaStore(profileActions.signOut);
   const [windowPath, setWindowPath] = useState(router?.pathname);
   const [openSub, setOpenSub] = useState(
@@ -155,9 +155,9 @@ export const Header = () => {
 
   const renderProfileDropdown = () => {
     useEffect(() => {
-      if (token) {
-        getBusinessesSaga.dispatch();
-      }
+      // if (token) {
+      //   getBusinessesSaga.dispatch();
+      // }
     }, []);
     // const createMenu = async () => {
     //   await axios(`/businesses/mybusiness`, { auth: true })

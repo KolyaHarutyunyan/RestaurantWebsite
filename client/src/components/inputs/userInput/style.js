@@ -7,6 +7,7 @@ export const StyledUserInput = styled.div.attrs((props) => ({
   position: relative;
   max-width: 584px;
   width: 100%;
+  margin-bottom: 16px;
   .user-input-label {
     .input-label {
       margin-bottom: 8px;
@@ -54,7 +55,6 @@ export const StyledUserInput = styled.div.attrs((props) => ({
   .user-input-error-text {
     width: 100%;
     padding: 4px 14px;
-    min-height: 16px;
     color: #ff453a;
     font-family: Open Sans, sans-serif;
     font-weight: 400;
@@ -63,7 +63,7 @@ export const StyledUserInput = styled.div.attrs((props) => ({
   }
   .user-input-char-counter {
     width: 100%;
-    margin: 4px 0px 16px;
+    padding-top: 4px;
     color: ${colors.lightBlack};
     font-family: Open Sans, sans-serif;
     font-weight: 400;
