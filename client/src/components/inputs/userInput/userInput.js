@@ -22,9 +22,11 @@ export const UserInput = forwardRef((props, ref) => {
   return (
     <StyledUserInput className={inputClassName}>
       <label className="user-input-label">
-        <p className={`input-label ${required ? "required" : ""}`}>
-          {inputLabel}
-        </p>
+        {inputLabel && (
+          <p className={`input-label ${required ? "required" : ""}`}>
+            {inputLabel}
+          </p>
+        )}
         {isTextArea ? (
           <>
             <textarea
@@ -56,7 +58,9 @@ export const UserInput = forwardRef((props, ref) => {
                 {...rest}
               />
             )}
-            <p className="user-input-error-text">{inputError}</p>
+            {inputError && (
+              <p className="user-input-error-text">{inputError}</p>
+            )}
           </>
         )}
       </label>

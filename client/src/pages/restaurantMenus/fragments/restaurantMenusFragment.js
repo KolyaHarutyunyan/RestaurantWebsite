@@ -1,15 +1,29 @@
-import { MyButton, Switch, useModal } from "@eachbase/components";
+import { MoreDropdown, MyButton, Switch, useModal } from "@eachbase/components";
 import { StyledRestaurantMenus } from "./style";
-import { dummyMenus, formatDate } from "./constants";
+import { formatDate } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { MODAL_NAMES } from "@eachbase/constants";
 import Router from "next/router";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSagaStore, menusActions } from "@eachbase/store";
 
 export const RestaurantMenusFragment = () => {
   const { open } = useModal();
 
+  const menusSaga = useSagaStore(menusActions.getMenusByBusiness);
+  const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
+  const createMenuSaga = useSagaStore(menusActions.createMenu);
+  const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
+
+  const restaurant = useSelector((state) => state.businesses);
   const menus = useSelector((state) => state.menus);
+
+  useEffect(() => {
+    if (restaurant) {
+      menusSaga.dispatch(restaurant.id);
+    }
+  }, [restaurant]);
 
   return (
     <>
@@ -35,48 +49,38 @@ export const RestaurantMenusFragment = () => {
               </div>
               <div className="menu-name-box">
                 <h6 className="menu-name">{menu.name}</h6>
-                <Switch status={menu.isActive} onClick={() => {}} />
+                <Switch
+                  status={menu.isActive}
+                  onClick={() =>
+                    switchMenuStatusSaga.dispatch(menu.id, restaurant?.id)
+                  }
+                />
               </div>
               <div className="menu-about-box">
                 <p className="menu-about-text">{menu.about}</p>
               </div>
               <div className="menu-extra-info-box">
                 <span className="menu-extra-info-text">{`${
-                  menu.items?.length
+                  menu.food?.concat(menu.drinks)?.length
                 } Items, Last updated on ${formatDate(menu.lastUpdate)}`}</span>
               </div>
               <div className="menu-more-and-settings-box">
-                <div className="menu-more-dropdown">
-                  <MyButton
-                    buttonType={"button"}
-                    buttonClassName="menu-more-icon-button"
-                    onClickButton={() => {}}
-                  >
-                    <Images.MenuMore />
-                  </MyButton>
-                  <div className="menu-more-dropdown-content">
-                    <MyButton
-                      buttonType={"button"}
-                      onClickButton={() => Router.push("/menus/edit")}
-                    >
-                      Edit
-                    </MyButton>
-                    <MyButton buttonType={"button"} onClickButton={() => {}}>
-                      Duplicate
-                    </MyButton>
-                    <MyButton
-                      buttonType={"button"}
-                      buttonClassName={"danger"}
-                      onClickButton={() => {}}
-                    >
-                      Delete
-                    </MyButton>
-                  </div>
-                </div>
+                <MoreDropdown
+                  handleEdit={() => Router.push("/menus/edit")}
+                  handleDuplicate={() =>
+                    createMenuSaga.dispatch({
+                      businessId: restaurant.id,
+                      ...menu,
+                    })
+                  }
+                  handleDelete={() => deleteMenuSaga.dispatch(menu.id)}
+                />
                 <MyButton
                   buttonType={"button"}
                   buttonClassName="menu-settings-icon-button"
-                  onClickButton={() => {}}
+                  onClickButton={() =>
+                    Router.push(`/menus/settings?menuId=${menu.id}`)
+                  }
                 >
                   <Images.MenuSettings />
                 </MyButton>

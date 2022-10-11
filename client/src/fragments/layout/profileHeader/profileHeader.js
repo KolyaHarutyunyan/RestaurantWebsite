@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Images } from "@eachbase/theme/images";
 import { StyledDrawer, StyledProfileHeader } from "./style";
 import { AccountSettings } from "./core/accountSettings";
 import { accountSettings } from "./constants";
+import { useSagaStore, businessesActions } from "@eachbase/store";
 
 export const ProfileHeader = () => {
+  const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
+
+  useEffect(() => {
+    getBusinessesSaga.dispatch();
+  }, []);
+
   const [drawerPosition, setDrawerPosition] = useState({ right: false });
 
   const toggleDrawer = (anchor, open) => {

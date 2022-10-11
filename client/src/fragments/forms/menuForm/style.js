@@ -20,11 +20,6 @@ export const StyledMenuForm = styled.div`
       color: ${colors.secondary};
     }
   }
-  .menu-form {
-    .add-button {
-      margin-top: 16px;
-    }
-  }
 `;
 
 // export const Container = styled.div`

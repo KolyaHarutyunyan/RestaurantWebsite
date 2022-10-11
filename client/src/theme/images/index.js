@@ -20,9 +20,11 @@ import MenumangoLogo from "./sideSheetsDrawer/menumangoLogo.svg";
 import BreadcrumbArrow from "./sideSheetsDrawer/breadcrumbArrow.svg";
 
 // MENUS_PAGE_IMAGES
-import MenuMore from "./menusPage/more.svg";
+import MoreIcon from "./menusPage/more.svg";
 import MenuSettings from "./menusPage/settings.svg";
 import AddIcon from "./menusPage/addIcon.svg";
+import MoreIconVertical from "./menusPage/moreIconVertical.svg";
+import RightArrow from "./menusPage/rightArrow.svg";
 
 // SETTINGS_PAGE_IMAGES
 import DownloadIcon from "./settingsPage/downloadIcon.svg";
@@ -53,9 +55,11 @@ export const Images = {
   CollapseButtonClosed,
   MenumangoLogo,
   BreadcrumbArrow,
-  MenuMore,
+  MoreIcon,
   MenuSettings,
   AddIcon,
+  MoreIconVertical,
+  RightArrow,
   DownloadIcon,
   RestaurantLogo,
   Checkmark,

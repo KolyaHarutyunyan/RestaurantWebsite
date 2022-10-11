@@ -5,9 +5,12 @@ import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
 import Router from "next/router";
 import { StyledSideSheetsDrawer } from "./style";
+import { useSelector } from "react-redux";
 
 export const SideSheetsDrawer = () => {
   const { open, toggleDrawer } = useContext(SideSheetsDrawerContext);
+
+  const restaurant = useSelector((state) => state.businesses);
 
   return (
     <StyledSideSheetsDrawer>
@@ -22,7 +25,7 @@ export const SideSheetsDrawer = () => {
           >
             <Images.RestaurantProfile className="restaurant-profile" />
             <span className={addClosed("restaurant-name", !open)}>
-              Restaurant Name
+              {restaurant?.name}
             </span>
             <Images.Arrow className={addClosed("arrow", !open)} />
           </div>
