@@ -27,11 +27,13 @@ export const MuiTabs = ({ tabs = [], className }) => {
             ))}
           </Tabs>
         </Box>
-        {tabs.map((tab, index) => (
-          <TabPanel key={index} value={value} index={index}>
-            {tab.item}
-          </TabPanel>
-        ))}
+        <Box className="tab-panels-wrapper">
+          {tabs.map((tab, index) => (
+            <TabPanel key={index} value={value} index={index}>
+              {tab.item}
+            </TabPanel>
+          ))}
+        </Box>
       </Box>
     </StyledMuiTabs>
   );

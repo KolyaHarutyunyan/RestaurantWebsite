@@ -16,17 +16,16 @@ import Router from "next/router";
 import { ImgUploader } from "@eachbase/utils";
 
 export const SettingsTabItem = () => {
-  const restaurant = useSelector(({ businesses }) => businesses);
+  const restaurant = useSelector((state) => state.businesses) || {};
 
-  const [inputs, setInputs] = useState(restaurant ? { ...restaurant } : {});
   const [img, setImg] = useState("");
   const [imgPush, setImgPush] = useState("");
   const [error, setError] = useState(false);
-  const [address, setAddress] = useState(inputs.address || {});
-  const [hours, setHours] = useState(inputs.hours || {});
+  const [address, setAddress] = useState(restaurant.address || {});
+  const [hours, setHours] = useState(restaurant.hours || {});
   const [isShown, setIsShown] = useState(false);
 
-  const { handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
@@ -67,11 +66,11 @@ export const SettingsTabItem = () => {
   const onSubmit = async (data) => {
     const images = imgPush && (await ImgUploader([imgPush]).then((res) => res));
     data = {
-      id: restaurant?.id,
-      name: inputs.name,
-      description: inputs.description,
+      name: data.name || restaurant.name,
+      description: data.description || restaurant.description,
+      phoneNumber: data.phoneNumber || restaurant.phoneNumber,
+      id: restaurant.id,
       address,
-      phoneNumber: inputs.phoneNumber,
       hours,
     };
     images ? (data.logo = images) : "";
@@ -86,28 +85,26 @@ export const SettingsTabItem = () => {
           inputLabel={"Restuarant name"}
           inputType={"text"}
           inputName={"name"}
-          inputValue={inputs.name}
-          onInputChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+          defaultValue={restaurant.name}
+          {...register("name", { required: true })}
         />
         <UserInput
           required={false}
           isTextArea={true}
           inputLabel={"About Restuarant"}
           inputName={"description"}
-          inputValue={inputs.description}
-          onInputChange={(e) =>
-            setInputs({ ...inputs, description: e.target.value })
-          }
+          defaultValue={restaurant.description}
           inputPlaceholder={"Text here..."}
           charCounterIsShown={true}
           charLimit={"1000"}
+          {...register("description")}
         />
         <div className="file-upload-box">
           <FileUpload
             title="Restaurant Logo"
             type={"restaurant"}
             handleChange={handleFileChange}
-            url={img || inputs.logo}
+            url={img || restaurant.logo}
             handleRemove={handleFileRemove}
             error={error}
           />
@@ -142,10 +139,8 @@ export const SettingsTabItem = () => {
           inputLabel={"Phone Number"}
           inputType={"number"}
           inputName={"phoneNumber"}
-          inputValue={inputs.phoneNumber}
-          onInputChange={(e) =>
-            setInputs({ ...inputs, phoneNumber: e.target.value })
-          }
+          defaultValue={restaurant.phoneNumber}
+          {...register("phoneNumber")}
         />
         <div className="hours-of-operation-box">
           <div
