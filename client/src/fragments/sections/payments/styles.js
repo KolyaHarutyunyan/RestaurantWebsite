@@ -174,19 +174,17 @@ export const CheckoutContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 78px auto 0;
-    background: ${colors.lightGray};
-    padding: 80px 0 200px;
+    background: transparent;
 
     @media (min-width: 320px) {
-      padding: 61px 0 80px;
+      padding: 61px 0;
       flex-direction: column;
     }
     @media (min-width: 768px) {
-      padding: 40px 0 230px;
+      padding: 40px 0;
     }
     @media (min-width: 1440px) {
-      padding: 80px 0 220px;
+      padding: 80px 0;
       flex-direction: row;
       align-items: start;
     }

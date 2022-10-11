@@ -1,45 +1,73 @@
 import React, { useState } from "react";
-import { CardElement, useStripe, useElements, CardNumberElement } from "@stripe/react-stripe-js";
-import { destroyCookie } from "nookies";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Loader, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
+import axios from "axios";
 
-const CheckoutForm = ({ paymentIntent, checked, setChecked }) => {
+const CheckoutForm = ({ checked }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { open } = useModal();
   const [checkoutError, setCheckoutError] = useState();
-  const [checkoutSuccess, setCheckoutSuccess] = useState();
   const [loader, setLoader] = useState(false);
+  const [inputs, setInputs] = useState("");
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
     try {
-      const {
-        error,
-        paymentIntent: { status }
-      } = await stripe.confirmCardPayment(paymentIntent.client_secret, {
-        payment_method: {
-          card: elements.getElement(CardElement)
-        }
+      const paymentMethod = await stripe.createPaymentMethod({
+        type: "card",
+        card: elements.getElement("card")
       });
 
-
-      if (error) throw new Error(error.message);
-
-      if (status === "succeeded") {
+      const info = {
+        name: inputs?.name,
+        email: inputs?.email,
+        paymentMethod: paymentMethod?.paymentMethod?.id,
+        productId: "prod_Mar5vnZEX3QwEL",
+        amount: 25
+      };
+      axios.post("/payments/sub", { ...info }, { auth: true }).then((e) => {
         setLoader(false);
-        // setCheckoutSuccess(true);
-        destroyCookie(null, "paymentIntentId");
         open(MODAL_NAMES.CHECK_PAYMENT_HELPER);
-      }
+      }).catch(() => {
+        setLoader(false);
+      });
     } catch (err) {
-      setLoader(false);
-      // alert(err.message);
       setCheckoutError(err.message);
+      setLoader(false);
     }
   };
+
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   setLoader(true);
+  //   try {
+  //     const {
+  //       error,
+  //       paymentIntent: { status }
+  //     } = await stripe.confirmCardPayment(paymentIntent.client_secret, {
+  //       payment_method: {
+  //         card: elements.getElement(CardElement)
+  //       }
+  //     });
+  //
+  //
+  //     if (error) throw new Error(error.message);
+  //
+  //     if (status === "succeeded") {
+  //       setLoader(false);
+  //       // setCheckoutSuccess(true);
+  //       destroyCookie(null, "paymentIntentId");
+  //       open(MODAL_NAMES.CHECK_PAYMENT_HELPER);
+  //     }
+  //   } catch (err) {
+  //     setLoader(false);
+  //     // alert(err.message);
+  //     setCheckoutError(err.message);
+  //   }
+  // };
 
   // if (checkoutSuccess) return <p>Payment successful!</p>;
 
@@ -56,6 +84,10 @@ const CheckoutForm = ({ paymentIntent, checked, setChecked }) => {
     }
   };
 
+  const handleChange = e => {
+    setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+  };
+
   return (
     <div className="form-wrapper">
       <form onSubmit={handleSubmit}>
@@ -68,9 +100,20 @@ const CheckoutForm = ({ paymentIntent, checked, setChecked }) => {
           {checkoutError && <span style={{ color: "red", fontSize: "12px" }}>{checkoutError}</span>}
         </div>
         <p className="title">Name Surname</p>
-        <input className="input-style" required={true} />
-        <p className="title">Phone Number</p>
-        <input className="input-style" required={true} />
+        <input
+          name="name"
+          className="input-style"
+          required={true}
+          onChange={handleChange}
+        />
+        <p className="title">Email</p>
+        <input
+          name="email"
+          type="email"
+          className="input-style"
+          required={true}
+          onChange={handleChange}
+        />
         <div className="buttons-wrapper">
           <button
             className="next-button"

@@ -1,14 +1,16 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { MuiBreadcrumbs } from "@eachbase/components";
 import {
   plansAndPricingBreadcrumbs,
   plansAndPricingStandardList,
-  plansAndPricingStarterList,
+  plansAndPricingStarterList
 } from "./constants";
 import { PlansAndPricingCard } from "./core/plansAndPricingCard";
 import { StyledRestaurantPlansAndPricing } from "./style";
 
 export const RestaurantPlansAndPricingFragment = () => {
+  const router = useRouter();
   return (
     <>
       <MuiBreadcrumbs breadcrumbs={plansAndPricingBreadcrumbs} />
@@ -19,7 +21,7 @@ export const RestaurantPlansAndPricingFragment = () => {
             cardSubtitle={"The quickest and easiest way to try Menumango"}
             cardType={"$0"}
             cardActionText={"Get Started"}
-            cardActionHandler={() => alert("Starter")}
+            cardActionHandler={() => router.push(`/checkout?price=0`)}
             cardList={plansAndPricingStarterList}
           />
           <PlansAndPricingCard
@@ -28,7 +30,7 @@ export const RestaurantPlansAndPricingFragment = () => {
             cardType={"$25"}
             cardTime={"MO"}
             cardActionText={"Get Started"}
-            cardActionHandler={() => alert("Standard")}
+            cardActionHandler={() => router.push(`/checkout?price=25`)}
             cardList={plansAndPricingStandardList}
           />
         </div>
