@@ -13,6 +13,7 @@ export const StyledMoreDropdown = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
   .menu-more-dropdown-content {
     display: none;

@@ -70,7 +70,7 @@ export const SettingsTabItem = () => {
       description: data.description || restaurant.description,
       phoneNumber: data.phoneNumber || restaurant.phoneNumber,
       id: restaurant.id,
-      address,
+      address: address?.formattedAddress || address,
       hours,
     };
     images ? (data.logo = images) : "";
