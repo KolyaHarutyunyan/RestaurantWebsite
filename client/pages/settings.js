@@ -1,7 +1,5 @@
 import { RestaurantSettings } from "@eachbase/pages";
 
-const Settings = () => {
-  return <RestaurantSettings />;
-};
+const Settings = () => <RestaurantSettings />;
 
 export default Settings;
