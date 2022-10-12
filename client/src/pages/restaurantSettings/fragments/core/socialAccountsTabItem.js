@@ -4,7 +4,6 @@ import { UserInput, SaveOrCancelButton } from "@eachbase/components";
 import { StyledSocialAccountsTabItem } from "./style";
 import { businessesActions, useSagaStore } from "@eachbase/store";
 import { useSelector } from "react-redux";
-import Router from "next/router";
 
 export const SocialAccountsTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
@@ -21,7 +20,6 @@ export const SocialAccountsTabItem = () => {
     if (status.onSuccess) {
       destroy.success();
       reset();
-      Router.push("/restaurant");
     }
   }, [status]);
 

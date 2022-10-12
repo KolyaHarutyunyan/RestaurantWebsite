@@ -44,7 +44,7 @@ export const CreateRestaurantForm = () => {
             destroy.all();
             reset();
             setRestaurantIcon(null);
-            router.push("/restaurant");
+            // router.push("/restaurant");
         }
     }, [status]);
 
