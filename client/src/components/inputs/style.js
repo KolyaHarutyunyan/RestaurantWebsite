@@ -1,166 +1,129 @@
 import styled from "styled-components";
-import { makeStyles } from "@material-ui/core/styles";
 import { colors } from "@eachbase/theme";
 
-export const inputsStyle = makeStyles(() => ({
-  Icon: {
-    flex: "0 0 22px",
-    display: "flex",
-    alignItems: "center",
-    color: "#2B273C",
-    justifyContent: "center",
-  },
-  SignInInput: {
-    "& .MuiFormControl-root": {
-      width: "395px",
-      marginTop: "20px",
-    },
+export const StyledAddressInput = styled.div`
+  .search-address-wrapper {
+    position: relative;
+    cursor: pointer;
+    .search-address {
+      position: relative;
+      font-family: Open Sans, sans-serif;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      outline: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      background: ${colors.white} 0% 0% no-repeat padding-box;
+      border: 1px solid ${colors.lightBlack};
+      border-radius: 8px;
+      padding: 0px 18px;
+      cursor: pointer;
+      color: #545f7e;
+      & input {
+        font-family: Open Sans, sans-serif;
+        font-size: 16px;
+        color: ${colors.text};
+      }
+      &.disabled {
+        gap: 14px;
+        cursor: no-drop;
+      }
+      .icon {
+        flex: 0 0 22px;
+        display: flex;
+        align-items: center;
+        color: ${colors.text};
+        justify-content: center;
+      }
+      .search-address-input {
+        flex: 1;
+        border: none;
+        outline: 0;
+        height: 100%;
+        &:disabled {
+          cursor: no-drop;
+        }
+      }
+    }
+    .search-address-description {
+      background: ${colors.white} 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 12px #0052e01a;
+      border-radius: 6px;
+      position: absolute;
+      top: 52px;
+      z-index: 9999;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      cursor: default;
+      .suggestion-item {
+        background-color: ${colors.white};
+        &:not(:first-of-type) {
+          margin-top: 2px;
+        }
+        &.active {
+          background-color: #fafafa;
+        }
+        .description-text {
+          display: inline-block;
+          width: 100%;
+          padding: 2px 8px;
+          font-size: 16px;
+          line-height: 30px;
+          color: #545f7e;
+          cursor: pointer;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          &:hover {
+            background: #387dff1a 0% 0% no-repeat padding-box;
+          }
+        }
+      }
+    }
+  }
+`;
 
-    "& .MuiFormLabel-root.Mui-error": {
-      color: "#F07379",
-      fontWeight: "bold",
-    },
-
-    "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-      border: "2px solid red",
-    },
-  },
-  inputTextField: {
-    width: "100%",
-    "& .MuiOutlinedInput-notchedOutline": {
-      // borderColor: Colors.ThemeBlack,
-    },
-    "& .MuiOutlinedInput-root": {
-      height: "48px",
-      // color: Colors.ThemeLightGray,
-    },
-    "& .MuiInputLabel-outlined": {
-      marginTop: "-3px",
-      // color: Colors.ThemeLightGray,
-    },
-    "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-      transform: "translate(14px, -2px) scale(0.75)",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      // borderColor: Colors.ThemeBlack,
-    },
-    "& .MuiInputBase-input::placeholder": {
-      fontSize: 14,
-      color: "#4B5C6880",
-    },
-  },
-  inputTextFieldSmall: {
-    width: "100%",
-    "& .MuiOutlinedInput-notchedOutline": {
-      // borderColor: Colors.ThemeBlack,
-    },
-    "& .MuiOutlinedInput-root": {
-      height: "36px",
-      // color: Colors.ThemeLightGray,
-    },
-    "& .MuiInputLabel-outlined": {
-      marginTop: "-3px",
-      // color: Colors.ThemeLightGray,
-    },
-    "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-      transform: "translate(14px, -2px) scale(0.75)",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      // borderColor: Colors.ThemeBlack,
-    },
-    "& .MuiInputBase-input::placeholder": {
-      fontSize: 14,
-      color: "#4B5C6880",
-    },
-  },
-
-  Input: {
-    flex: "1",
-    border: "none",
-    outline: 0,
-    height: "100%",
-  },
-  disabledInput: {
-    cursor: "no-drop",
-  },
-  "&::placeholder": {
-    fontSize: "16px",
-    lineHeight: "22px",
-    color: "#545F7EB3",
-  },
-  SearchAddress: {
-    position: "relative",
-    fontFamily: "Open Sans, sans-serif",
-    gap: "10px",
-    fontSize: "16px",
-    fontWeight: 400,
-    lineHeight: "24px",
-    outline: "none",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    height: "48px",
-    background: "#FFFFFF 0% 0% no-repeat padding-box",
-    border: "1px solid #C4C4C4",
-    borderRadius: "8px",
-    padding: "0 18px",
-    cursor: "pointer",
-    color: "#545F7E",
-    "& input": {
-      fontFamily: "Open Sans, sans-serif",
-      fontSize: "16px",
-      color: "#2B273C",
-    },
-  },
-  SearchAddressDisable: {
-    fontFamily: "Open Sans, sans-serif",
-    fontSize: "16px",
-    fontWeight: 400,
-    lineHeight: "24px",
-    gap: "14px",
-    outline: "none",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    height: "48px",
-    background: "#FFFFFF 0% 0% no-repeat padding-box",
-    border: "1px solid #C4C4C4",
-    borderRadius: "8px",
-    padding: "0 18px",
-    cursor: "no-drop",
-    color: "#545F7E",
-    "& input": {
-      fontFamily: "Open Sans, sans-serif",
-      fontSize: "16px",
-      color: "#2B273C",
-    },
-  },
-  searchAddressDescription: {
-    background: "#FFFFFF 0% 0% no-repeat padding-box",
-    boxShadow: "0px 0px 12px #0052E01A",
-    borderRadius: "6px",
-    position: "absolute",
-    top: "52px",
-    zIndex: "9999",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    overflowY: "auto",
-  },
-
-  searchAddressDescriptionText: {
-    paddingTop: "5px",
-    fontSize: "16px",
-    lineHeight: "30px",
-    color: "#545F7E",
-    "& :hover": {
-      background: "#387DFF1A 0% 0% no-repeat padding-box",
-      borderRadius: "6px",
-    },
-  },
-}));
+export const StyledValidationInput = styled.div`
+  .sign-in-input {
+    .MuiFormControl-root {
+      width: 395px;
+      margin-top: 20px;
+    }
+    .MuiFormLabel-root.Mui-error {
+      color: #f07379;
+      font-weight: 700;
+    }
+    .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+      border: 2px solid ${colors.red700};
+    }
+  }
+  .input-text-field {
+    width: 100%;
+    & .MuiOutlinedInput-root {
+      height: 48px;
+    }
+    &.small .MuiOutlinedInput-root {
+      height: 36px;
+    }
+    & .MuiInputLabel-outlined {
+      margin-top: -3px;
+    }
+    & .MuiInputLabel-outlined.MuiInputLabel-shrink {
+      transform: translate(14px, -2px) scale(0.75);
+    }
+    & .MuiInputBase-input::placeholder {
+      font-size: 14px;
+      color: #4b5c6880;
+    }
+  }
+`;
 
 export const InputContainer = styled.div`
   & * {

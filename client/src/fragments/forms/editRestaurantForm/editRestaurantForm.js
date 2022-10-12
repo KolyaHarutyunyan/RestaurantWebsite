@@ -44,7 +44,7 @@ export const EditRestaurantForm = () => {
             reset();
             setImg('')
             setImgPush('')
-            router.push("/restaurant");
+            // router.push("/restaurant");
         }
     }, [status]);
 

@@ -9,3 +9,4 @@ export {
   SideSheetsDrawerContext,
   SideSheetsDrawerContextProvider,
 } from "./contexts";
+export { useFileUpload } from "./customHooks";

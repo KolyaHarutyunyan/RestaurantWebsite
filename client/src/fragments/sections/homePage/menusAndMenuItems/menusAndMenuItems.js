@@ -46,9 +46,9 @@ export const MenusAndMenuItems = () => {
           slidesToShow={5}
           slidesToScroll={1}
           style={{ height: "700px", marginTop: "70px", outline: "none" }}
-          renderBottomCenterControls={false}
-          renderCenterLeftControls={false}
-          renderCenterRightControls={false}
+          renderBottomCenterControls={() => false}
+          renderCenterLeftControls={() => false}
+          renderCenterRightControls={() => false}
           wrapAround={true}
           autoplay={true}
         >
@@ -240,9 +240,9 @@ export const MenusAndMenuItems = () => {
           slidesToShow={3.8}
           slidesToScroll={1}
           style={{ height: "700px", marginTop: "70px", outline: "none" }}
-          renderBottomCenterControls={false}
-          renderCenterLeftControls={false}
-          renderCenterRightControls={false}
+          renderBottomCenterControls={() => false}
+          renderCenterLeftControls={() => false}
+          renderCenterRightControls={() => false}
           wrapAround={true}
           autoplay={true}
         >
@@ -386,9 +386,9 @@ export const MenusAndMenuItems = () => {
           slidesToShow={1.1}
           slidesToScroll={1}
           style={{ height: "750px", marginTop: "32px", outline: "none" }}
-          renderBottomCenterControls={false}
-          renderCenterLeftControls={false}
-          renderCenterRightControls={false}
+          renderBottomCenterControls={() => false}
+          renderCenterLeftControls={() => false}
+          renderCenterRightControls={() => false}
           wrapAround={true}
           autoplay={true}
         >
@@ -507,9 +507,9 @@ export const MenusAndMenuItems = () => {
           slidesToShow={2.2}
           slidesToScroll={1}
           style={{ height: "750px", marginTop: "32px", outline: "none" }}
-          renderBottomCenterControls={false}
-          renderCenterLeftControls={false}
-          renderCenterRightControls={false}
+          renderBottomCenterControls={() => false}
+          renderCenterLeftControls={() => false}
+          renderCenterRightControls={() => false}
           wrapAround={true}
           autoplay={true}
         >
