@@ -100,19 +100,19 @@ export class PaymentController {
   //   }
 
   /** Get configured webhook list */
-  @Patch('webhooks/:id')
-  @Public()
-  @ApiBody({ type: EditWebhookDTO })
-  @ApiOkResponse({ type: WebhookDTO })
-  async updateWebhook(@Param('id') id: string, @Body() dto: EditWebhookDTO): Promise<WebhookDTO> {
-    const webhook = await this.paymentService.updateWebhook(id, dto);
-    return webhook;
-  }
+  // @Patch('webhooks/:id')
+  // @Public()
+  // @ApiBody({ type: EditWebhookDTO })
+  // @ApiOkResponse({ type: WebhookDTO })
+  // async updateWebhook(@Param('id') id: string, @Body() dto: EditWebhookDTO): Promise<WebhookDTO> {
+  //   const webhook = await this.paymentService.updateWebhook(id, dto);
+  //   return webhook;
+  // }
 
-  @Delete('webhooks/:id')
-  @Public()
-  async deleteWebhook(@Param('id') id: string): Promise<any> {
-    const webhook = await this.paymentService.deleteWebhook(id);
-    return webhook;
-  }
+  // @Delete('webhooks/:id')
+  // @Public()
+  // async deleteWebhook(@Param('id') id: string): Promise<any> {
+  //   const webhook = await this.paymentService.deleteWebhook(id);
+  //   return webhook;
+  // }
 }
