@@ -25,9 +25,9 @@ export const Modal = ({info, modalType, handleOpenClose}) => {
                             // speed={2}
                             slidesToScroll={1}
                             style={{outline: 'none'}}
-                            renderBottomCenterControls={false}
-                            renderCenterLeftControls={false}
-                            renderCenterRightControls={false}
+                            renderBottomCenterControls={() => false}
+                            renderCenterLeftControls={() => false}
+                            renderCenterRightControls={() => false}
                             // renderCenterLeftControls={({ previousSlide }) => (
                             //     <button onClick={previousSlide}>
                             //         <KeyboardArrowLeftIcon style={{fontSize:'28px'}}/>

@@ -12,17 +12,13 @@ import { Images } from "@eachbase/theme/images";
 import { addressInputs } from "./constants";
 import { useSelector } from "react-redux";
 import { businessesActions, useSagaStore } from "@eachbase/store";
-import Router from "next/router";
-import { ImgUploader } from "@eachbase/utils";
+import { ImgUploader, useFileUpload } from "@eachbase/utils";
 
 export const SettingsTabItem = () => {
   const restaurant = useSelector((state) => state.businesses) || {};
 
-  const [img, setImg] = useState("");
-  const [imgPush, setImgPush] = useState("");
-  const [error, setError] = useState(false);
-  const [address, setAddress] = useState(restaurant.address || {});
-  const [hours, setHours] = useState(restaurant.hours || {});
+  const [address, setAddress] = useState({});
+  const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
@@ -31,47 +27,33 @@ export const SettingsTabItem = () => {
     businessesActions.editBusiness
   );
 
+  const { img, imgPush, error, handleFileChange, handleFileRemove } =
+    useFileUpload();
+
+  useEffect(() => {
+    setAddress({ ...restaurant?.address });
+    setHours({ ...restaurant?.hours });
+  }, [restaurant?.address, restaurant?.hours]);
+
   useEffect(() => () => destroy.all(), []);
 
   useEffect(() => {
     if (status.onSuccess) {
       destroy.success();
       reset();
-      Router.push("/restaurant");
     }
   }, [status]);
-
-  const handleFileChange = (e) => {
-    for (let item of e) {
-      if (item && item.size > 2097152) {
-        setError(true);
-      } else {
-        setError("");
-        setImg({
-          url: URL.createObjectURL(
-            new File([item], "image", { type: "text/json;charset=utf-8" })
-          ),
-          id: 1,
-        });
-        setImgPush(new File([item], `img1`));
-      }
-    }
-  };
-
-  const handleFileRemove = () => {
-    setImg("");
-    setImgPush("");
-  };
 
   const onSubmit = async (data) => {
     const images = imgPush && (await ImgUploader([imgPush]).then((res) => res));
     data = {
+      ...data,
       name: data.name || restaurant.name,
       description: data.description || restaurant.description,
       phoneNumber: data.phoneNumber || restaurant.phoneNumber,
       id: restaurant.id,
-      address,
-      hours,
+      address: address?.formattedAddress,
+      hours: hours || restaurant.hours,
     };
     images ? (data.logo = images) : "";
     dispatch(data);
@@ -129,8 +111,8 @@ export const SettingsTabItem = () => {
               inputLabel={addressInput.label}
               inputType={"text"}
               inputName={addressInput.name}
-              inputPlaceholder={address[addressInput.name]}
-              inputDisabled={true}
+              defaultValue={address[addressInput.name]}
+              {...register(addressInput.name)}
             />
           ))}
         </div>
