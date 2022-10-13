@@ -22,7 +22,6 @@ export const MenuForm = () => {
       destroy.all();
       reset();
       setActiveModal("");
-      Router.push("/menus/settings");
     }
   }, [status]);
 

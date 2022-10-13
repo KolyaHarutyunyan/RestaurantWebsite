@@ -114,6 +114,7 @@ export const StyledRestaurantMenus = styled.section`
         }
       }
       .menu-more-and-settings-box {
+        padding: 4px 0;
         width: 100%;
         display: flex;
         justify-content: flex-end;
