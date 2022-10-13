@@ -13,6 +13,8 @@ export interface IBusiness extends Document {
   status: BusinessStatus;
   menus: IMenu[];
   website: string;
+  facebook: string;
+  instagram: string;
   phoneNumber: string;
   address: IAddress;
   hours?: IWeek;

@@ -18,6 +18,14 @@ export class CreateBusinessDTO {
   website?: string;
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsString()
+  facebook?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  instagram?: string;
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsPhoneNumber('US')
   phoneNumber?: string;
   @ApiProperty({ required: false })

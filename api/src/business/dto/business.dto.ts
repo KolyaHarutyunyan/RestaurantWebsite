@@ -18,6 +18,10 @@ export class BusinessDTO {
   logo?: FileDTO;
   @ApiProperty({ required: false })
   website?: string;
+  @ApiProperty({ required: false })
+  facebook?: string;
+  @ApiProperty({ required: false })
+  instagram?: string;
   @ApiProperty({ type: AddressDTO, required: false })
   address?: AddressDTO;
   @ApiProperty({ required: false })

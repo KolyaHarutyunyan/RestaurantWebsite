@@ -52,6 +52,8 @@ export class BusinessService {
     if (dto.name) business.name = dto.name;
     if (dto.description) business.description = dto.description;
     if (dto.website) business.website = dto.website;
+    if (dto.facebook) business.facebook = dto.facebook;
+    if (dto.instagram) business.instagram = dto.instagram;
     if (dto.address) business.address = await this.addressService.getAddress(dto.address);
     if (dto.phoneNumber) business.phoneNumber = dto.phoneNumber;
     if (dto.hours) business.hours = this.scheduleService.create(dto.hours);
