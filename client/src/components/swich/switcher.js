@@ -1,8 +1,13 @@
 import { Styled } from "./style";
-export const Switch = ({ className = "switch", status, onClick }) => {
-    return (
-        <Styled.Block className={className} status={status} onClick={onClick}>
-            <Styled.Track className="track" />
-        </Styled.Block>
-    );
+export const Switch = ({ className = "switch", status, offColor, onClick }) => {
+  return (
+    <Styled.Block
+      className={className}
+      status={status}
+      offColor={offColor}
+      onClick={onClick}
+    >
+      <Styled.Track className="track" />
+    </Styled.Block>
+  );
 };

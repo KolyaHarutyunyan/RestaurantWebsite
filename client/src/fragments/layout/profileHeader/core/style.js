@@ -114,15 +114,6 @@ export const StyledAccountSettings = styled.div`
     }
   }
   .sign-out-button {
-    width: 100%;
-    height: 48px;
-    background-color: ${colors.primary};
-    border-radius: 8px;
-    font-family: Open Sans, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    color: ${colors.white};
     svg {
       margin-right: 8px;
     }

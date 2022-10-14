@@ -1,34 +1,42 @@
+import { useEffect } from "react";
 import { StyledEditMenus } from "./style";
 import { editMenusBreadcrumbs, editMenusTabs } from "./constants";
-import { MuiBreadcrumbs, MuiTabs, MyButton } from "@eachbase/components";
+import { Button, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
 import { Images } from "@eachbase/theme/images";
+import { menusActions, useSagaStore } from "@eachbase/store";
 
 export const EditMenusFragment = () => {
+  const restaurantMenu = useSagaStore(menusActions.getBusinessMenu);
+
   const router = useRouter();
+
+  const menuId = router.query.menuId;
+
+  useEffect(() => {
+    if (menuId) {
+      restaurantMenu.dispatch(menuId);
+    }
+  }, [menuId]);
+
+  const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 
   return (
     <StyledEditMenus>
       <div className="edit-menus-header">
         <MuiBreadcrumbs breadcrumbs={editMenusBreadcrumbs} />
-        <MyButton
-          buttonType={"button"}
-          buttonClassName={"preview-button"}
-          onClickButton={() =>
-            Router.push(`/preview?menuId=${router.query.menuId}`)
-          }
-        >
+        <Button square fullWidth maxWidth={"176px"} onClick={handlePreview}>
           Preview
-        </MyButton>
+        </Button>
       </div>
       <div className="edit-menus-nav">
-        <MyButton
-          buttonType={"button"}
-          buttonClassName={"add-menu-item-button"}
-          onClickButton={() => {}}
+        <button
+          type="button"
+          className="add-menu-item-button"
+          onClick={() => {}}
         >
           <Images.AddIcon /> Add New Menu Item
-        </MyButton>
+        </button>
         <MuiTabs className={"edit-menus-tabs"} tabs={editMenusTabs} />
       </div>
     </StyledEditMenus>

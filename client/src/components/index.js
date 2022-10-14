@@ -3,7 +3,6 @@ export {
   Fab,
   SmallButton,
   EditSaveButtons,
-  MyButton,
   SaveOrCancelButton,
 } from "./buttons";
 export { Switch } from "./swich";

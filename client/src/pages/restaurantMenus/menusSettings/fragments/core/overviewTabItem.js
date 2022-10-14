@@ -16,7 +16,11 @@ export const OverviewTabItem = () => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  useEffect(() => setMenu(menuById), [menuById]);
+  useEffect(() => {
+    if (menuById) {
+      setMenu(menuById);
+    }
+  }, [menuById]);
 
   useEffect(() => {
     if (status.onSuccess) {

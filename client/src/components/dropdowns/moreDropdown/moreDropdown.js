@@ -9,36 +9,40 @@ export const MoreDropdown = ({ vertical, handleEdit, handleDelete }) => {
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    event?.stopPropagation();
+    setAnchorEl(event?.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event?.stopPropagation();
     setAnchorEl(null);
   };
 
-  const onEdit = () => {
+  const onEdit = (event) => {
+    event?.stopPropagation();
     handleEdit();
     handleClose();
   };
 
-  const onDelete = () => {
+  const onDelete = (event) => {
+    event?.stopPropagation();
     handleDelete();
     handleClose();
   };
 
   return (
     <div>
-      <button type="button" onClick={handleClick}>
+      <button
+        type="button"
+        style={{ width: "24px", height: "24px" }}
+        onClick={handleClick}
+      >
         {vertical ? <Images.MoreIconVertical /> : <Images.MoreIcon />}
       </button>
       <div className="menu">
         <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
-          <MenuItem onClick={onEdit} disableRipple>
-            Edit
-          </MenuItem>
-          <MenuItem onClick={onDelete} disableRipple>
-            Delete
-          </MenuItem>
+          <MenuItem onClick={onEdit}>Edit</MenuItem>
+          <MenuItem onClick={onDelete}>Delete</MenuItem>
         </StyledMenu>
       </div>
     </div>

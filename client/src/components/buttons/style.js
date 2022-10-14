@@ -82,15 +82,6 @@ export const FabContainer = styled.button`
   box-shadow: 0px 0px 12px 0px #e2e2e2;
 `;
 
-export const StyledMyButton = styled.button.attrs((props) => ({
-  className: props.className,
-}))`
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
   className: props.className,
 }))`

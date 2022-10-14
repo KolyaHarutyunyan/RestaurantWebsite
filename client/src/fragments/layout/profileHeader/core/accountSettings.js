@@ -1,7 +1,7 @@
 import { StyledAccountSettings } from "./style";
 import { Images } from "@eachbase/theme/images";
 import { useForm } from "react-hook-form";
-import { MyButton, SettingsInput } from "@eachbase/components";
+import { Button, SettingsInput } from "@eachbase/components";
 
 export const AccountSettings = ({ account }) => {
   const { name, surname, email, avatar } = account || {};
@@ -31,13 +31,13 @@ export const AccountSettings = ({ account }) => {
       <div className="account-form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-wrapper">
-            <MyButton
-              buttonType={"button"}
-              buttonClassName={"edit-and-save-button"}
-              //   buttonLoader={loader}
+            <button
+              type="button"
+              className="edit-and-save-button"
+              onClick={() => {}}
             >
               Edit
-            </MyButton>
+            </button>
           </div>
           <SettingsInput
             inputType={"text"}
@@ -60,13 +60,13 @@ export const AccountSettings = ({ account }) => {
           <div className="change-password">
             <div className="change-password-wrapper">
               <p className="change-password-text">Change Password</p>
-              <MyButton
-                buttonType={"button"}
-                buttonClassName={"edit-and-save-button"}
-                //   buttonLoader={loader}
+              <button
+                type="button"
+                className="edit-and-save-button"
+                onClick={() => {}}
               >
                 Edit
-              </MyButton>
+              </button>
             </div>
             <span className="use-strong-password">
               Use strong password to keep your account secure.
@@ -74,13 +74,14 @@ export const AccountSettings = ({ account }) => {
           </div>
         </form>
       </div>
-      <MyButton
-        buttonType={"button"}
-        buttonClassName={"sign-out-button"}
-        //   buttonLoader={loader}
+      <Button
+        fullWidth
+        square
+        className="sign-out-button"
+        // onLoad={status.onLoad}
       >
         <Images.SignOut /> Sign Out
-      </MyButton>
+      </Button>
     </StyledAccountSettings>
   );
 };
