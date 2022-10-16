@@ -32,6 +32,9 @@ export const StyledMenu = styled((props) => (
       fontWeight: 400,
       fontSize: 16,
       color: colors.secondary,
+      "&:last-child": {
+        color: colors.primary,
+      },
     },
   },
 }));

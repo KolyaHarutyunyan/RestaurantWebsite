@@ -13,7 +13,9 @@ export const MenusSettingsFragment = () => {
   const menuId = router.query.menuId;
 
   useEffect(() => {
-    restaurantMenu.dispatch(menuId);
+    if (menuId) {
+      restaurantMenu.dispatch(menuId);
+    }
   }, [menuId]);
 
   return (

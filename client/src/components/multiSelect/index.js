@@ -126,8 +126,9 @@ export const MultiSelect = ({
 
             <div className="dropdown-actions">
                 {/*<form autoComplete="off">*/}
-                    <Autocomplete
+                <Autocomplete
                         multiple
+                        className={classes.selectAutocomplete }
                         id="checkboxes-tags-demo"
                         options={newList}
                         style={{height: '48px'}}
@@ -164,7 +165,7 @@ export const MultiSelect = ({
                                 className={classes.inputTextFieldAutoHeight}
 
                                 variant="outlined"
-                                label={'Add existing menu item'}
+                                label={"Choose from list"}
                                 // placeholder={'Choose from the list'}
                             />
                         )}

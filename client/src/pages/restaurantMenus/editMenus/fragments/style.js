@@ -8,21 +8,6 @@ export const StyledEditMenus = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .preview-button {
-      padding: 12px 57px;
-      border-radius: 8px;
-      background-color: ${colors.primary};
-      transition: background-color 0.3s ease-in-out;
-      &:hover {
-        background-color: ${colors.red700};
-      }
-      font-family: Open Sans, sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
-      text-align: center;
-      color: ${colors.white};
-    }
   }
   .edit-menus-nav {
     position: relative;

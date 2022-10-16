@@ -80,6 +80,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "file-loader": "^6.2.0",
     "prop-types": "^15.7.2"
   }
 }

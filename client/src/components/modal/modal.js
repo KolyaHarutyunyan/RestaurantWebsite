@@ -4,7 +4,6 @@ import { HiArrowLeft } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
-import { MyButton } from "..";
 
 export const CustomModal = ({
   modalName,
@@ -37,13 +36,13 @@ export const CustomModal = ({
       >
         <div style={{ maxWidth: max }} className="container">
           {modalName === "MENU_FORM" ? (
-            <MyButton
-              buttonType={"button"}
-              buttonClassName={"close-modal-button"}
-              onClickButton={() => setActiveModal("")}
+            <button
+              type="button"
+              className="close-modal-button"
+              onClick={() => setActiveModal("")}
             >
               <MdClose style={{ fontSize: 24 }} />
-            </MyButton>
+            </button>
           ) : !fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button

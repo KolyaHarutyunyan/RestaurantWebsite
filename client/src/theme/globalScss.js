@@ -5,6 +5,15 @@ export const GlobalScss = createGlobalStyle`
   body {
     -webkit-overflow-scrolling: touch !important;
   }
+  
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+  }
+
     .element::-webkit-scrollbar {
         -webkit-appearance: none;
         width: 0;

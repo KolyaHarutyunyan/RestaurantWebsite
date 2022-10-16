@@ -130,7 +130,7 @@ export const Container = styled.div`
 
   .select-input {
     background: white;
-    width: 100%;!important;
+    width: 100% !important;
 
   //  .MuiOutlinedInput-notchedOutline {
   // border-color: blue;
