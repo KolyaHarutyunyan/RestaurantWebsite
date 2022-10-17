@@ -6,7 +6,9 @@ export const Menu = (props) => {
   return (
     <Fragment>
       <Head>{props.meta || <title>Welcome menuz</title>}</Head>
-      <MenuPage {...props.pageData} />
+
+      {/*<MenuPage {...props.pageData} />*/}
+
     </Fragment>
   );
 };
