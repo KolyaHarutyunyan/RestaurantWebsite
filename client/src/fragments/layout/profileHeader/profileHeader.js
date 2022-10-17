@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Images } from "@eachbase/theme/images";
-import { StyledDrawer, StyledProfileHeader } from "./style";
+import { StyledAccountDrawer, StyledProfileHeader } from "./style";
 import { AccountSettings } from "./core/accountSettings";
 import { accountSettings } from "./constants";
 import { useSagaStore, businessesActions } from "@eachbase/store";
@@ -28,13 +28,13 @@ export const ProfileHeader = () => {
           <Images.Avatar />
         </div>
       </StyledProfileHeader>
-      <StyledDrawer
+      <StyledAccountDrawer
         anchor={"right"}
         open={drawerPosition.right}
         onClose={() => toggleDrawer("right", false)}
       >
         <AccountSettings account={accountSettings} />
-      </StyledDrawer>
+      </StyledAccountDrawer>
     </>
   );
 };

@@ -25,6 +25,7 @@ import MenuSettings from "./menusPage/settings.svg";
 import AddIcon from "./menusPage/addIcon.svg";
 import MoreIconVertical from "./menusPage/moreIconVertical.svg";
 import RightArrow from "./menusPage/rightArrow.svg";
+import GalleryEmpty from "./menusPage/galleryEmpty.svg";
 import DummyImage from "./menusPage/dummyImage.png";
 
 // SETTINGS_PAGE_IMAGES
@@ -61,6 +62,7 @@ export const Images = {
   AddIcon,
   MoreIconVertical,
   RightArrow,
+  GalleryEmpty,
   DummyImage,
   DownloadIcon,
   RestaurantLogo,
