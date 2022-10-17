@@ -11,7 +11,6 @@ export const StyledEditMenus = styled.div`
   }
   .edit-menus-nav {
     position: relative;
-    /* border: 1px solid; */
     width: 100%;
     .edit-menus-tabs {
       .tabs-wrapper {
@@ -53,19 +52,6 @@ export const StyledEditMenus = styled.div`
           background-color: inherit;
         }
       }
-    }
-    .add-menu-item-button {
-      position: absolute;
-      top: 10px;
-      right: 0px;
-      svg {
-        margin-right: 16px;
-      }
-      font-family: Open Sans, sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
-      color: ${colors.primary};
     }
   }
 `;

@@ -30,13 +30,6 @@ export const EditMenusFragment = () => {
         </Button>
       </div>
       <div className="edit-menus-nav">
-        <button
-          type="button"
-          className="add-menu-item-button"
-          onClick={() => {}}
-        >
-          <Images.AddIcon /> Add New Menu Item
-        </button>
         <MuiTabs className={"edit-menus-tabs"} tabs={editMenusTabs} />
       </div>
     </StyledEditMenus>

@@ -6,6 +6,19 @@ export const StyledProductCard = styled.section`
   padding: 16px;
   background-color: ${colors.white};
   border-radius: 8px;
+  .add-menu-item-button {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    svg {
+      margin-right: 16px;
+    }
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: ${colors.primary};
+  }
   .product-list-box {
     width: 100%;
     margin-top: 16px;
@@ -31,10 +44,12 @@ export const StyledProductCard = styled.section`
           .product-image {
             width: 48px;
             height: 48px;
+            background-color: ${colors.lightGray};
             border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
             img {
               width: 100%;
               height: 100%;

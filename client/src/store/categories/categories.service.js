@@ -7,10 +7,15 @@ export const categoriesService = {
   create: (data, menuId) =>
     axios.post(`/menus/${menuId}/categories`, data, { auth: true }),
 
-  delete: (categoryId, menuId, categoryType) =>
+  edit: ({ data, menuId, categoryId }) =>
+    axios.post(`/menus/${menuId}/categories/${categoryId}`, data, {
+      auth: true,
+    }),
+
+  delete: ({ menuId, categoryId, categoryType }) =>
     axios.delete(`/menus/${menuId}/categories/${categoryId}`, {
       auth: true,
-      params: { type: categoryType === "food" ? "FOOD" : "DRINK" },
+      params: { type: categoryType },
     }),
 
   switchCategoryStatus: ({ menuId, categoryId }) =>

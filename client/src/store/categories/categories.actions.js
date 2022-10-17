@@ -1,6 +1,7 @@
 import {
   CREATE_CATEGORY,
   DELETE_CATEGORY,
+  EDIT_CATEGORY,
   GET_CATEGORIES,
   SWITCH_CATEGORY_STATUS,
 } from "./categories.types";
@@ -14,9 +15,9 @@ export const categoriesActions = {
     type: CREATE_CATEGORY,
     payload: { data, menuId, categoryType },
   }),
-  editCategory: () => ({
-    type: "",
-    payload: "",
+  editCategory: (data, menuId, categoryId) => ({
+    type: EDIT_CATEGORY,
+    payload: { data, menuId, categoryId },
   }),
   deleteCategory: (menuId, categoryId, categoryType) => ({
     type: DELETE_CATEGORY,

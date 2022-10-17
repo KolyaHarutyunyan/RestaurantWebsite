@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 import { Drawer } from "@material-ui/core";
-import styled from "styled-components";
 
 export const StyledProfileHeader = styled.div`
   position: relative;
@@ -21,7 +21,7 @@ export const StyledProfileHeader = styled.div`
   }
 `;
 
-export const StyledDrawer = styled(Drawer)`
+export const StyledAccountDrawer = styled(Drawer)`
   .MuiBackdrop-root {
     opacity: 0 !important;
   }
