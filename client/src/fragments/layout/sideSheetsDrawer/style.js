@@ -9,7 +9,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
     height: 34px;
     top: 57px;
     left: 207px;
-    z-index: 9999999;
+    z-index: 11000;
     cursor: pointer;
     transition: left 0.2s ease-in-out;
     &.closed {

@@ -30,6 +30,7 @@ import { colors } from "@eachbase/theme";
 import { Images } from "@eachbase/theme/images";
 
 export const FileUpload = ({
+  fileClassName,
   title = "File",
   // files = [],
   // mainImageId = false,
@@ -48,6 +49,7 @@ export const FileUpload = ({
   handleRemoveMany,
   selectedIndex,
   error,
+  infoText = "",
 }) => {
   const onDrop = (acceptedFiles) => {
     handleChange(acceptedFiles);
@@ -68,6 +70,7 @@ export const FileUpload = ({
 
   return (
     <Container
+      className={fileClassName}
       {...getRootProps()}
       // isDragActive={isDragActive}
     >
@@ -111,7 +114,11 @@ export const FileUpload = ({
               building === true ? `file-mock` : `file-mock-preview  big-one`
             }
           >
-            {type === "food" ? <Icons.FoodIcon /> : <Icons.DrinkIcon />}
+            {type === "food" ? (
+              <Images.MenuFoodIcon />
+            ) : type === "drink" ? (
+              <Icons.DrinkIcon />
+            ) : null}
           </div>
         ) : (
           !url &&
@@ -148,7 +155,7 @@ export const FileUpload = ({
           style={error === true ? { color: colors.primary } : {}}
           className="acceptable-file-size-noth"
         >
-          Only jpg,jpeg and png files are supported.{" "}
+          {infoText + " "}{" "}
           {error === true ? "Max size must be 2MB" : "Max size 2MB"}
         </div>
         {/*{mainImageId !== false ? (*/}

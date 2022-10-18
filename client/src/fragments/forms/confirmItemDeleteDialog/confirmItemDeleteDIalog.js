@@ -28,13 +28,13 @@ export const ConfirmItemDeleteDialog = () => {
 
   const onDelete = () => {
     if (selectedOption === "system") {
-      itemSaga.dispatch(params.categoryItem.item.id, params.menuId,);
+      itemSaga.dispatch(params.categoryItem.item.id, params.menuId);
     } else {
       categoryItemSaga.dispatch(
-          params.menuId,
-          params.categoryId,
-          params.categoryItem.id,
-          params.type === 'food' ? 'FOOD' : 'DRINK',
+        params.menuId,
+        params.categoryId,
+        params.categoryItem.id,
+        params.type === "food" ? "FOOD" : "DRINK"
       );
     }
   };

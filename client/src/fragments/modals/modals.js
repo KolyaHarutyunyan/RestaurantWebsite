@@ -95,7 +95,7 @@ export const Modals = () => {
       <CustomModal modalName={MODAL_NAMES.RESET_PASSWORD_SUCCESS_HELPER}>
         <ResetPasswordHelper />
       </CustomModal>
-      <CustomModal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
+      {/* <CustomModal border={true} modalName={MODAL_NAMES.MENU_ITEM_FORM}>
         <MenuItemForm />
       </CustomModal>
       <CustomModal
@@ -107,7 +107,7 @@ export const Modals = () => {
       </CustomModal>
       <CustomModal border={true} modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
         <ConfirmItemDeleteDialog />
-      </CustomModal>
+      </CustomModal> */}
     </Fragment>
   );
 };

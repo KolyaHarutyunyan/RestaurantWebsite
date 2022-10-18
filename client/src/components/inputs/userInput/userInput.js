@@ -8,7 +8,6 @@ export const UserInput = forwardRef((props, ref) => {
     inputLabel,
     inputType,
     inputName,
-    defaultValue,
     inputPlaceholder,
     inputDisabled,
     inputError,
@@ -33,7 +32,6 @@ export const UserInput = forwardRef((props, ref) => {
               ref={ref}
               className={`${inputError ? "error" : ""}`}
               name={inputName}
-              defaultValue={defaultValue || ""}
               placeholder={inputPlaceholder}
               disabled={inputDisabled}
               {...rest}
@@ -50,7 +48,6 @@ export const UserInput = forwardRef((props, ref) => {
                 type={inputType ? inputType : "text"}
                 className={`${inputError ? "error" : ""}`}
                 name={inputName}
-                defaultValue={defaultValue || ""}
                 onWheel={(evt) => inputType === "number" && evt.target.blur()}
                 autoComplete="off"
                 placeholder={inputPlaceholder}

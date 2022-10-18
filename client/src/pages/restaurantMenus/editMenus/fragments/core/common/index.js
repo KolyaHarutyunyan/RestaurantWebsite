@@ -1,2 +1,2 @@
-export { CategoryForm } from "./categoryForm";
-export { ProductForm } from "./productForm";
+export { CategoryFormContent } from "./categoryFormContent";
+export { ProductFormContent } from "./productFormContent";
