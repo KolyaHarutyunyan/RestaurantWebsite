@@ -34,4 +34,5 @@ export class MenuDTO {
   food?: CategoryDTO[];
   @ApiProperty({ type: [CategoryDTO], required: false })
   drinks?: CategoryDTO[];
+  updatedDate: Date;
 }

@@ -10,4 +10,5 @@ export interface IItem extends Document {
   mainImage?: number;
   images?: FileDTO[];
   testWebhook: any;
+  active: boolean;
 }

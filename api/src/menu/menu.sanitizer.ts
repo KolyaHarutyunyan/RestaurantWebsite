@@ -20,6 +20,7 @@ export class MenuSanitizer implements ISanitize {
       description: menu.description,
       isActive: menu.isActive,
       image: menu.image,
+      updatedDate: menu.updatedDate,
       food: this.sanitizeCategories(menu.food),
       drinks: this.sanitizeCategories(menu.drinks),
     };

@@ -59,6 +59,7 @@ export class MenuService {
       await this.fileService.deleteFile(dto.user.id, menu.image.id);
       menu.image = undefined;
     }
+    menu.updatedDate = new Date();
     menu = await menu.save();
     return await this.fillMenu(menu);
   }
@@ -134,6 +135,7 @@ export class MenuService {
     const categories = this.getCategories(menu, dto.type);
     const category = categories.find((cat) => cat._id.toString() === categoryId);
     category.name = dto.name;
+    category.active = dto.active;
     await menu.save();
     return await this.fillMenu(menu);
   }

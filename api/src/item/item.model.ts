@@ -9,6 +9,7 @@ const itemSchema = new Schema({
   option: { type: String },
   price: { type: Number },
   mainImage: Number,
+  active: { type: Boolean, default: true },
   images: [FileSchema],
   testWebhook: [],
 });
