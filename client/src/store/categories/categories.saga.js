@@ -99,7 +99,7 @@ function* switchCategoryStatus({ type, payload }) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
-      type: GET_CURRENT_MENU,
+      type: GET_BUSINESS_MENU,
       payload: payload.menuId,
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));

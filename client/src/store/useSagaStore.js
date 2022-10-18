@@ -8,7 +8,7 @@ export const useSagaStore = (actionCreator) => {
 
   const mockArgs = [];
 
-  for (let i = 0; i < actionCreator.length; i++) {
+  for (let i = 0; i < actionCreator?.length; i++) {
     mockArgs.push(null);
   }
 

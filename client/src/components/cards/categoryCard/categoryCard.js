@@ -30,7 +30,7 @@ export const CategoryCard = ({
             required={true}
             inputType={"text"}
             inputName={"name"}
-            inputPlaceholder={"Select/Create Category"}
+            inputPlaceholder={"Create Category"}
             {...register("name", { required: true })}
           />
           <Button square fullWidth maxWidth={"95px"} onLoad={loader}>
