@@ -17,6 +17,7 @@ import { ReorderDTO } from '../util/dto/reorder.dto';
 import { FileService } from 'src/components/file/file.service';
 import { SessionDTO } from 'src/auth';
 import { IMenuItem } from './interface/menu.interface';
+import { DTO } from 'src/util/dto';
 
 @Injectable()
 export class MenuService {
@@ -37,8 +38,8 @@ export class MenuService {
       businessId: dto.businessId,
       name: dto.name,
       isActive: false,
-      foodCategories: [],
-      drinkCategories: [],
+      food: [],
+      drinks: [],
       description: dto.description,
       tagline: dto.tagline,
       image: dto.image,
@@ -121,8 +122,11 @@ export class MenuService {
     const categories = this.getCategories(menu, dto.type);
     categories.unshift({
       name: dto.name,
+      description: dto.description,
+      active: dto.active === false ? false : true,
       items: [],
     } as IMenuCategory);
+
     await menu.save();
     return await this.fillMenu(menu);
   }
@@ -136,6 +140,7 @@ export class MenuService {
     const category = categories.find((cat) => cat._id.toString() === categoryId);
     category.name = dto.name;
     category.active = dto.active;
+    category.description = dto.description;
     await menu.save();
     return await this.fillMenu(menu);
   }

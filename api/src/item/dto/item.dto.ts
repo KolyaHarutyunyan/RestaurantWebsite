@@ -18,4 +18,6 @@ export class ItemDTO {
   images?: FileDTO[];
   @ApiProperty()
   active: boolean;
+  @ApiProperty()
+  note: string;
 }

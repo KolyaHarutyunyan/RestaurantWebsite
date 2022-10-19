@@ -6,6 +6,7 @@ const itemSchema = new Schema({
   businessId: { type: Types.ObjectId, ref: 'business', required: true },
   name: { type: String, required: true },
   description: { type: String },
+  note: { type: String },
   option: { type: String },
   price: { type: Number },
   mainImage: Number,

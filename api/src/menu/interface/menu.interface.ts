@@ -17,6 +17,7 @@ export interface IMenu extends Document {
 
 export interface IMenuCategory extends Document {
   name: string;
+  description: string;
   active: boolean;
   items: IMenuItem[];
 }

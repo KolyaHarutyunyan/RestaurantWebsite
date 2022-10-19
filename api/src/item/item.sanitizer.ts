@@ -15,6 +15,7 @@ export class ItemSanitizer implements ISanitize {
       mainImage: item.mainImage,
       images: item.images,
       active: item.active,
+      note: item.note,
     };
     return sanitizedItem;
   }

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { SessionDTO } from 'src/auth';
 import { FileDTO } from 'src/components/file';
 
@@ -28,6 +28,10 @@ export class EditItemDTO {
   @IsOptional()
   @IsBoolean()
   active: boolean;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  note: string;
   /** set by the system */
   user: SessionDTO;
 }

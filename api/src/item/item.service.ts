@@ -32,6 +32,7 @@ export class ItemService {
       mainImage: dto.mainImage,
       images: dto.images,
       businessId: dto.businessId,
+      note: dto.note ? dto.note : undefined,
     });
     await item.save();
     return this.sanitizer.sanitize(item);
@@ -47,6 +48,7 @@ export class ItemService {
     if (dto.option) item.option = dto.option;
     if (dto.price) item.price = dto.price;
     if (dto.active) item.active = dto.active;
+    if (dto.note) item.note = dto.note;
 
     await this.manageImages(item, dto);
     item = await item.save();
