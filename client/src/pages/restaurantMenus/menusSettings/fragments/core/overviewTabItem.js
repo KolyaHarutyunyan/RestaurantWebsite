@@ -1,42 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { StyledOverviewTabItem } from "./style";
 import { SaveOrCancelButton, UserInput } from "@eachbase/components";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { menusActions, useSagaStore } from "@eachbase/store";
 import Router from "next/router";
+import { initialMenu } from "./constants";
 
 export const OverviewTabItem = () => {
-  const [menu, setMenu] = useState({});
-
   const restaurant = useSelector((state) => state.businesses);
-  const menuById = useSelector((state) => state.menus.menuById);
+  const menu = useSelector((state) => state.menus.menuById);
 
   const { dispatch, status, destroy } = useSagaStore(menusActions.editMenu);
 
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
-    if (menuById) {
-      setMenu(menuById);
+    if (menu) {
+      reset(menu);
+    } else {
+      reset(initialMenu);
     }
-  }, [menuById]);
+  }, [menu]);
 
   useEffect(() => {
     if (status.onSuccess) {
       destroy.all();
-      reset();
+      reset(initialMenu);
       Router.push("/menus");
     }
   }, [status]);
 
   const onSubmit = (data) => {
     data = {
+      ...data,
       businessId: restaurant?.id,
       id: menu?.id,
-      name: data.name || menu?.name,
-      description: data.description || menu?.description,
-      note: data.note || menu?.note,
     };
     dispatch(data);
   };
@@ -64,14 +63,14 @@ export const OverviewTabItem = () => {
             charLimit={"1000"}
             {...register("description")}
           />
-          <UserInput
+          {/* <UserInput
             required={false}
             inputLabel={"Note"}
             inputType={"text"}
             inputName={"note"}
             defaultValue={menu?.note}
             {...register("note")}
-          />
+          /> */}
           <SaveOrCancelButton
             onCancel={(e) => {
               e.preventDefault();

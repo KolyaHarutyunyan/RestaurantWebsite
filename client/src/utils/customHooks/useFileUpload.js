@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useFileUpload = () => {
+export const useFileUpload = (images = [], mainImageIndex = 0) => {
   const [img, setImg] = useState("");
   const [imgs, setImgs] = useState([]);
   const [imgPush, setImgPush] = useState("");
@@ -8,6 +8,11 @@ export const useFileUpload = () => {
   const [error, setError] = useState(false);
   const [index, setIndex] = useState(0);
   const [deletedImg, setDeletedImg] = useState([]);
+
+  useEffect(() => {
+    setImgs(images);
+    setIndex(mainImageIndex);
+  }, [images, mainImageIndex]);
 
   const handleFileChange = (e) => {
     for (let item of e) {
@@ -27,8 +32,8 @@ export const useFileUpload = () => {
   };
 
   const handleFilesChange = (e) => {
-    const newArr = [...img];
-    const imageArr = [...imgPush];
+    const newArr = [...imgs];
+    const imageArr = [...imgsPush];
     for (let item of e) {
       if (item && item.size > 2097152) {
         setError(true);
@@ -53,15 +58,22 @@ export const useFileUpload = () => {
   };
 
   const handleFilesRemove = (key, item) => {
-    setIndex(0);
-    const deletedImages = [...imgsPush];
-    deletedImages.splice(key, 1);
-    setImgsPush(deletedImages);
-    const deletedImagesFile = [...imgs];
-    deletedImagesFile.splice(key, 1);
-    setImgs(deletedImagesFile);
-    const newArr = [...deletedImg, item];
-    setDeletedImg(newArr);
+    if (key && item) {
+      if (index === key) {
+        setIndex(0);
+      }
+      const deletedImages = [...imgsPush];
+      deletedImages.splice(key, 1);
+      setImgsPush(deletedImages);
+      const deletedImagesFile = [...imgs];
+      deletedImagesFile.splice(key, 1);
+      setImgs(deletedImagesFile);
+      const newArr = [...deletedImg, item];
+      setDeletedImg(newArr);
+    } else {
+      setImgs([]);
+      setImgsPush([]);
+    }
   };
 
   const handlePreviewClick = (e) => setIndex(e);

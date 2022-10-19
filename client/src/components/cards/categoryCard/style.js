@@ -6,16 +6,11 @@ export const StyledCategoryCard = styled.section`
   padding: 16px;
   background-color: ${colors.white};
   border-radius: 8px;
-  .category-form {
+  .category-add-box {
+    width: 100%;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    .category-input {
-      max-width: 100%;
-      margin: 0px 16px 0px 0px;
-      & input::placeholder {
-        color: ${colors.lightBlack};
-      }
-    }
   }
   .category-list-box {
     width: 100%;

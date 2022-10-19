@@ -12,6 +12,7 @@ export const StyledMenuItem = styled.section`
     isolation: isolate;
     background-color: ${colors.white};
     border-radius: 8px;
+    cursor: pointer;
     & > div {
       &:not(:first-of-type) {
         margin-top: 8px;

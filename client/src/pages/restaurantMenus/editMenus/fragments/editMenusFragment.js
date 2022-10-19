@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { StyledEditMenus } from "./style";
-import { editMenusBreadcrumbs, editMenusTabs } from "./constants";
+import { editMenusTabs, getMenusBreadcrumbs } from "./constants";
 import { Button, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
-import { Images } from "@eachbase/theme/images";
+import { useSelector } from "react-redux";
 import { menusActions, useSagaStore } from "@eachbase/store";
 
 export const EditMenusFragment = () => {
-  const restaurantMenu = useSagaStore(menusActions.getBusinessMenu);
+  const menu = useSelector((state) => state.menus.menuById);
+
+  const restaurantMenuSaga = useSagaStore(menusActions.getBusinessMenu);
 
   const router = useRouter();
 
@@ -15,7 +17,7 @@ export const EditMenusFragment = () => {
 
   useEffect(() => {
     if (menuId) {
-      restaurantMenu.dispatch(menuId);
+      restaurantMenuSaga.dispatch(menuId);
     }
   }, [menuId]);
 
@@ -24,7 +26,7 @@ export const EditMenusFragment = () => {
   return (
     <StyledEditMenus>
       <div className="edit-menus-header">
-        <MuiBreadcrumbs breadcrumbs={editMenusBreadcrumbs} />
+        <MuiBreadcrumbs breadcrumbs={getMenusBreadcrumbs(menu?.name)} />
         <Button square fullWidth maxWidth={"176px"} onClick={handlePreview}>
           Preview
         </Button>

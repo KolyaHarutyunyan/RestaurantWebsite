@@ -8,7 +8,7 @@ export const categoriesService = {
     axios.post(`/menus/${menuId}/categories`, data, { auth: true }),
 
   edit: ({ data, menuId, categoryId }) =>
-    axios.post(`/menus/${menuId}/categories/${categoryId}`, data, {
+    axios.patch(`/menus/${menuId}/categories/${categoryId}`, data, {
       auth: true,
     }),
 
@@ -16,10 +16,5 @@ export const categoriesService = {
     axios.delete(`/menus/${menuId}/categories/${categoryId}`, {
       auth: true,
       params: { type: categoryType },
-    }),
-
-  switchCategoryStatus: ({ menuId, categoryId }) =>
-    axios.patch(`/menus/${menuId}/categories/${categoryId}/toggle`, {
-      auth: true,
     }),
 };

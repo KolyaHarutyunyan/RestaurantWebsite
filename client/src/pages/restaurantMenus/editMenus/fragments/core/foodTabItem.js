@@ -6,7 +6,10 @@ import { useForm } from "react-hook-form";
 import { categoriesActions, itemActions, useSagaStore } from "@eachbase/store";
 import { CategoryFormContent, ProductFormContent } from "./common";
 import {
-  CATEGORY_FORM,
+  CATEGORY_FORM_ADD,
+  CATEGORY_FORM_EDIT,
+  initialFoodCategory,
+  initialFoodProduct,
   PRODUCT_FORM_ADD,
   PRODUCT_FORM_EDIT,
 } from "./constants";
@@ -19,20 +22,20 @@ export const FoodTabItem = () => {
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const editCategorySaga = useSagaStore(categoriesActions.editCategory);
   const deleteCategorySaga = useSagaStore(categoriesActions.deleteCategory);
-  const switchCategorySaga = useSagaStore(categoriesActions.switchCategory);
 
   const createProductSaga = useSagaStore(itemActions.createProduct);
   const editProductSaga = useSagaStore(itemActions.editProduct);
-  // const deleteProductSaga = useSagaStore(itemActions.deleteProduct);
+  const deleteProductSaga = useSagaStore(itemActions.deleteProduct);
 
   const [foodCategory, setFoodCategory] = useState(null);
   const [chosenFoodCategory, setChosenFoodCategory] = useState(null);
   const [chosenFoodProduct, setChosenFoodProduct] = useState(null);
   const [drawerPosition, setDrawerPosition] = useState({ right: false });
   const [formContentLabel, setFormContentLabel] = useState("");
+  const [images, setImages] = useState([]);
+  const [mainImageIndex, setMainImageIndex] = useState(0);
 
-  const createCategoryForm = useForm();
-  const editCategoryForm = useForm();
+  const submitCategoryForm = useForm();
   const submitProductForm = useForm();
 
   const {
@@ -44,14 +47,27 @@ export const FoodTabItem = () => {
     handleFilesChange,
     handleFilesRemove,
     handlePreviewClick,
-  } = useFileUpload();
+  } = useFileUpload(images, mainImageIndex);
 
   useEffect(() => {
-    if (createCategorySaga?.status?.onSuccess) {
-      createCategorySaga?.destroy?.success();
-      createCategoryForm?.reset();
+    if (chosenFoodCategory) {
+      submitCategoryForm.reset(chosenFoodCategory);
+    } else {
+      submitCategoryForm.reset(initialFoodCategory);
     }
-  }, [createCategorySaga?.status]);
+  }, [chosenFoodCategory]);
+
+  useEffect(() => {
+    if (chosenFoodProduct) {
+      submitProductForm.reset(chosenFoodProduct);
+      setImages(chosenFoodProduct.images);
+      setMainImageIndex(chosenFoodProduct.mainImage);
+    } else {
+      submitProductForm.reset(initialFoodProduct);
+      setImages(initialFoodProduct.images);
+      setMainImageIndex(initialFoodProduct.mainImage);
+    }
+  }, [chosenFoodProduct]);
 
   useEffect(() => {
     if (deleteCategorySaga?.status?.onSuccess) {
@@ -69,6 +85,9 @@ export const FoodTabItem = () => {
     } else if (editProductSaga?.status?.onSuccess) {
       editProductSaga?.destroy?.success();
       closeDrawer();
+    } else if (createCategorySaga?.status?.onSuccess) {
+      createCategorySaga?.destroy?.success();
+      closeDrawer();
     } else if (editCategorySaga?.status?.onSuccess) {
       editCategorySaga?.destroy?.success();
       closeDrawer();
@@ -76,6 +95,7 @@ export const FoodTabItem = () => {
   }, [
     createCategorySaga?.status,
     editProductSaga?.status,
+    createCategorySaga?.status,
     editCategorySaga?.status,
   ]);
 
@@ -85,17 +105,23 @@ export const FoodTabItem = () => {
 
   const closeDrawer = () => {
     toggleDrawer("right", false);
-    editCategoryForm.reset();
-    submitProductForm.reset();
   };
 
   const handleCurrentCategory = (category) => {
     setFoodCategory(category);
+    submitProductForm.reset(initialFoodProduct);
+    setImages(initialFoodProduct.images);
+    setMainImageIndex(initialFoodProduct.mainImage);
+  };
+  const handleCategoryAdd = () => {
+    setChosenFoodCategory(null);
+    setFormContentLabel(CATEGORY_FORM_ADD);
+    toggleDrawer("right", true);
   };
 
   const handleCategoryEdit = (category) => {
     setChosenFoodCategory(category);
-    setFormContentLabel(CATEGORY_FORM);
+    setFormContentLabel(CATEGORY_FORM_EDIT);
     toggleDrawer("right", true);
   };
 
@@ -104,24 +130,26 @@ export const FoodTabItem = () => {
     deleteCategorySaga.dispatch(menu.id, category.id, "FOOD");
   };
 
-  const handleCategorySwitch = (categoryId) => {
-    switchCategorySaga.dispatch(menu.id, categoryId);
-  };
-
-  const handleCategoryAdd = (data) => {
-    data = {
-      ...data,
+  const handleCategorySwitch = (category) => {
+    category = {
+      ...category,
       type: "FOOD",
+      active: !category.active,
     };
-    createCategorySaga.dispatch(data, menu.id);
+    editCategorySaga.dispatch(category, menu.id, category.id);
   };
 
   const handleCategorySave = (data) => {
     data = {
       ...data,
       type: "FOOD",
+      active: true,
     };
-    editCategorySaga.dispatch(data, menu.id, chosenFoodCategory?.id);
+    if (chosenFoodCategory) {
+      editCategorySaga.dispatch(data, menu.id, chosenFoodCategory?.id);
+    } else {
+      createCategorySaga.dispatch(data, menu.id);
+    }
   };
 
   const handleProductAdd = () => {
@@ -138,35 +166,46 @@ export const FoodTabItem = () => {
 
   const handleProductDelete = (product) => {
     setChosenFoodProduct(product);
+    deleteProductSaga.dispatch(product.id, menu?.id);
   };
 
-  const handleProductSwitch = (productId) => {};
+  const handleProductSwitch = (product) => {
+    product = {
+      ...product,
+      businessId: restaurant?.id,
+      active: !product.active,
+    };
+    editProductSaga.dispatch(product, product.id, menu?.id);
+  };
 
   const handleProductSave = async (data) => {
     const images =
       imgsPush &&
       imgsPush.length &&
       (await ImgUploader(imgsPush, true).then((res) => res));
-    const editImage = imgsPush?.length ? { imagesToAdd: [...images] } : "";
-    const deletedImages = deletedImg?.length
+    const imagesToAdd = imgsPush?.length ? { imagesToAdd: [...images] } : "";
+    const imagesToRemove = deletedImg?.length
       ? { imagesToRemove: [...deletedImg] }
       : "";
     const uploadedArr = images ? images : [];
     let filteredImages = imgs?.filter((i) => i.thumbUrl);
     const allPhotos = [...filteredImages, ...uploadedArr];
+    data = {
+      ...data,
+      mainImage: index,
+      businessId: restaurant?.id,
+    };
     if (chosenFoodProduct) {
       data = {
         ...data,
-        ...editImage,
-        ...deletedImages,
-        businessId: restaurant?.id,
+        ...imagesToAdd,
+        ...imagesToRemove,
       };
       editProductSaga.dispatch(data, chosenFoodProduct?.id, menu?.id);
     } else {
       data = {
         ...data,
         images: allPhotos,
-        businessId: restaurant?.id,
       };
       createProductSaga.dispatch(data, menu?.id, foodCategory?.id, "FOOD");
     }
@@ -179,9 +218,7 @@ export const FoodTabItem = () => {
           categories={menu.food}
           handleCurrentCategory={handleCurrentCategory}
           currentCategory={foodCategory}
-          loader={createCategorySaga.status.onLoad}
-          handleCategoryAdd={createCategoryForm.handleSubmit(handleCategoryAdd)}
-          register={createCategoryForm.register}
+          handleCategoryAdd={handleCategoryAdd}
           handleCategoryEdit={handleCategoryEdit}
           handleCategoryDelete={handleCategoryDelete}
           handleCategorySwitch={handleCategorySwitch}
@@ -203,16 +240,24 @@ export const FoodTabItem = () => {
         open={drawerPosition.right}
         onClose={closeDrawer}
       >
-        {formContentLabel === CATEGORY_FORM ? (
+        {formContentLabel === CATEGORY_FORM_ADD ||
+        formContentLabel === CATEGORY_FORM_EDIT ? (
           <ItemFormCard
-            formCardTitle={"Edit Category"}
-            formCardLoader={editCategorySaga?.status?.onLoad}
+            formCardTitle={
+              chosenFoodCategory ? "Edit Category" : "Add Category"
+            }
+            formCardLoader={
+              createCategorySaga.status.onLoad ||
+              editCategorySaga?.status?.onLoad
+            }
             handleClose={closeDrawer}
-            handleSubmitForm={editCategoryForm.handleSubmit(handleCategorySave)}
+            handleSubmitForm={submitCategoryForm.handleSubmit(
+              handleCategorySave
+            )}
           >
             <CategoryFormContent
               chosenCategory={chosenFoodCategory}
-              register={editCategoryForm.register}
+              register={submitCategoryForm.register}
             />
           </ItemFormCard>
         ) : formContentLabel === PRODUCT_FORM_ADD ||

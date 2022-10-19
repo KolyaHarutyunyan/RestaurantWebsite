@@ -67,7 +67,6 @@ export const FileUpload = ({
   //         setManyImages(url)
   //     }
   // }, [url])
-
   return (
     <Container
       className={fileClassName}
@@ -75,7 +74,7 @@ export const FileUpload = ({
       // isDragActive={isDragActive}
     >
       <div className="uploaded-files">
-        {many === true && url && url.length
+        {many === true
           ? url.map((file, j) => (
               <div
                 key={file.id}

@@ -1,17 +1,14 @@
-export const CATEGORY_FORM = "CATEGORY_FORM";
+export const CATEGORY_FORM_ADD = "CATEGORY_FORM_ADD";
+export const CATEGORY_FORM_EDIT = "CATEGORY_FORM_EDIT";
 export const PRODUCT_FORM_ADD = "PRODUCT_FORM_ADD";
 export const PRODUCT_FORM_EDIT = "PRODUCT_FORM_EDIT";
 
-export const getFormCardTitle = (label = "") => {
-  switch (label) {
-    case CATEGORY_FORM:
-      return "Edit Category";
-    case PRODUCT_FORM_ADD:
-      return "Add Menu Items";
-    case PRODUCT_FORM_EDIT:
-      return "Edit Menu Item";
-
-    default:
-      return label;
-  }
+export const initialFoodCategory = { name: "", description: "" };
+export const initialFoodProduct = {
+  name: "",
+  price: "",
+  description: "",
+  note: "",
+  images: [],
+  mainImage: 0,
 };

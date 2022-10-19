@@ -38,12 +38,15 @@ export const ProductCard = ({
                   <li
                     key={item.id}
                     className={`product-item 
-              ${!item.isActive && false ? "inactive" : ""}`}
+              ${!item.active ? "inactive" : ""}`}
                   >
                     <div className="product-name-box">
                       <div className="product-image">
                         {item.images?.length ? (
-                          <img src={item.images[0].url} alt={item.name} />
+                          <img
+                            src={item.images[item.mainImage].url}
+                            alt={item.name}
+                          />
                         ) : (
                           <Images.GalleryEmpty />
                         )}
@@ -56,9 +59,9 @@ export const ProductCard = ({
                       </div>
                       <div className="switch-wrapper">
                         <Switch
-                          status={item.isActive || true}
+                          status={item.active}
                           offColor={colors.lightBlack}
-                          onClick={() => handleProductSwitch(item.id)}
+                          onClick={() => handleProductSwitch(item)}
                         />
                       </div>
                       <MoreDropdown
