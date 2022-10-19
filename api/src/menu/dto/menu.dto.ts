@@ -13,6 +13,10 @@ export class CategoryDTO {
   id: string;
   @ApiProperty()
   name: string;
+  @ApiProperty()
+  active: boolean;
+  @ApiProperty()
+  description: string;
   @ApiProperty({ type: [MenuItemDTO] })
   items: MenuItemDTO[];
 }

@@ -126,7 +126,6 @@ export class MenuService {
       active: dto.active === false ? false : true,
       items: [],
     } as IMenuCategory);
-
     await menu.save();
     return await this.fillMenu(menu);
   }

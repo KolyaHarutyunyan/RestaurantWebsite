@@ -53,7 +53,13 @@ export class MenuSanitizer implements ISanitize {
           sanitizedItems.push({ id: items[j]._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
-      sanitized.push({ id: categories[i]._id, name: categories[i].name, items: sanitizedItems });
+      sanitized.push({
+        id: categories[i]._id,
+        name: categories[i].name,
+        items: sanitizedItems,
+        active: categories[i].active,
+        description: categories[i].description,
+      });
     }
     return sanitized;
   }
