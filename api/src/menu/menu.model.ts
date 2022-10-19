@@ -23,7 +23,7 @@ const MenuSchema = new Schema(
     description: { type: String },
     food: [CategorySchema],
     drinks: [CategorySchema],
-    isActive: { type: Boolean, required: true },
+    isActive: { type: Boolean, required: true, default: true },
   },
   { timestamps: true },
 );
