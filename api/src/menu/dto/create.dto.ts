@@ -25,7 +25,7 @@ export class CreateCategoryDTO extends DTO {
   name: string;
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   description: string;
   @ApiProperty()
   @IsBoolean()

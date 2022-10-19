@@ -140,7 +140,7 @@ export class MenuService {
     const category = categories.find((cat) => cat._id.toString() === categoryId);
     category.name = dto.name;
     category.active = dto.active;
-    category.description = dto.description;
+    if (dto.description) category.description = dto.description;
     await menu.save();
     return await this.fillMenu(menu);
   }
