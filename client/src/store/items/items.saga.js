@@ -47,8 +47,8 @@ function* createItem({ payload, type }) {
     //   payload: data,
     // });
     yield put({
-      type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      type: GET_ITEMS,
+      payload: payload.categoryId,
     });
     // yield put(categoryItemActions.add(payload.categoryId, data.id, payload.menuId, payload.categoryType));
     yield put(

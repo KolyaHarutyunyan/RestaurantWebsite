@@ -1,6 +1,5 @@
 import { StyledCategoryCard } from "./style";
 import {
-  UserInput,
   Button,
   Switch,
   MoreDropdown,
@@ -12,8 +11,6 @@ import { colors } from "@eachbase/theme";
 export const CategoryCard = ({
   categories = [],
   currentCategory,
-  loader,
-  register,
   handleCategoryAdd,
   handleCategoryEdit,
   handleCategoryDelete,
@@ -23,21 +20,11 @@ export const CategoryCard = ({
 }) => {
   return (
     <StyledCategoryCard>
-      <form onSubmit={handleCategoryAdd}>
-        <div className="category-form">
-          <UserInput
-            inputClassName={"category-input"}
-            required={true}
-            inputType={"text"}
-            inputName={"name"}
-            inputPlaceholder={"Create Category"}
-            {...register("name", { required: true })}
-          />
-          <Button square fullWidth maxWidth={"95px"} onLoad={loader}>
-            Add
-          </Button>
-        </div>
-      </form>
+      <div className="category-add-box">
+        <Button square fullWidth maxWidth={"95px"} onClick={handleCategoryAdd}>
+          Add
+        </Button>
+      </div>
       {categories.length ? (
         <div className="category-list-box">
           <ul className="category-list">
@@ -45,7 +32,7 @@ export const CategoryCard = ({
               <li
                 key={category.id}
                 className={`category-item ${
-                  !category.isActive && false ? "inactive" : ""
+                  !category.active ? "inactive" : ""
                 } ${category.id === currentCategory?.id ? "current" : ""}`}
                 onClick={() => handleCurrentCategory(category)}
               >
@@ -59,11 +46,11 @@ export const CategoryCard = ({
                 </div>
                 <div className="category-action-box">
                   <Switch
-                    status={category.isActive || true}
+                    status={category.active}
                     offColor={colors.lightBlack}
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleCategorySwitch(category.id);
+                      handleCategorySwitch(category);
                     }}
                   />
                   <div className="right-arrow">
