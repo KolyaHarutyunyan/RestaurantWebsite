@@ -6,6 +6,7 @@ export const ItemFormCard = ({
   formCardTitle,
   formCardLoader,
   handleClose,
+  handleSubmitForm,
   children,
 }) => {
   return (
@@ -17,13 +18,17 @@ export const ItemFormCard = ({
       >
         <MdClose style={{ fontSize: 24 }} />
       </button>
-      <h2 className="form-card-title">{formCardTitle}</h2>
-      <div className="form-content-wrapper">{children}</div>
-      <SaveOrCancelButton
-        className={"form-save-cancel-btns"}
-        onCancel={handleClose}
-        onLoad={formCardLoader}
-      />
+      <form onSubmit={handleSubmitForm}>
+        <div className="form-wrapper">
+          <h2 className="form-card-title">{formCardTitle}</h2>
+          <div className="form-content-wrapper">{children}</div>
+          <SaveOrCancelButton
+            className={"form-save-cancel-btns"}
+            onCancel={handleClose}
+            onLoad={formCardLoader}
+          />
+        </div>
+      </form>
     </StyledItemFormCard>
   );
 };

@@ -89,6 +89,7 @@ export const SettingsTabItem = () => {
             url={img || restaurant.logo}
             handleRemove={handleFileRemove}
             error={error}
+            infoText={"Only jpg,jpeg and png files are supported."}
           />
         </div>
         <UserInput

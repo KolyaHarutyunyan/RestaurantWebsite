@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
-export const Container = styled.div`
+export const Container = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
   min-height: ${({ limit }) => (limit === 0 ? "80px" : "200px")};
   background-color: ${({ limit }) =>
     limit === 0 ? colors.primary : colors.white};
   ${({ isDragActive }) => (isDragActive ? colors.action : colors.notSet)};
-  /* max-width: 584px; */
   width: 100%;
   border: 1px dashed ${colors.gray};
   padding: 24px 0px 25px;
@@ -41,7 +42,7 @@ export const Container = styled.div`
       }
       width: 100px;
       height: 100px;
-      background: #0000002a;
+      background-color: ${colors.lightGray};
       margin: 10px;
       &.big-one {
         @media (max-width: 767px) {
@@ -141,7 +142,7 @@ export const Container = styled.div`
         font-size: 14px;
       }
       .active {
-        margin: 0px 6px;
+        margin: 0px 2px;
         color: ${colors.yellowOrange};
         cursor: pointer;
       }
