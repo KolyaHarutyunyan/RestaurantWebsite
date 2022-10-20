@@ -1,4 +1,9 @@
-import { DrinksTabItem, FoodTabItem } from "./core";
+import { CategoryTabItem } from "./core";
+
+const category = {
+  names: ["food", "drinks"],
+  types: ["FOOD", "DRINK"],
+};
 
 export const getMenusBreadcrumbs = (menuName = "") => {
   return [
@@ -8,6 +13,22 @@ export const getMenusBreadcrumbs = (menuName = "") => {
 };
 
 export const editMenusTabs = [
-  { label: "Food", item: <FoodTabItem /> },
-  { label: "Drinks", item: <DrinksTabItem /> },
+  {
+    label: "Food",
+    item: (
+      <CategoryTabItem
+        categoryName={category.names[0]}
+        categoryType={category.types[0]}
+      />
+    ),
+  },
+  {
+    label: "Drinks",
+    item: (
+      <CategoryTabItem
+        categoryName={category.names[1]}
+        categoryType={category.types[1]}
+      />
+    ),
+  },
 ];

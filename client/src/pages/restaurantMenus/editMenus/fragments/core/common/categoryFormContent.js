@@ -2,7 +2,6 @@ import { StyledCategoryForm } from "./style";
 import { UserInput } from "@eachbase/components";
 
 export const CategoryFormContent = ({ chosenCategory, register }) => {
-  console.log(chosenCategory, "chosenCategory");
   return (
     <StyledCategoryForm>
       <UserInput

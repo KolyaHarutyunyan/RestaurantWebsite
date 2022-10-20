@@ -3,8 +3,8 @@ export const CATEGORY_FORM_EDIT = "CATEGORY_FORM_EDIT";
 export const PRODUCT_FORM_ADD = "PRODUCT_FORM_ADD";
 export const PRODUCT_FORM_EDIT = "PRODUCT_FORM_EDIT";
 
-export const initialFoodCategory = { name: "", description: "" };
-export const initialFoodProduct = {
+export const initialCategoryState = { name: "", description: "" };
+export const initialProductState = {
   name: "",
   price: "",
   description: "",

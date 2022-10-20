@@ -1,14 +1,7 @@
 import styled from "styled-components";
 import { Drawer } from "@material-ui/core";
 
-export const StyledFoodTabItem = styled.section`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  column-gap: 16px;
-`;
-
-export const StyledDrinksTabItem = styled.section`
+export const StyledCategoryTabItem = styled.section`
   width: 100%;
   display: flex;
   justify-content: flex-start;

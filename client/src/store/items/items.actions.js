@@ -6,9 +6,9 @@ import {
 } from "./items.types";
 
 export const itemActions = {
-  get: (categoryId) => ({
+  get: (businessId) => ({
     type: GET_ITEMS,
-    payload: categoryId,
+    payload: businessId,
   }),
   createProduct: (data, menuId, categoryId, categoryType) => ({
     type: CREATE_ITEM,
