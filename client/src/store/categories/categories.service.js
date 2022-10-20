@@ -17,4 +17,10 @@ export const categoriesService = {
       auth: true,
       params: { type: categoryType },
     }),
+
+  reorder: ({ menuId, categType, move }) =>
+    axios.patch(`/menus/${menuId}/categories/reorder`, move, {
+      auth: true,
+      params: { type: categType },
+    }),
 };

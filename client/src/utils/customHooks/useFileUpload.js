@@ -58,7 +58,7 @@ export const useFileUpload = (images = [], mainImageIndex = 0) => {
   };
 
   const handleFilesRemove = (key, item) => {
-    if (key && item) {
+    if (key >= 0 && item) {
       if (index === key) {
         setIndex(0);
       }

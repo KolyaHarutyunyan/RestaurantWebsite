@@ -3,6 +3,7 @@ import {
   DELETE_CATEGORY,
   EDIT_CATEGORY,
   GET_CATEGORIES,
+  REORDER_CATEGORIES,
 } from "./categories.types";
 
 export const categoriesActions = {
@@ -21,5 +22,9 @@ export const categoriesActions = {
   deleteCategory: (menuId, categoryId, categoryType) => ({
     type: DELETE_CATEGORY,
     payload: { menuId, categoryId, categoryType },
+  }),
+  reorder: (menuId, categType, move) => ({
+    type: REORDER_CATEGORIES,
+    payload: { menuId, categType, move },
   }),
 };

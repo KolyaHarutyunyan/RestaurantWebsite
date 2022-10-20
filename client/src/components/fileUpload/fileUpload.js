@@ -113,9 +113,9 @@ export const FileUpload = ({
               building === true ? `file-mock` : `file-mock-preview  big-one`
             }
           >
-            {type === "food" ? (
+            {type === "FOOD" ? (
               <Images.MenuFoodIcon />
-            ) : type === "drink" ? (
+            ) : type === "DRINK" ? (
               <Icons.DrinkIcon />
             ) : null}
           </div>
@@ -130,9 +130,9 @@ export const FileUpload = ({
             >
               {building === true ? (
                 <Icons.BuildingIcon />
-              ) : type === "food" ? (
+              ) : type === "FOOD" ? (
                 <Icons.FoodIcon />
-              ) : type === "drink" ? (
+              ) : type === "DRINK" ? (
                 <Icons.DrinkIcon />
               ) : (
                 <Icons.MenuIcon />

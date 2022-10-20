@@ -4,12 +4,14 @@ import { editMenusTabs, getMenusBreadcrumbs } from "./constants";
 import { Button, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { menusActions, useSagaStore } from "@eachbase/store";
+import { itemActions, menusActions, useSagaStore } from "@eachbase/store";
 
 export const EditMenusFragment = () => {
+  const restaurant = useSelector(({ businesses }) => businesses);
   const menu = useSelector((state) => state.menus.menuById);
 
   const restaurantMenuSaga = useSagaStore(menusActions.getBusinessMenu);
+  const restaurantProductsSaga = useSagaStore(itemActions.get);
 
   const router = useRouter();
 
@@ -20,6 +22,12 @@ export const EditMenusFragment = () => {
       restaurantMenuSaga.dispatch(menuId);
     }
   }, [menuId]);
+
+  useEffect(() => {
+    if (restaurant) {
+      restaurantProductsSaga.dispatch(restaurant?.id);
+    }
+  }, [restaurant]);
 
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 

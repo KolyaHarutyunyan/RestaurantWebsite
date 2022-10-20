@@ -5,6 +5,7 @@ import {
   CREATE_CATEGORY,
   DELETE_CATEGORY,
   EDIT_CATEGORY,
+  REORDER_CATEGORIES,
 } from "./categories.types";
 import { categoriesService } from "./categories.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
@@ -89,9 +90,30 @@ function* deleteCategory({ payload, type }) {
   }
 }
 
+function* reorderCategories({ payload, type }) {
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  try {
+    yield call(categoriesService.reorder, payload);
+    yield put({
+      type: GET_BUSINESS_MENU,
+      payload: payload.menuId,
+    });
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
+}
+
 export function* watchCategories() {
   yield takeLatest(CREATE_CATEGORY, createCategory);
   yield takeLatest(EDIT_CATEGORY, editCategory);
   yield takeLatest(GET_CATEGORIES, getCategories);
   yield takeLatest(DELETE_CATEGORY, deleteCategory);
+  yield takeLatest(REORDER_CATEGORIES, reorderCategories);
 }
