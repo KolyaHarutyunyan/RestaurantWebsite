@@ -15,10 +15,10 @@ import {
   GET_BUSINESS_MENU_SUCCESS,
 } from "./menus.types";
 import { menusService } from "./menus.service";
-import { imageService } from "../imageService";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
+import Router from "next/router";
 
 function* getMenus({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -110,7 +110,7 @@ function* createMenu({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const res = yield call(menusService.createMenu, payload);
-    window.location.replace(`/menus/settings?menuId=${res.data.id}`);
+    Router.push(`/menus/settings?menuId=${res.data.id}`);
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));

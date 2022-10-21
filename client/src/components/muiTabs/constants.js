@@ -2,10 +2,6 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import { colors } from "@eachbase/theme";
 
-export const settingsBreadcrumbs = [
-  { path: "/settings", text: "Restuarant Settings" },
-];
-
 export const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
   return (

@@ -22,17 +22,48 @@ export const StyledUserInput = styled.div.attrs((props) => ({
         color: ${colors.primary};
       }
     }
-    & > input {
-      outline: none;
+    .input-box {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       border: 1px solid ${colors.lightBlack};
       width: 100%;
       padding: 12px 16px;
       border-radius: 8px;
-      font-family: Open Sans, sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      color: ${colors.secondary};
+      .input-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px;
+      }
+      input {
+        outline: none;
+        border: none;
+        width: 100%;
+        font-family: Open Sans, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: ${colors.secondary};
+        &:disabled {
+          background-color: inherit;
+        }
+      }
+      .vision-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 12px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
     }
     & > textarea {
       outline: none;

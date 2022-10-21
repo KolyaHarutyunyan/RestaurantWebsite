@@ -9,6 +9,10 @@ export const MenuItem = ({ menu, restaurant }) => {
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
 
+  const menuItems = menu?.food
+    ?.map((item) => item.items)
+    .concat(menu?.drinks?.map((item) => item.items));
+
   const handleSwitch = (event) => {
     event?.stopPropagation();
     switchMenuStatusSaga.dispatch(menu?.id, restaurant?.id);
@@ -43,7 +47,7 @@ export const MenuItem = ({ menu, restaurant }) => {
         </div>
         <div className="menu-extra-info-box">
           <span className="menu-extra-info-text">{`${
-            menu?.food?.concat(menu?.drinks)?.length
+            menuItems?.length
           } Items, Last updated on ${formatDate(menu?.lastUpdate)}`}</span>
         </div>
         <div className="menu-more-and-settings-box">
