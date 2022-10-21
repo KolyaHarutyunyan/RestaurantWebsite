@@ -41,7 +41,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Website"}
           inputType={"text"}
           inputName={"website"}
-          defaultValue={restaurant.website}
+          defaultValue={restaurant?.website}
           {...register("website")}
         />
         <UserInput
@@ -49,7 +49,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Facebook"}
           inputType={"text"}
           inputName={"facebook"}
-          defaultValue={restaurant.facebook}
+          defaultValue={restaurant?.facebook}
           {...register("facebook")}
         />
         <UserInput
@@ -57,7 +57,7 @@ export const SocialAccountsTabItem = () => {
           inputLabel={"Instagram"}
           inputType={"text"}
           inputName={"instagram"}
-          defaultValue={restaurant.instagram}
+          defaultValue={restaurant?.instagram}
           {...register("instagram")}
         />
         <SaveOrCancelButton

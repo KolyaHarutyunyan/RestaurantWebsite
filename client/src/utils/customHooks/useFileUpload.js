@@ -10,8 +10,10 @@ export const useFileUpload = (images = [], mainImageIndex = 0) => {
   const [deletedImg, setDeletedImg] = useState([]);
 
   useEffect(() => {
-    setImgs(images);
-    setIndex(mainImageIndex);
+    if(images?.length || mainImageIndex) {
+      setImgs(images);
+      setIndex(mainImageIndex);
+    }
   }, [images, mainImageIndex]);
 
   const handleFileChange = (e) => {
