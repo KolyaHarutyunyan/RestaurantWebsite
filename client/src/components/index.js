@@ -14,7 +14,6 @@ export {
   Select,
   AddressInput,
   Radio,
-  SettingsInput,
   UserInput,
 } from "./inputs";
 export { CustomModal, ModalProvider, useModal } from "./modal";
