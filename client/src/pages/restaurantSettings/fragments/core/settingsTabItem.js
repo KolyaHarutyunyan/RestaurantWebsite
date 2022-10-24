@@ -15,7 +15,7 @@ import { businessesActions, useSagaStore } from "@eachbase/store";
 import { ImgUploader, useFileUpload } from "@eachbase/utils";
 
 export const SettingsTabItem = () => {
-  const restaurant = useSelector((state) => state.businesses) || {};
+  const restaurant = useSelector((state) => state.businesses);
 
   const [address, setAddress] = useState({});
   const [hours, setHours] = useState({});
@@ -32,9 +32,12 @@ export const SettingsTabItem = () => {
     useFileUpload();
 
   useEffect(() => {
-    setAddress({ ...restaurant?.address });
-    setHours({ ...restaurant?.hours });
-  }, [restaurant?.address, restaurant?.hours]);
+    if (restaurant) {
+      reset(restaurant);
+      setAddress(restaurant?.address);
+      setHours(restaurant?.hours);
+    }
+  }, [restaurant]);
 
   useEffect(() => {
     if (status.onSuccess) {
@@ -45,7 +48,6 @@ export const SettingsTabItem = () => {
 
   const onSubmit = async (data) => {
     let image = null;
-
     if (imgPush) {
       setUploading(true);
       image = await ImgUploader([imgPush]).then((res) => {
@@ -53,18 +55,19 @@ export const SettingsTabItem = () => {
         return res;
       });
     }
-
     data = {
       ...data,
-      name: data.name || restaurant.name,
-      description: data.description || restaurant.description,
-      phoneNumber: data.phoneNumber || restaurant.phoneNumber,
-      id: restaurant.id,
+      // name: data.name || restaurant?.name,
+      // description: data.description || restaurant?.description,
+      // phoneNumber: data.phoneNumber || restaurant?.phoneNumber,
+      id: restaurant?.id,
       address: address?.formattedAddress,
-      hours: hours || restaurant.hours,
+      hours: hours,
+      // || restaurant?.hours,
     };
     image ? (data.logo = image) : "";
-    dispatch(data);
+    // dispatch(data);
+    console.log(data, "data");
   };
 
   return (
@@ -75,7 +78,7 @@ export const SettingsTabItem = () => {
           inputLabel={"Restuarant name"}
           inputType={"text"}
           inputName={"name"}
-          defaultValue={restaurant.name}
+          defaultValue={restaurant?.name}
           {...register("name", { required: true })}
         />
         <UserInput
@@ -83,7 +86,7 @@ export const SettingsTabItem = () => {
           isTextArea={true}
           inputLabel={"About Restuarant"}
           inputName={"description"}
-          defaultValue={restaurant.description}
+          defaultValue={restaurant?.description}
           inputPlaceholder={"Text here..."}
           charCounterIsShown={true}
           charLimit={"1000"}
@@ -94,7 +97,7 @@ export const SettingsTabItem = () => {
             title="Restaurant Logo"
             type={"restaurant"}
             handleChange={handleFileChange}
-            url={img || restaurant.logo}
+            url={img || restaurant?.logo}
             handleRemove={handleFileRemove}
             error={error}
             infoText={"Only jpg,jpeg and png files are supported."}
@@ -107,7 +110,7 @@ export const SettingsTabItem = () => {
             <AddressInput
               Value={address.formattedAddress}
               disabled={true}
-              getAddress={(newAddress) => setAddress(newAddress)}
+              getAddress={setAddress}
             />
           }
         />
@@ -130,7 +133,7 @@ export const SettingsTabItem = () => {
           inputLabel={"Phone Number"}
           inputType={"number"}
           inputName={"phoneNumber"}
-          defaultValue={restaurant.phoneNumber}
+          defaultValue={restaurant?.phoneNumber}
           {...register("phoneNumber")}
         />
         <div className="hours-of-operation-box">
