@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { StyledEditMenus } from "./style";
 import { editMenusTabs, getMenusBreadcrumbs } from "./constants";
-import { Button, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
+import { Button, Loader, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { itemActions, menusActions, useSagaStore } from "@eachbase/store";
+import { FindLoad } from "@eachbase/utils";
 
 export const EditMenusFragment = () => {
   const restaurant = useSelector(({ businesses }) => businesses);
@@ -30,6 +31,10 @@ export const EditMenusFragment = () => {
   }, [restaurant]);
 
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
+
+  if (FindLoad("GET_BUSINESS_MENU")) {
+    return <Loader />;
+  }
 
   return (
     <StyledEditMenus>

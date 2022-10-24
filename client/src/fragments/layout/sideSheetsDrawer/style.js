@@ -17,10 +17,14 @@ export const StyledSideSheetsDrawer = styled(Box)`
     }
   }
   .restaurant-profile-box {
+    width: 100%;
     display: flex;
     justify-content: initial;
     align-items: center;
     cursor: pointer;
+    &.closed {
+      width: unset;
+    }
     .restaurant-profile {
       width: 24px;
       height: 24px;
@@ -32,6 +36,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
       line-height: 20px;
       color: ${colors.secondary};
       margin: 0px 14px 0px 10px;
+      flex-grow: 1;
       &.closed {
         display: none;
       }
