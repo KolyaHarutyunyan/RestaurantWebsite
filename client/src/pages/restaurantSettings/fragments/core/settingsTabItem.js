@@ -18,6 +18,7 @@ export const SettingsTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
 
   const [address, setAddress] = useState({});
+  const [formattedAddress, setFormattedAddress] = useState("");
   const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -34,7 +35,13 @@ export const SettingsTabItem = () => {
   useEffect(() => {
     if (restaurant) {
       reset(restaurant);
-      setAddress(restaurant?.address);
+      setFormattedAddress(restaurant.address?.formattedAddress);
+      setAddress({
+        country: restaurant.address?.country,
+        city: restaurant.address?.city,
+        state: restaurant.address?.state,
+        zip: restaurant.address?.zip,
+      });
       setHours(restaurant?.hours);
     }
   }, [restaurant]);
@@ -57,17 +64,13 @@ export const SettingsTabItem = () => {
     }
     data = {
       ...data,
-      // name: data.name || restaurant?.name,
-      // description: data.description || restaurant?.description,
-      // phoneNumber: data.phoneNumber || restaurant?.phoneNumber,
+      ...address,
       id: restaurant?.id,
-      address: address?.formattedAddress,
+      address: formattedAddress,
       hours: hours,
-      // || restaurant?.hours,
     };
     image ? (data.logo = image) : "";
-    // dispatch(data);
-    console.log(data, "data");
+    dispatch(data);
   };
 
   return (
@@ -108,9 +111,10 @@ export const SettingsTabItem = () => {
           inputLabel={"Address"}
           inputFromOutside={
             <AddressInput
-              Value={address.formattedAddress}
+              Value={formattedAddress}
               disabled={true}
-              getAddress={setAddress}
+              setFullAddress={setAddress}
+              setFormattedAddress={setFormattedAddress}
             />
           }
         />
@@ -123,8 +127,13 @@ export const SettingsTabItem = () => {
               inputLabel={addressInput.label}
               inputType={"text"}
               inputName={addressInput.name}
-              defaultValue={address[addressInput.name]}
-              {...register(addressInput.name)}
+              value={address[addressInput.name] || ""}
+              onChange={(event) =>
+                setAddress((prevState) => ({
+                  ...prevState,
+                  [addressInput.name]: event.target.value,
+                }))
+              }
             />
           ))}
         </div>
