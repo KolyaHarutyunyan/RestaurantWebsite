@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const menusService = {
-  getMenusByBusiness: (id) =>
-    axios.get(`/menus/bybusiness/${id}`, { auth: true }),
+  getMenusByBusiness: (id) => axios.get(`/menus/bybusiness/${id}`, { auth: true }),
   getActiveMenus: (id) => axios.get(`/menus/active/${id}`, { auth: false }),
 
   getBusinessMenu: (id) => axios.get(`/menus/${id}`, { auth: true }),

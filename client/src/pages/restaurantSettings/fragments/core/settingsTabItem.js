@@ -21,15 +21,9 @@ export const SettingsTabItem = () => {
   const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
   const [uploading, setUploading] = useState(false);
-
   const { register, handleSubmit, reset } = useForm();
-
-  const { dispatch, status, destroy } = useSagaStore(
-    businessesActions.editBusiness
-  );
-
-  const { img, imgPush, error, handleFileChange, handleFileRemove } =
-    useFileUpload();
+  const { dispatch, status, destroy } = useSagaStore(businessesActions.editBusiness);
+  const { img, imgPush, error, handleFileChange, handleFileRemove } = useFileUpload();
 
   useEffect(() => {
     setAddress({ ...restaurant?.address });
@@ -66,6 +60,8 @@ export const SettingsTabItem = () => {
     image ? (data.logo = image) : "";
     dispatch(data);
   };
+
+  console.log(status,'statusstatus');
 
   return (
     <StyledSettingsTabItem>

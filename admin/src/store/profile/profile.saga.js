@@ -18,7 +18,7 @@ function* signIn({ payload, type }) {
 
     if(res?.data?.role === "ADMIN") {
       localStorage.setItem("token", res.data.token);
-      window.location.replace("/restaurants");
+      window.location.replace("/menus");
     }else{
       yield put(httpRequestsOnErrorsActions.appendError(type, 'notAdmin'))
     }

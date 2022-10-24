@@ -10,13 +10,11 @@ import { FindLoad } from "@eachbase/utils";
 export const EditMenusFragment = () => {
   const restaurant = useSelector(({ businesses }) => businesses);
   const menu = useSelector((state) => state.menus.menuById);
-
   const restaurantMenuSaga = useSagaStore(menusActions.getBusinessMenu);
   const restaurantProductsSaga = useSagaStore(itemActions.get);
-
   const router = useRouter();
-
   const menuId = router.query.menuId;
+  const loader = FindLoad("GET_BUSINESS_MENU")
 
   useEffect(() => {
     if (menuId) {
@@ -32,9 +30,7 @@ export const EditMenusFragment = () => {
 
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 
-  if (FindLoad("GET_BUSINESS_MENU")) {
-    return <Loader />;
-  }
+  if (loader?.length) { return <Loader /> }
 
   return (
     <StyledEditMenus>

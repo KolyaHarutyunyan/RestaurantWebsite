@@ -101,7 +101,7 @@ function* socialSignUp({ type, payload }) {
       const res = yield call(profileService.signUpSocial,);
       if(res && res.data && res.data.token) {
         localStorage.setItem("token", res.data.token);
-        window.location.replace('/')
+        window.location.replace('/menus')
       }
   } catch (err) {
 

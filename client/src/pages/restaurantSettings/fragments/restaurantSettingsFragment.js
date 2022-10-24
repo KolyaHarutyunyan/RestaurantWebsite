@@ -5,7 +5,9 @@ import { Images } from "@eachbase/theme/images";
 import { FindLoad } from "@eachbase/utils";
 
 export const RestaurantSettingsFragment = () => {
-  if (FindLoad("GET_BUSINESS_BY_ID")) {
+  const loader = FindLoad("GET_BUSINESS_BY_ID")
+
+  if (loader?.length) {
     return <Loader />;
   }
 

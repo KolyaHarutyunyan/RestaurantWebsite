@@ -1,19 +1,18 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { StyledRestaurantMenus } from "./style";
+import { FindLoad } from "@eachbase/utils";
 import { Button, Loader, useModal } from "@eachbase/components";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { useSelector } from "react-redux";
 import { useSagaStore, menusActions } from "@eachbase/store";
 import { MenuItem } from "./core";
-import { FindLoad } from "@eachbase/utils";
 
 export const RestaurantMenusFragment = () => {
   const { open } = useModal();
-
   const menusSaga = useSagaStore(menusActions.getMenusByBusiness);
-
   const restaurant = useSelector((state) => state.businesses);
   const menus = useSelector((state) => state.menus.menus);
+  const loader = FindLoad('GET_MENUS')
 
   useEffect(() => {
     if (restaurant) {
@@ -21,9 +20,7 @@ export const RestaurantMenusFragment = () => {
     }
   }, [restaurant]);
 
-  if (FindLoad("GET_MENUS")) {
-    return <Loader />;
-  }
+  if (loader?.length) { return <Loader /> }
 
   return (
     <StyledRestaurantMenus>

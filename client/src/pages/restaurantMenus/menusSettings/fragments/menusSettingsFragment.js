@@ -8,9 +8,7 @@ import { FindLoad } from "@eachbase/utils";
 
 export const MenusSettingsFragment = () => {
   const restaurantMenu = useSagaStore(menusActions.getBusinessMenu);
-
   const router = useRouter();
-
   const menuId = router.query.menuId;
 
   useEffect(() => {
@@ -18,10 +16,6 @@ export const MenusSettingsFragment = () => {
       restaurantMenu.dispatch(menuId);
     }
   }, [menuId]);
-
-  if (FindLoad("GET_BUSINESS_MENU")) {
-    return <Loader />;
-  }
 
   return (
     <StyledMenusSettings>
