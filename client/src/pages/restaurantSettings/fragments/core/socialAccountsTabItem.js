@@ -14,8 +14,6 @@ export const SocialAccountsTabItem = () => {
     businessesActions.editBusiness
   );
 
-  useEffect(() => () => destroy.all(), []);
-
   useEffect(() => {
     if (status.onSuccess) {
       destroy.success();

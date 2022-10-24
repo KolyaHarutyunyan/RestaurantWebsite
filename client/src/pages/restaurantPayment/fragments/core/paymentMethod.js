@@ -8,8 +8,8 @@ export const PaymentMethod = () => {
     <StyledPaymentMethod>
       <p className="title">Card Information</p>
       <div className="cards-wrapper-section">
-        {addedCards.map((card) => (
-          <div className="card-wrapper">
+        {addedCards.map((card, index) => (
+          <div key={index} className="card-wrapper">
             <div className="visa-info">
               <p>{card.type} Card</p>
               {card.icon}

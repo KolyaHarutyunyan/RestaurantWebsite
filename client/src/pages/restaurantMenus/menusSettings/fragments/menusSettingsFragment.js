@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
+import { Loader, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import { menusActions, useSagaStore } from "@eachbase/store";
 import { menuSettingsTabs, menusSettingsBreadcrumbs } from "./constants";
 import { StyledMenusSettings } from "./style";
 import { useRouter } from "next/router";
+import { FindLoad } from "@eachbase/utils";
 
 export const MenusSettingsFragment = () => {
   const restaurantMenu = useSagaStore(menusActions.getBusinessMenu);
@@ -17,6 +18,10 @@ export const MenusSettingsFragment = () => {
       restaurantMenu.dispatch(menuId);
     }
   }, [menuId]);
+
+  if (FindLoad("GET_BUSINESS_MENU")) {
+    return <Loader />;
+  }
 
   return (
     <StyledMenusSettings>

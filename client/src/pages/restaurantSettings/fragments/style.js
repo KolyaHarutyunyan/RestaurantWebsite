@@ -7,6 +7,13 @@ export const StyledRestaurantSettings = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .settings-title {
+      font-family: Open Sans, sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 36px;
+      color: ${colors.secondary};
+    }
     .qr-code-link {
       display: inline-flex;
       align-items: center;

@@ -20,6 +20,7 @@ export const SettingsTabItem = () => {
   const [address, setAddress] = useState({});
   const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -35,8 +36,6 @@ export const SettingsTabItem = () => {
     setHours({ ...restaurant?.hours });
   }, [restaurant?.address, restaurant?.hours]);
 
-  useEffect(() => () => destroy.all(), []);
-
   useEffect(() => {
     if (status.onSuccess) {
       destroy.success();
@@ -45,7 +44,16 @@ export const SettingsTabItem = () => {
   }, [status]);
 
   const onSubmit = async (data) => {
-    const images = imgPush && (await ImgUploader([imgPush]).then((res) => res));
+    let image = null;
+
+    if (imgPush) {
+      setUploading(true);
+      image = await ImgUploader([imgPush]).then((res) => {
+        setUploading(false);
+        return res;
+      });
+    }
+
     data = {
       ...data,
       name: data.name || restaurant.name,
@@ -55,7 +63,7 @@ export const SettingsTabItem = () => {
       address: address?.formattedAddress,
       hours: hours || restaurant.hours,
     };
-    images ? (data.logo = images) : "";
+    image ? (data.logo = image) : "";
     dispatch(data);
   };
 
@@ -148,7 +156,7 @@ export const SettingsTabItem = () => {
             e.preventDefault();
             alert("Cancelled");
           }}
-          onLoad={status.onLoad}
+          onLoad={status.onLoad || uploading}
         />
       </form>
     </StyledSettingsTabItem>
