@@ -12,7 +12,7 @@ export const RestaurantMenusFragment = () => {
   const menusSaga = useSagaStore(menusActions.getMenusByBusiness);
   const restaurant = useSelector((state) => state.businesses);
   const menus = useSelector((state) => state.menus.menus);
-  const loader = FindLoad('GET_MENUS')
+  const loader = FindLoad("GET_MENUS");
 
   useEffect(() => {
     if (restaurant) {
@@ -20,7 +20,9 @@ export const RestaurantMenusFragment = () => {
     }
   }, [restaurant]);
 
-  if (loader?.length) { return <Loader /> }
+  if (loader?.length) {
+    return <Loader />;
+  }
 
   return (
     <StyledRestaurantMenus>

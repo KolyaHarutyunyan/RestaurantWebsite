@@ -57,9 +57,12 @@ function* getActiveMenus({ payload, type }) {
 
 function* getBusinessMenu({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
-  yield put(httpRequestsOnLoadActions.appendLoading(type));
+
+  if (payload.load !== "noLoad") {
+    yield put(httpRequestsOnLoadActions.appendLoading(type));
+  }
   try {
-    const res = yield call(menusService.getBusinessMenu, payload);
+    const res = yield call(menusService.getBusinessMenu, payload.menuId);
     yield put({
       type: GET_BUSINESS_MENU_SUCCESS,
       payload: res.data,
@@ -151,7 +154,7 @@ function* getCurrentMenu({ payload, type }) {
     const { data } = yield call(menusService.getCurrentMenu, payload);
     yield put({
       type: GET_CURRENT_MENU_SUCCESS,
-      payload: data
+      payload: data,
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -170,7 +173,7 @@ function* deleteMenu({ payload, type }) {
     yield call(menusService.deleteMenu, payload.menuId);
     yield put({
       type: GET_MENUS,
-      payload: payload.businessId
+      payload: payload.businessId,
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
