@@ -14,7 +14,7 @@ export const EditMenusFragment = () => {
   const restaurantProductsSaga = useSagaStore(itemActions.get);
   const router = useRouter();
   const menuId = router.query.menuId;
-  const loader = FindLoad("GET_BUSINESS_MENU")
+  const loader = FindLoad("GET_BUSINESS_MENU");
 
   useEffect(() => {
     if (menuId) {
@@ -30,7 +30,9 @@ export const EditMenusFragment = () => {
 
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 
-  if (loader?.length) { return <Loader /> }
+  if (loader?.length) {
+    return <Loader />;
+  }
 
   return (
     <StyledEditMenus>

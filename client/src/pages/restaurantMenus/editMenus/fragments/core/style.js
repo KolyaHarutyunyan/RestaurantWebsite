@@ -3,6 +3,7 @@ import { Drawer } from "@material-ui/core";
 
 export const StyledCategoryTabItem = styled.section`
   width: 100%;
+  min-height: 456px;
   display: flex;
   justify-content: flex-start;
   column-gap: 16px;

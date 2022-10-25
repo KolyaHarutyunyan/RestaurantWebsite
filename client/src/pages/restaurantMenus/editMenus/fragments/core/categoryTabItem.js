@@ -65,6 +65,15 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   } = useFileUpload(images, mainImageIndex);
 
   useEffect(() => {
+    if (menu && category) {
+      const currentCategory = menu[categoryName]?.find(
+        (item) => item.id === category.id
+      );
+      setCategory(currentCategory);
+    }
+  }, [menu]);
+
+  useEffect(() => {
     if (chosenCategory) {
       submitCategoryForm.reset(chosenCategory);
     } else {
@@ -240,20 +249,6 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     }
   };
 
-  const multiProductsList = restaurantProducts?.map((product) => ({
-    label: product.name,
-    value: product.id,
-  }));
-
-  const categoryItemOptions = category?.items?.map((product) => ({
-    label: product.item.name,
-    value: product.item.id,
-  }));
-
-  const selectedOptions = categoryItemOptions?.filter(
-    (i) => !!multiProductsList.find((cItem) => cItem.value === i.value)
-  );
-
   const handleProductsChange = (_options, newItem, removedItem) => {
     if (newItem.length) {
       addProductsToCategorySaga.dispatch(
@@ -276,6 +271,20 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
       to,
     });
   };
+
+  const multiProductsList = restaurantProducts?.map((product) => ({
+    label: product.name,
+    value: product.id,
+  }));
+
+  const categoryItemOptions = category?.items?.map((product) => ({
+    label: product.item.name,
+    value: product.item.id,
+  }));
+
+  const selectedOptions = categoryItemOptions?.filter(
+    (i) => !!multiProductsList.find((cItem) => cItem.value === i.value)
+  );
 
   return (
     <>

@@ -6,7 +6,7 @@ export const Loader = ({ small, color }) => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100%",
+        height: "100vh",
       }}
     >
       <CircularProgress

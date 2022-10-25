@@ -11,17 +11,24 @@ import { categoriesService } from "./categories.service";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
-import { GET_BUSINESS_MENU } from "../menus/menus.types";
+import {
+  GET_BUSINESS_MENU,
+  GET_BUSINESS_MENU_SUCCESS,
+} from "../menus/menus.types";
 
 function* createCategory({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.create, payload.data, payload.menuId);
+    const { data } = yield call(
+      categoriesService.create,
+      payload.data,
+      payload.menuId
+    );
     yield put({
-      type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      type: GET_BUSINESS_MENU_SUCCESS,
+      payload: data,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -38,10 +45,10 @@ function* editCategory({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.edit, payload);
+    const { data } = yield call(categoriesService.edit, payload);
     yield put({
-      type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      type: GET_BUSINESS_MENU_SUCCESS,
+      payload: data,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -75,10 +82,10 @@ function* deleteCategory({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.delete, payload);
+    const { data } = yield call(categoriesService.delete, payload);
     yield put({
-      type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      type: GET_BUSINESS_MENU_SUCCESS,
+      payload: data,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
@@ -95,10 +102,10 @@ function* reorderCategories({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(categoriesService.reorder, payload);
+    const { data } = yield call(categoriesService.reorder, payload);
     yield put({
-      type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      type: GET_BUSINESS_MENU_SUCCESS,
+      payload: data,
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

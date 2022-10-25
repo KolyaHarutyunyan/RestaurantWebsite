@@ -23,8 +23,11 @@ export const SettingsTabItem = () => {
   const [isShown, setIsShown] = useState(false);
   const [uploading, setUploading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const { dispatch, status, destroy } = useSagaStore(businessesActions.editBusiness);
-  const { img, imgPush, error, handleFileChange, handleFileRemove } = useFileUpload();
+  const { dispatch, status, destroy } = useSagaStore(
+    businessesActions.editBusiness
+  );
+  const { img, imgPush, error, handleFileChange, handleFileRemove } =
+    useFileUpload();
 
   useEffect(() => {
     if (restaurant) {
@@ -66,8 +69,6 @@ export const SettingsTabItem = () => {
     image ? (data.logo = image) : "";
     dispatch(data);
   };
-
-  console.log(status,'statusstatus');
 
   return (
     <StyledSettingsTabItem>
