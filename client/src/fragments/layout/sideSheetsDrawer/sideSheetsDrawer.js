@@ -3,7 +3,6 @@ import { addClosed, Drawer, DrawerFooter, DrawerHeader } from "./constants";
 import { Images } from "@eachbase/theme/images";
 import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
-import Router from "next/router";
 import { StyledSideSheetsDrawer } from "./style";
 import { useSelector } from "react-redux";
 
@@ -21,7 +20,7 @@ export const SideSheetsDrawer = () => {
         <DrawerHeader>
           <div
             className={addClosed("restaurant-profile-box", !open)}
-            onClick={() => Router.push("/restaurant")}
+            onClick={() => {}}
           >
             <Images.RestaurantProfile className="restaurant-profile" />
             <span className={addClosed("restaurant-name", !open)}>

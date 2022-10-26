@@ -16,7 +16,10 @@ export const StyledLayout = styled.div`
     display: flex;
     .main-content {
       width: 100%;
-      margin: 24px 42px;
+      margin: 0px;
+      &.shown {
+        margin: 24px 42px;
+      }
     }
   }
 `;
