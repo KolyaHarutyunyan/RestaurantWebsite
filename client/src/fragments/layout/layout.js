@@ -6,9 +6,14 @@ import { useDispatch } from "react-redux";
 import { ProfileHeader } from "./profileHeader/profileHeader";
 import { SideSheetsDrawer } from "./sideSheetsDrawer/sideSheetsDrawer";
 import { StyledLayout } from "./style";
+import { useRouter } from "next/router";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
+
+  const router = useRouter();
+  const showLayout = !["/preview", "/menu"].includes(router.pathname);
+
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -25,10 +30,12 @@ export const Layout = ({ children, privatePage = true }) => {
     <StyledLayout>
       {token ? (
         <>
-          <ProfileHeader />
+          {showLayout && <ProfileHeader />}
           <div className="main">
-            <SideSheetsDrawer />
-            <div className="main-content">{children}</div>
+            {showLayout && <SideSheetsDrawer />}
+            <div className={`main-content ${showLayout ? "shown" : ""}`}>
+              {children}
+            </div>
           </div>
         </>
       ) : (

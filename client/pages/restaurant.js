@@ -1,7 +1,5 @@
-import { RestaurantProfile } from "@eachbase/pages";
-
 const Restaurant = () => {
-  return <RestaurantProfile />;
+  return <div />;
 };
 
 export default Restaurant;

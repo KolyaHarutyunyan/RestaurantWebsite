@@ -16,10 +16,14 @@ function* getItems({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const res = yield call(categoryItemsService.get, payload);
+    // const res = yield call(categoryItemsService.get, payload);
+    // yield put({
+    //   type: GET_CATEGORY_ITEMS_SUCCESS,
+    //   payload: res.data.items,
+    // });
     yield put({
-      type: GET_CATEGORY_ITEMS_SUCCESS,
-      payload: res.data.items,
+      type: GET_BUSINESS_MENU,
+      payload: { menuId: payload.menuId, load: "noLoad" },
     });
     yield put(httpRequestsOnLoadActions.removeLoading("REMOVE_IMAGE"));
     yield put(httpRequestsOnErrorsActions.removeError(type));
@@ -52,7 +56,7 @@ function* deleteItem({ payload, type }) {
     yield call(categoryItemsService.remove, payload);
     yield put({
       type: GET_BUSINESS_MENU,
-      payload: payload.menuId,
+      payload: { menuId: payload.menuId, load: "noLoad" },
     });
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));

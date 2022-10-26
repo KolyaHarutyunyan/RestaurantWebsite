@@ -11,7 +11,6 @@ export { PrivacyPolicyPage } from "./privacyPolicy";
 export { TermsConditionsPage } from "./termsConditions";
 export { PlansAndPrices } from "./plansAndPrices";
 
-export { RestaurantProfile } from "./restaurantProfile/restaurantProfile";
 export { RestaurantMenus } from "./restaurantMenus/restaurantMenus";
 export { MenusSettings } from "./restaurantMenus/menusSettings/menusSettings";
 export { EditMenus } from "./restaurantMenus/editMenus/editMenus";
