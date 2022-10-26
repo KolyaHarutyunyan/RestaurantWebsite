@@ -47,7 +47,7 @@ export class ItemService {
     if (dto.description) item.description = dto.description;
     if (dto.option) item.option = dto.option;
     if (dto.price) item.price = dto.price;
-    if (dto.active) item.active = dto.active;
+    if (dto.active || !dto.active) item.active = dto.active;
     if (dto.note) item.note = dto.note;
 
     await this.manageImages(item, dto);
