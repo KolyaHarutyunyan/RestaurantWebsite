@@ -5,7 +5,6 @@ export const inputsStyle = makeStyles(() => ({
   inputTextFieldAutoHeight: {
     width: "100%",
     minWidth: "300px",
-    overflow: "hidden",
     backgroundColor: colors.white,
     borderRadius: "8px",
     "& .MuiOutlinedInput-notchedOutline": {
@@ -23,10 +22,13 @@ export const inputsStyle = makeStyles(() => ({
     },
     "& .MuiInputBase-root": {
       height: "48px",
-      padding: 0,
+      padding: "0px 16px",
     },
     "& .MuiInputLabel-outlined": {
       transform: "translate(14px, 16px) scale(1)",
+    },
+    "& .MuiInputLabel-outlined.Mui-focused.Mui-focused": {
+      transform: "translate(14px, -6px) scale(0.75)",
     },
   },
 

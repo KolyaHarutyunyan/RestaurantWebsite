@@ -20,7 +20,7 @@ export const SideSheetsDrawer = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <div
-            className="restaurant-profile-box"
+            className={addClosed("restaurant-profile-box", !open)}
             onClick={() => Router.push("/restaurant")}
           >
             <Images.RestaurantProfile className="restaurant-profile" />

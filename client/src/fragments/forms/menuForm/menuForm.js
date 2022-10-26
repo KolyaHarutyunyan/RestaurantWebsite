@@ -27,7 +27,7 @@ export const MenuForm = () => {
   const onSubmit = (data) => {
     dispatch({
       name: data.name,
-      businessId: restaurant.id,
+      businessId: restaurant?.id,
     });
   };
 

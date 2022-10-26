@@ -57,61 +57,8 @@ export const StyledAccountSettings = styled.div`
       }
     }
   }
-  .account-form {
+  .account-box {
     width: 100%;
-    .edit-wrapper {
-      width: 100%;
-      padding: 0px 19px;
-      .edit-and-save-button {
-        width: 28px;
-        height: 20px;
-        margin: 0px 0px 9px auto;
-        font-family: Open Sans, sans-serif;
-        font-weight: 700;
-        font-size: 14px;
-        color: ${colors.primary};
-      }
-    }
-    .change-password {
-      width: 100%;
-      max-width: 347px;
-      width: 100%;
-      background-color: ${colors.white};
-      border: 1px solid #c4c4c4;
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      .change-password-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-        .change-password-text {
-          font-family: Open Sans, sans-serif;
-          font-weight: 700;
-          font-size: 16px;
-          line-height: 24px;
-          color: ${colors.secondary};
-        }
-        .edit-and-save-button {
-          width: 28px;
-          height: 20px;
-          margin: 0px 0px 9px auto;
-          font-family: Open Sans, sans-serif;
-          font-weight: 700;
-          font-size: 14px;
-          color: ${colors.primary};
-        }
-      }
-      .use-strong-password {
-        font-family: Open Sans, sans-serif;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        color: ${colors.halfBlack};
-      }
-    }
   }
   .sign-out-button {
     svg {

@@ -22,7 +22,7 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
-      window.location.replace("/restaurant");
+      window.location.replace("/menus");
     }
   }, [status]);
 
@@ -97,7 +97,7 @@ export const SignInForm = () => {
         link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
-        Don't have an account? <span style={{ color: "#007AFF" }}>Sign Up</span>
+        Don't have an account? <span style={{ color: "#007AFF" }}>	&nbsp;Sign Up</span>
       </Button>
     </Container>
   );

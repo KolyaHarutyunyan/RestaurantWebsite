@@ -3,7 +3,7 @@ import {
   DELETE_CATEGORY,
   EDIT_CATEGORY,
   GET_CATEGORIES,
-  SWITCH_CATEGORY_STATUS,
+  REORDER_CATEGORIES,
 } from "./categories.types";
 
 export const categoriesActions = {
@@ -23,8 +23,8 @@ export const categoriesActions = {
     type: DELETE_CATEGORY,
     payload: { menuId, categoryId, categoryType },
   }),
-  switchCategory: (menuId, categoryId) => ({
-    type: SWITCH_CATEGORY_STATUS,
-    payload: { menuId, categoryId },
+  reorder: (menuId, categType, move) => ({
+    type: REORDER_CATEGORIES,
+    payload: { menuId, categType, move },
   }),
 };

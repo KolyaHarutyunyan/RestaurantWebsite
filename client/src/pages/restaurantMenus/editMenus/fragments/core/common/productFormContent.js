@@ -19,7 +19,7 @@ export const ProductFormContent = ({
           required={true}
           inputType={"text"}
           inputName={"name"}
-          inputPlaceholder={"Menu Name"}
+          inputPlaceholder={"Menu Name*"}
           defaultValue={chosenProduct?.name}
           {...register("name", { required: true })}
         />
@@ -55,7 +55,7 @@ export const ProductFormContent = ({
         many={true}
         title={"Image"}
         type={productType}
-        url={productImgs || chosenProduct?.images}
+        url={productImgs}
         handleChange={handleImgChange}
         handleRemoveMany={handleImgRemove}
         error={error}

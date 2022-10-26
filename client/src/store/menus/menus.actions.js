@@ -4,7 +4,9 @@ import {
   CREATE_MENU,
   DELETE_MENU,
   SWITCH_MENU_STATUS,
-  GET_CURRENT_MENU, GET_ACTIVE_MENUS, GET_BUSINESS_MENU,
+  GET_CURRENT_MENU,
+  GET_ACTIVE_MENUS,
+  GET_BUSINESS_MENU,
 } from "./menus.types";
 
 export const menusActions = {
@@ -16,9 +18,9 @@ export const menusActions = {
     type: GET_ACTIVE_MENUS,
     payload: menuId,
   }),
-  getBusinessMenu: (menuId) => ({
+  getBusinessMenu: (menuId, load) => ({
     type: GET_BUSINESS_MENU,
-    payload: menuId,
+    payload: { menuId, load },
   }),
   createMenu: (menu) => ({
     type: CREATE_MENU,
@@ -26,7 +28,7 @@ export const menusActions = {
   }),
   editMenu: (menu) => ({
     type: EDIT_MENU,
-    payload: menu ,
+    payload: menu,
   }),
   deleteMenu: (menu) => ({
     type: DELETE_MENU,

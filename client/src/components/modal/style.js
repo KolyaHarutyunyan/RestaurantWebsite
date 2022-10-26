@@ -80,16 +80,16 @@ export const ModalContainer = styled.div`
   }
   .close-button {
     @media (min-width: 320px) {
-      margin-right: -8px;
+      //margin-right: -8px;
     }
     @media (min-width: 767px) {
-      margin-right: -8px;
+      //margin-right: -8px;
     }
     @media (min-width: 1279px) {
-      margin-right: -23px;
+      //margin-right: -23px;
     }
     @media (min-width: 1920px) {
-      margin-right: -39px;
+      //margin-right: -39px;
     }
   }
 
@@ -99,13 +99,13 @@ export const ModalContainer = styled.div`
       margin-right: 0;
     }
     @media (min-width: 767px) {
-      margin-right: -15px;
+      //margin-right: -15px;
     }
     @media (min-width: 1279px) {
-      margin-right: -15px;
+      //margin-right: -15px;
     }
     @media (min-width: 1920px) {
-      margin-right: -30px;
+      //margin-right: -30px;
     }
   }
 

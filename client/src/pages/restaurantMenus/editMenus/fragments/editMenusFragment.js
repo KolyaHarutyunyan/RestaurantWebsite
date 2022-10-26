@@ -1,30 +1,43 @@
 import { useEffect } from "react";
 import { StyledEditMenus } from "./style";
-import { editMenusBreadcrumbs, editMenusTabs } from "./constants";
-import { Button, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
+import { editMenusTabs, getMenusBreadcrumbs } from "./constants";
+import { Button, Loader, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
-import { Images } from "@eachbase/theme/images";
-import { menusActions, useSagaStore } from "@eachbase/store";
+import { useSelector } from "react-redux";
+import { itemActions, menusActions, useSagaStore } from "@eachbase/store";
+import { FindLoad } from "@eachbase/utils";
 
 export const EditMenusFragment = () => {
-  const restaurantMenu = useSagaStore(menusActions.getBusinessMenu);
-
+  const restaurant = useSelector(({ businesses }) => businesses);
+  const menu = useSelector((state) => state.menus.menuById);
+  const restaurantMenuSaga = useSagaStore(menusActions.getBusinessMenu);
+  const restaurantProductsSaga = useSagaStore(itemActions.get);
   const router = useRouter();
-
   const menuId = router.query.menuId;
+  const loader = FindLoad("GET_BUSINESS_MENU");
 
   useEffect(() => {
     if (menuId) {
-      restaurantMenu.dispatch(menuId);
+      restaurantMenuSaga.dispatch(menuId);
     }
   }, [menuId]);
 
+  useEffect(() => {
+    if (restaurant) {
+      restaurantProductsSaga.dispatch(restaurant?.id);
+    }
+  }, [restaurant]);
+
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
+
+  if (loader?.length) {
+    return <Loader />;
+  }
 
   return (
     <StyledEditMenus>
       <div className="edit-menus-header">
-        <MuiBreadcrumbs breadcrumbs={editMenusBreadcrumbs} />
+        <MuiBreadcrumbs breadcrumbs={getMenusBreadcrumbs(menu?.name)} />
         <Button square fullWidth maxWidth={"176px"} onClick={handlePreview}>
           Preview
         </Button>

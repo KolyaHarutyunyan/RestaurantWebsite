@@ -1,5 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { StyledUserInput } from "./style";
+import { Images } from "@eachbase/theme/images";
 
 export const UserInput = forwardRef((props, ref) => {
   const {
@@ -15,8 +16,20 @@ export const UserInput = forwardRef((props, ref) => {
     charLimit = "50",
     isTextArea,
     inputFromOutside,
+    inputIcon,
+    isForPassword,
     ...rest
   } = props;
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const type = isForPassword
+    ? showPassword
+      ? "text"
+      : "password"
+    : inputType
+    ? inputType
+    : "text";
 
   return (
     <StyledUserInput className={inputClassName}>
@@ -43,17 +56,28 @@ export const UserInput = forwardRef((props, ref) => {
         ) : (
           <>
             {inputFromOutside || (
-              <input
-                ref={ref}
-                type={inputType ? inputType : "text"}
-                className={`${inputError ? "error" : ""}`}
-                name={inputName}
-                onWheel={(evt) => inputType === "number" && evt.target.blur()}
-                autoComplete="off"
-                placeholder={inputPlaceholder}
-                disabled={inputDisabled}
-                {...rest}
-              />
+              <div className="input-box">
+                {inputIcon && <div className="input-icon">{inputIcon}</div>}
+                <input
+                  ref={ref}
+                  type={type}
+                  className={`${inputError ? "error" : ""}`}
+                  name={inputName}
+                  onWheel={(evt) => inputType === "number" && evt.target.blur()}
+                  autoComplete="off"
+                  placeholder={inputPlaceholder}
+                  disabled={inputDisabled}
+                  {...rest}
+                />
+                {isForPassword && (
+                  <div
+                    className="vision-icon"
+                    onClick={() => setShowPassword((pS) => !pS)}
+                  >
+                    {showPassword ? <Images.ClosedEye /> : <Images.OpenEye />}
+                  </div>
+                )}
+              </div>
             )}
             {inputError && (
               <p className="user-input-error-text">{inputError}</p>

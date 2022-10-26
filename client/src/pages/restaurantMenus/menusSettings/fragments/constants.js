@@ -1,4 +1,7 @@
-import { AvailabilityTabItem, OverviewTabItem } from "./core";
+import {
+  // AvailabilityTabItem,
+  OverviewTabItem,
+} from "./core";
 
 export const menusSettingsBreadcrumbs = [
   { path: "/menus", text: "Menus" },
@@ -7,5 +10,5 @@ export const menusSettingsBreadcrumbs = [
 
 export const menuSettingsTabs = [
   { label: "Overview", item: <OverviewTabItem /> },
-  { label: "Availability", item: <AvailabilityTabItem /> },
+  // { label: "Availability", item: <AvailabilityTabItem /> },
 ];

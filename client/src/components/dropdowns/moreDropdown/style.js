@@ -19,13 +19,14 @@ export const StyledMenu = styled((props) => (
   "& .MuiPaper-root": {
     borderRadius: 6,
     marginTop: theme.spacing(1),
-    minWidth: 119,
+    maxWidth: 119,
     backgroundColor: colors.white,
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)",
     "& .MuiMenu-list": {
       padding: "4px 0",
     },
     "& .MuiMenuItem-root": {
+      display: "inline-block",
       width: "100%",
       padding: "9px 24px",
       fontFamily: "Open Sans, sans-serif",

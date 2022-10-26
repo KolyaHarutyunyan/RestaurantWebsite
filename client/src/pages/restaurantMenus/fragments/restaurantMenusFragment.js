@@ -1,24 +1,28 @@
 import { useEffect } from "react";
-import { StyledRestaurantMenus } from "./style";
-import { Button, useModal } from "@eachbase/components";
-import { MODAL_NAMES } from "@eachbase/constants";
 import { useSelector } from "react-redux";
+import { StyledRestaurantMenus } from "./style";
+import { FindLoad } from "@eachbase/utils";
+import { Button, Loader, useModal } from "@eachbase/components";
+import { MODAL_NAMES } from "@eachbase/constants";
 import { useSagaStore, menusActions } from "@eachbase/store";
 import { MenuItem } from "./core";
 
 export const RestaurantMenusFragment = () => {
   const { open } = useModal();
-
   const menusSaga = useSagaStore(menusActions.getMenusByBusiness);
-
   const restaurant = useSelector((state) => state.businesses);
   const menus = useSelector((state) => state.menus.menus);
+  const loader = FindLoad("GET_MENUS");
 
   useEffect(() => {
     if (restaurant) {
       menusSaga.dispatch(restaurant.id);
     }
   }, [restaurant]);
+
+  if (loader?.length) {
+    return <Loader />;
+  }
 
   return (
     <StyledRestaurantMenus>

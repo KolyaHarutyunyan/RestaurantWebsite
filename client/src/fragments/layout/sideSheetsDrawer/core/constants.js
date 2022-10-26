@@ -17,8 +17,12 @@ export const sideSheetsList = [
     icon: <Images.Billing />,
     text: "Billing",
     pages: [
-      { text: "Plans and Pricing", path: `/plansAndPricing`, pathnames: [] },
-      { text: "Payment", path: `/payment`, pathnames: [] },
+      {
+        text: "Plans and Pricing",
+        path: "/plansAndPricing",
+        pathnames: ["/plansAndPricing/checkout"],
+      },
+      { text: "Payment", path: "/payment", pathnames: [] },
     ],
   },
 ];
@@ -31,7 +35,8 @@ export const addActive = (item, pathName) => {
   } else {
     let isActive = false;
     for (let elem of item.pages) {
-      if (elem.path === pathName) isActive = true;
+      if (elem.path === pathName || elem.pathnames.includes(pathName))
+        isActive = true;
     }
     return isActive ? "active" : "";
   }

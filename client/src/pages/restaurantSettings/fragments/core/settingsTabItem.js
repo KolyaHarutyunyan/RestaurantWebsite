@@ -15,27 +15,33 @@ import { businessesActions, useSagaStore } from "@eachbase/store";
 import { ImgUploader, useFileUpload } from "@eachbase/utils";
 
 export const SettingsTabItem = () => {
-  const restaurant = useSelector((state) => state.businesses) || {};
+  const restaurant = useSelector((state) => state.businesses);
 
   const [address, setAddress] = useState({});
+  const [formattedAddress, setFormattedAddress] = useState("");
   const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
-
+  const [uploading, setUploading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
-
   const { img, imgPush, error, handleFileChange, handleFileRemove } =
     useFileUpload();
 
   useEffect(() => {
-    setAddress({ ...restaurant?.address });
-    setHours({ ...restaurant?.hours });
-  }, [restaurant?.address, restaurant?.hours]);
-
-  useEffect(() => () => destroy.all(), []);
+    if (restaurant) {
+      reset(restaurant);
+      setFormattedAddress(restaurant.address?.formattedAddress);
+      setAddress({
+        country: restaurant.address?.country,
+        city: restaurant.address?.city,
+        state: restaurant.address?.state,
+        zip: restaurant.address?.zip,
+      });
+      setHours(restaurant?.hours);
+    }
+  }, [restaurant]);
 
   useEffect(() => {
     if (status.onSuccess) {
@@ -45,17 +51,22 @@ export const SettingsTabItem = () => {
   }, [status]);
 
   const onSubmit = async (data) => {
-    const images = imgPush && (await ImgUploader([imgPush]).then((res) => res));
+    let image = null;
+    if (imgPush) {
+      setUploading(true);
+      image = await ImgUploader([imgPush]).then((res) => {
+        setUploading(false);
+        return res;
+      });
+    }
     data = {
       ...data,
-      name: data.name || restaurant.name,
-      description: data.description || restaurant.description,
-      phoneNumber: data.phoneNumber || restaurant.phoneNumber,
-      id: restaurant.id,
-      address: address?.formattedAddress,
-      hours: hours || restaurant.hours,
+      ...address,
+      id: restaurant?.id,
+      address: formattedAddress,
+      hours: hours,
     };
-    images ? (data.logo = images) : "";
+    image ? (data.logo = image) : "";
     dispatch(data);
   };
 
@@ -67,7 +78,7 @@ export const SettingsTabItem = () => {
           inputLabel={"Restuarant name"}
           inputType={"text"}
           inputName={"name"}
-          defaultValue={restaurant.name}
+          defaultValue={restaurant?.name}
           {...register("name", { required: true })}
         />
         <UserInput
@@ -75,7 +86,7 @@ export const SettingsTabItem = () => {
           isTextArea={true}
           inputLabel={"About Restuarant"}
           inputName={"description"}
-          defaultValue={restaurant.description}
+          defaultValue={restaurant?.description}
           inputPlaceholder={"Text here..."}
           charCounterIsShown={true}
           charLimit={"1000"}
@@ -86,7 +97,7 @@ export const SettingsTabItem = () => {
             title="Restaurant Logo"
             type={"restaurant"}
             handleChange={handleFileChange}
-            url={img || restaurant.logo}
+            url={img || restaurant?.logo}
             handleRemove={handleFileRemove}
             error={error}
             infoText={"Only jpg,jpeg and png files are supported."}
@@ -97,9 +108,10 @@ export const SettingsTabItem = () => {
           inputLabel={"Address"}
           inputFromOutside={
             <AddressInput
-              Value={address.formattedAddress}
+              Value={formattedAddress}
               disabled={true}
-              getAddress={(newAddress) => setAddress(newAddress)}
+              setFullAddress={setAddress}
+              setFormattedAddress={setFormattedAddress}
             />
           }
         />
@@ -112,8 +124,13 @@ export const SettingsTabItem = () => {
               inputLabel={addressInput.label}
               inputType={"text"}
               inputName={addressInput.name}
-              defaultValue={address[addressInput.name]}
-              {...register(addressInput.name)}
+              value={address[addressInput.name] || ""}
+              onChange={(event) =>
+                setAddress((prevState) => ({
+                  ...prevState,
+                  [addressInput.name]: event.target.value,
+                }))
+              }
             />
           ))}
         </div>
@@ -122,7 +139,7 @@ export const SettingsTabItem = () => {
           inputLabel={"Phone Number"}
           inputType={"number"}
           inputName={"phoneNumber"}
-          defaultValue={restaurant.phoneNumber}
+          defaultValue={restaurant?.phoneNumber}
           {...register("phoneNumber")}
         />
         <div className="hours-of-operation-box">
@@ -148,7 +165,7 @@ export const SettingsTabItem = () => {
             e.preventDefault();
             alert("Cancelled");
           }}
-          onLoad={status.onLoad}
+          onLoad={status.onLoad || uploading}
         />
       </form>
     </StyledSettingsTabItem>

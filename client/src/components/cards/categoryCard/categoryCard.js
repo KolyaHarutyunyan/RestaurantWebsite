@@ -1,6 +1,5 @@
 import { StyledCategoryCard } from "./style";
 import {
-  UserInput,
   Button,
   Switch,
   MoreDropdown,
@@ -8,72 +7,88 @@ import {
 } from "@eachbase/components";
 import { Images } from "@eachbase/theme/images";
 import { colors } from "@eachbase/theme";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const CategoryCard = ({
   categories = [],
   currentCategory,
-  loader,
-  register,
   handleCategoryAdd,
   handleCategoryEdit,
   handleCategoryDelete,
   handleCategorySwitch,
   handleCurrentCategory,
   noItemsText,
+  onDragCategory,
 }) => {
   return (
     <StyledCategoryCard>
-      <form onSubmit={handleCategoryAdd}>
-        <div className="category-form">
-          <UserInput
-            inputClassName={"category-input"}
-            required={true}
-            inputType={"text"}
-            inputName={"name"}
-            inputPlaceholder={"Create Category"}
-            {...register("name", { required: true })}
-          />
-          <Button square fullWidth maxWidth={"95px"} onLoad={loader}>
-            Add
-          </Button>
-        </div>
-      </form>
+      <div className="category-add-box">
+        <Button square fullWidth maxWidth={"95px"} onClick={handleCategoryAdd}>
+          Add
+        </Button>
+      </div>
       {categories.length ? (
-        <div className="category-list-box">
-          <ul className="category-list">
-            {categories.map((category) => (
-              <li
-                key={category.id}
-                className={`category-item ${
-                  !category.isActive && false ? "inactive" : ""
-                } ${category.id === currentCategory?.id ? "current" : ""}`}
-                onClick={() => handleCurrentCategory(category)}
-              >
-                <div className="category-name-box">
-                  <MoreDropdown
-                    vertical
-                    handleEdit={() => handleCategoryEdit(category)}
-                    handleDelete={() => handleCategoryDelete(category)}
-                  />
-                  <p className="category-name">{category.name}</p>
-                </div>
-                <div className="category-action-box">
-                  <Switch
-                    status={category.isActive || true}
-                    offColor={colors.lightBlack}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCategorySwitch(category.id);
-                    }}
-                  />
-                  <div className="right-arrow">
-                    <Images.RightArrow />
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <DragDropContext onDragEnd={onDragCategory}>
+          <Droppable droppableId="category-list">
+            {(provided) => (
+              <div className="category-list-box">
+                <ul
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="category-list"
+                >
+                  {categories.map((category, index) => (
+                    <Draggable
+                      key={category.id}
+                      draggableId={category.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          key={category.id}
+                          className={`category-item ${
+                            !category.active ? "inactive" : ""
+                          } ${
+                            category.id === currentCategory?.id ? "current" : ""
+                          }`}
+                          onClick={() => handleCurrentCategory(category)}
+                        >
+                          <div className="category-name-box">
+                            <MoreDropdown
+                              vertical
+                              handleEdit={() => handleCategoryEdit(category)}
+                              handleDelete={() =>
+                                handleCategoryDelete(category)
+                              }
+                            />
+                            <p className="category-name">{category.name}</p>
+                          </div>
+                          <div className="category-action-box">
+                            <Switch
+                              status={category.active}
+                              offColor={colors.lightBlack}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCategorySwitch(category);
+                              }}
+                            />
+                            <div className="right-arrow">
+                              <Images.RightArrow />
+                            </div>
+                          </div>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       ) : (
         <NoItemsCard text={noItemsText} />
       )}

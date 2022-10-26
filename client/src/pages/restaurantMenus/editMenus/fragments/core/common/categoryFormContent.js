@@ -8,11 +8,11 @@ export const CategoryFormContent = ({ chosenCategory, register }) => {
         required={true}
         inputType={"text"}
         inputName={"name"}
-        inputPlaceholder={"Category Name"}
+        inputPlaceholder={"Category Name*"}
         defaultValue={chosenCategory?.name}
         {...register("name", { required: true })}
       />
-      {/* <UserInput
+      <UserInput
         required={false}
         isTextArea={true}
         inputName={"description"}
@@ -21,7 +21,7 @@ export const CategoryFormContent = ({ chosenCategory, register }) => {
         charCounterIsShown={false}
         {...register("description")}
       />
-      <UserInput
+      {/* <UserInput
         required={false}
         inputType={"text"}
         inputName={"note"}

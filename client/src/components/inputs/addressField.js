@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { StyledAddressInput } from "./style";
 import axios from "axios";
@@ -7,18 +7,27 @@ export const AddressInput = ({
   disabled,
   disableLabels,
   Value,
-  getAddress,
+  setFullAddress,
+  setFormattedAddress,
 }) => {
   const [address, setAddress] = useState("");
 
+  useEffect(() => {
+    setFormattedAddress && setFormattedAddress(address);
+  }, [address]);
+
   const handleSelect = async (value, ev) => {
-    if (address === value) return;
-    setAddress(value);
     try {
       const response = await axios.post(`/address`, { address: value });
-      getAddress(response.data);
+      setFullAddress({
+        country: response.data?.country,
+        city: response.data?.city,
+        state: response.data?.state,
+        zip: response.data?.zip,
+      });
+      setFormattedAddress(response.data?.formattedAddress);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

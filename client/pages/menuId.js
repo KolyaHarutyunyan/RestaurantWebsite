@@ -8,7 +8,6 @@ export const Menu = (props) => {
       <Head>{props.meta || <title>Welcome menuz</title>}</Head>
 
       {/*<MenuPage {...props.pageData} />*/}
-
     </Fragment>
   );
 };
