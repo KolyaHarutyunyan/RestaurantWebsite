@@ -19,8 +19,8 @@ export const StyledRestaurantMenus = styled.section`
   }
   .menus-list-box {
     width: 100%;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(373px, 1fr));
   }
 `;

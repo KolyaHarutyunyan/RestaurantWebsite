@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import { colors } from "@eachbase/theme";
 
 export const StyledSideSheetsDrawer = styled(Box)`
+  @media (max-width: 610px) {
+    display: none;
+  }
   .collapse {
     position: fixed;
     width: 34px;

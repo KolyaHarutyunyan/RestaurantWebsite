@@ -2,6 +2,14 @@ import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
 export const StyledMenuItem = styled.section`
+  max-width: 373px;
+  width: 100%;
+  @media (max-width: 1024px) {
+    max-width: 304px;
+  }
+  @media (max-width: 610px) {
+    max-width: 100%;
+  }
   .menu-item-card {
     position: relative;
     display: flex;
