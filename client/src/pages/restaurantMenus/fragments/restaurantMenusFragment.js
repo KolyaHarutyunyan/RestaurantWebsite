@@ -28,12 +28,7 @@ export const RestaurantMenusFragment = () => {
     <StyledRestaurantMenus>
       <div className="menu-header">
         <h2 className="menu-title">Menus</h2>
-        <Button
-          square
-          fullWidth
-          maxWidth={"180px"}
-          onClick={() => open(MODAL_NAMES.MENU_FORM)}
-        >
+        <Button square fullWidth onClick={() => open(MODAL_NAMES.MENU_FORM)}>
           Add Menu
         </Button>
       </div>
