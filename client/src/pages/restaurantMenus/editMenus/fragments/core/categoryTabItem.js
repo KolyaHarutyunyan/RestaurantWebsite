@@ -45,10 +45,13 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   );
   const reorderProductsSaga = useSagaStore(categoryItemActions.reorder);
 
+  const width = useWidth();
+  const _anchor = width <= 610 ? "bottom" : "right";
+
   const [category, setCategory] = useState(null);
   const [chosenCategory, setChosenCategory] = useState(null);
   const [chosenProduct, setChosenProduct] = useState(null);
-  const [drawerPosition, setDrawerPosition] = useState({ right: false });
+  const [drawerPosition, setDrawerPosition] = useState({ [_anchor]: false });
   const [formContentLabel, setFormContentLabel] = useState("");
   const [images, setImages] = useState([]);
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -56,9 +59,6 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const [searchbarValue, setSearchbarValue] = useState("");
 
   const { showDuringSmallSize, toggleTabItems } = useContext(TabItemsContext);
-
-  const width = useWidth();
-  const _anchor = width <= 610 ? "bottom" : "right";
 
   const submitCategoryForm = useForm();
   const submitProductForm = useForm();

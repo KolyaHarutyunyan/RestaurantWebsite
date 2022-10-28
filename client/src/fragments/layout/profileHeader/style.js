@@ -19,6 +19,9 @@ export const StyledProfileHeader = styled.div`
   .avatar {
     cursor: pointer;
   }
+  @media (max-width: 610px) {
+    padding: 0px 12px;
+  }
 `;
 
 export const StyledAccountDrawer = styled(Drawer)`

@@ -2,10 +2,23 @@ import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
 export const StyledAccountSettings = styled.div`
+  position: relative;
   width: 100%;
   padding: 16px;
   background-color: ${colors.white};
   border-radius: inherit;
+  @media (max-width: 610px) {
+    padding: 32px 16px;
+  }
+  .close-account-settings-button {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+    background-color: ${colors.black50};
+    border-radius: 32px;
+  }
   .name-and-avatar {
     width: 100%;
     margin-bottom: 19px;
