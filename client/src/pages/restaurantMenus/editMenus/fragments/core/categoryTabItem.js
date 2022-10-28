@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { StyledCategoryTabItem, StyledMenuDrawer } from "./style";
 import { CategoryCard, ItemFormCard, ProductCard } from "@eachbase/components";
 import { useSelector } from "react-redux";
@@ -18,7 +18,12 @@ import {
   PRODUCT_FORM_ADD,
   PRODUCT_FORM_EDIT,
 } from "./constants";
-import { ImgUploader, useFileUpload } from "@eachbase/utils";
+import {
+  ImgUploader,
+  TabItemsContext,
+  useFileUpload,
+  useWidth,
+} from "@eachbase/utils";
 
 export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const restaurant = useSelector(({ businesses }) => businesses);
@@ -49,6 +54,11 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [imagesOnLoad, setImagesOnLoad] = useState(false);
   const [searchbarValue, setSearchbarValue] = useState("");
+
+  const { showDuringSmallSize, toggleTabItems } = useContext(TabItemsContext);
+
+  const width = useWidth();
+  const _anchor = width <= 610 ? "bottom" : "right";
 
   const submitCategoryForm = useForm();
   const submitProductForm = useForm();
@@ -128,7 +138,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   };
 
   const closeDrawer = () => {
-    toggleDrawer("right", false);
+    toggleDrawer(_anchor, false);
   };
 
   const handleCurrentCategory = (category) => {
@@ -136,18 +146,19 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     submitProductForm.reset(initialProductState);
     setImages(initialProductState.images);
     setMainImageIndex(initialProductState.mainImage);
+    toggleTabItems();
   };
   const handleCategoryAdd = () => {
     submitCategoryForm.reset(initialCategoryState);
     setChosenCategory(null);
     setFormContentLabel(CATEGORY_FORM_ADD);
-    toggleDrawer("right", true);
+    toggleDrawer(_anchor, true);
   };
 
   const handleCategoryEdit = (category) => {
     setChosenCategory(category);
     setFormContentLabel(CATEGORY_FORM_EDIT);
-    toggleDrawer("right", true);
+    toggleDrawer(_anchor, true);
   };
 
   const handleCategoryDelete = (category) => {
@@ -189,13 +200,13 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const handleProductAdd = () => {
     setChosenProduct(null);
     setFormContentLabel(PRODUCT_FORM_ADD);
-    toggleDrawer("right", true);
+    toggleDrawer(_anchor, true);
   };
 
   const handleProductEdit = (product) => {
     setChosenProduct(product);
     setFormContentLabel(PRODUCT_FORM_EDIT);
-    toggleDrawer("right", true);
+    toggleDrawer(_anchor, true);
   };
 
   const handleProductDelete = (product) => {
@@ -290,6 +301,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     <>
       <StyledCategoryTabItem>
         <CategoryCard
+          cardClassName={`category-card ${showDuringSmallSize ? "hidden" : ""}`}
           categories={menu?.[categoryName]}
           handleCurrentCategory={handleCurrentCategory}
           currentCategory={category}
@@ -301,6 +313,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
           onDragCategory={handleCategoriesReorder}
         />
         <ProductCard
+          cardClassName={`product-card ${showDuringSmallSize ? "shown" : ""}`}
           products={category?.items}
           currentCategory={category}
           handleProductAdd={handleProductAdd}
@@ -321,8 +334,8 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
         />
       </StyledCategoryTabItem>
       <StyledMenuDrawer
-        anchor={"right"}
-        open={drawerPosition.right}
+        anchor={_anchor}
+        open={drawerPosition[_anchor]}
         onClose={closeDrawer}
       >
         {formContentLabel === CATEGORY_FORM_ADD ||

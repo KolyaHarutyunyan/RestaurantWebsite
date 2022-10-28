@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const Container = styled.div`
   //margin: 0 auto;
@@ -22,5 +23,6 @@ export const Container = styled.div`
     border-radius: 48px;
     padding: 60px 3px 48px 3px;
     overflow: hidden;
+    background: ${colors.neautralLightGray};
   }
 `;

@@ -8,5 +8,7 @@ export { ImgUploader } from "./imgUploader";
 export {
   SideSheetsDrawerContext,
   SideSheetsDrawerContextProvider,
+  TabItemsContext,
+  TabItemsContextProvider,
 } from "./contexts";
-export { useFileUpload } from "./customHooks";
+export { useFileUpload, useWidth } from "./customHooks";

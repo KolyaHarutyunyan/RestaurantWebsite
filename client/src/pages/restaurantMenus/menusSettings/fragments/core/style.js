@@ -6,6 +6,16 @@ export const StyledOverviewTabItem = styled.div`
     padding: 16px;
     max-width: 624px;
     width: 100%;
+    .overview-form-buttons {
+      @media (max-width: 610px) {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc(100% - 72px);
+        column-gap: 15px;
+      }
+    }
   }
 `;
 

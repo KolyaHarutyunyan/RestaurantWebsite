@@ -10,6 +10,7 @@ import { colors } from "@eachbase/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const CategoryCard = ({
+  cardClassName,
   categories = [],
   currentCategory,
   handleCategoryAdd,
@@ -21,9 +22,14 @@ export const CategoryCard = ({
   onDragCategory,
 }) => {
   return (
-    <StyledCategoryCard>
+    <StyledCategoryCard className={cardClassName}>
       <div className="category-add-box">
-        <Button square fullWidth maxWidth={"95px"} onClick={handleCategoryAdd}>
+        <Button
+          square
+          fullWidth
+          className={"category-add-button"}
+          onClick={handleCategoryAdd}
+        >
           Add
         </Button>
       </div>

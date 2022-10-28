@@ -12,6 +12,9 @@ export const StyledItemFormCard = styled.div`
   gap: 24px;
   isolation: isolate;
   background-color: ${colors.white};
+  @media (max-width: 610px) {
+    padding: 32px 16px;
+  }
   .close-form-card-button {
     position: absolute;
     width: 30px;

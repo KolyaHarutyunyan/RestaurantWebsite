@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
-export const StyledProductCard = styled.section`
+export const StyledProductCard = styled.section.attrs((props) => ({
+  className: props.className,
+}))`
   width: 100%;
   padding: 16px;
   background-color: ${colors.white};
@@ -18,6 +20,12 @@ export const StyledProductCard = styled.section`
     font-size: 16px;
     line-height: 24px;
     color: ${colors.primary};
+    @media (max-width: 1024px) {
+      top: -20px;
+    }
+    @media (max-width: 610px) {
+      top: -56px;
+    }
   }
   .product-list-box {
     width: 100%;

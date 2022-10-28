@@ -3,10 +3,32 @@ import { Drawer } from "@material-ui/core";
 
 export const StyledCategoryTabItem = styled.section`
   width: 100%;
-  min-height: 456px;
+  min-height: 72.5vh;
   display: flex;
   justify-content: flex-start;
   column-gap: 16px;
+  .category-card {
+    @media (max-width: 1024px) {
+      display: block;
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+  .product-card {
+    @media (max-width: 1024px) {
+      display: none;
+      &.shown {
+        display: block;
+        margin-top: -30px;
+      }
+    }
+    @media (max-width: 610px) {
+      &.shown {
+        margin-top: -56px;
+      }
+    }
+  }
 `;
 
 export const StyledMenuDrawer = styled(Drawer)`

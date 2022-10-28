@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { StyledEditMenus } from "./style";
 import { editMenusTabs, getMenusBreadcrumbs } from "./constants";
 import { Button, Loader, MuiBreadcrumbs, MuiTabs } from "@eachbase/components";
 import Router, { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { itemActions, menusActions, useSagaStore } from "@eachbase/store";
-import { FindLoad } from "@eachbase/utils";
+import { FindLoad, TabItemsContext } from "@eachbase/utils";
+import { Images } from "@eachbase/theme/images";
 
 export const EditMenusFragment = () => {
   const restaurant = useSelector(({ businesses }) => businesses);
@@ -15,6 +16,7 @@ export const EditMenusFragment = () => {
   const router = useRouter();
   const menuId = router.query.menuId;
   const loader = FindLoad("GET_BUSINESS_MENU");
+  const { showDuringSmallSize, toggleTabItems } = useContext(TabItemsContext);
 
   useEffect(() => {
     if (menuId) {
@@ -37,13 +39,32 @@ export const EditMenusFragment = () => {
   return (
     <StyledEditMenus>
       <div className="edit-menus-header">
-        <MuiBreadcrumbs breadcrumbs={getMenusBreadcrumbs(menu?.name)} />
-        <Button square fullWidth maxWidth={"176px"} onClick={handlePreview}>
+        <div
+          className={`back-arrow-icon ${showDuringSmallSize ? "shown" : ""}`}
+          onClick={toggleTabItems}
+        >
+          <Images.GoBackArrow />
+        </div>
+        <MuiBreadcrumbs
+          breadcrumbs={getMenusBreadcrumbs(menu?.name)}
+          className={`edit-menus-breadcrumb ${
+            showDuringSmallSize ? "hidden" : ""
+          }`}
+        />
+        <Button
+          square
+          fullWidth
+          onClick={handlePreview}
+          className={`preview-button ${showDuringSmallSize ? "hidden" : ""}`}
+        >
           Preview
         </Button>
       </div>
       <div className="edit-menus-nav">
-        <MuiTabs className={"edit-menus-tabs"} tabs={editMenusTabs} />
+        <MuiTabs
+          className={`edit-menus-tabs ${showDuringSmallSize ? "hidden" : ""}`}
+          tabs={editMenusTabs}
+        />
       </div>
     </StyledEditMenus>
   );

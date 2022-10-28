@@ -91,6 +91,7 @@ export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 24px;
   button {
     max-width: 284px;
     width: 100%;
@@ -106,6 +107,9 @@ export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
     &.save-button {
       background-color: ${colors.primary};
       color: ${colors.white};
+    }
+    @media (max-width: 1024px) {
+      max-width: 276px;
     }
   }
 `;
