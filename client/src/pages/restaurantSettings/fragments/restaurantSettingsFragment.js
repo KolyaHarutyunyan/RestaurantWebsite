@@ -5,7 +5,7 @@ import { Images } from "@eachbase/theme/images";
 import { FindLoad } from "@eachbase/utils";
 
 export const RestaurantSettingsFragment = () => {
-  const loader = FindLoad("GET_BUSINESS_BY_ID")
+  const loader = FindLoad("GET_BUSINESS_BY_ID");
 
   if (loader?.length) {
     return <Loader />;
@@ -19,7 +19,10 @@ export const RestaurantSettingsFragment = () => {
           <Images.DownloadIcon /> Download QR Code{" "}
         </a>
       </div>
-      <MuiTabs tabs={restaurantSettingsTabs} />
+      <MuiTabs
+        tabs={restaurantSettingsTabs}
+        className={"restaurant-settings-tab"}
+      />
     </StyledRestaurantSettings>
   );
 };

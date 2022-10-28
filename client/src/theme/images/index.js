@@ -29,7 +29,7 @@ import MoreIconVertical from "./menusPage/moreIconVertical.svg";
 import RightArrow from "./menusPage/rightArrow.svg";
 import GalleryEmpty from "./menusPage/galleryEmpty.svg";
 import MenuFoodIcon from "./menusPage/menuFoodIcon.svg";
-import DummyImage from "./menusPage/dummyImage.png";
+import GoBackArrow from "./menusPage/goBackArrow.svg";
 
 // SETTINGS_PAGE_IMAGES
 import DownloadIcon from "./settingsPage/downloadIcon.svg";
@@ -69,7 +69,7 @@ export const Images = {
   RightArrow,
   GalleryEmpty,
   MenuFoodIcon,
-  DummyImage,
+  GoBackArrow,
   DownloadIcon,
   RestaurantLogo,
   Checkmark,

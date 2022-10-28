@@ -109,55 +109,56 @@ export const AvailabilitySchedule = ({
                           key={index}
                           className={`times ${!item.available ? "closed" : ""}`}
                         >
-                          <ValidationInput
-                            className={"time-input-style"}
-                            errorFalse={true}
-                            // disabled={!item.isActive}
-                            name="from"
-                            value={item.from}
-                            type="time"
-                            onChange={(e) => {
-                              changeData(e, index, key);
-                            }}
-                          />
-                          <p className={"small-line"} />
-                          <ValidationInput
-                            className={"time-input-style"}
-                            errorFalse={true}
-                            // disabled={!item.isActive}
-                            name="to"
-                            value={item.to}
-                            type="time"
-                            onChange={(e) => {
-                              changeData(e, index, key);
-                            }}
-                          />
-                          <div className={"close-checkbox"}>
-                            <Checkbox
-                              checked={!item.available}
-                              name="available"
-                              className={"custom-checkbox"}
+                          <div className="time-inputs-box">
+                            <ValidationInput
+                              className={"time-input-style"}
+                              errorFalse={true}
+                              // disabled={!item.isActive}
+                              name="from"
+                              value={item.from}
+                              type="time"
                               onChange={(e) => {
                                 changeData(e, index, key);
                               }}
                             />
-                            <span className={"not-available-text"}>Closed</span>
+                            <p className={"small-line"} />
+                            <ValidationInput
+                              className={"time-input-style"}
+                              errorFalse={true}
+                              // disabled={!item.isActive}
+                              name="to"
+                              value={item.to}
+                              type="time"
+                              onChange={(e) => {
+                                changeData(e, index, key);
+                              }}
+                            />
                           </div>
-                          <span
-                            className={"remove-time-btn-mobile"}
-                            onClick={() => {
-                              removeRow(key, index);
-                            }}
-                          >
-                            <Icons.DeleteButtonSmall />
-                          </span>
-                          <div
-                            className="remove-time-btn"
-                            onClick={() => {
-                              removeRow(key, index);
-                            }}
-                          >
-                            <Images.DeleteIcon />
+                          <div className="time-actions-box">
+                            <div className={"close-checkbox"}>
+                              <Checkbox
+                                checked={!item.available}
+                                name="available"
+                                className={"custom-checkbox"}
+                                onChange={(e) => {
+                                  changeData(e, index, key);
+                                }}
+                              />
+                              <span className={"not-available-text"}>
+                                Closed
+                              </span>
+                            </div>
+                            <div
+                              className="remove-time-btn"
+                              onClick={() => {
+                                removeRow(key, index);
+                              }}
+                            >
+                              <Images.DeleteIcon />
+                            </div>
+                            <span className={"not-available-text delete-time"}>
+                              Delete
+                            </span>
                           </div>
                         </div>
                       );

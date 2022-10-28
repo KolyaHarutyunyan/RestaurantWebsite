@@ -49,8 +49,8 @@ export const ModalContainer = styled.div`
     padding: ${({ mini, modal }) =>
       mini ? "10px 30px 30px 30px" : modal ? "32px" : "30px"};
 
-    @media only screen and (max-width: 768px) {
-      width: 340px;
+    @media only screen and (max-width: 610px) {
+      width: 342px;
     }
     /* @media (min-width: 320px) {
       padding: 8px 16px 32px 16px;

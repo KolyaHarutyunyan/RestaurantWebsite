@@ -2,10 +2,18 @@ import { StyledAccountSettings } from "./style";
 import { Images } from "@eachbase/theme/images";
 import { Button } from "@eachbase/components";
 import { ChangePasswordForm, NameEmailForm } from "./common";
+import { MdClose } from "react-icons/md";
 
-export const AccountSettings = ({ account }) => {
+export const AccountSettings = ({ account, handleClose }) => {
   return (
     <StyledAccountSettings>
+      <button
+        type="button"
+        className="close-account-settings-button"
+        onClick={handleClose}
+      >
+        <MdClose style={{ fontSize: 24 }} />
+      </button>
       <div className="name-and-avatar">
         <h6 className="name">{`${account?.name} ${account?.surname}`}</h6>
         <div className="avatar">

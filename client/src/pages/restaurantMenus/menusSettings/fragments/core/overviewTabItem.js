@@ -26,7 +26,6 @@ export const OverviewTabItem = () => {
   useEffect(() => {
     if (status.onSuccess) {
       destroy.all();
-      reset(initialMenu);
       Router.push("/menus");
     }
   }, [status]);
@@ -72,6 +71,7 @@ export const OverviewTabItem = () => {
             {...register("note")}
           /> */}
           <SaveOrCancelButton
+            className={"overview-form-buttons"}
             onCancel={(e) => {
               e.preventDefault();
               Router.push("/menus");

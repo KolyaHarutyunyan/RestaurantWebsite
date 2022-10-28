@@ -3,6 +3,7 @@ import { ThemeProvider } from "@eachbase/theme";
 import {
   initAxiosInterceptors,
   SideSheetsDrawerContextProvider,
+  TabItemsContextProvider,
 } from "@eachbase/utils";
 import { ModalProvider } from "@eachbase/components";
 import { Layout, Modals } from "@eachbase/fragments";
@@ -61,9 +62,11 @@ const MyApp = ({ Component, pageProps }) => (
     <ThemeProvider>
       <ModalProvider>
         <SideSheetsDrawerContextProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <TabItemsContextProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </TabItemsContextProvider>
         </SideSheetsDrawerContextProvider>
         <Modals />
         <ToastContainer hideProgressBar position="bottom-right" />

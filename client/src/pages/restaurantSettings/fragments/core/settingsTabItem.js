@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyledSettingsTabItem } from "./style";
 import { useForm } from "react-hook-form";
 import {
@@ -12,7 +12,12 @@ import { Images } from "@eachbase/theme/images";
 import { addressInputs } from "./constants";
 import { useSelector } from "react-redux";
 import { businessesActions, useSagaStore } from "@eachbase/store";
-import { ImgUploader, useFileUpload } from "@eachbase/utils";
+import {
+  ImgUploader,
+  SideSheetsDrawerContext,
+  useFileUpload,
+} from "@eachbase/utils";
+import { addClosed } from "@eachbase/fragments/layout/sideSheetsDrawer/constants";
 
 export const SettingsTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
@@ -28,6 +33,8 @@ export const SettingsTabItem = () => {
   );
   const { img, imgPush, error, handleFileChange, handleFileRemove } =
     useFileUpload();
+
+  const { open } = useContext(SideSheetsDrawerContext);
 
   useEffect(() => {
     if (restaurant) {
@@ -119,7 +126,7 @@ export const SettingsTabItem = () => {
           {addressInputs.map((addressInput, index) => (
             <UserInput
               key={index}
-              inputClassName={"address-input"}
+              inputClassName={addClosed("address-input", !open)}
               required={false}
               inputLabel={addressInput.label}
               inputType={"text"}
@@ -161,6 +168,7 @@ export const SettingsTabItem = () => {
           )}
         </div>
         <SaveOrCancelButton
+          className={"settings-save-cancel-buttons"}
           onCancel={(e) => {
             e.preventDefault();
             alert("Cancelled");

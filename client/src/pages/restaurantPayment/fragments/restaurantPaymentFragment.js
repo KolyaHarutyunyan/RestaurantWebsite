@@ -5,6 +5,7 @@ import { ActivePlan } from "./core/activePlan";
 import { PaymentMethod } from "./core/paymentMethod";
 import { InvoiceTable } from "./core/invoiceTable";
 import { Images } from "@eachbase/theme/images";
+import { invoiceTBodyData } from "./core/constants";
 
 export const RestaurantPaymentFragment = () => {
   return (
@@ -22,11 +23,13 @@ export const RestaurantPaymentFragment = () => {
           <PaymentMethod />
         </div>
         <p className="active-plane">Invoices</p>
-        <InvoiceTable />
-        <div className="cancel-button-wrapper">
-          <button className="cancel-button">Cancel Subscribtion</button>
-          <Images.Info />
-        </div>
+        <InvoiceTable invoices={invoiceTBodyData} />
+        {invoiceTBodyData?.length && (
+          <div className="cancel-button-wrapper">
+            <button className="cancel-button">Cancel Subscribtion</button>
+            <Images.Info />
+          </div>
+        )}
       </div>
     </StyledRestaurantPayment>
   );

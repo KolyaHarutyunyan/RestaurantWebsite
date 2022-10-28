@@ -1,7 +1,9 @@
 import { colors } from "@eachbase/theme";
 import styled from "styled-components";
 
-export const StyledMuiBreadcrumbs = styled.div`
+export const StyledMuiBreadcrumbs = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
   li {
     list-style: none;
   }

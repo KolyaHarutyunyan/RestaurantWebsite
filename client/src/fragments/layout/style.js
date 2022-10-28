@@ -16,9 +16,12 @@ export const StyledLayout = styled.div`
     display: flex;
     .main-content {
       width: 100%;
-      margin: 0px;
+      padding: 0px;
       &.shown {
-        margin: 24px 42px;
+        padding: 24px 42px;
+        @media (max-width: 610px) {
+          padding: 32px 16px 16px 16px;
+        }
       }
     }
   }

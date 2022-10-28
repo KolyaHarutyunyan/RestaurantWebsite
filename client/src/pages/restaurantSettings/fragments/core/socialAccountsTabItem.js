@@ -59,6 +59,7 @@ export const SocialAccountsTabItem = () => {
           {...register("instagram")}
         />
         <SaveOrCancelButton
+          className={"settings-save-cancel-buttons"}
           onCancel={(e) => {
             e.preventDefault();
             alert("Cancelled");

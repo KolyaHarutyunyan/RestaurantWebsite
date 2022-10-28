@@ -10,6 +10,7 @@ import { Images } from "@eachbase/theme/images";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const ProductCard = ({
+  cardClassName,
   products = [],
   currentCategory,
   handleProductAdd,
@@ -26,7 +27,7 @@ export const ProductCard = ({
   onDragProduct,
 }) => {
   return (
-    <StyledProductCard>
+    <StyledProductCard className={cardClassName}>
       {currentCategory ? (
         <>
           <button

@@ -28,7 +28,6 @@ export const StyledNameEmailForm = styled.div`
 
 export const StyledChangePasswordForm = styled.div`
   .change-password {
-    width: 100%;
     max-width: 347px;
     width: 100%;
     background-color: ${colors.white};
@@ -36,6 +35,9 @@ export const StyledChangePasswordForm = styled.div`
     border-radius: 8px;
     padding: 12px 16px;
     margin-bottom: 16px;
+    @media (max-width: 610px) {
+      max-width: 100%;
+    }
     .change-password-wrapper {
       width: 100%;
       display: flex;

@@ -17,9 +17,8 @@ export const EditSave = styled.div`
 
 export const ButtonContainer = styled.button`
   position: relative;
-  min-width: ${({ link }) => (link ? "fit-content" : "150px")};
+  min-width: ${({ link }) => (link ? "fit-content" : "auto")};
   height: 48px;
-  padding: 0 16px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   border-radius: ${({ square }) => (square ? "8px" : "24px")};
   border: 1px solid;
@@ -91,6 +90,7 @@ export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 24px;
   button {
     max-width: 284px;
     width: 100%;
@@ -106,6 +106,9 @@ export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
     &.save-button {
       background-color: ${colors.primary};
       color: ${colors.white};
+    }
+    @media (max-width: 1024px) {
+      max-width: 276px;
     }
   }
 `;

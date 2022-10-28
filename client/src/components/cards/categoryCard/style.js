@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
-export const StyledCategoryCard = styled.section`
+export const StyledCategoryCard = styled.section.attrs((props) => ({
+  className: props.className,
+}))`
   width: 100%;
   padding: 16px;
   background-color: ${colors.white};
@@ -11,6 +13,17 @@ export const StyledCategoryCard = styled.section`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    .category-add-button {
+      max-width: 95px;
+      @media (max-width: 610px) {
+        max-width: 100%;
+        background-color: ${colors.black50};
+        color: ${colors.secondary};
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
   }
   .category-list-box {
     width: 100%;

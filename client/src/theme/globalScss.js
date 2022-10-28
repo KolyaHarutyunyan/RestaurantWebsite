@@ -162,11 +162,11 @@ export const GlobalScss = createGlobalStyle`
     .g-title {
         text-align: center;
         font-family: Poppins,sans-serif;
-        line-height: 72px;
-        font-size: 48px!important;
-        @media (max-width: 767px) {
-            line-height: 36px;
-            font-size: 28px!important;
+        font-size: 32px;
+        line-height: 48px;
+        @media (max-width: 769px) {
+          font-size: 24px;
+          line-height: 36px;
         }
     }
     .descr {

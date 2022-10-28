@@ -5,8 +5,8 @@ import Link from "next/link";
 import { StyledMuiBreadcrumbs } from "./style";
 import { colors } from "@eachbase/theme";
 
-export const MuiBreadcrumbs = ({ breadcrumbs = [] }) => (
-  <StyledMuiBreadcrumbs>
+export const MuiBreadcrumbs = ({ breadcrumbs = [], className }) => (
+  <StyledMuiBreadcrumbs className={className}>
     <Breadcrumbs
       separator={
         <NavigateNextIcon

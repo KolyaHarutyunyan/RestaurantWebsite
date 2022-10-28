@@ -15,12 +15,22 @@ export const StyledRestaurantMenus = styled.section`
       font-size: 32px;
       line-height: 48px;
       color: ${colors.secondary};
+      @media (max-width: 610px) {
+        font-size: 24px;
+        line-height: 36px;
+      }
+    }
+    & button {
+      max-width: 180px;
+      @media (max-width: 610px) {
+        max-width: 148px;
+      }
     }
   }
   .menus-list-box {
     width: 100%;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(373px, 1fr));
   }
 `;
