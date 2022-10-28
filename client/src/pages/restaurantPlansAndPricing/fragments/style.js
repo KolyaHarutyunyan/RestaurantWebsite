@@ -15,9 +15,17 @@ export const StyledRestaurantPlansAndPricing = styled.section`
     display: flex;
     justify-content: center;
     margin: 24px 0px;
+    @media (max-width: 1024px) {
+      justify-content: flex-start;
+    }
     .cards-wrapper {
       display: flex;
       justify-content: initial;
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 22px;
+      }
       .card {
         width: 302px;
         height: 655px;
@@ -26,8 +34,18 @@ export const StyledRestaurantPlansAndPricing = styled.section`
         padding: 32px 20px;
         text-align: start;
         margin: 0 auto;
+        @media (max-width: 1024px) {
+          width: 300px;
+        }
         &:not(:first-of-type) {
           margin-left: 32px;
+          @media (max-width: 1024px) {
+            margin-left: 16px;
+          }
+          @media (max-width: 768px) {
+            margin-left: 0px;
+            margin-top: 16px;
+          }
         }
       }
       .title {

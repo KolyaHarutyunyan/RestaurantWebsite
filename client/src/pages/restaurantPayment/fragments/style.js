@@ -4,17 +4,20 @@ import { colors } from "@eachbase/theme";
 export const StyledRestaurantPayment = styled.section`
   .cancel-button-wrapper {
     padding: 0px 17px;
-    margin-top: 40px;
+    margin-top: 30px;
     width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    @media (max-width: 768px) {
+      margin-top: 24px;
+    }
   }
   .cancel-button {
     margin-right: 16px;
     padding: 12px 81px;
     background-color: ${colors.primary};
-    border-radius: 32px;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +27,9 @@ export const StyledRestaurantPayment = styled.section`
     line-height: 24px;
     text-align: center;
     color: ${colors.white};
+    @media (max-width: 768px) {
+      padding: 12px 36px;
+    }
   }
   .billing-wrapper {
     display: flex;
@@ -33,8 +39,6 @@ export const StyledRestaurantPayment = styled.section`
     .g-title {
       font-family: Open Sans, sans-serif;
       font-weight: 700;
-      font-size: 32px;
-      line-height: 48px;
       color: ${colors.secondary};
     }
     .active-plane {
@@ -48,7 +52,7 @@ export const StyledRestaurantPayment = styled.section`
         font-size: 18px;
         line-height: 28px;
       }
-      @media (min-width: 768px) {
+      @media (min-width: 769px) {
         margin: 24px 0;
         font-size: 28px;
         line-height: 42px;
@@ -67,7 +71,7 @@ export const StyledRestaurantPayment = styled.section`
       @media (min-width: 320px) {
         padding: 24px 16px;
       }
-      @media (min-width: 768px) {
+      @media (min-width: 769px) {
         padding: 24px;
       }
       @media (min-width: 1440px) {

@@ -10,7 +10,7 @@ export const StyledActivePlan = styled.div`
     @media (min-width: 320px) {
       flex-direction: column;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       flex-direction: row;
     }
   }
@@ -57,7 +57,7 @@ export const StyledActivePlan = styled.div`
       width: 132px;
       height: 38px;
       background: #f03939;
-      border-radius: 24px;
+      border-radius: 8px;
       font-family: Open Sans, sans-serif;
       font-style: normal;
       font-weight: 700;
@@ -128,16 +128,16 @@ export const StyledPaymentMethod = styled.div`
     @media (min-width: 320px) {
       flex-direction: column;
     }
-    @media (min-width: 767px) {
+    @media (min-width: 769px) {
       flex-direction: row;
     }
   }
   .card-wrapper {
+    max-width: 295px;
     width: 100%;
-    max-width: 285px;
     height: 164px;
     background: #f9f9f9;
-    border: 1px solid #c4c4c4;
+    border: 1px solid ${colors.lightBlack};
     border-radius: 8px;
     padding: 26px 24px;
     margin-right: 10px;
@@ -174,7 +174,6 @@ export const StyledPaymentMethod = styled.div`
       font-family: Open Sans, sans-serif;
       font-weight: 400;
       font-size: 14px;
-      line-height: 20px;
       &.edit-btn {
         color: ${colors.yellowOrange};
       }
@@ -201,7 +200,8 @@ export const StyledPaymentMethod = styled.div`
     margin-right: 12px;
   }
   .add-card {
-    width: 275px;
+    max-width: 295px;
+    width: 100%;
     height: 164px;
     border: 1px solid #e9e9eb;
     border-radius: 8px;
@@ -211,7 +211,7 @@ export const StyledPaymentMethod = styled.div`
     @media (min-width: 320px) {
       margin-top: 16px;
     }
-    @media (min-width: 767px) {
+    @media (min-width: 769px) {
       margin-top: 0;
     }
     .add-card-btn {
@@ -245,12 +245,10 @@ export const StyledInvoiceTable = styled.div`
       justify-content: center;
     }
   }
-  /* .mobile-cards-table {
-    @media (min-width: 320px) {
+  .mobile-cards-table {
+    display: none;
+    @media (max-width: 768px) {
       display: block;
-    }
-    @media (min-width: 767px) {
-      display: none;
     }
     .mobile-cards-item {
       width: auto;
@@ -273,6 +271,7 @@ export const StyledInvoiceTable = styled.div`
         line-height: 20px;
         color: ${colors.secondary};
         margin-right: 22px;
+        text-transform: capitalize;
       }
       .info {
         font-family: Open Sans, sans-serif;
@@ -292,18 +291,15 @@ export const StyledInvoiceTable = styled.div`
         justify-content: center;
       }
     }
-  } */
+  }
   .cards-table {
     width: 100%;
     height: auto;
     background: white;
     border: 1px solid #e9e9eb;
     border-radius: 8px;
-    @media (min-width: 320px) {
+    @media (max-width: 768px) {
       display: none;
-    }
-    @media (min-width: 767px) {
-      display: block;
     }
     .cards-table-head {
       display: flex;
@@ -312,6 +308,9 @@ export const StyledInvoiceTable = styled.div`
       border-radius: 8px 8px 0 0;
       width: 100%;
       padding: 16px 32px;
+      @media (max-width: 768px) {
+        padding: 13px 16px;
+      }
       p {
         width: 100%;
         font-family: Open Sans, sans-serif;
@@ -332,6 +331,9 @@ export const StyledInvoiceTable = styled.div`
       width: 100%;
       padding: 15px 32px;
       border-bottom: 1px solid #ced8e5;
+      @media (max-width: 768px) {
+        padding: 13px 16px;
+      }
       p {
         width: 100%;
         font-family: Open Sans, sans-serif;
@@ -354,7 +356,7 @@ export const StyledPayInfo = styled.div`
     padding: 16px;
     width: 340px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     width: 499px;
   }
   @media (min-width: 1440px) {

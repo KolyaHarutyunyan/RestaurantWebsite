@@ -28,10 +28,10 @@ export const addedCards = [
 
 // INVOICE_TABLE_CONSTANTS
 export const invoiceTHeadCaptions = [
-  { width: "300px", caption: "Date" },
-  { width: "300px", caption: "Items" },
-  { width: "300px", caption: "Cost" },
-  { width: "165px", caption: "Action" },
+  { width: "300px", caption: "date" },
+  { width: "300px", caption: "items" },
+  { width: "300px", caption: "cost" },
+  { width: "165px", caption: "action" },
 ];
 
 export const invoiceTBodyData = [
@@ -54,3 +54,11 @@ export const invoiceTBodyData = [
     cost: "$25",
   },
 ];
+
+export const getInvoices = (invoices = []) => {
+  return invoices.map((invoice) => ({
+    date: invoice.date,
+    items: invoice.items,
+    cost: invoice.cost,
+  }));
+};
