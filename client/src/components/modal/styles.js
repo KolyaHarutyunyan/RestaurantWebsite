@@ -45,6 +45,10 @@ export const StyledAvailabilitySchedule = styled.div`
     display: flex;
     width: 100%;
     margin: 0px auto;
+    @media (max-width: 760px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
     &:not(:first-of-type) {
       margin-top: 6px;
     }
@@ -60,11 +64,8 @@ export const StyledAvailabilitySchedule = styled.div`
   }
   .time-row-wrapper {
     display: flex;
-    @media (min-width: 320px) {
-      margin-top: 16px;
-    }
-    @media (min-width: 768px) {
-      margin-top: 0px;
+    @media (max-width: 760px) {
+      margin-top: 11px;
     }
   }
   .day-name {
@@ -92,8 +93,15 @@ export const StyledAvailabilitySchedule = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
+    @media (max-width: 760px) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
     &:not(:first-of-type) {
       margin-top: 8px;
+      @media (max-width: 760px) {
+        margin-top: 18px;
+      }
     }
     &.closed {
       opacity: 0.7;
@@ -110,7 +118,23 @@ export const StyledAvailabilitySchedule = styled.div`
         font-weight: 400;
         font-size: 14px;
         color: ${colors.secondary};
+        @media (max-width: 760px) {
+          padding: 8px;
+        }
       }
+    }
+    .time-inputs-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      @media (max-width: 760px) {
+        margin-bottom: 8px;
+      }
+    }
+    .time-actions-box {
+      display: flex;
+      align-items: center;
     }
   }
   .more-hours-btn {
@@ -126,9 +150,11 @@ export const StyledAvailabilitySchedule = styled.div`
   .time-input-style {
     border: 0.5px solid #bebebe;
     border-radius: 8px;
-    padding: 1px 5px;
     max-width: 145px;
     width: 100%;
+    @media (max-width: 420px) {
+      max-width: 125px;
+    }
     & .MuiInputBase-root::before {
       content: revert !important;
     }
@@ -144,6 +170,9 @@ export const StyledAvailabilitySchedule = styled.div`
     height: 1px;
     background-color: ${colors.halfBlack};
     margin: 0px 16px;
+    @media (max-width: 420px) {
+      margin: 0px 14px;
+    }
   }
   .custom-checkbox {
     width: 20px;
@@ -151,7 +180,6 @@ export const StyledAvailabilitySchedule = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 4px;
     border-radius: 4px;
     color: ${colors.yellowOrange};
     /* &.Mui-checked {
@@ -165,11 +193,12 @@ export const StyledAvailabilitySchedule = styled.div`
     line-height: 20px;
     color: ${colors.secondary};
     cursor: default;
-    @media (min-width: 320px) {
+    margin-left: 8px;
+    &.delete-time {
       display: none;
-    }
-    @media (min-width: 768px) {
-      display: block;
+      @media (max-width: 760px) {
+        display: inline-block;
+      }
     }
   }
   .info-modal-wrapper {
@@ -188,37 +217,11 @@ export const StyledAvailabilitySchedule = styled.div`
     background-color: ${colors.active};
     border-radius: 4px;
     cursor: pointer;
-    @media (min-width: 320px) {
-      display: none;
-    }
-    @media (min-width: 768px) {
-      display: flex;
-    }
-  }
-  .remove-time-btn-mobile {
-    color: #fe7070;
-    cursor: pointer;
-    margin: 1px 2px 0px 4px;
-    @media (min-width: 320px) {
-      display: block;
-    }
-    @media (min-width: 768px) {
-      display: none;
-    }
   }
   .close-checkbox {
     display: flex;
     align-items: center;
     margin-right: 14px;
     margin-left: 18px;
-    @media (min-width: 320px) {
-      margin-bottom: 5px;
-    }
-    @media (min-width: 768px) {
-      margin-top: 0px;
-      position: relative;
-      right: 0px;
-      margin-bottom: 0px;
-    }
   }
 `;

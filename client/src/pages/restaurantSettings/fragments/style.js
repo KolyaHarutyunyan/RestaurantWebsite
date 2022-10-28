@@ -7,12 +7,19 @@ export const StyledRestaurantSettings = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 760px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .settings-title {
       font-family: Open Sans, sans-serif;
       font-weight: 700;
       font-size: 24px;
       line-height: 36px;
       color: ${colors.secondary};
+      @media (max-width: 760px) {
+        margin-bottom: 16px;
+      }
     }
     .qr-code-link {
       display: inline-flex;
@@ -24,6 +31,13 @@ export const StyledRestaurantSettings = styled.section`
       color: ${colors.primary};
       svg {
         margin-right: 7px;
+      }
+    }
+  }
+  .restaurant-settings-tab {
+    .tab-panels-wrapper {
+      .MuiBox-root {
+        min-height: 73vh;
       }
     }
   }
