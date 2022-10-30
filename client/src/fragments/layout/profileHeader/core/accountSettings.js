@@ -15,7 +15,7 @@ export const AccountSettings = ({ account, handleClose }) => {
         <MdClose style={{ fontSize: 24 }} />
       </button>
       <div className="name-and-avatar">
-        <h6 className="name">{`${account?.name} ${account?.surname}`}</h6>
+        <h6 className="name">{account?.fullName}</h6>
         <div className="avatar">
           <div className="avatar-wrapper">
             <div className="profile-photo">

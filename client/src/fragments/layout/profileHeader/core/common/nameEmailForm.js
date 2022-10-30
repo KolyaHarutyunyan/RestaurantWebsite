@@ -55,7 +55,7 @@ export const NameEmailForm = ({ account }) => {
           inputType={"text"}
           inputName={"name"}
           inputIcon={<Images.FullNameIcon />}
-          defaultValue={`${account?.name} ${account?.surname}`}
+          defaultValue={account?.fullName}
           {...register("name", { required: true })}
           disabled={!edit}
         />

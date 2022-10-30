@@ -30,6 +30,8 @@ export const StyledCategoryCard = styled.section.attrs((props) => ({
     margin-top: 16px;
     .category-list {
       width: 100%;
+      height: 600px;
+      overflow: auto;
       .category-item {
         width: 100%;
         display: flex;

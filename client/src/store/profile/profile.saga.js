@@ -26,10 +26,11 @@ function* signIn({ type, payload }) {
     const { data } = yield call(profileService.signIn, payload);
     localStorage.setItem("token", data.token);
     try {
-      const { data } = yield call(profileService.userInfo, payload);
+      const userInfo  = yield call(profileService.userInfo);
+      localStorage.setItem("menuUser", JSON.stringify(userInfo.data))
       yield put({
         type: PROFILE_SIGN_IN_SUCCESS,
-        payload: data,
+        payload: userInfo.data,
       });
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));

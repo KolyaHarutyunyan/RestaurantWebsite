@@ -25,7 +25,7 @@ export const Container = styled.div`
     height: auto;
     width: 99.9%;
     border-radius: 44px 44px 0 0;
-    padding: 18px 18px 10px;
+    padding: 18px 22px 10px;
     background: white;
   }
   
@@ -75,7 +75,7 @@ export const Container = styled.div`
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
-    line-height: 24px;
+    //line-height: 24px;
     color: #2A374E;
   }
   
@@ -236,7 +236,7 @@ export const Container = styled.div`
   }
 
   .price{
-    margin-right: 20px;
+    margin-right: 24px;
   }
   
   .card-info {

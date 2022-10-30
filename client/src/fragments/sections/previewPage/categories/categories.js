@@ -11,6 +11,8 @@ export const Categories = () => {
   const menus = useSelector(({ menus }) => menus?.menuById || "");
   const restaurant = useSelector((state) => state.businesses);
 
+
+  console.log(menus,'menus');
   return (
     <Container>
       <Tabs.Wrapper
@@ -32,11 +34,15 @@ export const Categories = () => {
               }
               <div>
                 <p className="welcome">Welcome to</p>
-                <p className="rest-name">{restaurant?.name}</p>
+                <p className="rest-name">
+                  {restaurant?.name.length > 30 ? `${restaurant?.name.slice(0, 30)}...` : restaurant?.name}
+                </p>
               </div>
             </div>
             <hr className="hr-style" />
-            <p className="menu-name">{menus?.name}</p>
+            <p className="menu-name">
+              {menus?.name?.length > 30 ? `${menus?.name.slice(0, 30)}...` : menus?.name}
+            </p>
           </div>
 
           <div className="tabs-wrapper">
@@ -79,7 +85,7 @@ export const Categories = () => {
                   <div className="category" key={key}>
                     <p className="category-title">{item.name}</p>
 
-                    {item?.description &&  <p className={'menu-description'}>{item?.description}</p>}
+                    {item?.description && <p className={"menu-description"}>{item?.description}</p>}
                     <div> {
                       item.items.length && item.items.map((item, key) => (
                         <div key={key} className="category-card">
@@ -93,18 +99,17 @@ export const Categories = () => {
                           </div>
                           <div className="card-info">
                             <div className="title">
-                              <SlicedText type={"nameDesc"} size={10}
-                                          data={item && item.item.name} />
+                              <SlicedText type={"nameDesc"} size={10} data={item && item.item.name} />
                               <p className={"price"}>{`$${item.item.price.toString().search("\\.") === -1 ?
                                 `${item.item.price}.00`
                                 : item.item.price
                               }`}</p>
                             </div>
                             <p style={{ width: "250px" }} className="desc" color="text">
-                              {item.item?.description?.length > 40 ? `${item.item?.description?.slice(0, 40)}...` : item?.item?.description}
+                              {item.item?.description?.length > 30 ? `${item.item?.description?.slice(0, 30)}...` : item?.item?.description}
                             </p>
                             <div className="optional">
-                              {item?.item?.option?.length > 30 ? `${item.item.option.slice(0, 30)}...` : item.item.option}
+                              {item?.item?.note?.length > 30 ? `${item?.item?.note.slice(0, 30)}...` : item?.item?.note}
                             </div>
                           </div>
                         </div>
@@ -151,7 +156,7 @@ export const Categories = () => {
                               {it.item?.description?.length > 40 ? `${it.item?.description.slice(0, 40)}...` : it.item?.description}
                             </p>
                             <div className="optional">
-                              {/*{item?.item?.option?.length > 30 ? `${item.item.option.slice(0, 30)}...` : item.item.option}*/}
+                              {item?.item?.note?.length > 30 ? `${item?.item?.note.slice(0, 30)}...` : item?.item?.note}
                             </div>
                           </div>
                         </div>

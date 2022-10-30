@@ -8,6 +8,7 @@ import { useWidth } from "@eachbase/utils";
 
 export const ProfileHeader = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
+  const userInfo = typeof window !== "undefined" && JSON.parse(localStorage.getItem("menuUser"));
 
   const width = useWidth();
   const _anchor = width <= 610 ? "bottom" : "right";
@@ -38,7 +39,7 @@ export const ProfileHeader = () => {
         onClose={() => toggleDrawer(_anchor, false)}
       >
         <AccountSettings
-          account={accountSettings}
+          account={userInfo}
           handleClose={() => toggleDrawer(_anchor, false)}
         />
       </StyledAccountDrawer>
