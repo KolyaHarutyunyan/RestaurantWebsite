@@ -15,7 +15,7 @@ export const StyledCategoryCard = styled.section.attrs((props) => ({
     align-items: center;
     .category-add-button {
       max-width: 95px;
-      @media (max-width: 610px) {
+      @media (max-width: 767px) {
         max-width: 100%;
         background-color: ${colors.black50};
         color: ${colors.secondary};

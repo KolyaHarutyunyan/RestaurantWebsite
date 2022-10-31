@@ -107,7 +107,7 @@ export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
       background-color: ${colors.primary};
       color: ${colors.white};
     }
-    @media (max-width: 1024px) {
+    @media (max-width: 1279px) {
       max-width: 276px;
     }
   }

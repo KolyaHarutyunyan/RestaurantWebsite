@@ -8,6 +8,8 @@ import EmailIcon from "./profileHeader/emailIcon.svg";
 import SignOut from "./profileHeader/signOut.svg";
 import OpenEye from "./profileHeader/openEye.svg";
 import ClosedEye from "./profileHeader/closedEye.svg";
+import MenuHamburger from "./profileHeader/menuHamburger.svg";
+import CloseMenuHamburger from "./profileHeader/closeMenuHamburger.svg";
 
 // SIDE_SHEETS_DRAWER_IMAGES
 import RestaurantProfile from "./sideSheetsDrawer/restaurantProfile.svg";
@@ -52,6 +54,8 @@ export const Images = {
   SignOut,
   OpenEye,
   ClosedEye,
+  MenuHamburger,
+  CloseMenuHamburger,
   RestaurantProfile,
   Arrow,
   Menus,

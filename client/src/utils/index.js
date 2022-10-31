@@ -12,3 +12,4 @@ export {
   TabItemsContextProvider,
 } from "./contexts";
 export { useFileUpload, useWidth } from "./customHooks";
+export { getLimitedVal } from "./getLimitedVal";

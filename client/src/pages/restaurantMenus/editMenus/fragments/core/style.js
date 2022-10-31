@@ -8,7 +8,7 @@ export const StyledCategoryTabItem = styled.section`
   justify-content: flex-start;
   column-gap: 16px;
   .category-card {
-    @media (max-width: 1024px) {
+    @media (max-width: 1279px) {
       display: block;
       &.hidden {
         display: none;
@@ -16,14 +16,14 @@ export const StyledCategoryTabItem = styled.section`
     }
   }
   .product-card {
-    @media (max-width: 1024px) {
+    @media (max-width: 1279px) {
       display: none;
       &.shown {
         display: block;
         margin-top: -30px;
       }
     }
-    @media (max-width: 610px) {
+    @media (max-width: 767px) {
       &.shown {
         margin-top: -56px;
       }

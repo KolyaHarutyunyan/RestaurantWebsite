@@ -53,10 +53,10 @@ export const NameEmailForm = ({ account }) => {
         <UserInput
           required={true}
           inputType={"text"}
-          inputName={"name"}
+          inputName={"fullName"}
           inputIcon={<Images.FullNameIcon />}
           defaultValue={account?.fullName}
-          {...register("name", { required: true })}
+          {...register("fullName", { required: true })}
           disabled={!edit}
         />
         <UserInput

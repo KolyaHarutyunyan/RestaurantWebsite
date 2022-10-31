@@ -46,7 +46,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const reorderProductsSaga = useSagaStore(categoryItemActions.reorder);
 
   const width = useWidth();
-  const _anchor = width <= 610 ? "bottom" : "right";
+  const _anchor = width <= 767 ? "bottom" : "right";
 
   const [category, setCategory] = useState(null);
   const [chosenCategory, setChosenCategory] = useState(null);
@@ -72,7 +72,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     handleFilesChange,
     handleFilesRemove,
     handlePreviewClick,
-  } = useFileUpload(images, mainImageIndex);
+  } = useFileUpload({ images, mainImageIndex });
 
   useEffect(() => {
     if (menu && category) {
@@ -232,8 +232,8 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
         return res;
       });
     }
-    const imagesToAdd = imgsPush?.length ? { imagesToAdd: [...images] } : "";
-    const imagesToRemove = deletedImg?.length
+    const addedImgs = imgsPush?.length ? { imagesToAdd: [...images] } : "";
+    const removedImgs = deletedImg?.length
       ? { imagesToRemove: [...deletedImg] }
       : "";
     const uploadedArr = images ? images : [];
@@ -247,10 +247,11 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     if (chosenProduct) {
       data = {
         ...data,
-        ...imagesToAdd,
-        ...imagesToRemove,
+        ...addedImgs,
+        ...removedImgs,
       };
       editProductSaga.dispatch(data, chosenProduct?.id, menu?.id);
+      console.log(data, "data");
     } else {
       data = {
         ...data,

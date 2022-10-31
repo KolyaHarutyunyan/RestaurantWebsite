@@ -12,7 +12,7 @@ import {
 export const menusActions = {
   getMenusByBusiness: (businessId) => ({
     type: GET_MENUS,
-    payload: businessId,
+    payload: { businessId },
   }),
   getActiveMenu: (menuId) => ({
     type: GET_ACTIVE_MENUS,

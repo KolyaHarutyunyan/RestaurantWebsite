@@ -22,9 +22,11 @@ import Router from "next/router";
 
 function* getMenus({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
-  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  if (payload.load !== "noLoad") {
+    yield put(httpRequestsOnLoadActions.appendLoading(type));
+  }
   try {
-    const res = yield call(menusService.getMenusByBusiness, payload);
+    const res = yield call(menusService.getMenusByBusiness, payload.businessId);
     yield put({
       type: GET_MENUS_SUCCESS,
       payload: res.data,
@@ -57,7 +59,6 @@ function* getActiveMenus({ payload, type }) {
 
 function* getBusinessMenu({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
-
   if (payload.load !== "noLoad") {
     yield put(httpRequestsOnLoadActions.appendLoading(type));
   }
@@ -134,7 +135,7 @@ function* switchMenuStatus({ type, payload }) {
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
       type: GET_MENUS,
-      payload: payload.businessId,
+      payload: { businessId: payload.businessId, load: "noLoad" },
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
@@ -173,7 +174,7 @@ function* deleteMenu({ payload, type }) {
     yield call(menusService.deleteMenu, payload.menuId);
     yield put({
       type: GET_MENUS,
-      payload: payload.businessId,
+      payload: { businessId: payload.businessId, load: "noLoad" },
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));

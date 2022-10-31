@@ -7,7 +7,7 @@ export const StyledOverviewTabItem = styled.div`
     max-width: 624px;
     width: 100%;
     .overview-form-buttons {
-      @media (max-width: 610px) {
+      @media (max-width: 767px) {
         position: fixed;
         bottom: 32px;
         left: 50%;

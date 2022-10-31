@@ -4,10 +4,10 @@ import { colors } from "@eachbase/theme";
 export const StyledMenuItem = styled.section`
   max-width: 373px;
   width: 100%;
-  @media (max-width: 1024px) {
+  @media (max-width: 1279px) {
     max-width: 304px;
   }
-  @media (max-width: 610px) {
+  @media (max-width: 767px) {
     max-width: 100%;
   }
   .menu-item-card {

@@ -1,19 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 
 export const useWidth = () => {
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" && window?.innerWidth
-  );
+  const windw = typeof window !== "undefined" ? window : {};
+
+  const [width, setWidth] = useState(windw.innerWidth);
 
   const onResize = useCallback(() => {
-    setWidth(window?.innerWidth);
+    setWidth(windw.innerWidth);
   }, []);
 
   useEffect(() => {
-    window?.addEventListener("resize", onResize);
+    windw.addEventListener("resize", onResize);
 
     return () => {
-      window?.removeEventListener("resize", onResize);
+      windw.removeEventListener("resize", onResize);
     };
   }, []);
 
