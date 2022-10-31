@@ -8,6 +8,15 @@ import {
 import { colors } from "@eachbase/theme";
 import { Images } from "@eachbase/theme/images";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { getLimitedVal, useWidth } from "@eachbase/utils";
+
+const getProductName = (width, name) => {
+  return width <= 768
+    ? getLimitedVal(name)
+    : width <= 1024
+    ? getLimitedVal(name, 30)
+    : getLimitedVal(name, 20);
+};
 
 export const ProductCard = ({
   cardClassName,
@@ -26,6 +35,8 @@ export const ProductCard = ({
   onSearchbarValueChange,
   onDragProduct,
 }) => {
+  const width = useWidth();
+
   return (
     <StyledProductCard className={cardClassName}>
       {currentCategory ? (
@@ -82,7 +93,9 @@ export const ProductCard = ({
                                     <Images.GalleryEmpty />
                                   )}
                                 </div>
-                                <p className="product-name">{item.name}</p>
+                                <p className="product-name">
+                                  {getProductName(width, item.name)}
+                                </p>
                               </div>
                               <div className="product-action-box">
                                 <div className="product-price">

@@ -99,6 +99,10 @@ export const StyledProductCard = styled.section.attrs((props) => ({
             background-color: ${colors.white};
             border-radius: 4px;
 
+            @media (max-width: 767px) {
+              display: none;
+            }
+
             .price-text {
               display: inline-block;
               min-width: 74px;
