@@ -7,6 +7,7 @@ import { ProfileHeader } from "./profileHeader/profileHeader";
 import { SideSheetsDrawer } from "./sideSheetsDrawer/sideSheetsDrawer";
 import { StyledLayout } from "./style";
 import { useRouter } from "next/router";
+import { useWidth } from "@eachbase/utils";
 
 export const Layout = ({ children, privatePage = true }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ export const Layout = ({ children, privatePage = true }) => {
   const showLayout = !["/preview", "/menu"].includes(router.pathname);
 
   const [token, setToken] = useState("");
+
+  const width = useWidth();
 
   useEffect(() => {
     setToken(typeof window !== "undefined" && localStorage.getItem("token"));
@@ -32,7 +35,7 @@ export const Layout = ({ children, privatePage = true }) => {
         <>
           {showLayout && <ProfileHeader />}
           <div className="main">
-            {showLayout && <SideSheetsDrawer />}
+            {showLayout && width > 767 && <SideSheetsDrawer />}
             <div className={`main-content ${showLayout ? "shown" : ""}`}>
               {children}
             </div>

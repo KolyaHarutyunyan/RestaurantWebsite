@@ -46,7 +46,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const reorderProductsSaga = useSagaStore(categoryItemActions.reorder);
 
   const width = useWidth();
-  const _anchor = width <= 610 ? "bottom" : "right";
+  const _anchor = width <= 767 ? "bottom" : "right";
 
   const [category, setCategory] = useState(null);
   const [chosenCategory, setChosenCategory] = useState(null);

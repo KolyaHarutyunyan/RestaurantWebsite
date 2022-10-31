@@ -7,7 +7,7 @@ export const StyledAccountSettings = styled.div`
   padding: 16px;
   background-color: ${colors.white};
   border-radius: inherit;
-  @media (max-width: 610px) {
+  @media (max-width: 767px) {
     padding: 32px 16px;
   }
   .close-account-settings-button {
