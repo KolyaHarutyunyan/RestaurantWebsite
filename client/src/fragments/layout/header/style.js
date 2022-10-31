@@ -114,6 +114,7 @@ export const Container = styled.div`
     }
 
     .sign-in {
+      width: 162px;
       @media (max-width: 768px) {
         margin-bottom: 20px;
       }
@@ -170,6 +171,18 @@ export const Container = styled.div`
         justify-content: center;
         font-size: 45px;
         color: ${colors.primary};
+        position: relative;
+        z-index: 99;
+      }
+
+      .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent;
+        z-index: 9;
       }
 
       .menu {
@@ -181,6 +194,7 @@ export const Container = styled.div`
         opacity: 0;
         transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
         box-shadow: 0px 2px 6px #0000002a;
+        z-index: 99;
 
         &.open {
           opacity: 1;

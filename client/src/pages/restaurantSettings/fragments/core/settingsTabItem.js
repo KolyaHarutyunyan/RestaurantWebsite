@@ -32,7 +32,7 @@ export const SettingsTabItem = () => {
     businessesActions.editBusiness
   );
   const { img, imgPush, error, handleFileChange, handleFileRemove } =
-    useFileUpload();
+    useFileUpload({ image: restaurant?.logo });
 
   const { open } = useContext(SideSheetsDrawerContext);
 
@@ -72,8 +72,8 @@ export const SettingsTabItem = () => {
       id: restaurant?.id,
       address: formattedAddress,
       hours: hours,
+      logo: image,
     };
-    image ? (data.logo = image) : "";
     dispatch(data);
   };
 
@@ -104,7 +104,7 @@ export const SettingsTabItem = () => {
             title="Restaurant Logo"
             type={"restaurant"}
             handleChange={handleFileChange}
-            url={img || restaurant?.logo}
+            url={img}
             handleRemove={handleFileRemove}
             error={error}
             infoText={"Only jpg,jpeg and png files are supported."}

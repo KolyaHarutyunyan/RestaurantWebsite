@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFileUpload = (images, mainImageIndex) => {
+export const useFileUpload = ({ image, images, mainImageIndex }) => {
   const [img, setImg] = useState("");
   const [imgs, setImgs] = useState([]);
   const [imgPush, setImgPush] = useState("");
@@ -14,6 +14,12 @@ export const useFileUpload = (images, mainImageIndex) => {
     setImgs(images);
     setIndex(mainImageIndex);
   }, [images, mainImageIndex]);
+
+  useEffect(() => {
+    if (image) {
+      setImg(image);
+    }
+  }, [image]);
 
   const handleFileChange = (e) => {
     for (let item of e) {
