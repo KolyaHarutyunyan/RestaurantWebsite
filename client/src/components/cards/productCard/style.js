@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors } from "@eachbase/theme";
 
 export const StyledProductCard = styled.section.attrs((props) => ({
-  className: props.className
+  className: props.className,
 }))`
   width: 100%;
   padding: 16px;
@@ -23,10 +23,10 @@ export const StyledProductCard = styled.section.attrs((props) => ({
     font-size: 16px;
     line-height: 24px;
     color: ${colors.primary};
-    @media (max-width: 1024px) {
+    @media (max-width: 1279px) {
       top: -20px;
     }
-    @media (max-width: 610px) {
+    @media (max-width: 767px) {
       top: -56px;
     }
   }
@@ -98,6 +98,10 @@ export const StyledProductCard = styled.section.attrs((props) => ({
             margin-right: 16px;
             background-color: ${colors.white};
             border-radius: 4px;
+
+            @media (max-width: 767px) {
+              display: none;
+            }
 
             .price-text {
               display: inline-block;

@@ -18,14 +18,14 @@ export const StyledEditMenus = styled.div`
       svg {
         width: 100%;
       }
-      @media (max-width: 1024px) {
+      @media (max-width: 1279px) {
         &.shown {
           display: flex;
         }
       }
     }
     .edit-menus-breadcrumb {
-      @media (max-width: 1024px) {
+      @media (max-width: 1279px) {
         &.hidden {
           display: none;
         }
@@ -33,12 +33,12 @@ export const StyledEditMenus = styled.div`
     }
     .preview-button {
       max-width: 176px;
-      @media (max-width: 1024px) {
+      @media (max-width: 1279px) {
         &.hidden {
           display: none;
         }
       }
-      @media (max-width: 610px) {
+      @media (max-width: 767px) {
         position: fixed;
         max-width: calc(100% - 40px);
         bottom: 16px;
@@ -52,7 +52,7 @@ export const StyledEditMenus = styled.div`
     position: relative;
     width: 100%;
     .edit-menus-tabs {
-      @media (max-width: 1024px) {
+      @media (max-width: 1279px) {
         &.hidden .tabs-wrapper {
           visibility: hidden;
         }
@@ -64,7 +64,7 @@ export const StyledEditMenus = styled.div`
         border-radius: 8px;
         padding: 0px;
         visibility: visible;
-        @media (max-width: 1024px) {
+        @media (max-width: 1279px) {
           max-width: 100%;
         }
         .tab {
@@ -85,7 +85,7 @@ export const StyledEditMenus = styled.div`
           text-transform: capitalize;
           &:not(:last-of-type) {
             margin-right: 24px;
-            @media (max-width: 1024px) {
+            @media (max-width: 1279px) {
               margin-right: 0px;
             }
           }
@@ -93,7 +93,7 @@ export const StyledEditMenus = styled.div`
             background-color: ${colors.yellowOrange};
             color: ${colors.neautralLightGray};
           }
-          @media (max-width: 1024px) {
+          @media (max-width: 1279px) {
             max-width: 50%;
           }
         }
@@ -104,10 +104,10 @@ export const StyledEditMenus = styled.div`
       .tab-panels-wrapper {
         .MuiBox-root {
           background-color: inherit;
-          @media (max-width: 1024px) {
+          @media (max-width: 1279px) {
             padding: 0px;
           }
-          @media (max-width: 1024px) {
+          @media (max-width: 1279px) {
             padding-top: 8px;
           }
         }

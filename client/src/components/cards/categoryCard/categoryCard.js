@@ -8,6 +8,8 @@ import {
 import { Images } from "@eachbase/theme/images";
 import { colors } from "@eachbase/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useWidth } from "@eachbase/utils";
+import { getItemName } from "../constants";
 
 export const CategoryCard = ({
   cardClassName,
@@ -21,6 +23,8 @@ export const CategoryCard = ({
   noItemsText,
   onDragCategory,
 }) => {
+  const width = useWidth();
+
   return (
     <StyledCategoryCard className={cardClassName}>
       <div className="category-add-box">
@@ -55,22 +59,18 @@ export const CategoryCard = ({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           key={category.id}
-                          className={`category-item ${
-                            !category.active ? "inactive" : ""
-                          } ${
-                            category.id === currentCategory?.id ? "current" : ""
-                          }`}
+                          className={`category-item ${!category.active ? "inactive" : ""} ${category.id === currentCategory?.id ? "current" : ""}`}
                           onClick={() => handleCurrentCategory(category)}
                         >
                           <div className="category-name-box">
                             <MoreDropdown
                               vertical
                               handleEdit={() => handleCategoryEdit(category)}
-                              handleDelete={() =>
-                                handleCategoryDelete(category)
-                              }
+                              handleDelete={() => handleCategoryDelete(category)}
                             />
-                            <p className="category-name">{category.name}</p>
+                            <p className="category-name">
+                              {getItemName(width, category.name)}
+                            </p>
                           </div>
                           <div className="category-action-box">
                             <Switch

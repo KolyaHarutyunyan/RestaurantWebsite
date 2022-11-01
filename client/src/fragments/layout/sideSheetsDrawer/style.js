@@ -3,9 +3,6 @@ import Box from "@mui/material/Box";
 import { colors } from "@eachbase/theme";
 
 export const StyledSideSheetsDrawer = styled(Box)`
-  @media (max-width: 610px) {
-    display: none;
-  }
   .collapse {
     position: fixed;
     width: 34px;
@@ -18,6 +15,9 @@ export const StyledSideSheetsDrawer = styled(Box)`
     &.closed {
       left: 47px;
     }
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
   .restaurant-profile-box {
     width: 100%;
@@ -27,6 +27,9 @@ export const StyledSideSheetsDrawer = styled(Box)`
     cursor: pointer;
     &.closed {
       width: unset;
+    }
+    @media (max-width: 767px) {
+      margin-top: 72px;
     }
     .restaurant-profile {
       width: 24px;

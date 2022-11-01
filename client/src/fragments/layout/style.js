@@ -19,7 +19,7 @@ export const StyledLayout = styled.div`
       padding: 0px;
       &.shown {
         padding: 24px 42px;
-        @media (max-width: 610px) {
+        @media (max-width: 767px) {
           padding: 32px 16px 16px 16px;
         }
       }

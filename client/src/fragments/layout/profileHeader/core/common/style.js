@@ -35,7 +35,7 @@ export const StyledChangePasswordForm = styled.div`
     border-radius: 8px;
     padding: 12px 16px;
     margin-bottom: 16px;
-    @media (max-width: 610px) {
+    @media (max-width: 767px) {
       max-width: 100%;
     }
     .change-password-wrapper {

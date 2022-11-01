@@ -15,14 +15,14 @@ export const StyledRestaurantMenus = styled.section`
       font-size: 32px;
       line-height: 48px;
       color: ${colors.secondary};
-      @media (max-width: 610px) {
+      @media (max-width: 767px) {
         font-size: 24px;
         line-height: 36px;
       }
     }
     & button {
       max-width: 180px;
-      @media (max-width: 610px) {
+      @media (max-width: 767px) {
         max-width: 148px;
       }
     }

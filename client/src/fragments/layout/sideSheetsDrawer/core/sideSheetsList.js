@@ -5,7 +5,7 @@ import { SideSheetsDrawerContext } from "@eachbase/utils";
 import { addClosed } from "../constants";
 import { Images } from "@eachbase/theme/images";
 
-export const SideSheetsList = () => {
+export const SideSheetsList = ({ handleMenuClose }) => {
   const { open } = useContext(SideSheetsDrawerContext);
   const [isShown, setIsShown] = useState(false);
 
@@ -15,11 +15,14 @@ export const SideSheetsList = () => {
 
   const handleSideSheetClick = (item) => {
     if (item.path) {
+      if (pathname === item.path) return;
       Router.push(item.path);
+      handleMenuClose && handleMenuClose();
     } else {
       if (open) {
         setIsShown((pS) => !pS);
       } else {
+        if (pathname === item.pages[0].path) return;
         Router.push(item.pages[0].path);
       }
     }
@@ -53,7 +56,7 @@ export const SideSheetsList = () => {
                     `page-item ${addActive(page, pathname)}`,
                     !open
                   )}
-                  onClick={() => Router.push(page.path)}
+                  onClick={() => handleSideSheetClick(page)}
                 >
                   <span className={addClosed("side-sheet-item-text", !open)}>
                     {page.text}

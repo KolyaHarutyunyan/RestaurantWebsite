@@ -32,9 +32,9 @@ export const EditMenusFragment = () => {
 
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 
-  if (loader?.length) {
-    return <Loader />;
-  }
+  // if (loader?.length) {
+  //   return <Loader />;
+  // }
 
   return (
     <StyledEditMenus>
@@ -60,12 +60,18 @@ export const EditMenusFragment = () => {
           Preview
         </Button>
       </div>
-      <div className="edit-menus-nav">
-        <MuiTabs
-          className={`edit-menus-tabs ${showDuringSmallSize ? "hidden" : ""}`}
-          tabs={editMenusTabs}
-        />
-      </div>
+
+      {loader?.length ?
+        <Loader height={'60vh'} />
+        :
+        <div className="edit-menus-nav">
+          <MuiTabs
+            className={`edit-menus-tabs ${showDuringSmallSize ? "hidden" : ""}`}
+            tabs={editMenusTabs}
+          />
+        </div>
+      }
+
     </StyledEditMenus>
   );
 };

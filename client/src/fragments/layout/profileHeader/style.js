@@ -9,22 +9,46 @@ export const StyledProfileHeader = styled.div`
   padding: 0px 25px;
   min-height: 56px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   background-color: ${colors.white};
-  .notification {
-    margin-right: 16px;
-    cursor: pointer;
+  @media (max-width: 767px) {
+    padding: 0px 20px;
   }
-  .avatar {
-    cursor: pointer;
+  .menu-hamburger-box {
+    visibility: hidden;
+    @media (max-width: 767px) {
+      visibility: visible;
+      position: relative;
+      z-index: 9999;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      svg {
+        width: 100%;
+      }
+    }
   }
-  @media (max-width: 610px) {
-    padding: 0px 12px;
+  .notifications-account-box {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: inherit;
+    .notification {
+      margin-right: 16px;
+      cursor: pointer;
+    }
+    .avatar {
+      cursor: pointer;
+    }
   }
 `;
 
-export const StyledAccountDrawer = styled(Drawer)`
+export const StyledDrawer = styled(Drawer)`
   .MuiBackdrop-root {
     opacity: 0 !important;
   }

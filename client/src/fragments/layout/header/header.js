@@ -236,6 +236,12 @@ export const Header = () => {
           >
             {menuIsOpen ? <Icons.CloseBurgerIcon /> : <HiMenuAlt4 />}
           </div>
+          {menuIsOpen && (
+            <div
+              className="menu-overlay"
+              onClick={() => setMenuIsOpen(false)}
+            />
+          )}
           <div>
             <div className={`menu ${menuIsOpen ? "open" : ""}`}>
               {renderSignInButtons()}

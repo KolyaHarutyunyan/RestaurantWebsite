@@ -15,7 +15,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (max-width: 1024px) {
+  @media (max-width: 1279px) {
     max-width: 567px;
     padding: 48px 80px;
   }
@@ -29,7 +29,7 @@ export const Container = styled.div`
   line-height: 72px;
   text-align: center;
   color: #FFFFFF;
-  @media (max-width: 1024px) {
+  @media (max-width: 1279px) {
     font-size: 32px;
     line-height: 48px;
   }

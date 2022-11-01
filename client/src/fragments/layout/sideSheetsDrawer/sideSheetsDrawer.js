@@ -6,7 +6,7 @@ import { SideSheetsList } from "./core/sideSheetsList";
 import { StyledSideSheetsDrawer } from "./style";
 import { useSelector } from "react-redux";
 
-export const SideSheetsDrawer = () => {
+export const SideSheetsDrawer = ({ handleClose }) => {
   const { open, toggleDrawer } = useContext(SideSheetsDrawerContext);
 
   const restaurant = useSelector((state) => state.businesses);
@@ -18,10 +18,7 @@ export const SideSheetsDrawer = () => {
       </div>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <div
-            className={addClosed("restaurant-profile-box", !open)}
-            onClick={() => {}}
-          >
+          <div className={addClosed("restaurant-profile-box", !open)}>
             <Images.RestaurantProfile className="restaurant-profile" />
             <span className={addClosed("restaurant-name", !open)}>
               {restaurant?.name}
@@ -29,7 +26,7 @@ export const SideSheetsDrawer = () => {
             <Images.Arrow className={addClosed("arrow", !open)} />
           </div>
         </DrawerHeader>
-        <SideSheetsList />
+        <SideSheetsList handleMenuClose={handleClose} />
         <DrawerFooter>
           <Images.MenumangoLogo className={addClosed("menumangoLogo", !open)} />
         </DrawerFooter>
