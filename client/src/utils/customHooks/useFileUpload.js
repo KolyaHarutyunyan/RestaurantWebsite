@@ -9,8 +9,6 @@ export const useFileUpload = (image, images, mainImageIndex) => {
   const [index, setIndex] = useState(0);
   const [deletedImg, setDeletedImg] = useState([]);
 
-  const mainImage = imgs[index];
-
   useEffect(() => {
     if (images && mainImageIndex >= 0) {
       setImgs(images);
@@ -77,11 +75,10 @@ export const useFileUpload = (image, images, mainImageIndex) => {
     if (key >= 0 && item) {
       if (index === key) {
         setIndex(0);
+      } else if (index > key) {
+        setIndex((pS) => pS - 1);
       } else {
-        const mainImgIdx = imgs.findIndex((img) => img.id === mainImage?.id);
-        setIndex(mainImgIdx);
-        console.log(mainImgIdx, "main index");
-        console.log(mainImage, "mainImg");
+        setIndex(index);
       }
       const deletedImages = [...imgsPush];
       deletedImages.splice(key, 1);
@@ -106,6 +103,7 @@ export const useFileUpload = (image, images, mainImageIndex) => {
     imgsPush,
     setImgsPush,
     deletedImg,
+    setDeletedImg,
     error,
     index,
     handleFileChange,

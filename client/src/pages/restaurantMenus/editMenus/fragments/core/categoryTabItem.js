@@ -6,8 +6,9 @@ import { CategoryCard, ItemFormCard, ProductCard } from "@eachbase/components";
 import {
   categoriesActions,
   categoryItemActions,
-  itemActions, menusActions,
-  useSagaStore
+  itemActions,
+  menusActions,
+  useSagaStore,
 } from "@eachbase/store";
 import { CategoryFormContent, ProductFormContent } from "./common";
 import {
@@ -42,7 +43,9 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const editBusinessOrder = useSagaStore(menusActions.editMenuOrder);
 
   const addProductsToCategorySaga = useSagaStore(categoryItemActions.add);
-  const removeProductsFromCategorySaga = useSagaStore(categoryItemActions.delete);
+  const removeProductsFromCategorySaga = useSagaStore(
+    categoryItemActions.delete
+  );
   const reorderProductsSaga = useSagaStore(categoryItemActions.reorder);
 
   const width = useWidth();
@@ -68,6 +71,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     imgsPush,
     setImgsPush,
     deletedImg,
+    setDeletedImg,
     index,
     error,
     handleFilesChange,
@@ -192,7 +196,11 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const handleCategoriesReorder = (e) => {
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
-    editBusinessOrder.dispatch( { from, to, }, categoryType === 'FOOD' ? 'food' : 'drinks', 'category')
+    editBusinessOrder.dispatch(
+      { from, to },
+      categoryType === "FOOD" ? "food" : "drinks",
+      "category"
+    );
     reorderCategoriesSaga.dispatch(menu?.id, categoryType, {
       from,
       to,
@@ -231,7 +239,6 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
       setImagesOnLoad(true);
       images = await ImgUploader(imgsPush, true).then((res) => {
         setImagesOnLoad(false);
-        setImgsPush([]);
         return res;
       });
     }
@@ -253,9 +260,6 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
         ...imagesToRemove,
       };
       editProductSaga.dispatch(data, chosenProduct?.id, menu?.id);
-      console.log(imagesToAdd, "imagesToAdd");
-      console.log(imagesToRemove, "imagesToRemove");
-      console.log(index, "index");
     } else {
       data = {
         ...data,
@@ -283,7 +287,12 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
 
-    editBusinessOrder.dispatch( { from, to, }, categoryType === 'FOOD' ? 'food' : 'drinks', 'items', category?.id)
+    editBusinessOrder.dispatch(
+      { from, to },
+      categoryType === "FOOD" ? "food" : "drinks",
+      "items",
+      category?.id
+    );
     reorderProductsSaga.dispatch(menu?.id, category?.id, categoryType, {
       from,
       to,
@@ -385,6 +394,8 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
               handleImgRemove={handleFilesRemove}
               handleImgPreview={handlePreviewClick}
               error={error}
+              cleanUpImagesToAdd={() => setImgsPush([])}
+              cleanUpImagesToRemove={() => setDeletedImg([])}
             />
           </ItemFormCard>
         ) : null}
