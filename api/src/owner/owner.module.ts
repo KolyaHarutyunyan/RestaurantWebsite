@@ -11,5 +11,6 @@ import { FileModule } from 'src/components/file/file.module';
   imports: [AuthModule, BusinessModule, FileModule],
   controllers: [OwnerController, SocialController],
   providers: [OwnerService, OwnerSanitizer],
+  exports: [OwnerService],
 })
 export class OwnerModule {}

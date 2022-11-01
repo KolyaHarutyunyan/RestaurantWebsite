@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsUrl } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import { DTO } from '../../util/dto';
 import { WebhookAction } from '../payment.constants';
 
 export class EditWebhookDTO {
@@ -20,4 +21,15 @@ export class EditWebhookDTO {
   @ApiProperty({ required: false })
   @IsOptional()
   table?: string;
+}
+
+export class UpdatePaymentDTO extends DTO {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  subId: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  orderId: string;
 }

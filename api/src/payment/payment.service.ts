@@ -1,12 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { IItem } from 'src/item';
-import { ItemModel } from 'src/item/item.model';
+import { IItem } from '../item';
+import { ItemModel } from '../item/item.model';
 import { CreatePaymentDTO } from './dto/create.dto';
-import { EditWebhookDTO } from './dto/update.dto';
+import { EditWebhookDTO, UpdatePaymentDTO } from './dto/update.dto';
 import Stripe from 'stripe';
 import { Keys } from './payment.constants';
 import { BASE_URL } from '../util/constants';
+import { OwnerService } from '../owner/owner.service';
+import { SessionDTO } from '../auth';
 
 const stripe = new Stripe(Keys.skey, {
   apiVersion: '2022-08-01',
@@ -14,7 +16,7 @@ const stripe = new Stripe(Keys.skey, {
 
 @Injectable()
 export class PaymentService {
-  constructor() {
+  constructor(private ownerService: OwnerService) {
     this.model = ItemModel;
   }
   private model: Model<IItem>;
@@ -120,7 +122,7 @@ export class PaymentService {
   }
   /** create the subscription */
   // customerId: string, items: Array<string>
-  async createSubscription(dto: CreatePaymentDTO): Promise<any> {
+  async createSubscription(dto: CreatePaymentDTO): Promise<string> {
     try {
       const customer = await stripe.customers.create({
         description: `email - ${dto.user.email}`,
@@ -148,15 +150,35 @@ export class PaymentService {
         },
         expand: ['latest_invoice.payment_intent'],
       });
-      return subscription;
+      await this.ownerService.addPackage(dto.user.id, dto.productId);
+      return subscription.id;
     } catch (e) {
       throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
     }
   }
+  /** update the subscription */
+  async updateSubscription(dto: UpdatePaymentDTO): Promise<any> {
+    const subscription = await stripe.subscriptions.update(dto.subId, {
+      metadata: { order_id: dto.orderId },
+    });
+    console.log(subscription, 'subscriptiooo');
+  }
   /** cancel the subscription */
-  async cancelSubscription(subId: string): Promise<any> {
+  async cancelSubscription(subId: string): Promise<string> {
     const cancelSub = await stripe.subscriptions.del(subId);
-    return cancelSub;
+    return cancelSub.id;
+  }
+  async getSubscriptions(user: SessionDTO, limit: number, page: number): Promise<any> {
+    const customer = await stripe.customers.search({
+      query: `email:'${user.email}'`,
+    });
+    if (!customer.data.length) {
+      throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
+    }
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.data[0].id,
+    });
+    return subscriptions;
   }
   /** Create a new payment */
   //   async refund(id: string, user: SessionDTO): Promise<any> {

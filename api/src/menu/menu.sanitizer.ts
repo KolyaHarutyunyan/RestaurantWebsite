@@ -38,6 +38,7 @@ export class MenuSanitizer implements ISanitize {
 
   /** cleans a list of categories and returns it */
   private sanitizeCategories(categories: IMenuCategory[]): CategoryDTO[] {
+    console.log('test, ');
     const sanitized: CategoryDTO[] = [];
     let items: IMenuItem[];
     let sanitizedItems: MenuItemDTO[];
@@ -53,6 +54,7 @@ export class MenuSanitizer implements ISanitize {
           sanitizedItems.push({ id: items[j]._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
+      console.log(sanitizedItems, 'saniziedItems');
       sanitized.push({
         id: categories[i]._id,
         name: categories[i].name,

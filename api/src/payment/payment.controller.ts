@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from '../util';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import { ApiBody, ApiHeader, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { IRequest, Public } from '../util';
 import { ACCESS_TOKEN } from 'src/util/constants';
 import { PaymentService } from './payment.service';
 import Stripe from 'stripe';
-import { EditWebhookDTO } from './dto/update.dto';
+import { EditWebhookDTO, UpdatePaymentDTO } from './dto/update.dto';
 import { WebhookDTO } from './dto/payment.dto';
 import { CreatePaymentDTO, CreateWebhookDTO } from './dto/create.dto';
 import { WebhookAction } from './payment.constants';
@@ -44,6 +44,30 @@ export class PaymentController {
   @Public()
   async createSubscription(@Body() dto: CreatePaymentDTO): Promise<any> {
     const payment = await this.paymentService.createSubscription(dto);
+    return payment;
+  }
+  /** Create an subscription */
+  @Patch('sub')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async updateSubscription(@Body() dto: UpdatePaymentDTO): Promise<any> {
+    const payment = await this.paymentService.updateSubscription(dto);
+    return payment;
+  }
+  /** Create an subscription */
+  @Get('sub')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
+  @Public()
+  async getSubscriptions(
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+    @Req() req: IRequest,
+  ): Promise<any> {
+    const user = req.body.user;
+    console.log(user, ' userrrr');
+    const payment = await this.paymentService.getSubscriptions(user, limit, page);
     return payment;
   }
   /** Refund the subscription */
