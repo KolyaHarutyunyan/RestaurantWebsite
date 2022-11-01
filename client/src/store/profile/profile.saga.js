@@ -13,10 +13,12 @@ import {
   UPDATE_PROFILE_PASSWORD,
   DELETE_PROFILE,
   UPDATE_PROFILE_INFO,
-  UPDATE_PROFILE_INFO_SUCCESS,
-  RESET_PASSWORD, SOCIAL_SIGN_UP,
+  RESET_PASSWORD,
+  SOCIAL_SIGN_UP,
 } from "./profile.types";
 import { profileService } from "./profile.service";
+import Router from "next/router";
+import { PROFILE_SIGN_OUT } from ".";
 
 function* signIn({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
@@ -26,8 +28,8 @@ function* signIn({ type, payload }) {
     const { data } = yield call(profileService.signIn, payload);
     localStorage.setItem("token", data.token);
     try {
-      const userInfo  = yield call(profileService.userInfo);
-      localStorage.setItem("menuUser", JSON.stringify(userInfo.data))
+      const userInfo = yield call(profileService.userInfo);
+      localStorage.setItem("menuUser", JSON.stringify(userInfo.data));
       yield put({
         type: PROFILE_SIGN_IN_SUCCESS,
         payload: userInfo.data,
@@ -93,20 +95,35 @@ function* signUp({ type, payload }) {
   }
 }
 
-function* socialSignUp({ type, payload }) {
+function* signOut({ type }) {
+  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+  yield put(httpRequestsOnErrorsActions.removeError(type));
+  try {
+    yield call(profileService.signOut);
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+    localStorage.removeItem("token");
+    localStorage.removeItem("menuUser");
+    Router.push("/");
+  } catch (err) {
+    yield put(httpRequestsOnErrorsActions.appendError(type, err));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+  }
+}
 
+function* socialSignUp({ type, payload }) {
   yield put(httpRequestsOnLoadActions.removeLoading(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
-      const res = yield call(profileService.signUpSocial,);
-      if(res && res.data && res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        window.location.replace('/menus')
-      }
-  } catch (err) {
-
-  }
+    const res = yield call(profileService.signUpSocial);
+    if (res && res.data && res.data.token) {
+      localStorage.setItem("token", res.data.token);
+      window.location.replace("/menus");
+    }
+  } catch (err) {}
 }
 
 function* updateProfilePassword({ type, payload }) {
@@ -150,9 +167,10 @@ function* updateProfile({ type, payload }) {
   try {
     const { data } = yield call(profileService.updateProfileInfo, payload);
     yield put({
-      type: UPDATE_PROFILE_INFO_SUCCESS,
+      type: GET_PROFILE_INFO,
       payload: data,
     });
+    localStorage.setItem("menuUser", JSON.stringify(data));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (err) {
@@ -193,6 +211,7 @@ export function* watchProfile() {
   yield takeLatest(PROFILE_SIGN_IN, signIn);
   yield takeLatest(GET_PROFILE_INFO, getProfileInfo);
   yield takeLatest(PROFILE_SIGN_UP, signUp);
+  yield takeLatest(PROFILE_SIGN_OUT, signOut);
   yield takeLatest(SOCIAL_SIGN_UP, socialSignUp);
   yield takeLatest(UPDATE_PROFILE_PASSWORD, updateProfilePassword);
   yield takeLatest(DELETE_PROFILE, deleteProfile);

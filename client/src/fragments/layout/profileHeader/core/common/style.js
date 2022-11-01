@@ -14,6 +14,9 @@ export const StyledNameEmailForm = styled.div`
         font-family: Open Sans, sans-serif;
         font-weight: 700;
         font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &.edit-button {
           color: ${colors.primary};
         }

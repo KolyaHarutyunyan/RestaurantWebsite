@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledChangePasswordForm } from "./style";
 import { useForm } from "react-hook-form";
 import { UserInput } from "@eachbase/components";
+import { profileActions, useSagaStore } from "@eachbase/store";
 
-export const ChangePasswordForm = () => {
+export const ChangePasswordForm = ({ account }) => {
   const [edit, setEdit] = useState(false);
 
+  const profileSaga = useSagaStore(profileActions.updatePassword);
+
   const { handleSubmit, register, reset } = useForm();
+
+  useEffect(() => {
+    if (profileSaga.status.onSuccess) {
+      setEdit(false);
+      reset();
+      profileSaga.destroy.success();
+    }
+  }, [profileSaga.status]);
 
   const handleEdit = (event) => {
     event?.preventDefault();
@@ -18,7 +29,13 @@ export const ChangePasswordForm = () => {
     reset();
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    data = {
+      ...data,
+      id: account.id,
+    };
+    profileSaga.dispatch(data);
+  };
 
   return (
     <StyledChangePasswordForm>
@@ -30,7 +47,7 @@ export const ChangePasswordForm = () => {
               {edit ? (
                 <>
                   <button type="submit" className="edit-button">
-                    Save
+                    {profileSaga.status.onLoad ? "..." : "Save"}
                   </button>
                   <button
                     type="button"

@@ -3,8 +3,11 @@ import { Images } from "@eachbase/theme/images";
 import { Button } from "@eachbase/components";
 import { ChangePasswordForm, NameEmailForm } from "./common";
 import { MdClose } from "react-icons/md";
+import { profileActions, useSagaStore } from "@eachbase/store";
 
 export const AccountSettings = ({ account, handleClose }) => {
+  const profileSaga = useSagaStore(profileActions.signOut);
+
   return (
     <StyledAccountSettings>
       <button
@@ -30,13 +33,14 @@ export const AccountSettings = ({ account, handleClose }) => {
       </div>
       <div className="account-box">
         <NameEmailForm account={account} />
-        <ChangePasswordForm />
+        <ChangePasswordForm account={account} />
       </div>
       <Button
         fullWidth
         square
         className="sign-out-button"
-        // onLoad={status.onLoad}
+        onLoad={profileSaga.status.onLoad}
+        onClick={() => profileSaga.dispatch()}
       >
         <Images.SignOut /> Sign Out
       </Button>
