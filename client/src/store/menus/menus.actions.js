@@ -6,8 +6,9 @@ import {
   SWITCH_MENU_STATUS,
   GET_CURRENT_MENU,
   GET_ACTIVE_MENUS,
-  GET_BUSINESS_MENU,
+  GET_BUSINESS_MENU, EDIT_CARREGORI_REORDER
 } from "./menus.types";
+import { REORDER_CATEGORI_REDUCER } from "../businesses/businesses.types";
 
 export const menusActions = {
   getMenusByBusiness: (businessId) => ({
@@ -42,4 +43,9 @@ export const menusActions = {
     type: SWITCH_MENU_STATUS,
     payload: { menuId, businessId },
   }),
+  editMenuOrder: (move,categoryType, type, catId) => ({
+    type: EDIT_CARREGORI_REORDER,
+    payload: {move, categoryType, type, catId},
+  })
+
 };

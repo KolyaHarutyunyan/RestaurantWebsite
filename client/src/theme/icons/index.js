@@ -60,6 +60,9 @@ import DeleteCard from './svgs/deleteCard.svg';
 import AddCard from './svgs/addCard.svg';
 import EyeIconShow from './svgs/eyeIcon.svg';
 import Subscriptions from './svgs/subscriptions.svg';
+import FacebookAk from './svgs/facebookAc.svg';
+import Instagram from './svgs/instagram.svg';
+import Website from './svgs/website.svg';
 
 export {
   AddIcon,
@@ -123,5 +126,8 @@ export {
   DeleteCard,
   AddCard,
   EyeIconShow,
-  Subscriptions
+  Subscriptions,
+  FacebookAk,
+  Instagram,
+  Website,
 };
