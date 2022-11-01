@@ -16,11 +16,11 @@ export const StyledSettingsTabItem = styled.div`
     justify-content: space-between;
     align-items: center;
     .address-input {
-      max-width: 100%;
-      &.closed {
-        max-width: 283px;
-        @media (max-width: 760px) {
-          max-width: 100%;
+      max-width: 283px;
+      @media (max-width: 768px) {
+        max-width: 100%;
+        &.closed {
+          max-width: 283px;
         }
       }
     }

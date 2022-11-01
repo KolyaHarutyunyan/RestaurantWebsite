@@ -20,7 +20,6 @@ export const StyledProfileHeader = styled.div`
     @media (max-width: 767px) {
       visibility: visible;
       position: relative;
-      z-index: 9999;
       width: 36px;
       height: 36px;
       display: flex;
