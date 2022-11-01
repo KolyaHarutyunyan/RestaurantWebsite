@@ -50,12 +50,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0000002a;
+    //background: #0000002a;
     border: 2px solid #FFECEF;
     margin-top: 6px;
     svg {
-      width: 36px;
-      height: 36px;
+      width: 18px;
+      height: 18px;
     }
   }
 
