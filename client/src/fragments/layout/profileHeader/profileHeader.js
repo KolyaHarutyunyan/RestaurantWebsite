@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Images } from "@eachbase/theme/images";
 import { StyledDrawer, StyledProfileHeader } from "./style";
 import { AccountSettings } from "./core/accountSettings";
 import { useSagaStore, businessesActions } from "@eachbase/store";
-import { useWidth } from "@eachbase/utils";
+import { SideSheetsDrawerContext, useWidth } from "@eachbase/utils";
 import { SideSheetsDrawer } from "../sideSheetsDrawer/sideSheetsDrawer";
 
 export const ProfileHeader = () => {
@@ -23,6 +23,8 @@ export const ProfileHeader = () => {
     [_menuAnchor]: false,
   });
 
+  const { open, openDrawer } = useContext(SideSheetsDrawerContext);
+
   useEffect(() => {
     getBusinessesSaga.dispatch();
   }, []);
@@ -39,6 +41,9 @@ export const ProfileHeader = () => {
 
   const handleMenuHamburgerClick = () => {
     toggleMenuDrawer(_menuAnchor, !menuDrawerPosition[_menuAnchor]);
+    if (open === false) {
+      openDrawer();
+    }
   };
 
   const handleNotificationClick = () => {
@@ -49,11 +54,17 @@ export const ProfileHeader = () => {
     toggleAccountDrawer(_accountAnchor, true);
   };
 
+  const menuIsOpen = menuDrawerPosition[_menuAnchor] === true;
+
   return (
     <>
       <StyledProfileHeader>
-        <div className="menu-hamburger-box" onClick={handleMenuHamburgerClick}>
-          {menuDrawerPosition[_menuAnchor] === true ? (
+        <div
+          className="menu-hamburger-box"
+          style={{ zIndex: menuIsOpen ? 9999 : 99 }}
+          onClick={handleMenuHamburgerClick}
+        >
+          {menuIsOpen ? (
             <Images.CloseMenuHamburger />
           ) : (
             <Images.MenuHamburger />

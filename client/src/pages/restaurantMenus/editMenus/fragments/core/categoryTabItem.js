@@ -58,7 +58,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const [imagesOnLoad, setImagesOnLoad] = useState(false);
   const [searchbarValue, setSearchbarValue] = useState("");
 
-  const { showDuringSmallSize, toggleTabItems } = useContext(TabItemsContext);
+  const { showDuringSmallSize, showItem } = useContext(TabItemsContext);
 
   const submitCategoryForm = useForm();
   const submitProductForm = useForm();
@@ -66,13 +66,14 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const {
     imgs,
     imgsPush,
+    setImgsPush,
     deletedImg,
     index,
     error,
     handleFilesChange,
     handleFilesRemove,
     handlePreviewClick,
-  } = useFileUpload({ images, mainImageIndex });
+  } = useFileUpload(null, images, mainImageIndex);
 
   useEffect(() => {
     if (menu && category) {
@@ -146,7 +147,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     submitProductForm.reset(initialProductState);
     setImages(initialProductState.images);
     setMainImageIndex(initialProductState.mainImage);
-    toggleTabItems();
+    showItem();
   };
   const handleCategoryAdd = () => {
     submitCategoryForm.reset(initialCategoryState);
@@ -229,16 +230,16 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
       setImagesOnLoad(true);
       images = await ImgUploader(imgsPush, true).then((res) => {
         setImagesOnLoad(false);
+        setImgsPush([]);
         return res;
       });
     }
-    const addedImgs = imgsPush?.length ? { imagesToAdd: [...images] } : "";
-    const removedImgs = deletedImg?.length
+    const imagesToAdd = imgsPush?.length ? { imagesToAdd: [...images] } : "";
+    const imagesToRemove = deletedImg?.length
       ? { imagesToRemove: [...deletedImg] }
       : "";
-    const uploadedArr = images ? images : [];
     let filteredImages = imgs?.filter((i) => i.thumbUrl);
-    const allPhotos = [...filteredImages, ...uploadedArr];
+    const allPhotos = [...filteredImages, ...images];
     data = {
       ...data,
       mainImage: index,
@@ -247,11 +248,13 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     if (chosenProduct) {
       data = {
         ...data,
-        ...addedImgs,
-        ...removedImgs,
+        ...imagesToAdd,
+        ...imagesToRemove,
       };
       editProductSaga.dispatch(data, chosenProduct?.id, menu?.id);
-      console.log(data, "data");
+      console.log(imagesToAdd, "imagesToAdd");
+      console.log(imagesToRemove, "imagesToRemove");
+      console.log(index, "index");
     } else {
       data = {
         ...data,

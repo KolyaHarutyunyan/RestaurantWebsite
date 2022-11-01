@@ -16,7 +16,7 @@ export const EditMenusFragment = () => {
   const router = useRouter();
   const menuId = router.query.menuId;
   const loader = FindLoad("GET_BUSINESS_MENU");
-  const { showDuringSmallSize, toggleTabItems } = useContext(TabItemsContext);
+  const { showDuringSmallSize, hideItem } = useContext(TabItemsContext);
 
   useEffect(() => {
     if (menuId) {
@@ -30,6 +30,8 @@ export const EditMenusFragment = () => {
     }
   }, [restaurant]);
 
+  useEffect(() => () => hideItem(), []);
+
   const handlePreview = () => Router.push(`/preview?menuId=${menuId}`);
 
   if (loader?.length) {
@@ -41,7 +43,7 @@ export const EditMenusFragment = () => {
       <div className="edit-menus-header">
         <div
           className={`back-arrow-icon ${showDuringSmallSize ? "shown" : ""}`}
-          onClick={toggleTabItems}
+          onClick={hideItem}
         >
           <Images.GoBackArrow />
         </div>
