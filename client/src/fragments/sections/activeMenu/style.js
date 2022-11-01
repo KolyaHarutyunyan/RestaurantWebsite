@@ -188,8 +188,7 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     background: white;
-    top: -3px;
-    margin-top: -3px;
+    top: 0;
     max-width: 768px;
 
     hr {
