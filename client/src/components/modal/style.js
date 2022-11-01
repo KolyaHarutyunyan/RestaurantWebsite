@@ -46,10 +46,12 @@ export const ModalContainer = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
     max-height: 92vh;
-    padding: ${({ mini, modal }) =>
-      mini ? "10px 30px 30px 30px" : modal ? "32px" : "30px"};
+    padding: ${({ mini, modal }) => 
+            mini ? "10px 30px 30px 30px" :
+                    modal ? "32px" :
+                            "15px 30px 30px 30px"};
 
-    @media only screen and (max-width: 610px) {
+    @media only screen and (max-width: 767px) {
       width: 342px;
     }
     /* @media (min-width: 320px) {
@@ -94,9 +96,10 @@ export const ModalContainer = styled.div`
   }
 
   .close-button-border {
-    margin-top: 8px;
+    //margin-top: 8px;
+    margin-left: 0px;
     @media (min-width: 320px) {
-      margin-right: 0;
+      //margin-right: 0;
     }
     @media (min-width: 767px) {
       //margin-right: -15px;
@@ -110,18 +113,19 @@ export const ModalContainer = styled.div`
   }
 
   .back-button-border {
-    margin-top: 8px;
+    //margin-top: 8px;
+    margin-left: 0;
+
     @media (min-width: 320px) {
-      margin-right: 0;
     }
     @media (min-width: 767px) {
-      margin-left: -15px;
+      //margin-left: -15px;
     }
     @media (min-width: 1279px) {
-      margin-left: -15px;
+      //margin-left: -15px;
     }
     @media (min-width: 1920px) {
-      margin-left: -30px;
+      //margin-left: -30px;
     }
   }
 `;
