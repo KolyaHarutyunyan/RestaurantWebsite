@@ -73,7 +73,7 @@ export const ActiveMenuSection = ({
                   </div>
                 </div>
 
-                <div className="tab-wrapper">
+                <div style={scrollPos.y > 0 ? { marginTop:'-16px' } : {}} className="tab-wrapper">
                   <Tabs.TabHeader square>
                     <Tabs.TabTitle tabName="food">Food</Tabs.TabTitle>
                     <Tabs.TabTitle tabName="drinks">Drinks</Tabs.TabTitle>
