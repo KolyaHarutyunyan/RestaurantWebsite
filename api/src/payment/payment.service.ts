@@ -120,8 +120,8 @@ export class PaymentService {
     // item.images.push(dto);
     // return 'ok';
   }
+
   /** create the subscription */
-  // customerId: string, items: Array<string>
   async createSubscription(dto: CreatePaymentDTO): Promise<string> {
     try {
       const customer = await stripe.customers.create({
@@ -156,6 +156,7 @@ export class PaymentService {
       throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
     }
   }
+
   /** update the subscription */
   async updateSubscription(dto: UpdatePaymentDTO): Promise<any> {
     const subscription = await stripe.subscriptions.update(dto.subId, {
@@ -163,18 +164,28 @@ export class PaymentService {
     });
     console.log(subscription, 'subscriptiooo');
   }
+
   /** cancel the subscription */
-  async cancelSubscription(subId: string): Promise<string> {
-    const cancelSub = await stripe.subscriptions.del(subId);
-    return cancelSub.id;
+  async cancelSubscription(user: SessionDTO, subId: string): Promise<string> {
+    try {
+      const cancelSub = await stripe.subscriptions.del(subId);
+      const productIds = [];
+      cancelSub.items.data.forEach((item) => {
+        productIds.push(item.price.product);
+      });
+      await this.ownerService.deletePackage(user.id, productIds);
+      return cancelSub.id;
+    } catch (e) {
+      throw new HttpException(`Can not cancel the subscription`, HttpStatus.NOT_FOUND);
+    }
   }
+
+  /** get customer subscriptions */
   async getSubscriptions(user: SessionDTO, limit: number, page: number): Promise<any> {
     const customer = await stripe.customers.search({
       query: `email:'${user.email}'`,
     });
-    if (!customer.data.length) {
-      throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
-    }
+    this.checkCustomer(customer);
     const subscriptions = await stripe.subscriptions.list({
       customer: customer.data[0].id,
     });
@@ -187,51 +198,16 @@ export class PaymentService {
       const customer = await stripe.customers.search({
         query: `email:'${user.email}'`,
       });
-      if (!customer.data.length) {
-        throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
-      }
+      this.checkCustomer(customer);
       const cards = await stripe.customers.listSources(customer.data[0].id, {
         object: 'card',
         limit,
       });
       return cards;
     } catch (e) {
-      throw new HttpException(`Can not get cars info`, HttpStatus.NOT_FOUND);
+      throw new HttpException(`Can not get cards info`, HttpStatus.NOT_FOUND);
     }
   }
-  /** Create a new payment */
-  //   async refund(id: string, user: SessionDTO): Promise<any> {
-  //     const user = await this.ownerService.get(user.id);
-  //     user.packages.forEach((package) => {
-
-  //     });
-  //   }
-  //   /** Get the webhooks  */
-  //   async getWebhooks(): Promise<any> {
-  //     const webhookEndpoints = await stripe.webhookEndpoints.list({
-  //       limit: 10,
-  //     });
-  //     return webhookEndpoints;
-  //   }
-
-  /** Get the events that the erply sent */
-  //   async getSentEvents(table: string, action: WebhookAction): Promise<IErplyWebhookData> {
-  //     const setup = await this.model.findOne();
-  //     const baseUrl = await this.getEndpointUrl(Endpoints.webhook, setup.clientCode);
-  //     const sesssionKey = await this.getErplySession(
-  //       setup.username,
-  //       setup.clientCode,
-  //       setup.password,
-  //     );
-  //     try {
-  //       const { data } = await axios.get(`${baseUrl}v1/webhook?table=${table}&action=${action}`, {
-  //         headers: { sessionKey: sesssionKey, clientCode: setup.clientCode },
-  //       });
-  //       return data;
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
 
   /** Add a webhook here */
   async addWebhook(): Promise<any> {
@@ -276,55 +252,10 @@ export class PaymentService {
     //   }
   }
 
-  // {
-  //     "id": "evt_1LombgHoKYb9ljrZZr7PLq70",
-  //     "object": "event",
-  //     "api_version": "2022-08-01",
-  //     "created": 1664795684,
-  //     "data": {
-  //       "object": {
-  //         "id": "seti_1LombgHoKYb9ljrZDy1PgWls",
-  //         "object": "setup_intent",
-  //         "application": null,
-  //         "cancellation_reason": null,
-  //         "client_secret": "seti_1LombgHoKYb9ljrZDy1PgWls_secret_MXsMt53bm78N1NdyaulugCKEYtWjeCu",
-  //         "created": 1664795684,
-  //         "customer": null,
-  //         "description": null,
-  //         "flow_directions": null,
-  //         "last_setup_error": null,
-  //         "latest_attempt": null,
-  //         "livemode": false,
-  //         "mandate": null,
-  //         "metadata": {},
-  //         "next_action": null,
-  //         "on_behalf_of": null,
-  //         "payment_method": "pm_1Lombg2eZvKYlo2CqFPxAEd1",
-  //         "payment_method_options": {
-  //           "acss_debit": {
-  //             "currency": "cad",
-  //             "mandate_options": {
-  //               "interval_description": "First day of every month",
-  //               "payment_schedule": "interval",
-  //               "transaction_type": "personal"
-  //             },
-  //             "verification_method": "automatic"
-  //           }
-  //         },
-  //         "payment_method_types": [
-  //           "acss_debit"
-  //         ],
-  //         "single_use_mandate": null,
-  //         "status": "requires_confirmation",
-  //         "usage": "off_session"
-  //       }
-  //     },
-  //     "livemode": false,
-  //     "pending_webhooks": 0,
-  //     "request": {
-  //       "id": null,
-  //       "idempotency_key": null
-  //     },
-  //     "type": "setup_intent.created"
-  //   }
+  /** check customer */
+  private checkCustomer(customer) {
+    if (!customer.data.length) {
+      throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
+    }
+  }
 }
