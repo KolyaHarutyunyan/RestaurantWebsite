@@ -2,6 +2,29 @@ import { colors } from "@eachbase/theme";
 import { makeStyles } from "@material-ui/core/styles";
 
 export const inputsStyle = makeStyles(() => ({
+
+
+  noChip:{
+    '& .MuiAutocomplete-tag':{
+      display:'none'
+    },
+  },
+
+  // inputTextFieldAutoHeight:{
+  //   '& .MuiOutlinedInput-notchedOutline':{
+  //     // borderColor:Colors.ThemeBorder
+  //   },
+  //   '& .MuiOutlinedInput-root':{
+  //
+  //   },
+  //   '& .MuiInputLabel-outlined':{
+  //
+  //   },
+  //   '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+  //     transform: 'translate(14px, -2px) scale(0.75)'
+  //   }
+  // },
+
   inputTextFieldAutoHeight: {
     width: "100%",
     minWidth: "300px",
@@ -27,9 +50,9 @@ export const inputsStyle = makeStyles(() => ({
     "& .MuiInputLabel-outlined": {
       transform: "translate(14px, 16px) scale(1)",
     },
-    "& .MuiInputLabel-outlined.Mui-focused.Mui-focused": {
-      transform: "translate(14px, -6px) scale(0.75)",
-    },
+    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+      transform: 'translate(14px, -2px) scale(0.75)'
+    }
   },
 
   addItemIcon: {

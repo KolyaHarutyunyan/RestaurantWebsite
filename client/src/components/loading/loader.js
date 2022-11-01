@@ -1,6 +1,6 @@
 import { CircularProgress } from "@material-ui/core";
 
-export const Loader = ({ small, color, height }) => {
+export const Loader = ({ small, color, height, position }) => {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ export const Loader = ({ small, color, height }) => {
     >
       <CircularProgress
         style={{
-          position: "absolute",
+          position: position ? position : "absolute",
           top: 0,
           bottom: 0,
           margin: "auto",
