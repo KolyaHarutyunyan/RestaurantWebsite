@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { StyledCategoryTabItem, StyledMenuDrawer } from "./style";
 import { CategoryCard, ItemFormCard, ProductCard } from "@eachbase/components";
-import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import {
   categoriesActions,
   categoryItemActions,
-  itemActions,
-  useSagaStore,
+  itemActions, menusActions,
+  useSagaStore
 } from "@eachbase/store";
 import { CategoryFormContent, ProductFormContent } from "./common";
 import {
@@ -39,10 +39,10 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const editProductSaga = useSagaStore(itemActions.editProduct);
   const deleteProductSaga = useSagaStore(itemActions.deleteProduct);
 
+  const editBusinessOrder = useSagaStore(menusActions.editMenuOrder);
+
   const addProductsToCategorySaga = useSagaStore(categoryItemActions.add);
-  const removeProductsFromCategorySaga = useSagaStore(
-    categoryItemActions.delete
-  );
+  const removeProductsFromCategorySaga = useSagaStore(categoryItemActions.delete);
   const reorderProductsSaga = useSagaStore(categoryItemActions.reorder);
 
   const width = useWidth();
@@ -191,6 +191,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const handleCategoriesReorder = (e) => {
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
+    editBusinessOrder.dispatch( { from, to, }, categoryType === 'FOOD' ? 'food' : 'drinks', 'category')
     reorderCategoriesSaga.dispatch(menu?.id, categoryType, {
       from,
       to,
@@ -278,6 +279,8 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const handleProductsReorder = (e) => {
     const from = e.source.index;
     const to = e.destination ? e.destination.index : null;
+
+    editBusinessOrder.dispatch( { from, to, }, categoryType === 'FOOD' ? 'food' : 'drinks', 'items', category?.id)
     reorderProductsSaga.dispatch(menu?.id, category?.id, categoryType, {
       from,
       to,

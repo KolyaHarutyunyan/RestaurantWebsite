@@ -59,20 +59,14 @@ export const CategoryCard = ({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           key={category.id}
-                          className={`category-item ${
-                            !category.active ? "inactive" : ""
-                          } ${
-                            category.id === currentCategory?.id ? "current" : ""
-                          }`}
+                          className={`category-item ${!category.active ? "inactive" : ""} ${category.id === currentCategory?.id ? "current" : ""}`}
                           onClick={() => handleCurrentCategory(category)}
                         >
                           <div className="category-name-box">
                             <MoreDropdown
                               vertical
                               handleEdit={() => handleCategoryEdit(category)}
-                              handleDelete={() =>
-                                handleCategoryDelete(category)
-                              }
+                              handleDelete={() => handleCategoryDelete(category)}
                             />
                             <p className="category-name">
                               {getItemName(width, category.name)}
