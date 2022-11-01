@@ -54,7 +54,7 @@ export class PaymentController {
     const payment = await this.paymentService.updateSubscription(dto);
     return payment;
   }
-  /** Create an subscription */
+  /** get subscriptions */
   @Get('sub')
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiQuery({ name: 'page', required: false })
@@ -70,6 +70,22 @@ export class PaymentController {
     const payment = await this.paymentService.getSubscriptions(user, limit, page);
     return payment;
   }
+  /** Create an subscription */
+  @Get('cards')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
+  @Public()
+  async getCards(
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+    @Req() req: IRequest,
+  ): Promise<any> {
+    const user = req.body.user;
+    const payment = await this.paymentService.getCards(user, limit, page);
+    return payment;
+  }
+
   /** Refund the subscription */
   @Post('refundSub')
   @ApiHeader({ name: ACCESS_TOKEN })

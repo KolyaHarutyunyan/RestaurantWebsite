@@ -180,6 +180,25 @@ export class PaymentService {
     });
     return subscriptions;
   }
+
+  /** get customer cards information */
+  async getCards(user: SessionDTO, limit: number, page: number): Promise<any> {
+    try {
+      const customer = await stripe.customers.search({
+        query: `email:'${user.email}'`,
+      });
+      if (!customer.data.length) {
+        throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
+      }
+      const cards = await stripe.customers.listSources(customer.data[0].id, {
+        object: 'card',
+        limit,
+      });
+      return cards;
+    } catch (e) {
+      throw new HttpException(`Can not get cars info`, HttpStatus.NOT_FOUND);
+    }
+  }
   /** Create a new payment */
   //   async refund(id: string, user: SessionDTO): Promise<any> {
   //     const user = await this.ownerService.get(user.id);
