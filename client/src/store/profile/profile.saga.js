@@ -101,9 +101,6 @@ function* signOut({ type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     yield call(profileService.signOut);
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
-    yield put(httpRequestsOnErrorsActions.removeError(type));
-    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     localStorage.removeItem("token");
     localStorage.removeItem("menuUser");
     Router.push("/");
