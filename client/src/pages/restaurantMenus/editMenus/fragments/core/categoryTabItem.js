@@ -36,7 +36,6 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const restaurant = useSelector(({ businesses }) => businesses);
   const menu = useSelector(({ menus }) => menus.menuById);
   const restaurantProducts = useSelector(({ items }) => items);
-  console.log(restaurant?.id, "dd");
 
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const editCategorySaga = useSagaStore(categoriesActions.editCategory);
