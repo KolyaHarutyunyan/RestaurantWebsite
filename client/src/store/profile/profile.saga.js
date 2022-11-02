@@ -66,6 +66,7 @@ function* signUp({ type, payload }) {
   try {
     const { data } = yield call(profileService.signUp, payload);
     localStorage.setItem("token", data.token);
+    localStorage.setItem("menuUser", JSON.stringify(data));
     try {
       const { data } = yield call(profileService.userInfo, payload);
       yield put({

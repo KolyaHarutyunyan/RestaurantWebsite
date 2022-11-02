@@ -5,12 +5,8 @@ import { ChangePasswordForm, NameEmailForm } from "./common";
 import { MdClose } from "react-icons/md";
 import { profileActions, useSagaStore } from "@eachbase/store";
 
-export const AccountSettings = ({ handleClose }) => {
+export const AccountSettings = ({ userInfo, handleClose }) => {
   const profileSaga = useSagaStore(profileActions.signOut);
-
-  const userInfo =
-    typeof window !== "undefined" &&
-    JSON.parse(localStorage.getItem("menuUser"));
 
   return (
     <StyledAccountSettings>
