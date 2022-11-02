@@ -9,7 +9,7 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import {
   useSagaStore,
   profileActions,
-  businessesActions,
+  businessesActions
 } from "@eachbase/store";
 import { useEffect, useRef, useState } from "react";
 import useMedia from "use-media";
@@ -204,15 +204,15 @@ export const Header = () => {
 
   const renderSignInButtons = () => {
     // if (!profile) {
-      return (
-        <div className="sign-in-buttons">
-          <Button
-            className={"sign-in"}
-            onClick={() => open(MODAL_NAMES.SIGN_IN)}
-          >
-            Sign In
-          </Button>
-          {/* <Button
+    return (
+      <div className="sign-in-buttons">
+        <Button
+          className={"sign-in"}
+          onClick={() => open(MODAL_NAMES.SIGN_IN)}
+        >
+          Sign In
+        </Button>
+        {/* <Button
             onClick={() => open(MODAL_NAMES.SIGN_IN)}
             color="default"
             outlined
@@ -220,8 +220,8 @@ export const Header = () => {
           >
             Create Menu
           </Button> */}
-        </div>
-      );
+      </div>
+    );
     // }
     // return null;
   };
@@ -263,8 +263,8 @@ export const Header = () => {
             ? scrollPos.y > 10
               ? "header-scrolled"
               : menuIsOpen === true
-              ? "header-scrolled-open"
-              : "header-not-scrolled"
+                ? "header-scrolled-open"
+                : "header-not-scrolled"
             : "header-not-scrolled"
         }
       >
@@ -272,13 +272,15 @@ export const Header = () => {
           <span className="free-package-text">
             We have FREE Package for you!
           </span>
-          <button
-            type="button"
-            className="start-btn"
-            onClick={() => alert("Start")}
-          >
-            Start
-          </button>
+          <a href="#free">
+            <button
+              type="button"
+              className="start-btn"
+              // onClick={() => alert("Start")}
+            >
+              Start
+            </button>
+          </a>
         </div>
         <div className="container-header">
           <div className="logo-container" onClick={() => router.push("/")}>

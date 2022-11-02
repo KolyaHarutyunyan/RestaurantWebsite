@@ -83,7 +83,10 @@ export class MenuService {
   /** Gets the menus for the business */
   async getByBusinessId(businessId: string, user: SessionDTO): Promise<MenuDTO[]> {
     await this.bsnService.validateOwner(user.id, businessId);
-    const menus: any = await this.model.find({ businessId }).populate('food.items.item').populate('drinks.items.item');
+    const menus: any = await this.model
+      .find({ businessId })
+      .populate('food.items.item')
+      .populate('drinks.items.item');
     return this.sanitizer.sanitizeMany(menus);
   }
 
@@ -206,9 +209,9 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const category = this.findCategory(menu, type, catId);
-    console.log(category);
-    const index = category.items.findIndex((item) => item._id.toString() === itemId);
-    console.log(index);
+    const index = category.items.findIndex((item: any) => {
+      return item.item._id.toString() === itemId;
+    });
     if (index < 0) {
       throw new HttpException('Item was not found in this category', HttpStatus.NOT_FOUND);
     }
