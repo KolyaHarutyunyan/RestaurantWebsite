@@ -13,24 +13,25 @@ const modalNames = [
 ];
 
 export const CustomModal = ({
-  modalName,
-  backButton,
-  fixed = false,
-  onBackButtonClick = () => {},
-  children,
-  mini = false,
-  closeBorder,
-  max,
-  border,
-  confirm,
-  modal,
-}) => {
+                              modalName,
+                              backButton,
+                              fixed = false,
+                              onBackButtonClick = () => {
+                              },
+                              children,
+                              mini = false,
+                              closeBorder,
+                              max,
+                              border,
+                              confirm,
+                              modal,
+                              close
+                            }) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // document.getElementById('__next').classList.add('hide-scroll');
   }, []);
 
   if (mounted) {
@@ -42,6 +43,7 @@ export const CustomModal = ({
         modal={modal}
       >
         <div style={{ maxWidth: max }} className="container">
+<<<<<<< HEAD
           {modalNames.includes(modalName) ? (
             <button
               type="button"
@@ -68,24 +70,56 @@ export const CustomModal = ({
                         setActiveModal(modalName);
                       },
                       close: () => {
+=======
+
+          {close !== "noButton" &&
+            <div>
+              {modalName === "MENU_FORM" ? (
+                <button
+                  type="button"
+                  className="close-modal-button"
+                  onClick={() => setActiveModal("")}
+                >
+                  <MdClose style={{ fontSize: 24 }} />
+                </button>
+              ) : !fixed ? (
+                <div className={`head ${backButton ? "back" : ""}`}>
+                  <button
+                    className={
+                      closeBorder === "close"
+                        ? "close-button-border"
+                        : closeBorder === "back"
+                          ? "back-button-border"
+                          : "close-button"
+                    }
+                    onClick={() => {
+                      if (backButton) {
+                        onBackButtonClick({
+                          open: (modalName) => {
+                            setActiveModal(modalName);
+                          },
+                          close: () => {
+                            setActiveModal("");
+                            setParams({});
+                          }
+                        });
+                      } else {
+>>>>>>> cc21713783c2ed01f8a4a055ee66b66da7308ef8
                         setActiveModal("");
                         setParams({});
-                      },
-                    });
-                  } else {
-                    setActiveModal("");
-                    setParams({});
-                  }
-                }}
-              >
-                {backButton ? (
-                  <HiArrowLeft style={{ fontSize: 24 }} />
-                ) : (
-                  <MdClose style={{ fontSize: 24 }} />
-                )}
-              </button>
+                      }
+                    }}
+                  >
+                    {backButton ? (
+                      <HiArrowLeft style={{ fontSize: 24 }} />
+                    ) : (
+                      <MdClose style={{ fontSize: 24 }} />
+                    )}
+                  </button>
+                </div>
+              ) : null}
             </div>
-          ) : null}
+          }
           <div className="content">{children}</div>
         </div>
         <div

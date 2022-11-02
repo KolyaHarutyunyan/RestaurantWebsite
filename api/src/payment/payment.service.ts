@@ -9,6 +9,8 @@ import { Keys } from './payment.constants';
 import { BASE_URL } from '../util/constants';
 import { OwnerService } from '../owner/owner.service';
 import { SessionDTO } from '../auth';
+import { ProductDTO } from './dto/payment.dto';
+import { PaymentSanitizer } from './payment.sanitizer';
 
 const stripe = new Stripe(Keys.skey, {
   apiVersion: '2022-08-01',
@@ -16,31 +18,35 @@ const stripe = new Stripe(Keys.skey, {
 
 @Injectable()
 export class PaymentService {
-  constructor(private ownerService: OwnerService) {
+  constructor(private ownerService: OwnerService, private readonly sanitizer: PaymentSanitizer) {
     this.model = ItemModel;
   }
   private model: Model<IItem>;
 
   /** Public API */
   /** create the products */
-  async createProduct(name: string, active: boolean): Promise<any> {
+  async createProduct(name: string, active: boolean): Promise<ProductDTO> {
     try {
       const product = await stripe.products.create({
         name,
         active: active == undefined ? true : active,
       });
-      return product;
+      return this.sanitizer.sanitizeProduct(product);
     } catch (e) {
       throw new HttpException('Can not create product', HttpStatus.BAD_REQUEST);
     }
   }
 
   /** get the products */
-  async getProducts() {
-    const products = await stripe.products.list({
-      limit: 100,
-    });
-    return products;
+  async getProducts(): Promise<ProductDTO[]> {
+    const products = await stripe.products.list();
+    return this.sanitizer.sanitizeProductMany(products.data);
+  }
+
+  /** delete the products */
+  async deleteProduct(productId: string): Promise<string> {
+    const product = await stripe.products.del(productId);
+    return product.id;
   }
 
   /** refund the subscription */
@@ -122,7 +128,7 @@ export class PaymentService {
   }
 
   /** create the subscription */
-  async createSubscription(dto: CreatePaymentDTO): Promise<string> {
+  async createSubscription(dto: CreatePaymentDTO): Promise<Stripe.Subscription> {
     try {
       const customer = await stripe.customers.create({
         description: `email - ${dto.user.email}`,
@@ -151,18 +157,19 @@ export class PaymentService {
         expand: ['latest_invoice.payment_intent'],
       });
       await this.ownerService.addPackage(dto.user.id, dto.productId);
-      return subscription.id;
+      return subscription;
     } catch (e) {
       throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
     }
   }
 
   /** update the subscription */
-  async updateSubscription(dto: UpdatePaymentDTO): Promise<any> {
+  async updateSubscription(dto: UpdatePaymentDTO): Promise<Stripe.Subscription> {
     const subscription = await stripe.subscriptions.update(dto.subId, {
       metadata: { order_id: dto.orderId },
     });
     console.log(subscription, 'subscriptiooo');
+    return subscription;
   }
 
   /** cancel the subscription */
@@ -181,7 +188,11 @@ export class PaymentService {
   }
 
   /** get customer subscriptions */
-  async getSubscriptions(user: SessionDTO, limit: number, page: number): Promise<any> {
+  async getSubscriptions(
+    user: SessionDTO,
+    limit: number,
+    page: number,
+  ): Promise<Stripe.ApiList<Stripe.Subscription>> {
     const customer = await stripe.customers.search({
       query: `email:'${user.email}'`,
     });

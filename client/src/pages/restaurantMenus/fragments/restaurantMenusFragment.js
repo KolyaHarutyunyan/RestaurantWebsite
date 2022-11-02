@@ -29,6 +29,7 @@ export const RestaurantMenusFragment = () => {
         </Button>
       </div>
       <div className="menus-list-box">
+<<<<<<< HEAD
         {loader?.length ? (
           <Loader height={"60vh"} />
         ) : (
@@ -36,6 +37,18 @@ export const RestaurantMenusFragment = () => {
             <MenuItem key={menu.id} menu={menu} restaurant={restaurant} />
           ))
         )}
+=======
+        {loader?.length ?
+          <Loader height={"60vh"} />
+
+          :
+
+          menus?.length ? menus?.map((menu) => (
+              <MenuItem key={menu.id} menu={menu} restaurant={restaurant} />
+            )) :
+            <p className="no-yet">No Menus Yet</p>
+        }
+>>>>>>> cc21713783c2ed01f8a4a055ee66b66da7308ef8
       </div>
     </StyledRestaurantMenus>
   );

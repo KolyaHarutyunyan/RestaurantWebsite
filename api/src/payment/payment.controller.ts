@@ -5,7 +5,7 @@ import { ACCESS_TOKEN } from 'src/util/constants';
 import { PaymentService } from './payment.service';
 import Stripe from 'stripe';
 import { EditWebhookDTO, UpdatePaymentDTO } from './dto/update.dto';
-import { WebhookDTO } from './dto/payment.dto';
+import { ProductDTO, WebhookDTO } from './dto/payment.dto';
 import { CreatePaymentDTO, CreateWebhookDTO } from './dto/create.dto';
 import { WebhookAction } from './payment.constants';
 const stripe = new Stripe(
@@ -96,21 +96,35 @@ export class PaymentController {
   }
 
   /** Create an product */
-  @Post('product')
+  @Post('products')
   @ApiHeader({ name: ACCESS_TOKEN })
   @Public()
-  async createProduct(@Query('name') name: string, @Query('active') active: boolean): Promise<any> {
+  async createProduct(
+    @Query('name') name: string,
+    @Query('active') active: boolean,
+  ): Promise<ProductDTO> {
     const payment = await this.paymentService.createProduct(name, active);
     return payment;
   }
+
   /** Get the products */
-  @Get('product')
+  @Get('products')
   @ApiHeader({ name: ACCESS_TOKEN })
   @Public()
-  async getProducts(): Promise<any> {
-    const payment = await this.paymentService.getProducts();
-    return payment;
+  async getProducts(): Promise<ProductDTO[]> {
+    const product = await this.paymentService.getProducts();
+    return product;
   }
+
+  /** Delete the product */
+  @Delete('products')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async deleteProduct(@Query('productId') productId: string): Promise<string> {
+    const product = await this.paymentService.deleteProduct(productId);
+    return product;
+  }
+
   /** Configure a webhook */
   @Post('webhooks')
   @Public()

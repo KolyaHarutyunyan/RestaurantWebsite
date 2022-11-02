@@ -78,6 +78,8 @@ export const SettingsTabItem = () => {
     dispatch(data);
   };
 
+  console.log(status,'statusstatus');
+
   return (
     <StyledSettingsTabItem>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,6 +145,8 @@ export const SettingsTabItem = () => {
           ))}
         </div>
         <UserInput
+          inputError={status?.onError === "phoneNumber must be a valid phone number" ? 'Phone  Number must be a valid phone number' : ''}
+
           required={false}
           inputLabel={"Phone Number"}
           inputType={"number"}

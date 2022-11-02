@@ -107,7 +107,7 @@ export class OwnerService {
   }
   /** add package */
   async addPackage(ownerId: string, packageId: string): Promise<OwnerDTO> {
-    const owner = await this.model.findById({ _id: ownerId });
+    const owner = await this.model.findById({ _id: ownerId }).populate('auth');
     this.checkOwner(owner);
     if (!owner.packages.includes(packageId)) {
       owner.packages.push(packageId);

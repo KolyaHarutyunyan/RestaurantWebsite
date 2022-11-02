@@ -203,7 +203,7 @@ export const Header = () => {
   };
 
   const renderSignInButtons = () => {
-    if (!profile) {
+    // if (!profile) {
       return (
         <div className="sign-in-buttons">
           <Button
@@ -222,8 +222,8 @@ export const Header = () => {
           </Button> */}
         </div>
       );
-    }
-    return null;
+    // }
+    // return null;
   };
 
   const renderMobileSideBar = () => {
@@ -284,7 +284,7 @@ export const Header = () => {
           <div className="logo-container" onClick={() => router.push("/")}>
             <Icons.LogoIcon />
           </div>
-          {renderProfileDropdown()}
+          {/*{renderProfileDropdown()}*/}
           {!isMobileViewport ? renderSignInButtons() : null}
           {renderMobileSideBar()}
         </div>

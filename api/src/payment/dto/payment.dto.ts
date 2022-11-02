@@ -22,3 +22,12 @@ export class WebhookDTO {
   @ApiProperty()
   clientCode: string;
 }
+
+export class ProductDTO {
+  @ApiProperty()
+  id: string;
+  @ApiProperty()
+  active: boolean;
+  @ApiProperty()
+  name: string;
+}
