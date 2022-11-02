@@ -38,6 +38,7 @@ export const SignUpForm = () => {
     dispatcher(profileActions.socialSignUp(type));
   };
 
+  const checkPassword = status?.onError?.data?.message[0] === "password must be longer than or equal to 8 characters";
   return (
     <Container>
       <Typography className="welcome-text" color="text">
@@ -45,9 +46,7 @@ export const SignUpForm = () => {
       </Typography>
       {/*<Icons.LogoIcon className="logo" />*/}
       <form onChange={() => setErrors("")} onSubmit={handleSubmit(onSubmit)}>
-
         <Input
-          helper={errors === "fullName" && "Name min length must be 7 characters"}
           border={"24px"}
           helperColo={true}
           containerClassName="input-padding"
@@ -56,6 +55,8 @@ export const SignUpForm = () => {
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
           {...register("fullName", { required: true, minLength: 0, maxLength: 20 })}
+          error={errors === "fullName"}
+          helper={errors === "fullName" && "Name min length must be 7 characters"}
         />
         <Input
           border={"24px"}
@@ -64,8 +65,16 @@ export const SignUpForm = () => {
           icon={<Icons.EmailIcon />}
           placeholder="Email"
           {...register("email", { required: true })}
-          error={status?.onError?.data?.message === "User already exists"}
-          helper={status?.onError?.data?.message === "User already exists" && "User already exist"}
+          error={
+          status?.onError?.data?.message === "User already exists"
+            ||
+          status?.onError?.data?.message === "User with this email exists"
+        }
+          helper={
+          status?.onError?.data?.message === "User already exists" ? "User already exist" :
+          status?.onError?.data?.message === "User with this email exists"
+            && "User already exist"
+        }
         />
         <Input
           border={"24px"}
@@ -73,9 +82,14 @@ export const SignUpForm = () => {
           icon={<Icons.PasswordIcon />}
           type="password"
           placeholder="Password"
-          {...register("password", { required: true })}
-          error={status?.onError?.data?.message[0] === "password must be longer than or equal to 8 characters"}
-          helper={status?.onError?.data?.message[0] === "password must be longer than or equal to 8 characters" && "Password must be longer than or equal to 8 characters"}
+          helperColo={checkPassword ? "gray" : true}
+          {...register("password", { required: true, pattern: /^(?=.*[A-Za-z])[A-Za-z\d]{8,}$/ })}
+          error={checkPassword}
+          helper={checkPassword ?
+            "Password must be longer than or equal to 8 characters"
+            :
+            "password must be longer than or equal to 8 characters"
+          }
         />
         <Button fullWidth type="submit" onLoad={status.onLoad}>
           Continue
