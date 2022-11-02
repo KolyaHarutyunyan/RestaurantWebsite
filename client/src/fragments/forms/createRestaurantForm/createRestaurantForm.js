@@ -16,7 +16,6 @@ import { Container } from "./style";
 export const CreateRestaurantForm = () => {
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm();
-  const [restaurantIcon, setRestaurantIcon] = useState(null);
   const [img, setImg] = useState("");
   const [imgPush, setImgPush] = useState("");
   const [error, setError] = useState(false);
@@ -34,8 +33,7 @@ export const CreateRestaurantForm = () => {
       close();
       destroy.all();
       reset();
-      setRestaurantIcon(null);
-      // router.push("/settings");
+      window.location.replace('/menus')
     }
   }, [status]);
 
@@ -54,7 +52,6 @@ export const CreateRestaurantForm = () => {
         setError(true);
       } else {
         setError("");
-
         setImg({
           url: URL.createObjectURL(new File([item], "image", { type: "text/json;charset=utf-8" })),
           id: 1
@@ -107,6 +104,7 @@ export const CreateRestaurantForm = () => {
           </Typography>
         </div>
         <FileUpload
+          error={error}
           building={true}
           title="Restaurant Logo"
           handleChange={handleFileChange}
