@@ -3,8 +3,15 @@ import { Images } from "@eachbase/theme/images";
 import { Button } from "@eachbase/components";
 import { ChangePasswordForm, NameEmailForm } from "./common";
 import { MdClose } from "react-icons/md";
+import { profileActions, useSagaStore } from "@eachbase/store";
 
-export const AccountSettings = ({ account, handleClose }) => {
+export const AccountSettings = ({ handleClose }) => {
+  const profileSaga = useSagaStore(profileActions.signOut);
+
+  const userInfo =
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("menuUser"));
+
   return (
     <StyledAccountSettings>
       <button
@@ -15,11 +22,11 @@ export const AccountSettings = ({ account, handleClose }) => {
         <MdClose style={{ fontSize: 24 }} />
       </button>
       <div className="name-and-avatar">
-        <h6 className="name">{account?.fullName}</h6>
+        <h6 className="name">{userInfo?.fullName}</h6>
         <div className="avatar">
           <div className="avatar-wrapper">
             <div className="profile-photo">
-              {account?.avatar || <Images.UserProfile />}
+              {userInfo?.avatar || <Images.UserProfile />}
             </div>
             <label className="add-photo">
               <input type="file" />
@@ -29,14 +36,15 @@ export const AccountSettings = ({ account, handleClose }) => {
         </div>
       </div>
       <div className="account-box">
-        <NameEmailForm account={account} />
-        <ChangePasswordForm />
+        <NameEmailForm account={userInfo} />
+        <ChangePasswordForm account={userInfo} />
       </div>
       <Button
         fullWidth
         square
         className="sign-out-button"
-        // onLoad={status.onLoad}
+        onLoad={profileSaga.status.onLoad}
+        onClick={() => profileSaga.dispatch()}
       >
         <Images.SignOut /> Sign Out
       </Button>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFileUpload = ({ image, images, mainImageIndex }) => {
+export const useFileUpload = (image, images, mainImageIndex) => {
   const [img, setImg] = useState("");
   const [imgs, setImgs] = useState([]);
   const [imgPush, setImgPush] = useState("");
@@ -10,14 +10,21 @@ export const useFileUpload = ({ image, images, mainImageIndex }) => {
   const [deletedImg, setDeletedImg] = useState([]);
 
   useEffect(() => {
-    if (images === undefined && mainImageIndex === undefined) return;
-    setImgs(images);
-    setIndex(mainImageIndex);
+    if (images && mainImageIndex >= 0) {
+      setImgs(images);
+      setIndex(mainImageIndex);
+    } else {
+      setImgs([]);
+      setIndex(0);
+    }
   }, [images, mainImageIndex]);
 
   useEffect(() => {
     if (image) {
       setImg(image);
+    } else {
+      setImg("");
+      setImgPush("");
     }
   }, [image]);
 
@@ -68,6 +75,10 @@ export const useFileUpload = ({ image, images, mainImageIndex }) => {
     if (key >= 0 && item) {
       if (index === key) {
         setIndex(0);
+      } else if (index > key) {
+        setIndex((pS) => pS - 1);
+      } else {
+        setIndex(index);
       }
       const deletedImages = [...imgsPush];
       deletedImages.splice(key, 1);
@@ -90,7 +101,9 @@ export const useFileUpload = ({ image, images, mainImageIndex }) => {
     imgs,
     imgPush,
     imgsPush,
+    setImgsPush,
     deletedImg,
+    setDeletedImg,
     error,
     index,
     handleFileChange,

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StyledProductForm } from "./style";
 import { FileUpload, UserInput } from "@eachbase/components";
 
@@ -11,7 +12,17 @@ export const ProductFormContent = ({
   handleImgPreview,
   imgIdx,
   error,
+  cleanUpImagesToAdd,
+  cleanUpImagesToRemove,
 }) => {
+  useEffect(
+    () => () => {
+      cleanUpImagesToAdd && cleanUpImagesToAdd();
+      cleanUpImagesToRemove && cleanUpImagesToRemove();
+    },
+    []
+  );
+
   return (
     <StyledProductForm>
       <div className="name-price-box">

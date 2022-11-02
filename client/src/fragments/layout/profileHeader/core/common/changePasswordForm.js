@@ -1,12 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledChangePasswordForm } from "./style";
 import { useForm } from "react-hook-form";
 import { UserInput } from "@eachbase/components";
+import { profileActions, useSagaStore } from "@eachbase/store";
+import { errorTexts } from "./constants";
+import { CircularProgress } from "@material-ui/core";
 
-export const ChangePasswordForm = () => {
+export const ChangePasswordForm = ({ account }) => {
   const [edit, setEdit] = useState(false);
+  const [errorText, setErrorText] = useState("");
+
+  const profileSaga = useSagaStore(profileActions.updatePassword);
 
   const { handleSubmit, register, reset } = useForm();
+
+  useEffect(() => {
+    if (profileSaga.status.onSuccess) {
+      setEdit(false);
+      setErrorText("");
+      reset();
+      profileSaga.destroy.success();
+    }
+  }, [profileSaga.status.onSuccess]);
+
+  useEffect(() => {
+    if (profileSaga.status.onError) {
+      if (Array.isArray(profileSaga.status.onError?.data?.message)) {
+        setErrorText(profileSaga.status.onError?.data?.message[0]);
+      } else {
+        setErrorText(profileSaga.status.onError?.data?.message);
+      }
+      profileSaga.destroy.error();
+    }
+  }, [profileSaga.status.onError]);
 
   const handleEdit = (event) => {
     event?.preventDefault();
@@ -15,10 +41,18 @@ export const ChangePasswordForm = () => {
 
   const handleCancel = () => {
     setEdit(false);
+    setErrorText("");
     reset();
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    data = {
+      ...data,
+      id: account.id,
+    };
+    profileSaga.dispatch(data);
+    setErrorText("");
+  };
 
   return (
     <StyledChangePasswordForm>
@@ -30,7 +64,13 @@ export const ChangePasswordForm = () => {
               {edit ? (
                 <>
                   <button type="submit" className="edit-button">
-                    Save
+                    {profileSaga.status.onLoad ? (
+                      <CircularProgress
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                    ) : (
+                      "Save"
+                    )}
                   </button>
                   <button
                     type="button"
@@ -62,6 +102,11 @@ export const ChangePasswordForm = () => {
                 inputName={"password"}
                 inputPlaceholder={"Current Password*"}
                 {...register("password", { required: true })}
+                inputError={
+                  errorText === errorTexts.currentPassword
+                    ? errorTexts.currentPassword
+                    : ""
+                }
               />
               <UserInput
                 required={true}
@@ -76,6 +121,11 @@ export const ChangePasswordForm = () => {
                 inputName={"confirmation"}
                 inputPlaceholder={"Retype New Password*"}
                 {...register("confirmation", { required: true })}
+                inputError={
+                  errorText === errorTexts.passwordConfirm
+                    ? errorTexts.passwordConfirm
+                    : ""
+                }
               />
             </div>
           )}

@@ -14,6 +14,10 @@ export const StyledNameEmailForm = styled.div`
         font-family: Open Sans, sans-serif;
         font-weight: 700;
         font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
         &.edit-button {
           color: ${colors.primary};
         }
@@ -60,6 +64,10 @@ export const StyledChangePasswordForm = styled.div`
           font-family: Open Sans, sans-serif;
           font-weight: 700;
           font-size: 14px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 20px;
           &.edit-button {
             color: ${colors.primary};
           }

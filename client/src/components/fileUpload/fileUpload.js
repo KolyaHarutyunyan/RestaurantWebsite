@@ -77,7 +77,7 @@ export const FileUpload = ({
         {many === true
           ? url.map((file, j) => (
               <div
-                key={file.id}
+                key={j}
                 className={`file-preview ${selectedIndex === j ? "main" : ""} `}
                 style={{ backgroundImage: `url(${file.url})` }}
                 onClick={(e) => {

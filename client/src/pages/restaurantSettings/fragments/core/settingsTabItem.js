@@ -32,7 +32,7 @@ export const SettingsTabItem = () => {
     businessesActions.editBusiness
   );
   const { img, imgPush, error, handleFileChange, handleFileRemove } =
-    useFileUpload({ image: restaurant?.logo });
+    useFileUpload(restaurant?.logo);
 
   const { open } = useContext(SideSheetsDrawerContext);
 
@@ -73,6 +73,7 @@ export const SettingsTabItem = () => {
       address: formattedAddress,
       hours: hours,
       logo: image,
+      removeLogo: !image,
     };
     dispatch(data);
   };
