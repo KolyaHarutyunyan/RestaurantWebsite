@@ -4,22 +4,28 @@ import { HiArrowLeft } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
+import { MODAL_NAMES } from "@eachbase/constants";
+
+const modalNames = [
+  MODAL_NAMES.CONFIRM_CATEGORY_DELETION,
+  MODAL_NAMES.CONFIRM_ITEM_DELETION,
+  MODAL_NAMES.MENU_FORM,
+];
 
 export const CustomModal = ({
-                              modalName,
-                              backButton,
-                              fixed = false,
-                              onBackButtonClick = () => {
-                              },
-                              children,
-                              mini = false,
-                              closeBorder,
-                              max,
-                              border,
-                              confirm,
-                              modal,
-                              close
-                            }) => {
+  modalName,
+  backButton,
+  fixed = false,
+  onBackButtonClick = () => {},
+  children,
+  mini = false,
+  closeBorder,
+  max,
+  border,
+  confirm,
+  modal,
+  close,
+}) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
 
@@ -36,10 +42,9 @@ export const CustomModal = ({
         modal={modal}
       >
         <div style={{ maxWidth: max }} className="container">
-
-          {close !== "noButton" &&
+          {close !== "noButton" && (
             <div>
-              {modalName === "MENU_FORM" ? (
+              {modalNames.includes(modalName) ? (
                 <button
                   type="button"
                   className="close-modal-button"
@@ -54,8 +59,8 @@ export const CustomModal = ({
                       closeBorder === "close"
                         ? "close-button-border"
                         : closeBorder === "back"
-                          ? "back-button-border"
-                          : "close-button"
+                        ? "back-button-border"
+                        : "close-button"
                     }
                     onClick={() => {
                       if (backButton) {
@@ -66,7 +71,7 @@ export const CustomModal = ({
                           close: () => {
                             setActiveModal("");
                             setParams({});
-                          }
+                          },
                         });
                       } else {
                         setActiveModal("");
@@ -83,7 +88,7 @@ export const CustomModal = ({
                 </div>
               ) : null}
             </div>
-          }
+          )}
           <div className="content">{children}</div>
         </div>
         <div

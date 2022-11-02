@@ -21,16 +21,15 @@ export const HomePageSections = () => {
   return (
     <LazyLoad loaded={loaded}>
       <Container>
-        <Hero/>
+        <Hero />
         <YourBusiness />
         <QRCode />
         <HowItWorks />
         <DigitalMenu />
-
-         <Payments/>
-
+        <div id='free'/>
+        <Payments />
         <MenusAndMenuItems />
       </Container>
     </LazyLoad>
   );
-}
+};

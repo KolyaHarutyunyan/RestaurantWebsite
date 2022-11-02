@@ -3,7 +3,6 @@ import {
   ADD_CATEGORY_ITEM,
   DELETE_CATEGORY_ITEM,
   GET_CATEGORY_ITEMS,
-  GET_CATEGORY_ITEMS_SUCCESS,
   REORDER_CATEGORY_ITEM,
 } from "./items.types";
 import { categoryItemsService } from "./items.service";

@@ -36,12 +36,12 @@ export const ProductFormContent = ({
         />
         <UserInput
           inputClassName={"price-input"}
-          required={false}
+          required={true}
           inputType={"number"}
           inputName={"price"}
-          inputPlaceholder={"$ Price"}
+          inputPlaceholder={"$ Price*"}
           defaultValue={chosenProduct?.note}
-          {...register("price")}
+          {...register("price", { required: true })}
         />
       </div>
       <UserInput
@@ -57,7 +57,7 @@ export const ProductFormContent = ({
         required={false}
         inputType={"text"}
         inputName={"note"}
-        inputPlaceholder={"Special Offers e.g. add chili sauce $2*"}
+        inputPlaceholder={"Special Offers e.g. add chili sauce $2"}
         defaultValue={chosenProduct?.note}
         {...register("note")}
       />

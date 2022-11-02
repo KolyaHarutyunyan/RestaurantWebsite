@@ -20,6 +20,7 @@ import {
 import { useRouter } from "next/router";
 import { CustomModal } from "../../components";
 import { PaymentSuccess } from "../helpers/paymentSuccess/paymentSuccess";
+import { ContactUsForm } from "@eachbase/fragments";
 
 export const Modals = () => {
   const router = useRouter();
@@ -105,10 +106,13 @@ export const Modals = () => {
         modalName={MODAL_NAMES.CONFIRM_CATEGORY_DELETION}
       >
         <ConfirmCategoryDeleteDialog />
-      </CustomModal>
+      </CustomModal> */}
       <CustomModal border={true} modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
         <ConfirmItemDeleteDialog />
-      </CustomModal> */}
+      </CustomModal>
+      <CustomModal border={true} modalName={MODAL_NAMES.CONTACT_US}>
+        <ContactUsForm />
+      </CustomModal>
     </Fragment>
   );
 };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   .title {
     margin-bottom: 24px !important;
+    text-transform: capitalize;
   }
   .options {
     display: flex;
