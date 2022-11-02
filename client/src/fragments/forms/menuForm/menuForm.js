@@ -45,6 +45,7 @@ export const MenuForm = () => {
             inputName={"name"}
             inputPlaceholder={"Menu Name"}
             {...register("name", { required: true })}
+            maxLength={100}
           />
           <Button
             type={"submit"}

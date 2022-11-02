@@ -10,6 +10,9 @@ export const StyledContactUsForm = styled.div`
     text-transform: capitalize;
     text-align: center;
     color: ${colors.black};
+    @media (max-width: 767px) {
+      font-size: 24px;
+    }
   }
   .subtitle {
     max-width: 357px;
@@ -20,5 +23,10 @@ export const StyledContactUsForm = styled.div`
     text-align: center;
     color: ${colors.black};
     margin: 14px auto 18px;
+    @media (max-width: 767px) {
+      margin: 8px auto 16px;
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 `;

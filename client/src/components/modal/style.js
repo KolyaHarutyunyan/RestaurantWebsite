@@ -30,6 +30,10 @@ export const ModalContainer = styled.div`
         position: absolute;
         top: 16px;
         right: 16px;
+        @media (max-width: 767px) {
+          top: 8px;
+          right: 8px;
+        }
         outline: 0;
         line-height: 10px;
         padding: 5px;
@@ -53,20 +57,9 @@ export const ModalContainer = styled.div`
       mini ? "10px 30px 30px 30px" : modal ? "32px" : "15px 30px 30px 30px"};
 
     @media only screen and (max-width: 767px) {
-      width: 342px;
+      max-width: 343px;
+      padding: 24px 16px;
     }
-    /* @media (min-width: 320px) {
-      padding: 8px 16px 32px 16px;
-    }
-    @media (min-width: 768px) {
-      padding: 8px 32px 42px 32px;
-    }
-    @media (min-width: 1279px) {
-      padding: 8px 32px 42px 32px;
-    }
-    @media (min-width: 1920px) {
-      padding: 8px 48px 48px 48px;
-    } */
     border-radius: ${({ mini, border }) => (mini || border ? "8px" : "32px")};
     opacity: 1;
     background-color: white;

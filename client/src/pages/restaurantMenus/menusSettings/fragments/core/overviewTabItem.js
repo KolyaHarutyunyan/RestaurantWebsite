@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { StyledOverviewTabItem } from "./style";
-import { SaveOrCancelButton, UserInput } from "@eachbase/components";
+import { Loader, SaveOrCancelButton, UserInput } from "@eachbase/components";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { menusActions, useSagaStore } from "@eachbase/store";
 import Router from "next/router";
 import { initialMenu } from "./constants";
+import { FindLoad } from "@eachbase/utils";
 
 export const OverviewTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
   const menu = useSelector((state) => state.menus.menuById);
+
+  const loader = FindLoad("GET_BUSINESS_MENU");
 
   const { dispatch, status, destroy } = useSagaStore(menusActions.editMenu);
 
@@ -39,6 +42,10 @@ export const OverviewTabItem = () => {
     dispatch(data);
   };
 
+  if (loader?.length) {
+    return <Loader height={"380px"} />;
+  }
+
   return (
     <StyledOverviewTabItem>
       <div className="overview-form">
@@ -50,6 +57,7 @@ export const OverviewTabItem = () => {
             inputName={"name"}
             defaultValue={menu?.name}
             {...register("name", { required: true })}
+            maxLength={100}
           />
           <UserInput
             required={false}
@@ -61,6 +69,7 @@ export const OverviewTabItem = () => {
             charCounterIsShown={true}
             charLimit={"1000"}
             {...register("description")}
+            maxLength={1000}
           />
           {/* <UserInput
             required={false}

@@ -15,21 +15,18 @@ export const ContactUsForm = () => {
           Our friendly team will answer you as soon as possible!
         </p>
         <UserInput
-          required={true}
           inputLabel={"Name"}
           inputType={"text"}
           inputName={"name"}
           {...register("name", { required: true })}
         />
         <UserInput
-          required={true}
           inputLabel={"Email Address"}
           inputType={"email"}
           inputName={"emailAddress"}
           {...register("emailAddress", { required: true })}
         />
         <UserInput
-          required={true}
           isTextArea={true}
           inputLabel={"Message"}
           inputName={"message"}
