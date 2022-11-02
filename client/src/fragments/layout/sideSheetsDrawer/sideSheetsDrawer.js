@@ -19,7 +19,13 @@ export const SideSheetsDrawer = ({ handleClose }) => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <div className={addClosed("restaurant-profile-box", !open)}>
-            <Images.RestaurantProfile className="restaurant-profile" />
+            {restaurant?.logo ? (
+              <div className="restaurant-profile">
+                <img src={restaurant.logo?.url} alt="logo" />
+              </div>
+            ) : (
+              <Images.RestaurantProfile className="restaurant-profile" />
+            )}
             <span className={addClosed("restaurant-name", !open)}>
               {getLimitedVal(restaurant?.name, 12)}
             </span>

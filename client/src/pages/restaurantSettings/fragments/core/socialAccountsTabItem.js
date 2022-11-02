@@ -31,6 +31,11 @@ export const SocialAccountsTabItem = () => {
     dispatch(data);
   };
 
+  const onCancel = (e) => {
+    e.preventDefault();
+    reset(restaurant);
+  };
+
   return (
     <StyledSocialAccountsTabItem>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,10 +65,7 @@ export const SocialAccountsTabItem = () => {
         />
         <SaveOrCancelButton
           className={"settings-save-cancel-buttons"}
-          onCancel={(e) => {
-            e.preventDefault();
-            alert("Cancelled");
-          }}
+          onCancel={onCancel}
           onLoad={status.onLoad}
         />
       </form>
