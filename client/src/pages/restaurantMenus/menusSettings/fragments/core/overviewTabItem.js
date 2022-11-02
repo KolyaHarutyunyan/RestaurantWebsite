@@ -60,6 +60,7 @@ export const OverviewTabItem = () => {
             maxLength={100}
           />
           <UserInput
+            height={'300px'}
             required={false}
             isTextArea={true}
             inputLabel={"Description"}

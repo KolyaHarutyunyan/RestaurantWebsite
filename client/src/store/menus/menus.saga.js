@@ -114,7 +114,11 @@ function* createMenu({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const res = yield call(menusService.createMenu, payload);
-    Router.push(`/menus/settings?menuId=${res.data.id}`);
+    yield put({
+      type: GET_MENUS,
+      payload: { businessId: payload.businessId,  },
+    });
+    // Router.push(`/menus/settings?menuId=${res.data.id}`);
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));

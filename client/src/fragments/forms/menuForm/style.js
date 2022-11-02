@@ -20,6 +20,16 @@ export const StyledMenuForm = styled.div`
       color: ${colors.secondary};
     }
   }
+  
+  .title{
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: ${colors.secondary};
+    margin-bottom: 4px;
+  }
 `;
 
 // export const Container = styled.div`

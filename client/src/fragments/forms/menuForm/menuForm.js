@@ -1,34 +1,30 @@
 import { useContext, useEffect } from "react";
-import { Button } from "@eachbase/components";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { StyledMenuForm } from "./style";
+import { Button, useModal } from "@eachbase/components";
 import { UserInput } from "@eachbase/components";
 import { ModalContext } from "@eachbase/components/modal/context";
-import { useSelector } from "react-redux";
 import { menusActions, useSagaStore } from "@eachbase/store";
+import { StyledMenuForm } from "./style";
 
 export const MenuForm = () => {
   const { setActiveModal } = useContext(ModalContext);
-
   const restaurant = useSelector((state) => state.businesses);
-
   const { dispatch, status, destroy } = useSagaStore(menusActions.createMenu);
-
+  const { close } = useModal();
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
     if (status.onSuccess) {
       destroy.all();
       reset();
+      close()
       setActiveModal("");
     }
   }, [status]);
 
   const onSubmit = (data) => {
-    dispatch({
-      name: data.name,
-      businessId: restaurant?.id,
-    });
+    dispatch({ name: data.name, description: data.description, businessId: restaurant?.id, });
   };
 
   return (
@@ -39,6 +35,7 @@ export const MenuForm = () => {
       </div>
       <div className="menu-form">
         <form onSubmit={handleSubmit(onSubmit)}>
+          <p className='title'>Name <span style={{color:'#FF453A'}}>*</span></p>
           <UserInput
             required={true}
             inputType={"text"}
@@ -46,6 +43,19 @@ export const MenuForm = () => {
             inputPlaceholder={"Menu Name"}
             {...register("name", { required: true })}
             maxLength={100}
+            charLimit={"100"}
+            charCounterIsShown={true}
+          />
+          <p className='title'>Description</p>
+          <UserInput
+            required={false}
+            isTextArea={true}
+            inputName={"description"}
+            inputPlaceholder={"Text here..."}
+            charLimit={"1000"}
+            maxLength={1000}
+            charCounterIsShown={true}
+            {...register("description", { required: false })}
           />
           <Button
             type={"submit"}
