@@ -21,13 +21,14 @@ export const MenusAndMenuItems = () => {
           <h6 className="reduce-paper-text">
             Let’s reduce paper and material consumption
           </h6>
+          <a href="#free">
           <button
             type="button"
             className="start-free-btn"
-            onClick={() => alert("Start Free")}
-          >
+            >
             Start Free
           </button>
+          </a>
         </div>
         <Typography weight="bold" className="g-title" color="text" size="3rem">
           {"Categorize Menus & Menu Items"}
