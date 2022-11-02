@@ -4,7 +4,6 @@ import { IOwner } from './interfaces';
 
 const ownerSchema = new Schema({
   auth: { type: Types.ObjectId, required: true, ref: 'auth' },
-  packages: [],
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   avatar: { type: FileSchema },

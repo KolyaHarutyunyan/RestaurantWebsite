@@ -105,29 +105,7 @@ export class OwnerService {
     const owners = await this.model.find();
     return this.sanitizer.sanitizeMany(owners);
   }
-  /** add package */
-  async addPackage(ownerId: string, packageId: string): Promise<OwnerDTO> {
-    const owner = await this.model.findById({ _id: ownerId }).populate('auth');
-    this.checkOwner(owner);
-    if (!owner.packages.includes(packageId)) {
-      owner.packages.push(packageId);
-    }
-    await owner.save();
-    return this.sanitizer.sanitize(owner);
-  }
-  /** delete package */
-  async deletePackage(ownerId: string, packageIds: Array<string>): Promise<OwnerDTO> {
-    const owner = await this.model.findById({ _id: ownerId });
-    this.checkOwner(owner);
-    packageIds.forEach((packageId) => {
-      const index = owner.packages.indexOf(packageId);
-      if (index > -1) {
-        owner.packages.splice(index, 1);
-      }
-    });
-    await owner.save();
-    return this.sanitizer.sanitize(owner);
-  }
+
   /** Private Methods */
   /** Chack if the owner was found */
   private checkOwner(owner: IOwner) {

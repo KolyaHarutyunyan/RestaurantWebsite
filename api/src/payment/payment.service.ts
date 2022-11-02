@@ -7,7 +7,7 @@ import { EditWebhookDTO, UpdatePaymentDTO } from './dto/update.dto';
 import Stripe from 'stripe';
 import { Keys } from './payment.constants';
 import { BASE_URL } from '../util/constants';
-import { OwnerService } from '../owner/owner.service';
+import { AuthService } from '../auth/auth.service';
 import { SessionDTO } from '../auth';
 import { ProductDTO } from './dto/payment.dto';
 import { PaymentSanitizer } from './payment.sanitizer';
@@ -18,7 +18,7 @@ const stripe = new Stripe(Keys.skey, {
 
 @Injectable()
 export class PaymentService {
-  constructor(private ownerService: OwnerService, private readonly sanitizer: PaymentSanitizer) {
+  constructor(private authService: AuthService, private readonly sanitizer: PaymentSanitizer) {
     this.model = ItemModel;
   }
   private model: Model<IItem>;
@@ -156,7 +156,7 @@ export class PaymentService {
         },
         expand: ['latest_invoice.payment_intent'],
       });
-      await this.ownerService.addPackage(dto.user.id, dto.productId);
+      await this.authService.addPackage(dto.user.id, dto.productId);
       return subscription;
     } catch (e) {
       throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
@@ -180,7 +180,7 @@ export class PaymentService {
       cancelSub.items.data.forEach((item) => {
         productIds.push(item.price.product);
       });
-      await this.ownerService.deletePackage(user.id, productIds);
+      await this.authService.deletePackage(user.id);
       return cancelSub.id;
     } catch (e) {
       throw new HttpException(`Can not cancel the subscription`, HttpStatus.NOT_FOUND);
