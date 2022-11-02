@@ -83,7 +83,7 @@ export class MenuService {
   /** Gets the menus for the business */
   async getByBusinessId(businessId: string, user: SessionDTO): Promise<MenuDTO[]> {
     await this.bsnService.validateOwner(user.id, businessId);
-    const menus = await this.model.find({ businessId });
+    const menus: any = await this.model.find({ businessId }).populate('food.items.item').populate('drinks.items.item');
     return this.sanitizer.sanitizeMany(menus);
   }
 

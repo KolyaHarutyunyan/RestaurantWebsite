@@ -54,7 +54,7 @@ export class AuthController {
   @Get('logout')
   @ApiHeader({ name: ACCESS_TOKEN })
   @ApiOkResponse({ type: String, description: 'token that was invalidated' })
-  async logout(@Body('session') session: SessionDTO): Promise<string> {
+  async logout(@Body('user') session: SessionDTO): Promise<string> {
     return await this.authService.logout(session.id, session.token);
   }
 }

@@ -1,25 +1,22 @@
-// import { ISanitize } from '../util';
-// import { PaymentDTO } from './dto';
-// import { IOwner } from './interfaces';
+import { ISanitize } from '../util';
+import { ProductDTO } from './dto/payment.dto';
+import { IProduct } from './interface';
 
-// export class PaymentSanitizer implements ISanitize {
-//   sanitize(user: IOwner): OwnerDTO {
-//     const sanitizedUser: OwnerDTO = {
-//       id: user.id,
-//       fullName: user.fullName,
-//       packages: user.packages,
-//       email: user.email,
-//       avatar: user.avatar,
-//       socialAvatar: user.socialAvatar,
-//     };
-//     return sanitizedUser;
-//   }
+export class PaymentSanitizer {
+  sanitizeProduct(user: IProduct): ProductDTO {
+    const sanitizedProduct: ProductDTO = {
+      id: user.id,
+      active: user.active,
+      name: user.name,
+    };
+    return sanitizedProduct;
+  }
 
-//   sanitizeMany(owners: IOwner[]): OwnerDTO[] {
-//     const sanitizedOwners: OwnerDTO[] = [];
-//     for (let i = 0; i < owners.length; i++) {
-//       sanitizedOwners.push(this.sanitize(owners[i]));
-//     }
-//     return sanitizedOwners;
-//   }
-// }
+  sanitizeProductMany(products: IProduct[]): ProductDTO[] {
+    const sanitizedProducts: ProductDTO[] = [];
+    for (let i = 0; i < products.length; i++) {
+      sanitizedProducts.push(this.sanitizeProduct(products[i]));
+    }
+    return sanitizedProducts;
+  }
+}
