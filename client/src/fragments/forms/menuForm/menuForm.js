@@ -31,8 +31,13 @@ export const MenuForm = () => {
     <StyledMenuForm>
       <div className="menu-form-title-box">
         <h2 className="menu-form-title">Add Menu</h2>
+
+      </div>
+
+      <div style={{textAlign:'center'}}>
         <p className="menu-form-subtitle">We can manage it anytime.</p>
       </div>
+
       <div className="menu-form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <p className='title'>Name <span style={{color:'#FF453A'}}>*</span></p>
