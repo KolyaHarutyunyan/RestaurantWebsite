@@ -6,6 +6,8 @@ import { API_BASE, MODAL_NAMES } from "@eachbase/constants";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
@@ -13,6 +15,9 @@ export const SignInForm = () => {
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
   const { register, handleSubmit, reset, setValue } = useForm();
+  const router = useRouter();
+
+
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
@@ -22,7 +27,17 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
-      window.location.replace("/menus");
+      axios.get(`/businesses/mybusiness`, { auth: true }).then((res) => {
+        router.push("/menus");
+
+          // window.location.replace("/menus")
+        }
+      ).catch((err) => {
+        if(err?.data?.message === 'business with this information was not found'){
+          open(MODAL_NAMES.CREATE_RESTAURANT)
+        }
+      })
+
     }
   }, [status]);
 

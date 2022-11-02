@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 
 export default function Home(props) {
   const token = typeof window !== "undefined" && localStorage.getItem("token");
-  const route = useRouter();
+  // const route = useRouter();
 
-  useEffect(() => {
-    if(token){
-      route.push("/menus");
-      // window.location.replace('/menus')
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if(token){
+  //     route.push("/menus");
+  //     // window.location.replace('/menus')
+  //   }
+  // }, [token]);
 
   return (
     <Fragment>

@@ -8,30 +8,52 @@ import { SideSheetsDrawer } from "./sideSheetsDrawer/sideSheetsDrawer";
 import { StyledLayout } from "./style";
 import { useRouter } from "next/router";
 import { useWidth } from "@eachbase/utils";
+import axios from "axios";
+import { MODAL_NAMES } from "../../constants";
+import { LazyLoad, useModal } from "../../components";
 
 export const Layout = ({ children, privatePage = true }) => {
-  const dispatch = useDispatch();
-
+  const { open } = useModal();
+  const dispatch = useDispatch()
   const router = useRouter();
   const showLayout = !["/preview", "/menu"].includes(router.pathname);
-
-  const [token, setToken] = useState("");
-
+  const [showDashboard, setShowDashboard] = useState(false);
+  const [loading, setLoading] = useState(false);
   const width = useWidth();
+  const token = typeof window !== "undefined" && localStorage.getItem("token");
 
-  useEffect(() => {
-    setToken(typeof window !== "undefined" && localStorage.getItem("token"));
-  }, [token]);
-
+  // useEffect(() => {
+  //   setToken(typeof window !== "undefined" && localStorage.getItem("token"));
+  // }, [token]);
+  //
   useEffect(() => {
     if (privatePage && token) {
       dispatch(profileActions.getUserInfo());
     }
-  }, []);
+  }, [token]);
+
+
+  useEffect(() => {
+    if (token) {
+      axios.get(`/businesses/mybusiness`, { auth: true }).then((res) => {
+          setShowDashboard(true);
+          setLoading(true)
+       }
+      ).catch((err) => {
+        setLoading(true)
+        if (err?.data?.message === "business with this information was not found") {
+            open(MODAL_NAMES.CREATE_RESTAURANT);
+        }
+      });
+    }else{
+      setLoading(true)
+    }
+  }, [token]);
 
   return (
-    <StyledLayout>
-      {token ? (
+    <LazyLoad loaded={loading} >
+    <StyledLayout >
+      {showDashboard ? (
         <>
           {showLayout && <ProfileHeader />}
           <div className="main">
@@ -49,5 +71,6 @@ export const Layout = ({ children, privatePage = true }) => {
         </>
       )}
     </StyledLayout>
+    </LazyLoad>
   );
 };
