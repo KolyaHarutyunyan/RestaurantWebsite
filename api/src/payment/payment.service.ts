@@ -176,10 +176,6 @@ export class PaymentService {
   async cancelSubscription(user: SessionDTO, subId: string): Promise<string> {
     try {
       const cancelSub = await stripe.subscriptions.del(subId);
-      const productIds = [];
-      cancelSub.items.data.forEach((item) => {
-        productIds.push(item.price.product);
-      });
       await this.authService.deletePackage(user.id);
       return cancelSub.id;
     } catch (e) {
