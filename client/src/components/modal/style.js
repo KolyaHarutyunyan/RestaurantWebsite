@@ -27,6 +27,9 @@ export const ModalContainer = styled.div`
         justify-content: flex-start;
       }
       button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
         outline: 0;
         line-height: 10px;
         padding: 5px;
@@ -46,10 +49,8 @@ export const ModalContainer = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
     max-height: 92vh;
-    padding: ${({ mini, modal }) => 
-            mini ? "10px 30px 30px 30px" :
-                    modal ? "32px" :
-                            "15px 30px 30px 30px"};
+    padding: ${({ mini, modal }) =>
+      mini ? "10px 30px 30px 30px" : modal ? "32px" : "15px 30px 30px 30px"};
 
     @media only screen and (max-width: 767px) {
       width: 342px;

@@ -2,9 +2,13 @@ import { Container } from "./style";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Icons } from "@eachbase/theme";
+import { useModal } from "@eachbase/components";
+import { MODAL_NAMES } from "@eachbase/constants";
 
 export const Footer = () => {
   const router = useRouter();
+
+  const { open } = useModal();
 
   const [fix, setFix] = useState(false);
   const checkType = () => {
@@ -24,15 +28,19 @@ export const Footer = () => {
     } else if (ev === "privacyPolicy") {
       window.location.replace("/privacyPolicy");
       // router.push("/privacyPolicy")
-    } else if (ev === "contactUs") {
-      window.location.replace("/contactUs");
     } else return;
   };
+
+  const handleContactUsClick = (e) => {
+    e.preventDefault();
+    open(MODAL_NAMES.CONTACT_US);
+  };
+
   return (
     <Container>
       <div className="container-footer">
         <div className="copyright">© 2021 Menuz. All Rights Reserved.</div>
-        <a className="contact-us-link" onClick={() => handlePush("contactUs")}>
+        <a className="contact-us-link" onClick={handleContactUsClick}>
           {"Contact Us"}
         </a>
         <div className="links">
@@ -40,7 +48,7 @@ export const Footer = () => {
             {"Terms & Conditions"}
           </a>
           <a onClick={() => handlePush("privacyPolicy")}>{"Privacy Policy"}</a>
-          <a onClick={() => handlePush("contactUs")}>{"Contact Us"}</a>
+          <a onClick={handleContactUsClick}>{"Contact Us"}</a>
         </div>
         <div className="logo-container">
           <Icons.FooterIcon />

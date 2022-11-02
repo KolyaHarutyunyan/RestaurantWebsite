@@ -25,7 +25,7 @@ export const CategoryFormContent = ({ chosenCategory, register }) => {
         required={false}
         inputType={"text"}
         inputName={"note"}
-        inputPlaceholder={"Special Offers e.g. add chili sauce $2*"}
+        inputPlaceholder={"Special Offers e.g. add chili sauce $2"}
         defaultValue={chosenCategory?.note}
         {...register("note")}
       /> */}

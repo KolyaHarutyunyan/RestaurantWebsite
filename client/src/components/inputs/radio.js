@@ -5,8 +5,13 @@ export const Radio = ({ label, ...rest }) => {
 
   return (
     <RadioContainer>
-      <input id={id} type="radio" {...rest} />
-      {label ? <label htmlFor={id}>{label}</label> : null}
+      {label ? (
+        <label htmlFor={id}>
+          <input id={id} type="radio" {...rest} />
+          <div className="radio-box" />
+          {label}
+        </label>
+      ) : null}
     </RadioContainer>
   );
 };

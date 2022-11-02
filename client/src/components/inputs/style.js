@@ -252,7 +252,39 @@ export const RadioContainer = styled.div`
   align-items: center;
   gap: 10px;
   padding-left: 3px;
-  input {
-    transform: scale(1.5);
+  label {
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: ${colors.secondary};
+    display: inline-flex;
+    align-items: center;
+    input {
+      display: none;
+    }
+    .radio-box {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid ${colors.yellowOrange};
+      margin-right: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    & > input:checked + .radio-box::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: ${colors.yellowOrange};
+    }
+    em {
+      font-style: normal;
+      color: ${colors.yellowOrange};
+      text-transform: capitalize;
+      margin: 0px 4px;
+    }
   }
 `;

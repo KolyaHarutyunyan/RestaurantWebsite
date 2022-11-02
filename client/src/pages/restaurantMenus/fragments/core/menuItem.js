@@ -9,9 +9,10 @@ export const MenuItem = ({ menu, restaurant }) => {
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
 
-  const menuItems = menu?.food
-    ?.map((item) => item.items)
-    .concat(menu?.drinks?.map((item) => item.items));
+  const menuItems = [].concat(
+    ...menu?.food?.map((item) => item.items),
+    ...menu?.drinks?.map((item) => item.items)
+  );
 
   const handleSwitch = (event) => {
     event?.stopPropagation();
