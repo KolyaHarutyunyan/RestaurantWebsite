@@ -30,6 +30,10 @@ export const ModalContainer = styled.div`
         position: absolute;
         top: 16px;
         right: 16px;
+        @media (max-width: 767px) {
+          top: 8px;
+          right: 8px;
+        }
         outline: 0;
         line-height: 10px;
         padding: 5px;
