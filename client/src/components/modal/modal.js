@@ -13,20 +13,19 @@ const modalNames = [
 ];
 
 export const CustomModal = ({
-                              modalName,
-                              backButton,
-                              fixed = false,
-                              onBackButtonClick = () => {
-                              },
-                              children,
-                              mini = false,
-                              closeBorder,
-                              max,
-                              border,
-                              confirm,
-                              modal,
-                              close
-                            }) => {
+  modalName,
+  backButton,
+  fixed = false,
+  onBackButtonClick = () => {},
+  children,
+  mini = false,
+  closeBorder,
+  max,
+  border,
+  confirm,
+  modal,
+  close,
+}) => {
   const { activeModal, setActiveModal, setParams } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
 
@@ -43,38 +42,9 @@ export const CustomModal = ({
         modal={modal}
       >
         <div style={{ maxWidth: max }} className="container">
-<<<<<<< HEAD
-          {modalNames.includes(modalName) ? (
-            <button
-              type="button"
-              className="close-modal-button"
-              onClick={() => setActiveModal("")}
-            >
-              <MdClose style={{ fontSize: 24 }} />
-            </button>
-          ) : !fixed ? (
-            <div className={`head ${backButton ? "back" : ""}`}>
-              <button
-                // style={modalName === "SIGN_IN" ? { top: 16, right: 16 } : {}}
-                className={
-                  closeBorder === "close"
-                    ? "close-button-border"
-                    : closeBorder === "back"
-                    ? "back-button-border"
-                    : "close-button"
-                }
-                onClick={() => {
-                  if (backButton) {
-                    onBackButtonClick({
-                      open: (modalName) => {
-                        setActiveModal(modalName);
-                      },
-                      close: () => {
-=======
-
-          {close !== "noButton" &&
+          {close !== "noButton" && (
             <div>
-              {modalName === "MENU_FORM" ? (
+              {modalNames.includes(modalName) ? (
                 <button
                   type="button"
                   className="close-modal-button"
@@ -89,8 +59,8 @@ export const CustomModal = ({
                       closeBorder === "close"
                         ? "close-button-border"
                         : closeBorder === "back"
-                          ? "back-button-border"
-                          : "close-button"
+                        ? "back-button-border"
+                        : "close-button"
                     }
                     onClick={() => {
                       if (backButton) {
@@ -101,10 +71,9 @@ export const CustomModal = ({
                           close: () => {
                             setActiveModal("");
                             setParams({});
-                          }
+                          },
                         });
                       } else {
->>>>>>> cc21713783c2ed01f8a4a055ee66b66da7308ef8
                         setActiveModal("");
                         setParams({});
                       }
@@ -119,7 +88,7 @@ export const CustomModal = ({
                 </div>
               ) : null}
             </div>
-          }
+          )}
           <div className="content">{children}</div>
         </div>
         <div
