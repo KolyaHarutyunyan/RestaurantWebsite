@@ -18,7 +18,9 @@ export const UserInput = forwardRef((props, ref) => {
     inputFromOutside,
     inputIcon,
     isForPassword,
+    height,
     ...rest
+
   } = props;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +44,7 @@ export const UserInput = forwardRef((props, ref) => {
         {isTextArea ? (
           <>
             <textarea
+              style={height ? {height: height} : {}}
               ref={ref}
               className={`${inputError ? "error" : ""}`}
               name={inputName}
@@ -79,6 +82,12 @@ export const UserInput = forwardRef((props, ref) => {
                 )}
               </div>
             )}
+            {charCounterIsShown && (
+              <div>
+                <p className="user-input-char-counter">{`Max ${charLimit} characters`}</p>
+              </div>
+            )}
+
             {inputError && (
               <p className="user-input-error-text">{inputError}</p>
             )}

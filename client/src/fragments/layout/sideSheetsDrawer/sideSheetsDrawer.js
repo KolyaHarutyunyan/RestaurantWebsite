@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { addClosed, Drawer, DrawerFooter, DrawerHeader } from "./constants";
 import { Images } from "@eachbase/theme/images";
-import { SideSheetsDrawerContext } from "@eachbase/utils";
+import { getLimitedVal, SideSheetsDrawerContext } from "@eachbase/utils";
 import { SideSheetsList } from "./core/sideSheetsList";
 import { StyledSideSheetsDrawer } from "./style";
 import { useSelector } from "react-redux";
@@ -21,7 +21,7 @@ export const SideSheetsDrawer = ({ handleClose }) => {
           <div className={addClosed("restaurant-profile-box", !open)}>
             <Images.RestaurantProfile className="restaurant-profile" />
             <span className={addClosed("restaurant-name", !open)}>
-              {restaurant?.name}
+              {getLimitedVal(restaurant?.name, 12)}
             </span>
             <Images.Arrow className={addClosed("arrow", !open)} />
           </div>

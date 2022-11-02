@@ -30,7 +30,7 @@ export const ProductFormContent = ({
           required={true}
           inputType={"text"}
           inputName={"name"}
-          inputPlaceholder={"Menu Name*"}
+          inputPlaceholder={"Menu Item Name*"}
           defaultValue={chosenProduct?.name}
           {...register("name", { required: true })}
         />

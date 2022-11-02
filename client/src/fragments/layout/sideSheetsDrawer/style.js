@@ -43,6 +43,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
       color: ${colors.secondary};
       margin: 0px 14px 0px 10px;
       flex-grow: 1;
+      text-transform: capitalize;
       &.closed {
         display: none;
       }
