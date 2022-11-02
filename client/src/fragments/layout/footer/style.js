@@ -64,6 +64,7 @@ export const Container = styled.div`
       @media (max-width: 768px) {
         display: block;
         margin: 16px 0px 20px;
+        cursor: pointer;
       }
     }
     .links {

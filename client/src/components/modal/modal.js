@@ -4,6 +4,13 @@ import { HiArrowLeft } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { ModalContext } from "./context";
 import { useContext, useEffect, useState } from "react";
+import { MODAL_NAMES } from "@eachbase/constants";
+
+const modalNames = [
+  MODAL_NAMES.CONFIRM_CATEGORY_DELETION,
+  MODAL_NAMES.CONFIRM_ITEM_DELETION,
+  MODAL_NAMES.MENU_FORM,
+];
 
 export const CustomModal = ({
   modalName,
@@ -35,7 +42,7 @@ export const CustomModal = ({
         modal={modal}
       >
         <div style={{ maxWidth: max }} className="container">
-          {modalName === "MENU_FORM" ? (
+          {modalNames.includes(modalName) ? (
             <button
               type="button"
               className="close-modal-button"
@@ -46,6 +53,7 @@ export const CustomModal = ({
           ) : !fixed ? (
             <div className={`head ${backButton ? "back" : ""}`}>
               <button
+                // style={modalName === "SIGN_IN" ? { top: 16, right: 16 } : {}}
                 className={
                   closeBorder === "close"
                     ? "close-button-border"

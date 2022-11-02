@@ -20,10 +20,6 @@ export const RestaurantMenusFragment = () => {
     }
   }, [restaurant]);
 
-  // if (loader?.length) {
-  //   return <Loader />;
-  // }
-
   return (
     <StyledRestaurantMenus>
       <div className="menu-header">
@@ -33,12 +29,13 @@ export const RestaurantMenusFragment = () => {
         </Button>
       </div>
       <div className="menus-list-box">
-        {loader?.length ?
-          <Loader height={'60vh'} />
-          :
+        {loader?.length ? (
+          <Loader height={"60vh"} />
+        ) : (
           menus?.map((menu) => (
-          <MenuItem key={menu.id} menu={menu} restaurant={restaurant} />
-        ))}
+            <MenuItem key={menu.id} menu={menu} restaurant={restaurant} />
+          ))
+        )}
       </div>
     </StyledRestaurantMenus>
   );

@@ -10,6 +10,7 @@ export {
   ConfirmCategoryDeleteDialog,
   MenuItemForm,
   ConfirmItemDeleteDialog,
+  ContactUsForm,
 } from "./forms";
 export {
   CheckEmailHelper,

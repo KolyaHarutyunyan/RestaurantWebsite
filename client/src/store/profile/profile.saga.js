@@ -17,7 +17,6 @@ import {
   SOCIAL_SIGN_UP,
 } from "./profile.types";
 import { profileService } from "./profile.service";
-import Router from "next/router";
 import { PROFILE_SIGN_OUT } from ".";
 
 function* signIn({ type, payload }) {
@@ -101,12 +100,14 @@ function* signOut({ type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   try {
     yield call(profileService.signOut);
+  } catch (err) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type, err));
+    console.error(err);
+  } finally {
     localStorage.removeItem("token");
     localStorage.removeItem("menuUser");
-    Router.push("/");
-  } catch (err) {
-    yield put(httpRequestsOnErrorsActions.appendError(type, err));
-    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    window.location.replace("/");
   }
 }
 

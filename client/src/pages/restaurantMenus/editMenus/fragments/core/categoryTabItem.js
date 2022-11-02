@@ -2,7 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { StyledCategoryTabItem, StyledMenuDrawer } from "./style";
-import { CategoryCard, ItemFormCard, ProductCard } from "@eachbase/components";
+import {
+  CategoryCard,
+  ItemFormCard,
+  ProductCard,
+  useModal,
+} from "@eachbase/components";
 import {
   categoriesActions,
   categoryItemActions,
@@ -25,11 +30,13 @@ import {
   useFileUpload,
   useWidth,
 } from "@eachbase/utils";
+import { MODAL_NAMES } from "@eachbase/constants";
 
 export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const restaurant = useSelector(({ businesses }) => businesses);
   const menu = useSelector(({ menus }) => menus.menuById);
   const restaurantProducts = useSelector(({ items }) => items);
+  console.log(restaurant?.id, "dd");
 
   const createCategorySaga = useSagaStore(categoriesActions.createCategory);
   const editCategorySaga = useSagaStore(categoriesActions.editCategory);
@@ -38,9 +45,10 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
 
   const createProductSaga = useSagaStore(itemActions.createProduct);
   const editProductSaga = useSagaStore(itemActions.editProduct);
-  const deleteProductSaga = useSagaStore(itemActions.deleteProduct);
 
   const editBusinessOrder = useSagaStore(menusActions.editMenuOrder);
+
+  const { open } = useModal();
 
   const addProductsToCategorySaga = useSagaStore(categoryItemActions.add);
   const removeProductsFromCategorySaga = useSagaStore(
@@ -154,14 +162,15 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     showItem();
   };
   const handleCategoryAdd = () => {
-    submitCategoryForm.reset(initialCategoryState);
     setChosenCategory(null);
+    submitCategoryForm.reset(initialCategoryState);
     setFormContentLabel(CATEGORY_FORM_ADD);
     toggleDrawer(_anchor, true);
   };
 
   const handleCategoryEdit = (category) => {
     setChosenCategory(category);
+    submitCategoryForm.reset(category);
     setFormContentLabel(CATEGORY_FORM_EDIT);
     toggleDrawer(_anchor, true);
   };
@@ -209,19 +218,27 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
 
   const handleProductAdd = () => {
     setChosenProduct(null);
+    submitProductForm.reset(initialProductState);
     setFormContentLabel(PRODUCT_FORM_ADD);
     toggleDrawer(_anchor, true);
   };
 
   const handleProductEdit = (product) => {
     setChosenProduct(product);
+    submitProductForm.reset(product);
     setFormContentLabel(PRODUCT_FORM_EDIT);
     toggleDrawer(_anchor, true);
   };
 
   const handleProductDelete = (product) => {
     setChosenProduct(product);
-    deleteProductSaga.dispatch(product.id, menu?.id);
+    open(MODAL_NAMES.CONFIRM_ITEM_DELETION, {
+      categoryItem: product,
+      currentCategory: category,
+      categoryId: category?.id,
+      menuId: menu?.id,
+      type: categoryType,
+    });
   };
 
   const handleProductSwitch = (product) => {

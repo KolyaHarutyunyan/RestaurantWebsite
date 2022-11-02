@@ -255,4 +255,16 @@ export const RadioContainer = styled.div`
   input {
     transform: scale(1.5);
   }
+  label {
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: ${colors.secondary};
+    em {
+      font-style: normal;
+      color: ${colors.yellowOrange};
+      text-transform: capitalize;
+    }
+  }
 `;

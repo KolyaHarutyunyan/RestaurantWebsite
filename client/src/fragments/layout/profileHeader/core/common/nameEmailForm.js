@@ -46,8 +46,12 @@ export const NameEmailForm = ({ account }) => {
   };
 
   const onSubmit = (data) => {
-    setErrorText("");
+    data = {
+      fullName: account?.fullName === data.fullName ? null : data.fullName,
+      email: account?.email === data.email ? null : data.email,
+    };
     profileSaga.dispatch(data);
+    setErrorText("");
   };
 
   return (
