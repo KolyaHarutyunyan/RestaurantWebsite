@@ -8,7 +8,7 @@ export const QRCode = () => {
       <Image src={"./assets/images/qrDownloaded.svg"} />
         </div>
       <div className="line">
-        <Typography  className='qr-text' color="invert" weight="bold">
+        <Typography  className='qr-text' color="white" weight="bold">
           Scan the QR Code for DEMO Version
         </Typography>
       </div>

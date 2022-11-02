@@ -7,8 +7,6 @@ export class OwnerDTO {
   @ApiProperty()
   fullName: string;
   @ApiProperty()
-  packages: Array<string>;
-  @ApiProperty()
   email: string;
   @ApiProperty({ type: FileDTO, required: false })
   avatar?: FileDTO;

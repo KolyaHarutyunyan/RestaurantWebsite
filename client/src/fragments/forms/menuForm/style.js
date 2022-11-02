@@ -5,20 +5,29 @@ export const StyledMenuForm = styled.div`
   .menu-form-title-box {
     text-align: center;
     .menu-form-title {
-      font-family: Poppins, sans-serif;
+      font-family: Open Sans, sans-serif;
       font-weight: 700;
       font-size: 24px;
       line-height: 36px;
       color: ${colors.secondary};
     }
-    .menu-form-subtitle {
-      margin: 8px 0px 16px;
-      font-family: Poppins, sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      color: ${colors.secondary};
-    }
+  }
+  .menu-form-subtitle {
+    margin: 8px 0px 16px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: ${colors.secondary};
+  }
+  .title{
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: ${colors.secondary};
+    margin-bottom: 4px;
   }
 `;
 

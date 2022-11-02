@@ -70,6 +70,16 @@ export class PaymentController {
     const payment = await this.paymentService.getSubscriptions(user, limit, page);
     return payment;
   }
+  /** get subscriptions */
+  @Get('sub/cancel')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'subId', required: false })
+  @Public()
+  async cancelSubscription(@Req() req: IRequest, @Query('subId') subId: string): Promise<string> {
+    const user = req.body.user;
+    const payment = await this.paymentService.cancelSubscription(user, subId);
+    return payment;
+  }
   /** Create an subscription */
   @Get('cards')
   @ApiHeader({ name: ACCESS_TOKEN })

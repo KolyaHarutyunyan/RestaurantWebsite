@@ -9,4 +9,5 @@ export class SocialDTO {
   avatar?: string;
   socialId: string;
   role?: Role;
+  package?: string;
 }

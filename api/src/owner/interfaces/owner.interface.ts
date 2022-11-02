@@ -3,7 +3,6 @@ import { FileDTO } from 'src/components/file';
 
 export interface IOwner extends Document {
   auth: string;
-  packages: Array<string>;
   fullName: string;
   email: string;
   phoneNumber?: string;

@@ -57,7 +57,7 @@ export class BusinessService {
     if (dto.facebook) business.facebook = dto.facebook;
     if (dto.instagram) business.instagram = dto.instagram;
     if (dto.address) business.address = await this.addressService.getAddress(dto.address);
-    if (dto.phoneNumber) business.phoneNumber = dto.phoneNumber;
+    if (dto.phoneNumber || dto.phoneNumber === null) business.phoneNumber = dto.phoneNumber;
     if (dto.hours) business.hours = this.scheduleService.create(dto.hours);
     if (dto.logo) {
       if (business.logo) await this.fileService.deleteFile(dto.user.id, business.logo.id);
