@@ -37,9 +37,11 @@ export class BusinessService {
       phoneNumber: dto.phoneNumber,
       logo: dto.logo,
     });
+    if (dto.address) {
+      business.address = await this.addressService.getAddress(dto.address);
+    }
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
     business.qr = await this.fileService.generateQRCode(dto.user.id, accessLink);
-    console.log(business.qr);
     await business.save();
     return this.sanitizer.sanitize(business);
   }
