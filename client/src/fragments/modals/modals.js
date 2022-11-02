@@ -42,6 +42,7 @@ export const Modals = () => {
         <SignUpForm />
       </CustomModal>
       <CustomModal
+        close={'noButton'}
         border={true}
         modalName={MODAL_NAMES.CREATE_RESTAURANT}
         fixed={router.pathname === "/restaurant"}

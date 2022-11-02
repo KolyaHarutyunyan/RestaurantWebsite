@@ -20,6 +20,7 @@ export const StyledRestaurantMenus = styled.section`
         line-height: 36px;
       }
     }
+    
     & button {
       max-width: 180px;
       @media (max-width: 767px) {
@@ -27,6 +28,17 @@ export const StyledRestaurantMenus = styled.section`
       }
     }
   }
+  
+  .no-yet{
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: ${colors.textGray};
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  
   .menus-list-box {
     width: 100%;
     display: flex;
