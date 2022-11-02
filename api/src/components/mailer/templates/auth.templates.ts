@@ -20,7 +20,7 @@ export class AuthTemplate {
           Html: {
             Charset: 'UTF-8',
             Data: `<html>
-                <h1>Password Reset Form submitted for armat.org</h1>
+                <h1>Password Reset Form submitted for menuz</h1>
                 <br>
                 <h3>Dear Customer</h3> <br>
                 <p>
@@ -36,7 +36,7 @@ export class AuthTemplate {
                 <a href=${url}>${displayUrl}</a>
                 <br>
                 <p>
-                    Thank you for being the best part of Armat and have a great day!
+                    Thank you for being the best part of Menuz and have a great day!
                 </p>
             </html> `,
           },
@@ -61,7 +61,7 @@ export class AuthTemplate {
           Html: {
             Charset: 'UTF-8',
             Data: `<html>
-                  <h1>Password Reset Form submitted for Armat.com</h1>
+                  <h1>Password Reset Form submitted for Menuz.com</h1>
                   
               </html> `,
           },
