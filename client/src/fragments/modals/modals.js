@@ -43,7 +43,7 @@ export const Modals = () => {
         <SignUpForm />
       </CustomModal>
       <CustomModal
-        close={'noButton'}
+        close={"noButton"}
         border={true}
         modalName={MODAL_NAMES.CREATE_RESTAURANT}
         fixed={router.pathname === "/restaurant"}
@@ -107,7 +107,11 @@ export const Modals = () => {
       >
         <ConfirmCategoryDeleteDialog />
       </CustomModal> */}
-      <CustomModal border={true} modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}>
+      <CustomModal
+        border={true}
+        max={"441px"}
+        modalName={MODAL_NAMES.CONFIRM_ITEM_DELETION}
+      >
         <ConfirmItemDeleteDialog />
       </CustomModal>
       <CustomModal border={true} modalName={MODAL_NAMES.CONTACT_US}>
