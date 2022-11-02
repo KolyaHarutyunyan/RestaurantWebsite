@@ -9,7 +9,12 @@ import { SideSheetsDrawer } from "../sideSheetsDrawer/sideSheetsDrawer";
 export const ProfileHeader = () => {
   const getBusinessesSaga = useSagaStore(businessesActions.getBusinesses);
 
+  const userInfo =
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("menuUser"));
+
   const width = useWidth();
+
   const _accountAnchor = width <= 767 ? "bottom" : "right";
   const _menuAnchor = "left";
 
@@ -81,7 +86,7 @@ export const ProfileHeader = () => {
         open={accountDrawerPosition[_accountAnchor]}
         onClose={closeAccountDrawer}
       >
-        <AccountSettings handleClose={closeAccountDrawer} />
+        <AccountSettings userInfo={userInfo} handleClose={closeAccountDrawer} />
       </StyledDrawer>
       <StyledDrawer
         style={{ backgroundColor: "#26262680" }}
