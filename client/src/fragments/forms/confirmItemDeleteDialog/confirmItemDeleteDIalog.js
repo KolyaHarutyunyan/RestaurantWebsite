@@ -6,6 +6,7 @@ import {
   itemActions,
   categoryItemActions,
 } from "@eachbase/store";
+import { getLimitedVal } from "@eachbase/utils";
 
 export const ConfirmItemDeleteDialog = () => {
   const { params, close } = useModal();
@@ -54,7 +55,8 @@ export const ConfirmItemDeleteDialog = () => {
           checked={selectedOption === "category"}
           label={
             <>
-              Delete from <em>{params?.currentCategory?.name}</em> category
+              Delete from
+              <em>{getLimitedVal(params?.currentCategory?.name)}</em> category
             </>
           }
         />

@@ -19,7 +19,7 @@ export const AccountSettings = ({ userInfo, handleClose }) => {
       </button>
       <div className="name-and-avatar">
         <h6 className="name">{userInfo?.fullName}</h6>
-        <div className="avatar">
+        {/* <div className="avatar">
           <div className="avatar-wrapper">
             <div className="profile-photo">
               {userInfo?.avatar || <Images.UserProfile />}
@@ -29,7 +29,7 @@ export const AccountSettings = ({ userInfo, handleClose }) => {
               <Images.AddPhoto />
             </label>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="account-box">
         <NameEmailForm account={userInfo} />

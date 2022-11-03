@@ -1,6 +1,10 @@
 import { Images } from "@eachbase/theme/images";
+const userInfo = typeof window !== "undefined" && JSON.parse(localStorage.getItem("menuUser"));
 
-export const sideSheetsList = [
+
+export const sideSheetsList =
+  // userInfo?.subscription ?
+    [
   {
     icon: <Images.Menus />,
     text: "Menus",
@@ -25,7 +29,17 @@ export const sideSheetsList = [
       { text: "Payment", path: "/payment", pathnames: [] },
     ],
   },
-];
+]
+// :
+//     [
+//       {
+//         icon: <Images.Settings />,
+//         text: "Plans and Pricing",
+//         path: "/plansAndPricing",
+//         pathnames: ["/plansAndPricing/checkout"],
+//       },
+//     ]
+;
 
 export const addActive = (item, pathName) => {
   if (item.path) {
