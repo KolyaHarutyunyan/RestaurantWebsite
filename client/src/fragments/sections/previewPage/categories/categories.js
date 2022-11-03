@@ -64,7 +64,7 @@ export const Categories = () => {
                           }
                           href={`#${item.name}`}
                         >
-                          {item.name}
+                          {item.name.length > 20 ? `${item.name.slice(0,20)}...` : item.name}
                         </a>
                       )
                   )
