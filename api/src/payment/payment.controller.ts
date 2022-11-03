@@ -127,6 +127,15 @@ export class PaymentController {
     return product;
   }
 
+  /** Get the price */
+  @Get('price')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async getPrice(): Promise<any> {
+    const price = await this.paymentService.getPrice();
+    return price;
+  }
+
   /** Delete the product */
   @Delete('products')
   @ApiHeader({ name: ACCESS_TOKEN })

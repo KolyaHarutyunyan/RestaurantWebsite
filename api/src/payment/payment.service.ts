@@ -42,6 +42,12 @@ export class PaymentService {
     const products = await stripe.products.list();
     return this.sanitizer.sanitizeProductMany(products.data);
   }
+  
+  /** get all price */
+  async getPrice(): Promise<any> {
+    const price = await stripe.prices.list();
+    return price;
+  }
 
   /** delete the products */
   async deleteProduct(productId: string): Promise<string> {
@@ -186,7 +192,14 @@ export class PaymentService {
     this.checkSubscription(subscriptions);
     // return subscriptions.data[0].id;
     // this.checkCustomer(customer);
-    const updateSubscription = await stripe.subscriptions.update(subscriptions.data[0].id);
+    const updateSubscription = await stripe.subscriptions.update(subscriptions.data[0].id, {
+      // items: [
+      //   {
+      //     id: subscription.items.data[0].id,
+      //     price: 'price_CBb6IXqvTLXp3f',
+      //   },
+      // ],
+    });
     return updateSubscription;
     // const subscription = await stripe.subscriptions.update(dto.subId, {
     //   metadata: { order_id: dto.orderId },
@@ -213,7 +226,7 @@ export class PaymentService {
     page: number,
   ): Promise<Stripe.ApiList<Stripe.Subscription>> {
     const customer = await stripe.customers.search({
-      query: `email:'${user.email}'`,
+      query: `email:'ddd-959@mail.ru'`,
     });
     this.checkCustomer(customer);
     const subscriptions = await stripe.subscriptions.list({
