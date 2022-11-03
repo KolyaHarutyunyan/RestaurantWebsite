@@ -72,7 +72,7 @@ export const ModalContainer = styled.div`
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10000;
+    z-index: 99999;
   }
   .close-button {
     @media (min-width: 320px) {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Icons } from "@eachbase/theme";
 import { Images } from "@eachbase/theme/images";
+import { getLimitedVal } from "@eachbase/utils";
 
 export const Categories = () => {
   const [active, setActive] = useState("");
@@ -21,29 +22,23 @@ export const Categories = () => {
           <div className="image-name-wrapper">
             <div className="wrapper-img">
               {restaurant?.logo?.thumbUrl ? (
-                <div style={{ marginRight: "10px" }}>
-                  <Images.RestaurantProfile className="restaurant-profile" />
-                </div>
-              ) : (
                 <div className="image-wrapper">
                   <img src={restaurant?.logo?.thumbUrl} alt={"icon"} />
+                </div>
+              ) : (
+                <div style={{ marginRight: "10px" }}>
+                  <Images.RestaurantProfile className="restaurant-profile" />
                 </div>
               )}
               <div>
                 <p className="welcome">Welcome to</p>
                 <p className="rest-name">
-                  {restaurant?.name.length > 30
-                    ? `${restaurant?.name.slice(0, 30)}...`
-                    : restaurant?.name}
+                  {getLimitedVal(restaurant?.name, 30)}
                 </p>
               </div>
             </div>
             <hr className="hr-style" />
-            <p className="menu-name">
-              {menus?.name?.length > 30
-                ? `${menus?.name.slice(0, 30)}...`
-                : menus?.name}
-            </p>
+            <p className="menu-name">{getLimitedVal(menus?.name, 30)}</p>
           </div>
 
           <div className="tabs-wrapper">
@@ -69,7 +64,7 @@ export const Categories = () => {
                           }
                           href={`#${item.name}`}
                         >
-                          {item.name}
+                          {item.name.length > 20 ? `${item.name.slice(0,20)}...` : item.name}
                         </a>
                       )
                   )
@@ -104,9 +99,9 @@ export const Categories = () => {
                 menus.food.map(
                   (item, key) =>
                     item?.items?.length > 0 && (
-                      <div>
+                      <div key={key}>
                         <div id={`${item.name}`} style={{ height: "160px" }} />
-                        <div className="category" key={key}>
+                        <div className="category">
                           <p className="category-title">{item.name}</p>
 
                           {item?.description && (
@@ -188,9 +183,9 @@ export const Categories = () => {
                 menus.drinks.map(
                   (item, key) =>
                     item.items.length > 0 && (
-                      <div>
+                      <div key={key}>
                         <div id={`${item.name}`} style={{ height: "160px" }} />
-                        <div className="category" key={key}>
+                        <div className="category">
                           <p className="category-title">{item.name}</p>
 
                           <div>

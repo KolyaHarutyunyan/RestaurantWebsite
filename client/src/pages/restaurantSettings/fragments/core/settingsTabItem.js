@@ -27,18 +27,23 @@ export const SettingsTabItem = () => {
   const [hours, setHours] = useState({});
   const [isShown, setIsShown] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [logo, setLogo] = useState(null);
+
   const { register, handleSubmit, reset } = useForm();
+
   const { dispatch, status, destroy } = useSagaStore(
     businessesActions.editBusiness
   );
+
   const { img, imgPush, error, handleFileChange, handleFileRemove } =
-    useFileUpload(restaurant?.logo);
+    useFileUpload(logo);
 
   const { open } = useContext(SideSheetsDrawerContext);
 
   useEffect(() => {
     if (restaurant) {
       reset(restaurant);
+      setLogo(restaurant?.logo);
       setFormattedAddress(restaurant.address?.formattedAddress);
       setAddress({
         country: restaurant.address?.country,
@@ -68,17 +73,22 @@ export const SettingsTabItem = () => {
     }
     data = {
       ...data,
+      phoneNumber: data.phoneNumber ? data.phoneNumber : null,
       ...address,
       id: restaurant?.id,
       address: formattedAddress,
       hours: hours,
       logo: image,
-      removeLogo: !image,
+      removeLogo: !img,
     };
     dispatch(data);
   };
 
-  console.log(status,'statusstatus');
+  const onCancel = (e) => {
+    e.preventDefault();
+    reset(restaurant);
+    setLogo(restaurant?.logo);
+  };
 
   return (
     <StyledSettingsTabItem>
@@ -145,8 +155,11 @@ export const SettingsTabItem = () => {
           ))}
         </div>
         <UserInput
-          inputError={status?.onError === "phoneNumber must be a valid phone number" ? 'Phone  Number must be a valid phone number' : ''}
-
+          inputError={
+            status?.onError === "phoneNumber must be a valid phone number"
+              ? "Phone  Number must be a valid phone number"
+              : ""
+          }
           required={false}
           inputLabel={"Phone Number"}
           inputType={"number"}
@@ -174,10 +187,7 @@ export const SettingsTabItem = () => {
         </div>
         <SaveOrCancelButton
           className={"settings-save-cancel-buttons"}
-          onCancel={(e) => {
-            e.preventDefault();
-            alert("Cancelled");
-          }}
+          onCancel={onCancel}
           onLoad={status.onLoad || uploading}
         />
       </form>

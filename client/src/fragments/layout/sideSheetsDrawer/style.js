@@ -34,6 +34,13 @@ export const StyledSideSheetsDrawer = styled(Box)`
     .restaurant-profile {
       width: 24px;
       height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
     .restaurant-name {
       font-family: Open Sans, sans-serif;

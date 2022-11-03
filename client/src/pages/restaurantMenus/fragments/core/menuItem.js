@@ -1,34 +1,50 @@
-import { StyledMenuItem } from "./style";
-import { formatDate } from "../constants";
-import { Images } from "@eachbase/theme/images";
+import { useEffect, useState } from "react";
 import Router from "next/router";
+import { useDispatch } from "react-redux";
+import { Images } from "@eachbase/theme/images";
 import { MoreDropdown, Switch } from "@eachbase/components";
 import { useSagaStore, menusActions } from "@eachbase/store";
+import { FindLoad, FindSuccess } from "@eachbase/utils";
+import { StyledMenuItem } from "./style";
+import { formatDate } from "../constants";
+import PulseLoader from "react-spinners/PulseLoader";
+import { colors } from "@eachbase/theme";
+import { httpRequestsOnSuccessActions } from "../../../../store/http_requests_on_success";
 
 export const MenuItem = ({ menu, restaurant }) => {
+  const dispatch = useDispatch();
   const switchMenuStatusSaga = useSagaStore(menusActions.switchMenuStatus);
   const deleteMenuSaga = useSagaStore(menusActions.deleteMenu);
-
+  const [selectedId, setSelectedId] = useState("");
   const menuItems = [].concat(
     ...menu?.food?.map((item) => item.items),
     ...menu?.drinks?.map((item) => item.items)
   );
+  const loader = FindLoad("SWITCH_MENU_STATUS");
+  const success = FindSuccess("SWITCH_MENU_STATUS");
+
+  useEffect(() => {
+    if (success) {
+      setSelectedId("");
+      dispatch(httpRequestsOnSuccessActions.removeSuccess("SWITCH_MENU_STATUS"));
+    }
+  }, [success]);
 
   const handleSwitch = (event) => {
     event?.stopPropagation();
+    setSelectedId(menu?.id);
     switchMenuStatusSaga.dispatch(menu?.id, restaurant?.id);
   };
-
-  const handleEdit = () => Router.push(`/menus/edit?menuId=${menu?.id}`);
 
   const handleDelete = () =>
     deleteMenuSaga.dispatch({
       businessId: restaurant?.id,
-      menuId: menu?.id,
+      menuId: menu?.id
     });
 
-  const handleSettings = () =>
-    Router.push(`/menus/settings?menuId=${menu?.id}`);
+  const handleEdit = () => Router.push(`/menus/edit?menuId=${menu?.id}`);
+
+  const handleSettings = () => Router.push(`/menus/settings?menuId=${menu?.id}`);
 
   return (
     <StyledMenuItem>
@@ -41,7 +57,15 @@ export const MenuItem = ({ menu, restaurant }) => {
         </div>
         <div className="menu-name-box">
           <h6 className="menu-name">{menu?.name}</h6>
-          <Switch status={menu?.isActive} onClick={handleSwitch} />
+          {selectedId === menu?.id && loader?.length ?
+            <PulseLoader
+              size={7}
+              className="loader"
+              color={colors.yellowOrange}
+            />
+            :
+            <Switch status={menu?.isActive} onClick={(e) => handleSwitch(e)} />
+          }
         </div>
         <div className="menu-about-box">
           <p className="menu-about-text">{menu?.about}</p>
@@ -56,6 +80,7 @@ export const MenuItem = ({ menu, restaurant }) => {
             handleEdit={handleSettings}
             handleDelete={handleDelete}
           />
+
           {/* <button
             type="button"
             className="menu-settings-icon-button"

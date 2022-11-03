@@ -41,7 +41,7 @@ export const CustomModal = ({
         border={border}
         modal={modal}
       >
-        <div style={{ maxWidth: max }} className="container">
+        <div style={{ maxWidth: max, zIndex: 100000 }} className="container">
           {close !== "noButton" && (
             <div>
               {modalNames.includes(modalName) ? (
