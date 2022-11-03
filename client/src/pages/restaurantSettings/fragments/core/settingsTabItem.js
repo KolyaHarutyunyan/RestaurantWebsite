@@ -13,6 +13,7 @@ import { addressInputs } from "./constants";
 import { useSelector } from "react-redux";
 import { businessesActions, useSagaStore } from "@eachbase/store";
 import {
+  handleOptionalField,
   ImgUploader,
   SideSheetsDrawerContext,
   useFileUpload,
@@ -73,16 +74,13 @@ export const SettingsTabItem = () => {
     }
     data = {
       ...data,
-      phoneNumber: data.phoneNumber ? data.phoneNumber : null,
-      description: data.description ? data.description : null,
       ...address,
       id: restaurant?.id,
       address: formattedAddress,
       hours: hours,
       logo: image,
-      removeLogo: !img,
     };
-    dispatch(data);
+    dispatch({ ...handleOptionalField(data), removeLogo: !img });
   };
 
   const onCancel = (e) => {

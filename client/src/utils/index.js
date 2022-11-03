@@ -13,6 +13,7 @@ export {
 } from "./contexts";
 export { useFileUpload, useWidth } from "./customHooks";
 export { getLimitedVal } from "./getLimitedVal";
+export { handleOptionalField } from "./handleOptionalField";
 
-
-export const userInfo = typeof window !== "undefined" && JSON.parse(localStorage.getItem("menuUser"));
+export const userInfo =
+  typeof window !== "undefined" && JSON.parse(localStorage.getItem("menuUser"));

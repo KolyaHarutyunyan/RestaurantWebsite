@@ -6,6 +6,7 @@ import { UserInput } from "@eachbase/components";
 import { ModalContext } from "@eachbase/components/modal/context";
 import { menusActions, useSagaStore } from "@eachbase/store";
 import { StyledMenuForm } from "./style";
+import { handleOptionalField } from "@eachbase/utils";
 
 export const MenuForm = () => {
   const { setActiveModal } = useContext(ModalContext);
@@ -18,29 +19,34 @@ export const MenuForm = () => {
     if (status.onSuccess) {
       destroy.all();
       reset();
-      close()
+      close();
       setActiveModal("");
     }
   }, [status]);
 
   const onSubmit = (data) => {
-    dispatch({ name: data.name, description: data.description, businessId: restaurant?.id, });
+    data = {
+      ...handleOptionalField(data),
+      businessId: restaurant?.id,
+    };
+    dispatch(data);
   };
 
   return (
     <StyledMenuForm>
       <div className="menu-form-title-box">
         <h2 className="menu-form-title">Add Menu</h2>
-
       </div>
 
-      <div style={{textAlign:'center'}}>
+      <div style={{ textAlign: "center" }}>
         <p className="menu-form-subtitle">We can manage it anytime.</p>
       </div>
 
       <div className="menu-form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className='title'>Name <span style={{color:'#FF453A'}}>*</span></p>
+          <p className="title">
+            Name <span style={{ color: "#FF453A" }}>*</span>
+          </p>
           <UserInput
             required={true}
             inputType={"text"}
@@ -51,7 +57,7 @@ export const MenuForm = () => {
             charLimit={"100"}
             charCounterIsShown={true}
           />
-          <p className='title'>Description</p>
+          <p className="title">Description</p>
           <UserInput
             required={false}
             isTextArea={true}

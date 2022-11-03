@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyledContactUsForm } from "./style";
 import { Button, useModal, UserInput } from "@eachbase/components";
 import { useForm } from "react-hook-form";
 import { services } from "@eachbase/store";
-import { useEffect } from "react";
 
 export const ContactUsForm = () => {
   const { activeModal, close } = useModal();
