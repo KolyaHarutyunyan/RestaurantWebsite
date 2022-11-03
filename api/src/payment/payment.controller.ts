@@ -50,8 +50,9 @@ export class PaymentController {
   @Patch('sub')
   @ApiHeader({ name: ACCESS_TOKEN })
   @Public()
-  async updateSubscription(@Body() dto: UpdatePaymentDTO): Promise<any> {
-    const payment = await this.paymentService.updateSubscription(dto);
+  async updateSubscription(@Req() req: IRequest): Promise<any> {
+    const user = req.user;
+    const payment = await this.paymentService.updateSubscription(user);
     return payment;
   }
   /** get subscriptions */

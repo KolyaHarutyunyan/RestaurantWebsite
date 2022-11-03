@@ -130,6 +130,17 @@ export class PaymentService {
   /** create the subscription */
   async createSubscription(dto: CreatePaymentDTO): Promise<Stripe.Subscription> {
     try {
+      const customers = await stripe.customers.search({
+        query: `email:'${dto.user.email}'`,
+      });
+      customers.data.forEach((customer) => {
+        if (customer.email === dto.user.email) {
+          throw new HttpException(
+            `Can not create subscription, email must be unique`,
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+      });
       const customer = await stripe.customers.create({
         description: `email - ${dto.user.email}`,
         email: dto.user.email,
@@ -164,12 +175,24 @@ export class PaymentService {
   }
 
   /** update the subscription */
-  async updateSubscription(dto: UpdatePaymentDTO): Promise<Stripe.Subscription> {
-    const subscription = await stripe.subscriptions.update(dto.subId, {
-      metadata: { order_id: dto.orderId },
+  async updateSubscription(user: SessionDTO): Promise<any> {
+    const customer = await stripe.customers.search({
+      query: `email:'ddd-959@mail.ru'`,
     });
-    console.log(subscription, 'subscriptiooo');
-    return subscription;
+    this.checkCustomer(customer);
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.data[0].id,
+    });
+    this.checkSubscription(subscriptions);
+    // return subscriptions.data[0].id;
+    // this.checkCustomer(customer);
+    const updateSubscription = await stripe.subscriptions.update(subscriptions.data[0].id);
+    return updateSubscription;
+    // const subscription = await stripe.subscriptions.update(dto.subId, {
+    //   metadata: { order_id: dto.orderId },
+    // });
+    // console.log(subscription, 'subscriptiooo');
+    // return subscription;
   }
 
   /** cancel the subscription */
@@ -263,6 +286,12 @@ export class PaymentService {
   private checkCustomer(customer) {
     if (!customer.data.length) {
       throw new HttpException(`Customer was not found`, HttpStatus.NOT_FOUND);
+    }
+  }
+  /** check subscription */
+  private checkSubscription(sub) {
+    if (!sub.data.length) {
+      throw new HttpException(`Subscription was not found`, HttpStatus.NOT_FOUND);
     }
   }
 }

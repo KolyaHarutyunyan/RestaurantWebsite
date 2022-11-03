@@ -14,7 +14,7 @@ export class AuthTemplate {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Test Email',
+          Data: 'Password reset link',
         },
         Body: {
           Html: {
@@ -55,7 +55,7 @@ export class AuthTemplate {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Test Email',
+          Data: 'Password reset link',
         },
         Body: {
           Html: {
