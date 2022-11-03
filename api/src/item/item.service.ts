@@ -44,11 +44,11 @@ export class ItemService {
     this.checkItem(item);
     await this.bsnService.validateOwner(dto.user.id, item.businessId.toString());
     if (dto.name) item.name = dto.name;
-    if (dto.description) item.description = dto.description;
+    if (dto.description || dto.description === null) item.description = dto.description;
     if (dto.option) item.option = dto.option;
-    if (dto.price) item.price = dto.price;
+    if (dto.price || dto.price === null) item.price = dto.price;
     if (dto.active || !dto.active) item.active = dto.active;
-    if (dto.note) item.note = dto.note;
+    if (dto.note || dto.note === null) item.note = dto.note;
 
     await this.manageImages(item, dto);
     item = await item.save();

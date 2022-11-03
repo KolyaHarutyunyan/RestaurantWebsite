@@ -49,10 +49,11 @@ export class PaymentController {
   /** Create an subscription */
   @Patch('sub')
   @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'price', required: true })
   @Public()
-  async updateSubscription(@Req() req: IRequest): Promise<any> {
+  async updateSubscription(@Req() req: IRequest, @Query('price') price: string): Promise<any> {
     const user = req.user;
-    const payment = await this.paymentService.updateSubscription(user);
+    const payment = await this.paymentService.updateSubscription(user, price);
     return payment;
   }
   /** get subscriptions */
