@@ -16,7 +16,7 @@ export const Layout = ({ children, privatePage = true }) => {
   const { open } = useModal();
   const dispatch = useDispatch();
   const router = useRouter();
-  const showLayout = !["/preview", "/menu"].includes(router.pathname);
+  const showLayout = !["/preview",'/menu'].includes(router.pathname);
   const [showDashboard, setShowDashboard] = useState(false);
   const [loading, setLoading] = useState(false);
   const width = useWidth();
@@ -63,13 +63,13 @@ export const Layout = ({ children, privatePage = true }) => {
               </div>
             </div>
           </>
-        ) : showLayout ? (
+        ) :  (
           <>
-            <Header />
+            { showLayout &&  <Header />}
             <div className="page-content">{children}</div>
-            <Footer />
+            { showLayout &&  <Footer />}
           </>
-        ) : null}
+        ) }
       </StyledLayout>
     </LazyLoad>
   );
