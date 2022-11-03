@@ -114,7 +114,6 @@ export const Container = styled.div`
   //}
 
   .passive-category {
-
     font-size: 16px;
     padding: 0 23px;
     color: #2B273C80;
@@ -167,14 +166,29 @@ export const Container = styled.div`
     
   }
   .menu-category{
+    border-bottom: 2px solid #2b273c1a;
     background: ${colors.neautralLightGray};
     width: 100%;
-    padding-top: 5px;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 0 0 -2px 0;
-    display: flex;
-    height: 40px;
-    border-bottom: 2px solid #2B273C1A;
+    display: -webkit-box;
+    
+    // background: ${colors.neautralLightGray};
+    // width: 100%;
+    // max-width: 400px;
+    // padding-top: 5px;
+    // margin: 0 0 -2px 0;
+    // display: flex;
+    // height: 40px;
+    // border-bottom: 2px solid #2B273C1A;
+    // overflow: scroll;
+    //
+    // width: 100%;
+    // overflow-x: auto;
+    // overflow-y: hidden;
+    // margin: 0 0 -2px 0;
+    // display: -webkit-box;
   }
   .category-card {
     display: flex;
@@ -211,7 +225,7 @@ export const Container = styled.div`
   }
 
   .no-image {
-    width: 121px;
+    width: 89px;
     height: 89px;
     display: flex;
     justify-content: center;
@@ -219,7 +233,7 @@ export const Container = styled.div`
     border-radius: 8px;
     background-color: #0000001A;
     svg{
-      width: 89px;
+      width: 50px;
     }
   } 
   .no-image-icon {

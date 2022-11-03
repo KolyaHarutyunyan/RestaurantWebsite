@@ -49,8 +49,7 @@ export const MultiSelect = ({
 
       getOptionLabel={(option) => option.label}
       renderOption={(option, {selected}) => (
-        <div
-        >
+        <div style={{display:'flex', alignItems:'center'}}>
           <div className={classes.addItemIcon}>
             {option.value === selectedId && loader?.length ?
               <CircularProgress

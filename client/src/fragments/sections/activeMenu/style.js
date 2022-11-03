@@ -258,7 +258,7 @@ export const Container = styled.div`
     line-height: 20px;
     color: #313131;
     margin-bottom: 8px;
-    width: 80%;
+    width: 85%;
   }
 
   .optional {

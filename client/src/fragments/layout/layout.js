@@ -34,6 +34,8 @@ export const Layout = ({ children, privatePage = true }) => {
         .then((res) => {
           setShowDashboard(true);
           setLoading(true);
+
+          // router.push('/menus')
         })
         .catch((err) => {
           setLoading(true);
