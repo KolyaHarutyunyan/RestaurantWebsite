@@ -4,6 +4,8 @@ import { LazyLoad, SlicedText, Tabs } from "@eachbase/components";
 import { Container } from "./style";
 import { Icons } from "@eachbase/theme";
 import { useScrollPosition } from "react-use-scroll-position";
+import { getLimitedVal } from "@eachbase/utils";
+import Observer from "@eachbase/components/observer/observer";
 
 export const ActiveMenuSection = ({
   handleOpenClose,
@@ -14,19 +16,22 @@ export const ActiveMenuSection = ({
   setActiveTab,
 }) => {
   const scrollPos = useScrollPosition();
-  const [active, setActive] = useState("");
+
   const menus = useSelector((state) => state?.menus?.activeMenus);
   const business = useSelector(({ businesses }) => businesses);
+
+  const [position, setPosition] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setPosition(menus?.[activeTab]?.[0]?.name);
+  }, [activeTab]);
 
   const handleOpenSwipe = (info, type) => {
     setModalType(type);
     handleOpenClose();
     setModalInfo(info ? info : "");
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [activeTab]);
 
   return (
     <LazyLoad loaded={true} smallIcon={true}>
@@ -62,20 +67,18 @@ export const ActiveMenuSection = ({
                         </div>
                       )}
                     </div>
-
                     <div className="text-wrapper">
                       <p className="welcome">Welcome to</p>
-                      <p className="name">{business?.name}</p>
+                      <p className="name">
+                        {getLimitedVal(business?.name, 30)}
+                      </p>
                     </div>
                   </div>
-
                   <hr className="hr-style" />
-
                   <div className="menu-name">
-                    <p>McDonald's Menu</p>
+                    <p>{getLimitedVal(menus?.name, 30)}</p>
                   </div>
                 </div>
-
                 <div
                   style={scrollPos.y > 0 ? { marginTop: "-16px" } : {}}
                   className="tab-wrapper"
@@ -85,7 +88,6 @@ export const ActiveMenuSection = ({
                     <Tabs.TabTitle tabName="drinks">Drinks</Tabs.TabTitle>
                   </Tabs.TabHeader>
                 </div>
-
                 <div style={{ width: "100%" }}>
                   <div className="menu-category">
                     {menus[activeTab]?.length
@@ -98,15 +100,14 @@ export const ActiveMenuSection = ({
                                 className="active-category-wrapper"
                               >
                                 <a
-                                  onClick={() => setActive(item.name)}
+                                  href={`#${item.name}`}
                                   className={
-                                    active === item.name
+                                    position === item.name
                                       ? "active-category"
                                       : "passive-category"
                                   }
-                                  href={`#${item.name}`}
                                 >
-                                  {item.name.length > 20 ? `${item.name.slice(0,20)}...` : item.name}
+                                  {getLimitedVal(item.name, 20)}
                                 </a>
                               </div>
                             )
@@ -115,7 +116,6 @@ export const ActiveMenuSection = ({
                   </div>
                 </div>
               </div>
-
               <div className="cards-wrapper">
                 {menus[activeTab]?.length &&
                   menus[activeTab]?.map(
@@ -123,86 +123,83 @@ export const ActiveMenuSection = ({
                       item.items.length > 0 &&
                       item?.active && (
                         <div key={key}>
-                          <div
-                            id={`${item.name}`}
-                            style={{ height: "100px" }}
-                          />
-
+                          <div id={item.name} style={{ height: "100px" }} />
                           <div className="category">
-                            <p className="category-title">{item.name}</p>
-                            {item?.description && (
-                              <p className="category-description">
-                                {item.description}
-                              </p>
-                            )}
-
+                            <Observer
+                              onChange={(isInView) =>
+                                isInView && setPosition(item.name)
+                              }
+                            />
                             <div>
-                              {" "}
-                              {item?.items?.length &&
-                                item.items.map(
-                                  (item, key) =>
-                                    item?.item?.active && (
-                                      <div
-                                        key={key}
-                                        className="category-card"
-                                        onClick={() =>
-                                          handleOpenSwipe(item.item, "food")
-                                        }
-                                      >
-                                        <div>
-                                          {item.item.images &&
-                                          item.item.images.length ? (
-                                            <img
-                                              src={
-                                                item.item.images[
-                                                  item.item.mainImage
-                                                ].url
-                                              }
-                                              alt="icon"
-                                            />
-                                          ) : (
-                                            <div className="no-image">
-                                              <Icons.FoodIcon />
-                                            </div>
-                                          )}
-                                        </div>
-
-                                        <div className="card-info">
-                                          <div className="title">
-                                            <SlicedText
-                                              type={"nameQr"}
-                                              size={10}
-                                              data={item.item.name}
-                                            />
-                                            <p>{`$${
-                                              item.item.price
-                                                .toString()
-                                                .search("\\.") === -1
-                                                ? `${item.item.price}.00`
-                                                : item.item.price
-                                            }`}</p>
+                              <p className="category-title">{item.name}</p>
+                              {item?.description && (
+                                <p className="category-description">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <div>
+                                {item?.items?.length &&
+                                  item.items.map(
+                                    (item, key) =>
+                                      item?.item?.active && (
+                                        <div
+                                          key={key}
+                                          className="category-card"
+                                          onClick={() =>
+                                            handleOpenSwipe(item.item, "food")
+                                          }
+                                        >
+                                          <div>
+                                            {item.item.images &&
+                                            item.item.images.length ? (
+                                              <img
+                                                src={
+                                                  item.item.images[
+                                                    item.item.mainImage
+                                                  ].url
+                                                }
+                                                alt="icon"
+                                              />
+                                            ) : (
+                                              <div className="no-image">
+                                                <Icons.FoodIcon />
+                                              </div>
+                                            )}
                                           </div>
-                                          <p className="desc" color="text">
-                                            {item?.item?.description?.length >
-                                            40
-                                              ? `${item.item.description.slice(
-                                                  0,
-                                                  40
-                                                )}...`
-                                              : item?.item?.description}
-                                          </p>
-                                          <p className="optional">
-                                            {item?.item?.note?.length > 40
-                                              ? `${item.item.note.slice(
-                                                  0,
-                                                  40
-                                                )}...`
-                                              : item.item.note}
-                                          </p>
+                                          <div className="card-info">
+                                            <div className="title">
+                                              <SlicedText
+                                                type={"nameQr"}
+                                                size={10}
+                                                data={item.item.name}
+                                              />
+                                              <p>{`$${
+                                                item.item.price
+                                                  .toString()
+                                                  .search("\\.") === -1
+                                                  ? `${item.item.price}.00`
+                                                  : item.item.price
+                                              }`}</p>
+                                            </div>
+                                            <p className="desc" color="text">
+                                              {getLimitedVal(
+                                                item?.item?.description,
+                                                40
+                                              )}
+                                            </p>
+                                            <p className="optional">
+                                              {getLimitedVal(
+                                                item?.item?.note,
+                                                40
+                                              )}
+                                            </p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    )
-                                )}
+                                      )
+                                  )}
+                              </div>
                             </div>
                           </div>
                         </div>
