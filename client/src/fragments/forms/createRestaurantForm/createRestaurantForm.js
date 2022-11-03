@@ -18,7 +18,7 @@ export const CreateRestaurantForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const [img, setImg] = useState("");
   const [imgPush, setImgPush] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const { close } = useModal();
   const { dispatch, status, destroy } = useSagaStore(businessesActions.createBusiness);
   const title =
@@ -33,7 +33,8 @@ export const CreateRestaurantForm = () => {
       close();
       destroy.all();
       reset();
-      window.location.replace('/menus')
+      window.location.replace('/plansAndPricing')
+      // window.location.replace('/menus')
     }
   }, [status]);
 
@@ -42,14 +43,20 @@ export const CreateRestaurantForm = () => {
     const images = imgPush && await ImgUploader([imgPush]).then(res => res);
     const info = { ...data };
     images ? info.logo = images : "";
-    dispatch(info);
+
+    if (data.name.length >= 2) {
+      dispatch(info);
+    } else {
+      setError("name");
+    }
+
   };
 
 
   const handleFileChange = (e) => {
     for (let item of e) {
       if (item && item.size > 2097152) {
-        setError(true);
+        setError('bigSize');
       } else {
         setError("");
         setImg({
@@ -82,6 +89,9 @@ export const CreateRestaurantForm = () => {
             Restaurant Name
           </Typography>
           <Input
+            error={error === "name"}
+            helper={error === "name" && 'Restaurant name min length must be 2 characters'}
+            max={50}
             padding={"8px"}
             placeholder="Add your Restaurant Name"
             {...register("name", { required: true })}
@@ -104,7 +114,7 @@ export const CreateRestaurantForm = () => {
           </Typography>
         </div>
         <FileUpload
-          error={error}
+          error={error === 'bigSize'}
           building={true}
           title="Restaurant Logo"
           handleChange={handleFileChange}

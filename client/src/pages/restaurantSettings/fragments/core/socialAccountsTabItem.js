@@ -24,9 +24,9 @@ export const SocialAccountsTabItem = () => {
   const onSubmit = (data) => {
     data = {
       id: restaurant.id,
-      website: data.website || restaurant.website,
-      facebook: data.facebook || restaurant.facebook,
-      instagram: data.instagram || restaurant.instagram,
+      website: data?.website ? data?.website : null,
+      facebook: data?.facebook ? data?.facebook : null,
+      instagram: data?.instagram ? data.instagram : null,
     };
     dispatch(data);
   };

@@ -74,6 +74,7 @@ export const SettingsTabItem = () => {
     data = {
       ...data,
       phoneNumber: data.phoneNumber ? data.phoneNumber : null,
+      description: data.description ? data.description : null,
       ...address,
       id: restaurant?.id,
       address: formattedAddress,

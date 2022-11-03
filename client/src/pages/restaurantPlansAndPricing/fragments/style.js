@@ -86,6 +86,20 @@ export const StyledRestaurantPlansAndPricing = styled.section`
         color: ${colors.white};
         font-family: Open Sans, sans-serif;
       }
+      .subscribed-button{
+        width: 261px;
+        height: 48px;
+        background: transparent;
+        border-radius: 8px;
+        margin: 24px 0 49px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+        color: ${colors.subBlack};
+        border: 1px solid ${colors.subBlack};
+        font-family: Open Sans, sans-serif;
+      }
       .packages {
         li {
           list-style-type: none;

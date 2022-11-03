@@ -7,7 +7,7 @@ import { CheckoutContainer } from "@eachbase/fragments/sections/payments/styles"
 import { MuiBreadcrumbs } from "@eachbase/components";
 
 const stripePromise = loadStripe(
-  "pk_test_51LmCY4HoKYb9ljrZSsVQ2feYRtXXW5aoRJtr8AhrdV8HKZ8JNy7dz0F2vRVhDthnVHSGJweWQy9yeri6EQ3rxdtV0019cwvpyY"
+  "pk_test_51LmCY4HoKYb9ljrZoGdppsVebwpoEdy464xiqERqYUD69cenEagijTovG6OFvaL71GCNMlm5v2yfpFnNWFlEgZoA00toGW6jzS"
 );
 
 export const plansCheckoutBreadcrumbs = [
