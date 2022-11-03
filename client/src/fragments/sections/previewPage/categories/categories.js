@@ -11,7 +11,7 @@ export const Categories = () => {
   const [activeTab, setActiveTab] = useState("food");
   const menus = useSelector(({ menus }) => menus?.menuById || "");
   const restaurant = useSelector((state) => state.businesses);
-  console.log(restaurant, "restaurant?.logo");
+
   return (
     <Container>
       <Tabs.Wrapper

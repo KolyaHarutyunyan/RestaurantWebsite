@@ -1,11 +1,35 @@
+import { useState } from "react";
 import { StyledContactUsForm } from "./style";
-import { Button, UserInput } from "@eachbase/components";
+import { Button, useModal, UserInput } from "@eachbase/components";
 import { useForm } from "react-hook-form";
+import { services } from "@eachbase/store/services/services";
+import { useEffect } from "react";
 
 export const ContactUsForm = () => {
+  const { activeModal, close } = useModal();
+
+  const [loading, setLoading] = useState(false);
+
   const { handleSubmit, register, reset } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  useEffect(() => {
+    if (!activeModal) {
+      reset();
+    }
+  }, [activeModal]);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      await services.constactUs(data);
+      close();
+      reset();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <StyledContactUsForm>
@@ -34,7 +58,7 @@ export const ContactUsForm = () => {
           charCounterIsShown={false}
           {...register("message", { required: true })}
         />
-        <Button fullWidth square>
+        <Button fullWidth square onLoad={loading}>
           Send
         </Button>
       </form>
