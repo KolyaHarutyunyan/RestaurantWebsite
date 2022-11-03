@@ -19,26 +19,26 @@ export const Container = styled.div`
     object-fit: cover;
     background-size: 100%;
   }
-  
+
   .icon-title-wrapper {
     display: flex;
     flex-direction: column;
     padding: 8px 16px;
     background: white;
-    transition: all .3s;
+    transition: all 0.3s;
   }
 
-  .flex-able{
+  .flex-able {
     display: flex;
     align-items: center;
   }
-  
+
   .business-icon {
     width: 36px;
     height: 36px;
     border-radius: 40px;
     object-fit: cover;
-    border: 2px solid #FFECEF;
+    border: 2px solid #ffecef;
     margin-top: 6px;
   }
 
@@ -51,7 +51,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     //background: #0000002a;
-    border: 2px solid #FFECEF;
+    border: 2px solid #ffecef;
     margin-top: 6px;
     svg {
       width: 18px;
@@ -59,10 +59,10 @@ export const Container = styled.div`
     }
   }
 
-  .hr-style{
+  .hr-style {
     height: 2px;
-    background: #E9E9E9;
-    border-color: #E9E9E9;
+    background: #e9e9e9;
+    border-color: #e9e9e9;
     margin: 13px 0 10px 0;
   }
 
@@ -75,7 +75,7 @@ export const Container = styled.div`
     color: ${colors.secondary};
   }
 
-  .welcome{
+  .welcome {
     font-family: Open Sans, sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -85,7 +85,7 @@ export const Container = styled.div`
     margin-bottom: 4px;
   }
 
-  .menu-name{
+  .menu-name {
     text-align: center;
     font-family: Open Sans, sans-serif;
     font-style: normal;
@@ -95,8 +95,8 @@ export const Container = styled.div`
     color: ${colors.secondary};
     margin-bottom: 10px;
   }
-  
-  .tab-wrapper{
+
+  .tab-wrapper {
     background: ${colors.neautralLightGray};
     padding: 11px 0;
   }
@@ -108,16 +108,16 @@ export const Container = styled.div`
     margin-top: 124px;
   }
 
-  .text-wrapper{
+  .text-wrapper {
     margin-left: 10px;
   }
-  
-  .cards-wrapper{
+
+  .cards-wrapper {
     padding: 0 16px;
   }
 
   .menu-body {
-    transition: all .3s;
+    transition: all 0.3s;
     @media (min-width: 767px) {
       margin-top: 120px;
       background: white;
@@ -125,7 +125,7 @@ export const Container = styled.div`
   }
 
   .menu-category {
-    border-bottom: 2px solid #2B273C1A;
+    border-bottom: 2px solid #2b273c1a;
     background: ${colors.neautralLightGray};
     width: 100%;
     overflow-x: auto;
@@ -133,7 +133,7 @@ export const Container = styled.div`
     margin: 0 0 -2px 0;
     display: -webkit-box;
   }
-  
+
   .passive-category {
     padding: 0 16px 10px 16px;
     font-family: Open Sans, sans-serif;
@@ -142,9 +142,9 @@ export const Container = styled.div`
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
-    color: #95939E; 
+    color: #95939e;
   }
-  
+
   .active-category-wrapper {
     padding-bottom: 10px;
   }
@@ -153,7 +153,7 @@ export const Container = styled.div`
     padding: 0 16px 10px 16px;
     font-family: Open Sans, sans-serif;
     font-weight: 600;
-    border-bottom: 2px solid #2B273C;
+    border-bottom: 2px solid #2b273c;
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
@@ -161,6 +161,7 @@ export const Container = styled.div`
   }
 
   .category {
+    position: relative;
     margin-top: 16px;
     margin-bottom: -100px;
   }
@@ -172,29 +173,29 @@ export const Container = styled.div`
     font-family: Poppins, sans-serif;
     font-weight: bold;
   }
-  
-    .category-description {
-      font-family: Open Sans, sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      margin-left: 3px;
-      color: ${colors.secondary};
-      margin-bottom: 16px;
+
+  .category-description {
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 3px;
+    color: ${colors.secondary};
+    margin-bottom: 16px;
   }
-  
+
   .scrolled-tab {
     position: fixed;
     width: 100%;
     background: white;
     top: 0;
     max-width: 768px;
-
+    z-index: 9999;
     hr {
       height: 2px;
-      background: #2B273C1A;
-      border-color: #2B273C1A
+      background: #2b273c1a;
+      border-color: #2b273c1a;
     }
   }
 
@@ -227,7 +228,7 @@ export const Container = styled.div`
     width: 89px;
     height: 92px;
     border-radius: 8px;
-    background-color: #0000001A;
+    background-color: #0000001a;
   }
 
   .card-info {
@@ -248,7 +249,7 @@ export const Container = styled.div`
     color: #313131;
     margin-bottom: 4px;
   }
-  
+
   .desc {
     font-family: Open Sans, sans-serif;
     font-style: normal;
@@ -262,7 +263,7 @@ export const Container = styled.div`
 
   .optional {
     font-family: Open Sans, sans-serif;
-    color: #54C762;
+    color: #54c762;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -278,14 +279,14 @@ export const ModalContainer = styled.div`
   background: white;
   padding: 16px 15px;
 
-  .modal-image-wrapper{
+  .modal-image-wrapper {
     margin: 0 auto;
     display: flex;
     justify-content: center;
     width: 100%;
   }
-  
-  .item-description{
+
+  .item-description {
     font-family: Open Sans, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -293,13 +294,13 @@ export const ModalContainer = styled.div`
     line-height: 20px;
     color: #313131;
   }
-  
+
   .no-image {
     width: 100%;
     height: 270px;
     object-fit: cover;
     border-radius: 8px;
-    background: #0000001A;
+    background: #0000001a;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -326,7 +327,7 @@ export const ModalContainer = styled.div`
     p {
       font-size: 16px;
       line-height: 20px;
-      color: #2B273C;
+      color: #2b273c;
     }
   }
 
@@ -334,7 +335,7 @@ export const ModalContainer = styled.div`
     font-size: 14px;
     line-height: 21px;
     font-weight: normal;
-    color: #54C762;
+    color: #54c762;
     margin-top: 8px;
   }
 
@@ -368,7 +369,7 @@ export const ModalContainer = styled.div`
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    color: #2B273C;
+    color: #2b273c;
     margin: 8px 0;
   }
 
@@ -380,17 +381,16 @@ export const ModalContainer = styled.div`
 
     .line {
       width: 60px;
-      background: #2B273C80;
+      background: #2b273c80;
       border-radius: 15px;
       height: 3px;
     }
   }
-  
-  .modal-hr{
-    margin-top: 20px;
-    border: 1px solid #E9E9EB;
-  }
 
+  .modal-hr {
+    margin-top: 20px;
+    border: 1px solid #e9e9eb;
+  }
 `;
 
 export const RestaurantModalContainer = styled.div`
@@ -399,29 +399,29 @@ export const RestaurantModalContainer = styled.div`
   overflow: auto;
   background: ${colors.neautralLightGray};
   padding: 16px;
-  
-  .rest-info{
+
+  .rest-info {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
-  .restaurant-icon{
+
+  .restaurant-icon {
     width: 96px;
     height: 96px;
-    border: 4px solid #FFECEF;
+    border: 4px solid #ffecef;
     border-radius: 50px;
     object-fit: cover;
   }
 
-  .restaurant-no-icon{
+  .restaurant-no-icon {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 96px;
     height: 96px;
-    border: 4px solid #FFECEF;
-    background: #FFECEF;
+    border: 4px solid #ffecef;
+    background: #ffecef;
     border-radius: 50px;
     object-fit: cover;
     svg {
@@ -429,8 +429,8 @@ export const RestaurantModalContainer = styled.div`
       height: 50px;
     }
   }
-  
-  .restaurant-name{
+
+  .restaurant-name {
     font-family: Open Sans, sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -439,32 +439,32 @@ export const RestaurantModalContainer = styled.div`
     color: ${colors.secondary};
     margin: 10px 0;
   }
-  
-  .social-info{
+
+  .social-info {
     height: 40px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 8px;
     padding: 4px;
-    
-    a:not(:last-child){
+
+    a:not(:last-child) {
       margin-right: 12px;
     }
-    
-    a{
+
+    a {
       width: 32px;
       height: 32px;
     }
   }
-  
-  .item-card{
+
+  .item-card {
     padding: 16px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 8px;
     margin-top: 16px;
     width: 100%;
   }
-  
-  .description{
+
+  .description {
     font-family: Open Sans, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -472,22 +472,20 @@ export const RestaurantModalContainer = styled.div`
     line-height: 20px;
     color: ${colors.secondary};
   }
-  
-  .title-desc{
+
+  .title-desc {
     font-family: Open Sans, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    color: ${colors.secondary};  
-    span{
+    color: ${colors.secondary};
+    span {
       font-weight: normal;
     }
   }
-  
-  .title-desc:not(:last-child){
+
+  .title-desc:not(:last-child) {
     margin-bottom: 16px;
   }
-
 `;
-
