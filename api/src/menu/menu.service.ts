@@ -54,7 +54,7 @@ export class MenuService {
     this.checkMenu(menu);
     if (dto.name) menu.name = dto.name;
     if (dto.tagline) menu.tagline = dto.tagline;
-    if (dto.description) menu.description = dto.description;
+    if (dto.description || dto.description === null) menu.description = dto.description;
     if (dto.image) menu.image = dto.image;
     if (dto.removeImage && menu.image) {
       await this.fileService.deleteFile(dto.user.id, menu.image.id);
@@ -142,7 +142,7 @@ export class MenuService {
     const category = categories.find((cat) => cat._id.toString() === categoryId);
     category.name = dto.name;
     category.active = dto.active;
-    if (dto.description) category.description = dto.description;
+    if (dto.description || dto.description === null) category.description = dto.description;
     await menu.save();
     return await this.fillMenu(menu);
   }

@@ -51,7 +51,7 @@ export class BusinessService {
     let business = await this.model.findById(businessId);
     this.checkBusiness(business);
     this.enforceOwner(dto.user.id, business.owner);
-    if (dto.name || dto.name === null) business.name = dto.name;
+    if (dto.name) business.name = dto.name;
     if (dto.description || dto.description === null) business.description = dto.description;
     if (dto.website || dto.website === null) business.website = dto.website;
     if (dto.facebook || dto.facebook === null) business.facebook = dto.facebook;

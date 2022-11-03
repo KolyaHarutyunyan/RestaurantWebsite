@@ -42,7 +42,7 @@ export class PaymentService {
     const products = await stripe.products.list();
     return this.sanitizer.sanitizeProductMany(products.data);
   }
-  
+
   /** get all price */
   async getPrice(): Promise<any> {
     const price = await stripe.prices.list();
@@ -137,10 +137,10 @@ export class PaymentService {
   async createSubscription(dto: CreatePaymentDTO): Promise<Stripe.Subscription> {
     try {
       const customers = await stripe.customers.search({
-        query: `email:'${dto.user.email}'`,
+        query: `email:'ddd-959@mail.ru'`,
       });
       customers.data.forEach((customer) => {
-        if (customer.email === dto.user.email) {
+        if (customer.email === 'edgarc@eachbase.com') {
           throw new HttpException(
             `Can not create subscription, email must be unique`,
             HttpStatus.BAD_REQUEST,
@@ -148,13 +148,13 @@ export class PaymentService {
         }
       });
       const customer = await stripe.customers.create({
-        description: `email - ${dto.user.email}`,
-        email: dto.user.email,
+        description: `email - ddd-959@mail.ru`,
+        email: 'dddv-959@mail.ru',
         payment_method: dto.paymentMethod,
         invoice_settings: { default_payment_method: dto.paymentMethod },
       });
       const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
+        customer: 'customer.id',
         items: [
           {
             price_data: {
@@ -181,7 +181,7 @@ export class PaymentService {
   }
 
   /** update the subscription */
-  async updateSubscription(user: SessionDTO): Promise<any> {
+  async updateSubscription(user: SessionDTO, priceId: string): Promise<any> {
     const customer = await stripe.customers.search({
       query: `email:'ddd-959@mail.ru'`,
     });
@@ -190,22 +190,19 @@ export class PaymentService {
       customer: customer.data[0].id,
     });
     this.checkSubscription(subscriptions);
-    // return subscriptions.data[0].id;
-    // this.checkCustomer(customer);
-    const updateSubscription = await stripe.subscriptions.update(subscriptions.data[0].id, {
-      // items: [
-      //   {
-      //     id: subscription.items.data[0].id,
-      //     price: 'price_CBb6IXqvTLXp3f',
-      //   },
-      // ],
+    const subscription = await stripe.subscriptions.retrieve(subscriptions.data[0].id);
+    const updateSubscription = stripe.subscriptions.update(subscriptions.data[0].id, {
+      cancel_at_period_end: false,
+      proration_behavior: 'create_prorations',
+      items: [
+        {
+          id: subscription.items.data[0].id,
+          price: priceId,
+        },
+      ],
     });
+
     return updateSubscription;
-    // const subscription = await stripe.subscriptions.update(dto.subId, {
-    //   metadata: { order_id: dto.orderId },
-    // });
-    // console.log(subscription, 'subscriptiooo');
-    // return subscription;
   }
 
   /** cancel the subscription */
