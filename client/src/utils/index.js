@@ -13,3 +13,4 @@ export {
 } from "./contexts";
 export { useFileUpload, useWidth } from "./customHooks";
 export { getLimitedVal } from "./getLimitedVal";
+export { handleOptionalField } from "./handleOptionalField";

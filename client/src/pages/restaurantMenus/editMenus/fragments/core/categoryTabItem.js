@@ -25,6 +25,7 @@ import {
   PRODUCT_FORM_EDIT,
 } from "./constants";
 import {
+  handleOptionalField,
   ImgUploader,
   TabItemsContext,
   useFileUpload,
@@ -190,7 +191,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
 
   const handleCategorySave = (data) => {
     data = {
-      ...data,
+      ...handleOptionalField(data),
       type: categoryType,
       active: true,
     };
@@ -265,7 +266,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
     let filteredImages = imgs?.filter((i) => i.thumbUrl);
     const allPhotos = [...filteredImages, ...images];
     data = {
-      ...data,
+      ...handleOptionalField(data),
       mainImage: index,
       businessId: restaurant?.id,
     };

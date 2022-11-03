@@ -4,6 +4,7 @@ import { UserInput, SaveOrCancelButton } from "@eachbase/components";
 import { StyledSocialAccountsTabItem } from "./style";
 import { businessesActions, useSagaStore } from "@eachbase/store";
 import { useSelector } from "react-redux";
+import { handleOptionalField } from "@eachbase/utils";
 
 export const SocialAccountsTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
@@ -17,16 +18,13 @@ export const SocialAccountsTabItem = () => {
   useEffect(() => {
     if (status.onSuccess) {
       destroy.success();
-      reset();
     }
   }, [status]);
 
   const onSubmit = (data) => {
     data = {
+      ...handleOptionalField(data),
       id: restaurant.id,
-      website: data.website || restaurant.website,
-      facebook: data.facebook || restaurant.facebook,
-      instagram: data.instagram || restaurant.instagram,
     };
     dispatch(data);
   };

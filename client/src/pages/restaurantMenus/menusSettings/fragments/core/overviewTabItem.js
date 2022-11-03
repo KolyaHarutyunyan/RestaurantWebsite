@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { menusActions, useSagaStore } from "@eachbase/store";
 import Router from "next/router";
 import { initialMenu } from "./constants";
-import { FindLoad } from "@eachbase/utils";
+import { FindLoad, handleOptionalField } from "@eachbase/utils";
 
 export const OverviewTabItem = () => {
   const restaurant = useSelector((state) => state.businesses);
@@ -35,7 +35,7 @@ export const OverviewTabItem = () => {
 
   const onSubmit = (data) => {
     data = {
-      ...data,
+      ...handleOptionalField(data),
       businessId: restaurant?.id,
       id: menu?.id,
     };
@@ -60,7 +60,7 @@ export const OverviewTabItem = () => {
             maxLength={100}
           />
           <UserInput
-            height={'300px'}
+            height={"300px"}
             required={false}
             isTextArea={true}
             inputLabel={"Description"}
