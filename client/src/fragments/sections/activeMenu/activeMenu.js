@@ -27,7 +27,7 @@ export const ActiveMenuSection = ({
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [activeTab]);
-  console.log(business?.logo, "business?.logo");
+
   return (
     <LazyLoad loaded={true} smallIcon={true}>
       <Container>

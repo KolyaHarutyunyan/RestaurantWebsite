@@ -9,12 +9,12 @@ import { StyledLayout } from "./style";
 import { useRouter } from "next/router";
 import { useWidth } from "@eachbase/utils";
 import axios from "axios";
-import { MODAL_NAMES } from "../../constants";
-import { LazyLoad, useModal } from "../../components";
+import { MODAL_NAMES } from "@eachbase/constants";
+import { LazyLoad, useModal } from "@eachbase/components";
 
 export const Layout = ({ children, privatePage = true }) => {
   const { open } = useModal();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const router = useRouter();
   const showLayout = !["/preview", "/menu"].includes(router.pathname);
   const [showDashboard, setShowDashboard] = useState(false);
@@ -22,55 +22,55 @@ export const Layout = ({ children, privatePage = true }) => {
   const width = useWidth();
   const token = typeof window !== "undefined" && localStorage.getItem("token");
 
-  // useEffect(() => {
-  //   setToken(typeof window !== "undefined" && localStorage.getItem("token"));
-  // }, [token]);
-  //
   useEffect(() => {
     if (privatePage && token) {
       dispatch(profileActions.getUserInfo());
     }
   }, [token]);
 
-
   useEffect(() => {
     if (token) {
-      axios.get(`/businesses/mybusiness`, { auth: true }).then((res) => {
+      axios
+        .get(`/businesses/mybusiness`, { auth: true })
+        .then((res) => {
           setShowDashboard(true);
-          setLoading(true)
-       }
-      ).catch((err) => {
-        setLoading(true)
-        if (err?.data?.message === "business with this information was not found") {
+          setLoading(true);
+        })
+        .catch((err) => {
+          setLoading(true);
+          if (
+            err?.data?.message ===
+            "business with this information was not found"
+          ) {
             open(MODAL_NAMES.CREATE_RESTAURANT);
-        }
-      });
-    }else{
-      setLoading(true)
+          }
+        });
+    } else {
+      setLoading(true);
     }
   }, [token]);
 
   return (
-    <LazyLoad loaded={loading} >
-    <StyledLayout >
-      {showDashboard ? (
-        <>
-          {showLayout && <ProfileHeader />}
-          <div className="main">
-            {showLayout && width > 767 && <SideSheetsDrawer />}
-            <div className={`main-content ${showLayout ? "shown" : ""}`}>
-              {children}
+    <LazyLoad loaded={loading}>
+      <StyledLayout>
+        {showDashboard ? (
+          <>
+            {showLayout && <ProfileHeader />}
+            <div className="main">
+              {showLayout && width > 767 && <SideSheetsDrawer />}
+              <div className={`main-content ${showLayout ? "shown" : ""}`}>
+                {children}
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <Header />
-          <div className="page-content">{children}</div>
-          <Footer />
-        </>
-      )}
-    </StyledLayout>
+          </>
+        ) : showLayout ? (
+          <>
+            <Header />
+            <div className="page-content">{children}</div>
+            <Footer />
+          </>
+        ) : null}
+      </StyledLayout>
     </LazyLoad>
   );
 };

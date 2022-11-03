@@ -48,9 +48,9 @@ export const ProfileHeader = () => {
     }
   };
 
-  const handleNotificationClick = () => {
-    alert("Notifications");
-  };
+  // const handleNotificationClick = () => {
+  //   alert("Notifications");
+  // };
 
   const handleAvatarClick = () => {
     toggleAccountDrawer(_accountAnchor, true);
@@ -73,9 +73,9 @@ export const ProfileHeader = () => {
           )}
         </div>
         <div className="notifications-account-box">
-          <div className="notification" onClick={handleNotificationClick}>
+          {/* <div className="notification" onClick={handleNotificationClick}>
             <Images.Notification />
-          </div>
+          </div> */}
           <div className="avatar" onClick={handleAvatarClick}>
             <Images.Avatar />
           </div>
