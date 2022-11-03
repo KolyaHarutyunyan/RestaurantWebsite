@@ -49,9 +49,11 @@ export class PaymentController {
   /** Create an subscription */
   @Patch('sub')
   @ApiHeader({ name: ACCESS_TOKEN })
+  @ApiQuery({ name: 'price', required: true })
   @Public()
-  async updateSubscription(@Body() dto: UpdatePaymentDTO): Promise<any> {
-    const payment = await this.paymentService.updateSubscription(dto);
+  async updateSubscription(@Req() req: IRequest, @Query('price') price: string): Promise<any> {
+    const user = req.user;
+    const payment = await this.paymentService.updateSubscription(user, price);
     return payment;
   }
   /** get subscriptions */
@@ -124,6 +126,15 @@ export class PaymentController {
   async getProducts(): Promise<ProductDTO[]> {
     const product = await this.paymentService.getProducts();
     return product;
+  }
+
+  /** Get the price */
+  @Get('price')
+  @ApiHeader({ name: ACCESS_TOKEN })
+  @Public()
+  async getPrice(): Promise<any> {
+    const price = await this.paymentService.getPrice();
+    return price;
   }
 
   /** Delete the product */

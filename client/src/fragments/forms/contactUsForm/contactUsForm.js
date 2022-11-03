@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { StyledContactUsForm } from "./style";
 import { Button, useModal, UserInput } from "@eachbase/components";
 import { useForm } from "react-hook-form";
-import { services } from "@eachbase/store/services/services";
+import { services } from "@eachbase/store";
 
 export const ContactUsForm = () => {
   const { activeModal, close } = useModal();
@@ -20,7 +20,7 @@ export const ContactUsForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await services.constactUs(data);
+      await services.contactUs(data);
       close();
       reset();
     } catch (err) {

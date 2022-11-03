@@ -12,7 +12,7 @@ export class CreateItemDTO {
   description?: string;
   @ApiProperty({ required: false })
   @Type(() => Number)
-  @IsOptional()
+  @IsNotEmpty()
   price?: number;
   @ApiProperty({ required: false })
   option?: string;

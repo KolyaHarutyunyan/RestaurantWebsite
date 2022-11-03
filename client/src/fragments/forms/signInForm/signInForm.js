@@ -1,22 +1,21 @@
-import { Container } from "./style";
-import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
-import { Icons } from "@eachbase/theme";
-import { profileActions, useSagaStore } from "@eachbase/store";
-import { API_BASE, MODAL_NAMES } from "@eachbase/constants";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import axios from "axios";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { Container } from "./style";
+import { Input, Typography, Button, useModal } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
+import { profileActions, useSagaStore } from "@eachbase/store";
+import { MODAL_NAMES } from "@eachbase/constants";
+import { userInfo } from "@eachbase/utils";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
-
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
   const { register, handleSubmit, reset, setValue } = useForm();
   const router = useRouter();
-
 
   useEffect(() => {
     return () => destroy.all();
@@ -28,16 +27,17 @@ export const SignInForm = () => {
       reset();
       close();
       axios.get(`/businesses/mybusiness`, { auth: true }).then((res) => {
-        router.push("/menus");
-
-          // window.location.replace("/menus")
+        if(userInfo?.subscription){
+          router.push("/menus");
+        }else{
+          router.push("/plansAndPricing");
         }
+       }
       ).catch((err) => {
         if(err?.data?.message === 'business with this information was not found'){
           open(MODAL_NAMES.CREATE_RESTAURANT)
         }
       })
-
     }
   }, [status]);
 

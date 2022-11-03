@@ -30,11 +30,12 @@ export const Layout = ({ children, privatePage = true }) => {
 
   useEffect(() => {
     if (token) {
-      axios
-        .get(`/businesses/mybusiness`, { auth: true })
+      axios.get(`/businesses/mybusiness`, { auth: true })
         .then((res) => {
           setShowDashboard(true);
           setLoading(true);
+
+          // router.push('/menus')
         })
         .catch((err) => {
           setLoading(true);

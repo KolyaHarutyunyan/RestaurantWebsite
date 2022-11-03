@@ -67,24 +67,11 @@ function* signUp({ type, payload }) {
     const { data } = yield call(profileService.signUp, payload);
     localStorage.setItem("token", data.token);
     try {
-      const { data } = yield call(profileService.userInfo, payload);
-      localStorage.setItem("menuUser", JSON.stringify(data));
+      const user  = yield call(profileService.userInfo);
+      localStorage.setItem("menuUser", JSON.stringify(user.data));
       yield put({
         type: PROFILE_SIGN_IN_SUCCESS,
         payload: data,
-      });
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (err) {}
-
-    // yield put(httpRequestsOnLoadActions.removeLoading(type));
-    // yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    // localStorage.setItem("token", data.accessToken);
-    try {
-      const { data } = yield call(profileService.userInfo, payload);
-      yield put({
-        type: PROFILE_SIGN_IN_SUCCESS,
-        payload: data.user,
       });
       yield put(httpRequestsOnLoadActions.removeLoading(type));
       yield put(httpRequestsOnSuccessActions.appendSuccess(type));
@@ -104,7 +91,6 @@ function* signOut({ type }) {
   } catch (err) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.appendError(type, err));
-    console.error(err);
   } finally {
     localStorage.removeItem("token");
     localStorage.removeItem("menuUser");
@@ -165,11 +151,11 @@ function* updateProfile({ type, payload }) {
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
     const { data } = yield call(profileService.updateProfileInfo, payload);
+    localStorage.setItem("menuUser", JSON.stringify(data));
     yield put({
       type: GET_PROFILE_INFO,
       payload: data,
     });
-    localStorage.setItem("menuUser", JSON.stringify(data));
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (err) {

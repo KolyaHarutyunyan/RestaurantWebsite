@@ -27,9 +27,9 @@ export const SideSheetsDrawer = ({ handleClose }) => {
               <Images.RestaurantProfile className="restaurant-profile" />
             )}
             <span className={addClosed("restaurant-name", !open)}>
-              {getLimitedVal(restaurant?.name, 12)}
+              {getLimitedVal(restaurant?.name, 15)}
             </span>
-            <Images.Arrow className={addClosed("arrow", !open)} />
+            {/*<Images.Arrow className={addClosed("arrow", !open)} />*/}
           </div>
         </DrawerHeader>
         <SideSheetsList handleMenuClose={handleClose} />

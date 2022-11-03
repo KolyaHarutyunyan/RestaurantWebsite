@@ -27,7 +27,7 @@ export const SignUpForm = () => {
   }, [status]);
 
   const onSubmit = (data) => {
-    if (data.fullName.length >= 7) {
+    if (data.fullName.length >= 2) {
       dispatch(data);
     } else {
       setErrors("fullName");
@@ -54,9 +54,9 @@ export const SignUpForm = () => {
           max={20}
           icon={<BsPerson size={22} />}
           placeholder="Full Name"
-          {...register("fullName", { required: true, minLength: 0, maxLength: 20 })}
+          {...register("fullName", { required: true, minLength: 2, maxLength: 20 })}
           error={errors === "fullName"}
-          helper={errors === "fullName" && "Name min length must be 7 characters"}
+          helper={errors === "fullName" && "Name min length must be 2 characters"}
         />
         <Input
           border={"24px"}
@@ -123,8 +123,8 @@ export const SignUpForm = () => {
       <div className="term-of-use">
         <Typography color="text" className="social-text">
           By signing up, you agree to
-          <a className="sign-up-link" href={"/a"}>Terms of Use</a> and
-          <a className="sign-up-link" href={"/a"}>Privacy Policy</a>
+          <a className="sign-up-link" href={"/termsAndConditions"}>Terms of Use</a> and
+          <a className="sign-up-link" href={"/privacyPolicy"}>Privacy Policy</a>
         </Typography>
       </div>
     </Container>
