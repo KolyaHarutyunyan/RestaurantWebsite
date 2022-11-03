@@ -1,10 +1,11 @@
-import { Typography, Button, Input, useModal } from "@eachbase/components";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Container } from "./style";
 import { useRouter } from "next/router";
+import { Button, Input, useModal } from "@eachbase/components";
 import { useSagaStore, profileActions } from "@eachbase/store";
 import { MODAL_NAMES } from "@eachbase/constants";
-import { useEffect, useState } from "react";
+import { Container } from "./style";
+
 export const FormBox = () => {
   const router = useRouter();
   const resetToken = router.query.resetToken;
@@ -36,10 +37,10 @@ export const FormBox = () => {
 
   return (
     <Container>
-      <Typography color="text">
+      <p className='enter-your-password' color="text">
         Enter your new password.
         <br /> Use at least 8 characters, 1 upper case and 1 digit.
-      </Typography>
+      </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type="password"

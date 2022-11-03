@@ -31,6 +31,6 @@ export const profileService = {
   resetPassword: (data, token) =>
     axios.post("/auth/resetPassword", data, {
       headers: { "reset-token": token },
-      auth: false,
+      // auth: false,
     }),
 };

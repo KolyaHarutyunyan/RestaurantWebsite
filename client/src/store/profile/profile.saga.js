@@ -169,20 +169,17 @@ function* resetPassword({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const { data } = yield call(
-      profileService.resetPassword,
-      payload.data,
-      payload.token
-    );
+    const { data } = yield call(profileService.resetPassword, payload.data, payload.token);
     localStorage.setItem("token", data.token);
     try {
-      const { data } = yield call(profileService.userInfo, payload);
+      const userInfo = yield call(profileService.userInfo);
+      localStorage.setItem("menuUser", JSON.stringify(userInfo.data));
       yield put({
         type: PROFILE_SIGN_IN_SUCCESS,
-        payload: data,
+        payload: userInfo.data,
       });
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
       yield put(httpRequestsOnLoadActions.removeLoading(type));
+      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
       yield put(httpRequestsOnErrorsActions.removeError(type));
     } catch (err) {}
   } catch (err) {
