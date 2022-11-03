@@ -3,7 +3,8 @@ const userInfo = typeof window !== "undefined" && JSON.parse(localStorage.getIte
 
 
 export const sideSheetsList =
-  userInfo?.subscription ? [
+  // userInfo?.subscription ?
+    [
   {
     icon: <Images.Menus />,
     text: "Menus",
@@ -29,15 +30,15 @@ export const sideSheetsList =
     ],
   },
 ]
-:
-    [
-      {
-        icon: <Images.Settings />,
-        text: "Plans and Pricing",
-        path: "/plansAndPricing",
-        pathnames: ["/plansAndPricing/checkout"],
-      },
-    ]
+// :
+//     [
+//       {
+//         icon: <Images.Settings />,
+//         text: "Plans and Pricing",
+//         path: "/plansAndPricing",
+//         pathnames: ["/plansAndPricing/checkout"],
+//       },
+//     ]
 ;
 
 export const addActive = (item, pathName) => {
