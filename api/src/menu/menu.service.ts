@@ -51,6 +51,7 @@ export class MenuService {
   /** Update the menu fields */
   async edit(id: string, dto: EditMenuDTO): Promise<MenuDTO> {
     let menu = await this.model.findOne({ _id: id, owner: dto.user.id });
+    console.log(dto.user.id)
     this.checkMenu(menu);
     if (dto.name) menu.name = dto.name;
     if (dto.tagline) menu.tagline = dto.tagline;

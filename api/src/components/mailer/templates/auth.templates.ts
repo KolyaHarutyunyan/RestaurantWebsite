@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SendEmailCommandInput } from '@aws-sdk/client-ses';
 import { DOMAIN_NAME, COMPANY_EMAIL } from '../../../util/constants';
+import { ContactDTO } from '../dto';
 
 @Injectable()
 export class AuthTemplate {
@@ -71,4 +72,28 @@ export class AuthTemplate {
     };
     return input;
   };
+    /** For Testing only */
+    generateContactUsEmail = (dto: ContactDTO): SendEmailCommandInput => {
+      const input: SendEmailCommandInput = {
+        Destination: { ToAddresses: ['harryminasyan@gmail.com'] },
+        Source: 'eachbase@gmail.com',
+        Message: {
+          Subject: {
+            Charset: 'UTF-8',
+            Data: 'Contact Us',
+          },
+          Body: {
+            Html: {
+              Charset: 'UTF-8',
+              Data: `<html>
+                    <h1>${dto.message}</h1>
+                    
+                </html> `,
+            },
+          },
+        },
+        ReplyToAddresses: ['eachbase@gmail.com'],
+      };
+      return input;
+    };
 }

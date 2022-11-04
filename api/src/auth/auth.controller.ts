@@ -5,6 +5,7 @@ import { ChangePassDTO, ResetPassDTO, SessionDTO, SignedInDTO, SigninDTO } from 
 import { ACCESS_TOKEN, RESET_TOKEN } from './constants';
 import { ResetPassGuard } from './guards';
 import { Public } from 'src/util';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 @ApiTags('Authentication Endpoints')
@@ -41,11 +42,12 @@ export class AuthController {
 
   /** Reseting the password */
   @Post('resetPassword')
+  @UseGuards(new ResetPassGuard())
   @ApiBody({ type: ResetPassDTO })
   @ApiHeader({ name: RESET_TOKEN })
   @ApiOkResponse({ type: SignedInDTO })
-  @UseGuards(new ResetPassGuard())
   async resetPassword(@Body() resetPassDTO: ResetPassDTO): Promise<SignedInDTO> {
+    console.log(resetPassDTO, 'resetPassDTOresetPassDTO')
     const auth = await this.authService.resetPassword(resetPassDTO);
     return auth;
   }
