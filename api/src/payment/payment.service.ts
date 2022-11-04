@@ -1,15 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+import Stripe from 'stripe';
+import { SessionDTO } from '../auth';
+import { AuthService } from '../auth/auth.service';
 import { IItem } from '../item';
 import { ItemModel } from '../item/item.model';
-import { CreatePaymentDTO } from './dto/create.dto';
-import { EditWebhookDTO, UpdatePaymentDTO } from './dto/update.dto';
-import Stripe from 'stripe';
-import { Keys } from './payment.constants';
 import { BASE_URL } from '../util/constants';
-import { AuthService } from '../auth/auth.service';
-import { SessionDTO } from '../auth';
+import { CreatePaymentDTO } from './dto/create.dto';
 import { ProductDTO } from './dto/payment.dto';
+import { EditWebhookDTO } from './dto/update.dto';
+import { Keys } from './payment.constants';
 import { PaymentSanitizer } from './payment.sanitizer';
 
 const stripe = new Stripe(Keys.skey, {
@@ -89,7 +89,7 @@ export class PaymentService {
         // Then define and call a method to handle the successful attachment of a PaymentMethod.
         // handlePaymentMethodAttached(paymentMethod);
         break;
-      case 'payment_method.payment_failed':
+      case 'customer.created':
         const paymentFaile = event.data.object;
         item = await this.model.findById('6272182cbe4fb8640f63294e');
         item.testWebhook.push(paymentFaile);
@@ -134,7 +134,7 @@ export class PaymentService {
   }
 
   /** create the subscription */
-  async createSubscription(dto: CreatePaymentDTO): Promise<Stripe.Subscription> {
+  async createSubscription(dto: CreatePaymentDTO): Promise<any> {
     try {
       const customers = await stripe.customers.search({
         query: `email:'${dto.email}'`,
@@ -153,28 +153,29 @@ export class PaymentService {
         payment_method: dto.paymentMethod,
         invoice_settings: { default_payment_method: dto.paymentMethod },
       });
-      const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
-        items: [
-          {
-            price_data: {
-              currency: 'USD',
-              product: dto.productId,
-              unit_amount: dto.amount,
-              recurring: {
-                interval: 'month',
-              },
-            },
-          },
-        ],
-        payment_settings: {
-          payment_method_types: ['card'],
-          save_default_payment_method: 'on_subscription',
-        },
-        expand: ['latest_invoice.payment_intent'],
-      });
-      await this.authService.addPackage(dto.user.id, dto.productId);
-      return subscription;
+      // const subscription = await stripe.subscriptions.create({
+      //   customer: customer.id,
+      //   items: [
+      //     {
+      //       price_data: {
+      //         currency: 'USD',
+      //         product: dto.productId,
+      //         unit_amount: dto.amount,
+      //         recurring: {
+      //           interval: 'month',
+      //         },
+      //       },
+      //     },
+      //   ],
+      //   payment_settings: {
+      //     payment_method_types: ['card'],
+      //     save_default_payment_method: 'on_subscription',
+      //   },
+      //   expand: ['latest_invoice.payment_intent'],
+      // });
+      // await this.authService.addPackage(dto.user.id, dto.productId);
+      // return subscription;
+      return 'ok'
     } catch (e) {
       throw new HttpException(`Can not create subscription ${e}`, HttpStatus.BAD_REQUEST);
     }
@@ -255,6 +256,7 @@ export class PaymentService {
       const webhookEndpoint = await stripe.webhookEndpoints.create({
         url: `${BASE_URL}/payments`,
         enabled_events: [
+          'customer.created',
           'payment_intent.succeeded',
           'payment_intent.canceled',
           'payment_intent.payment_failed',
