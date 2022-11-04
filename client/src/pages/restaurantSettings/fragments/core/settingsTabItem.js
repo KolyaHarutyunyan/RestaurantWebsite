@@ -139,17 +139,10 @@ export const SettingsTabItem = () => {
             <UserInput
               key={index}
               inputClassName={addClosed("address-input", !open)}
-              required={false}
               inputLabel={addressInput.label}
               inputType={"text"}
-              inputName={addressInput.name}
-              value={address[addressInput.name] || ""}
-              onChange={(event) =>
-                setAddress((prevState) => ({
-                  ...prevState,
-                  [addressInput.name]: event.target.value,
-                }))
-              }
+              inputPlaceholder={address[addressInput.name]}
+              disabled={true}
             />
           ))}
         </div>
