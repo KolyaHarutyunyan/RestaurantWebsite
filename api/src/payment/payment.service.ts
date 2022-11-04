@@ -137,10 +137,10 @@ export class PaymentService {
   async createSubscription(dto: CreatePaymentDTO): Promise<Stripe.Subscription> {
     try {
       const customers = await stripe.customers.search({
-        query: `email:'ddd-959@mail.ru'`,
+        query: `email:'${dto.email}'`,
       });
       customers.data.forEach((customer) => {
-        if (customer.email === 'edgarc@eachbase.com') {
+        if (customer.email === dto.email) {
           throw new HttpException(
             `Can not create subscription, email must be unique`,
             HttpStatus.BAD_REQUEST,
@@ -148,13 +148,13 @@ export class PaymentService {
         }
       });
       const customer = await stripe.customers.create({
-        description: `email - ddd-959@mail.ru`,
-        email: 'dddv-959@mail.ru',
+        description: `email - ${dto.email}`,
+        email: dto.email,
         payment_method: dto.paymentMethod,
         invoice_settings: { default_payment_method: dto.paymentMethod },
       });
       const subscription = await stripe.subscriptions.create({
-        customer: 'customer.id',
+        customer: customer.id,
         items: [
           {
             price_data: {
@@ -183,7 +183,7 @@ export class PaymentService {
   /** update the subscription */
   async updateSubscription(user: SessionDTO, priceId: string): Promise<any> {
     const customer = await stripe.customers.search({
-      query: `email:'ddd-959@mail.ru'`,
+      query: `email:'${user.email}'`,
     });
     this.checkCustomer(customer);
     const subscriptions = await stripe.subscriptions.list({
@@ -223,7 +223,7 @@ export class PaymentService {
     page: number,
   ): Promise<Stripe.ApiList<Stripe.Subscription>> {
     const customer = await stripe.customers.search({
-      query: `email:'ddd-959@mail.ru'`,
+      query: `email:'${user.email}'`,
     });
     this.checkCustomer(customer);
     const subscriptions = await stripe.subscriptions.list({

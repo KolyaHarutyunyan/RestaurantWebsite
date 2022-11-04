@@ -220,7 +220,7 @@ export class AuthService {
   async decodeToken(token: string) {
     if (!token) {
       throw new HttpException(
-        'An access token must be set to access this resource  vvvv',
+        'An access token must be set to access this resource',
         HttpStatus.UNAUTHORIZED,
       );
     }
