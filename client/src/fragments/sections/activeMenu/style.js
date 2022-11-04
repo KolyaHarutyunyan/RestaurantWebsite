@@ -280,6 +280,12 @@ export const ModalContainer = styled.div`
   background: white;
   padding: 16px 15px;
 
+  .info-container {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .modal-image-wrapper {
     margin: 0 auto;
     display: flex;
@@ -378,8 +384,7 @@ export const ModalContainer = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 14px;
-
+    margin-bottom: 8px;
     .line {
       width: 60px;
       background: #2b273c80;
