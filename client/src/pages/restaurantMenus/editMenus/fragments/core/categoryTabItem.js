@@ -134,6 +134,8 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
       editCategorySaga?.destroy?.success();
     } else if (createProductSaga?.status?.onSuccess) {
       closeDrawer();
+      setImages(initialProductState.images);
+      setMainImageIndex(initialProductState.mainImage);
       createProductSaga?.destroy?.success();
     } else if (editProductSaga?.status?.onSuccess) {
       closeDrawer();
@@ -219,6 +221,7 @@ export const CategoryTabItem = ({ categoryName = "", categoryType = "" }) => {
   const handleProductAdd = () => {
     setChosenProduct(null);
     submitProductForm.reset(initialProductState);
+    setImages();
     setFormContentLabel(PRODUCT_FORM_ADD);
     toggleDrawer(_anchor, true);
   };
