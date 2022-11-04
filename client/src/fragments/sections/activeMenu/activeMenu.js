@@ -90,8 +90,11 @@ export const ActiveMenuSection = ({
                 </div>
                 <div style={{ width: "100%" }}>
                   <div className="menu-category">
-                    {menus[activeTab]?.length ?
-                      menus?.[activeTab].map((item, key) => item.items.length > 0 && item?.active && (
+                    {menus[activeTab]?.length
+                      ? menus?.[activeTab].map(
+                          (item, key) =>
+                            item.items.length > 0 &&
+                            item?.active && (
                               <div
                                 key={key}
                                 className="active-category-wrapper"
@@ -149,15 +152,23 @@ export const ActiveMenuSection = ({
                                           }
                                         >
                                           <div>
-                                            {item.item.images && item.item.images.length ? (
-                                              <img src={item.item.images[item.item.mainImage].url} alt="icon" />
+                                            {item.item.images &&
+                                            item.item.images.length ? (
+                                              <img
+                                                src={
+                                                  item.item.images[
+                                                    item.item.mainImage
+                                                  ].url
+                                                }
+                                                alt="icon"
+                                              />
                                             ) : (
                                               <div className="no-image">
-                                                {activeTab === 'food' ?
+                                                {activeTab === "food" ? (
                                                   <Icons.FoodIcon />
-                                                  :
+                                                ) : (
                                                   <Icons.DrinkIcon />
-                                                }
+                                                )}
                                               </div>
                                             )}
                                           </div>
@@ -168,13 +179,27 @@ export const ActiveMenuSection = ({
                                                 size={10}
                                                 data={item.item.name}
                                               />
-                                              <p style={{fontSize:'14px'}}>{`$${item?.item?.price.toString().search("\\.") === -1 ? `${item.item.price}.00` : item?.item?.price}`}</p>
+                                              <p
+                                                style={{ fontSize: "14px" }}
+                                              >{`$${
+                                                item?.item?.price
+                                                  .toString()
+                                                  .search("\\.") === -1
+                                                  ? `${item.item.price}.00`
+                                                  : item?.item?.price
+                                              }`}</p>
                                             </div>
                                             <p className="desc" color="text">
-                                              {getLimitedVal(item?.item?.description, 40)}
+                                              {getLimitedVal(
+                                                item?.item?.description,
+                                                40
+                                              )}
                                             </p>
                                             <p className="optional">
-                                              {getLimitedVal(item?.item?.note, 40)}
+                                              {getLimitedVal(
+                                                item?.item?.note,
+                                                40
+                                              )}
                                             </p>
                                           </div>
                                         </div>

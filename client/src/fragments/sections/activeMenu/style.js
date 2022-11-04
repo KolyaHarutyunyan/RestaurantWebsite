@@ -200,6 +200,7 @@ export const Container = styled.div`
   }
 
   .category-card {
+    cursor: pointer;
     display: flex;
     background: white;
     padding: 10px;
