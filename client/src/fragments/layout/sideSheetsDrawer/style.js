@@ -72,6 +72,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
     .side-sheet-item {
       position: relative;
       display: flex;
+      font-size: 14px;
       .side-sheet-item-button {
         max-width: 100%;
         width: 100%;
@@ -102,6 +103,7 @@ export const StyledSideSheetsDrawer = styled(Box)`
           }
           .side-sheet-item-text {
             font-weight: 600;
+            font-size: 14px;
           }
           svg.arrow {
             path {

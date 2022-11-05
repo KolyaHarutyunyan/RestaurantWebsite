@@ -46,8 +46,8 @@ export const ContactUsForm = () => {
         <UserInput
           inputLabel={"Email Address"}
           inputType={"email"}
-          inputName={"emailAddress"}
-          {...register("emailAddress", { required: true })}
+          inputName={"email"}
+          {...register("email", { required: true })}
         />
         <UserInput
           isTextArea={true}

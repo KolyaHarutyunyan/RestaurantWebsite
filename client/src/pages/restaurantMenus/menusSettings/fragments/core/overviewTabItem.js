@@ -35,7 +35,10 @@ export const OverviewTabItem = () => {
 
   const onSubmit = (data) => {
     data = {
-      ...handleOptionalField(data),
+      ...handleOptionalField({
+        name: data.name,
+        description: data.description,
+      }),
       businessId: restaurant?.id,
       id: menu?.id,
     };

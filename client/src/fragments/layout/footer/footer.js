@@ -39,7 +39,7 @@ export const Footer = () => {
   return (
     <Container>
       <div className="container-footer">
-        <div className="copyright">© 2021 Menuz. All Rights Reserved.</div>
+        <div className="copyright">© 2022 Menuz. All Rights Reserved.</div>
         <a className="contact-us-link" onClick={handleContactUsClick}>
           {"Contact Us"}
         </a>
