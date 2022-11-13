@@ -8,6 +8,7 @@ import { YourBusiness } from "./yourBusiness";
 import { Container } from "./style";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Payments } from "../payments/payments";
 
 export const HomePageSections = () => {
   const [loaded, setLoaded] = useState(false);
@@ -20,13 +21,15 @@ export const HomePageSections = () => {
   return (
     <LazyLoad loaded={loaded}>
       <Container>
-        <Hero/>
+        <Hero />
         <YourBusiness />
         <QRCode />
         <HowItWorks />
         <DigitalMenu />
+        <div id='free'/>
+        <Payments />
         <MenusAndMenuItems />
       </Container>
     </LazyLoad>
   );
-}
+};

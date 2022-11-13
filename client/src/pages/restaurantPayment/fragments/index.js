@@ -1,0 +1,1 @@
+export { RestaurantPaymentFragment } from "./restaurantPaymentFragment";

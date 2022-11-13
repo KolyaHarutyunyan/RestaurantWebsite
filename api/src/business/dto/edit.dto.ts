@@ -15,6 +15,10 @@ export class EditBusinessDTO {
   @ApiProperty({ required: false })
   website?: string;
   @ApiProperty({ required: false })
+  facebook?: string;
+  @ApiProperty({ required: false })
+  instagram?: string;
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsPhoneNumber('US')
   phoneNumber?: string;

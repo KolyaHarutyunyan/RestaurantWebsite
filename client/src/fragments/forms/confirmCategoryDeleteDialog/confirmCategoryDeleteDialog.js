@@ -16,7 +16,10 @@ export const ConfirmCategoryDeleteDialog = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (deleteCategorySaga.status.onSuccess || deleteCategoryFromMenuSaga.status.onSuccess) {
+    if (
+      deleteCategorySaga.status.onSuccess ||
+      deleteCategoryFromMenuSaga.status.onSuccess
+    ) {
       deleteCategorySaga.destroy.all();
       deleteCategoryFromMenuSaga.destroy.all();
       close();
@@ -47,10 +50,9 @@ export const ConfirmCategoryDeleteDialog = () => {
     <Container>
       <Typography className="title" color="text" weight="bold">
         Are You Sure?
-
       </Typography>
 
-      <p style={{fontSize:'16px'}}>Yoy wont Delete a Menu {params.name} </p>
+      <p style={{ fontSize: "16px" }}>Yoy wont Delete a Menu {params.name} </p>
       <div className="options">
         {/*<Radio*/}
         {/*    onChange={() => setSelectedOption("menu")}*/}
@@ -67,9 +69,13 @@ export const ConfirmCategoryDeleteDialog = () => {
       </div>
       <div className="actions">
         <Button
-            minWidth={ typeof window !== 'undefined' && window.innerWidth > 1279 ? '170px' : '140px'}
-            classname='button-class'
-            onLoad={
+          minWidth={
+            typeof window !== "undefined" && window.innerWidth > 1279
+              ? "170px"
+              : "140px"
+          }
+          classname="button-class"
+          onLoad={
             deleteCategorySaga.status.onLoad ||
             deleteCategoryFromMenuSaga.status.onLoad
           }
@@ -78,8 +84,16 @@ export const ConfirmCategoryDeleteDialog = () => {
           Delete
         </Button>
         <Button
-            minWidth={ typeof window !== 'undefined' && window.innerWidth > 1279 ? '170px' : '140px'}
-                   classname='button-class' onClick={() => close()}>Cancel</Button>
+          minWidth={
+            typeof window !== "undefined" && window.innerWidth > 1279
+              ? "170px"
+              : "140px"
+          }
+          classname="button-class"
+          onClick={() => close()}
+        >
+          Cancel
+        </Button>
       </div>
     </Container>
   );

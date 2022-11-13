@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsMongoId, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { FileDTO } from 'src/components/file';
 import { DTO } from 'src/util/dto';
 import { CategoryType } from '../menu.constants';
@@ -23,6 +23,14 @@ export class CreateCategoryDTO extends DTO {
   @ApiProperty()
   @IsString()
   name: string;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  description: string;
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  active: boolean;
   @ApiProperty({ enum: CategoryType })
   @IsEnum(CategoryType)
   type: CategoryType;

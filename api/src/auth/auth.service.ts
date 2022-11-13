@@ -64,6 +64,23 @@ export class AuthService {
     return loggedInDTO;
   }
 
+  /** add package */
+  async addPackage(ownerId: string, packageId: string): Promise<string> {
+    const auth = await this.model.findById({ _id: ownerId });
+    this.checkAuth(auth);
+    auth.package = packageId;
+    await auth.save();
+    return auth.package;
+  }
+  /** delete package */
+  async deletePackage(ownerId: string): Promise<string> {
+    const auth = await this.model.findById({ _id: ownerId });
+    this.checkAuth(auth);
+    auth.package = undefined;
+    await auth.save();
+    return auth.package;
+  }
+
   /**
    * @purpose - to determine whether the user trying to login to the system exists already or is a new user.
    *            The registration process can have the following 3 scenarios:

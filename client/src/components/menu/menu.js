@@ -3,12 +3,12 @@ import { createPortal } from "react-dom";
 import { Container } from "./style";
 
 export const Menu = ({
-  positionalElementRef,
+  positionalElementRef = {},
   width = null,
   open = false,
   onRequestToClose = () => {},
   children,
-                       left,
+  left,
 }) => {
   const menuRef = useRef();
   const [mounted, setMounted] = useState(false);
@@ -22,9 +22,9 @@ export const Menu = ({
       const interval = setInterval(() => {
         if (menuRef.current) {
           const menuPosInfo =
-            menuRef.current.firstChild.getBoundingClientRect();
+            menuRef.current?.firstChild.getBoundingClientRect();
           const positionalPosInfo =
-            positionalElementRef.current.getBoundingClientRect();
+            positionalElementRef.current?.getBoundingClientRect();
           clearInterval(interval);
 
           let generatedPosition = {
@@ -63,9 +63,10 @@ export const Menu = ({
       for (const nodeElement of path) {
         if (nodeElement instanceof Node) {
           if (menuRef.current) {
-            const isMenu = menuRef.current.isSameNode(nodeElement);
+            const isMenu = menuRef.current?.isSameNode(nodeElement);
             const isPositionalElement =
-                positionalElementRef.current &&  positionalElementRef.current.isSameNode(nodeElement);
+              positionalElementRef.current &&
+              positionalElementRef.current?.isSameNode(nodeElement);
             if (isMenu || isPositionalElement) {
               toggleMenu = false;
               break;
@@ -97,13 +98,15 @@ export const Menu = ({
 
   return createPortal(
     <Container
-      width={width || positionalElementRef.current.clientWidth}
+      width={width || positionalElementRef.current?.clientWidth}
       mounted={mounted}
       open={open}
       position={position}
       ref={menuRef}
     >
-      <div style={{marginLeft:left}} className="wrapper">{children}</div>
+      <div style={{ marginLeft: left }} className="wrapper">
+        {children}
+      </div>
       <div className="blur" onClick={() => onRequestToClose()} />
     </Container>,
     document.getElementsByTagName("body")[0]

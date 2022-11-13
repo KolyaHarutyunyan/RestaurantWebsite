@@ -3,6 +3,58 @@ import styled from "styled-components";
 export const Container = styled.div`
   text-align: center;
 
+.reduce-paper-box {
+  max-width: 1001px;
+  width: 100%;
+  margin: 0px auto 128px;
+  padding: 48px 132px;
+  background-color: #FF453A;
+  border: 1px solid #FF453A;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 1279px) {
+    max-width: 567px;
+    padding: 48px 80px;
+  }
+  @media (max-width: 768px) {
+    padding: 32px 36px;
+  }
+}
+.reduce-paper-text {
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 72px;
+  text-align: center;
+  color: #FFFFFF;
+  @media (max-width: 1279px) {
+    font-size: 32px;
+    line-height: 48px;
+  }
+  @media (max-width: 768px) {
+    font-size: 28px;
+    line-height: 42px;
+  }
+}
+.start-free-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  margin-bottom: 0px;
+  width: unset;
+  padding: 12px 60px;
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  transition: background-color 0.3s ease-in-out;
+}
+.start-free-btn:hover {
+  background-color: #BFBFBF;
+}
+
   .slider-slide {
     :focus {outline: none;}
   }

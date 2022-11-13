@@ -16,4 +16,8 @@ export class ItemDTO {
   mainImage?: number;
   @ApiProperty({ type: [FileDTO] })
   images?: FileDTO[];
+  @ApiProperty()
+  active: boolean;
+  @ApiProperty()
+  note: string;
 }

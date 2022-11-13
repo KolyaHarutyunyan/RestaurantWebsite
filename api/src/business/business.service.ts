@@ -37,9 +37,11 @@ export class BusinessService {
       phoneNumber: dto.phoneNumber,
       logo: dto.logo,
     });
+    if (dto.address) {
+      business.address = await this.addressService.getAddress(dto.address);
+    }
     const accessLink = `${DOMAIN_NAME}/menu?accessid=${business.id}`;
     business.qr = await this.fileService.generateQRCode(dto.user.id, accessLink);
-    console.log(business.qr);
     await business.save();
     return this.sanitizer.sanitize(business);
   }
@@ -50,10 +52,13 @@ export class BusinessService {
     this.checkBusiness(business);
     this.enforceOwner(dto.user.id, business.owner);
     if (dto.name) business.name = dto.name;
-    if (dto.description) business.description = dto.description;
-    if (dto.website) business.website = dto.website;
+    if (dto.description || dto.description === null) business.description = dto.description;
+    if (dto.website || dto.website === null) business.website = dto.website;
+    if (dto.facebook || dto.facebook === null) business.facebook = dto.facebook;
+    if (dto.instagram || dto.instagram === null) business.instagram = dto.instagram;
     if (dto.address) business.address = await this.addressService.getAddress(dto.address);
-    if (dto.phoneNumber) business.phoneNumber = dto.phoneNumber;
+    if (dto.address === null) business.address = null;
+    if (dto.phoneNumber || dto.phoneNumber === null) business.phoneNumber = dto.phoneNumber;
     if (dto.hours) business.hours = this.scheduleService.create(dto.hours);
     if (dto.logo) {
       if (business.logo) await this.fileService.deleteFile(dto.user.id, business.logo.id);

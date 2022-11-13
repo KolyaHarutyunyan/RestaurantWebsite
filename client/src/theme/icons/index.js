@@ -50,6 +50,19 @@ import HowDone from './svgs/howDone.svg';
 import AppleIcon from './svgs/appleFill.svg';
 import Success from './svgs/success.svg';
 import Error from './svgs/error.svg';
+import BackButton from './svgs/backButton.svg';
+import CheckPayment from './svgs/checkPayment.svg';
+import Status from './svgs/status.svg';
+import Price from './svgs/price.svg';
+import Date from './svgs/date.svg';
+import VisaCard from './svgs/visaCard.svg';
+import DeleteCard from './svgs/deleteCard.svg';
+import AddCard from './svgs/addCard.svg';
+import EyeIconShow from './svgs/eyeIcon.svg';
+import Subscriptions from './svgs/subscriptions.svg';
+import FacebookAk from './svgs/facebookAc.svg';
+import Instagram from './svgs/instagram.svg';
+import Website from './svgs/website.svg';
 
 export {
   AddIcon,
@@ -103,5 +116,18 @@ export {
   AppleIcon,
   Success,
   Error,
-  SmallIcon
+  SmallIcon,
+  BackButton,
+  CheckPayment,
+  Status,
+  Price,
+  Date,
+  VisaCard,
+  DeleteCard,
+  AddCard,
+  EyeIconShow,
+  Subscriptions,
+  FacebookAk,
+  Instagram,
+  Website,
 };

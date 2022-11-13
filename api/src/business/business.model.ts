@@ -13,6 +13,8 @@ const businessSchema = new Schema({
   status: { type: String, enum: [BusinessStatus], required: true },
   menus: [{ type: Types.ObjectId, ref: 'menu' }],
   website: { type: String },
+  facebook: { type: String },
+  instagram: { type: String },
   phoneNumber: { type: String },
   address: addressSchema,
   hours: WeekSchema,

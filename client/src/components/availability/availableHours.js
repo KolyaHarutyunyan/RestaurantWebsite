@@ -3,7 +3,7 @@ import { availabilityStyles } from './styles';
 import { FindLoad } from '@eachbase/utils';
 import { AvailableHourseBox } from './availableHourseBox';
 
-export const AvailableHours = ({ onModel, availabilityData, marginLeft }) => {
+export const AvailableHours = ({ availabilityData, marginLeft }) => {
     const classes = availabilityStyles();
     const load = FindLoad('GET_AVAILABILITY_SCHEDULE_GLOBAL');
 
@@ -27,7 +27,7 @@ export const AvailableHours = ({ onModel, availabilityData, marginLeft }) => {
     };
 
     return (
-        <div className={classes.availableHours} style={{ marginLeft: marginLeft ? marginLeft : '0', minHeight: 308 }}>
+        <div className={classes.availableHours} style={{ marginLeft: marginLeft ? marginLeft : '0' }}>
             <div className={classes.availableHoursBlock}>
                 {availabilityData && Array.isArray(availabilityData) === false ? (
                     Object.keys(availabilityData).map((item, index) => {

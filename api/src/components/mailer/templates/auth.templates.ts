@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SendEmailCommandInput } from '@aws-sdk/client-ses';
 import { DOMAIN_NAME, COMPANY_EMAIL } from '../../../util/constants';
+import { ContactDTO } from '../dto';
 
 @Injectable()
 export class AuthTemplate {
@@ -14,13 +15,13 @@ export class AuthTemplate {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Test Email',
+          Data: 'Password reset link',
         },
         Body: {
           Html: {
             Charset: 'UTF-8',
             Data: `<html>
-                <h1>Password Reset Form submitted for armat.org</h1>
+                <h1>Password Reset Form submitted for Menu Mango</h1>
                 <br>
                 <h3>Dear Customer</h3> <br>
                 <p>
@@ -36,7 +37,7 @@ export class AuthTemplate {
                 <a href=${url}>${displayUrl}</a>
                 <br>
                 <p>
-                    Thank you for being the best part of Armat and have a great day!
+                    Thank you for being the best part of Menu Mango and have a great day!
                 </p>
             </html> `,
           },
@@ -55,13 +56,13 @@ export class AuthTemplate {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Test Email',
+          Data: 'Password reset link',
         },
         Body: {
           Html: {
             Charset: 'UTF-8',
             Data: `<html>
-                  <h1>Password Reset Form submitted for Armat.com</h1>
+                  <h1>Password Reset Form submitted for Menumango.com</h1>
                   
               </html> `,
           },
@@ -71,4 +72,28 @@ export class AuthTemplate {
     };
     return input;
   };
+    /** For Testing only */
+    generateContactUsEmail = (dto: ContactDTO): SendEmailCommandInput => {
+      const input: SendEmailCommandInput = {
+        Destination: { ToAddresses: ['harryminasyan@gmail.com'] },
+        Source: 'eachbase@gmail.com',
+        Message: {
+          Subject: {
+            Charset: 'UTF-8',
+            Data: 'Contact Us',
+          },
+          Body: {
+            Html: {
+              Charset: 'UTF-8',
+              Data: `<html>
+                    <h1>${dto.message}</h1>
+                    
+                </html> `,
+            },
+          },
+        },
+        ReplyToAddresses: ['eachbase@gmail.com'],
+      };
+      return input;
+    };
 }

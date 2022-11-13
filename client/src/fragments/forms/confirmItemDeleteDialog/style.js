@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   .title {
     margin-bottom: 24px !important;
+    text-transform: capitalize;
   }
   .options {
     display: flex;
@@ -18,6 +19,7 @@ export const Container = styled.div`
       &:last-child {
         background-color: #2b273c1a;
         color: #2b273c;
+        margin-left: 16px;
       }
       border-radius: 10px !important;
       .b-fade {

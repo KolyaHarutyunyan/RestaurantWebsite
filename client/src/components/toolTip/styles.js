@@ -37,12 +37,8 @@ export const toolTipStyles = makeStyles(() => ({
         textOverflow:'ellipsis',
         width:'150px',
         textTransform:'uppercase',
-        "@media (min-width: 420px)": {
-            width:'190px',
-        },
         "@media (min-width: 767px)": {
-            width:'90%',
-            minWidth:'290px',
+            width:'190px',
         },
     },
     nameEllipsisDesc:{

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { MailerModule } from '../components/mailer';
-import { TwitterStrategy, FacebookStrategy, GoogleStrategy, AppleStrategy } from './strategies';
-import { AuthSanitizer } from './auth.sanitizer';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guards';
+import { MailerModule } from '../components/mailer';
+import { AuthController } from './auth.controller';
+import { AuthSanitizer } from './auth.sanitizer';
+import { AuthService } from './auth.service';
+import { AuthGuard, ResetPassGuard } from './guards';
+import { AppleStrategy, FacebookStrategy, GoogleStrategy, TwitterStrategy } from './strategies';
 
 @Module({
   exports: [AuthService, AppleStrategy],

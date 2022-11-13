@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
 export const Container = styled.div`
   max-width: 768px;
@@ -6,7 +7,7 @@ export const Container = styled.div`
   overflow-x:hidden ;
   overflow-y:scroll  ;
   height: 743px;
-  background: white;
+  background: ${colors.neautralLightGray};
   padding-bottom: 20px;
   .image {
     height: 100px;
@@ -19,6 +20,68 @@ export const Container = styled.div`
     background-color: white;
     border-radius: 44px 44px 0 0;
   }
+  
+  .image-name-wrapper{
+    height: auto;
+    width: 99.9%;
+    border-radius: 44px 44px 0 0;
+    padding: 18px 22px 10px;
+    background: white;
+  }
+  
+  .image-wrapper{
+    width: 31.12px;
+    height: 31.12px;
+    border-radius: 40px;
+    border: 2px solid #FFECEF;
+    margin-right: 10px;
+    
+    img{
+      width: 30px;
+      height: 30px;
+      border-radius: 40px;
+    }
+  }
+  
+  .welcome{
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #51566D;
+  }
+  
+  .rest-name{
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2A374E;
+    margin-top: 4px;
+  }
+  
+  .hr-style{
+    margin: 13px 0 10px;
+    border: 1px solid #E9E9E9;
+    background: transparent;
+  }
+  
+  .menu-name{
+    margin: 0 auto;
+    text-align: center;
+    font-family: Open Sans, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    //line-height: 24px;
+    color: #2A374E;
+  }
+  
+  .wrapper-img{
+    display: flex;
+  }
 
   .category-active {
     @media (max-width: 767px) {
@@ -29,7 +92,7 @@ export const Container = styled.div`
 
   .name {
     font-size: 18px;
-    margin: 39px 16px 39px 16px;
+    //margin: 39px 16px 39px 16px;
     position: absolute;
     color: white;
     font-family: Poppins, sans-serif;
@@ -51,7 +114,6 @@ export const Container = styled.div`
   //}
 
   .passive-category {
-
     font-size: 16px;
     padding: 0 23px;
     color: #2B273C80;
@@ -96,24 +158,47 @@ export const Container = styled.div`
       border-color: #2B273C1A
     }
   }
-  .menu-category{
-    background: white;
+  .tabs-wrapper{
+    background: ${colors.neautralLightGray};
     width: 100%;
-    padding-top: 25px;
-    overflow: auto;
+    margin: -1px 0 ;
+    padding: 11px 0;
+    
+  }
+  .menu-category{
+    border-bottom: 2px solid #2b273c1a;
+    background: ${colors.neautralLightGray};
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 0 0 -2px 0;
-    display: flex;
-    height: 60px;
-    border-bottom: 2px solid #2B273C1A;
+    display: -webkit-box;
+    
+    // background: ${colors.neautralLightGray};
+    // width: 100%;
+    // max-width: 400px;
+    // padding-top: 5px;
+    // margin: 0 0 -2px 0;
+    // display: flex;
+    // height: 40px;
+    // border-bottom: 2px solid #2B273C1A;
+    // overflow: scroll;
+    //
+    // width: 100%;
+    // overflow-x: auto;
+    // overflow-y: hidden;
+    // margin: 0 0 -2px 0;
+    // display: -webkit-box;
   }
   .category-card {
     display: flex;
     background: white;
-    margin-top: 16px;
-    width: 100%;
-    box-shadow: 0 0 6px #0000002a!important;
+    margin: 16px auto 0 auto;
+    border-radius: 8px;
+    width: 94%;
 
-    height: 109px;
+    height: auto;
+    min-height: 110px;
     padding: 10px;
 
     img {
@@ -128,9 +213,19 @@ export const Container = styled.div`
       height: 50px;
     }
   }
+  
+  .menu-description{
+    font-family: 'Open Sans',serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2A374E;
+    margin: 0 16px 8px 16px;
+  }
 
   .no-image {
-    width: 121px;
+    width: 89px;
     height: 89px;
     display: flex;
     justify-content: center;
@@ -138,7 +233,7 @@ export const Container = styled.div`
     border-radius: 8px;
     background-color: #0000001A;
     svg{
-      width: 89px;
+      width: 50px;
     }
   } 
   .no-image-icon {
@@ -155,7 +250,7 @@ export const Container = styled.div`
   }
 
   .price{
-    margin-right: 20px;
+    margin-right: 24px;
   }
   
   .card-info {

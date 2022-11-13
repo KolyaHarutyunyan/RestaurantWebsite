@@ -19,6 +19,8 @@ export class BusinessSanitizer implements ISanitize {
       description: business.description,
       logo: business.logo,
       website: business.website,
+      facebook: business.facebook,
+      instagram: business.instagram,
       phoneNumber: business.phoneNumber,
       hours: business.hours,
       address: this.addressSanitizer.sanitize(business.address),

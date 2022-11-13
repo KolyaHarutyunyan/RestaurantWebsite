@@ -5,8 +5,11 @@ export interface IItem extends Document {
   businessId: string;
   name: string;
   description?: string;
+  note: string;
   option?: string;
   price: number;
   mainImage?: number;
   images?: FileDTO[];
+  testWebhook: any;
+  active: boolean;
 }

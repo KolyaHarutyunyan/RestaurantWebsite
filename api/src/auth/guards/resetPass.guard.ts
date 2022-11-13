@@ -6,14 +6,14 @@ import {
   Injectable,
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { JWT_SECRET_FORGET_PASS } from '../constants';
+import { JWT_SECRET_FORGET_PASS, RESET_TOKEN } from '../constants';
 import { IToken } from '../interface';
 
 @Injectable()
 export class ResetPassGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = request.get('reset-token');
+    const token = request.get(RESET_TOKEN);
     // check if the token is valid
     const decoded: IToken = await this.decodeToken(token);
     request.body.email = decoded.email;

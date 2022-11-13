@@ -14,6 +14,8 @@ export class ItemSanitizer implements ISanitize {
       option: item.option,
       mainImage: item.mainImage,
       images: item.images,
+      active: item.active,
+      note: item.note,
     };
     return sanitizedItem;
   }

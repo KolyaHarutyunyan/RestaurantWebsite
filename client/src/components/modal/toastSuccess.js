@@ -13,9 +13,10 @@ export const ToastSuccess =(success)=>{
            success === 'DELETE_CATEGORY_ITEM' ? 'Item was deleted' :
            success === 'CREATE_ITEM' ? 'Item was Created' :
            success === 'UPDATE_ITEM' ? 'Item was edited' :
-           success === 'SWITCH_MENU_STATUS' ? 'Menu status was edited' :
+           // success === 'SWITCH_MENU_STATUS' ? 'Menu status was edited' :
            success === 'UPDATE_PROFILE_INFO' ? 'Profile was edited' :
            success === 'UPDATE_PROFILE_PASSWORD' ? 'Password was edited' :
+           success === 'FREE_PACKAGE_WAS_ACTIVATED' ? 'Starter package was activated' :
            false
        )
     }

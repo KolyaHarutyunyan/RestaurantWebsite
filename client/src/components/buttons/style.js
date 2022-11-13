@@ -1,24 +1,24 @@
 import styled from "styled-components";
+import { colors } from "@eachbase/theme";
 
-const colors = {
+const buttonColors = {
   active: "#FF453A",
   default: "#2B273C1A",
   action: "#007AFF",
 };
-export const EditSave =styled.div`
+export const EditSave = styled.div`
   margin-bottom: -2px;
   .classes-close-button {
     color: rgba(28, 26, 38, 0.6);
     margin-right: 16px;
     font-size: 18px;
   }
-
-`
+`;
 
 export const ButtonContainer = styled.button`
   position: relative;
-  min-width: ${({ link }) => (link ? "fit-content" : "160px")};
-  height: 44px;
+  min-width: ${({ link }) => (link ? "fit-content" : "auto")};
+  height: 48px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   border-radius: ${({ square }) => (square ? "8px" : "24px")};
   border: 1px solid;
@@ -56,20 +56,20 @@ export const ButtonContainer = styled.button`
       return `
         background-color: transparent;
         border-color: transparent;
-        color: ${color === "default" ? "#2B273C" : colors[color]};
+        color: ${color === "default" ? "#2B273C" : buttonColors[color]};
       `;
     }
     if (outlined) {
       return `
-        border-color: ${color === "default" ? "#2B273C" : colors[color]};
-        color: ${color === "default" ? "#2B273C" : colors[color]};
+        border-color: ${color === "default" ? "#2B273C" : buttonColors[color]};
+        color: ${color === "default" ? "#2B273C" : buttonColors[color]};
         background-color: transparent;
       `;
     }
     return `
         border-color: transparent;
         color: ${color === "default" ? "#2B273C" : "white"};
-        background-color: ${colors[color]};
+        background-color: ${buttonColors[color]};
     `;
   }}
 `;
@@ -80,4 +80,35 @@ export const FabContainer = styled.button`
   outline: 0;
   border-radius: 50%;
   box-shadow: 0px 0px 12px 0px #e2e2e2;
+`;
+
+export const StyledSaveOrCancelButton = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  max-width: 583px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 24px;
+  button {
+    max-width: 284px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    &.cancel-button {
+      background-color: #f5f5f5;
+      color: ${colors.secondary};
+    }
+    &.save-button {
+      background-color: ${colors.primary};
+      color: ${colors.white};
+    }
+    @media (max-width: 1279px) {
+      max-width: 276px;
+    }
+  }
 `;

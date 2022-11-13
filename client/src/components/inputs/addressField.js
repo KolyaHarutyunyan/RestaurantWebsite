@@ -1,84 +1,81 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
-import { inputsStyle } from "./style";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { StyledAddressInput } from "./style";
+import axios from "axios";
+
 export const AddressInput = ({
-  handleChangeValue,
-  handleSelectValue,
   disabled,
   disableLabels,
   Value,
+  setFullAddress,
+  setFormattedAddress,
 }) => {
-  const classes = inputsStyle();
   const [address, setAddress] = useState("");
 
-  const handleChange = (value) => {
-    setAddress(value);
-    handleChangeValue(value);
-  };
+  useEffect(() => {
+    setFormattedAddress && setFormattedAddress(address);
+  }, [address]);
 
-  const handleSelect = (value) => {
-    handleSelectValue(value);
-    setAddress(value);
+  const handleSelect = async (value, ev) => {
+    try {
+      const response = await axios.post(`/address`, { address: value });
+      setFullAddress({
+        country: response.data?.country,
+        city: response.data?.city,
+        state: response.data?.state,
+        zip: response.data?.zip,
+      });
+      setFormattedAddress(response.data?.formattedAddress);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const disable = disabled ? disabled === "Online" : true;
-  const placeholder = Value ? Value : "Search address...";
 
   return (
-    <PlacesAutocomplete
-      value={address}
-      onChange={handleChange}
-      onSelect={handleSelect}
-    >
-      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div style={{ cursor: "pointer" }}>
-          <div
-            className={
-              disable || disableLabels
-                ? classes.SearchAddressDisable
-                : classes.SearchAddress
-            }
-          >
-            <div className={classes.Icon}>
-              <FaMapMarkedAlt />
-            </div>
-            <input
-              className={`${classes.Input} ${
-                disable || disableLabels ? classes.disabledInput : ""
+    <StyledAddressInput>
+      <PlacesAutocomplete
+        value={Value || address}
+        onChange={(value) => setAddress(value)}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div className="search-address-wrapper">
+            <div
+              className={`search-address ${
+                disable || disableLabels ? "disabled" : ""
               }`}
-              {...getInputProps({
-                placeholder: placeholder,
-                disabled: disableLabels ? disableLabels : disable,
-              })}
-            />
-          </div>
-          <div className={classes.searchAddressDescription}>
-            {loading && <div>Loading...</div>}
-            {suggestions.map((suggestion, index) => {
-              const className = suggestion.active
-                ? "suggestion-item--active"
-                : "suggestion-item";
-              const style = suggestion.active
-                ? { backgroundColor: "#fafafa", cursor: "pointer", margin:'10px 20px 0 20px' , }
-                : { backgroundColor: "#ffffff", cursor: "pointer",margin:'10px 20px 0 20px' , };
-              return (
+            >
+              {/* <div className="icon"><FaMapMarkedAlt /></div> */}
+              <input
+                className="search-address-input"
+                value={address}
+                {...getInputProps({
+                  disabled: disableLabels ? disableLabels : disable,
+                })}
+              />
+            </div>
+            <div className="search-address-description">
+              {loading && <div>Loading...</div>}
+              {suggestions.map((suggestion, index) => (
                 <div
                   key={index}
                   {...getSuggestionItemProps(suggestion, {
-                    className,
-                    style,
+                    className: `suggestion-item ${
+                      suggestion.active ? "active" : ""
+                    }`,
                   })}
                 >
-                  <span className={classes.searchAddressDescriptionText}>
+                  <span className="description-text">
                     {suggestion.description}
                   </span>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </PlacesAutocomplete>
+        )}
+      </PlacesAutocomplete>
+    </StyledAddressInput>
   );
 };

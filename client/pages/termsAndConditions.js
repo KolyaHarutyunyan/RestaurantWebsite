@@ -1,11 +1,6 @@
-import {TermsConditionsPage} from "@eachbase/pages";
-import {Layout} from "@eachbase/fragments";
+import { TermsConditionsPage } from "@eachbase/pages";
 
 const TermsAndConditions = () => {
-    return (
-        <Layout>
-            <TermsConditionsPage/>
-        </Layout>
-    )
-}
+  return <TermsConditionsPage />;
+};
 export default TermsAndConditions;

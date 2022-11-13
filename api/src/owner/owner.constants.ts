@@ -5,3 +5,7 @@ export const summaries = {
   EDIT_INFO: `Change the fullname and email of the account`,
   CLOSE_ACCOUNT: `Closes the user account. This does not delete the account, but sets the status as closed`,
 };
+export enum Package {
+  NOPACKAGE = 'NOPACKAGE',
+  TWENTYFIVE = 'TWENTYFIVE',
+}

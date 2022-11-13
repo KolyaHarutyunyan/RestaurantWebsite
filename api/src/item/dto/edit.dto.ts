@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { SessionDTO } from 'src/auth';
 import { FileDTO } from 'src/components/file';
 
@@ -24,7 +24,14 @@ export class EditItemDTO {
   imagesToAdd?: FileDTO[];
   @ApiProperty({ type: [FileDTO], required: false })
   imagesToRemove?: FileDTO[];
-
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  active: boolean;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  note: string;
   /** set by the system */
   user: SessionDTO;
 }

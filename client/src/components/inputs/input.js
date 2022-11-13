@@ -11,15 +11,15 @@ export const Input = forwardRef(
       error = false,
       containerClassName = "",
       type = "text",
-        handleBlur,
-        sendBoolean,
-        validator,
-        max,
-        helperColo,
-        border,
-        padding,
-        autoComplete,
-        handleChange,
+      handleBlur,
+      sendBoolean,
+      validator,
+      max,
+      helperColo,
+      border,
+      padding,
+      autoComplete,
+      handleChange,
       ...rest
     },
     ref
@@ -53,33 +53,34 @@ export const Input = forwardRef(
         required={required}
         className={containerClassName}
       >
-        <div style={{borderRadius:border, padding:padding}} className="main-container">
+        <div style={{ borderRadius: border, padding: padding }} className="main-container">
           <div className="icon-container">{icon}</div>
           <div className="input-container">
-              {type === 'no' ?
-                  <input
-                      name="foo"
-                      autoComplete="off"
-                      onChange={handleChange}
-                      maxLength={max}
-                      ref={ref}
-                      type={'text'}
-                      {...rest}
-                  />
-                  :
-                  <input
-                      onChange={handleChange}
-                      autoComplete="new-password"
-                      maxLength={max}
-                      ref={ref}
-                      type={type === "password" ? currentType : type}
-                      {...rest}
-                  />
-              }
+            {type === "no" ?
+              <input
+                name="foo"
+                autoComplete="off"
+                onChange={handleChange}
+                maxLength={max}
+                ref={ref}
+                type={"text"}
+                {...rest}
+              />
+              :
+              <input
+                onChange={handleChange}
+                autoComplete="new-password"
+                maxLength={max}
+                ref={ref}
+                type={type === "password" ? currentType : type}
+                {...rest}
+              />
+            }
             {renderControllerEye()}
           </div>
         </div>
-        <div style={helperColo && {color:'#FF453A'}} className="helper-container">{helper}</div>
+        <div style={{ color: helperColo ? helperColo : helperColo === "gray" ? "#BFBFBF" : "#FF453A" }}
+             className="helper-container">{helper}</div>
       </InputContainer>
     );
   }

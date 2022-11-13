@@ -1,8 +1,9 @@
 import {
   CREATE_CATEGORY,
   DELETE_CATEGORY,
+  EDIT_CATEGORY,
   GET_CATEGORIES,
-  ADD_CATEGORY_INTO_MENU,
+  REORDER_CATEGORIES,
 } from "./categories.types";
 
 export const categoriesActions = {
@@ -14,8 +15,16 @@ export const categoriesActions = {
     type: CREATE_CATEGORY,
     payload: { data, menuId, categoryType },
   }),
-  delete: (menuId, categoryId, categoryType) => ({
+  editCategory: (data, menuId, categoryId) => ({
+    type: EDIT_CATEGORY,
+    payload: { data, menuId, categoryId },
+  }),
+  deleteCategory: (menuId, categoryId, categoryType) => ({
     type: DELETE_CATEGORY,
     payload: { menuId, categoryId, categoryType },
+  }),
+  reorder: (menuId, categType, move) => ({
+    type: REORDER_CATEGORIES,
+    payload: { menuId, categType, move },
   }),
 };

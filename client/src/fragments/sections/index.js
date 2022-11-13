@@ -5,6 +5,7 @@ export { MenuPageSections } from "./menuPage";
 export { PreviewPageSections } from "./previewPage";
 export { NotFoundPageSections } from "./notFoundPage";
 export { ResetPasswordPageSections } from "./resetPasswordPage";
-export { ActiveMenuSection } from './activeMenu'
-export { PrivacyPolicySection } from './privacyPolicy'
-export { TermsConditionsSection } from './termsConditions'
+export { ActiveMenuSection } from './activeMenu';
+export { PrivacyPolicySection } from './privacyPolicy';
+export { TermsConditionsSection } from './termsConditions';
+export { Payments, BillingPage, PayInfo, InvoiceInfo } from './payments'

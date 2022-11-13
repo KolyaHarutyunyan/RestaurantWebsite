@@ -13,6 +13,10 @@ export class CategoryDTO {
   id: string;
   @ApiProperty()
   name: string;
+  @ApiProperty()
+  active: boolean;
+  @ApiProperty()
+  description: string;
   @ApiProperty({ type: [MenuItemDTO] })
   items: MenuItemDTO[];
 }
@@ -34,4 +38,5 @@ export class MenuDTO {
   food?: CategoryDTO[];
   @ApiProperty({ type: [CategoryDTO], required: false })
   drinks?: CategoryDTO[];
+  updatedDate: Date;
 }

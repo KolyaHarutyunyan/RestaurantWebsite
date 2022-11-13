@@ -34,7 +34,7 @@ export const Container = styled.div`
     .qr-button {
       display: flex;
       align-items: center;
-      color: ${colors.typography.active} !important;
+      color: ${colors.action} !important;
       font-size: 16px;
       @media (max-width: 767px) {
         font-size: 14px;

@@ -1,11 +1,6 @@
-import {PrivacyPolicyPage,} from "@eachbase/pages";
-import {Layout} from "@eachbase/fragments";
+import { PrivacyPolicyPage } from "@eachbase/pages";
 
 const PrivacyPolicy = () => {
-    return (
-        <Layout>
-            <PrivacyPolicyPage/>
-        </Layout>
-    )
-}
+  return <PrivacyPolicyPage />;
+};
 export default PrivacyPolicy;

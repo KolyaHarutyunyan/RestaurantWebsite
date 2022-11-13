@@ -10,6 +10,7 @@ export {
   ConfirmCategoryDeleteDialog,
   MenuItemForm,
   ConfirmItemDeleteDialog,
+  ContactUsForm,
 } from "./forms";
 export {
   CheckEmailHelper,
@@ -29,4 +30,8 @@ export {
   ResetPasswordPageSections,
   PrivacyPolicySection,
   TermsConditionsSection,
+  Payments,
+  BillingPage,
+  PayInfo,
+  InvoiceInfo,
 } from "./sections";

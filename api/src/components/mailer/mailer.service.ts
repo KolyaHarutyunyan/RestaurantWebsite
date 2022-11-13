@@ -1,6 +1,7 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { Injectable } from '@nestjs/common';
 import { NotificationType } from 'src/util/constants';
+import { ContactDTO } from './dto';
 import { SendMailDTO } from './dto/sendMail.dto';
 import { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SES_REGION } from './mailer.constants';
 import { AuthTemplate } from './templates';
@@ -21,6 +22,12 @@ export class MailerService {
   //TestMail
   sendTestMail = async () => {
     const mailOptions = this.authTemplate.generateTestEmail();
+    return await this.mailer.send(new SendEmailCommand(mailOptions));
+  };
+
+  /** Contact Us */
+  contactUs = async (dto: ContactDTO) => {
+    const mailOptions = this.authTemplate.generateContactUsEmail(dto);
     return await this.mailer.send(new SendEmailCommand(mailOptions));
   };
 

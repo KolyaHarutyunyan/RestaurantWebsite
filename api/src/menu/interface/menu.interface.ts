@@ -12,10 +12,13 @@ export interface IMenu extends Document {
   drinks: IMenuCategory[];
   food: IMenuCategory[];
   isActive: boolean;
+  updatedDate: Date;
 }
 
 export interface IMenuCategory extends Document {
   name: string;
+  description: string;
+  active: boolean;
   items: IMenuItem[];
 }
 

@@ -12,6 +12,7 @@ export interface IAuth extends Document {
   sessions: string[];
   role: Role;
   status: AccountStatus;
+  package: string;
   /**Mathods */
   comparePassword?: any;
 }

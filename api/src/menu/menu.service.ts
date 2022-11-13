@@ -17,6 +17,7 @@ import { ReorderDTO } from '../util/dto/reorder.dto';
 import { FileService } from 'src/components/file/file.service';
 import { SessionDTO } from 'src/auth';
 import { IMenuItem } from './interface/menu.interface';
+import { DTO } from 'src/util/dto';
 
 @Injectable()
 export class MenuService {
@@ -37,8 +38,8 @@ export class MenuService {
       businessId: dto.businessId,
       name: dto.name,
       isActive: false,
-      foodCategories: [],
-      drinkCategories: [],
+      food: [],
+      drinks: [],
       description: dto.description,
       tagline: dto.tagline,
       image: dto.image,
@@ -50,15 +51,17 @@ export class MenuService {
   /** Update the menu fields */
   async edit(id: string, dto: EditMenuDTO): Promise<MenuDTO> {
     let menu = await this.model.findOne({ _id: id, owner: dto.user.id });
+    console.log(dto.user.id)
     this.checkMenu(menu);
     if (dto.name) menu.name = dto.name;
     if (dto.tagline) menu.tagline = dto.tagline;
-    if (dto.description) menu.description = dto.description;
+    if (dto.description || dto.description === null) menu.description = dto.description;
     if (dto.image) menu.image = dto.image;
     if (dto.removeImage && menu.image) {
       await this.fileService.deleteFile(dto.user.id, menu.image.id);
       menu.image = undefined;
     }
+    menu.updatedDate = new Date();
     menu = await menu.save();
     return await this.fillMenu(menu);
   }
@@ -81,7 +84,10 @@ export class MenuService {
   /** Gets the menus for the business */
   async getByBusinessId(businessId: string, user: SessionDTO): Promise<MenuDTO[]> {
     await this.bsnService.validateOwner(user.id, businessId);
-    const menus = await this.model.find({ businessId });
+    const menus: any = await this.model
+      .find({ businessId })
+      .populate('food.items.item')
+      .populate('drinks.items.item');
     return this.sanitizer.sanitizeMany(menus);
   }
 
@@ -120,6 +126,8 @@ export class MenuService {
     const categories = this.getCategories(menu, dto.type);
     categories.unshift({
       name: dto.name,
+      description: dto.description,
+      active: dto.active === false ? false : true,
       items: [],
     } as IMenuCategory);
     await menu.save();
@@ -134,6 +142,8 @@ export class MenuService {
     const categories = this.getCategories(menu, dto.type);
     const category = categories.find((cat) => cat._id.toString() === categoryId);
     category.name = dto.name;
+    category.active = dto.active;
+    if (dto.description || dto.description === null) category.description = dto.description;
     await menu.save();
     return await this.fillMenu(menu);
   }
@@ -200,9 +210,9 @@ export class MenuService {
     this.checkMenu(menu);
     await this.bsnService.validateOwner(userId, menu.businessId.toString());
     const category = this.findCategory(menu, type, catId);
-    console.log(category);
-    const index = category.items.findIndex((item) => item._id.toString() === itemId);
-    console.log(index);
+    const index = category.items.findIndex((item: any) => {
+      return item.item._id.toString() === itemId;
+    });
     if (index < 0) {
       throw new HttpException('Item was not found in this category', HttpStatus.NOT_FOUND);
     }

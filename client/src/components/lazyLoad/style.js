@@ -31,7 +31,6 @@ export const Container = styled.div`
         transform: scale(2);
       }
       transform: scale(4);
-      
     }
   }
 `;

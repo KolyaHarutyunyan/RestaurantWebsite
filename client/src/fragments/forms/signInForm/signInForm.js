@@ -1,19 +1,22 @@
-import { Container } from "./style";
-import { Input, Typography, Button, Fab, useModal } from "@eachbase/components";
-import { Icons } from "@eachbase/theme";
-import { profileActions, useSagaStore } from "@eachbase/store";
-import { API_BASE, MODAL_NAMES } from "@eachbase/constants";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Link } from "@material-ui/core";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { Container } from "./style";
+import { Input, Typography, Button, useModal } from "@eachbase/components";
+import { Icons } from "@eachbase/theme";
+import { profileActions, useSagaStore } from "@eachbase/store";
+import { MODAL_NAMES } from "@eachbase/constants";
+import { userInfo } from "@eachbase/utils";
 
 export const SignInForm = () => {
   const { open, close } = useModal();
-
   const profile = useSelector((state) => state.profile);
   const { status, destroy, dispatch } = useSagaStore(profileActions.signIn);
   const { register, handleSubmit, reset, setValue } = useForm();
+  const router = useRouter();
+
   useEffect(() => {
     return () => destroy.all();
   }, [profile]);
@@ -23,6 +26,18 @@ export const SignInForm = () => {
       destroy.all();
       reset();
       close();
+      axios.get(`/businesses/mybusiness`, { auth: true }).then((res) => {
+        if(userInfo?.subscription){
+          router.push("/menus");
+        }else{
+          router.push("/plansAndPricing");
+        }
+       }
+      ).catch((err) => {
+        if(err?.data?.message === 'business with this information was not found'){
+          open(MODAL_NAMES.CREATE_RESTAURANT)
+        }
+      })
     }
   }, [status]);
 
@@ -31,9 +46,9 @@ export const SignInForm = () => {
   // const handleSignUp = (type) => {
   //   dispatcher(profileActions.socialSignUp(type));
   // };
-    const handleSignUp = (type) => {
-        dispatcher(profileActions.socialSignUp(type))
-    }
+  const handleSignUp = (type) => {
+    dispatcher(profileActions.socialSignUp(type));
+  };
 
   return (
     <Container>
@@ -97,7 +112,7 @@ export const SignInForm = () => {
         link
         onClick={() => open(MODAL_NAMES.SIGN_UP)}
       >
-        Don't have an account? <span style={{ color:'#007AFF' }}>Sign Up</span>
+        Don't have an account? <span style={{ color: "#007AFF" }}>	&nbsp;Sign Up</span>
       </Button>
     </Container>
   );

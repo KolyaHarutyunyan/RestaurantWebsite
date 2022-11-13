@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsMongoId, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { SessionDTO } from 'src/auth';
 import { FileDTO } from 'src/components/file';
 
@@ -12,7 +12,7 @@ export class CreateItemDTO {
   description?: string;
   @ApiProperty({ required: false })
   @Type(() => Number)
-  @IsOptional()
+  @IsNotEmpty()
   price?: number;
   @ApiProperty({ required: false })
   option?: string;
@@ -23,7 +23,10 @@ export class CreateItemDTO {
   @ApiProperty()
   @IsMongoId()
   businessId: string;
-
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  note: string;
   /** set by the system */
   user: SessionDTO;
 }

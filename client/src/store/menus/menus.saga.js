@@ -1,34 +1,37 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
   CREATE_MENU,
-  CREATE_MENU_SUCCESS,
   EDIT_MENU,
   EDIT_MENU_SUCCESS,
   GET_MENUS,
   GET_MENUS_SUCCESS,
   SWITCH_MENU_STATUS,
-  SWITCH_MENU_STATUS_SUCCESS,
   GET_CURRENT_MENU,
   GET_CURRENT_MENU_SUCCESS,
   DELETE_MENU,
-  DELETE_MENU_SUCCESS, GET_ACTIVE_MENUS, GET_ACTIVE_MENUS_SUCCESS, GET_BUSINESS_MENU, GET_BUSINESS_MENU_SUCCESS,
+  GET_ACTIVE_MENUS,
+  GET_ACTIVE_MENUS_SUCCESS,
+  GET_BUSINESS_MENU,
+  GET_BUSINESS_MENU_SUCCESS,
 } from "./menus.types";
 import { menusService } from "./menus.service";
-import { imageService } from "../imageService";
 import { httpRequestsOnErrorsActions } from "../http_requests_on_errors";
 import { httpRequestsOnLoadActions } from "../http_requests_on_load";
 import { httpRequestsOnSuccessActions } from "../http_requests_on_success";
+import Router from "next/router";
 
 function* getMenus({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
-  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  if (payload.load !== "noLoad") {
+    yield put(httpRequestsOnLoadActions.appendLoading(type));
+  }
   try {
-    const res = yield call(menusService.getMenusByBusiness, payload);
+    const res = yield call(menusService.getMenusByBusiness, payload.businessId);
     yield put({
       type: GET_MENUS_SUCCESS,
       payload: res.data,
     });
-    yield put(httpRequestsOnLoadActions.removeLoading('REMOVE_IMAGE'));
+    yield put(httpRequestsOnLoadActions.removeLoading("REMOVE_IMAGE"));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put(httpRequestsOnLoadActions.removeLoading(type));
   } catch (e) {
@@ -56,9 +59,11 @@ function* getActiveMenus({ payload, type }) {
 
 function* getBusinessMenu({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
-  yield put(httpRequestsOnLoadActions.appendLoading(type));
+  if (payload.load !== "noLoad") {
+    yield put(httpRequestsOnLoadActions.appendLoading(type));
+  }
   try {
-    const res = yield call(menusService.getBusinessMenu, payload);
+    const res = yield call(menusService.getBusinessMenu, payload.menuId);
     yield put({
       type: GET_BUSINESS_MENU_SUCCESS,
       payload: res.data,
@@ -75,49 +80,53 @@ function* editMenu({ payload, type }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-    try {
-      const {data} = yield call(menusService.editMenu, payload);
-      if(payload.current === 'current') {
-        const { data } = yield call(menusService.getCurrentMenu, payload.id);
-        yield put({
-          type: GET_CURRENT_MENU,
-          payload: payload.id,
-        });
-      }else{
-        const res = yield call(menusService.getMenusByBusiness, payload.businessId);
-        yield put({
-          type: EDIT_MENU_SUCCESS,
-          payload: res.data,
-        });
-      }
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnErrorsActions.removeError(type));
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (e) {
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-      yield put(httpRequestsOnErrorsActions.appendError(type));
+  try {
+    const { data } = yield call(menusService.editMenu, payload);
+    if (payload.current === "current") {
+      const { data } = yield call(menusService.getCurrentMenu, payload.id);
+      yield put({
+        type: GET_CURRENT_MENU,
+        payload: payload.id,
+      });
+    } else {
+      const res = yield call(
+        menusService.getMenusByBusiness,
+        payload.businessId
+      );
+      yield put({
+        type: EDIT_MENU_SUCCESS,
+        payload: res.data,
+      });
     }
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
 }
 
 function* createMenu({ type, payload }) {
   yield put(httpRequestsOnErrorsActions.removeError(type));
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
-    try {
-      const { data } = yield call(menusService.createMenu, payload);
-      yield put({
-        type: GET_MENUS,
-        payload: payload.businessId,
-      });
-      yield put(httpRequestsOnErrorsActions.removeError(type));
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.appendSuccess(type));
-    } catch (e) {
-      yield put(httpRequestsOnLoadActions.removeLoading(type));
-      yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-      yield put(httpRequestsOnErrorsActions.appendError(type));
-    }
+  try {
+    const res = yield call(menusService.createMenu, payload);
+    yield put({
+      type: GET_MENUS,
+      payload: { businessId: payload.businessId,  },
+    });
+    // Router.push(`/menus/settings?menuId=${res.data.id}`);
+    yield put(httpRequestsOnErrorsActions.removeError(type));
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.appendSuccess(type));
+  } catch (e) {
+    yield put(httpRequestsOnLoadActions.removeLoading(type));
+    yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    yield put(httpRequestsOnErrorsActions.appendError(type));
+  }
 }
 
 function* switchMenuStatus({ type, payload }) {
@@ -125,12 +134,12 @@ function* switchMenuStatus({ type, payload }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    yield call(menusService.switchMenuStatus, payload);
+    yield call(menusService.switchMenuStatus, payload.menuId);
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
     yield put({
-      type: SWITCH_MENU_STATUS_SUCCESS,
-      payload: payload.menuId,
+      type: GET_MENUS,
+      payload: { businessId: payload.businessId, load: "noLoad" },
     });
     yield put(httpRequestsOnSuccessActions.appendSuccess(type));
   } catch (e) {
@@ -141,10 +150,10 @@ function* switchMenuStatus({ type, payload }) {
 }
 
 function* getCurrentMenu({ payload, type }) {
-  if(payload.load !== 'noLoad') {
-  // yield put(httpRequestsOnErrorsActions.removeError(type));
-  // yield put(httpRequestsOnSuccessActions.removeSuccess(type));
-  // yield put(httpRequestsOnLoadActions.appendLoading(type));
+  if (payload.load !== "noLoad") {
+    // yield put(httpRequestsOnErrorsActions.removeError(type));
+    // yield put(httpRequestsOnSuccessActions.removeSuccess(type));
+    // yield put(httpRequestsOnLoadActions.appendLoading(type));
   }
   try {
     const { data } = yield call(menusService.getCurrentMenu, payload);
@@ -154,7 +163,6 @@ function* getCurrentMenu({ payload, type }) {
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));
-
   } catch (e) {
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnSuccessActions.removeSuccess(type));
@@ -167,10 +175,10 @@ function* deleteMenu({ payload, type }) {
   yield put(httpRequestsOnSuccessActions.removeSuccess(type));
   yield put(httpRequestsOnLoadActions.appendLoading(type));
   try {
-    const { data } = yield call(menusService.deleteMenu, payload);
+    yield call(menusService.deleteMenu, payload.menuId);
     yield put({
-      type: DELETE_MENU_SUCCESS,
-      payload: data,
+      type: GET_MENUS,
+      payload: { businessId: payload.businessId, load: "noLoad" },
     });
     yield put(httpRequestsOnLoadActions.removeLoading(type));
     yield put(httpRequestsOnErrorsActions.removeError(type));

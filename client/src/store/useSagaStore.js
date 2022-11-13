@@ -8,7 +8,7 @@ export const useSagaStore = (actionCreator) => {
 
   const mockArgs = [];
 
-  for (let i = 0; i < actionCreator.length; i++) {
+  for (let i = 0; i < actionCreator?.length; i++) {
     mockArgs.push(null);
   }
 
@@ -42,7 +42,7 @@ export const useSagaStore = (actionCreator) => {
       dispatch(httpRequestsOnErrorsActions.removeError(cActionCreatorType));
     },
     loading() {
-      dispatch(httpRequestsOnErrorsActions.removeError(cActionCreatorType));
+      dispatch(httpRequestsOnLoadActions.removeLoading(cActionCreatorType));
     },
     all() {
       this.success();

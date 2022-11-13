@@ -12,7 +12,6 @@ export class MenuSanitizer implements ISanitize {
   constructor(private readonly itemSanitizer: ItemSanitizer) {}
   /** Sanitizes a menu by turning IMenu instance to MenuDTO */
   sanitize(menu: IMenu): MenuDTO {
-    console.log(menu);
     const sanitizedMenu: MenuDTO = {
       id: menu._id,
       name: menu.name,
@@ -20,6 +19,7 @@ export class MenuSanitizer implements ISanitize {
       description: menu.description,
       isActive: menu.isActive,
       image: menu.image,
+      updatedDate: menu.updatedDate,
       food: this.sanitizeCategories(menu.food),
       drinks: this.sanitizeCategories(menu.drinks),
     };
@@ -37,22 +37,27 @@ export class MenuSanitizer implements ISanitize {
 
   /** cleans a list of categories and returns it */
   private sanitizeCategories(categories: IMenuCategory[]): CategoryDTO[] {
+    // console.log(categories[0].items.item, 'categorieeeeeeeees');
     const sanitized: CategoryDTO[] = [];
     let items: IMenuItem[];
     let sanitizedItems: MenuItemDTO[];
     //take each category, and sanitize its inner items from the items list=
     for (let i = 0; i < categories.length; i++) {
       items = categories[i].items;
-      console.log(items);
       sanitizedItems = [];
       for (let j = 0; j < items.length; j++) {
-        console.log(items[j]);
         const item = items[j].item as IItem;
         if (item?.name) {
           sanitizedItems.push({ id: items[j]._id, item: this.itemSanitizer.sanitize(item) });
         }
       }
-      sanitized.push({ id: categories[i]._id, name: categories[i].name, items: sanitizedItems });
+      sanitized.push({
+        id: categories[i]._id,
+        name: categories[i].name,
+        items: sanitizedItems,
+        active: categories[i].active,
+        description: categories[i].description,
+      });
     }
     return sanitized;
   }

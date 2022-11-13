@@ -8,7 +8,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: latest
     commands:
       - npm i npm -g
   pre_build:
@@ -50,7 +50,7 @@ phases:
       - cd serverConfig
       - mv .npmrc ../
       - mv appspec.yml ../
-      - mv menumango.live.nginx.config ../
+      - mv menumango.dev.nginx.config ../
       - mv scripts ../
 
     #   - echo Build completed on `date`
@@ -65,7 +65,7 @@ artifacts:
         - clientDist/**/*
         - adminDist/**/*
         - scripts/**/*
-        - menumango.live.nginx.config
+        - menumango.dev.nginx.config
         - appspec.yml
         - .npmrc
      

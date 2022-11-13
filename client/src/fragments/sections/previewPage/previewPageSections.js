@@ -7,11 +7,12 @@ import { Container } from "./style";
 import {
   businessesActions,
   useSagaStore,
-  previewDataActions, menusActions,
+  previewDataActions,
+  menusActions,
 } from "@eachbase/store";
 import { LazyLoad } from "@eachbase/components";
-import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
+import Router, { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 export const PreviewPageSections = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,9 +24,9 @@ export const PreviewPageSections = () => {
     previewDataActions.getMenuData
   );
   const getRestaurantSaga = useSagaStore(businessesActions.getBusinesses);
-  const back = () =>{
-    router.push("/");
-  }
+  const back = () => {
+    Router.push(`/menus/edit?menuId=${router.query.menuId}`);
+  };
   useEffect(() => {
     setMounted(true);
     getRestaurantSaga.dispatch();
@@ -63,10 +64,9 @@ export const PreviewPageSections = () => {
         !getMenuCategoriesAndItemsSaga.status.onLoad
       }
     >
-
       <Container>
-        <button onClick={back} className={'back-button'} >
-          Home
+        <button onClick={back} className={"back-button"}>
+          Back
         </button>
         <div ref={phoneWrapperRef} className="wrapper phone-wrapper">
           <MobileMockUp>
